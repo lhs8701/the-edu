@@ -1,8 +1,11 @@
-package joeuncamp.dabombackend.domain.member;
+package joeuncamp.dabombackend.domain.member.repository;
+
+import joeuncamp.dabombackend.domain.member.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Repository
 public class MemberMemoryRepository implements MemberRepository {
     private static Map<Long, Member> store = new HashMap<>();
     private static Long sequence = 0L;

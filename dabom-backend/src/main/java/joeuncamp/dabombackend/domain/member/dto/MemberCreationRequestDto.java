@@ -1,13 +1,21 @@
-package joeuncamp.dabombackend.domain.member;
+package joeuncamp.dabombackend.domain.member.dto;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import joeuncamp.dabombackend.domain.member.Member;
 import lombok.Getter;
 
 @Getter
 public class MemberCreationRequestDto {
+    @Schema(description = "계정", example = "abc1234")
     String account;
+    @Schema(description = "비밀번호", example = "qwer1234")
     String password;
+    @Schema(description = "닉네임", example = "헬로")
     String nickname;
+    @Schema(description = "전화번호", example = "010-1234-5678")
     String mobile;
+    @Schema(description = "권한", example = "일반")
     String role;
 
     /**

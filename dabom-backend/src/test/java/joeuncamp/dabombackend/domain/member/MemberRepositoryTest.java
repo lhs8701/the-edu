@@ -1,5 +1,8 @@
 package joeuncamp.dabombackend.domain.member;
 
+import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
+import joeuncamp.dabombackend.domain.member.repository.MemberMemoryRepository;
+import joeuncamp.dabombackend.domain.member.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
