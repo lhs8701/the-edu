@@ -1,4 +1,4 @@
-package joeuncamp.dabom.dabombackend;
+package joeuncamp.dabombackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

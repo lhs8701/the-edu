@@ -23,7 +23,7 @@ public class SwaggerConfig implements EnvironmentAware {
     private static final String API_NAME = "DABOM";
     private static final String API_VERSION = "0.0.0";
     private static final String API_DESCRIPTION = "DABOM SWAGGER DOCS";
-    private static final String BASE_PACKAGE = "joeuncamp.dabom";
+    private static final String BASE_PACKAGE = "joeuncamp.dabombackend";
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
