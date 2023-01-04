@@ -7,3 +7,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-test-query: select 1 from dual
+
+springdoc:
+  api-docs:
+    enabled: true
+
+  swagger-ui:
+    display-request-duration: true  # try it out 을 했을 때 request duration 을 추가로 찍어줌

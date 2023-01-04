@@ -1,16 +1,14 @@
 package joeuncamp.dabombackend;
 
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import springfox.documentation.annotations.ApiIgnore;
 
-@Api(tags = {"Index Controller"})
 @Controller
 public class IndexController {
     //    @ApiIgnore
     @GetMapping("/swagger")
     public String redirect(){
-        return "redirect:/swagger-ui/index.html";
+        return "redirect:/swagger-ui.html";
     }
 }

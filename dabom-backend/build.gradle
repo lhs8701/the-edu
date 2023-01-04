@@ -21,7 +21,11 @@ repositories {
 dependencies {
 
 	//swagger
-	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
+
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
