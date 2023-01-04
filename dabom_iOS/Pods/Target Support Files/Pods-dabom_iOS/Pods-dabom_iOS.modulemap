@@ -1,0 +1,6 @@
+framework module Pods_dabom_iOS {
+  umbrella header "Pods-dabom_iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
