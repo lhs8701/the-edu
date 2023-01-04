@@ -17,9 +17,9 @@ public class MemberController {
 
     }
 
-    @Operation(summary = "전체 회원 조회", description = "전체 회원을 조회합니다.")
+    @Operation(summary = "회원 단일 조회", description = "회원을 한명을 조회합니다.")
     @GetMapping("")
-    public void getAllMember(){
+    public void getMember(){
 
     }
 }

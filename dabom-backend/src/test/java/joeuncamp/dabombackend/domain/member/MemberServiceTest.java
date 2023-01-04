@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MemberTest {
-
+public class MemberServiceTest {
     @Test
-    @DisplayName("회원을 생성하고, DB에 등록한다.")
+    @DisplayName("회원을 등록하고 조회한다.")
     void test() {
         // given
-        MemberService memberService = new MemberService();
+        MemberManageService memberManageService = new MemberManageService();
         MemberCreationRequestDto personalData = new MemberCreationRequestDto("test");
 
         // when
-        Member createdMember = MemberService.createMember(personalData);
+        Long createdId = memberManageService.createMember(personalData);
+        Member foundMember = memberManageService.getMember(createdId);
 
         // then
-        assertThat(createdMember.getAccount()).isEqualTo(personalData.getAccount());
+        assertThat(personalData.getAccount()).isEqualTo(foundMember.getAccount());
     }
 }
