@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import { CATE_VALUE } from "../static";
 const HeadWrapper = styled.header`
   width: 100%;
   height: 65px;
@@ -73,7 +74,11 @@ const CateBox = styled(motion.div)`
 const CateTab = styled(motion.div)`
   position: absolute;
   width: 100px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const SearchBox = styled.div`
@@ -109,6 +114,18 @@ const LoginLink = styled(NavLink)`
   font-size: 18px;
 `;
 
+const CateLink = styled(Link)`
+  font-size: 18px;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  font-weight: 300;
+  color: ${(props) => (props.mouse ? "#ffbf00" : "black")};
+  &:hover {
+    color: #ffbf00;
+  }
+`;
+
 export default function Header() {
   const [isCategoryOn, setCategoryOn] = useState(false);
   return (
@@ -137,7 +154,7 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{
                 opacity: isCategoryOn ? 1 : 0,
-                height: isCategoryOn ? "500px" : 0,
+                height: isCategoryOn ? "300px" : 0,
               }}
               transition={{
                 duration: 0.2,
@@ -150,8 +167,10 @@ export default function Header() {
                 setCategoryOn(false);
               }}
             >
-              {["프로그래밍", "자격증", "외국어", "재테크"].map((e) => {
-                return <div>{e}</div>;
+              <br />
+              <br />
+              {CATE_VALUE.map((e) => {
+                return <CateLink>{e}</CateLink>;
               })}
             </CateTab>
           </NavTab>
