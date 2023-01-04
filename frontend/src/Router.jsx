@@ -2,20 +2,22 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "./Root";
 
 import ErrorComponent from "./components/ErrComponents";
-import MainPage from "./pages/mainPage";
-import SignIn from "./pages/account/signInPage";
-import SignUp from "./pages/account/signUpPage";
-import MyPage from "./pages/myPage";
-import WishClass from "./components/mypage/wishClass";
-import Coupon from "./components/mypage/coupon";
-import Deal from "./components/mypage/deal";
-import Withdraw from "./components/mypage/withdraw";
-import CoursePage from "./pages/coursePage";
-import LobbyPage from "./pages/lobbyPage";
-import PurchasePage from "./pages/purchasePage";
-import RoadMapPage from "./pages/roadMapPage";
-import EventPage from "./pages/eventPage";
-import SearchPage from "./pages/searchPage";
+import MainPage from "./pages/MainPage";
+import SignIn from "./pages/account/SignInPage";
+import SignUp from "./pages/account/SignUpPage";
+import MyPage from "./pages/MyPage";
+import WishClass from "./components/mypage/WishClass";
+import Coupon from "./components/mypage/Coupon";
+import Deal from "./components/mypage/Deal";
+import Withdraw from "./components/mypage/Withdraw";
+import CoursePage from "./pages/CoursePage";
+import LobbyPage from "./pages/LobbyPage";
+import PurchasePage from "./pages/PurchasePage";
+import RoadMapPage from "./pages/RoadMapPage";
+import EventPage from "./pages/EventPage";
+import SearchPage from "./pages/SearchPage";
+import NotFound from "./pages/NotFoundPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -30,10 +32,12 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <SignIn />,
+        errorElement: <ErrorComponent />,
       },
       {
         path: "signup",
         element: <SignUp />,
+        errorElement: <ErrorComponent />,
       },
       {
         path: "course/:courseId",
@@ -86,7 +90,7 @@ const router = createBrowserRouter([
         element: <SearchPage />,
       },
     ],
-    errorElement: <ErrorComponent />,
+    errorElement: <NotFoundPage />,
   },
 ]);
 
