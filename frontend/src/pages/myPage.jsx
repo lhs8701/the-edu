@@ -1,0 +1,10 @@
+import { Outlet } from "react-router";
+
+export default function MyPage() {
+  return (
+    <div>
+      마이페이지
+      <Outlet />
+    </div>
+  );
+}
