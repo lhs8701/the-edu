@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -26,6 +26,7 @@ const TitleBox = styled.div`
 const Title = styled.p`
   font-size: 3rem;
   font-weight: 900;
+  cursor: pointer;
 `;
 
 const PointTitle = styled(Title)`
@@ -46,11 +47,16 @@ const Description = styled.p`
 `;
 
 export default function AccountRoot() {
+  const navigate = useNavigate();
   return (
     <>
       <Wrapper>
         <AccountBox>
-          <TitleBox>
+          <TitleBox
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             <Title>다 </Title>
             <PointTitle>봄</PointTitle>
             <SubTitle>&nbsp; - The Edu</SubTitle>

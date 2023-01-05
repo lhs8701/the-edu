@@ -50,6 +50,15 @@ html {
     --color-background: white;
     --color-primary:#ffbf00;
     --color-gtext:#747272;
+    --size-login-btn:1rem;
+    --weight-point:900;
+    --weight-normal:300;
+  }
+  button{
+    cursor: pointer;
+  }
+  a{
+    cursor: pointer;
   }
 `;
 

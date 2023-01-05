@@ -31,6 +31,7 @@ const TitleBox = styled.div`
 const Title = styled.p`
   font-size: 40px;
   font-weight: 900;
+  cursor: pointer;
 `;
 
 const PointTitle = styled(Title)`
@@ -57,7 +58,7 @@ const NavTab = styled.li`
 
 const NavLink = styled(Link)`
   text-decoration: none;
-  color: black;
+
   height: 100%;
   display: flex;
   align-items: center;
@@ -132,15 +133,14 @@ const LoginLink = styled(NavLink)`
 const CateLink = styled(Link)`
   font-size: 18px;
   text-decoration: none;
-  color: var(--color-text);
-
-  font-weight: 300;
+  color: var(--color-gray);
+  font-weight: var(--weight-normal);
   color: ${(props) =>
     props.mouse ? "var(--color-primary)" : "var(--color-text)"};
   &:hover {
     color: var(--color-primary);
+    font-weight: var(--weight-point);
   }
-
   display: ${(props) => (props.iscategoryon ? "flex" : "none")};
 `;
 
@@ -148,7 +148,11 @@ export default function Header() {
   const [isCategoryOn, setCategoryOn] = useState(false);
   return (
     <HeadWrapper>
-      <TitleBox>
+      <TitleBox
+        onClick={() => {
+          window.location.replace("/");
+        }}
+      >
         <Title>다</Title>
         <PointTitle> 봄</PointTitle>
       </TitleBox>
