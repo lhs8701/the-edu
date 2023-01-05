@@ -59,7 +59,7 @@ html {
     --weight-middle:500;
     --weight-thin:300;
 
-    --size-login-btn:1.1rem;
+     --size-login-btn:1.1rem;
     --size-rank-title:40px;
   }
   button{
