@@ -1,13 +1,14 @@
 package joeuncamp.dabombackend.domain.member.service;
 
 import joeuncamp.dabombackend.domain.member.Member;
-import joeuncamp.dabombackend.domain.member.repository.MemberRepository;
+import joeuncamp.dabombackend.domain.member.repository.MemberMemoryRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MemberMemoryFindService implements MemberFindService{
-    private MemberRepository memberRepository;
-    public MemberMemoryFindService(MemberRepository memberRepository) {
+    private MemberMemoryRepository memberRepository;
+
+    public MemberMemoryFindService(MemberMemoryRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 

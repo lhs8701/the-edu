@@ -1,11 +1,12 @@
-package joeuncamp.dabombackend.domain.member;
+package joeuncamp.dabombackend.domain.member.service;
 
+import joeuncamp.dabombackend.domain.member.Member;
 import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
-import joeuncamp.dabombackend.domain.member.service.MemberManageService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,8 +16,8 @@ public class MemberServiceTest {
     private MemberManageService memberManageService;
 
     @Test
-    @DisplayName("회원을 등록하고 조회한다.")
-    void test() {
+    @DisplayName("일반 테스트 - 회원을 등록하고 조회한다.")
+    void 일반_테스트_회원을_등록하고_조회한다() {
         // given
         MemberCreationRequestDto personalData = new MemberCreationRequestDto("test");
 
@@ -26,5 +27,6 @@ public class MemberServiceTest {
 
         // then
         assertThat(personalData.getAccount()).isEqualTo(foundMember.getAccount());
+        System.out.println("foundMember = " + foundMember.getId());
     }
 }
