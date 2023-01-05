@@ -123,6 +123,22 @@ const LoginTab = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  position: relative;
+`;
+
+const UserTab = styled.div`
+  position: absolute;
+  width: auto;
+  top: -5px;
+  right: 8px;
+  display: flex;
+  white-space: nowrap;
+`;
+
+const UserLink = styled(NavLink)`
+  font-size: 12px;
+  margin-right: 15px;
+  font-weight: var(--weight-normal);
 `;
 
 const LoginLink = styled(NavLink)`
@@ -226,6 +242,10 @@ export default function Header() {
       </SearchBox>
       <LoginTab>
         <LoginLink to={PROCESS_ACCOUNT_URL.LOGIN}>로그인</LoginLink>
+        <UserTab>
+          <UserLink>크리에이터</UserLink>
+          <UserLink>마이페이지</UserLink>
+        </UserTab>
       </LoginTab>
     </HeadWrapper>
   );

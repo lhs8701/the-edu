@@ -52,12 +52,15 @@ html {
     --color-primary:#ffbf00;
     --color-gray:#747272;
     --color-input-focus:#fcb500;
-    --size-login-btn:1.1rem;
+    --color-account-naver:#32D25D;
+    --color-account-apple:#444543;
+
     --weight-point:900;
     --weight-middle:500;
     --weight-thin:300;
-    --color-account-naver:#32D25D;
-    --color-account-apple:#444543;
+
+    --size-login-btn:1.1rem;
+    --size-rank-title:40px;
   }
   button{
     cursor: pointer;

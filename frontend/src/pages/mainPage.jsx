@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ClassRankList from "../components/ClassRankList";
 import { SlideNotice } from "../components/SlideNotice";
 
 const MainWrapper = styled.div`
@@ -9,7 +10,8 @@ const MainWrapper = styled.div`
 export default function MainPage() {
   return (
     <MainWrapper>
-      <SlideNotice></SlideNotice>메인입니다
+      <SlideNotice />
+      <ClassRankList />
     </MainWrapper>
   );
 }
