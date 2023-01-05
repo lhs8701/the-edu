@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CourseThumbnailCollectionViewCell" customModule="dabom_iOS" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="CourseThumbnailCollectionViewCell" reuseIdentifier="CourseThumbnailCollectionViewCell" id="gTV-IL-0wX" customClass="CourseThumbnailCollectionViewCell" customModule="dabom_iOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -65,6 +65,12 @@
                 <constraint firstAttribute="bottom" secondItem="Ahs-Ih-XRF" secondAttribute="bottom" id="V2E-Bd-9js"/>
                 <constraint firstItem="Ahs-Ih-XRF" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="YQC-wv-kC7"/>
             </constraints>
+            <connections>
+                <outlet property="categoryName" destination="02s-em-lse" id="hjP-24-DhR"/>
+                <outlet property="courseTitle" destination="kfV-Py-jwQ" id="lLA-OF-DsO"/>
+                <outlet property="creatorName" destination="02s-em-lse" id="dfp-Hi-Pv1"/>
+                <outlet property="thumbnailImage" destination="83H-Xb-wTG" id="f5U-DE-CCj"/>
+            </connections>
             <point key="canvasLocation" x="130.76923076923077" y="-11.374407582938389"/>
         </collectionViewCell>
     </objects>
