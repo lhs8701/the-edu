@@ -3,8 +3,8 @@ import Root from "./Root";
 
 import ErrorComponent from "./components/ErrComponents";
 import MainPage from "./pages/MainPage";
-import SignIn from "./pages/account/SignInPage";
-import SignUp from "./pages/account/SignUpPage";
+import SignIn from "./components/account/SignIn";
+import SignUp from "./components/account/SignUp";
 import MyPage from "./pages/MyPage";
 import WishClass from "./components/mypage/WishClass";
 import Coupon from "./components/mypage/Coupon";
@@ -16,8 +16,9 @@ import PurchasePage from "./pages/PurchasePage";
 import RoadMapPage from "./pages/RoadMapPage";
 import EventPage from "./pages/EventPage";
 import SearchPage from "./pages/SearchPage";
-import NotFound from "./pages/NotFoundPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import AccountRoot from "./pages/AccountRoot";
+import CategoryPage from "./pages/CategoryPage";
 
 const router = createBrowserRouter([
   {
@@ -30,18 +31,9 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
-        path: "login",
-        element: <SignIn />,
+        path: "category/:categoryId",
+        element: <CategoryPage />,
         errorElement: <ErrorComponent />,
-      },
-      {
-        path: "signup",
-        element: <SignUp />,
-        errorElement: <ErrorComponent />,
-      },
-      {
-        path: "course/:courseId",
-        element: <CoursePage />,
       },
       {
         path: "course/:courseId",
@@ -88,6 +80,21 @@ const router = createBrowserRouter([
       {
         path: "search",
         element: <SearchPage />,
+      },
+    ],
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/account",
+    element: <AccountRoot />,
+    children: [
+      {
+        path: "login",
+        element: <SignIn />,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
       },
     ],
     errorElement: <NotFoundPage />,

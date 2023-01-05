@@ -29,6 +29,7 @@ display: block;
 }
 body {
 line-height: 1;
+font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 ol, ul {
 list-style: none;
@@ -45,7 +46,30 @@ table {
 border-collapse: collapse;
 border-spacing: 0;
 }
+html {
+    --color-text: black;
+    --color-background: white;
+    --color-primary:#ffbf00;
+    --color-gray:#747272;
+    --color-input-focus:#fcb500;
+    --color-account-naver:#32D25D;
+    --color-account-apple:#444543;
 
+    --weight-point:900;
+    --weight-middle:500;
+    --weight-thin:300;
+
+     --size-login-btn:1.1rem;
+    --size-rank-title:40px;
+  }
+  button{
+    cursor: pointer;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  }
+  a{
+    cursor: pointer;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  }
 `;
 
 export default GlobalStyle;
