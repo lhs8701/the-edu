@@ -2,7 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATE_VALUE, PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
+import {
+  CATE_VALUE,
+  PROCESS_ACCOUNT_URL,
+  PROCESS_MAIN_URL,
+  COLOR,
+} from "../static";
 const HeadWrapper = styled.header`
   width: 100%;
   height: 65px;
@@ -13,7 +18,7 @@ const HeadWrapper = styled.header`
   padding-top: 20px;
   position: sticky;
   top: 0;
-  background-color: #ffffff;
+  background-color: var(--color-background);
 `;
 
 const TitleBox = styled.div`
@@ -28,7 +33,7 @@ const Title = styled.p`
 `;
 
 const PointTitle = styled(Title)`
-  color: #ffbf00;
+  color: var(--color-primary);
   margin-left: 10px;
 `;
 
@@ -57,9 +62,10 @@ const NavLink = styled(Link)`
   align-items: center;
   font-size: 20px;
   font-weight: 500;
-  color: ${(props) => (props.mouse ? "#ffbf00" : "black")};
+  color: ${(props) =>
+    props.mouse ? "var(--color-primary)" : "var(--color-text)"};
   &:hover {
-    color: #ffbf00;
+    color: var(--color-primary);
   }
 `;
 
@@ -76,12 +82,17 @@ const CateBox = styled(motion.div)`
 
 const CateTab = styled(motion.div)`
   position: absolute;
-  width: 100px;
+  width: 120px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--color-background);
+  padding-top: 15px;
+  padding-bottom: 10px;
+  top: 50px;
+  left: -13px;
 `;
 
 const SearchBox = styled.div`
@@ -95,13 +106,13 @@ const SearchInput = styled.input`
   width: 250px;
   height: 30px;
   border: none;
-  border-bottom: 1.5px solid #747272;
+  border-bottom: 1.5px solid var(--color-gtext);
   &:focus {
     outline: none;
-    border-bottom: 1.5px solid #ffbf00;
+    border-bottom: 1.5px solid var(--color-primary);
   }
   &::placeholder {
-    color: #d5d5d5;
+    color: var(--color-gtext);
     padding-left: 8px;
     font-weight: 600;
   }
@@ -120,13 +131,16 @@ const LoginLink = styled(NavLink)`
 const CateLink = styled(Link)`
   font-size: 18px;
   text-decoration: none;
-  color: black;
-  display: flex;
+  color: var(--color-text);
+
   font-weight: 300;
-  color: ${(props) => (props.mouse ? "#ffbf00" : "black")};
+  color: ${(props) =>
+    props.mouse ? "var(--color-primary)" : "var(--color-text)"};
   &:hover {
-    color: #ffbf00;
+    color: var(--color-primary);
   }
+
+  display: ${(props) => (props.isCategoryOn ? "flex" : "none")};
 `;
 
 export default function Header() {
@@ -148,34 +162,49 @@ export default function Header() {
                 setCategoryOn(false);
               }}
               animate={{
-                color: isCategoryOn ? "#ffbf00" : "black",
+                color: isCategoryOn ? "var(--color-primary)" : "black",
               }}
             >
               카테고리
+              <CateTab
+                initial={{ opacity: 0, height: 0 }}
+                animate={{
+                  opacity: isCategoryOn ? 1 : 0,
+                  height: isCategoryOn ? "auto" : 0,
+                }}
+                transition={{
+                  duration: 0.2,
+                  type: "ease",
+                }}
+                onMouseEnter={() => {
+                  setCategoryOn(true);
+                }}
+                onMouseLeave={() => {
+                  setCategoryOn(false);
+                }}
+              >
+                <CateLink
+                  isCategoryOn={isCategoryOn}
+                  to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0}
+                >
+                  전체 보기
+                </CateLink>
+                <br />
+                {CATE_VALUE.map((e, index) => {
+                  return (
+                    <>
+                      <CateLink
+                        isCategoryOn={isCategoryOn}
+                        to={PROCESS_MAIN_URL.CATEGORIES + "/" + index}
+                      >
+                        {e}
+                      </CateLink>
+                      <br />
+                    </>
+                  );
+                })}
+              </CateTab>
             </CateBox>
-            <CateTab
-              initial={{ opacity: 0, height: 0 }}
-              animate={{
-                opacity: isCategoryOn ? 1 : 0,
-                height: isCategoryOn ? "300px" : 0,
-              }}
-              transition={{
-                duration: 0.2,
-                type: "ease",
-              }}
-              onMouseEnter={() => {
-                setCategoryOn(true);
-              }}
-              onMouseLeave={() => {
-                setCategoryOn(false);
-              }}
-            >
-              <br />
-              <br />
-              {CATE_VALUE.map((e) => {
-                return <CateLink>{e}</CateLink>;
-              })}
-            </CateTab>
           </NavTab>
           <NavTab>
             <NavLink to={""}>정보 공유</NavLink>

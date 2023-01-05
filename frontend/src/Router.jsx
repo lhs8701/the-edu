@@ -18,6 +18,7 @@ import EventPage from "./pages/EventPage";
 import SearchPage from "./pages/SearchPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AccountRoot from "./pages/AccountRoot";
+import CategoryPage from "./pages/CategoryPage";
 
 const router = createBrowserRouter([
   {
@@ -29,10 +30,10 @@ const router = createBrowserRouter([
         element: <MainPage />,
         errorElement: <ErrorComponent />,
       },
-
       {
-        path: "course/:courseId",
-        element: <CoursePage />,
+        path: "category/:categoryId",
+        element: <CategoryPage />,
+        errorElement: <ErrorComponent />,
       },
       {
         path: "course/:courseId",

@@ -45,7 +45,12 @@ table {
 border-collapse: collapse;
 border-spacing: 0;
 }
-
+html {
+    --color-text: black;
+    --color-background: white;
+    --color-primary:#ffbf00;
+    --color-gtext:#747272;
+  }
 `;
 
 export default GlobalStyle;
