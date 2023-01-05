@@ -51,6 +51,8 @@ export const AccountBtn = styled.button`
   }
   margin-bottom: 12px;
   margin-top: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 `;
 
 export const AccountForm = styled.form`

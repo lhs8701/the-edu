@@ -29,6 +29,7 @@ display: block;
 }
 body {
 line-height: 1;
+font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }
 ol, ul {
 list-style: none;
@@ -60,9 +61,11 @@ html {
   }
   button{
     cursor: pointer;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   }
   a{
     cursor: pointer;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   }
 `;
 

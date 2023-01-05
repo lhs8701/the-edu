@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  CATE_VALUE,
-  PROCESS_ACCOUNT_URL,
-  PROCESS_MAIN_URL,
-  COLOR,
-} from "../../static";
+import Modal from "react-modal";
 import {
   AccountBtn,
   AccountForm,
@@ -17,6 +11,7 @@ import {
   AccountWrapper,
   InputLabel,
 } from "../../style/AccountComponent";
+import Term from "./Term";
 
 const TeleInput = styled(AccountInput)`
   width: 83%;
@@ -79,6 +74,7 @@ const ErrorMessage = styled.span`
 `;
 
 export default function SignUp() {
+  const [isModalOpen, setModalOpen] = useState(false);
   return (
     <AccountWrapper>
       <AccountTitle>회원가입</AccountTitle>
@@ -103,7 +99,13 @@ export default function SignUp() {
             [필수] 서비스 이용약관 동의
           </TermLabel>
           <ErrorMessage></ErrorMessage>
-          <TermBtn>></TermBtn>
+          <TermBtn
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            >
+          </TermBtn>
         </TermBox>
         <TermBox>
           <TermLabel>
@@ -111,8 +113,15 @@ export default function SignUp() {
             [필수] 개인정보 수집 및 이용에 대한 동의
           </TermLabel>
           <ErrorMessage></ErrorMessage>
-          <TermBtn>></TermBtn>
+          <TermBtn
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            >
+          </TermBtn>
         </TermBox>
+        <br />
         <AccountBtn
           texthovercolor={"--color-background"}
           bgcolor={"--color-primary"}
@@ -121,6 +130,30 @@ export default function SignUp() {
           회원가입
         </AccountBtn>
       </AccountForm>
+      <Modal
+        isOpen={isModalOpen}
+        ariaHideApp={false}
+        onRequestClose={() => setModalOpen(false)}
+        style={{
+          overlay: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
+            width: "100%",
+            height: "100%",
+          },
+          content: {
+            overflow: "hidden",
+            width: "25%",
+            height: "75%",
+            top: "10%",
+            left: "37.5%",
+          },
+        }}
+      >
+        {<Term setModalOpen={setModalOpen} />}
+      </Modal>
     </AccountWrapper>
   );
 }
