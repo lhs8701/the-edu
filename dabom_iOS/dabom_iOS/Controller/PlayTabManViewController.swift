@@ -29,7 +29,8 @@ class PlayTabManViewController: TabmanViewController {
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
         bar.layout.alignment = .centerDistributed
-        bar.layout.interButtonSpacing = view.bounds.width / 4
+//        bar.layout.interButtonSpacing = view.bounds.width / 4
+        bar.layout.contentMode = .fit
         
         bar.backgroundView.style = .clear
         
@@ -40,6 +41,7 @@ class PlayTabManViewController: TabmanViewController {
         
         bar.indicator.weight = .medium
         bar.indicator.tintColor = UIColor(named: "mainColor")
+        
         
         addBar(bar, dataSource: self, at: .top)
     }

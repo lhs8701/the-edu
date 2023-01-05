@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="CourseThumbnailCollectionViewCell" reuseIdentifier="CourseThumbnailCollectionViewCell" id="gTV-IL-0wX" customClass="CourseThumbnailCollectionViewCell" customModule="dabom_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ahs-Ih-XRF">
+                        <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="83H-Xb-wTG">
+                                <rect key="frame" x="0.0" y="0.0" width="170" height="100"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-Py-jwQ">
+                                <rect key="frame" x="4.9999999999999964" y="105" width="55.666666666666657" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강사 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dds-sK-DGk">
+                                <rect key="frame" x="5" y="151.66666666666666" width="41" height="13.333333333333343"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02s-em-lse">
+                                <rect key="frame" x="54" y="153" width="55" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="dXw-ia-6OL">
+                                <rect key="frame" x="119" y="148" width="18" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dXw-ia-6OL" secondAttribute="height" multiplier="1:1" id="CfF-xW-DB0"/>
+                                    <constraint firstAttribute="width" constant="18" id="wcJ-Wz-2gS"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(4.8)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyK-uY-wfE">
+                                <rect key="frame" x="139" y="153" width="26" height="12"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="gyK-uY-wfE" secondAttribute="bottom" constant="5" id="0BI-6j-xCN"/>
+                            <constraint firstAttribute="bottom" secondItem="83H-Xb-wTG" secondAttribute="bottom" constant="70" id="1t4-fU-NPQ"/>
+                            <constraint firstAttribute="bottom" secondItem="02s-em-lse" secondAttribute="bottom" constant="5" id="2FI-qH-2Rl"/>
+                            <constraint firstItem="02s-em-lse" firstAttribute="leading" secondItem="dds-sK-DGk" secondAttribute="trailing" constant="8" id="61H-wM-g6y"/>
+                            <constraint firstAttribute="trailing" secondItem="gyK-uY-wfE" secondAttribute="trailing" constant="5" id="Azg-Tj-I34"/>
+                            <constraint firstItem="gyK-uY-wfE" firstAttribute="leading" secondItem="dXw-ia-6OL" secondAttribute="trailing" constant="2" id="J4m-SZ-AQs"/>
+                            <constraint firstAttribute="bottom" secondItem="dXw-ia-6OL" secondAttribute="bottom" constant="4" id="JZp-GX-sAn"/>
+                            <constraint firstItem="83H-Xb-wTG" firstAttribute="top" secondItem="Ahs-Ih-XRF" secondAttribute="top" id="JvR-sP-teD"/>
+                            <constraint firstItem="dds-sK-DGk" firstAttribute="leading" secondItem="Ahs-Ih-XRF" secondAttribute="leading" constant="5" id="Qey-LF-FcN"/>
+                            <constraint firstItem="kfV-Py-jwQ" firstAttribute="leading" secondItem="Ahs-Ih-XRF" secondAttribute="leading" constant="5" id="gO5-xH-bSI"/>
+                            <constraint firstItem="83H-Xb-wTG" firstAttribute="leading" secondItem="Ahs-Ih-XRF" secondAttribute="leading" id="lC0-Ea-zqD"/>
+                            <constraint firstAttribute="bottom" secondItem="dds-sK-DGk" secondAttribute="bottom" constant="5" id="lct-Kd-ije"/>
+                            <constraint firstAttribute="trailing" secondItem="83H-Xb-wTG" secondAttribute="trailing" id="xvG-v1-zlb"/>
+                            <constraint firstItem="kfV-Py-jwQ" firstAttribute="top" secondItem="83H-Xb-wTG" secondAttribute="bottom" constant="5" id="yXC-0b-XCu"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Ahs-Ih-XRF" secondAttribute="trailing" id="16t-dx-0Kz"/>
+                <constraint firstItem="Ahs-Ih-XRF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="U8w-1i-wwe"/>
+                <constraint firstAttribute="bottom" secondItem="Ahs-Ih-XRF" secondAttribute="bottom" id="V2E-Bd-9js"/>
+                <constraint firstItem="Ahs-Ih-XRF" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="YQC-wv-kC7"/>
+            </constraints>
+            <connections>
+                <outlet property="categoryName" destination="02s-em-lse" id="hjP-24-DhR"/>
+                <outlet property="courseTitle" destination="kfV-Py-jwQ" id="lLA-OF-DsO"/>
+                <outlet property="creatorName" destination="02s-em-lse" id="dfp-Hi-Pv1"/>
+                <outlet property="thumbnailImage" destination="83H-Xb-wTG" id="f5U-DE-CCj"/>
+            </connections>
+            <point key="canvasLocation" x="130.76923076923077" y="-11.374407582938389"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="star" width="25" height="25"/>
+    </resources>
+</document>
