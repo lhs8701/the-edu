@@ -19,6 +19,7 @@ const HeadWrapper = styled.header`
   position: sticky;
   top: 0;
   background-color: var(--color-background);
+  z-index: 1;
 `;
 
 const TitleBox = styled.div`
@@ -89,7 +90,7 @@ const CateTab = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   background-color: var(--color-background);
-  padding-top: 15px;
+  padding-top: 20px;
   padding-bottom: 10px;
   top: 50px;
   left: -13px;
@@ -140,7 +141,7 @@ const CateLink = styled(Link)`
     color: var(--color-primary);
   }
 
-  display: ${(props) => (props.isCategoryOn ? "flex" : "none")};
+  display: ${(props) => (props.iscategoryon ? "flex" : "none")};
 `;
 
 export default function Header() {
@@ -161,6 +162,9 @@ export default function Header() {
               onMouseLeave={() => {
                 setCategoryOn(false);
               }}
+              onMouseDown={() => {
+                setCategoryOn(true);
+              }}
               animate={{
                 color: isCategoryOn ? "var(--color-primary)" : "black",
               }}
@@ -179,12 +183,9 @@ export default function Header() {
                 onMouseEnter={() => {
                   setCategoryOn(true);
                 }}
-                onMouseLeave={() => {
-                  setCategoryOn(false);
-                }}
               >
                 <CateLink
-                  isCategoryOn={isCategoryOn}
+                  iscategoryon={isCategoryOn}
                   to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0}
                 >
                   전체 보기
@@ -194,7 +195,7 @@ export default function Header() {
                   return (
                     <>
                       <CateLink
-                        isCategoryOn={isCategoryOn}
+                        iscategoryon={isCategoryOn}
                         to={PROCESS_MAIN_URL.CATEGORIES + "/" + index}
                       >
                         {e}
