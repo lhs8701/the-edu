@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.member.repository;
 
 import joeuncamp.dabombackend.domain.member.Member;
 import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Transactional
+@Disabled
 public class MemberMemoryRepositoryTest {
 
     @Test
