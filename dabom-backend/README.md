@@ -13,12 +13,12 @@
 - [x] 회원 조회 API 구현 
 
 ### Test
-- [ ] Repository 회원 생성 테스트
+- [x] Repository 회원 생성 테스트
   - [x] 메모리 기반
-  - [ ] JPA
-- [ ] Repository 회원 조회 테스트
+  - [x] JPA
+- [x] Repository 회원 조회 테스트
   - [x] 메모리 기반
-  - [ ] JPA 
+  - [x] JPA 
 - [x] Service 회원 생성 테스트
   - [x] 일반 테스트
   - [x] Mock 테스트
