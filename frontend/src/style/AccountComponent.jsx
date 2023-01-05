@@ -50,6 +50,7 @@ export const AccountBtn = styled.button`
     color: var(${(props) => props.texthovercolor});
   }
   margin-bottom: 12px;
+  margin-top: 4px;
 `;
 
 export const AccountForm = styled.form`
@@ -60,4 +61,22 @@ export const AccountForm = styled.form`
 export const AccountWrapper = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+export const AccountSmallBtn = styled.button`
+  border: none;
+  background-color: var(--color-primary);
+  color: var(--color-black);
+  font-size: var(--size-login-btn);
+  font-weight: var(--weight-point);
+  height: 35px;
+  border-radius: 7px;
+  width: 75px;
+  margin-left: 30px;
+  &:active {
+    transform: scale(0.9);
+  }
+  &:hover {
+    color: var(--color-background);
+  }
 `;
