@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class MemberRepositoryTest {
 
@@ -23,5 +24,18 @@ public class MemberRepositoryTest {
 
         // then
         assertThat(personalData.getAccount()).isEqualTo(foundMember.getAccount());
+    }
+
+    @Test
+    @DisplayName("저장되지 않은 회원을 조회할 경우 예외가 발생한다.")
+    void 저장되지_않은_회원을_조회할_경우_예외가_발생한다() {
+        // given
+        MemberRepository memberRepository = new MemberMemoryRepository();
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> memberRepository.findById(1L))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

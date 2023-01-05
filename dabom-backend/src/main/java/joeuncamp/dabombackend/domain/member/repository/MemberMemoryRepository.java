@@ -19,6 +19,6 @@ public class MemberMemoryRepository implements MemberRepository {
 
     @Override
     public Member findById(Long id) {
-        return store.values().stream().filter(m -> m.getId() == id).findFirst().orElse(null);
+        return store.values().stream().filter(m -> m.getId() == id).findFirst().orElseThrow(IllegalArgumentException::new);
     }
 }
