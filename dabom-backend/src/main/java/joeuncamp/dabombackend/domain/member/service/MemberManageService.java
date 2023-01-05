@@ -20,3 +20,4 @@ public class MemberManageService {
         return memberRepository.findById(id);
     }
 }
+
