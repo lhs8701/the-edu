@@ -1,4 +1,5 @@
 import { Outlet, useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -12,9 +13,10 @@ const Wrapper = styled.div`
 `;
 
 const AccountBox = styled.div`
+  margin-top: 50px;
+  margin-bottom: 50px;
   width: 60%;
   min-height: 75vh;
-  background: teal;
 `;
 
 const TitleBox = styled.div`
@@ -25,7 +27,7 @@ const TitleBox = styled.div`
 
 const Title = styled.p`
   font-size: 3rem;
-  font-weight: 900;
+  font-weight: var(--weight-point);
   cursor: pointer;
 `;
 
@@ -36,14 +38,14 @@ const PointTitle = styled(Title)`
 
 const SubTitle = styled(Title)`
   font-size: 2.5rem;
-  font-weight: 300;
+  font-weight: var(--weight-middle);
 `;
 
 const Description = styled.p`
   color: var(--color-gray);
   margin-left: 10%;
   font-size: 1.1rem;
-  font-weight: 100;
+  font-weight: var(--weight-thin);
 `;
 
 export default function AccountRoot() {

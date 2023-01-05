@@ -49,10 +49,14 @@ html {
     --color-text: black;
     --color-background: white;
     --color-primary:#ffbf00;
-    --color-gtext:#747272;
-    --size-login-btn:1rem;
+    --color-gray:#747272;
+    --color-input-focus:#fcb500;
+    --size-login-btn:1.1rem;
     --weight-point:900;
-    --weight-normal:300;
+    --weight-middle:500;
+    --weight-thin:300;
+    --color-account-naver:#32D25D;
+    --color-account-apple:#444543;
   }
   button{
     cursor: pointer;

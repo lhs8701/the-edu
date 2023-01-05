@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
-const Wrapper = styled.div`
+const Wrapper = styled.main`
   width: 1100px;
   min-height: 110vh;
   margin: 0 auto;

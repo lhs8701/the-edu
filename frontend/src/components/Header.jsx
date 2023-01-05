@@ -30,7 +30,7 @@ const TitleBox = styled.div`
 
 const Title = styled.p`
   font-size: 40px;
-  font-weight: 900;
+  font-weight: var(--weight-point);
   cursor: pointer;
 `;
 
@@ -58,12 +58,11 @@ const NavTab = styled.li`
 
 const NavLink = styled(Link)`
   text-decoration: none;
-
   height: 100%;
   display: flex;
   align-items: center;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: var(--weight-middle);
   color: ${(props) =>
     props.mouse ? "var(--color-primary)" : "var(--color-text)"};
   &:hover {
@@ -77,7 +76,7 @@ const CateBox = styled(motion.div)`
   display: flex;
   align-items: center;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: var(--weight-middle);
   position: relative;
   cursor: pointer;
 `;
@@ -108,15 +107,15 @@ const SearchInput = styled.input`
   width: 250px;
   height: 30px;
   border: none;
-  border-bottom: 1.5px solid var(--color-gtext);
+  border-bottom: 1.5px solid var(--color-gray);
   &:focus {
     outline: none;
     border-bottom: 1.5px solid var(--color-primary);
   }
   &::placeholder {
-    color: var(--color-gtext);
-    padding-left: 8px;
-    font-weight: 600;
+    color: var(--color-gray);
+    padding-left: 1px;
+    font-weight: var(--weight-point);
   }
 `;
 
@@ -134,12 +133,12 @@ const CateLink = styled(Link)`
   font-size: 18px;
   text-decoration: none;
   color: var(--color-gray);
-  font-weight: var(--weight-normal);
+  font-weight: var(--weight-thin);
   color: ${(props) =>
     props.mouse ? "var(--color-primary)" : "var(--color-text)"};
   &:hover {
     color: var(--color-primary);
-    font-weight: var(--weight-point);
+    font-weight: var(--weight-middle);
   }
   display: ${(props) => (props.iscategoryon ? "flex" : "none")};
 `;
