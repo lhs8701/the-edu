@@ -118,10 +118,10 @@ export const SlideNotice = () => {
         />
       </AnimatePresence>
 
-      <LeftPagnigation onClick={() => paginate(1)} whileTap={{ scale: 0.9 }}>
+      <LeftPagnigation onClick={() => paginate(-1)} whileTap={{ scale: 0.9 }}>
         좌
       </LeftPagnigation>
-      <RightPagnigation onClick={() => paginate(-1)} whileTap={{ scale: 0.9 }}>
+      <RightPagnigation onClick={() => paginate(1)} whileTap={{ scale: 0.9 }}>
         우
       </RightPagnigation>
     </NoticeWrapper>
