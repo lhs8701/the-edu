@@ -22,6 +22,7 @@ const LoginLinkBox = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-bottom: 34px;
 `;
 
 const BtnSignUpBox = styled(LoginLinkBox)`
@@ -68,43 +69,24 @@ export default function SignIn() {
   return (
     <AccountWrapper>
       <AccountTitle>로그인</AccountTitle>
-      <br />
-      <br />
-      <br />
       <AccountForm>
         <InputLabel>이메일주소 (아이디)</InputLabel>
-        <br />
-        <br />
-        <br />
+
         <AccountInput placeholder="이메일 주소를 입력해주세요." />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+
         <InputLabel>비밀번호</InputLabel>
-        <br />
-        <br />
-        <br />
+
         <AccountInput placeholder="비밀번호를 입력해주세요." />
-        <br />
-        <br />
-        <br />
+
         <LoginLinkBox>
           <AnyLink>아이디찾기</AnyLink>
           <AnyLink>비밀번호찾기</AnyLink>
         </LoginLinkBox>
-        <br />
-        <br />
+
         <BtnSignUpBox>
           <AnyLink to={"/" + PROCESS_ACCOUNT_URL.SIGNUP}>회원가입</AnyLink>
           <LoginBtn>로그인</LoginBtn>
         </BtnSignUpBox>
-        <br />
-        <br />
-        <br />
-        <br />
       </AccountForm>
       <AccountBtn
         texthovercolor={"--color-background"}
@@ -113,8 +95,7 @@ export default function SignIn() {
       >
         카카오로 시작하기
       </AccountBtn>
-      <br />
-      <br />
+
       <AccountBtn
         texthovercolor={"--color-background"}
         bgcolor={"--color-account-naver"}
@@ -122,8 +103,7 @@ export default function SignIn() {
       >
         네이버로 시작하기
       </AccountBtn>
-      <br />
-      <br />
+
       <AccountBtn
         texthovercolor={"--color-text"}
         bgcolor={"--color-account-apple"}

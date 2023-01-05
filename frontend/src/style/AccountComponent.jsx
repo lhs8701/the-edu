@@ -10,6 +10,7 @@ export const AccountTitle = styled.div`
   font-weight: var(--weight-point);
   text-align: center;
   width: 100%;
+  margin-bottom: 46px;
 `;
 
 export const AccountInput = styled.input`
@@ -17,6 +18,8 @@ export const AccountInput = styled.input`
   font-size: var(--size-login-btn);
   height: 40px;
   border: none;
+  margin-top: 35px;
+  margin-bottom: 60px;
   border-bottom: 1.5px solid var(--color-gray);
   &:focus {
     outline: none;
@@ -46,6 +49,7 @@ export const AccountBtn = styled.button`
     /* background-color: ${(props) => props.bghovercolor}; */
     color: var(${(props) => props.texthovercolor});
   }
+  margin-bottom: 12px;
 `;
 
 export const AccountForm = styled.form`

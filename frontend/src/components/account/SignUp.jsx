@@ -21,46 +21,20 @@ export default function SignUp() {
   return (
     <AccountWrapper>
       <AccountTitle>회원가입</AccountTitle>
-      <br />
-      <br />
-      <br />
       <AccountForm>
         <InputLabel>성명</InputLabel>
-        <br />
-        <br />
-        <br />
         <AccountInput placeholder="성명을 입력해주세요." />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <InputLabel>이메일 주소</InputLabel>
-        <br />
-        <br />
-        <br />
         <AccountInput placeholder="이메일 주소를 입력해주세요." />
-        <br />
-        <br />
-        <br />
-
-        <br />
-        <br />
-
-        <br />
-        <br />
-        <br />
-        <br />
+        <InputLabel>비밀번호</InputLabel>
+        <AccountInput placeholder="비밀번호를 입력해주세요." />
         <AccountBtn
           texthovercolor={"--color-background"}
           bgcolor={"--color-primary"}
           textcolor={"--color-text"}
         >
-          카카오로 시작하기
+          회원가입
         </AccountBtn>
-        <br />
-        <br />
       </AccountForm>
     </AccountWrapper>
   );
