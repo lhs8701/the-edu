@@ -20,6 +20,7 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        layer.cornerRadius = 7
     }
     
     

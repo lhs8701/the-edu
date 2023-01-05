@@ -20,7 +20,6 @@ class HomeViewController: UIViewController {
     }
     
 
-
     private func setTV() {
         homeTableView.register(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "CourseTableViewCell")
         homeTableView.delegate = self

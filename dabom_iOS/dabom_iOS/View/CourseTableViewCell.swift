@@ -24,16 +24,20 @@ class CourseTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.courseThumbnailCollectionView.register(UINib(nibName: "CourseThumbnailCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CourseThumbnailCollectionViewCell")
-        self.courseThumbnailCollectionView.delegate = self
-        self.courseThumbnailCollectionView.dataSource = self
-        self.courseThumbnailCollectionView.isScrollEnabled = false
+        setCV()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    private func setCV() {
+        self.courseThumbnailCollectionView.register(UINib(nibName: "CourseThumbnailCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CourseThumbnailCollectionViewCell")
+        self.courseThumbnailCollectionView.delegate = self
+        self.courseThumbnailCollectionView.dataSource = self
+        self.courseThumbnailCollectionView.isScrollEnabled = false
     }
     
     func setData(_ courseTableData: CourseTableDataModel) {
@@ -57,7 +61,6 @@ extension CourseTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CourseThumbnailCollectionViewCell.identifier, for: indexPath) as? CourseThumbnailCollectionViewCell else { return UICollectionViewCell() }
         cell.setData(thumbnailData![indexPath.row])
-        print(thumbnailData![indexPath.row].thumbnailImageName)
         
         return cell
     }
