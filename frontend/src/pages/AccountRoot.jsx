@@ -1,7 +1,5 @@
 import { Outlet } from "react-router";
 import styled from "styled-components";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -10,13 +8,12 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-export default function Root() {
+export default function AccountRoot() {
   return (
     <>
       <Wrapper>
-        <Header />
+        sdfdf
         <Outlet />
-        <Footer />
       </Wrapper>
     </>
   );

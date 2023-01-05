@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { CATE_VALUE } from "../static";
+import { CATE_VALUE, PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
 const HeadWrapper = styled.header`
   width: 100%;
   height: 65px;
@@ -11,6 +11,9 @@ const HeadWrapper = styled.header`
   justify-content: space-between;
   margin-bottom: 25px;
   padding-top: 20px;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
 `;
 
 const TitleBox = styled.div`
@@ -178,10 +181,10 @@ export default function Header() {
             <NavLink to={""}>정보 공유</NavLink>
           </NavTab>
           <NavTab>
-            <NavLink to={"roadmap"}>로드맵</NavLink>
+            <NavLink to={PROCESS_MAIN_URL.ROADMAP}>로드맵</NavLink>
           </NavTab>
           <NavTab>
-            <NavLink to={"event"}>이벤트</NavLink>
+            <NavLink to={PROCESS_MAIN_URL.EVENT}>이벤트</NavLink>
           </NavTab>
         </NavBox>
       </NavBar>
@@ -189,7 +192,7 @@ export default function Header() {
         <SearchInput placeholder="검색어를 입력해주세요." />
       </SearchBox>
       <LoginTab>
-        <LoginLink to={"login"}>로그인</LoginLink>
+        <LoginLink to={PROCESS_ACCOUNT_URL.LOGIN}>로그인</LoginLink>
       </LoginTab>
     </HeadWrapper>
   );
