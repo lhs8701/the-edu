@@ -12,9 +12,10 @@ import org.springdoc.api.ErrorMessage;
 @Getter
 @AllArgsConstructor
 public class MemberCreationRequestDto {
-    @Schema(description = "계정", example = "abc1234")
     @Email(message = ValidationMessage.NOT_VALID_EMAIL)
+    @Schema(description = "계정", example = "abc1234")
     String account;
+    @Pattern(regexp = "/^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*\\W)).{8,16}$/" , message = ValidationMessage.NOT_VALID_PASSWORD)
     @Schema(description = "비밀번호", example = "qwer1234")
     String password;
     @Schema(description = "닉네임", example = "헬로")
@@ -22,7 +23,7 @@ public class MemberCreationRequestDto {
     @Schema(description = "전화번호", example = "010-1234-5678")
     String mobile;
 
-    @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$", message = ValidationMessage.NOT_VALID_BIRTH_DATE)
+    @Pattern(regexp = "^(19|20)\\d{2}.(0[1-9]|1[012]).(0[1-9]|[12][0-9]|3[0-1])$", message = ValidationMessage.NOT_VALID_BIRTH_DATE)
     @Schema(description = "생년월일", example = "2002.11.26")
     String birthDate;
 
