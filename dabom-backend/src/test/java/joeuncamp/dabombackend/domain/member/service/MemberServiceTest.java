@@ -20,13 +20,13 @@ public class MemberServiceTest {
     @DisplayName("일반 테스트 - 회원을 등록하고 조회한다.")
     void 일반_테스트_회원을_등록하고_조회한다() {
         // given
-        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
-                ExampleValue.Member.ACCOUNT,
-                ExampleValue.Member.PASSWORD,
-                ExampleValue.Member.NICKNAME,
-                ExampleValue.Member.MOBILE,
-                ExampleValue.Member.BIRTH_DATE
-        );
+        MemberCreationRequestDto memberCreationRequestDto = MemberCreationRequestDto.builder()
+                .account(ExampleValue.Member.ACCOUNT)
+                .password(ExampleValue.Member.PASSWORD)
+                .nickname(ExampleValue.Member.NICKNAME)
+                .mobile(ExampleValue.Member.MOBILE)
+                .birthDate(ExampleValue.Member.BIRTH_DATE)
+                .build();
 
         // when
         Long createdId = memberManageService.createMember(memberCreationRequestDto);

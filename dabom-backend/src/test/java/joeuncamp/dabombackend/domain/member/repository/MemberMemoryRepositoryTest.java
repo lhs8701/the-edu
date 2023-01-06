@@ -20,13 +20,13 @@ public class MemberMemoryRepositoryTest {
     void 메모리_DB로_회원을_등록하고_조회한다() {
         // given
         MemberMemoryRepository memberRepository = new MemberMemoryRepository();
-        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
-                ExampleValue.Member.ACCOUNT,
-                ExampleValue.Member.PASSWORD,
-                ExampleValue.Member.NICKNAME,
-                ExampleValue.Member.MOBILE,
-                ExampleValue.Member.BIRTH_DATE
-        );
+        MemberCreationRequestDto memberCreationRequestDto = MemberCreationRequestDto.builder()
+                .account(ExampleValue.Member.ACCOUNT)
+                .password(ExampleValue.Member.PASSWORD)
+                .nickname(ExampleValue.Member.NICKNAME)
+                .mobile(ExampleValue.Member.MOBILE)
+                .birthDate(ExampleValue.Member.BIRTH_DATE)
+                .build();
 
         // when
         Long savedId = memberRepository.save(memberCreationRequestDto.toEntity());

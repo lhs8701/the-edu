@@ -35,8 +35,7 @@
 
 ### Validation
 - [x] Request 필드 Validation
-- [ ] 회원 엔티티 Validation
-- [ ] 관리자 권한만 회원 조회 기능을 이용하도록 Validation
+- [x] 회원 엔티티 Validation
 
 ### 스프링 시큐리티
 - [ ] 시큐리티 설정

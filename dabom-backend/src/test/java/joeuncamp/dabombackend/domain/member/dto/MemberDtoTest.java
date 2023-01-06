@@ -16,7 +16,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 
 
 public class MemberDtoTest {
@@ -39,14 +38,13 @@ public class MemberDtoTest {
     @DisplayName("계정이 이메일 형식이 아니면 예외가 발생한다.")
     void 계정이_이메일_형식이_아니면_예외가_발생한다() {
         // given
-        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
-                "test",
-                ExampleValue.Member.PASSWORD,
-                ExampleValue.Member.NICKNAME,
-                ExampleValue.Member.MOBILE,
-                ExampleValue.Member.BIRTH_DATE
-        );
-
+        MemberCreationRequestDto memberCreationRequestDto = MemberCreationRequestDto.builder()
+                .account("test")
+                .password(ExampleValue.Member.PASSWORD)
+                .nickname(ExampleValue.Member.NICKNAME)
+                .mobile(ExampleValue.Member.MOBILE)
+                .birthDate(ExampleValue.Member.BIRTH_DATE)
+                .build();
         // when
         Set<ConstraintViolation<MemberCreationRequestDto>> violations = validator.validate(memberCreationRequestDto);
 
@@ -62,13 +60,13 @@ public class MemberDtoTest {
     @DisplayName("비밀번호가 형식에 맞지 않으면 예외가 발생한다.")
     void 비밀번호가_형식에_맞지_않으면_예외가_발생한다(String invalidPassword) {
         // given
-        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
-                ExampleValue.Member.ACCOUNT,
-                invalidPassword,
-                ExampleValue.Member.NICKNAME,
-                ExampleValue.Member.MOBILE,
-                ExampleValue.Member.BIRTH_DATE
-        );
+        MemberCreationRequestDto memberCreationRequestDto = MemberCreationRequestDto.builder()
+                .account( ExampleValue.Member.ACCOUNT)
+                .password(invalidPassword)
+                .nickname(ExampleValue.Member.NICKNAME)
+                .mobile(ExampleValue.Member.MOBILE)
+                .birthDate(ExampleValue.Member.BIRTH_DATE)
+                .build();
         // when
         Set<ConstraintViolation<MemberCreationRequestDto>> violations = validator.validate(memberCreationRequestDto);
 
@@ -83,14 +81,13 @@ public class MemberDtoTest {
     @CsvSource({"가", "가나다라마바사아자차카타파하가나다라마바사아자차카타파하"})
     @DisplayName("닉네임의 글자수가 2~16자가 아닐 경우 예외가 발생한다.")
     void 닉네임의_글자수가_형식에_맞지_않을_경우_예외가_발생한다(String invalidNickname) {
-        // given
-        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
-                ExampleValue.Member.ACCOUNT,
-                ExampleValue.Member.PASSWORD,
-                invalidNickname,
-                ExampleValue.Member.MOBILE,
-                ExampleValue.Member.BIRTH_DATE
-        );
+        MemberCreationRequestDto memberCreationRequestDto = MemberCreationRequestDto.builder()
+                .account( ExampleValue.Member.ACCOUNT)
+                .password(ExampleValue.Member.PASSWORD)
+                .nickname(invalidNickname)
+                .mobile(ExampleValue.Member.MOBILE)
+                .birthDate(ExampleValue.Member.BIRTH_DATE)
+                .build();
         // when
         Set<ConstraintViolation<MemberCreationRequestDto>> violations = validator.validate(memberCreationRequestDto);
 
@@ -105,13 +102,13 @@ public class MemberDtoTest {
     @DisplayName("전화번호가 형식에 맞지 않으면 예외가 발생한다.")
     void 전화번호가_형식에_맞지_않으면_예외가_발생한다() {
         // given
-        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
-                ExampleValue.Member.ACCOUNT,
-                ExampleValue.Member.PASSWORD,
-                ExampleValue.Member.NICKNAME,
-                "010145674564",
-                ExampleValue.Member.BIRTH_DATE
-        );
+        MemberCreationRequestDto memberCreationRequestDto = MemberCreationRequestDto.builder()
+                .account( ExampleValue.Member.ACCOUNT)
+                .password(ExampleValue.Member.PASSWORD)
+                .nickname(ExampleValue.Member.NICKNAME)
+                .mobile("0104564546")
+                .birthDate(ExampleValue.Member.BIRTH_DATE)
+                .build();
 
         // when
         Set<ConstraintViolation<MemberCreationRequestDto>> violations = validator.validate(memberCreationRequestDto);
@@ -127,13 +124,13 @@ public class MemberDtoTest {
     @DisplayName("생년월일이 형식에 맞지 않으면 예외가 발생한다.")
     void 생년월일이_형식에_맞지_않으면_예외가_발생한다() {
         // given
-        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
-                ExampleValue.Member.ACCOUNT,
-                ExampleValue.Member.PASSWORD,
-                ExampleValue.Member.NICKNAME,
-                ExampleValue.Member.MOBILE,
-                "19990311"
-        );
+        MemberCreationRequestDto memberCreationRequestDto = MemberCreationRequestDto.builder()
+                .account( ExampleValue.Member.ACCOUNT)
+                .password(ExampleValue.Member.PASSWORD)
+                .nickname(ExampleValue.Member.NICKNAME)
+                .mobile(ExampleValue.Member.MOBILE)
+                .birthDate("19990311")
+                .build();
 
         // when
         Set<ConstraintViolation<MemberCreationRequestDto>> violations = validator.validate(memberCreationRequestDto);
