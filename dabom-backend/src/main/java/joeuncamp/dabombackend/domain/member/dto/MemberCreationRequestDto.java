@@ -19,21 +19,9 @@ public class MemberCreationRequestDto {
     String nickname;
     @Schema(description = "전화번호", example = "010-1234-5678")
     String mobile;
-    @Schema(description = "권한", example = "일반")
-    String role;
 
-    /**
-     * 테스트용 DTO 생성자
-     *
-     * @param test 오버로드용 임시 필드
-     */
-    public MemberCreationRequestDto(String test) {
-        this.account = "test_account";
-        this.password = "test_password";
-        this.nickname = "test_nickname";
-        this.mobile = "010-1111-1564";
-        this.role = "normal";
-    }
+    @Schema(description = "생년월일", example = "2002.11.26")
+    String birthDate;
 
 
     /**
@@ -47,7 +35,10 @@ public class MemberCreationRequestDto {
                 .password(password)
                 .nickname(nickname)
                 .mobile(mobile)
-                .role(role)
+                .birthDate(birthDate)
+                .email(account)
+                .loginToken("normal")
+                .role("general")
                 .build();
     }
 }

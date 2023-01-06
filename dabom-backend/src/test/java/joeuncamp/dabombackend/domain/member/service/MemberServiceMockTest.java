@@ -31,11 +31,11 @@ public class MemberServiceMockTest {
     @DisplayName("Mock 테스트 - 회원을 등록하고 조회한다.")
     void Mock_테스트_회원을_등록하고_조회한다() {
         // given
-        MemberCreationRequestDto personalData = new MemberCreationRequestDto("test");
+        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto("test", "test", "010-1234-5678", "test", "test");
 //        when(memberMemoryRepository.save(any(Member.class))).thenReturn(1L);
 
         // when
-        Long createdId = memberManageService.createMember(personalData);
+        Long createdId = memberManageService.createMember(memberCreationRequestDto);
         Member member = memberManageService.getMember(createdId);
 
         // then

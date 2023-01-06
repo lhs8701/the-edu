@@ -38,10 +38,10 @@ public class MemberDtoTest {
     @DisplayName("회원 가입 시, 계정이 이메일 형식이 아니면 예외가 발생한다.")
     void 회원_가입_시_계정이_이메일_형식이_아니면_예외가_발생한다() {
         // given
-        MemberCreationRequestDto dto = new MemberCreationRequestDto("test", "test", "010-1234-5678", "test", "test");
+        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto("test", "test", "010-1234-5678", "test", "test");
 
         // when
-        Set<ConstraintViolation<MemberCreationRequestDto>> violations = validator.validate(dto);
+        Set<ConstraintViolation<MemberCreationRequestDto>> violations = validator.validate(memberCreationRequestDto);
 
         // then
         assertThat(violations).isNotEmpty();

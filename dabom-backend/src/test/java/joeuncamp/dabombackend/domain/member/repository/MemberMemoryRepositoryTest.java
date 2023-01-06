@@ -19,14 +19,14 @@ public class MemberMemoryRepositoryTest {
     void 메모리_DB로_회원을_등록하고_조회한다() {
         // given
         MemberMemoryRepository memberRepository = new MemberMemoryRepository();
-        MemberCreationRequestDto personalData = new MemberCreationRequestDto("test");
+        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto("test", "test", "010-1234-5678", "test", "test");
 
         // when
-        Long savedId = memberRepository.save(personalData.toEntity());
+        Long savedId = memberRepository.save(memberCreationRequestDto.toEntity());
         Member foundMember = memberRepository.findById(savedId);
 
         // then
-        assertThat(personalData.getAccount()).isEqualTo(foundMember.getAccount());
+        assertThat(memberCreationRequestDto.getAccount()).isEqualTo(foundMember.getAccount());
     }
 
     @Test

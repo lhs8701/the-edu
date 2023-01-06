@@ -19,14 +19,14 @@ public class MemberServiceTest {
     @DisplayName("일반 테스트 - 회원을 등록하고 조회한다.")
     void 일반_테스트_회원을_등록하고_조회한다() {
         // given
-        MemberCreationRequestDto personalData = new MemberCreationRequestDto("test");
+        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto("test", "test", "010-1234-5678", "test", "test");
 
         // when
-        Long createdId = memberManageService.createMember(personalData);
+        Long createdId = memberManageService.createMember(memberCreationRequestDto);
         Member foundMember = memberManageService.getMember(createdId);
 
         // then
-        assertThat(personalData.getAccount()).isEqualTo(foundMember.getAccount());
+        assertThat(memberCreationRequestDto.getAccount()).isEqualTo(foundMember.getAccount());
         System.out.println("foundMember = " + foundMember.getId());
     }
 }
