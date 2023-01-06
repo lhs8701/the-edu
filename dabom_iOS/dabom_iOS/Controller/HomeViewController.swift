@@ -22,6 +22,8 @@ class HomeViewController: UIViewController {
 
     private func setTV() {
         homeTableView.register(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "CourseTableViewCell")
+        homeTableView.register(UINib(nibName: "BannerTableViewCell", bundle: nil), forCellReuseIdentifier: "BannerTableViewCell")
+        
         homeTableView.delegate = self
         homeTableView.dataSource = self
         homeTableView.separatorStyle = .none
@@ -32,7 +34,17 @@ class HomeViewController: UIViewController {
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 420
+        
+        switch indexPath.row {
+        case 0:
+            return 200
+        case 1, 2, 3, 4:
+            return 420
+        default:
+            return 420
+        }
+        
+        
     }
 }
 
@@ -44,12 +56,27 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CourseTableViewCell.identifier, for: indexPath) as? CourseTableViewCell else { return UITableViewCell() }
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: CourseTableViewCell.identifier, for: indexPath) as? CourseTableViewCell else { return UITableViewCell() }
+//
+////        cell.setData(courseTableList[indexPath.row])
+//        cell.setData(CourseTableDataModel.sampleData[indexPath.row])
         
-//        cell.setData(courseTableList[indexPath.row])
-        cell.setData(CourseTableDataModel.sampleData[indexPath.row])
+        switch indexPath.row {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: BannerTableViewCell.identifier, for: indexPath) as? BannerTableViewCell else { return UITableViewCell() }
+            cell.setData(BannerDataModel.sampleData)
+            
+            return cell
+        case 1, 2, 3, 4:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CourseTableViewCell.identifier, for: indexPath) as? CourseTableViewCell else { return UITableViewCell() }
+
+    //        cell.setData(courseTableList[indexPath.row])
+            cell.setData(CourseTableDataModel.sampleData[indexPath.row])
+        default:
+            return UITableViewCell()
+        }
         
-        return cell
+        return UITableViewCell()
     }
     
     
