@@ -14,7 +14,7 @@ const WishListBox = styled.div`
   width: 100%;
   align-items: center;
   justify-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 `;
 
 export default function WishClass() {

@@ -280,7 +280,6 @@ export const dummyCouponList = [
     title: "재헌이의 쿠폰",
     id: 1,
     expireDate: "2023-05-10",
-
     discountRate: true,
     discountValue: 30,
   },
@@ -290,5 +289,24 @@ export const dummyCouponList = [
     expireDate: "2023-05-10",
     discountRate: false,
     discountValue: 3000,
+  },
+];
+
+export const dummyPurchaseList = [
+  {
+    title: "재헌이의 정보처리기사",
+    teacher: "심재헌",
+    purchaseId: 11323,
+    purchaseDate: "2023-05-10",
+    expiredDate: "2023-05-16",
+    purchaseValue: 30000,
+  },
+  {
+    title: "재헌이의 정보처리기사",
+    teacher: "심재헌",
+    purchaseId: 11323,
+    purchaseDate: "2023-05-10",
+    expiredDate: "2023-05-16",
+    purchaseValue: 30000,
   },
 ];

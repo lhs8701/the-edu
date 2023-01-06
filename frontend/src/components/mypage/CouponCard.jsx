@@ -1,33 +1,5 @@
-import { motion } from "framer-motion";
 import styled from "styled-components";
-
-const Card = styled(motion.div)`
-  width: 100%;
-  height: 120px;
-  background-color: var(--color-background);
-  border-radius: var(--size-border-radius);
-  overflow: hidden;
-  border: 1.7px solid var(--color-text);
-  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
-  margin-bottom: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-`;
-
-const CouponInfoBox = styled.div`
-  width: 90%;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const CouponTitle = styled.h1`
-  font-size: 21px;
-  font-weight: var(--weight-point);
-`;
+import { Card, CardTitle, CardInfoBox } from "../../style/MypageComponentsCss";
 
 const CouponDiscountTab = styled.div`
   height: 28px;
@@ -56,8 +28,8 @@ const DiscountRate = styled(DiscountP)`
 export default function CouponCard({ coupon }) {
   return (
     <Card whileHover={{ y: "-5px" }} whileTap={{ y: "0px" }}>
-      <CouponInfoBox>
-        <CouponTitle>{coupon?.title}</CouponTitle>
+      <CardInfoBox>
+        <CardTitle>{coupon?.title}</CardTitle>
         <CouponDiscountTab>
           <DiscountP>원래 가격에서 </DiscountP>
           <DiscountRate>
@@ -67,7 +39,7 @@ export default function CouponCard({ coupon }) {
           <DiscountP>&nbsp; &nbsp;할인</DiscountP>
         </CouponDiscountTab>
         <DiscountDateP>{coupon?.expireDate}</DiscountDateP>
-      </CouponInfoBox>
+      </CardInfoBox>
     </Card>
   );
 }

@@ -37,6 +37,7 @@ const CouponBtn = styled(AccountSmallBtn)``;
 const CouponListBox = styled.div`
   width: 100%;
   margin-top: 44px;
+  margin-bottom: 150px;
 `;
 
 export default function Coupon() {
