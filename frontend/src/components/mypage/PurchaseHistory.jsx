@@ -5,10 +5,10 @@ import {
   MyPageTitle,
 } from "../../style/MypageComponentsCss";
 
-export default function Withdraw() {
+export default function PurchaseHistory() {
   return (
     <MyPageBox>
-      <MyPageTitle>회원 탈퇴</MyPageTitle>
+      <MyPageTitle>구매 내역</MyPageTitle>
       <MyPageContentBox>ㄴ</MyPageContentBox>
     </MyPageBox>
   );

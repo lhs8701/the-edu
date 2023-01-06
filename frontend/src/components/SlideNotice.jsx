@@ -8,7 +8,7 @@ const NoticeWrapper = styled.div`
   height: 300px;
   display: flex;
   position: relative;
-  border-radius: 10px;
+  border-radius: var(--size-border-radius);
   overflow: hidden;
   margin-bottom: 50px;
 `;

@@ -1,13 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  CATE_VALUE,
-  PROCESS_ACCOUNT_URL,
-  PROCESS_MAIN_URL,
-  COLOR,
-} from "../static";
+import { motion } from "framer-motion";
+import { CATE_VALUE, PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
 const HeadWrapper = styled.header`
   width: 100%;
   height: 65px;
@@ -19,7 +14,7 @@ const HeadWrapper = styled.header`
   position: sticky;
   top: 0;
   background-color: var(--color-background);
-  z-index: 1;
+  z-index: 10;
 `;
 
 const TitleBox = styled.div`
@@ -85,7 +80,7 @@ const CateTab = styled(motion.div)`
   position: absolute;
   width: 120px;
   box-shadow: 0 1px 1px rgb(0 0 0 / 16%), 0 2px 14px rgb(0 0 0 / 16%);
-  border-radius: 10px;
+  border-radius: var(--size-border-radius);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -246,7 +241,7 @@ export default function Header() {
         <LoginLink to={PROCESS_ACCOUNT_URL.LOGIN}>로그인</LoginLink>
         <UserTab>
           <UserLink>크리에이터</UserLink>
-          <UserLink>마이페이지</UserLink>
+          <UserLink to={"my/own"}>마이페이지</UserLink>
         </UserTab>
       </LoginTab>
     </HeadWrapper>

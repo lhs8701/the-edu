@@ -5,9 +5,9 @@ import styled from "styled-components";
 
 const ClassTab = styled.div`
   width: 240px;
-  height: 100%;
+  height: 200px;
   box-shadow: 0 1px 1px rgb(0 0 0 / 16%), 0 2px 14px rgb(0 0 0 / 16%);
-  border-radius: 10px;
+  border-radius: var(--size-border-radius);
   cursor: pointer;
   overflow: hidden;
 `;
@@ -64,7 +64,7 @@ export default function ClassCard({ course }) {
   return (
     <ClassTab
       onClick={() => {
-        navigate(`course/${course.courseId}`);
+        navigate(`course/${course?.courseId}`);
       }}
       onMouseEnter={() => {
         setIsCardOn(true);
@@ -75,7 +75,7 @@ export default function ClassCard({ course }) {
     >
       <ClassImgBox>
         <ClassImg
-          src={course.courseImg}
+          src={course?.courseImg}
           animate={{
             scale: isCardOn ? 1.5 : 1,
           }}
@@ -94,20 +94,20 @@ export default function ClassCard({ course }) {
         //     : "var(--weight-thin)",
         // }}
         >
-          {course.courseTitle}
+          {course?.courseTitle}
         </ClassTitle>
       </ClassTitleBox>
 
       <ClassInfoBox>
         <ClassInfoTeacherP>
-          &nbsp;&nbsp;&nbsp;&nbsp;{course.courseTeacher}
+          &nbsp;&nbsp;&nbsp;&nbsp;{course?.courseTeacher}
         </ClassInfoTeacherP>
         <ClassInfoP
           animate={{
             color: isCardOn ? "var(--color-primary)" : "var(--color-text)",
           }}
         >
-          {course.courseStarRate}&nbsp;&nbsp;&nbsp;
+          {course?.courseStarRate}&nbsp;&nbsp;&nbsp;
         </ClassInfoP>
       </ClassInfoBox>
     </ClassTab>
