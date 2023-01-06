@@ -59,8 +59,10 @@ html {
     --weight-middle:500;
     --weight-thin:300;
 
-     --size-login-btn:1.1rem;
-    --size-rank-title:40px;
+    --size-login-btn:1.1rem;
+    --size-rank-title:30px;
+    --size-card-title:17px;
+    --size-card-any:11px;
   }
   button{
     cursor: pointer;
