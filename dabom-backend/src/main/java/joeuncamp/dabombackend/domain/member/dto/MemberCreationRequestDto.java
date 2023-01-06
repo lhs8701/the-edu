@@ -1,18 +1,17 @@
 package joeuncamp.dabombackend.domain.member.dto;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import joeuncamp.dabombackend.domain.member.Member;
+import joeuncamp.dabombackend.global.message.ValidationMessage;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
 public class MemberCreationRequestDto {
     @Schema(description = "계정", example = "abc1234")
-    @Email(message = "아이디는 이메일 형식이어야 합니다.")
+    @Email(message = ValidationMessage.NOT_VALID_EMAIL)
     String account;
     @Schema(description = "비밀번호", example = "qwer1234")
     String password;

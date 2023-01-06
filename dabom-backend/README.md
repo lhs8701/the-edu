@@ -31,10 +31,10 @@
 
 ### JPA
 - [x] MySQL 연동
-- [ ] DB에 '생성 시간' 및 '수정 시간' 필드 생성
+- [x] DB에 '생성 시간' 및 '수정 시간' 필드 생성
 
 ### Validation
-- [ ] Request 필드 Validation
+- [x] Request 필드 Validation
 - [ ] 회원 엔티티 Validation
 - [ ] 관리자 권한만 회원 조회 기능을 이용하도록 Validation
 

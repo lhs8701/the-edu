@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import joeuncamp.dabombackend.global.message.ValidationMessage;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -45,7 +46,7 @@ public class MemberDtoTest {
         // then
         assertThat(violations).isNotEmpty();
         violations.forEach(error -> {
-            assertThat(error.getMessage()).isEqualTo("아이디는 이메일 형식이어야 합니다.");
+            assertThat(error.getMessage()).isEqualTo(ValidationMessage.NOT_VALID_EMAIL);
         });
     }
 }
