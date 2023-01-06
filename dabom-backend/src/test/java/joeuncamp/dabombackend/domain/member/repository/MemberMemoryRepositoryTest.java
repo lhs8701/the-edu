@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.member.repository;
 
 import joeuncamp.dabombackend.domain.member.Member;
 import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
+import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@Transactional
 @Disabled
+@Transactional
 public class MemberMemoryRepositoryTest {
 
     @Test
@@ -19,14 +20,20 @@ public class MemberMemoryRepositoryTest {
     void 메모리_DB로_회원을_등록하고_조회한다() {
         // given
         MemberMemoryRepository memberRepository = new MemberMemoryRepository();
-        MemberCreationRequestDto personalData = new MemberCreationRequestDto("test");
+        MemberCreationRequestDto memberCreationRequestDto = MemberCreationRequestDto.builder()
+                .account(ExampleValue.Member.ACCOUNT)
+                .password(ExampleValue.Member.PASSWORD)
+                .nickname(ExampleValue.Member.NICKNAME)
+                .mobile(ExampleValue.Member.MOBILE)
+                .birthDate(ExampleValue.Member.BIRTH_DATE)
+                .build();
 
         // when
-        Long savedId = memberRepository.save(personalData.toEntity());
+        Long savedId = memberRepository.save(memberCreationRequestDto.toEntity());
         Member foundMember = memberRepository.findById(savedId);
 
         // then
-        assertThat(personalData.getAccount()).isEqualTo(foundMember.getAccount());
+        assertThat(memberCreationRequestDto.getAccount()).isEqualTo(foundMember.getAccount());
     }
 
     @Test

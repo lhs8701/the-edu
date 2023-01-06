@@ -1,35 +1,38 @@
 package joeuncamp.dabombackend.domain.member.dto;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import joeuncamp.dabombackend.domain.member.Member;
+import joeuncamp.dabombackend.global.constant.ExampleValue;
+import joeuncamp.dabombackend.global.constant.ValidationMessage;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.validator.constraints.Length;
+import org.springdoc.api.ErrorMessage;
 
 @Getter
+@AllArgsConstructor
+@Builder
 public class MemberCreationRequestDto {
-    @Schema(description = "계정", example = "abc1234")
+    @Email(message = ValidationMessage.NOT_VALID_EMAIL)
+    @Schema(description = "계정", example = ExampleValue.Member.ACCOUNT)
     String account;
-    @Schema(description = "비밀번호", example = "qwer1234")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$" , message = ValidationMessage.NOT_VALID_PASSWORD)
+    @Schema(description = "비밀번호", example = ExampleValue.Member.PASSWORD)
     String password;
-    @Schema(description = "닉네임", example = "헬로")
+    @Length(min=2, max = 16, message = ValidationMessage.NOT_VALID_NICKNAME)
+    @Schema(description = "닉네임", example = ExampleValue.Member.NICKNAME)
     String nickname;
-    @Schema(description = "전화번호", example = "010-1234-5678")
+    @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = ValidationMessage.NOT_VALID_MOBILE)
+    @Schema(description = "전화번호", example = ExampleValue.Member.MOBILE)
     String mobile;
-    @Schema(description = "권한", example = "일반")
-    String role;
 
-    /**
-     * 테스트용 DTO 생성자
-     *
-     * @param test 오버로드용 임시 필드
-     */
-    public MemberCreationRequestDto(String test) {
-        this.account = "test_account";
-        this.password = "test_password";
-        this.nickname = "test_nickname";
-        this.mobile = "010-1111-1564";
-        this.role = "normal";
-    }
+    @Pattern(regexp = "^(19|20)\\d{2}.(0[1-9]|1[012]).(0[1-9]|[12][0-9]|3[0-1])$", message = ValidationMessage.NOT_VALID_BIRTH_DATE)
+    @Schema(description = "생년월일", example = ExampleValue.Member.BIRTH_DATE)
+    String birthDate;
 
 
     /**
@@ -43,7 +46,10 @@ public class MemberCreationRequestDto {
                 .password(password)
                 .nickname(nickname)
                 .mobile(mobile)
-                .role(role)
+                .birthDate(birthDate)
+                .email(account)
+                .loginToken("normal")
+                .role("general")
                 .build();
     }
 }
