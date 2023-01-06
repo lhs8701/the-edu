@@ -17,6 +17,7 @@ const Ad = styled(motion.img)`
   width: 100%;
   height: 100%;
   position: absolute;
+  cursor: pointer;
 `;
 
 const Pagniation = styled(motion.div)`
@@ -87,6 +88,9 @@ export const SlideNotice = () => {
     <NoticeWrapper>
       <AnimatePresence initial={false} custom={direction}>
         <Ad
+          onClick={() => {
+            alert("광고보기");
+          }}
           onMouseEnter={() => {
             setisUserHover(true);
           }}
