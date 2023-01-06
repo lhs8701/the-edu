@@ -58,7 +58,7 @@ public class MemberDtoTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"Ab1!","Abcdefghijklmnop1234567890!", "abcd1234", "Abcd1234", "abcd1234!"})
+    @CsvSource({"Ab1!", "Abcdefghijklmnop1234567890!", "abcd1234", "Abcd1234", "abcd1234!"})
     @DisplayName("비밀번호가 형식에 맞지 않으면 예외가 발생한다.")
     void 비밀번호가_형식에_맞지_않으면_예외가_발생한다(String invalidPassword) {
         // given
@@ -80,7 +80,7 @@ public class MemberDtoTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"가","가나다라마바사아자차카타파하가나다라마바사아자차카타파하"})
+    @CsvSource({"가", "가나다라마바사아자차카타파하가나다라마바사아자차카타파하"})
     @DisplayName("닉네임의 글자수가 2~16자가 아닐 경우 예외가 발생한다.")
     void 닉네임의_글자수가_형식에_맞지_않을_경우_예외가_발생한다(String invalidNickname) {
         // given
@@ -98,6 +98,28 @@ public class MemberDtoTest {
         assertThat(violations).isNotEmpty();
         violations.forEach(error -> {
             assertThat(error.getMessage()).isEqualTo(ValidationMessage.NOT_VALID_NICKNAME);
+        });
+    }
+
+    @Test
+    @DisplayName("전화번호가 형식에 맞지 않으면 예외가 발생한다.")
+    void 전화번호가_형식에_맞지_않으면_예외가_발생한다() {
+        // given
+        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
+                ExampleValue.Member.ACCOUNT,
+                ExampleValue.Member.PASSWORD,
+                ExampleValue.Member.NICKNAME,
+                "010145674564",
+                ExampleValue.Member.BIRTH_DATE
+        );
+
+        // when
+        Set<ConstraintViolation<MemberCreationRequestDto>> violations = validator.validate(memberCreationRequestDto);
+
+        // then
+        assertThat(violations).isNotEmpty();
+        violations.forEach(error -> {
+            assertThat(error.getMessage()).isEqualTo(ValidationMessage.NOT_VALID_MOBILE);
         });
     }
 
