@@ -20,7 +20,7 @@ public class MemberController {
 
     @Operation(summary = "회원 생성", description = "회원을 생성합니다.")
     @PostMapping("")
-    public void createMember(MemberCreationRequestDto requestDto){
+    public void createMember(@Valid MemberCreationRequestDto requestDto){
         memberManageService.createMember(requestDto);
     }
 

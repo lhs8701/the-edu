@@ -45,7 +45,7 @@ public class MemberDtoTest {
         // then
         assertThat(violations).isNotEmpty();
         violations.forEach(error -> {
-            assertThat(error.getMessage()).isEqualTo("NOT_VALID_EMAIL");
+            assertThat(error.getMessage()).isEqualTo("아이디는 이메일 형식이어야 합니다.");
         });
     }
 }
