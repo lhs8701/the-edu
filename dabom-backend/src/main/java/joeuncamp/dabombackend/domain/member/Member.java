@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.member;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,12 +12,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Member {
+public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(description = "아이디", example = "1")
@@ -36,12 +36,4 @@ public class Member {
 
     @Schema(description = "권한", example = "일반")
     String role;
-
-    @CreatedDate
-    @Schema(description = "생성시각", example="...")
-    LocalDateTime createdTime;
-
-    @LastModifiedDate
-    @Schema(description = "최근수정시각", example="...")
-    LocalDateTime modifiedTime;
 }
