@@ -58,7 +58,7 @@ public class MemberDtoTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"Ab1!", "Abcdefghijklmnop1234567890!", "abcd1234", "Abcd1234", "abcd1234!"})
+    @CsvSource({"Ab1!", "Abcdefghijklmnop1234567890!", "abcd1234", "Abcd1234", "abcd1234"})
     @DisplayName("비밀번호가 형식에 맞지 않으면 예외가 발생한다.")
     void 비밀번호가_형식에_맞지_않으면_예외가_발생한다(String invalidPassword) {
         // given

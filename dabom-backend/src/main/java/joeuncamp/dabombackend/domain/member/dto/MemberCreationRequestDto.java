@@ -17,12 +17,13 @@ public class MemberCreationRequestDto {
     @Email(message = ValidationMessage.NOT_VALID_EMAIL)
     @Schema(description = "계정", example = "abc1234")
     String account;
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$" , message = ValidationMessage.NOT_VALID_PASSWORD)
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$" , message = ValidationMessage.NOT_VALID_PASSWORD)
     @Schema(description = "비밀번호", example = "qwer1234")
     String password;
     @Length(min=2, max = 16, message = ValidationMessage.NOT_VALID_NICKNAME)
     @Schema(description = "닉네임", example = "헬로")
     String nickname;
+    @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = ValidationMessage.NOT_VALID_MOBILE)
     @Schema(description = "전화번호", example = "010-1234-5678")
     String mobile;
 
