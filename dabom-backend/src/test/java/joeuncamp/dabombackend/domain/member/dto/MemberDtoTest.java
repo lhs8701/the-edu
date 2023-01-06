@@ -10,6 +10,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.Set;
 
@@ -51,6 +53,28 @@ public class MemberDtoTest {
         assertThat(violations).isNotEmpty();
         violations.forEach(error -> {
             assertThat(error.getMessage()).isEqualTo(ValidationMessage.NOT_VALID_EMAIL);
+        });
+    }
+
+    @ParameterizedTest
+    @CsvSource({"Ab1!","Abcdefghijklmnop1234567890!", "abcd1234"})
+    @DisplayName("비밀번호가 형식에 맞지 않으면 예외가 발생한다.")
+    void 비밀번호가_형식에_맞지_않으면_예외가_발생한다(String invalidPassword) {
+        // given
+        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
+                ExampleValue.Member.ACCOUNT,
+                invalidPassword,
+                ExampleValue.Member.NICKNAME,
+                ExampleValue.Member.MOBILE,
+                ExampleValue.Member.BIRTH_DATE
+        );
+        // when
+        Set<ConstraintViolation<MemberCreationRequestDto>> violations = validator.validate(memberCreationRequestDto);
+
+        // then
+        assertThat(violations).isNotEmpty();
+        violations.forEach(error -> {
+            assertThat(error.getMessage()).isEqualTo(ValidationMessage.NOT_VALID_PASSWORD);
         });
     }
 
