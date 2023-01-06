@@ -5,9 +5,8 @@ import Header from "./components/Header";
 
 const Wrapper = styled.main`
   width: 1100px;
-  min-height: 110vh;
+  min-height: 100vh;
   margin: 0 auto;
-  justify-content: center;
 `;
 
 export default function Root() {
@@ -16,8 +15,8 @@ export default function Root() {
       <Wrapper>
         <Header />
         <Outlet />
-        <Footer />
       </Wrapper>
+      <Footer />
     </>
   );
 }

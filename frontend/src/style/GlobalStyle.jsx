@@ -60,9 +60,10 @@ html {
     --weight-thin:300;
 
     --size-login-btn:1.1rem;
-    --size-rank-title:30px;
+    --size-rank-title:26px;
     --size-card-title:16px;
     --size-card-any:11px;
+    --size-footer:14px;
   }
   button{
     cursor: pointer;

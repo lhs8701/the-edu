@@ -3,7 +3,7 @@ import ClassCard from "./ClassCard";
 
 const ListWrapper = styled.div`
   margin-top: 25px;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 `;
 
 const ListTitle = styled.h1`

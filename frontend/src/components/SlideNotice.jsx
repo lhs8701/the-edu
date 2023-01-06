@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, LayoutGroup, wrap } from "framer-motion";
+import { motion, AnimatePresence, wrap } from "framer-motion";
 import { images } from "../dummy";
 import styled from "styled-components";
 
