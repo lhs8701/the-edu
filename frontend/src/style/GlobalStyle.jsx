@@ -61,7 +61,7 @@ html {
 
     --size-login-btn:1.1rem;
     --size-rank-title:30px;
-    --size-card-title:17px;
+    --size-card-title:16px;
     --size-card-any:11px;
   }
   button{

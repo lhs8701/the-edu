@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ClassRankList from "../components/ClassRankList";
 import { SlideNotice } from "../components/SlideNotice";
-import { dummyCourseRank } from "../dummy";
+import { dummyCourseRank, dummyProgrammingCourseRank } from "../dummy";
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -14,6 +14,7 @@ export default function MainPage() {
     <MainWrapper>
       <SlideNotice />
       <ClassRankList ranklist={weekRankList} />
+      <ClassRankList ranklist={dummyProgrammingCourseRank} />
     </MainWrapper>
   );
 }
