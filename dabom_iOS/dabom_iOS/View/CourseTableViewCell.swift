@@ -14,12 +14,9 @@ class CourseTableViewCell: UITableViewCell {
     var thumbnailData: Array<CourseThumbnailDataModel>?
 
     @IBOutlet weak var rankingCategoryTitle: UILabel!
-    
     @IBOutlet weak var courseThumbnailCollectionView: UICollectionView!
     
-    
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

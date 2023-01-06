@@ -24,6 +24,11 @@
 		0E69A041296543B600BFD12E /* UserTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A040296543B600BFD12E /* UserTab.storyboard */; };
 		0E69A045296543D000BFD12E /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A044296543D000BFD12E /* UserViewController.swift */; };
 		0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A04A296544A500BFD12E /* TabBarViewController.swift */; };
+		0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E78ED7C2967A66B001424A7 /* BannerTableViewCell.swift */; };
+		0E78ED7F2967A66B001424A7 /* BannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E78ED7D2967A66B001424A7 /* BannerTableViewCell.xib */; };
+		0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E78ED802967A740001424A7 /* BannerCollectionViewCell.swift */; };
+		0E78ED832967A740001424A7 /* BannerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E78ED812967A740001424A7 /* BannerCollectionViewCell.xib */; };
+		0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E78ED842967AAD8001424A7 /* BannerDataModel.swift */; };
 		0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */; };
 		0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */; };
 		0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C20296518EE006DC95D /* AppDelegate.swift */; };
@@ -76,6 +81,11 @@
 		0E69A040296543B600BFD12E /* UserTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserTab.storyboard; sourceTree = "<group>"; };
 		0E69A044296543D000BFD12E /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		0E69A04A296544A500BFD12E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		0E78ED7C2967A66B001424A7 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
+		0E78ED7D2967A66B001424A7 /* BannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerTableViewCell.xib; sourceTree = "<group>"; };
+		0E78ED802967A740001424A7 /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		0E78ED812967A740001424A7 /* BannerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerCollectionViewCell.xib; sourceTree = "<group>"; };
+		0E78ED842967AAD8001424A7 /* BannerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDataModel.swift; sourceTree = "<group>"; };
 		0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseTableViewCell.xib; sourceTree = "<group>"; };
 		0EF17C1D296518EE006DC95D /* dabom_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dabom_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +198,7 @@
 			children = (
 				0E602834296665C600A25F48 /* CourseThumbnailDataModel.swift */,
 				0E60283C2966777A00A25F48 /* CourseTableDataModel.swift */,
+				0E78ED842967AAD8001424A7 /* BannerDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -198,6 +209,10 @@
 				0EF17C26296518EE006DC95D /* Main.storyboard */,
 				0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */,
 				0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */,
+				0E78ED7C2967A66B001424A7 /* BannerTableViewCell.swift */,
+				0E78ED7D2967A66B001424A7 /* BannerTableViewCell.xib */,
+				0E78ED802967A740001424A7 /* BannerCollectionViewCell.swift */,
+				0E78ED812967A740001424A7 /* BannerCollectionViewCell.xib */,
 				0E69A040296543B600BFD12E /* UserTab.storyboard */,
 				0E6028362966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift */,
 				0E6028372966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib */,
@@ -359,7 +374,9 @@
 			files = (
 				0E69A03D2965439300BFD12E /* PlayTab.storyboard in Resources */,
 				0EF17C2D296518EF006DC95D /* LaunchScreen.storyboard in Resources */,
+				0E78ED7F2967A66B001424A7 /* BannerTableViewCell.xib in Resources */,
 				0E6028392966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib in Resources */,
+				0E78ED832967A740001424A7 /* BannerCollectionViewCell.xib in Resources */,
 				0E69A039296542CB00BFD12E /* HomeTab.storyboard in Resources */,
 				0E69A041296543B600BFD12E /* UserTab.storyboard in Resources */,
 				0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */,
@@ -495,6 +512,8 @@
 				0EF17C25296518EE006DC95D /* ViewController.swift in Sources */,
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
+				0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */,
+				0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */,
 				0E60282F29656FC800A25F48 /* PlayTabManViewController.swift in Sources */,
 				0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */,
 				0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */,
@@ -503,6 +522,7 @@
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,
 				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,
 				0EF17C23296518EE006DC95D /* SceneDelegate.swift in Sources */,
+				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
 				0E60282529655AE900A25F48 /* CustomSideMenuNavigation.swift in Sources */,
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,
 				0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */,
