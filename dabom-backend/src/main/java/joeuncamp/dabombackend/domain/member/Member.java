@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,4 +31,6 @@ public class Member {
     String mobile;
     @Schema(description = "권한", example = "일반")
     String role;
+    @Schema(description = "생성날짜", example="...")
+    LocalDate createdDate;
 }

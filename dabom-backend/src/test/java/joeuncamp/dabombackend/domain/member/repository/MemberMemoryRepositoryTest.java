@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@Transactional
 @Disabled
+@Transactional
 public class MemberMemoryRepositoryTest {
 
     @Test
