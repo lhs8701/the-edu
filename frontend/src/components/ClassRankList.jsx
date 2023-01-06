@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import ClassTab from "./ClassTab";
+import ClassCard from "./ClassCard";
 
 const ListWrapper = styled.div`
   margin-top: 25px;
-  margin-bottom: 25px;
+  margin-bottom: 60px;
 `;
 
 const ListTitle = styled.h1`
@@ -14,16 +14,19 @@ const ListTitle = styled.h1`
 
 const ClassListBox = styled.div`
   display: flex;
+  justify-content: space-between;
   width: 100%;
-  height: 180px;
+  height: 200px;
 `;
 
-export default function ClassRankList(props) {
+export default function ClassRankList({ ranklist }) {
   return (
     <ListWrapper>
-      <ListTitle>랭킹</ListTitle>
+      <ListTitle>{ranklist.rankTitle} 클래스 랭킹</ListTitle>
       <ClassListBox>
-        <ClassTab />
+        {ranklist.rankCourse.map((course) => {
+          return <ClassCard key={course.courseId} course={course} />;
+        })}
       </ClassListBox>
     </ListWrapper>
   );

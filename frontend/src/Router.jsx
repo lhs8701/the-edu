@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./Root";
-
 import ErrorComponent from "./components/ErrComponents";
 import MainPage from "./pages/MainPage";
 import SignIn from "./components/account/SignIn";
@@ -8,7 +7,6 @@ import SignUp from "./components/account/SignUp";
 import MyPage from "./pages/MyPage";
 import WishClass from "./components/mypage/WishClass";
 import Coupon from "./components/mypage/Coupon";
-import Deal from "./components/mypage/Deal";
 import Withdraw from "./components/mypage/Withdraw";
 import CoursePage from "./pages/CoursePage";
 import LobbyPage from "./pages/LobbyPage";
@@ -19,6 +17,9 @@ import SearchPage from "./pages/SearchPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AccountRoot from "./pages/AccountRoot";
 import CategoryPage from "./pages/CategoryPage";
+import Revise from "./components/mypage/Revise";
+import MyClass from "./components/mypage/MyClass";
+import PurchaseHistory from "./components/mypage/PurchaseHistory";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         element: <MyPage />,
         children: [
           {
+            path: "own",
+            element: <MyClass />,
+          },
+          {
             path: "wish",
             element: <WishClass />,
           },
@@ -57,7 +62,11 @@ const router = createBrowserRouter([
           },
           {
             path: "deal",
-            element: <Deal />,
+            element: <PurchaseHistory />,
+          },
+          {
+            path: "revise",
+            element: <Revise />,
           },
           {
             path: "withdraw",

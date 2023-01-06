@@ -51,6 +51,7 @@ html {
     --color-background: white;
     --color-primary:#ffbf00;
     --color-gray:#747272;
+    --color-sidebar:#F9F6F4;
     --color-input-focus:#fcb500;
     --color-account-naver:#32D25D;
     --color-account-apple:#444543;
@@ -59,8 +60,15 @@ html {
     --weight-middle:500;
     --weight-thin:300;
 
-     --size-login-btn:1.1rem;
-    --size-rank-title:40px;
+    --size-login-btn:1.1rem;
+    --size-rank-title:26px;
+    --size-card-title:16px;
+    --size-card-any:11px;
+    --size-footer:14px;
+    --size-border-radius:10px;
+    --size-mypage-title:30px;
+    --size-own-nav:18px;
+    --size-revise-coupon-window:70%;
   }
   button{
     cursor: pointer;

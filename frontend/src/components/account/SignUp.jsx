@@ -10,7 +10,7 @@ import {
   AccountTitle,
   AccountWrapper,
   InputLabel,
-} from "../../style/AccountComponent";
+} from "../../style/AccountComponentCss";
 import Term from "./Term";
 
 const TeleInput = styled(AccountInput)`

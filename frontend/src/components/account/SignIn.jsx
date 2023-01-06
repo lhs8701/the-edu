@@ -16,7 +16,7 @@ import {
   AccountTitle,
   AccountWrapper,
   InputLabel,
-} from "../../style/AccountComponent";
+} from "../../style/AccountComponentCss";
 
 const LoginLinkBox = styled.div`
   width: 100%;

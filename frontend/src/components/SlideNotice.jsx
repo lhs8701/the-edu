@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, LayoutGroup, wrap } from "framer-motion";
+import { motion, AnimatePresence, wrap } from "framer-motion";
 import { images } from "../dummy";
 import styled from "styled-components";
 
@@ -8,7 +8,7 @@ const NoticeWrapper = styled.div`
   height: 300px;
   display: flex;
   position: relative;
-  border-radius: 10px;
+  border-radius: var(--size-border-radius);
   overflow: hidden;
   margin-bottom: 50px;
 `;
@@ -17,6 +17,7 @@ const Ad = styled(motion.img)`
   width: 100%;
   height: 100%;
   position: absolute;
+  cursor: pointer;
 `;
 
 const Pagniation = styled(motion.div)`
@@ -87,6 +88,9 @@ export const SlideNotice = () => {
     <NoticeWrapper>
       <AnimatePresence initial={false} custom={direction}>
         <Ad
+          onClick={() => {
+            alert("광고보기");
+          }}
           onMouseEnter={() => {
             setisUserHover(true);
           }}

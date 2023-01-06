@@ -1,13 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  CATE_VALUE,
-  PROCESS_ACCOUNT_URL,
-  PROCESS_MAIN_URL,
-  COLOR,
-} from "../static";
+import { motion } from "framer-motion";
+import { CATE_VALUE, PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
 const HeadWrapper = styled.header`
   width: 100%;
   height: 65px;
@@ -19,7 +14,7 @@ const HeadWrapper = styled.header`
   position: sticky;
   top: 0;
   background-color: var(--color-background);
-  z-index: 1;
+  z-index: 10;
 `;
 
 const TitleBox = styled.div`
@@ -84,8 +79,8 @@ const CateBox = styled(motion.div)`
 const CateTab = styled(motion.div)`
   position: absolute;
   width: 120px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 16%), 0 2px 14px rgb(0 0 0 / 16%);
+  border-radius: var(--size-border-radius);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -156,11 +151,11 @@ const CateLink = styled(Link)`
     color: var(--color-primary);
     font-weight: var(--weight-middle);
   }
-  display: ${(props) => (props.iscategoryon ? "flex" : "none")};
+  display: ${(props) => (props.iscategoryon === "true" ? "flex" : "none")};
 `;
 
 export default function Header() {
-  const [isCategoryOn, setCategoryOn] = useState(false);
+  const [isCategoryOn, setCategoryOn] = useState("false");
   return (
     <HeadWrapper>
       <TitleBox
@@ -176,31 +171,32 @@ export default function Header() {
           <NavTab>
             <CateBox
               onMouseEnter={() => {
-                setCategoryOn(true);
+                setCategoryOn("true");
               }}
               onMouseLeave={() => {
-                setCategoryOn(false);
+                setCategoryOn("false");
               }}
               onMouseDown={() => {
-                setCategoryOn(true);
+                setCategoryOn("true");
               }}
               animate={{
-                color: isCategoryOn ? "var(--color-primary)" : "black",
+                color:
+                  isCategoryOn === "true" ? "var(--color-primary)" : "black",
               }}
             >
               카테고리
               <CateTab
                 initial={{ opacity: 0, height: 0 }}
                 animate={{
-                  opacity: isCategoryOn ? 1 : 0,
-                  height: isCategoryOn ? "auto" : 0,
+                  opacity: isCategoryOn === "true" ? 1 : 0,
+                  height: isCategoryOn === "true" ? "auto" : 0,
                 }}
                 transition={{
                   duration: 0.2,
                   type: "ease",
                 }}
                 onMouseEnter={() => {
-                  setCategoryOn(true);
+                  setCategoryOn("true");
                 }}
               >
                 <CateLink
@@ -214,8 +210,9 @@ export default function Header() {
                   return (
                     <>
                       <CateLink
+                        key={index}
                         iscategoryon={isCategoryOn}
-                        to={PROCESS_MAIN_URL.CATEGORIES + "/" + index}
+                        to={PROCESS_MAIN_URL.CATEGORIES + "/" + (index + 1)}
                       >
                         {e}
                       </CateLink>
@@ -244,7 +241,7 @@ export default function Header() {
         <LoginLink to={PROCESS_ACCOUNT_URL.LOGIN}>로그인</LoginLink>
         <UserTab>
           <UserLink>크리에이터</UserLink>
-          <UserLink>마이페이지</UserLink>
+          <UserLink to={"my/own"}>마이페이지</UserLink>
         </UserTab>
       </LoginTab>
     </HeadWrapper>

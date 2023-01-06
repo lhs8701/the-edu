@@ -23,7 +23,7 @@ export const AccountInput = styled.input`
   border-bottom: 1.5px solid var(--color-gray);
   &:focus {
     outline: none;
-    /* border-bottom: 1.5px solid var(--color-primary); */
+    background-color: var(--color-background);
     border-bottom: 1.5px solid var(--color-input-focus);
   }
   &::placeholder {
