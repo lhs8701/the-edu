@@ -28,9 +28,9 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="w70-hx-Cat" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="45" id="XGL-Vk-maE"/>
                             <constraint firstItem="w70-hx-Cat" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="bnM-Mu-1O7"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="w70-hx-Cat" secondAttribute="trailing" id="gcN-7Q-WdK"/>
+                            <constraint firstItem="w70-hx-Cat" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="45" id="pln-qQ-3d1"/>
                             <constraint firstItem="w70-hx-Cat" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="uKj-lz-qWD"/>
                         </constraints>
                     </view>
@@ -100,7 +100,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yT8-Z1-d5e">
-                                <rect key="frame" x="0.0" y="45" width="390" height="716"/>
+                                <rect key="frame" x="0.0" y="55" width="390" height="706"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qLh-3A-PO3">
                                     <size key="itemSize" width="128" height="128"/>
@@ -126,7 +126,7 @@
                             <constraint firstItem="DB4-qT-hFn" firstAttribute="bottom" secondItem="yT8-Z1-d5e" secondAttribute="bottom" id="AXS-KK-WRC"/>
                             <constraint firstItem="DB4-qT-hFn" firstAttribute="trailing" secondItem="yT8-Z1-d5e" secondAttribute="trailing" id="CjR-Ei-FwA"/>
                             <constraint firstItem="yT8-Z1-d5e" firstAttribute="leading" secondItem="DB4-qT-hFn" secondAttribute="leading" id="bTN-kQ-LPS"/>
-                            <constraint firstItem="yT8-Z1-d5e" firstAttribute="top" secondItem="4Em-we-RhA" secondAttribute="top" constant="45" id="jqv-aC-vuV"/>
+                            <constraint firstItem="yT8-Z1-d5e" firstAttribute="top" secondItem="4Em-we-RhA" secondAttribute="top" constant="55" id="jqv-aC-vuV"/>
                         </constraints>
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
