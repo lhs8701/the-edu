@@ -12,9 +12,15 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        self.navigationController?.navigationBar.tintColor = .black
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+//        self.navigationController?.isNavigationBarHidden = true
+        print("PlayViewDidAppear")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
     
     /*
      // MARK: - Navigation
