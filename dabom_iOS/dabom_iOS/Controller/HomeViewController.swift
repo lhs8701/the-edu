@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.navigationController?.navigationBar.isHidden = true
+        
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
         self.navigationController?.navigationBar.tintColor = .black
         
@@ -25,15 +25,13 @@ class HomeViewController: UIViewController {
         print("HOMEVIEWDIDLOAD")
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = true
-//        print("HOmeViewWILLAppear")
-//    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = true
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
+//    override func viewDidAppear(_ animated: Bool) {
+////        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//    }
 
     private func setTV() {
         homeTableView.register(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "CourseTableViewCell")

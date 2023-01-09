@@ -1,24 +1,20 @@
 PODS:
   - Pageboy (3.7.0)
-  - SideMenu (6.5.0)
   - Tabman (2.13.0):
     - Pageboy (~> 3.7.0)
 
 DEPENDENCIES:
-  - SideMenu
   - Tabman (~> 2.9)
 
 SPEC REPOS:
   trunk:
     - Pageboy
-    - SideMenu
     - Tabman
 
 SPEC CHECKSUMS:
   Pageboy: fe646118f7168960058bea7a96038386aa7c0da8
-  SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   Tabman: 66ea44c44488327ec20f3c8dc5554a5d22f5908c
 
-PODFILE CHECKSUM: dc925a56576ac159d74dae1a9cb9fc95d567f2d1
+PODFILE CHECKSUM: 505807507a22b050ca44a66a8f69c437454b3fb8
 
 COCOAPODS: 1.11.3

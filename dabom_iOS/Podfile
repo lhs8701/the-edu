@@ -7,7 +7,7 @@ target 'dabom_iOS' do
 
   # Pods for dabom_iOS
 
-  pod 'SideMenu'
+#  pod 'SideMenu'
   
   pod 'Tabman', '~> 2.9'
   

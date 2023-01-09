@@ -17,7 +17,6 @@ class WishCourseViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        print("wishCourse viewDidLoad")
         setCV()
     }
     
@@ -53,7 +52,6 @@ extension WishCourseViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
         guard let nextVC = UIStoryboard(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
 
         nextVC.courseTitle = wishCourseData![indexPath.row].courseTitle
@@ -88,7 +86,6 @@ extension WishCourseViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellWidth = (UIScreen.main.bounds.width - (10 * 3)) / 2
-        print(cellWidth)
         let cellHeight = cellWidth
 
         return CGSize(width: cellWidth, height: cellHeight)
