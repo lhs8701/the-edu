@@ -10,7 +10,7 @@ const SideBar = styled.nav`
   position: sticky;
   position: -webkit-sticky;
   background: var(--color-sidebar);
-  box-shadow: 0 1px 1px rgb(0 0 0 / 16%), 0 2px 14px rgb(0 0 0 / 16%);
+  box-shadow: 0 1px 1px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 16%);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -31,7 +31,6 @@ const MyLink = styled(Link)`
     color: var(--color-primary);
   }
 `;
-
 const NavBox = styled.ul``;
 const NavTab = styled.li`
   height: 45px;

@@ -64,7 +64,7 @@ export default function ClassCard({ course }) {
   return (
     <ClassTab
       onClick={() => {
-        navigate(`course/${course?.courseId}`);
+        navigate(`/course/${course?.courseId}`);
       }}
       onMouseEnter={() => {
         setIsCardOn(true);

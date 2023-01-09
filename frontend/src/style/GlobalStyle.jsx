@@ -55,6 +55,7 @@ html {
     --color-input-focus:#fcb500;
     --color-account-naver:#32D25D;
     --color-account-apple:#444543;
+    --color-course-intro:#FBF5E5;
 
     --weight-point:900;
     --weight-middle:500;

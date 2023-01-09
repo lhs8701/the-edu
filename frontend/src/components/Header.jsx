@@ -208,16 +208,15 @@ export default function Header() {
                 <br />
                 {CATE_VALUE.map((e, index) => {
                   return (
-                    <>
+                    <span key={index}>
                       <CateLink
-                        key={index}
                         iscategoryon={isCategoryOn}
                         to={PROCESS_MAIN_URL.CATEGORIES + "/" + (index + 1)}
                       >
                         {e}
                       </CateLink>
                       <br />
-                    </>
+                    </span>
                   );
                 })}
               </CateTab>
