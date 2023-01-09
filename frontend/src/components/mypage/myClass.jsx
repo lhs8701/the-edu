@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import { useState } from "react";
 import styled from "styled-components";
 import {
   MyPageBox,
@@ -20,16 +22,30 @@ const StatusNavBox = styled.ul`
   text-align: center;
 `;
 
+const StatusDisplayUnderBar = styled(motion.div)`
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+  position: absolute;
+  bottom: 0px;
+`;
+
 const StatusNavTab = styled.li`
   color: ${(props) =>
-    props.mouse ? "var(--color-primary)" : "var(--color-gray)"};
+    props.ison[0] === props.ison[1]
+      ? "var(--color-text)"
+      : "var(--color-gray)"};
+  font-weight: ${(props) =>
+    props.ison[0] === props.ison[1]
+      ? "var(--weight-point)"
+      : "var(--weight-thin)"};
   height: 100%;
   margin: 0 30px;
   cursor: pointer;
-  border-bottom: 2px solid var(--color-primary);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const MyListBox = styled.div`
@@ -42,16 +58,48 @@ const MyListBox = styled.div`
   margin-bottom: 50px;
 `;
 
+const TAB_STATUS = [
+  {
+    id: 0,
+    title: "전체 보기",
+  },
+  {
+    id: 1,
+    title: "덜 봄",
+  },
+  {
+    id: 2,
+    title: "다 봄",
+  },
+];
+
 export default function MyClass() {
+  const [isTabStatus, setIsTabStatus] = useState(0);
+
   return (
     <MyPageBox>
       <MyPageTitle>나의 클래스</MyPageTitle>
       <MyPageContentBox>
         <StatusNavBar>
           <StatusNavBox>
-            <StatusNavTab>전체보기</StatusNavTab>
-            <StatusNavTab>덜 봄</StatusNavTab>
-            <StatusNavTab>다 봄</StatusNavTab>
+            {TAB_STATUS.map((tab) => {
+              return (
+                <>
+                  <StatusNavTab
+                    key={tab.id}
+                    onClick={() => {
+                      setIsTabStatus(tab.id);
+                    }}
+                    ison={[isTabStatus, tab.id]}
+                  >
+                    {tab.title}
+                    {isTabStatus === tab?.id && (
+                      <StatusDisplayUnderBar layoutId />
+                    )}
+                  </StatusNavTab>
+                </>
+              );
+            })}
           </StatusNavBox>
         </StatusNavBar>
       </MyPageContentBox>
