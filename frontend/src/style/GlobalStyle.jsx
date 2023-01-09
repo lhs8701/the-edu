@@ -55,6 +55,9 @@ html {
     --color-input-focus:#fcb500;
     --color-account-naver:#32D25D;
     --color-account-apple:#444543;
+    --color-course-intro:#FBF5E5;
+    --color-red:#FF5454;
+
 
     --weight-point:900;
     --weight-middle:500;
@@ -69,6 +72,9 @@ html {
     --size-mypage-title:30px;
     --size-own-nav:18px;
     --size-revise-coupon-window:70%;
+    --size-category-title: 28px;
+    --size-category-big:24px;
+    --size-category-small:20px;
   }
   button{
     cursor: pointer;

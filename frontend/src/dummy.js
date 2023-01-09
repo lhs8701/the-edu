@@ -310,3 +310,41 @@ export const dummyPurchaseList = [
     purchaseValue: 30000,
   },
 ];
+
+export const dummyCourseInfo = {
+  courseInfo: {
+    title: "정말 잘 가르치는 정보처리기사",
+    id: 135,
+    teacher: "심재헌",
+    description: "이 강의만 듣는다면 당신은 바로 합격입니다. 무조건 들으세요",
+    rate: 3.5,
+    introUrl:
+      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  },
+  courseIndex: [
+    {
+      title: "안녕하세요",
+      sub: ["1강", "2강", "3강"],
+    },
+    {
+      title: "반갑습니다",
+      sub: ["1강", "2강", "3강"],
+    },
+  ],
+  courseInfoImg: [
+    "https://d33wubrfki0l68.cloudfront.net/dd23708ebc4053551bb33e18b7174e73b6e1710b/dea24/static/images/wallpapers/shared-colors@2x.png",
+    "https://d33wubrfki0l68.cloudfront.net/49de349d12db851952c5556f3c637ca772745316/cfc56/static/images/wallpapers/bridge-02@2x.png",
+    "https://d33wubrfki0l68.cloudfront.net/594de66469079c21fc54c14db0591305a1198dd6/3f4b1/static/images/wallpapers/bridge-01@2x.png",
+  ],
+  coursePurchaseInfo: {
+    primePrice: 350000,
+    offOption: true,
+    purchaseOptionInfo: [
+      { optionName: "6개월 수강권", cost: 32000, isOff: false },
+      { optionName: "12개월 수강권", cost: 320000, isOff: false },
+      { optionName: "12개월 수강권", cost: 320000, isOff: true },
+    ],
+  },
+  courseInquire: {},
+  courseReview: {},
+};
