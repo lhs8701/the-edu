@@ -1,18 +1,22 @@
 //
-//  SideMenuViewController.swift
+//  BannerInfoViewController.swift
 //  dabom_iOS
 //
-//  Created by 김태현 on 2023/01/04.
+//  Created by 김태현 on 2023/01/09.
 //
 
 import UIKit
 
-class SideMenuViewController: UIViewController {
+class BannerInfoViewController: UIViewController {
+    
+    var bannerImageName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.topItem?.title = bannerImageName
     }
     
 

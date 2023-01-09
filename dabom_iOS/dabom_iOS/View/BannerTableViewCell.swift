@@ -7,13 +7,19 @@
 
 import UIKit
 
+protocol BannerCVCellDelegate {
+    func BannerSelectedCVCell(index: Int, bannerName: String)
+}
+
 class BannerTableViewCell: UITableViewCell {
 
     static let identifier = "BannerTableViewCell"
     
     @IBOutlet weak var bannerCollectionView: UICollectionView!
-    
+        
     var bannerData: Array<BannerDataModel>?
+    
+    var delegate: BannerCVCellDelegate?
     
     var currentPage: Int = 0
     
@@ -76,6 +82,11 @@ extension BannerTableViewCell: UICollectionViewDelegate {
         return 4
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let delegate = delegate {
+            delegate.BannerSelectedCVCell(index: indexPath.item, bannerName: bannerData![indexPath.row].bannerImageName)
+        }
+    }
 }
 
 extension BannerTableViewCell: UICollectionViewDataSource {

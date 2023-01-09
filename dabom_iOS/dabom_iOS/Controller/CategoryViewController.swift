@@ -1,24 +1,23 @@
 //
-//  CustomSideMenuNavigation.swift
+//  CategoryViewController.swift
 //  dabom_iOS
 //
-//  Created by 김태현 on 2023/01/04.
+//  Created by 김태현 on 2023/01/09.
 //
 
 import UIKit
-import SideMenu
 
-class CustomSideMenuNavigation: SideMenuNavigationController {
+class CategoryViewController: UIViewController {
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.presentationStyle = .menuSlideIn
-        self.leftSide = true
-
         // Do any additional setup after loading the view.
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.topItem?.title = "카테고리"
     }
-    
+        
 
     /*
     // MARK: - Navigation
