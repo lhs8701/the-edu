@@ -49,6 +49,8 @@ const NavBox = styled.ul`
 const NavTab = styled.li`
   height: 100%;
   padding: 0px 20px;
+  display: flex;
+  align-items: center;
 `;
 
 const NavLink = styled(Link)`
@@ -67,7 +69,7 @@ const NavLink = styled(Link)`
 
 const CateBox = styled(motion.div)`
   text-decoration: none;
-  height: 100%;
+  height: 70%;
   display: flex;
   align-items: center;
   font-size: 20px;
@@ -87,7 +89,7 @@ const CateTab = styled(motion.div)`
   background-color: var(--color-background);
   padding-top: 20px;
   padding-bottom: 10px;
-  top: 50px;
+  top: 45px;
   left: -13px;
 `;
 
@@ -185,41 +187,43 @@ export default function Header() {
               }}
             >
               카테고리
-              <CateTab
-                initial={{ opacity: 0, height: 0 }}
-                animate={{
-                  opacity: isCategoryOn === "true" ? 1 : 0,
-                  height: isCategoryOn === "true" ? "auto" : 0,
-                }}
-                transition={{
-                  duration: 0.2,
-                  type: "ease",
-                }}
-                onMouseEnter={() => {
-                  setCategoryOn("true");
-                }}
-              >
-                <CateLink
-                  iscategoryon={isCategoryOn}
-                  to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0}
+              {isCategoryOn === "true" && (
+                <CateTab
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{
+                    opacity: isCategoryOn === "true" ? 1 : 0,
+                    height: isCategoryOn === "true" ? "auto" : 0,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                    type: "ease",
+                  }}
+                  onMouseEnter={() => {
+                    setCategoryOn("true");
+                  }}
                 >
-                  전체 보기
-                </CateLink>
-                <br />
-                {CATE_VALUE.map((e, index) => {
-                  return (
-                    <span key={index}>
-                      <CateLink
-                        iscategoryon={isCategoryOn}
-                        to={PROCESS_MAIN_URL.CATEGORIES + "/" + (index + 1)}
-                      >
-                        {e}
-                      </CateLink>
-                      <br />
-                    </span>
-                  );
-                })}
-              </CateTab>
+                  <CateLink
+                    iscategoryon={isCategoryOn}
+                    to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0}
+                  >
+                    전체 보기
+                  </CateLink>
+                  <br />
+                  {CATE_VALUE.map((e, index) => {
+                    return (
+                      <span key={index}>
+                        <CateLink
+                          iscategoryon={isCategoryOn}
+                          to={PROCESS_MAIN_URL.CATEGORIES + "/" + (index + 1)}
+                        >
+                          {e}
+                        </CateLink>
+                        <br />
+                      </span>
+                    );
+                  })}
+                </CateTab>
+              )}
             </CateBox>
           </NavTab>
           <NavTab>

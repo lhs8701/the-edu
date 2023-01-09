@@ -42,4 +42,7 @@ export const StatusNavTab = styled.li`
   justify-content: center;
   align-items: center;
   position: relative;
+  &:hover {
+    font-weight: var(--weight-point);
+  }
 `;

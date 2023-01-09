@@ -36,7 +36,15 @@ const TAB_STATUS = [
   { id: 3, title: "문의 사항" },
 ];
 
-export default function CourseNavBar({ isTabStatus, setIsTabStatus }) {
+export default function CourseNavBar({ refArr, isTabStatus, setIsTabStatus }) {
+  const moveToArtist = (index) => {
+    refArr[index]?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      // inline: "start",
+    });
+  };
+
   return (
     <CourseStatusNavBar>
       <CourseStatusNavBox>
@@ -45,6 +53,7 @@ export default function CourseNavBar({ isTabStatus, setIsTabStatus }) {
             <CourseStatusNavTab
               key={tab.id}
               onClick={() => {
+                moveToArtist(tab.id);
                 setIsTabStatus(tab.id);
               }}
               ison={[isTabStatus, tab.id]}

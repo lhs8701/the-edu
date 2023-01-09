@@ -5,7 +5,6 @@ const SideBar = styled.nav`
   width: 17%;
   height: 270px;
   border-radius: 10px;
-  /* position: fixed; */
   top: 200px;
   position: sticky;
   position: -webkit-sticky;
