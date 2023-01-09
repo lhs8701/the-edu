@@ -9,6 +9,7 @@ import joeuncamp.dabombackend.domain.member.service.MemberManageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,15 +19,19 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberManageService memberManageService;
 
+    @PreAuthorize("hasRole({'ADMIN'})")
+//    @PreAuthorize("permitAll()")
     @Operation(summary = "회원 생성", description = "회원을 생성합니다.")
     @PostMapping("")
-    public void createMember(@Valid MemberCreationRequestDto requestDto){
+    public void createMember(@Valid MemberCreationRequestDto requestDto) {
         memberManageService.createMember(requestDto);
     }
 
+    @PreAuthorize("permitAll()")
     @Operation(summary = "회원 단일 조회", description = "회원을 한명을 조회합니다.")
     @GetMapping("/{memberId}")
-    public ResponseEntity<Member> getMember(@PathVariable Long memberId){
+    public ResponseEntity<Member> getMember(@PathVariable Long memberId) {
         return new ResponseEntity<>(memberManageService.getMember(memberId), HttpStatus.OK);
     }
 }
+
