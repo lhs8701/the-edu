@@ -13,6 +13,8 @@ import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 import org.springdoc.api.ErrorMessage;
 
+import java.util.Collections;
+
 @Getter
 @AllArgsConstructor
 @Builder
@@ -49,7 +51,7 @@ public class MemberCreationRequestDto {
                 .birthDate(birthDate)
                 .email(account)
                 .loginToken("normal")
-                .role("general")
+                .roles(Collections.singletonList("ROLE_USER"))
                 .build();
     }
 }
