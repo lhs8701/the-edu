@@ -105,7 +105,7 @@ extension HomeViewController: UITableViewDataSource {
 
 extension HomeViewController: CourseCVCellDelegate {
     func CourseSelectedCVCell(index: Int, courseName: String) {
-        guard let nextVC = UIStoryboard(name: "HomeTab", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
+        guard let nextVC = UIStoryboard(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
 
         nextVC.courseTitle = courseName
 //        print(courseName)

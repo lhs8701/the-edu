@@ -81,7 +81,6 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="homeTableView" destination="9Rg-YI-XpS" id="iyG-Ux-wbR"/>
-                        <segue destination="ZHD-fI-S5h" kind="show" identifier="CourseInfoView" id="7Rm-sz-GW8"/>
                         <segue destination="wqp-h7-QCe" kind="show" id="Spo-t8-Jm6"/>
                     </connections>
                 </viewController>
@@ -153,24 +152,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Fs-2w-zHu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3848" y="739"/>
-        </scene>
-        <!--courseName-->
-        <scene sceneID="LL3-fg-kjl">
-            <objects>
-                <viewController storyboardIdentifier="CourseInfoViewController" id="ZHD-fI-S5h" customClass="CourseInfoViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="kdK-Yy-Zqh">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="WWP-xb-Vxp"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="courseName" id="cjX-LB-v37">
-                        <barButtonItem key="backBarButtonItem" title="back" id="RSs-qm-fzT"/>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eF3-EA-GqF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4940" y="739"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rwl-Zv-iFG">

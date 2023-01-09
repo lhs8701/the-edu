@@ -13,21 +13,29 @@ class CourseInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let onOffImage = UIImage(named: "onoff")?.withRenderingMode(.alwaysOriginal)
+        let onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 30))
+        onOffButton.setImage(onOffImage, for: .normal)
+        let onOff = UIBarButtonItem(customView: onOffButton)
+        
+        let heartImage = UIImage(named: "heart")
+        let heartButton = UIButton()
+        heartButton.setImage(heartImage, for: .normal)
+        let heart = UIBarButtonItem(customView: heartButton)
 
-        // Do any additional setup after loading the view.
+        navigationItem.rightBarButtonItems = [heart, onOff]
+
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.topItem?.title = courseTitle
     }
+
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }
