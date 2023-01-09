@@ -23,3 +23,10 @@
 > - 강좌 Thumbnail Image 4개
 > ### gitHub
 > - commit message
+
+> ## 23.01.06
+> ### Home 화면 Banner
+> - 자동 스크롤 되는 배너 구현
+> ### 카테고리 뷰 설정, 화면 이동
+> - Home 화면 전체를 navigationController 위에 올림
+> - 현재 카테고리 선택 후 화면 이동 시 깜빡임 현상

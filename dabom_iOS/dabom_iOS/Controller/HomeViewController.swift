@@ -16,9 +16,24 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        self.navigationController?.navigationBar.tintColor = .black
+        
+        
         setTV()
+        print("HOMEVIEWDIDLOAD")
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        self.navigationController?.isNavigationBarHidden = true
+//        print("HOmeViewWILLAppear")
+//    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 
     private func setTV() {
         homeTableView.register(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "CourseTableViewCell")
@@ -68,6 +83,7 @@ extension HomeViewController: UITableViewDataSource {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BannerTableViewCell.identifier, for: indexPath) as? BannerTableViewCell else { return UITableViewCell() }
             cell.setData(BannerDataModel.sampleData)
+            cell.delegate = self
             
             return cell
         case 1, 2, 3, 4, 5:
@@ -75,12 +91,37 @@ extension HomeViewController: UITableViewDataSource {
 
     //        cell.setData(courseTableList[indexPath.row])
             cell.setData(CourseTableDataModel.sampleData[indexPath.row - 1])
+            cell.delegate = self
+            
+            return cell
         default:
             return UITableViewCell()
         }
         
-        return UITableViewCell()
     }
     
     
+}
+
+extension HomeViewController: CourseCVCellDelegate {
+    func CourseSelectedCVCell(index: Int, courseName: String) {
+        guard let nextVC = UIStoryboard(name: "HomeTab", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
+
+        nextVC.courseTitle = courseName
+//        print(courseName)
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
+//        performSegue(withIdentifier: "CourseInfoView", sender: nil)
+    }
+    
+}
+
+extension HomeViewController: BannerCVCellDelegate {
+    func BannerSelectedCVCell(index: Int, bannerName: String) {
+        guard let nextVC = UIStoryboard(name: "HomeTab", bundle: nil).instantiateViewController(withIdentifier: "BannerInfoViewController") as? BannerInfoViewController else { return }
+        
+        nextVC.bannerImageName = bannerName
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
 }

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E60282529655AE900A25F48 /* CustomSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282429655AE900A25F48 /* CustomSideMenuNavigation.swift */; };
-		0E60282729655B1200A25F48 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282629655B1200A25F48 /* SideMenuViewController.swift */; };
 		0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028282965659D00A25F48 /* InCourseViewController.swift */; };
 		0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */; };
 		0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282C29656BB500A25F48 /* WishCourseViewController.swift */; };
@@ -29,6 +27,9 @@
 		0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E78ED802967A740001424A7 /* BannerCollectionViewCell.swift */; };
 		0E78ED832967A740001424A7 /* BannerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E78ED812967A740001424A7 /* BannerCollectionViewCell.xib */; };
 		0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E78ED842967AAD8001424A7 /* BannerDataModel.swift */; };
+		0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */; };
+		0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */; };
+		0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */; };
 		0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */; };
 		0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */; };
 		0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C20296518EE006DC95D /* AppDelegate.swift */; };
@@ -64,8 +65,6 @@
 
 /* Begin PBXFileReference section */
 		0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E60282429655AE900A25F48 /* CustomSideMenuNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSideMenuNavigation.swift; sourceTree = "<group>"; };
-		0E60282629655B1200A25F48 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		0E6028282965659D00A25F48 /* InCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InCourseViewController.swift; sourceTree = "<group>"; };
 		0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionCourseViewController.swift; sourceTree = "<group>"; };
 		0E60282C29656BB500A25F48 /* WishCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCourseViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +85,9 @@
 		0E78ED802967A740001424A7 /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		0E78ED812967A740001424A7 /* BannerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerCollectionViewCell.xib; sourceTree = "<group>"; };
 		0E78ED842967AAD8001424A7 /* BannerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDataModel.swift; sourceTree = "<group>"; };
+		0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoViewController.swift; sourceTree = "<group>"; };
+		0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerInfoViewController.swift; sourceTree = "<group>"; };
 		0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseTableViewCell.xib; sourceTree = "<group>"; };
 		0EF17C1D296518EE006DC95D /* dabom_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dabom_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,14 +227,15 @@
 		0EF17C5229651CCF006DC95D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0E60282429655AE900A25F48 /* CustomSideMenuNavigation.swift */,
 				0E60282E29656FC800A25F48 /* PlayTabManViewController.swift */,
 				0EF17C24296518EE006DC95D /* ViewController.swift */,
+				0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */,
+				0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */,
+				0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */,
 				0E60282C29656BB500A25F48 /* WishCourseViewController.swift */,
 				0E6028282965659D00A25F48 /* InCourseViewController.swift */,
 				0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */,
 				0E69A04A296544A500BFD12E /* TabBarViewController.swift */,
-				0E60282629655B1200A25F48 /* SideMenuViewController.swift */,
 				0E69A03E296543A200BFD12E /* PlayViewController.swift */,
 				0E69A044296543D000BFD12E /* UserViewController.swift */,
 				0E69A03A2965430D00BFD12E /* HomeViewController.swift */,
@@ -509,6 +512,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */,
 				0EF17C25296518EE006DC95D /* ViewController.swift in Sources */,
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
@@ -516,17 +520,17 @@
 				0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */,
 				0E60282F29656FC800A25F48 /* PlayTabManViewController.swift in Sources */,
 				0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */,
+				0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */,
 				0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */,
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
 				0E69A03F296543A200BFD12E /* PlayViewController.swift in Sources */,
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,
 				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,
+				0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */,
 				0EF17C23296518EE006DC95D /* SceneDelegate.swift in Sources */,
 				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
-				0E60282529655AE900A25F48 /* CustomSideMenuNavigation.swift in Sources */,
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,
 				0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */,
-				0E60282729655B1200A25F48 /* SideMenuViewController.swift in Sources */,
 				0E6028382966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift in Sources */,
 				0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */,
 			);

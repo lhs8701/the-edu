@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol CourseCVCellDelegate {
+    func CourseSelectedCVCell(index: Int, courseName: String)
+}
+
 class CourseTableViewCell: UITableViewCell {
     
     static let identifier = "CourseTableViewCell"
     
     var thumbnailData: Array<CourseThumbnailDataModel>?
+    
+    var delegate: CourseCVCellDelegate?
 
     @IBOutlet weak var rankingCategoryTitle: UILabel!
     @IBOutlet weak var courseThumbnailCollectionView: UICollectionView!
@@ -48,6 +54,12 @@ extension CourseTableViewCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let delegate = delegate {
+            delegate.CourseSelectedCVCell(index: indexPath.item, courseName: thumbnailData![indexPath.row].courseTitle)
+        }
     }
 }
 
