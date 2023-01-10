@@ -87,6 +87,12 @@ const HearTCnt = styled.p`
   font-weight: var(--weight-thin);
 `;
 
+export const UnderBar = styled.div`
+  width: 100%;
+  height: 2px;
+  background-color: #c8c8c8;
+`;
+
 export const ChatUserInfo = () => {
   return (
     <UserInfoBox>
@@ -130,4 +136,25 @@ export const ChatBottom = () => {
   );
 };
 
-function ChatComponents() {}
+export const InputTextArea = styled.textarea`
+  width: 100%;
+  min-height: 100px;
+  border: none;
+  background-color: #f1efef;
+  border-radius: var(--size-border-radius);
+  font-size: 20px;
+  &:focus {
+    outline: 2px solid black;
+  }
+  &::placeholder {
+    color: var(--color-gray);
+    padding-left: 5px;
+    padding-top: 5px;
+    font-weight: var(--weight-normal);
+  }
+`;
+
+export const Box = styled.div`
+  width: 100%;
+  margin: 30px 0px;
+`;

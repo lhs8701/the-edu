@@ -1,50 +1,35 @@
 import styled from "styled-components";
+import { AccountSmallBtn } from "../../style/AccountComponentCss";
 import { Title } from "../../style/CourseCss";
-import { ChatBottom, ChatContextArea, ChatUserInfo } from "./ChatComponents";
+import {
+  Box,
+  ChatBottom,
+  ChatContextArea,
+  ChatUserInfo,
+  UnderBar,
+} from "./ChatComponents";
 
 const ReivewWrapper = styled.div`
   width: 100%;
 `;
 
-const ReviewBtn = styled.button`
-  width: 70px;
-  height: 35px;
-  background-color: var(--color-primary);
-  border: none;
-  border-radius: var(--size-border-radius);
-  font-weight: var(--weight-point);
-  font-size: 16px;
-  &:hover {
-    color: var(--color-background);
-  }
-`;
-
 const BtnBox = styled.div`
-  width: 95%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-`;
-
-const ReviewBox = styled.div`
-  width: 100%;
-  margin: 30px 0px;
 `;
 
 export default function CourseReview() {
   const ReviewCreator = () => {
     return (
       <>
-        <ReviewBox>
+        <Box>
           <ChatUserInfo />
           <ChatContextArea />
           <ChatBottom />
-        </ReviewBox>
-        <ReviewBox>
-          <ChatUserInfo />
-          <ChatContextArea />
-          <ChatBottom />
-        </ReviewBox>
+        </Box>
+        {/* <UnderBar /> */}
       </>
     );
   };
@@ -52,7 +37,7 @@ export default function CourseReview() {
     <ReivewWrapper>
       <Title>수강 후기</Title>
       <BtnBox>
-        <ReviewBtn>등록</ReviewBtn>
+        <AccountSmallBtn>등록</AccountSmallBtn>
       </BtnBox>
       <ReviewCreator />
     </ReivewWrapper>

@@ -57,7 +57,7 @@ html {
     --color-account-apple:#444543;
     --color-course-intro:#FBF5E5;
     --color-red:#FF5454;
-
+    --color-box-gray:#d0cfcf;
 
     --weight-point:900;
     --weight-middle:500;
