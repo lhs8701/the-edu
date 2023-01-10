@@ -348,3 +348,33 @@ export const dummyCourseInfo = {
   courseInquire: {},
   courseReview: {},
 };
+
+export const dummyMyClassList = [
+  {
+    title: "무슨무슨강의",
+    courseId: 134,
+    nowUnitTitle: "유닛이름",
+    unitId: 1411,
+    totalUnitCnt: 56,
+    nowUnitCnt: 50,
+    clearCheck: false,
+  },
+  {
+    title: "무슨무슨강의",
+    courseId: 134,
+    nowUnitTitle: "유닛이름",
+    unitId: 1411,
+    totalUnitCnt: 56,
+    nowUnitCnt: 14,
+    clearCheck: false,
+  },
+  {
+    title: "무슨무슨강의",
+    courseId: 134,
+    nowUnitTitle: "유닛이름",
+    unitId: 1411,
+    totalUnitCnt: 56,
+    nowUnitCnt: 1,
+    clearCheck: false,
+  },
+];

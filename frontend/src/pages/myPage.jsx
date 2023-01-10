@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import styled from "styled-components";
-import MyPageSideBar from "../components/MyPageSideBar";
+import SideBar from "../components/SideBar";
+import { BAR_LIST } from "../static";
 
 const MyPageWrapper = styled.div`
   width: 100%;
@@ -13,7 +14,7 @@ const MyPageWrapper = styled.div`
 export default function MyPage() {
   return (
     <MyPageWrapper>
-      <MyPageSideBar />
+      <SideBar barList={BAR_LIST} />
       <Outlet />
     </MyPageWrapper>
   );

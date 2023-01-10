@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { PROCESS_MAIN_URL } from "../static";
 
-const SideBar = styled.nav`
+const SideBarBox = styled.nav`
   width: 17%;
   height: 270px;
   border-radius: 10px;
@@ -38,29 +39,28 @@ const NavTab = styled.li`
   justify-content: center;
 `;
 
-export default function MyPageSideBar() {
+export default function SideBar({ barList }) {
   return (
-    <SideBar>
+    <SideBarBox>
       <NavBox>
-        <NavTab>
-          <MyLink to={"own"}>나의 클래스</MyLink>
-        </NavTab>
-        <NavTab>
-          <MyLink to={"wish"}>찜한 클래스</MyLink>
-        </NavTab>
-        <NavTab>
-          <MyLink to={"Revise"}>개인정보 수정</MyLink>
-        </NavTab>
-        <NavTab>
-          <MyLink to={"coupon"}>쿠폰</MyLink>
-        </NavTab>
-        <NavTab>
-          <MyLink to={"deal"}>구매 내역</MyLink>
-        </NavTab>
-        <NavTab>
-          <MyLink to={"withdraw"}>회원 탈퇴</MyLink>
-        </NavTab>
+        {barList.isCategory
+          ? barList.list.map((target, idx) => {
+              return (
+                <NavTab>
+                  <MyLink to={PROCESS_MAIN_URL.CATEGORIES + "/" + idx}>
+                    {target}
+                  </MyLink>
+                </NavTab>
+              );
+            })
+          : barList.list.map((target, idx) => {
+              return (
+                <NavTab>
+                  <MyLink to={target.url}>{target.name}</MyLink>
+                </NavTab>
+              );
+            })}
       </NavBox>
-    </SideBar>
+    </SideBarBox>
   );
 }

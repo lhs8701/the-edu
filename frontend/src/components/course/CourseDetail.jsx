@@ -5,7 +5,6 @@ import CourseImg from "./CourseImg";
 import CourseInquire from "./CourseInquire";
 import CourseNavBar from "./CourseNavBar";
 import CourseReview from "./CourseReview";
-import { images } from "../../dummy";
 
 const DetailWrapper = styled.div`
   width: 72%;
@@ -14,38 +13,35 @@ const DetailWrapper = styled.div`
 const DetailBox = styled.div`
   width: 98%;
   height: 100%;
+  margin-top: 30px;
 `;
 
 const RefDiv = styled.div`
-  padding-top: 80px;
+  padding-top: 70px;
 `;
 
 export default function CourseDetail({ courseInfo }) {
   const [isTabStatus, setIsTabStatus] = useState(0);
-  const imgRef = useRef(null);
-  const categoryRef = useRef(null);
-  const reviewRef = useRef(null);
-  const inquireRef = useRef(null);
-  const refArr = [imgRef, categoryRef, reviewRef, inquireRef];
+  const courseRef = useRef([]);
 
   return (
     <DetailWrapper>
       <CourseNavBar
-        refArr={refArr}
+        refArr={courseRef}
         isTabStatus={isTabStatus}
         setIsTabStatus={setIsTabStatus}
       />
-      <DetailBox>
-        <RefDiv ref={refArr[0]}>
+      <DetailBox ref={(component) => (courseRef.current[0] = component)}>
+        <RefDiv>
           <CourseImg images={courseInfo?.courseInfoImg} />
         </RefDiv>
-        <RefDiv ref={refArr[1]}>
+        <RefDiv ref={(component) => (courseRef.current[1] = component)}>
           <CourseCategory courseIdx={courseInfo.courseIndex} />
         </RefDiv>
-        <RefDiv ref={refArr[2]}>
+        <RefDiv ref={(component) => (courseRef.current[2] = component)}>
           <CourseReview courseReviewInfo={courseInfo.courseReview} />
         </RefDiv>
-        <RefDiv ref={refArr[3]}>
+        <RefDiv ref={(component) => (courseRef.current[3] = component)}>
           <CourseInquire courseInquireInfo={courseInfo.CourseInquire} />
         </RefDiv>
       </DetailBox>

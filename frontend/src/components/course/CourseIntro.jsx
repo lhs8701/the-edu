@@ -1,4 +1,5 @@
 import ReactPlayer from "react-player";
+import YouTubePlayer from "react-player/youtube";
 import styled from "styled-components";
 
 const IntroduceWrapper = styled.div`
@@ -61,10 +62,10 @@ export default function CourseIntro({ courseInfo }) {
       <IntroTitle>{courseInfo.title}</IntroTitle>
       <MoreInfoBox>
         <IntroPlayerTab>
-          <ReactPlayer
+          <YouTubePlayer
             width="100%"
             height="100%"
-            url={courseInfo.introUrl}
+            url="https://www.youtube.com/watch?v=_q3uE_cStGM"
             controls
           />
         </IntroPlayerTab>

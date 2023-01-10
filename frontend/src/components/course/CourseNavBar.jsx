@@ -12,7 +12,7 @@ const CourseStatusNavBar = styled(StatusNavBar)`
   font-size: var(--size-own-footer);
   font-weight: var(--weight-normal);
   position: sticky;
-  top: 84px;
+  top: 0px;
   background-color: var(--color-background);
 `;
 
@@ -37,8 +37,8 @@ const TAB_STATUS = [
 ];
 
 export default function CourseNavBar({ refArr, isTabStatus, setIsTabStatus }) {
-  const moveToArtist = (index) => {
-    refArr[index]?.current?.scrollIntoView({
+  const moveToSection = (index) => {
+    refArr.current[index]?.scrollIntoView({
       behavior: "smooth",
       block: "start",
       // inline: "start",
@@ -53,7 +53,7 @@ export default function CourseNavBar({ refArr, isTabStatus, setIsTabStatus }) {
             <CourseStatusNavTab
               key={tab.id}
               onClick={() => {
-                moveToArtist(tab.id);
+                moveToSection(tab.id);
                 setIsTabStatus(tab.id);
               }}
               ison={[isTabStatus, tab.id]}
