@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
 import styled from "styled-components";
+import { PROCESS_MAIN_URL } from "../static";
 
 const ClassCard = styled.div`
   width: 85%;
@@ -66,6 +68,20 @@ const RateNum = styled.p`
   z-index: 10;
 `;
 
+const GoTo = styled(Link)`
+  font-size: 18px;
+  text-decoration: none;
+  z-index: 10;
+  font-weight: var(--weight-thin);
+  color: ${(props) =>
+    props.mouse ? "var(--color-primary)" : "var(--color-text)"};
+  &:hover {
+    color: var(--color-primary);
+    font-weight: var(--weight-middle);
+  }
+  cursor: pointer;
+`;
+
 function easeOutExpo(t) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }
@@ -86,7 +102,7 @@ export default function MyClassCard({ info, data, progressRatio }) {
       }
     }, frameRate);
   }, []);
-
+  console.log(info.courseId);
   return (
     <ClassCard>
       <TitleTab>
@@ -103,7 +119,9 @@ export default function MyClassCard({ info, data, progressRatio }) {
             {info?.nowUnitCnt}/{info?.totalUnitCnt}
           </RateNum>
         </div>
-        <RateNum>학습 하기</RateNum>
+        <GoTo to={PROCESS_MAIN_URL.COURSES + "/" + info?.courseId + "/lobby"}>
+          학습 하기
+        </GoTo>
       </BottomTab>
 
       <ChartContainer width="100%" height="100%">

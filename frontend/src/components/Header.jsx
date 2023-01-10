@@ -203,19 +203,19 @@ export default function Header() {
                     setCategoryOn("true");
                   }}
                 >
-                  <CateLink
+                  {/* <CateLink
                     iscategoryon={isCategoryOn}
                     to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0}
                   >
                     전체 보기
-                  </CateLink>
-                  <br />
+                  </CateLink> */}
+
                   {CATE_VALUE.map((e, index) => {
                     return (
                       <span key={index}>
                         <CateLink
                           iscategoryon={isCategoryOn}
-                          to={PROCESS_MAIN_URL.CATEGORIES + "/" + (index + 1)}
+                          to={PROCESS_MAIN_URL.CATEGORIES + "/" + index}
                         >
                           {e}
                         </CateLink>
