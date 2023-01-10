@@ -66,12 +66,12 @@ public class MemberProfileTest {
 
         // when
         ProfileUpdateParam updateParam = ProfileUpdateParam.builder()
-                .nickname("update")
-                .email("update")
+                .nickname("updated")
+                .email("updated")
                 .build();
-        Long memberId = memberService.updateMyProfile(updateParam, 1L);
+        memberService.updateMyProfile(updateParam, 1L);
 
         // then
-        Assertions.assertThat(memberId).isEqualTo(1L);
+        Assertions.assertThat(member.getNickname()).isEqualTo("updated");
     }
 }

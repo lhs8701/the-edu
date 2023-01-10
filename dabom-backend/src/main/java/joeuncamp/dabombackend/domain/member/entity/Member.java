@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.member.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
@@ -99,4 +100,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void update(ProfileUpdateParam updateParam){
+        this.nickname = updateParam.getNickname();
+        this.email = updateParam.getEmail();
+    }
+
 }

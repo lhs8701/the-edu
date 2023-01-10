@@ -20,7 +20,9 @@ public class MemberService {
     }
 
     public Long updateMyProfile(ProfileUpdateParam profileUpdateParam, Long memberId){
-        return 1L;
+        Member member = memberRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
+        member.update(profileUpdateParam);
+        return member.getId();
     }
 }
 
