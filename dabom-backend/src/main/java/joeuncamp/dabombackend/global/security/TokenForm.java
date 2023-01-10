@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 @AllArgsConstructor
-public class TokenInfo {
+public class TokenForm {
     String grantType;
     String accessToken;
     String refreshToken;

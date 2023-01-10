@@ -74,7 +74,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return String.valueOf(id);
+        return account;
     }
 
     @Override
