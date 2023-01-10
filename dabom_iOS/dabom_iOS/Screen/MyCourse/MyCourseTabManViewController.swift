@@ -9,16 +9,16 @@ import UIKit
 import Tabman
 import Pageboy
 
-class PlayTabManViewController: TabmanViewController {
+class MyCourseTabManViewController: TabmanViewController {
 
     private var viewControllers: Array<UIViewController> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let inCourseVC = UIStoryboard.init(name: "PlayTab", bundle: nil).instantiateViewController(withIdentifier: "InCourseViewController") as! InCourseViewController
-        let completionCourseVC = UIStoryboard.init(name: "PlayTab", bundle: nil).instantiateViewController(withIdentifier: "CompletionCourseViewController") as! CompletionCourseViewController
-        let wishCourseVC = UIStoryboard.init(name: "PlayTab", bundle: nil).instantiateViewController(withIdentifier: "WishCourseViewController") as! WishCourseViewController
+        let inCourseVC = UIStoryboard.init(name: "MyCourseTab", bundle: nil).instantiateViewController(withIdentifier: "InCourseViewController") as! InCourseViewController
+        let completionCourseVC = UIStoryboard.init(name: "MyCourseTab", bundle: nil).instantiateViewController(withIdentifier: "CompletionCourseViewController") as! CompletionCourseViewController
+        let wishCourseVC = UIStoryboard.init(name: "MyCourseTab", bundle: nil).instantiateViewController(withIdentifier: "WishCourseViewController") as! WishCourseViewController
         
         viewControllers.append(inCourseVC)
         viewControllers.append(completionCourseVC)
@@ -60,7 +60,7 @@ class PlayTabManViewController: TabmanViewController {
 }
 
 
-extension PlayTabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
+extension MyCourseTabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func numberOfViewControllers(in pageboyViewController: Pageboy.PageboyViewController) -> Int {
         return viewControllers.count
     }
@@ -80,9 +80,9 @@ extension PlayTabManViewController: PageboyViewControllerDataSource, TMBarDataSo
 //        return item
         switch index {
         case 0:
-            return TMBarItem(title: "다 봄")
-        case 1:
             return TMBarItem(title: "덜 봄")
+        case 1:
+            return TMBarItem(title: "다 봄")
         case 2:
             return TMBarItem(title: "찜")
         default:

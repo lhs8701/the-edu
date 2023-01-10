@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pad-Ic-EsS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SNS-57-BcH">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -45,15 +45,46 @@
                                         <color key="textColor" name="mainColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46x-hh-53r" userLabel="searchBtn">
+                                        <rect key="frame" x="305" y="7" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="g00-Aq-rzw"/>
+                                            <constraint firstAttribute="width" constant="30" id="r8m-mh-cMB"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="search"/>
+                                        <connections>
+                                            <segue destination="QFP-xB-QfI" kind="show" id="SYB-CN-TLg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FjQ-xJ-a3f" userLabel="alertBtn">
+                                        <rect key="frame" x="350" y="9" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="8Fo-Fy-s13"/>
+                                            <constraint firstAttribute="height" constant="25" id="iGl-dx-PO7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="alert_1x"/>
+                                        <connections>
+                                            <segue destination="T3r-40-AfJ" kind="presentation" id="INq-N1-pi2"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="JYd-HJ-8Tt" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" constant="8" id="1hH-AP-Zro"/>
                                     <constraint firstAttribute="height" constant="45" id="5VY-fT-3Gh"/>
+                                    <constraint firstItem="46x-hh-53r" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" constant="7" id="6uo-j9-AJe"/>
                                     <constraint firstItem="phM-7r-sEg" firstAttribute="leading" secondItem="6fc-nK-T5b" secondAttribute="trailing" constant="20" id="AE6-YA-fQO"/>
+                                    <constraint firstItem="FjQ-xJ-a3f" firstAttribute="leading" secondItem="46x-hh-53r" secondAttribute="trailing" constant="15" id="E9W-ae-4lO"/>
+                                    <constraint firstItem="FjQ-xJ-a3f" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" constant="9" id="GhP-Sw-qsC"/>
                                     <constraint firstItem="6fc-nK-T5b" firstAttribute="leading" secondItem="IAh-ce-8lo" secondAttribute="leading" constant="15" id="Zte-TX-2yx"/>
                                     <constraint firstItem="6fc-nK-T5b" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" constant="7" id="dzZ-jd-SBu"/>
                                     <constraint firstItem="phM-7r-sEg" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" constant="8" id="jJ7-U6-xdq"/>
+                                    <constraint firstAttribute="trailing" secondItem="FjQ-xJ-a3f" secondAttribute="trailing" constant="15" id="jwH-9E-gRf"/>
                                     <constraint firstItem="JYd-HJ-8Tt" firstAttribute="leading" secondItem="phM-7r-sEg" secondAttribute="trailing" constant="7" id="wFd-oF-pYT"/>
                                 </constraints>
                             </view>
@@ -74,10 +105,7 @@
                             <constraint firstItem="9Rg-YI-XpS" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="wlR-1T-Fqo"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="home" selectedImage="homeSelected" id="ojx-x6-qQb">
-                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBarItem>
-                    <navigationItem key="navigationItem" id="VsA-ep-IZj"/>
+                    <navigationItem key="navigationItem" id="j0L-Cy-5Fe"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="homeTableView" destination="9Rg-YI-XpS" id="iyG-Ux-wbR"/>
@@ -86,7 +114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3847.6923076923076" y="-34.123222748815166"/>
+            <point key="canvasLocation" x="4776.9230769230771" y="-34.123222748815166"/>
         </scene>
         <!--category-->
         <scene sceneID="gWU-xc-CF4">
@@ -133,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VV9-4a-TAa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4940" y="-34.834123222748815"/>
+            <point key="canvasLocation" x="5869.2307692307686" y="-34.834123222748815"/>
         </scene>
         <!--bannerName-->
         <scene sceneID="bsu-bg-V0N">
@@ -153,29 +181,65 @@
             </objects>
             <point key="canvasLocation" x="3848" y="739"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="rwl-Zv-iFG">
+        <!--search-->
+        <scene sceneID="UfT-0l-Pb9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pad-Ic-EsS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchVC" id="QFP-xB-QfI" customClass="SearchVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Ee-gg-kcs">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="kQt-YH-eqL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="search" id="lan-j8-8FM"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D2d-Zc-mq1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4777" y="739"/>
+        </scene>
+        <!--AlertVC-->
+        <scene sceneID="lif-jo-BO1">
+            <objects>
+                <viewController id="T3r-40-AfJ" customClass="AlertVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hgc-fe-scs">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="787"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="mnh-yS-jTR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D0L-F3-Ehz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5868" y="739"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zS7-4x-SGP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SNS-57-BcH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="home" selectedImage="homeSelected" id="ojx-x6-qQb">
+                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aMq-qB-jDu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0bY-tb-KME">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="tRW-bX-Ps0"/>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="RYe-mv-fwS"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y0f-DU-sTj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1TT-gC-GkD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2918.4615384615386" y="-34.123222748815166"/>
+            <point key="canvasLocation" x="3847.6923076923076" y="-34.123222748815166"/>
         </scene>
     </scenes>
     <resources>
+        <image name="alert_1x" width="25" height="25"/>
         <image name="category" width="50" height="50"/>
         <image name="home" width="25" height="25"/>
         <image name="homeSelected" width="25" height="25"/>
+        <image name="search" width="25" height="25"/>
         <namedColor name="mainColor">
             <color red="1" green="0.85500001907348633" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

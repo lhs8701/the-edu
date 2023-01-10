@@ -1,19 +1,20 @@
 //
-//  InCourseViewController.swift
+//  SearchVC.swift
 //  dabom_iOS
 //
-//  Created by 김태현 on 2023/01/04.
+//  Created by 김태현 on 2023/01/10.
 //
 
 import UIKit
 
-class InCourseViewController: UIViewController {
+class SearchVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        print("InCourse viewDidLoad")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.topItem?.title = "검색"
     }
     
 

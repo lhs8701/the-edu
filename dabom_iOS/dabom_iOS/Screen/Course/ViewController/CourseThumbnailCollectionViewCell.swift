@@ -16,11 +16,20 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var creatorName: UILabel!
     @IBOutlet weak var categoryName: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        layer.cornerRadius = 7
+        
+//        self.layer.cornerRadius = 7
+//        self.clipsToBounds = true
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 2
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+
+        contentView.layer.cornerRadius = 7
+        contentView.layer.masksToBounds = true
     }
     
     

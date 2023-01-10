@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Play View Controller-->
+        <!--My Course View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="PlayTab" id="Y6W-OH-hqX" customClass="PlayViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyCourseTab" id="Y6W-OH-hqX" customClass="MyCourseViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -49,22 +49,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="다 봄" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Otr-4u-wfF">
-                                <rect key="frame" x="147" y="392" width="97" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JSA-zu-YWh">
+                                <rect key="frame" x="0.0" y="55" width="390" height="706"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1ZC-CS-HpJ">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyCourseCVC" id="d70-yL-1Ea" customClass="MyCourseCVC" customModule="dabom_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OQO-Ci-H1p">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aXD-Of-vkY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="aXD-Of-vkY" firstAttribute="bottom" secondItem="JSA-zu-YWh" secondAttribute="bottom" id="7J0-iS-O6i"/>
+                            <constraint firstItem="JSA-zu-YWh" firstAttribute="leading" secondItem="aXD-Of-vkY" secondAttribute="leading" id="eog-VS-oty"/>
+                            <constraint firstItem="JSA-zu-YWh" firstAttribute="top" secondItem="Xck-Vx-EKV" secondAttribute="top" constant="55" id="hye-4z-JEc"/>
+                            <constraint firstItem="aXD-Of-vkY" firstAttribute="trailing" secondItem="JSA-zu-YWh" secondAttribute="trailing" id="kcO-e1-lAg"/>
+                        </constraints>
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="inCourseCV" destination="JSA-zu-YWh" id="AxH-2B-xDz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SwP-sd-ktd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1976.9230769230769" y="-34.123222748815166"/>
+            <point key="canvasLocation" x="197" y="811"/>
         </scene>
         <!--Completion Course View Controller-->
         <scene sceneID="pBZ-cI-QYy">
@@ -74,22 +96,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="덜 봄" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y07-4r-psa">
-                                <rect key="frame" x="147" y="392" width="97" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cVs-kY-NEm">
+                                <rect key="frame" x="0.0" y="55" width="390" height="706"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kfF-wK-w8j">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyCourseCVC" id="nhL-wa-BqC">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fAC-vW-Kgc">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Q3q-CK-cOO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cVs-kY-NEm" firstAttribute="leading" secondItem="Q3q-CK-cOO" secondAttribute="leading" id="9mf-yH-ytu"/>
+                            <constraint firstItem="cVs-kY-NEm" firstAttribute="top" secondItem="Tl8-8F-lk4" secondAttribute="top" constant="55" id="BJ3-nQ-GVB"/>
+                            <constraint firstItem="Q3q-CK-cOO" firstAttribute="trailing" secondItem="cVs-kY-NEm" secondAttribute="trailing" id="b2U-au-OD1"/>
+                            <constraint firstItem="Q3q-CK-cOO" firstAttribute="bottom" secondItem="cVs-kY-NEm" secondAttribute="bottom" id="uYe-I4-1P9"/>
+                        </constraints>
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="completionCourseCV" destination="cVs-kY-NEm" id="RHN-HJ-LFr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KWH-Pg-p1g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2850.7692307692305" y="-34.123222748815166"/>
+            <point key="canvasLocation" x="1071" y="811"/>
         </scene>
         <!--Wish Course View Controller-->
         <scene sceneID="Uxh-jC-cXi">
@@ -109,7 +153,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="SHa-xr-7XM" customClass="CourseThumbnailCollectionViewCell" customModule="dabom_iOS" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CourseThumbnailCollectionViewCell" id="SHa-xr-7XM" customClass="CourseThumbnailCollectionViewCell" customModule="dabom_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="R4Y-fO-396">
@@ -136,12 +180,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eud-nu-Cqj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3703.0769230769229" y="-34.123222748815166"/>
+            <point key="canvasLocation" x="1925" y="811"/>
         </scene>
-        <!--Play Tab Man View Controller-->
+        <!--My Course Tab Man View Controller-->
         <scene sceneID="Oej-7j-ZzE">
             <objects>
-                <viewController storyboardIdentifier="PlayTabManViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PvK-kz-KCc" customClass="PlayTabManViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyCourseTabManViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PvK-kz-KCc" customClass="MyCourseTabManViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Wf-zZ-oHZ">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,7 +195,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ThO-cz-H1j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131" y="659"/>
+            <point key="canvasLocation" x="1985" y="-34"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NZK-xP-ZfC">

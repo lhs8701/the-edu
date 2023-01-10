@@ -1,19 +1,18 @@
 //
-//  CompletionCourseViewController.swift
+//  AlertVC.swift
 //  dabom_iOS
 //
-//  Created by 김태현 on 2023/01/04.
+//  Created by 김태현 on 2023/01/10.
 //
 
 import UIKit
 
-class CompletionCourseViewController: UIViewController {
+class AlertVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        print("Completion viewDidLoad")
     }
     
 
