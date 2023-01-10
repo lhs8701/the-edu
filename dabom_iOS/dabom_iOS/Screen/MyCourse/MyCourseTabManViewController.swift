@@ -80,9 +80,9 @@ extension MyCourseTabManViewController: PageboyViewControllerDataSource, TMBarDa
 //        return item
         switch index {
         case 0:
-            return TMBarItem(title: "다 봄")
-        case 1:
             return TMBarItem(title: "덜 봄")
+        case 1:
+            return TMBarItem(title: "다 봄")
         case 2:
             return TMBarItem(title: "찜")
         default:

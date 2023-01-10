@@ -9,22 +9,85 @@ import UIKit
 
 class CompletionCourseViewController: UIViewController {
 
+    @IBOutlet weak var completionCourseCV: UICollectionView!
+    
+    var completionCourseData: Array<MyCourseDataModel>?
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        print("Completion viewDidLoad")
+        setCV()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - func
+    private func setCV() {
+        self.completionCourseCV.register(UINib(nibName: "MyCourseCVC", bundle: nil), forCellWithReuseIdentifier: "MyCourseCVC")
+        self.completionCourseCV.delegate = self
+        self.completionCourseCV.dataSource = self
+        self.completionCourseCV.isScrollEnabled = true
+        
+        completionCourseData = MyCourseDataModel.sampleData
     }
-    */
-
 }
+
+extension CompletionCourseViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let completionCourseData = completionCourseData {
+            return completionCourseData.count
+        } else {
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let nextVC = UIStoryboard(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
+
+        nextVC.courseTitle = completionCourseData![indexPath.row].courseTitle
+//        print(courseName)
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
+//        self.present(nextVC, animated: true)
+    }
+}
+
+extension CompletionCourseViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCourseCVC.identifier, for: indexPath) as? MyCourseCVC else { return UICollectionViewCell() }
+        
+        if let completionCourseData = completionCourseData {
+            cell.setData(completionCourseData[indexPath.row])
+        }
+        
+        return cell
+    }
+}
+
+extension CompletionCourseViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellWidth = (UIScreen.main.bounds.width - (10 * 3)) / 2
+        let cellHeight = cellWidth * 1.3
+
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        let spacingSize = 10
+
+        return CGFloat(spacingSize)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        let spacingSize = 10
+
+        return CGFloat(spacingSize)
+    }
+}
+
