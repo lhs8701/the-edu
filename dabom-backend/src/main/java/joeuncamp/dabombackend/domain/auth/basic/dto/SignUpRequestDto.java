@@ -1,11 +1,13 @@
-package joeuncamp.dabombackend.domain.member.dto;
+package joeuncamp.dabombackend.domain.auth.basic.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
+import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
+import joeuncamp.dabombackend.global.security.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,11 +18,11 @@ import java.util.Collections;
 @Getter
 @AllArgsConstructor
 @Builder
-public class MemberCreationRequestDto {
+public class SignUpRequestDto {
     @Email(message = ValidationMessage.NOT_VALID_EMAIL)
     @Schema(description = "계정", example = ExampleValue.Member.ACCOUNT)
     String account;
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$" , message = ValidationMessage.NOT_VALID_PASSWORD)
+//    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$" , message = ValidationMessage.NOT_VALID_PASSWORD)
     @Schema(description = "비밀번호", example = ExampleValue.Member.PASSWORD)
     String password;
     @Length(min=2, max = 16, message = ValidationMessage.NOT_VALID_NICKNAME)
@@ -40,16 +42,16 @@ public class MemberCreationRequestDto {
      *
      * @return 생성된 Member 엔티티
      */
-    public Member toEntity() {
+    public Member toEntity(String encodedPassword) {
         return Member.builder()
-                .account(this.account)
-                .password(this.password)
-                .nickname(this.nickname)
-                .mobile(this.mobile)
-                .birthDate(this.birthDate)
-                .email(this.account)
-                .loginToken("normal")
-                .roles(Collections.singletonList("ROLE_USER"))
+                .account(account)
+                .password(encodedPassword)
+                .nickname(nickname)
+                .mobile(mobile)
+                .birthDate(birthDate)
+                .email(account)
+                .loginType(LoginType.BASIC)
+                .roles(Collections.singletonList(Roles.USER.getRole()))
                 .build();
     }
 }

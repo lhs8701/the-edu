@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.global.security;
+package joeuncamp.dabombackend.global.security.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 @AllArgsConstructor
-public class TokenInfo {
+public class TokenForm {
     String grantType;
     String accessToken;
     String refreshToken;
