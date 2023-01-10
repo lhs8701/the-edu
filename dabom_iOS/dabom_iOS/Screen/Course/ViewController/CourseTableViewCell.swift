@@ -80,19 +80,21 @@ extension CourseTableViewCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension CourseTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = 170
-        let cellHeight = 170
+//        let cellWidth = 170
+//        let cellHeight = 170
+        let cellWidth = (UIScreen.main.bounds.width - (20 * 3)) / 2
+        let cellHeight = cellWidth
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
   }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        let spacingSize = 3
+        let spacingSize = 5
         
         return CGFloat(spacingSize)
     }
