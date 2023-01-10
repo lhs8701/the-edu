@@ -20,6 +20,9 @@ repositories {
 
 dependencies {
 
+	//security test
+	testImplementation 'org.springframework.security:spring-security-test:6.0.1'
+
 	//jwt
 	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
 	implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
