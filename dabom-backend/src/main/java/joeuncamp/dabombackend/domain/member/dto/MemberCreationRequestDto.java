@@ -3,7 +3,7 @@ package joeuncamp.dabombackend.domain.member.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
-import joeuncamp.dabombackend.domain.entity.Member;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
 import lombok.AllArgsConstructor;
@@ -42,12 +42,12 @@ public class MemberCreationRequestDto {
      */
     public Member toEntity() {
         return Member.builder()
-                .account(account)
-                .password(password)
-                .nickname(nickname)
-                .mobile(mobile)
-                .birthDate(birthDate)
-                .email(account)
+                .account(this.account)
+                .password(this.password)
+                .nickname(this.nickname)
+                .mobile(this.mobile)
+                .birthDate(this.birthDate)
+                .email(this.account)
                 .loginToken("normal")
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();

@@ -3,7 +3,7 @@ package joeuncamp.dabombackend.global.security.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import joeuncamp.dabombackend.domain.entity.Member;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,9 +1,8 @@
-package joeuncamp.dabombackend.domain.auth;
+package joeuncamp.dabombackend.domain.auth.basic;
 
-import joeuncamp.dabombackend.domain.auth.basic.AuthService;
-import joeuncamp.dabombackend.domain.auth.basic.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.basic.SignUpRequestDto;
-import joeuncamp.dabombackend.domain.entity.Member;
+import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.basic.dto.SignUpRequestDto;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
@@ -16,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
@@ -23,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class AuthServiceTest {
 

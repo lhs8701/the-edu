@@ -1,9 +1,9 @@
-package joeuncamp.dabombackend.domain.auth.basic;
+package joeuncamp.dabombackend.domain.auth.basic.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
-import joeuncamp.dabombackend.domain.entity.Member;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;

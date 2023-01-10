@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.entity;
+package joeuncamp.dabombackend.domain.member.entity;
 
 import jakarta.persistence.*;
 

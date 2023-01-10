@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.member.repository;
 
-import joeuncamp.dabombackend.domain.entity.Member;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

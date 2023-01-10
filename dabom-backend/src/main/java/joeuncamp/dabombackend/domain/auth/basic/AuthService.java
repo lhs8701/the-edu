@@ -1,6 +1,8 @@
 package joeuncamp.dabombackend.domain.auth.basic;
 
-import joeuncamp.dabombackend.domain.entity.Member;
+import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.basic.dto.SignUpRequestDto;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -41,6 +43,13 @@ public class AuthService {
         }
         return jwtProvider.generateToken(member);
     }
+
+    public void logout(){
+    }
+
+    public void withdraw(){
+    }
+
 
     public void AuthenticationTest() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

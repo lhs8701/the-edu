@@ -5,9 +5,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import joeuncamp.dabombackend.domain.entity.Member;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
-import joeuncamp.dabombackend.domain.member.service.MemberManageService;
+import joeuncamp.dabombackend.domain.member.service.MemberService;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
-    private final MemberManageService memberManageService;
+    private final MemberService memberService;
 
     @PreAuthorize("permitAll()")
     @Operation(summary = "회원 생성", description = "회원을 생성합니다.")
     @PostMapping("")
     public void createMember(@Valid MemberCreationRequestDto requestDto) {
-        memberManageService.createMember(requestDto);
+        memberService.createMember(requestDto);
     }
 
     @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQG5hdmVyLmNvbSIsImFjY291bnQiOiJ1c2VyQG5hdmVyLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNjczMzAzMzY5LCJleHAiOjE3MDQ4MzkzNjl9.s_HnINVN5QTNdmCNdRJ0XBx2jISxuvvywJB_tA6SA9Q")
@@ -35,7 +35,7 @@ public class MemberController {
     @Operation(summary = "회원 단일 조회", description = "회원을 한명을 조회합니다.")
     @GetMapping("/{memberId}")
     public ResponseEntity<Member> getMember(@PathVariable Long memberId) {
-        return new ResponseEntity<>(memberManageService.getMember(memberId), HttpStatus.OK);
+        return new ResponseEntity<>(memberService.getMember(memberId), HttpStatus.OK);
     }
 }
 

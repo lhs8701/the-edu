@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.member.service;
 
-import joeuncamp.dabombackend.domain.entity.Member;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MemberManageService {
+public class MemberService {
     private final MemberJpaRepository memberRepository;
 
     public Long createMember(MemberCreationRequestDto personalData) {
