@@ -15,6 +15,7 @@ const FooterBox = styled.div`
   justify-content: flex-end;
   align-items: flex-start;
   margin-bottom: 15px;
+  line-height: 15px;
 `;
 
 export default function Footer() {

@@ -4,6 +4,8 @@ const InquireWrapper = styled.div`
   width: 100%;
   height: 100vh;
   background-color: pink;
+  display: flex;
+  align-items: center;
 `;
 
 export default function CourseInquire() {

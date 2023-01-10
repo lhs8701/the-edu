@@ -11,10 +11,10 @@ const HeadWrapper = styled.header`
   justify-content: space-between;
   margin-bottom: 25px;
   padding-top: 20px;
-  position: sticky;
-  top: 0;
+  /* position: sticky;
+  top: 0; */
   background-color: var(--color-background);
-  z-index: 10;
+  z-index: 3;
 `;
 
 const TitleBox = styled.div`
@@ -91,6 +91,7 @@ const CateTab = styled(motion.div)`
   padding-bottom: 10px;
   top: 45px;
   left: -13px;
+  z-index: 10;
 `;
 
 const SearchBox = styled.div`
