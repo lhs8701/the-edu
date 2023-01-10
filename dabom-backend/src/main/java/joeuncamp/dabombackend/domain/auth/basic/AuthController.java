@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.auth;
+package joeuncamp.dabombackend.domain.auth.basic;
 
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.RequiredArgsConstructor;

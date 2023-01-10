@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.auth;
+package joeuncamp.dabombackend.domain.auth.basic;
 
 import joeuncamp.dabombackend.domain.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
