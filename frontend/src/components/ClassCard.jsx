@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
@@ -60,7 +60,9 @@ const ClassInfoTeacherP = styled(ClassInfoP)`
 `;
 export default function ClassCard({ course }) {
   const [isCardOn, setIsCardOn] = useState(false);
+
   const navigate = useNavigate();
+
   return (
     <ClassTab
       onClick={() => {
@@ -77,7 +79,7 @@ export default function ClassCard({ course }) {
         <ClassImg
           src={course?.courseImg}
           animate={{
-            scale: isCardOn ? 1.5 : 1,
+            scale: isCardOn ? 1.2 : 1,
           }}
           transition={{
             ease: "linear",

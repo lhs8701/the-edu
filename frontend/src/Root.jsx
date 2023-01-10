@@ -15,17 +15,19 @@ const UpBtn = styled.button`
   bottom: 3vh;
   height: 50px;
   width: 50px;
-  right: 3vw;
-  background-color: #4d4d4c;
+  right: 2.5vw;
+  background-color: var(--color-background);
+  color: var(--color-text);
   border: none;
   border-radius: 50%;
+  box-shadow: 0 2px 20px rgb(0 0 0 / 16%), 0 4px 4px rgb(0 0 0 / 16%);
   &:hover {
-    background-color: #868686;
+    background-color: var(--color-primary);
+    color: var(--color-background);
   }
   &:active {
     scale: 0.9;
   }
-  color: var(--color-background);
 `;
 
 export default function Root() {
@@ -33,7 +35,7 @@ export default function Root() {
 
   const goUp = () => {
     upRef.current.scrollIntoView({
-      behavior: "smooth",
+      behavior: "auto",
       block: "start",
     });
   };
