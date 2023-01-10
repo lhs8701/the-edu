@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
+import joeuncamp.dabombackend.global.constant.LoginType;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,10 +47,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
     String email;
 
-    @Schema(description = "로그인유형", example = "normal/kakao/naver/apple")
-    String loginType;
+    @Schema(description = "로그인유형", example = "basic/kakao/naver/apple")
+    @Enumerated(value = EnumType.STRING)
+    LoginType loginType;
 
-    @Schema(description = "로그인토큰", example = "uuid")
     String loginToken;
 
     /* @ElementCollection

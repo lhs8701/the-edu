@@ -7,17 +7,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/auth/basic")
 public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/signup")
+    @PostMapping("signup")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<Void> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
+    public ResponseEntity<Void> signup(@RequestBody SignUpRequestDto signUpRequestDto) {
         authService.signup(signUpRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
