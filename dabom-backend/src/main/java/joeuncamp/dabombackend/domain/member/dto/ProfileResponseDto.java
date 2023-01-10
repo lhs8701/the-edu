@@ -4,9 +4,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ProfileResponseDto {
     @Schema(name = "아이디넘버", example = "1")
     Long id;

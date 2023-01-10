@@ -2,7 +2,8 @@ package joeuncamp.dabombackend.global.constant;
 
 public class ExampleValue {
     public static class JWT{
-        public final static String ACCESS = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQG5hdmVyLmNvbSIsImFjY291bnQiOiJ1c2VyQG5hdmVyLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNjczMzAzMzY5LCJleHAiOjE3MDQ4MzkzNjl9.s_HnINVN5QTNdmCNdRJ0XBx2jISxuvvywJB_tA6SA9Q";
+        public final static String ACCESS = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQG5hdmVyLmNvbSIsImFjY291bnQiOiJ1c2VyQG5hdmVyLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNjczMzM2MzgxLCJleHAiOjE3MDQ4NzIzODF9.6d5Ai_OEyCUzTclcyj70WWrqK6gfZOYPDFBtdJhfP8M";
+        public final static String REFRESH = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQG5hdmVyLmNvbSIsImFjY291bnQiOiJ1c2VyQG5hdmVyLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNjczMzM2MzgxLCJleHAiOjE3MzY0MDgzODF9.F_ra_Hl7IEWIGCkb9e3DseomDeI9LDoeHLbFedD8k-M";
     }
 
     public static class Member{

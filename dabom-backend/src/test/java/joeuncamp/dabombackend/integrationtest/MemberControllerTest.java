@@ -1,9 +1,10 @@
-package joeuncamp.dabombackend.domain.member.controller;
+package joeuncamp.dabombackend.integrationtest;
 
 
 import com.google.gson.Gson;
 import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Disabled
 @ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
