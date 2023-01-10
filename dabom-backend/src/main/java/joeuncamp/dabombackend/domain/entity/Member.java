@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.member;
+package joeuncamp.dabombackend.domain.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
 @Builder
 @Entity
 public class Member extends BaseTimeEntity implements UserDetails {

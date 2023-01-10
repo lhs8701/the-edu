@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.member.service;
 
-import joeuncamp.dabombackend.domain.member.Member;
+import joeuncamp.dabombackend.domain.entity.Member;
 import org.springframework.stereotype.Service;
 
 @Service

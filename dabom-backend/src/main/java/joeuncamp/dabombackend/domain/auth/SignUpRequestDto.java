@@ -3,7 +3,7 @@ package joeuncamp.dabombackend.domain.auth;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
-import joeuncamp.dabombackend.domain.member.Member;
+import joeuncamp.dabombackend.domain.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
 import lombok.AllArgsConstructor;

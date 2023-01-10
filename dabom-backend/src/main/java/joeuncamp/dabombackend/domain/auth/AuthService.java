@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.auth;
 
-import joeuncamp.dabombackend.domain.member.Member;
+import joeuncamp.dabombackend.domain.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.CAuthenticationException;
 import joeuncamp.dabombackend.global.error.CResourceNotFoundException;

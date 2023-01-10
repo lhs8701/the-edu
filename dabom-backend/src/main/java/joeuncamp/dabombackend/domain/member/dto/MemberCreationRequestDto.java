@@ -1,17 +1,15 @@
 package joeuncamp.dabombackend.domain.member.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
-import joeuncamp.dabombackend.domain.member.Member;
+import joeuncamp.dabombackend.domain.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
-import org.springdoc.api.ErrorMessage;
 
 import java.util.Collections;
 

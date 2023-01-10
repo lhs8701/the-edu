@@ -1,13 +1,12 @@
 package joeuncamp.dabombackend.domain.member.service;
 
-import joeuncamp.dabombackend.domain.member.Member;
+import joeuncamp.dabombackend.domain.entity.Member;
 import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
