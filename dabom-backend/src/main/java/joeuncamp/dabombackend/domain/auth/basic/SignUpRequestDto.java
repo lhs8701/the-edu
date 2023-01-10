@@ -7,6 +7,7 @@ import joeuncamp.dabombackend.domain.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
+import joeuncamp.dabombackend.global.security.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,7 +51,7 @@ public class SignUpRequestDto {
                 .birthDate(birthDate)
                 .email(account)
                 .loginType(LoginType.BASIC)
-                .roles(Collections.singletonList("ROLE_USER"))
+                .roles(Collections.singletonList(Roles.USER.getRole()))
                 .build();
     }
 }
