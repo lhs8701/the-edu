@@ -48,4 +48,6 @@ public class MemberProfileTest {
         // then
         Assertions.assertThat(profile.getAccount()).isEqualTo(member.getAccount());
     }
+
+
 }

@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class Member extends BaseTimeEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "아이디", example = "1")
+    @Schema(description = "아이디넘버", example = "1")
     Long id;
 
     @Schema(description = "계정", example = ExampleValue.Member.ACCOUNT)

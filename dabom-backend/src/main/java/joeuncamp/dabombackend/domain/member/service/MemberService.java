@@ -13,17 +13,9 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     private final MemberJpaRepository memberRepository;
 
-    public Long createMember(MemberCreationRequestDto personalData) {
-        Member member = personalData.toEntity();
-        return memberRepository.save(member).getId();
-    }
-
-    public Member getMember(Long id) {
-        return memberRepository.findById(id).orElseThrow(CResourceNotFoundException::new);
-    }
-
     public ProfileResponseDto getMyProfile(Long memberId){
-        return null;
+        Member member = memberRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
+        return new ProfileResponseDto(member);
     }
 }
 
