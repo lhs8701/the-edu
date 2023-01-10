@@ -33,6 +33,9 @@
 		0EB576F3296BC9EF001EFBE1 /* CourseInfoView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */; };
 		0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */; };
 		0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */; };
+		0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */; };
+		0EDEA203296D04FF00B4712B /* MyCourseCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */; };
+		0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */; };
 		0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C20296518EE006DC95D /* AppDelegate.swift */; };
 		0EF17C23296518EE006DC95D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C22296518EE006DC95D /* SceneDelegate.swift */; };
 		0EF17C25296518EE006DC95D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C24296518EE006DC95D /* ViewController.swift */; };
@@ -93,6 +96,9 @@
 		0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseTableViewCell.xib; sourceTree = "<group>"; };
 		0EDEA1FE296CFFFC00B4712B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseCVC.swift; sourceTree = "<group>"; };
+		0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCourseCVC.xib; sourceTree = "<group>"; };
+		0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseDataModel.swift; sourceTree = "<group>"; };
 		0EF17C1D296518EE006DC95D /* dabom_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dabom_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EF17C20296518EE006DC95D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EF17C22296518EE006DC95D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				0E602834296665C600A25F48 /* CourseThumbnailDataModel.swift */,
+				0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */,
 				0E60283C2966777A00A25F48 /* CourseTableDataModel.swift */,
 			);
 			path = Model;
@@ -226,11 +233,10 @@
 				0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */,
 				0E6028362966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift */,
 				0E6028372966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib */,
+				0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */,
+				0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */,
 				0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */,
 				0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */,
-				0E60282C29656BB500A25F48 /* WishCourseViewController.swift */,
-				0E6028282965659D00A25F48 /* InCourseViewController.swift */,
-				0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -241,6 +247,9 @@
 				0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */,
 				0E60282E29656FC800A25F48 /* MyCourseTabManViewController.swift */,
 				0E69A03E296543A200BFD12E /* MyCourseViewController.swift */,
+				0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */,
+				0E6028282965659D00A25F48 /* InCourseViewController.swift */,
+				0E60282C29656BB500A25F48 /* WishCourseViewController.swift */,
 			);
 			path = MyCourse;
 			sourceTree = "<group>";
@@ -453,6 +462,7 @@
 				0E69A03D2965439300BFD12E /* MyCourseTab.storyboard in Resources */,
 				0EF17C2D296518EF006DC95D /* LaunchScreen.storyboard in Resources */,
 				0E78ED7F2967A66B001424A7 /* BannerTableViewCell.xib in Resources */,
+				0EDEA203296D04FF00B4712B /* MyCourseCVC.xib in Resources */,
 				0E6028392966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib in Resources */,
 				0E78ED832967A740001424A7 /* BannerCollectionViewCell.xib in Resources */,
 				0E69A039296542CB00BFD12E /* HomeTab.storyboard in Resources */,
@@ -601,8 +611,10 @@
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,
+				0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */,
 				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,
 				0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */,
+				0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */,
 				0EF17C23296518EE006DC95D /* SceneDelegate.swift in Sources */,
 				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,

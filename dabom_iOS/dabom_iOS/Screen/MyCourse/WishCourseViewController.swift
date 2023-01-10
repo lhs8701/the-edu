@@ -13,13 +13,14 @@ class WishCourseViewController: UIViewController {
     
     var wishCourseData: Array<CourseThumbnailDataModel>?
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         setCV()
     }
     
+    // MARK: - func
     private func setCV() {
         self.wishCourseCollectionView.register(UINib(nibName: "CourseThumbnailCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CourseThumbnailCollectionViewCell")
         self.wishCourseCollectionView.delegate = self
@@ -29,18 +30,11 @@ class WishCourseViewController: UIViewController {
         wishCourseData = CourseThumbnailDataModel.sampleData
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
+
+// MARK: - UICollectionViewDelegate
 extension WishCourseViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let wishCourseData = wishCourseData {
@@ -63,6 +57,7 @@ extension WishCourseViewController: UICollectionViewDelegate {
     
 }
 
+// MARK: - UICollectionViewDataSource
 extension WishCourseViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CourseThumbnailCollectionViewCell.identifier, for: indexPath) as? CourseThumbnailCollectionViewCell else { return UICollectionViewCell() }
@@ -81,7 +76,7 @@ extension WishCourseViewController: UICollectionViewDataSource {
     
 }
 
-
+// MARK: - UICollectionViewDelegateFlowLayout
 extension WishCourseViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
