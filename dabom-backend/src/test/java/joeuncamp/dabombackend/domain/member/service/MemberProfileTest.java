@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.member.service;
 
 import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
+import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -49,5 +50,28 @@ public class MemberProfileTest {
         Assertions.assertThat(profile.getAccount()).isEqualTo(member.getAccount());
     }
 
+    @Test
+    @DisplayName("나의 프로필을 수정한다.")
+    void 나의_프로필을_수정한다() {
+        // given
+        Member member = MemberCreationRequestDto.builder()
+                .account(ExampleValue.Member.ACCOUNT)
+                .password(ExampleValue.Member.PASSWORD)
+                .nickname(ExampleValue.Member.NICKNAME)
+                .mobile(ExampleValue.Member.MOBILE)
+                .birthDate(ExampleValue.Member.BIRTH_DATE)
+                .build().toEntity();
 
+        given(memberJpaRepository.findById(any())).willReturn(Optional.of(member));
+
+        // when
+        ProfileUpdateParam updateParam = ProfileUpdateParam.builder()
+                .nickname("update")
+                .email("update")
+                .build();
+        Long memberId = memberService.updateMyProfile(updateParam, 1L);
+
+        // then
+        Assertions.assertThat(memberId).isEqualTo(1L);
+    }
 }

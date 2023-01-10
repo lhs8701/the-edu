@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.member.service;
 
 import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
+import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -16,6 +17,10 @@ public class MemberService {
     public ProfileResponseDto getMyProfile(Long memberId){
         Member member = memberRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
         return new ProfileResponseDto(member);
+    }
+
+    public Long updateMyProfile(ProfileUpdateParam profileUpdateParam, Long memberId){
+        return 1L;
     }
 }
 
