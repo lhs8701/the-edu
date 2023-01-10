@@ -1,11 +1,11 @@
-package joeuncamp.dabombackend.global.security;
+package joeuncamp.dabombackend.global.security.filter;
 
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import joeuncamp.dabombackend.global.constant.Header;
+import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

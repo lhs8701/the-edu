@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.global.security;
+package joeuncamp.dabombackend.global.security.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

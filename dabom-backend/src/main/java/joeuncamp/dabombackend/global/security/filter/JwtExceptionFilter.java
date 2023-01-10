@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.global.security;
+package joeuncamp.dabombackend.global.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtException;

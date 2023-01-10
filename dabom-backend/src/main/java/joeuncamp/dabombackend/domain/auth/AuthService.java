@@ -2,11 +2,11 @@ package joeuncamp.dabombackend.domain.auth;
 
 import joeuncamp.dabombackend.domain.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.global.error.CAuthenticationException;
-import joeuncamp.dabombackend.global.error.CResourceNotFoundException;
-import joeuncamp.dabombackend.global.error.CUserExistException;
-import joeuncamp.dabombackend.global.security.JwtProvider;
-import joeuncamp.dabombackend.global.security.TokenForm;
+import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
+import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
+import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
+import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
+import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -26,7 +26,7 @@ public class AuthService {
 
     public void signup(SignUpRequestDto signUpRequestDto) {
         if (memberJpaRepository.findByAccount(signUpRequestDto.getAccount()).isPresent()) {
-            throw new CUserExistException();
+            throw new CMemberExistException();
         }
         String encodedPassword = passwordEncoder.encode(signUpRequestDto.getPassword());
         Member member = signUpRequestDto.toEntity(encodedPassword);
@@ -37,7 +37,7 @@ public class AuthService {
         Member member = memberJpaRepository.findByAccount(loginRequestDto.getAccount()).orElseThrow(CResourceNotFoundException::new);
 
         if (!passwordEncoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
-            throw new CAuthenticationException();
+            throw new CLoginFailedException();
         }
         return jwtProvider.generateToken(member);
     }

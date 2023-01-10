@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.auth;
 
-import joeuncamp.dabombackend.global.security.TokenForm;
+import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
