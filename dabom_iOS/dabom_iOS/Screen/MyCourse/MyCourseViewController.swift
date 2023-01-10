@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlayViewController: UIViewController {
+class MyCourseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -54,10 +54,10 @@
             </objects>
             <point key="canvasLocation" x="1679" y="-434"/>
         </scene>
-        <!--PlayTab-->
+        <!--MyCourseTab-->
         <scene sceneID="4o8-x3-748">
             <objects>
-                <viewControllerPlaceholder storyboardName="PlayTab" id="bFH-I7-HaH" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="MyCourseTab" storyboardName="MyCourseTab" id="bFH-I7-HaH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="KMR-ME-lze"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GFI-Pz-6Fm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Play View Controller-->
+        <!--My Course View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="PlayTab" id="Y6W-OH-hqX" customClass="PlayViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyCourseTab" id="Y6W-OH-hqX" customClass="MyCourseViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -64,7 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SwP-sd-ktd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1976.9230769230769" y="-34.123222748815166"/>
+            <point key="canvasLocation" x="197" y="811"/>
         </scene>
         <!--Completion Course View Controller-->
         <scene sceneID="pBZ-cI-QYy">
@@ -89,7 +89,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KWH-Pg-p1g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2850.7692307692305" y="-34.123222748815166"/>
+            <point key="canvasLocation" x="1071" y="811"/>
         </scene>
         <!--Wish Course View Controller-->
         <scene sceneID="Uxh-jC-cXi">
@@ -136,12 +136,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eud-nu-Cqj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3703.0769230769229" y="-34.123222748815166"/>
+            <point key="canvasLocation" x="1925" y="811"/>
         </scene>
-        <!--Play Tab Man View Controller-->
+        <!--My Course Tab Man View Controller-->
         <scene sceneID="Oej-7j-ZzE">
             <objects>
-                <viewController storyboardIdentifier="PlayTabManViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PvK-kz-KCc" customClass="PlayTabManViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyCourseTabManViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PvK-kz-KCc" customClass="MyCourseTabManViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Wf-zZ-oHZ">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ThO-cz-H1j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131" y="659"/>
+            <point key="canvasLocation" x="1985" y="-34"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NZK-xP-ZfC">
