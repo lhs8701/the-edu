@@ -40,6 +40,7 @@
 		0ED70386296E59620095DD14 /* CurriculumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70385296E59620095DD14 /* CurriculumVC.swift */; };
 		0ED70388296E597E0095DD14 /* CourseReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70387296E597E0095DD14 /* CourseReviewVC.swift */; };
 		0ED7038A296E59B30095DD14 /* CourseInquireVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70389296E59B30095DD14 /* CourseInquireVC.swift */; };
+		0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */; };
 		0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */; };
 		0EDEA203296D04FF00B4712B /* MyCourseCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */; };
 		0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */; };
@@ -109,6 +110,7 @@
 		0ED70385296E59620095DD14 /* CurriculumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumVC.swift; sourceTree = "<group>"; };
 		0ED70387296E597E0095DD14 /* CourseReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewVC.swift; sourceTree = "<group>"; };
 		0ED70389296E59B30095DD14 /* CourseInquireVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquireVC.swift; sourceTree = "<group>"; };
+		0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePurchaseVC.swift; sourceTree = "<group>"; };
 		0EDEA1FE296CFFFC00B4712B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseCVC.swift; sourceTree = "<group>"; };
 		0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCourseCVC.xib; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */,
 				0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */,
 				0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */,
+				0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */,
 				0ED70381296E58660095DD14 /* CourseInfoTMVC.swift */,
 				0ED70385296E59620095DD14 /* CurriculumVC.swift */,
 				0ED70387296E597E0095DD14 /* CourseReviewVC.swift */,
@@ -627,6 +630,7 @@
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
 				0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */,
+				0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */,
 				0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */,
 				0E60282F29656FC800A25F48 /* MyCourseTabManViewController.swift in Sources */,
 				0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */,

@@ -9,10 +9,19 @@ import UIKit
 
 class CurriculumVC: UIViewController {
 
+    @IBOutlet weak var firstImageView: UIImageView!
+    
+    @IBOutlet weak var secondImageView: UIImageView!
+    
+    var firstImage: UIImage!
+    var secondImage: UIImage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        firstImageView.image = firstImage
+        secondImageView.image = secondImage
     }
     
 
