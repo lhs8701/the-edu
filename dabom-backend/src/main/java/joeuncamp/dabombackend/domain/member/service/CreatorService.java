@@ -11,6 +11,6 @@ public class CreatorService {
     }
 
     public void activateCreatorProfile(Member member, CreatorRequestDto dto) {
-
+        member.activateCreatorProfile(dto.toEntity());
     }
 }

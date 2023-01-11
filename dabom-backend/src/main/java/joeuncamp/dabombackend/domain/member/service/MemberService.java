@@ -3,7 +3,6 @@ package joeuncamp.dabombackend.domain.member.service;
 import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.entity.Member;
-import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,7 @@ public class MemberService {
 
     public Long updateMyProfile(ProfileUpdateParam profileUpdateParam, Long memberId){
         Member member = memberRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
-        member.update(profileUpdateParam);
+        member.updateProfile(profileUpdateParam);
         return member.getId();
     }
 }

@@ -16,4 +16,7 @@ public class CreatorProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String creatorNickname;
+
+    @OneToOne(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Member member;
 }

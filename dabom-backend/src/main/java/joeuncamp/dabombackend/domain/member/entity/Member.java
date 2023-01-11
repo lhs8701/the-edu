@@ -7,7 +7,6 @@ import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -54,6 +53,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     String loginToken;
 
     @OneToOne
+    @JoinColumn
     CreatorProfile creatorProfile;
 
     /* @ElementCollection
@@ -70,6 +70,15 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER) //LAZY -> 오류
     @Builder.Default
     private List<String> roles = new ArrayList<>();
+
+    public void updateProfile(ProfileUpdateParam updateParam) {
+        this.nickname = updateParam.getNickname();
+        this.email = updateParam.getEmail();
+    }
+
+    public void activateCreatorProfile(CreatorProfile creatorProfile) {
+        this.creatorProfile = creatorProfile;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -101,10 +110,5 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void update(ProfileUpdateParam updateParam) {
-        this.nickname = updateParam.getNickname();
-        this.email = updateParam.getEmail();
     }
 }

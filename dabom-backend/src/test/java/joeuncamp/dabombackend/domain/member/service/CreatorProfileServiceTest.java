@@ -5,6 +5,7 @@ import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.CreatorProfileJpaRepository;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
+import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,15 +25,14 @@ public class CreatorProfileServiceTest {
     @Mock
     MemberJpaRepository memberJpaRepository;
 
-    @Mock
-    CreatorProfileJpaRepository creatorProfileJpaRepository;
-
     @Test
     @DisplayName("회원의 크리에이터 프로필을 생성한다.")
     void 크리에이터_계정을_활성화한다(){
         //given
         Member member = Member.builder().build();
-        CreatorRequestDto dto = CreatorRequestDto.builder().build();
+        CreatorRequestDto dto = CreatorRequestDto.builder()
+                .creatorNickname(ExampleValue.CreatorProfile.CREATOR_NICKNAME)
+                .build();
 
         //when
         creatorService.activateCreatorProfile(member, dto);
@@ -40,6 +40,7 @@ public class CreatorProfileServiceTest {
 
         //then
         assertThat(creatorProfile).isNotNull();
+        assertThat(creatorProfile.getCreatorNickname()).isEqualTo(dto.getCreatorNickname());
     }
 
     @Test
