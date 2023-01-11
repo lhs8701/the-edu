@@ -1,6 +1,17 @@
 package joeuncamp.dabombackend.global.constant;
 
+import javax.swing.text.html.HTML;
+
 public class ExampleValue {
+    public static class Course{
+        public final static String TITLE = "";
+        public final static String DESCRIPTION = "";
+        public final static String MAJOR_CATEGORY = "";
+        public final static String SUB_CATEGORY = "";
+        public final static String PRICE = "";
+        public final static String CREATED_TIME = "";
+    }
+
     public static class JWT{
         public final static String ACCESS = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQG5hdmVyLmNvbSIsImFjY291bnQiOiJ1c2VyQG5hdmVyLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNjczMzM2MzgxLCJleHAiOjE3MDQ4NzIzODF9.6d5Ai_OEyCUzTclcyj70WWrqK6gfZOYPDFBtdJhfP8M";
         public final static String REFRESH = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQG5hdmVyLmNvbSIsImFjY291bnQiOiJ1c2VyQG5hdmVyLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNjczMzM2MzgxLCJleHAiOjE3MzY0MDgzODF9.F_ra_Hl7IEWIGCkb9e3DseomDeI9LDoeHLbFedD8k-M";

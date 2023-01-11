@@ -49,7 +49,7 @@ public class MemberRepositoryTest {
         Member foundMember = memberJpaRepository.findById(createdMember.getId()).orElse(null);
 
         // then
-        assertThat(memberCreationRequestDto.getAccount()).isEqualTo(foundMember.getAccount());
+        assertThat(foundMember.getAccount()).isEqualTo(memberCreationRequestDto.getAccount());
     }
 
     @Test
@@ -75,16 +75,16 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    @DisplayName("JPA DB로 회원을 저장하고 생성 날짜를 조회한다.")
+    @DisplayName("DB에 회원을 저장하고 생성 날짜를 조회한다.")
     public void JPA_DB로_회원을_저장하고_생성_날짜를_조회한다() {
         // given
-        MemberCreationRequestDto memberCreationRequestDto = new MemberCreationRequestDto(
-                ExampleValue.Member.ACCOUNT,
-                ExampleValue.Member.PASSWORD,
-                ExampleValue.Member.NICKNAME,
-                ExampleValue.Member.MOBILE,
-                ExampleValue.Member.BIRTH_DATE
-        );
+        MemberCreationRequestDto memberCreationRequestDto = MemberCreationRequestDto.builder()
+                .account(ExampleValue.Member.ACCOUNT)
+                .password(ExampleValue.Member.PASSWORD)
+                .nickname(ExampleValue.Member.NICKNAME)
+                .mobile(ExampleValue.Member.MOBILE)
+                .birthDate(ExampleValue.Member.BIRTH_DATE)
+                .build();
 
         LocalDate today = LocalDate.now();
 
