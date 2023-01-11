@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E550140296EA96400DD5B75 /* Layer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E55013F296EA96400DD5B75 /* Layer+.swift */; };
 		0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028282965659D00A25F48 /* InCourseViewController.swift */; };
 		0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */; };
 		0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282C29656BB500A25F48 /* WishCourseViewController.swift */; };
@@ -77,6 +78,7 @@
 
 /* Begin PBXFileReference section */
 		0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E55013F296EA96400DD5B75 /* Layer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Layer+.swift"; sourceTree = "<group>"; };
 		0E6028282965659D00A25F48 /* InCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InCourseViewController.swift; sourceTree = "<group>"; };
 		0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionCourseViewController.swift; sourceTree = "<group>"; };
 		0E60282C29656BB500A25F48 /* WishCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCourseViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E55013E296EA94A00DD5B75 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0E55013F296EA96400DD5B75 /* Layer+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		0EDEA1ED296CFBFB00B4712B /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +334,7 @@
 		0EF17C1F296518EE006DC95D /* dabom_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0E55013E296EA94A00DD5B75 /* Extension */,
 				0EDEA1EE296CFC2600B4712B /* Screen */,
 				0EF17C22296518EE006DC95D /* SceneDelegate.swift */,
 				0EDEA1ED296CFBFB00B4712B /* Support */,
@@ -637,6 +648,7 @@
 				0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */,
 				0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */,
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
+				0E550140296EA96400DD5B75 /* Layer+.swift in Sources */,
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
 				0ED7038A296E59B30095DD14 /* CourseInquireVC.swift in Sources */,
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,

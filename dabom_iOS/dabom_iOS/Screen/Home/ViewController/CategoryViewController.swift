@@ -10,12 +10,17 @@ import UIKit
 class CategoryViewController: UIViewController {
     
 
+    @IBOutlet weak var firstCategory: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.topItem?.title = "카테고리"
+        
+        self.firstCategory.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 2.0)
     }
         
 
