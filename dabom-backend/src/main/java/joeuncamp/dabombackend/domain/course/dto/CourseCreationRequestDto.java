@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.course.dto;
 
+import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
@@ -16,6 +17,7 @@ public class CourseCreationRequestDto {
     String title;
     String description;
     String category;
+    @PositiveOrZero
     long price;
 
     public Course toEntity() {

@@ -19,7 +19,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
-public class MemberDtoTest {
+public class MemberCreationDtoTest {
 
     static ValidatorFactory factory;
     static Validator validator;
