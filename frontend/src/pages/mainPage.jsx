@@ -31,16 +31,13 @@ const ListTitle = styled.h1`
 
 export default function MainPage() {
   const weekRankList = dummyCourseRank;
+
   const MyClassList = () => {
     return dummyMyClassList.map((course, index) => {
       const progressRatio = Math.round(
         (course?.nowUnitCnt / course?.totalUnitCnt) * 100
       );
       const data = [
-        {
-          name: "Uncomplete",
-          value: 100 - progressRatio,
-        },
         {
           name: "Complete",
           value: progressRatio,

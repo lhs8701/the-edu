@@ -31,15 +31,19 @@ const WishListBox = styled.div`
 export default function CategoryPage() {
   const { categoryId } = useParams();
 
+  const Wishes = ({ dummyWishList }) => {
+    return dummyWishList.map((course) => {
+      return <ClassCard key={course.courseId} course={course} />;
+    });
+  };
+
   const Classes = () => {
     return (
       <MyPageBox>
         <MyPageTitle>{CATE_VALUE[categoryId]}</MyPageTitle>
         <MyPageContentBox>
           <WishListBox>
-            {dummyWishList.map((course) => {
-              return <ClassCard key={course.courseId} course={course} />;
-            })}
+            <Wishes dummyWishList={dummyWishList} />
           </WishListBox>
         </MyPageContentBox>
       </MyPageBox>
