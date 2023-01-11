@@ -47,4 +47,19 @@ public class CourseCreationDtoTest {
         // then
         assertThat(violations).isNotEmpty();
     }
+
+    @Test
+    @DisplayName("유효한 카테고리 값이 아닐 경우 예외가 발생한다.")
+    void 유효한_카테고리_값이_아닐_경우_예외가_발생한다() {
+        // given
+        CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
+                .category("테스트")
+                .build();
+
+        // when
+        Set<ConstraintViolation<CourseCreationRequestDto>> violations = validator.validate(dto);
+
+        // then
+        assertThat(violations).isNotEmpty();
+    }
 }

@@ -4,6 +4,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
+import joeuncamp.dabombackend.global.validation.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class CourseCreationRequestDto {
     String title;
     String description;
+    @Category
     String category;
     @PositiveOrZero
     long price;
