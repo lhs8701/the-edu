@@ -72,4 +72,27 @@ public class ProfileTest {
         // then
         Assertions.assertThat(member.getNickname()).isEqualTo("updated");
     }
+
+    @Test
+    @DisplayName("비어있는 필드를 제외하고 수정한다.")
+    void 비어있는_필드를_제외하고_수정한다() {
+        // given
+        Member member = Member.builder()
+                .nickname(ExampleValue.Member.NICKNAME)
+                .email(ExampleValue.Member.EMAIL)
+                .build();
+
+        given(memberJpaRepository.findById(any())).willReturn(Optional.of(member));
+
+        // when
+        ProfileUpdateParam updateParam = ProfileUpdateParam.builder()
+                .nickname("updated")
+                .build();
+
+        memberService.updateMyProfile(updateParam, 1L);
+
+        // then
+        Assertions.assertThat(member.getNickname()).isEqualTo("updated");
+        Assertions.assertThat(member.getEmail()).isEqualTo(ExampleValue.Member.EMAIL);
+    }
 }

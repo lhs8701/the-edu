@@ -72,8 +72,12 @@ public class Member extends BaseTimeEntity implements UserDetails {
     private List<String> roles = new ArrayList<>();
 
     public void updateProfile(ProfileUpdateParam updateParam) {
-        this.nickname = updateParam.getNickname();
-        this.email = updateParam.getEmail();
+        if (updateParam.getNickname() != null) {
+            this.nickname = updateParam.getNickname();
+        }
+        if (updateParam.getEmail() != null) {
+            this.email = updateParam.getEmail();
+        }
     }
 
     public void activateCreatorProfile(CreatorProfile creatorProfile) {
