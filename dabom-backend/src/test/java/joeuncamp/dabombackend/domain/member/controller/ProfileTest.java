@@ -5,6 +5,7 @@ import joeuncamp.dabombackend.domain.member.MemberController;
 import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
+import joeuncamp.dabombackend.global.WithAuthUser;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ public class ProfileTest {
     }
 
     @Test
-    @WithMockUser
+    @WithAuthUser(role = "USER")
     @DisplayName("나의 프로필을 수정한다.")
     void 나의_프로필을_수정한다() throws Exception {
         // given
