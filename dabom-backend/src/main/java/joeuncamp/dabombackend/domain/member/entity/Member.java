@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.member.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
@@ -19,14 +20,12 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn
 @Builder
 @Entity
 public class Member extends BaseTimeEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "아이디", example = "1")
+    @Schema(description = "아이디넘버", example = "1")
     Long id;
 
     @Schema(description = "계정", example = ExampleValue.Member.ACCOUNT)
@@ -41,7 +40,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Schema(description = "전화번호", example = ExampleValue.Member.MOBILE)
     String mobile;
 
-    @Schema(description = "생년월일", example= ExampleValue.Member.BIRTH_DATE)
+    @Schema(description = "생년월일", example = ExampleValue.Member.BIRTH_DATE)
     String birthDate;
 
     @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
@@ -52,6 +51,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
     LoginType loginType;
 
     String loginToken;
+
+    @OneToOne
+    @JoinColumn
+    CreatorProfile creatorProfile;
 
     /* @ElementCollection
         @OneToMany 처럼 엔티티를 컬렉션으로 사용하는 것이 아닌, Integer, String, 임베디드 타입 같은 값 타입을 컬렉션으로 사용
@@ -67,6 +70,19 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER) //LAZY -> 오류
     @Builder.Default
     private List<String> roles = new ArrayList<>();
+
+    public void updateProfile(ProfileUpdateParam updateParam) {
+        if (updateParam.getNickname() != null) {
+            this.nickname = updateParam.getNickname();
+        }
+        if (updateParam.getEmail() != null) {
+            this.email = updateParam.getEmail();
+        }
+    }
+
+    public void activateCreatorProfile(CreatorProfile creatorProfile) {
+        this.creatorProfile = creatorProfile;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
