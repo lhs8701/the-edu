@@ -7,6 +7,7 @@ import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,8 +21,6 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn
 @Builder
 @Entity
 public class Member extends BaseTimeEntity implements UserDetails {
@@ -42,7 +41,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Schema(description = "전화번호", example = ExampleValue.Member.MOBILE)
     String mobile;
 
-    @Schema(description = "생년월일", example= ExampleValue.Member.BIRTH_DATE)
+    @Schema(description = "생년월일", example = ExampleValue.Member.BIRTH_DATE)
     String birthDate;
 
     @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
@@ -53,6 +52,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
     LoginType loginType;
 
     String loginToken;
+
+    @OneToOne
+    CreatorProfile creatorProfile;
 
     /* @ElementCollection
         @OneToMany 처럼 엔티티를 컬렉션으로 사용하는 것이 아닌, Integer, String, 임베디드 타입 같은 값 타입을 컬렉션으로 사용
@@ -101,9 +103,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
         return true;
     }
 
-    public void update(ProfileUpdateParam updateParam){
+    public void update(ProfileUpdateParam updateParam) {
         this.nickname = updateParam.getNickname();
         this.email = updateParam.getEmail();
     }
-
 }
