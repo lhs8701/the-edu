@@ -8,6 +8,8 @@ export const CATE_VALUE = [
 export const PROCESS_ACCOUNT_URL = {
   LOGIN: "account/login",
   SIGNUP: "account/signup",
+  FINDID: "account/id",
+  FINDPWD: "account/password",
 };
 
 export const PROCESS_MAIN_URL = {

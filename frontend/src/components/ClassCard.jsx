@@ -110,7 +110,7 @@ export default function ClassCard({ course }) {
             color: isCardOn ? "var(--color-primary)" : "var(--color-text)",
           }}
         >
-          {course?.courseStarRate}&nbsp;&nbsp;&nbsp;
+          별{course?.courseStarRate}&nbsp;&nbsp;&nbsp;
         </ClassInfoP>
       </ClassInfoBox>
     </ClassTab>

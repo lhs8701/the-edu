@@ -89,6 +89,9 @@ const SmallCategoryTab = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  &:hover {
+    background-color: var(--color-gray);
+  }
 `;
 
 const PlayBtn = styled.button``;

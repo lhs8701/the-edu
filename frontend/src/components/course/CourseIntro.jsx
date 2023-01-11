@@ -72,7 +72,7 @@ export default function CourseIntro({ courseInfo }) {
         <DetailInfoBox>
           <TeacherTab>강사: {courseInfo.teacher}</TeacherTab>
           <DescriptionTab>{courseInfo.description}</DescriptionTab>
-          <RateTab>{courseInfo.rate}</RateTab>
+          <RateTab>별{courseInfo.rate}</RateTab>
         </DetailInfoBox>
       </MoreInfoBox>
     </IntroduceWrapper>

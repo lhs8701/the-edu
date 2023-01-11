@@ -58,8 +58,8 @@ export default function SignIn() {
         <InputLabel>비밀번호</InputLabel>
         <AccountInput type="password" placeholder="비밀번호를 입력해주세요." />
         <LoginLinkBox>
-          <AnyLink>아이디찾기</AnyLink>
-          <AnyLink>비밀번호찾기</AnyLink>
+          <AnyLink to={"/" + PROCESS_ACCOUNT_URL.FINDID}>아이디찾기</AnyLink>
+          <AnyLink to={"/" + PROCESS_ACCOUNT_URL.FINDPWD}>비밀번호찾기</AnyLink>
         </LoginLinkBox>
         <BtnSignUpBox>
           <AnyLink to={"/" + PROCESS_ACCOUNT_URL.SIGNUP}>회원가입</AnyLink>

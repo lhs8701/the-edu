@@ -8,6 +8,7 @@ import CourseReview from "./CourseReview";
 
 const DetailWrapper = styled.div`
   width: 72%;
+  height: 1000vh;
 `;
 
 const DetailBox = styled.div`
@@ -17,7 +18,7 @@ const DetailBox = styled.div`
 `;
 
 const RefDiv = styled.div`
-  padding-top: 70px;
+  padding-top: 50px;
 `;
 
 export default function CourseDetail({ courseInfo }) {
@@ -32,9 +33,7 @@ export default function CourseDetail({ courseInfo }) {
         setIsTabStatus={setIsTabStatus}
       />
       <DetailBox ref={(component) => (courseRef.current[0] = component)}>
-        <RefDiv>
-          <CourseImg images={courseInfo?.courseInfoImg} />
-        </RefDiv>
+        <CourseImg images={courseInfo?.courseInfoImg} />
         <RefDiv ref={(component) => (courseRef.current[1] = component)}>
           <CourseCategory courseIdx={courseInfo.courseIndex} />
         </RefDiv>
