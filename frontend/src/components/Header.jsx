@@ -228,7 +228,9 @@ export default function Header() {
             </CateBox>
           </NavTab>
           <NavTab>
-            <NavLink to={""}>정보 공유</NavLink>
+            <NavLink isValid={[0, 1]} to={""}>
+              정보 공유
+            </NavLink>
           </NavTab>
           <NavTab>
             <NavLink to={PROCESS_MAIN_URL.ROADMAP}>로드맵</NavLink>
@@ -245,7 +247,7 @@ export default function Header() {
         <LoginLink to={PROCESS_ACCOUNT_URL.LOGIN}>로그인</LoginLink>
         <UserTab>
           <UserLink>크리에이터</UserLink>
-          <UserLink to={"my/own"}>마이페이지</UserLink>
+          <UserLink to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}>마이페이지</UserLink>
         </UserTab>
       </LoginTab>
     </HeadWrapper>

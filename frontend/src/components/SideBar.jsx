@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useMatch, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { PROCESS_MAIN_URL } from "../static";
 
@@ -47,7 +47,10 @@ export default function SideBar({ barList }) {
           ? barList.list.map((target, idx) => {
               return (
                 <NavTab>
-                  <MyLink to={PROCESS_MAIN_URL.CATEGORIES + "/" + idx}>
+                  <MyLink
+                    valid={[idx]}
+                    to={PROCESS_MAIN_URL.CATEGORIES + "/" + idx}
+                  >
                     {target}
                   </MyLink>
                 </NavTab>

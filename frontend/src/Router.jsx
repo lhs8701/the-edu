@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <MyPage />,
         children: [
           {
-            path: "own",
+            path: "",
             element: <MyClass />,
           },
           {
