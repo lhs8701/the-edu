@@ -33,8 +33,7 @@ public class CourseRepositoryTest {
         CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
                 .title(ExampleValue.Course.TITLE)
                 .description(ExampleValue.Course.DESCRIPTION)
-                .majorCategory(ExampleValue.Course.MAJOR_CATEGORY)
-                .subCategory(ExampleValue.Course.SUB_CATEGORY)
+                .category(ExampleValue.Course.CATEGORY)
                 .price(ExampleValue.Course.PRICE)
                 .build();
 
@@ -54,8 +53,7 @@ public class CourseRepositoryTest {
         CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
                 .title(ExampleValue.Course.TITLE)
                 .description(ExampleValue.Course.DESCRIPTION)
-                .majorCategory(ExampleValue.Course.MAJOR_CATEGORY)
-                .subCategory(ExampleValue.Course.SUB_CATEGORY)
+                .category(ExampleValue.Course.CATEGORY)
                 .price(ExampleValue.Course.PRICE)
                 .build();
 

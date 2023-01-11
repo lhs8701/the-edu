@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.course.entity;
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
+import joeuncamp.dabombackend.global.constant.CategoryType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,8 +20,9 @@ public class Course extends BaseTimeEntity {
     Long id;
     String title;
     String description;
-    String majorCategory;
-    String subCategory;
+
+    @Enumerated(value = EnumType.STRING)
+    CategoryType category;
     long price;
 
     @ManyToOne
