@@ -361,7 +361,7 @@ export const dummyMyClassList = [
   },
   {
     title: "무슨무슨강의",
-    courseId: 134,
+    courseId: 14,
     nowUnitTitle: "유닛이름",
     unitId: 1411,
     totalUnitCnt: 56,
@@ -370,7 +370,7 @@ export const dummyMyClassList = [
   },
   {
     title: "무슨무슨강의",
-    courseId: 134,
+    courseId: 1134,
     nowUnitTitle: "유닛이름",
     unitId: 1411,
     totalUnitCnt: 56,
@@ -378,3 +378,15 @@ export const dummyMyClassList = [
     clearCheck: false,
   },
 ];
+
+export const dummyCourseProgressData = {
+  title: "강좌 이름",
+  img: "https://d33wubrfki0l68.cloudfront.net/dd23708ebc4053551bb33e18b7174e73b6e1710b/dea24/static/images/wallpapers/shared-colors@2x.png",
+  id: 134,
+  rate: 2.4,
+  Percent: 38,
+  list: [
+    { big: "첫 목차", small: ["1", "2", "3"] },
+    { big: "두번째 목차", small: ["1", "2", "3"] },
+  ],
+};

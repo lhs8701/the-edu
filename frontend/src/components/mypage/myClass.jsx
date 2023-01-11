@@ -31,10 +31,6 @@ export default function MyClass() {
       );
       const data = [
         {
-          name: "Uncomplete",
-          value: 100 - progressRatio,
-        },
-        {
           name: "Complete",
           value: progressRatio,
         },

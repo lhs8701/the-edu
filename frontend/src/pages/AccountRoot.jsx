@@ -23,6 +23,7 @@ const TitleBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Title = styled.p`

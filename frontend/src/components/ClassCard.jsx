@@ -51,7 +51,8 @@ const ClassInfoP = styled(motion.p)`
 const ClassTitle = styled(motion.p)`
   font-weight: var(--weight-middle);
   font-size: var(--size-card-title);
-  margin-left: 5px;
+  padding: 0px 10px;
+  box-sizing: border-box;
 `;
 
 const ClassInfoTeacherP = styled(ClassInfoP)`
@@ -109,7 +110,7 @@ export default function ClassCard({ course }) {
             color: isCardOn ? "var(--color-primary)" : "var(--color-text)",
           }}
         >
-          {course?.courseStarRate}&nbsp;&nbsp;&nbsp;
+          별{course?.courseStarRate}&nbsp;&nbsp;&nbsp;
         </ClassInfoP>
       </ClassInfoBox>
     </ClassTab>

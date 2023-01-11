@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
+import {
+  PieChart,
+  Pie,
+  ResponsiveContainer,
+  Cell,
+  RadialBarChart,
+  PolarAngleAxis,
+  RadialBar,
+} from "recharts";
 import styled from "styled-components";
 import { PROCESS_MAIN_URL } from "../static";
 
@@ -72,7 +80,7 @@ const GoTo = styled(Link)`
   font-size: 18px;
   text-decoration: none;
   z-index: 10;
-  font-weight: var(--weight-thin);
+  font-weight: var(--weight-point);
   color: ${(props) =>
     props.mouse ? "var(--color-primary)" : "var(--color-text)"};
   &:hover {
@@ -102,7 +110,7 @@ export default function MyClassCard({ info, data, progressRatio }) {
       }
     }, frameRate);
   }, []);
-  console.log(info.courseId);
+
   return (
     <ClassCard>
       <TitleTab>
@@ -111,7 +119,7 @@ export default function MyClassCard({ info, data, progressRatio }) {
           <UnitTitle>&nbsp;{info?.nowUnitTitle}</UnitTitle>
         </div>
       </TitleTab>
-      <UnitRate>{count}%</UnitRate>
+      {/* <UnitRate>{count}%</UnitRate> */}
       <BottomTab>
         <div>
           <ProgressRate>학습 상황</ProgressRate>
@@ -125,7 +133,7 @@ export default function MyClassCard({ info, data, progressRatio }) {
       </BottomTab>
 
       <ChartContainer width="100%" height="100%">
-        <PieChart width={100} height={100}>
+        {/* <PieChart width={100} height={100}>
           <Pie
             data={data}
             dataKey="value"
@@ -140,7 +148,30 @@ export default function MyClassCard({ info, data, progressRatio }) {
               <Cell key={`cell-${index}`} fill={colors[index]} />
             ))}
           </Pie>
-        </PieChart>
+        </PieChart> */}
+        <RadialBarChart
+          width={100}
+          height={100}
+          cx="50%"
+          cy="50%"
+          innerRadius={40}
+          outerRadius={60}
+          barSize={50}
+          data={data}
+          startAngle={90}
+          endAngle={-270}
+        >
+          <PolarAngleAxis
+            type="number"
+            domain={[0, 100]}
+            angleAxisId={0}
+            tick={false}
+          />
+          <RadialBar background clockWise dataKey="value" fill="#FF5454" />
+          <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
+            {count}%
+          </text>
+        </RadialBarChart>
       </ChartContainer>
     </ClassCard>
   );

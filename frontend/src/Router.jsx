@@ -20,6 +20,8 @@ import CategoryPage from "./pages/CategoryPage";
 import Revise from "./components/mypage/Revise";
 import MyClass from "./components/mypage/MyClass";
 import PurchaseHistory from "./components/mypage/PurchaseHistory";
+import FindAccount from "./components/account/FindAccount";
+import FindPassword from "./components/account/FindPassword";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
         element: <MyPage />,
         children: [
           {
-            path: "own",
+            path: "",
             element: <MyClass />,
           },
           {
@@ -104,6 +106,14 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignUp />,
+      },
+      {
+        path: "id",
+        element: <FindAccount />,
+      },
+      {
+        path: "password",
+        element: <FindPassword />,
       },
     ],
     errorElement: <NotFoundPage />,

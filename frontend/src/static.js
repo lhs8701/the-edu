@@ -8,12 +8,14 @@ export const CATE_VALUE = [
 export const PROCESS_ACCOUNT_URL = {
   LOGIN: "account/login",
   SIGNUP: "account/signup",
+  FINDID: "account/id",
+  FINDPWD: "account/password",
 };
 
 export const PROCESS_MAIN_URL = {
   MAIN: "",
   MYPAGE: {
-    DEFAULT: "",
+    DEFAULT: "my",
     WISH: "/wish",
     COUPON: "/coupon",
     DEAL: "/deal",
@@ -38,7 +40,7 @@ export const BAR_LIST = {
   list: [
     {
       name: "나의 클래스",
-      url: "own",
+      url: "",
     },
     {
       name: "찜한 클래스",

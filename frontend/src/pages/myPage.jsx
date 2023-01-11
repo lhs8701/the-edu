@@ -2,8 +2,9 @@ import { Outlet } from "react-router";
 import styled from "styled-components";
 import SideBar from "../components/SideBar";
 import { BAR_LIST } from "../static";
+import { Wrapper } from "../style/CommonCss";
 
-const MyPageWrapper = styled.div`
+const MyPageWrapper = styled(Wrapper)`
   width: 100%;
   min-height: 90vh;
   display: flex;
