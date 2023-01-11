@@ -43,3 +43,18 @@
 > ### CollectionView Cell 크기 관련 이슈 해결
 > - CollectionView Cell 크기가 설정되지 않는 이슈
 > - CollectionView의 Estimate Size를 None으로 설정하여 해결
+
+## 23.01.10
+> ### 내 강좌 뷰 구성
+> - 덜 본 강의, 다 본 강의, 찜한 강의 더미 데이터 뷰 구성 완료
+> - 덜 본 강의, 다 본 강의 선택 시 강의 재생 페이지로 이동하도록 수정 필요
+> ### Corner Radius와 Shadow가 함께 적용되지 않는 문제
+> - Cell에 Shadow 적용, contentView에 Corner Radius 적용하여 해결
+
+## 23.01.11
+> ### 강좌 상세 뷰 구성
+> - ScrollView + StackView 활용하여 뷰 구성
+> - ScrollView의 스크롤 조정 필요
+> - 랭킹 강좌 선택 시, 찜한 강좌 선택 시 재사용 완료
+> ### 카테고리 뷰 구성
+> - 대분류 - 소분류 기준으로 카테고리 구성
