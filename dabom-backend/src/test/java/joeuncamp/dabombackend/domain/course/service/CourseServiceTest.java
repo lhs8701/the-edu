@@ -1,11 +1,9 @@
 package joeuncamp.dabombackend.domain.course.service;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
-import joeuncamp.dabombackend.domain.course.entity.Course;
-import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.global.constant.ExampleValue;
+import joeuncamp.dabombackend.domain.member.service.CreatorService;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +16,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ActiveProfiles("test")
@@ -26,8 +23,9 @@ import static org.mockito.BDDMockito.given;
 public class CourseServiceTest {
     @InjectMocks
     CourseService courseService;
+
     @Mock
-    CourseJpaRepository courseJpaRepository;
+    CreatorService creatorService;
 
     @Mock
     MemberJpaRepository memberJpaRepository;
@@ -40,6 +38,7 @@ public class CourseServiceTest {
         Member member = Member.builder().build();
         Long memberId = 1L;
         given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
+        given(creatorService.hasCreatorProfile(member)).willReturn(false);
 
         // when
 
@@ -47,6 +46,4 @@ public class CourseServiceTest {
         Assertions.assertThatThrownBy(() -> courseService.openCourse(dto, memberId))
                 .isInstanceOf(CCreationDeniedException.class);
     }
-
-
 }

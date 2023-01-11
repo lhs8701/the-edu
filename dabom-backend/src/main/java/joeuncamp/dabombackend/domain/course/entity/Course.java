@@ -1,9 +1,7 @@
 package joeuncamp.dabombackend.domain.course.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,4 +22,16 @@ public class Course extends BaseTimeEntity {
     String majorCategory;
     String subCategory;
     long price;
+
+    @ManyToOne
+    @JoinColumn
+    CreatorProfile creatorProfile;
+
+    public void setCreatorProfile(CreatorProfile creatorProfile) {
+        if (this.creatorProfile != null){
+            this.creatorProfile.getUploadedCourses().remove(this);
+        }
+        this.creatorProfile = creatorProfile;
+        creatorProfile.getUploadedCourses().add(this);
+    }
 }
