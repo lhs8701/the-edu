@@ -35,6 +35,7 @@ public class CourseRepositoryTest {
                 .subCategory(ExampleValue.Course.SUB_CATEGORY)
                 .price(ExampleValue.Course.PRICE)
                 .build();
+
         // when
         Course course = courseJpaRepository.save(dto.toEntity());
 

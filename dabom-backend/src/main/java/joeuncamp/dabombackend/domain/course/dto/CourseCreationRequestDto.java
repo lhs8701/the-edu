@@ -16,9 +16,15 @@ public class CourseCreationRequestDto {
     String description;
     String majorCategory;
     String subCategory;
-    String price;
+    long price;
 
-    public Course toEntity(){
-        return null;
+    public Course toEntity() {
+        return Course.builder()
+                .title(title)
+                .description(description)
+                .majorCategory(majorCategory)
+                .subCategory(subCategory)
+                .price(price)
+                .build();
     }
 }

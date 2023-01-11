@@ -49,6 +49,7 @@ public class MemberRepositoryTest {
         Member foundMember = memberJpaRepository.findById(createdMember.getId()).orElse(null);
 
         // then
+        assertThat(foundMember).isNotNull();
         assertThat(foundMember.getAccount()).isEqualTo(memberCreationRequestDto.getAccount());
     }
 
@@ -91,9 +92,10 @@ public class MemberRepositoryTest {
         // when
         Member createdMember = memberJpaRepository.save(memberCreationRequestDto.toEntity());
         Member foundMember = memberJpaRepository.findById(createdMember.getId()).orElse(null);
-        LocalDate createdDate = foundMember.getCreatedTime().toLocalDate();
 
         // then
+        assertThat(foundMember).isNotNull();
+        LocalDate createdDate = foundMember.getCreatedTime().toLocalDate();
         assertThat(createdDate).isEqualTo(today);
     }
 }
