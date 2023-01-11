@@ -15,6 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+//        if #available(iOS 15, *) {
+//            let naviAppearance = UINavigationBarAppearance()
+//            let tabAppearance = UITabBarAppearance()
+//
+//            naviAppearance.configureWithOpaqueBackground()
+//            //appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+//            naviAppearance.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1.0)
+//            UINavigationBar.appearance().standardAppearance = naviAppearance
+//
+//            tabAppearance.configureWithOpaqueBackground()
+//            tabAppearance.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1.0)
+//            UITabBar.appearance().standardAppearance = tabAppearance
+//            UITabBar.appearance().scrollEdgeAppearance = tabAppearance
+//        }
+        
         return true
     }
 
@@ -34,3 +49,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
