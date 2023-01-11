@@ -38,6 +38,9 @@ public class CourseCreationDtoTest {
     void 가격이_0_보다_작으면_예외가_발생한다() {
         // given
         CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
+                .title(ExampleValue.Course.TITLE)
+                .description(ExampleValue.Course.DESCRIPTION)
+                .category(ExampleValue.Course.CATEGORY)
                 .price(-1L)
                 .build();
 
@@ -46,6 +49,7 @@ public class CourseCreationDtoTest {
 
         // then
         assertThat(violations).isNotEmpty();
+        violations.forEach(System.out::println);
     }
 
     @Test
@@ -53,7 +57,10 @@ public class CourseCreationDtoTest {
     void 유효한_카테고리_값이_아닐_경우_예외가_발생한다() {
         // given
         CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
+                .title(ExampleValue.Course.TITLE)
+                .description(ExampleValue.Course.DESCRIPTION)
                 .category("테스트")
+                .price(ExampleValue.Course.PRICE)
                 .build();
 
         // when
@@ -61,5 +68,6 @@ public class CourseCreationDtoTest {
 
         // then
         assertThat(violations).isNotEmpty();
+        violations.forEach(System.out::println);
     }
 }

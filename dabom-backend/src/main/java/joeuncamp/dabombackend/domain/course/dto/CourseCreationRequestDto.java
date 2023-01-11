@@ -1,5 +1,7 @@
 package joeuncamp.dabombackend.domain.course.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.global.constant.CategoryType;
@@ -15,10 +17,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CourseCreationRequestDto {
+    @NotBlank
     String title;
+    @NotBlank
     String description;
+    @NotBlank
     @Category
     String category;
+    @NotNull
     @PositiveOrZero
     long price;
 
