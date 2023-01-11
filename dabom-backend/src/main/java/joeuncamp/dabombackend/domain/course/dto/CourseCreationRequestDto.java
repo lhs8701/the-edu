@@ -1,10 +1,12 @@
 package joeuncamp.dabombackend.domain.course.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.global.constant.CategoryType;
+import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.validation.Category;
 import lombok.AllArgsConstructor;
@@ -18,19 +20,23 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CourseCreationRequestDto {
     @NotBlank
+    @Schema(description = "강좌 제목", example = ExampleValue.Course.TITLE)
     String title;
     @NotBlank
+    @Schema(description = "강좌 설명", example = ExampleValue.Course.DESCRIPTION)
     String description;
     @NotBlank
     @Category
+    @Schema(description = "세부 카테고리", example = ExampleValue.Course.CATEGORY)
     String category;
     @NotNull
     @PositiveOrZero
+    @Schema(description = "가격", example = "143000")
     long price;
 
     public Course toEntity() {
         CategoryType categoryType = CategoryType.findByTitle(category);
-        if (categoryType == CategoryType.EMPTY){
+        if (categoryType == CategoryType.EMPTY) {
             throw new CIllegalArgumentException();
         }
 

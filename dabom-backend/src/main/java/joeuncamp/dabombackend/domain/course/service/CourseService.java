@@ -20,9 +20,16 @@ public class CourseService {
     private final CourseJpaRepository courseJpaRepository;
     private final CreatorService creatorService;
 
+    /**
+     * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
+     *
+     * @param dto      강좌 개설 정보
+     * @param memberId 개설을 요청한 회원 아이디넘버
+     * @return 개설된 강좌의 아이디넘버
+     */
     public long openCourse(CourseCreationRequestDto dto, Long memberId) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
-        if (!creatorService.hasCreatorProfile(member)){
+        if (!creatorService.hasCreatorProfile(member)) {
             throw new CCreationDeniedException();
         }
         CreatorProfile creatorProfile = member.getCreatorProfile();

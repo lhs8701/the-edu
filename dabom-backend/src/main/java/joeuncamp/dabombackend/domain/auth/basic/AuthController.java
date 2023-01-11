@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.basic;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.basic.dto.SignUpRequestDto;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "[Authentication]", description = "인증과 관련된 API입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth/basic")
