@@ -1,9 +1,6 @@
 import styled from "styled-components";
+import { Wrapper } from "../../style/CommonCss";
 import { Title } from "../../style/CourseCss";
-
-const CategoryWrapper = styled.div`
-  width: 100%;
-`;
 
 const BigCategory = styled.h1`
   font-weight: var(--weight-middle);
@@ -43,11 +40,11 @@ export default function CourseCategory({ courseIdx }) {
   };
 
   return (
-    <CategoryWrapper>
+    <Wrapper>
       <Title>강의 커리큘럼</Title>
       <br />
       <br />
       <Categories courseIdx={courseIdx} />
-    </CategoryWrapper>
+    </Wrapper>
   );
 }

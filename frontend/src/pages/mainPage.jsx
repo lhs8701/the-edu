@@ -7,11 +7,7 @@ import {
   dummyMyClassList,
   dummyProgrammingCourseRank,
 } from "../dummy";
-
-const MainWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
+import { Wrapper } from "../style/CommonCss";
 
 const MyClassListBox = styled.div`
   margin-top: 40px;
@@ -49,7 +45,7 @@ export default function MainPage() {
     });
   };
   return (
-    <MainWrapper>
+    <Wrapper>
       <SlideNotice />
       <ListTitle>나의 클래스</ListTitle>
       <MyClassListBox>
@@ -57,6 +53,6 @@ export default function MainPage() {
       </MyClassListBox>
       <ClassRankList ranklist={weekRankList} />
       <ClassRankList ranklist={dummyProgrammingCourseRank} />
-    </MainWrapper>
+    </Wrapper>
   );
 }

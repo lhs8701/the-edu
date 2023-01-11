@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { UnderBar } from "../components/course/ChatComponents";
+import { TabTitle } from "../style/CommonCss";
 
 import {
   DiscountTab,
@@ -33,15 +34,6 @@ const CardSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Title = styled.h1`
-  margin-top: 4rem;
-  margin-bottom: 6rem;
-  font-weight: var(--weight-point);
-  font-size: var(--size-mypage-title);
-  width: 100%;
-  text-align: center;
 `;
 
 const InfoBox = styled.div`
@@ -129,7 +121,7 @@ export default function PurchasePage() {
 
   return (
     <MyPageWrapper>
-      <Title>결제</Title>
+      <TabTitle>결제</TabTitle>
       <DividerBox>
         <InfoSection>
           <PurchaseThing />

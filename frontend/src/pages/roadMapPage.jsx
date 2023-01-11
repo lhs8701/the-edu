@@ -1,3 +1,12 @@
+import styled from "styled-components";
+import { TabTitle, Wrapper } from "../style/CommonCss";
+
+const EventCard = styled.div``;
+
 export default function RoadMapPage() {
-  return <div>로드맵입니다</div>;
+  return (
+    <Wrapper>
+      <TabTitle>로드맵</TabTitle>
+    </Wrapper>
+  );
 }
