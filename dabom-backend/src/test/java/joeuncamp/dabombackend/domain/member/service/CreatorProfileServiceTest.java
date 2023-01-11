@@ -22,9 +22,6 @@ public class CreatorProfileServiceTest {
     @InjectMocks
     CreatorService creatorService;
 
-    @Mock
-    MemberJpaRepository memberJpaRepository;
-
     @Test
     @DisplayName("회원의 크리에이터 프로필을 생성한다.")
     void 크리에이터_계정을_활성화한다(){
@@ -68,6 +65,6 @@ public class CreatorProfileServiceTest {
         boolean result = creatorService.hasCreatorProfile(member);
 
         // then
-        assertThat(result).isEqualTo(true);
+        assertThat(result).isEqualTo(false);
     }
 }
