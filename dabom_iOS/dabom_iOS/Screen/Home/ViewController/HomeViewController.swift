@@ -22,7 +22,6 @@ class HomeViewController: UIViewController {
         
         
         setTV()
-        print("HOMEVIEWDIDLOAD")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,10 +105,8 @@ extension HomeViewController: CourseCVCellDelegate {
         guard let nextVC = UIStoryboard(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
 
         nextVC.courseTitle = courseName
-//        print(courseName)
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
-//        performSegue(withIdentifier: "CourseInfoView", sender: nil)
     }
     
 }

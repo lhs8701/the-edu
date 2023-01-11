@@ -1,28 +1,31 @@
 //
-//  CategoryViewController.swift
+//  IntroductionVC.swift
 //  dabom_iOS
 //
-//  Created by 김태현 on 2023/01/09.
+//  Created by 김태현 on 2023/01/11.
 //
 
 import UIKit
 
-class CategoryViewController: UIViewController {
-    
+class IntroductionVC: UIViewController {
 
-    @IBOutlet weak var firstCategory: UIButton!
+    @IBOutlet weak var firstImageView: UIImageView!
+    @IBOutlet weak var secondImageView: UIImageView!
     
+    @IBOutlet weak var tabmanSV: UIScrollView!
+    
+    var firstImage: UIImage!
+    var secondImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.topItem?.title = "카테고리"
         
-        self.firstCategory.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 2.0)
+        firstImageView.image = firstImage
+        secondImageView.image = secondImage
     }
-        
+    
 
     /*
     // MARK: - Navigation
