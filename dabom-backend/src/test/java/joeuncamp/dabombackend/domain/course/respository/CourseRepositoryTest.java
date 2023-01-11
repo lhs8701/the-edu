@@ -13,6 +13,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -43,5 +45,27 @@ public class CourseRepositoryTest {
         Course found = courseJpaRepository.findById(course.getId()).orElse(null);
         assertThat(found).isNotNull();
         assertThat(found.getTitle()).isEqualTo(dto.getTitle());
+    }
+
+    @Test
+    @DisplayName("DB에서 강좌를 삭제한다.")
+    void DB에서_강좌를_삭제한다() {
+        // given
+        CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
+                .title(ExampleValue.Course.TITLE)
+                .description(ExampleValue.Course.DESCRIPTION)
+                .majorCategory(ExampleValue.Course.MAJOR_CATEGORY)
+                .subCategory(ExampleValue.Course.SUB_CATEGORY)
+                .price(ExampleValue.Course.PRICE)
+                .build();
+
+        Course created = courseJpaRepository.save(dto.toEntity());
+
+        // when
+        courseJpaRepository.deleteById(created.getId());
+
+        // then
+        Optional<Course> found = courseJpaRepository.findById(created.getId());
+        assertThat(found.isEmpty()).isEqualTo(true);
     }
 }
