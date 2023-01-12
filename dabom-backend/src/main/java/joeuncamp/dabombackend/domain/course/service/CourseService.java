@@ -33,9 +33,14 @@ public class CourseService {
             throw new CCreationDeniedException();
         }
         CreatorProfile creatorProfile = member.getCreatorProfile();
+        Course course = saveCourse(dto, creatorProfile);
+        return course.getId();
+    }
+
+    private Course saveCourse(CourseCreationRequestDto dto, CreatorProfile creatorProfile) {
         Course course = dto.toEntity();
         course.setCreatorProfile(creatorProfile);
         courseJpaRepository.save(course);
-        return course.getId();
+        return course;
     }
 }
