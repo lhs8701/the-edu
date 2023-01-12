@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.course.service;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
@@ -43,4 +44,11 @@ public class CourseService {
         courseJpaRepository.save(course);
         return course;
     }
+
+    public CourseResponseDto getCourse(Long courseId) {
+        Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
+
+        return new CourseResponseDto(course);
+    }
+
 }
