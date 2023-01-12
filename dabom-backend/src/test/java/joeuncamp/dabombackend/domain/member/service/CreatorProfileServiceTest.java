@@ -42,28 +42,27 @@ public class CreatorProfileServiceTest {
                 .build();
         CreatorRequestDto dto = CreatorRequestDto.builder()
                 .build();
+        CreatorProfile creatorProfile = dto.toEntity(member);
         given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
-        given(creatorProfileJpaRepository.save(any())).willReturn(new CreatorProfile());
+        given(creatorProfileJpaRepository.save(any())).willReturn(creatorProfile);
 
         //when
         creatorService.activateCreatorProfile(memberId, dto);
 
         //then
-        assertThat(member.getCreatorProfile()).isNotNull();
+        assertThat(creatorProfile.getMember()).isEqualTo(member);
     }
 
     @Test
     @DisplayName("회원에게 크리에이터 계정이 있으면 true를 반환한다.")
     void 크리에이터_계정이_있으면_true를_반환한다() {
         // given
+        Long memberId = 1L;
+        CreatorProfile creatorProfile = CreatorProfile.builder().build();
         Member member = Member.builder()
-                .id(1L)
+                .id(memberId)
+                .creatorProfile(creatorProfile)
                 .build();
-
-        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
-        given(creatorProfileJpaRepository.save(any())).willReturn(new CreatorProfile());
-        CreatorRequestDto dto = CreatorRequestDto.builder().build();
-        creatorService.activateCreatorProfile(1L, dto);
 
         // when
         boolean result = creatorService.hasCreatorProfile(member);
@@ -89,19 +88,19 @@ public class CreatorProfileServiceTest {
     @DisplayName("이미 크리에이터인 경우 예외를 반환한다.")
     void 이미_크리에이터인_경우_예외를_반환한다() {
         // given
-        Member member = Member.builder()
-                .id(1L)
-                .build();
+        Long memberId = 1L;
         CreatorRequestDto dto = CreatorRequestDto.builder().build();
         CreatorProfile creatorProfile = CreatorProfile.builder().build();
-        member.setCreatorProfile(creatorProfile);
-
-        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
+        Member member = Member.builder()
+                .id(memberId)
+                .creatorProfile(creatorProfile)
+                .build();
+        given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
 
         // when
 
         // then
-        assertThatThrownBy(() -> creatorService.activateCreatorProfile(1L, dto))
+        assertThatThrownBy(() -> creatorService.activateCreatorProfile(memberId, dto))
                 .isInstanceOf(CAlreadyCreatorException.class);
     }
 }

@@ -71,10 +71,6 @@ public class Member extends BaseTimeEntity implements UserDetails {
         }
     }
 
-    public void setCreatorProfile(CreatorProfile creatorProfile) {
-        this.creatorProfile = creatorProfile;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles

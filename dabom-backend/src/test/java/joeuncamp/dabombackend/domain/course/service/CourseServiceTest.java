@@ -55,7 +55,6 @@ public class CourseServiceTest {
         creatorProfile = CreatorProfile.builder()
                 .member(instructor)
                 .build();
-        instructor.setCreatorProfile(creatorProfile);
         course = Course.builder()
                 .title(ExampleValue.Course.TITLE)
                 .category(CategoryType.BACK_END)
