@@ -34,5 +34,4 @@ public class CreatorController {
         creatorService.activateCreatorProfile(member.getId(), dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

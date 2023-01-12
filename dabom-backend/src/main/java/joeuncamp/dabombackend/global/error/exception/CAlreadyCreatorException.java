@@ -4,11 +4,11 @@ import joeuncamp.dabombackend.global.error.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class CMemberExistException extends RuntimeException{
+public class CAlreadyCreatorException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public CMemberExistException(){
+    public CAlreadyCreatorException(){
         super();
-        errorCode = ErrorCode.MEMBER_EXIST_ERROR;
+        errorCode = ErrorCode.ALREADY_CREATOR_ERROR;
     }
 }

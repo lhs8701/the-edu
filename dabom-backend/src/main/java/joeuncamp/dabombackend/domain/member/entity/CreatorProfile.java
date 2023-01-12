@@ -18,11 +18,11 @@ public class CreatorProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String creatorNickname;
 
-    @OneToOne(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "member_id")
     Member member;
 
-    @OneToMany
+    @OneToMany(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Course> uploadedCourses;
 }

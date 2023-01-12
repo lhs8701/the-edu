@@ -1,16 +1,25 @@
 package joeuncamp.dabombackend.domain.course.service;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
+import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +42,41 @@ public class CourseService {
             throw new CCreationDeniedException();
         }
         CreatorProfile creatorProfile = member.getCreatorProfile();
+        Course course = saveCourse(dto, creatorProfile);
+        return course.getId();
+    }
+
+    private Course saveCourse(CourseCreationRequestDto dto, CreatorProfile creatorProfile) {
         Course course = dto.toEntity();
         course.setCreatorProfile(creatorProfile);
         courseJpaRepository.save(course);
-        return course.getId();
+        return course;
+    }
+
+    /**
+     * 강좌의 정보를 조회합니다.
+     * @param courseId 조회할 강좌 아이디넘버
+     * @return 강좌 정보
+     */
+    public CourseResponseDto getCourse(Long courseId) {
+        Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
+
+        return new CourseResponseDto(course);
+    }
+
+    /**
+     * 카테고리 내의 모든 강좌 정보를 조회합니다.
+     * @param category 카테고리명
+     * @return 강좌 정보 리스트
+     */
+    public List<CourseThumbnailResponseDto> getCoursesByCategory(String category) {
+        CategoryType type = CategoryType.findByTitle(category);
+        if (type.equals(CategoryType.EMPTY)){
+            throw new CIllegalArgumentException();
+        }
+        List<Course> courses = courseJpaRepository.findAllByCategory(type);
+        return courses.stream()
+                .map(CourseThumbnailResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

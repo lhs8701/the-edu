@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.auth.basic;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.basic.dto.SignUpRequestDto;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
@@ -23,14 +24,14 @@ public class AuthController {
 
     @PostMapping("signup")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<Void> signup(@RequestBody SignUpRequestDto signUpRequestDto) {
+    public ResponseEntity<Void> signup(@RequestBody @Valid SignUpRequestDto signUpRequestDto) {
         authService.signup(signUpRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/login")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<TokenForm> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<TokenForm> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
         TokenForm tokenForm = authService.login(loginRequestDto);
         return new ResponseEntity<>(tokenForm, HttpStatus.OK);
     }
