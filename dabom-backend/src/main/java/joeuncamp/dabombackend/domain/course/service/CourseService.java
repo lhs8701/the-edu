@@ -12,7 +12,6 @@ import joeuncamp.dabombackend.domain.member.service.CreatorService;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
-import joeuncamp.dabombackend.global.validation.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +71,7 @@ public class CourseService {
 //        if (type.equals(CategoryType.EMPTY)){
 //            throw new
 //        }
-        List<Course> courses = courseJpaRepository.findAllByCategoryType(type);
+        List<Course> courses = courseJpaRepository.findAllByCategory(type);
         return courses.stream()
                 .map(CourseThumbnailResponseDto::new)
                 .collect(Collectors.toList());

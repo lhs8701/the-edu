@@ -55,7 +55,7 @@ public class CourseServiceTest {
         creatorProfile = CreatorProfile.builder()
                 .member(instructor)
                 .build();
-        instructor.activateCreatorProfile(creatorProfile);
+        instructor.setCreatorProfile(creatorProfile);
         course = Course.builder()
                 .title(ExampleValue.Course.TITLE)
                 .category(CategoryType.BACK_END)
@@ -101,7 +101,7 @@ public class CourseServiceTest {
         // given
         List<Course> courses = List.of(course);
         String category = ExampleValue.Course.CATEGORY;
-        given(courseJpaRepository.findAllByCategoryType(CategoryType.BACK_END)).willReturn(courses);
+        given(courseJpaRepository.findAllByCategory(CategoryType.BACK_END)).willReturn(courses);
 
         // when
         List<CourseThumbnailResponseDto> responseDto = courseService.getCoursesByCategory(category);

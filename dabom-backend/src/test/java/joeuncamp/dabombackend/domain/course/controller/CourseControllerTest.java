@@ -104,4 +104,25 @@ public class CourseControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].title", equalTo(ExampleValue.Course.TITLE)));
     }
+
+    @Test
+    @WithAuthUser(role = "USER")
+    @DisplayName("카테고리로 강좌 조회시, 유효하지 않은 카테고리가 들어오면 예외가 발생한다")
+    void 유효하지_않은_카테고리가_들어오면_예외가_발생한다() throws Exception {
+        //given
+        String category = ExampleValue.Course.CATEGORY;
+        List<CourseThumbnailResponseDto> responseDto = List.of(CourseThumbnailResponseDto.builder()
+                .title(ExampleValue.Course.TITLE)
+                .build());
+        given(courseService.getCoursesByCategory(category)).willReturn(responseDto);
+
+        //when
+        final ResultActions actions = mockMvc.perform(get("/api/courses/category/{category}", category)
+                .with(csrf()));
+
+        //then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].title", equalTo(ExampleValue.Course.TITLE)));
+    }
 }

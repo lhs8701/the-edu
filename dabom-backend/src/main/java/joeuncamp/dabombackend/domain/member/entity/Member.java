@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
-import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -74,7 +72,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
         }
     }
 
-    public void activateCreatorProfile(CreatorProfile creatorProfile) {
+    public void setCreatorProfile(CreatorProfile creatorProfile) {
         this.creatorProfile = creatorProfile;
     }
 
