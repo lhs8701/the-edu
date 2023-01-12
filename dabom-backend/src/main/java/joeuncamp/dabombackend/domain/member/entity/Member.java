@@ -44,8 +44,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     String loginToken;
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     CreatorProfile creatorProfile;
 
     /* @ElementCollection

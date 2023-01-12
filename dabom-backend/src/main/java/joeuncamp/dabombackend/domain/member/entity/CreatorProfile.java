@@ -19,7 +19,8 @@ public class CreatorProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToOne(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn
     Member member;
 
     @OneToMany

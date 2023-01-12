@@ -25,12 +25,11 @@ public class CreatorService {
         if (member.getCreatorProfile() != null){
             throw new CAlreadyCreatorException();
         }
-        CreatorProfile creatorProfile = saveCreatorProfile(dto);
-        member.setCreatorProfile(creatorProfile);
+        saveCreatorProfile(dto, member);
     }
 
-    private CreatorProfile saveCreatorProfile(CreatorRequestDto dto) {
-        CreatorProfile creatorProfile = dto.toEntity();
-        return creatorProfileJpaRepository.save(creatorProfile);
+    private void saveCreatorProfile(CreatorRequestDto dto, Member member) {
+        CreatorProfile creatorProfile = dto.toEntity(member);
+        creatorProfileJpaRepository.save(creatorProfile);
     }
 }

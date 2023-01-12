@@ -11,9 +11,12 @@ import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
+import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,9 +71,9 @@ public class CourseService {
      */
     public List<CourseThumbnailResponseDto> getCoursesByCategory(String category) {
         CategoryType type = CategoryType.findByTitle(category);
-//        if (type.equals(CategoryType.EMPTY)){
-//            throw new
-//        }
+        if (type.equals(CategoryType.EMPTY)){
+            throw new CIllegalArgumentException();
+        }
         List<Course> courses = courseJpaRepository.findAllByCategory(type);
         return courses.stream()
                 .map(CourseThumbnailResponseDto::new)

@@ -53,7 +53,7 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in=ParameterIn.HEADER, example=ExampleValue.JWT.ACCESS)
     @PreAuthorize("permitAll()")
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<CourseThumbnailResponseDto>> getCourseByCategory(@PathVariable @Category String category){
+    public ResponseEntity<List<CourseThumbnailResponseDto>> getCourseByCategory(@PathVariable String category){
         List<CourseThumbnailResponseDto> responseDto = courseService.getCoursesByCategory(category);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
