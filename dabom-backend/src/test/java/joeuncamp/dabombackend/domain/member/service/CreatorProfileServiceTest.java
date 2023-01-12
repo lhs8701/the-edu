@@ -30,22 +30,22 @@ public class CreatorProfileServiceTest {
     @DisplayName("회원의 크리에이터 프로필을 생성한다.")
     void 크리에이터_계정을_활성화한다(){
         //given
+        Long memberId = 1L;
         Member member = Member.builder()
-                .id(1L)
+                .id(memberId)
                 .build();
         CreatorRequestDto dto = CreatorRequestDto.builder()
                 .creatorNickname(ExampleValue.CreatorProfile.CREATOR_NICKNAME)
                 .build();
 
-        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
+        given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
 
         //when
-        creatorService.activateCreatorProfile(1L, dto);
+        creatorService.activateCreatorProfile(memberId, dto);
         CreatorProfile creatorProfile = member.getCreatorProfile();
 
         //then
         assertThat(creatorProfile).isNotNull();
-        assertThat(creatorProfile.getCreatorNickname()).isEqualTo(dto.getCreatorNickname());
     }
 
     @Test

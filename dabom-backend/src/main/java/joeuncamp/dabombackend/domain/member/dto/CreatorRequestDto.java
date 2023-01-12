@@ -15,7 +15,6 @@ public class CreatorRequestDto {
 
     public CreatorProfile toEntity() {
         return CreatorProfile.builder()
-                .creatorNickname(creatorNickname)
                 .build();
     }
 }

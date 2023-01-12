@@ -34,6 +34,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Schema(description = "비밀번호", example = ExampleValue.Member.PASSWORD)
     String password;
 
+    @Schema(description = "실명", example = ExampleValue.Member.NAME)
+    String name;
+
     @Schema(description = "닉네임", example = ExampleValue.Member.NICKNAME)
     String nickname;
 
