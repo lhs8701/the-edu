@@ -9,12 +9,14 @@ import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -55,6 +57,10 @@ public class CourseService {
     }
 
     public List<CourseThumbnailResponseDto> getCoursesByCategory(String category) {
-        return null;
+        CategoryType type = CategoryType.findByTitle(category);
+        List<Course> courses = courseJpaRepository.findAllByCategoryType(type);
+        return courses.stream()
+                .map(CourseThumbnailResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

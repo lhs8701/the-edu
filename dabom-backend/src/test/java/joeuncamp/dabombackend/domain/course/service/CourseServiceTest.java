@@ -13,6 +13,7 @@ import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,6 +43,26 @@ public class CourseServiceTest {
     @Mock
     CourseJpaRepository courseJpaRepository;
 
+    static Member instructor;
+    static CreatorProfile creatorProfile;
+    static Course course;
+
+    @BeforeAll
+    static void init(){
+        instructor = Member.builder()
+                .name(ExampleValue.Member.NAME)
+                .build();
+        creatorProfile = CreatorProfile.builder()
+                .member(instructor)
+                .build();
+        instructor.activateCreatorProfile(creatorProfile);
+        course = Course.builder()
+                .title(ExampleValue.Course.TITLE)
+                .category(CategoryType.BACK_END)
+                .creatorProfile(creatorProfile)
+                .build();
+    }
+
     @Test
     @DisplayName("크리에이터가 아닌 사람이 강좌를 개설할 경우 예외가 발생한다.")
     void 크리에이터가_아닌_사람이_강좌를_개설할_경우_예외가_발생한다() {
@@ -64,19 +85,6 @@ public class CourseServiceTest {
     void 강좌_단건_조회_시_강좌_정보가_반환된다() {
         // given
         Long courseId = 1L;
-
-        Member instructor = Member.builder()
-                .name(ExampleValue.Member.NAME)
-                .build();
-        CreatorProfile creatorProfile = CreatorProfile.builder()
-                .member(instructor)
-                .build();
-        Course course = Course.builder()
-                .category(CategoryType.BACK_END)
-                .creatorProfile(creatorProfile)
-                .build();
-        instructor.activateCreatorProfile(creatorProfile);
-
         given(courseJpaRepository.findById(courseId)).willReturn(Optional.of(course));
 
         // when
@@ -91,15 +99,7 @@ public class CourseServiceTest {
     @DisplayName("강좌 전체 조회시, 카테고리 내의 모든 강좌에 대한 정보가 반환된다.")
     void 카테고리_내의_모든_강좌_정보가_반환된다() {
         // given
-        Course course1 = Course.builder()
-                .title(ExampleValue.Course.TITLE)
-                .category(CategoryType.BACK_END)
-                .build();
-        Course course2 = Course.builder()
-                .title(ExampleValue.Course.TITLE+"2")
-                .category(CategoryType.BACK_END)
-                .build();
-        List<Course> courses = List.of(course1, course2);
+        List<Course> courses = List.of(course);
         String category = ExampleValue.Course.CATEGORY;
         given(courseJpaRepository.findAllByCategoryType(CategoryType.BACK_END)).willReturn(courses);
 
@@ -107,6 +107,6 @@ public class CourseServiceTest {
         List<CourseThumbnailResponseDto> responseDto = courseService.getCoursesByCategory(category);
 
         // then
-        assertThat(responseDto.get(1).getTitle()).isEqualTo(ExampleValue.Course.TITLE);
+        assertThat(responseDto.get(0).getTitle()).isEqualTo(ExampleValue.Course.TITLE);
     }
 }
