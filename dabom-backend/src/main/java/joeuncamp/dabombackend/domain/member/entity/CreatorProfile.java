@@ -23,6 +23,6 @@ public class CreatorProfile {
     @JoinColumn
     Member member;
 
-    @OneToMany
+    @OneToMany(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Course> uploadedCourses;
 }
