@@ -6,6 +6,7 @@ import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.CreatorProfileJpaRepository;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
+import joeuncamp.dabombackend.global.error.exception.CAlreadyCreatorException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -33,14 +35,13 @@ public class CreatorProfileServiceTest {
 
     @Test
     @DisplayName("회원의 크리에이터 프로필을 생성한다.")
-    void 크리에이터_계정을_활성화한다(){
+    void 크리에이터_계정을_활성화한다() {
         //given
         Long memberId = 1L;
         Member member = Member.builder()
                 .id(memberId)
                 .build();
         CreatorRequestDto dto = CreatorRequestDto.builder()
-                .creatorNickname(ExampleValue.CreatorProfile.CREATOR_NICKNAME)
                 .build();
         given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
         given(creatorProfileJpaRepository.save(any())).willReturn(new CreatorProfile());
@@ -83,5 +84,26 @@ public class CreatorProfileServiceTest {
 
         // then
         assertThat(result).isEqualTo(false);
+    }
+
+    @Test
+    @DisplayName("이미 크리에이터인 경우 예외를 반환한다.")
+    void 이미_크리에이터인_경우_예외를_반환한다() {
+        // given
+        Member member = Member.builder()
+                .id(1L)
+                .build();
+        CreatorRequestDto dto = CreatorRequestDto.builder().build();
+        CreatorProfile creatorProfile = CreatorProfile.builder().build();
+        member.setCreatorProfile(creatorProfile);
+
+        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
+        given(creatorProfileJpaRepository.save(any())).willReturn(new CreatorProfile());
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> creatorService.activateCreatorProfile(1L, dto))
+                .isInstanceOf(CAlreadyCreatorException.class);
     }
 }

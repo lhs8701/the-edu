@@ -13,6 +13,8 @@ public enum ErrorCode {
     CREATION_DENIED(-6000, "크리에이터만 강좌 개설을 할 수 있습니다.", HttpStatus.FORBIDDEN),
     LOGIN_FAILED(-6001, "로그인에 실패했습니다.", HttpStatus.UNAUTHORIZED),
     MEMBER_EXIST_ERROR(-6002, "해당 계정이 이미 존재합니다.", HttpStatus.UNAUTHORIZED),
+    ALREADY_CREATOR_ERROR(-6003, "이미 크리에이터입니다.", HttpStatus.FORBIDDEN),
+
 
     // 7000 ~ : 시큐리티 에러
     NOT_AUTHORIZED(-7000, "해당 리소스에 접근하기 위한 권한이 없습니다.", HttpStatus.FORBIDDEN),
