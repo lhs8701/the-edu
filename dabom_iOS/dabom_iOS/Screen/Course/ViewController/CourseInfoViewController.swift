@@ -36,7 +36,8 @@ class CourseInfoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.topItem?.title = courseTitle
+//        self.navigationController?.navigationBar.topItem?.title = courseTitle
+//        self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
