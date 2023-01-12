@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.course.service;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
@@ -12,6 +13,8 @@ import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -49,5 +52,9 @@ public class CourseService {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
 
         return new CourseResponseDto(course);
+    }
+
+    public List<CourseThumbnailResponseDto> getCoursesByCategory(String category) {
+        return null;
     }
 }

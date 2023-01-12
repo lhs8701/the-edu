@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.course.service;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
@@ -20,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -70,7 +72,7 @@ public class CourseServiceTest {
                 .member(instructor)
                 .build();
         Course course = Course.builder()
-                .category(CategoryType.findByTitle(ExampleValue.Course.CATEGORY))
+                .category(CategoryType.BACK_END)
                 .creatorProfile(creatorProfile)
                 .build();
         instructor.activateCreatorProfile(creatorProfile);
@@ -83,5 +85,28 @@ public class CourseServiceTest {
         // then
         assertThat(responseDto.getInstructor()).isEqualTo(instructor.getName());
         assertThat(responseDto.getCategory()).isEqualTo(CategoryType.findByTitle(ExampleValue.Course.CATEGORY));
+    }
+
+    @Test
+    @DisplayName("강좌 전체 조회시, 카테고리 내의 모든 강좌에 대한 정보가 반환된다.")
+    void 카테고리_내의_모든_강좌_정보가_반환된다() {
+        // given
+        Course course1 = Course.builder()
+                .title(ExampleValue.Course.TITLE)
+                .category(CategoryType.BACK_END)
+                .build();
+        Course course2 = Course.builder()
+                .title(ExampleValue.Course.TITLE+"2")
+                .category(CategoryType.BACK_END)
+                .build();
+        List<Course> courses = List.of(course1, course2);
+        String category = ExampleValue.Course.CATEGORY;
+        given(courseJpaRepository.findAllByCategoryType(CategoryType.BACK_END)).willReturn(courses);
+
+        // when
+        List<CourseThumbnailResponseDto> responseDto = courseService.getCoursesByCategory(category);
+
+        // then
+        assertThat(responseDto.get(1).getTitle()).isEqualTo(ExampleValue.Course.TITLE);
     }
 }
