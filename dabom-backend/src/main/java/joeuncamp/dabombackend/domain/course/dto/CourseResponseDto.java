@@ -5,11 +5,15 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.global.constant.CategoryType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CourseResponseDto {
     Long id;
     String title;

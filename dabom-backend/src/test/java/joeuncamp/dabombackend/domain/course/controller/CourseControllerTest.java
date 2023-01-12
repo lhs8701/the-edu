@@ -3,9 +3,11 @@ package joeuncamp.dabombackend.domain.course.controller;
 import com.google.gson.Gson;
 import joeuncamp.dabombackend.domain.controller.CourseController;
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
 import joeuncamp.dabombackend.global.WithAuthUser;
+import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -20,7 +22,9 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
@@ -51,5 +55,25 @@ public class CourseControllerTest {
 
         // then
         actions.andExpect(status().isCreated());
+    }
+
+    @Test
+    @WithAuthUser(role = "USER")
+    @DisplayName("강좌를 단건 조회한다.")
+    void 강좌를_단건_조회한다() throws Exception {
+        //given
+        Long courseId = 1L;
+        CourseResponseDto responseDto = CourseResponseDto.builder()
+                .title(ExampleValue.Course.TITLE)
+                .build();
+        given(courseService.getCourse(courseId)).willReturn(responseDto);
+
+        //when
+        final ResultActions actions = mockMvc.perform(get("/api/courses/{courseId}", courseId)
+                .with(csrf()));
+
+        //then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("title").value(ExampleValue.Course.TITLE));
     }
 }
