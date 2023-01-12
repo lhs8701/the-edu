@@ -8,20 +8,22 @@
 import UIKit
 
 class CourseInfoViewController: UIViewController {
-    
-    var courseTitle: String?
-
+        
+    // MARK: - IBOutlet
     @IBOutlet weak var classTitle: UILabel!
     
     @IBOutlet weak var shortIntro: UILabel!
     
     @IBOutlet weak var creatorName: UILabel!
-
     
     @IBOutlet weak var tabmanView: UIView!
     
     @IBOutlet weak var courseInfoSV: UIScrollView!
     
+    
+    // MARK: - 변수, 상수
+    var courseTitle: String?
+
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -35,22 +37,24 @@ class CourseInfoViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.navigationController?.navigationBar.topItem?.title = courseTitle
-//        self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        setNavigationBar()
     }
     
+    // MARK: - navigationBar 설정
+    private func setNavigationBar() {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+    }
     
     // MARK: - rightBarButtonItem 설정
     private func setRightBarButton() {
         let onOffImage = UIImage(named: "onoff")?.withRenderingMode(.alwaysOriginal)
-        let onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 30))
+        let onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 30))
         onOffButton.setImage(onOffImage, for: .normal)
         let onOff = UIBarButtonItem(customView: onOffButton)
         
         let heartImage = UIImage(named: "heart")
-        let heartButton = UIButton()
+        let heartButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
         heartButton.setImage(heartImage, for: .normal)
         let heart = UIBarButtonItem(customView: heartButton)
 

@@ -13,6 +13,7 @@ struct CourseThumbnailDataModel {
         return UIImage(named: thumbnailImageName)
     }
     
+//    let courseID: Int
     let courseTitle: String
     let creatorName: String
     let categoryName: String
