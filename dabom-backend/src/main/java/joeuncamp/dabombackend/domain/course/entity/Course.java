@@ -28,7 +28,7 @@ public class Course extends BaseTimeEntity {
     long price;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "creator_profile_id")
     CreatorProfile creatorProfile;
 
     public void setCreatorProfile(CreatorProfile creatorProfile) {

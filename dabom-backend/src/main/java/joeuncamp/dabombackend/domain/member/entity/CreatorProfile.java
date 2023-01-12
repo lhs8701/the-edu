@@ -20,7 +20,7 @@ public class CreatorProfile {
     Long id;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name = "member_id")
     Member member;
 
     @OneToMany(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
