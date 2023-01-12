@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.global.error.exception;
+package joeuncamp.dabombackend.global.error;
 
 import joeuncamp.dabombackend.global.error.ErrorCode;
 import lombok.Getter;

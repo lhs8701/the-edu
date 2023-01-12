@@ -5,7 +5,6 @@ import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.CreatorProfileJpaRepository;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CAlreadyCreatorException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -98,7 +97,6 @@ public class CreatorProfileServiceTest {
         member.setCreatorProfile(creatorProfile);
 
         given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
-        given(creatorProfileJpaRepository.save(any())).willReturn(new CreatorProfile());
 
         // when
 

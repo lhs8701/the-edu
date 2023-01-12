@@ -5,6 +5,7 @@ import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.CreatorProfileJpaRepository;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
+import joeuncamp.dabombackend.global.error.exception.CAlreadyCreatorException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class CreatorService {
 
     public void activateCreatorProfile(Long memberId, CreatorRequestDto dto) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
+        if (member.getCreatorProfile() != null){
+            throw new CAlreadyCreatorException();
+        }
         CreatorProfile creatorProfile = saveCreatorProfile(dto);
         member.setCreatorProfile(creatorProfile);
     }
