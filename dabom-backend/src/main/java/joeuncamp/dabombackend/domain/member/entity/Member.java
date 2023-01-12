@@ -25,31 +25,22 @@ import java.util.stream.Collectors;
 public class Member extends BaseTimeEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(description = "아이디넘버", example = "1")
     Long id;
 
-    @Schema(description = "계정", example = ExampleValue.Member.ACCOUNT)
     String account;
 
-    @Schema(description = "비밀번호", example = ExampleValue.Member.PASSWORD)
     String password;
 
-    @Schema(description = "실명", example = ExampleValue.Member.NAME)
     String name;
 
-    @Schema(description = "닉네임", example = ExampleValue.Member.NICKNAME)
     String nickname;
 
-    @Schema(description = "전화번호", example = ExampleValue.Member.MOBILE)
     String mobile;
 
-    @Schema(description = "생년월일", example = ExampleValue.Member.BIRTH_DATE)
     String birthDate;
 
-    @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
     String email;
 
-    @Schema(description = "로그인유형", example = "basic/kakao/naver/apple")
     @Enumerated(value = EnumType.STRING)
     LoginType loginType;
 
