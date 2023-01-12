@@ -12,6 +12,7 @@ import {
   InputLabel,
 } from "../../style/AccountComponentCss";
 import Term from "./Term";
+import { useForm } from "react-hook-form";
 
 const TeleInput = styled(AccountInput)`
   width: 83%;
@@ -75,6 +76,14 @@ const ErrorMessage = styled.span`
 
 export default function SignUp() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isID, setIsId] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
+
   return (
     <AccountWrapper>
       <AccountTitle>회원가입</AccountTitle>

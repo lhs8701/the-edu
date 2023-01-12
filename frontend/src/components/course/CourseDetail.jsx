@@ -10,7 +10,6 @@ import CourseReview from "./CourseReview";
 
 const DetailWrapper = styled.div`
   width: 72%;
-  height: 1000vh;
 `;
 
 const DetailBox = styled.div`
@@ -31,6 +30,7 @@ export default function CourseDetail({ courseInfo }) {
   const cateRef = useRef(null);
   const reviewRef = useRef(null);
   const inquireRef = useRef(null);
+
   const refArr = [imgRef, cateRef, reviewRef, inquireRef];
 
   const viewArr = [
@@ -40,6 +40,15 @@ export default function CourseDetail({ courseInfo }) {
     useInView(inquireRef),
   ];
 
+  // const viewArr = useMemo(() => {
+  //   return [
+  //     useInView(imgRef),
+  //     useInView(cateRef),
+  //     useInView(reviewRef),
+  //     useInView(inquireRef),
+  //   ];
+  // }, [imgRef, cateRef, reviewRef, inquireRef]);
+
   const currentViewFinder = (viewArr) => {
     const result = [];
     viewArr.filter((status, idx) => {
@@ -47,15 +56,19 @@ export default function CourseDetail({ courseInfo }) {
         result.push(idx);
       }
     });
-    console.log(result[0]);
-    return result;
+    if (result.length === 0) {
+      result.push(0);
+    }
+    return result[result.length - 1];
   };
 
   useEffect(() => {
-    setIsTabStatus(currentViewFinder(viewArr)[0]);
+    setIsTabStatus(currentViewFinder(viewArr));
   }, [viewArr]);
+
   return (
     <DetailWrapper>
+      <div ref={imgRef} />
       <CourseNavBar
         refArr={refArr}
         isTabStatus={isTabStatus}
@@ -73,7 +86,7 @@ export default function CourseDetail({ courseInfo }) {
           <CourseInquire courseInquireInfo={courseInfo.CourseInquire} />
         </RefDiv>
       </DetailBox> */}
-      <DetailBox ref={imgRef}>
+      <DetailBox>
         <CourseImg images={courseInfo?.courseInfoImg} />
         <RefDiv ref={cateRef}>
           <CourseCategory courseIdx={courseInfo.courseIndex} />

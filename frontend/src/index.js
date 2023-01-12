@@ -7,7 +7,14 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import GlobalStyle from "./style/GlobalStyle";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+      suspense: true,
+    },
+  },
+});
 root.render(
   <RecoilRoot>
     <QueryClientProvider client={queryClient}>

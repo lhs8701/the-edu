@@ -37,10 +37,18 @@ export default function EventPage() {
       return (
         <div>
           <EventCardBox
-            initial={{ opacity: 0.2, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ y: -10, transition: { duration: 0.2 } }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{ duration: 0.3 }}
+            whileHover={{
+              y: -10,
+              transition: { duration: 0.2 },
+              boxShadow:
+                "0 0px 0px rgb(0 0 0 / 16%), 0 10px 5px rgb(0 0 0 / 16%)",
+            }}
             whileTap={{ y: 0, transition: { duration: 0.01 } }}
           >
             <EventCard src="https://d33wubrfki0l68.cloudfront.net/594de66469079c21fc54c14db0591305a1198dd6/3f4b1/static/images/wallpapers/bridge-01@2x.png" />
