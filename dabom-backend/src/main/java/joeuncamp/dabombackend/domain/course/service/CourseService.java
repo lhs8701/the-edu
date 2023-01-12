@@ -12,6 +12,7 @@ import joeuncamp.dabombackend.domain.member.service.CreatorService;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
+import joeuncamp.dabombackend.global.validation.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,14 +51,27 @@ public class CourseService {
         return course;
     }
 
+    /**
+     * 강좌의 정보를 조회합니다.
+     * @param courseId 조회할 강좌 아이디넘버
+     * @return 강좌 정보
+     */
     public CourseResponseDto getCourse(Long courseId) {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
 
         return new CourseResponseDto(course);
     }
 
+    /**
+     * 카테고리 내의 모든 강좌 정보를 조회합니다.
+     * @param category 카테고리명
+     * @return 강좌 정보 리스트
+     */
     public List<CourseThumbnailResponseDto> getCoursesByCategory(String category) {
         CategoryType type = CategoryType.findByTitle(category);
+//        if (type.equals(CategoryType.EMPTY)){
+//            throw new
+//        }
         List<Course> courses = courseJpaRepository.findAllByCategoryType(type);
         return courses.stream()
                 .map(CourseThumbnailResponseDto::new)
