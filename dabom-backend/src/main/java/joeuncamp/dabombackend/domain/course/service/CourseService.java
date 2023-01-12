@@ -50,5 +50,4 @@ public class CourseService {
 
         return new CourseResponseDto(course);
     }
-
 }

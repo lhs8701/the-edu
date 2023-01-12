@@ -8,6 +8,7 @@ import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import org.assertj.core.api.Assertions;
@@ -57,18 +58,19 @@ public class CourseServiceTest {
     }
 
     @Test
-    @DisplayName("강좌 단건 조회 시, 강좌 정보에 강사의 실명이 포함된다")
-    void 강좌_정보에_강사_이름이_포함된다() {
+    @DisplayName("강좌 단건 조회 시, 강좌 정보가 반환된다.")
+    void 강좌_단건_조회_시_강좌_정보가_반환된다() {
         // given
         Long courseId = 1L;
 
         Member instructor = Member.builder()
-                .nickname(ExampleValue.Member.NICKNAME)
+                .name(ExampleValue.Member.NAME)
                 .build();
         CreatorProfile creatorProfile = CreatorProfile.builder()
                 .member(instructor)
                 .build();
         Course course = Course.builder()
+                .category(CategoryType.findByTitle(ExampleValue.Course.CATEGORY))
                 .creatorProfile(creatorProfile)
                 .build();
         instructor.activateCreatorProfile(creatorProfile);
@@ -79,6 +81,7 @@ public class CourseServiceTest {
         CourseResponseDto responseDto = courseService.getCourse(courseId);
 
         // then
-        assertThat(responseDto.getInstructor()).isEqualTo(instructor.getNickname());
+        assertThat(responseDto.getInstructor()).isEqualTo(instructor.getName());
+        assertThat(responseDto.getCategory()).isEqualTo(CategoryType.findByTitle(ExampleValue.Course.CATEGORY));
     }
 }
