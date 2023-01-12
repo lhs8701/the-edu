@@ -215,9 +215,10 @@ export default function Header() {
                       <span key={index}>
                         <CateLink
                           iscategoryon={isCategoryOn}
-                          to={PROCESS_MAIN_URL.CATEGORIES + "/" + index}
+                          to={PROCESS_MAIN_URL.CATEGORIES + "/" + e.id}
+                          preventScrollReset={true}
                         >
-                          {e}
+                          {e.big}
                         </CateLink>
                         <br />
                       </span>
@@ -228,15 +229,19 @@ export default function Header() {
             </CateBox>
           </NavTab>
           <NavTab>
-            <NavLink isValid={[0, 1]} to={""}>
+            <NavLink isValid={[0, 1]} to={""} preventScrollReset={true}>
               정보 공유
             </NavLink>
           </NavTab>
           <NavTab>
-            <NavLink to={PROCESS_MAIN_URL.ROADMAP}>로드맵</NavLink>
+            <NavLink to={PROCESS_MAIN_URL.ROADMAP} preventScrollReset={true}>
+              로드맵
+            </NavLink>
           </NavTab>
           <NavTab>
-            <NavLink to={PROCESS_MAIN_URL.EVENT}>이벤트</NavLink>
+            <NavLink to={PROCESS_MAIN_URL.EVENT} preventScrollReset={true}>
+              이벤트
+            </NavLink>
           </NavTab>
         </NavBox>
       </NavBar>
@@ -244,10 +249,17 @@ export default function Header() {
         <SearchInput placeholder="검색어를 입력해주세요." />
       </SearchBox>
       <LoginTab>
-        <LoginLink to={PROCESS_ACCOUNT_URL.LOGIN}>로그인</LoginLink>
+        <LoginLink to={PROCESS_ACCOUNT_URL.LOGIN} preventScrollReset={true}>
+          로그인
+        </LoginLink>
         <UserTab>
           <UserLink>크리에이터</UserLink>
-          <UserLink to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}>마이페이지</UserLink>
+          <UserLink
+            to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}
+            preventScrollReset={true}
+          >
+            마이페이지
+          </UserLink>
         </UserTab>
       </LoginTab>
     </HeadWrapper>

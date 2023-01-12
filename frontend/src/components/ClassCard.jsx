@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 const ClassTab = styled.div`
   width: 240px;
   height: 200px;
-  box-shadow: 0 1px 1px rgb(0 0 0 / 16%), 0 2px 14px rgb(0 0 0 / 16%);
+  box-shadow: 0 0px 1px rgb(0 0 0 / 16%), 0 1px 7px rgb(0 0 0 / 16%);
   border-radius: var(--size-border-radius);
   cursor: pointer;
   overflow: hidden;

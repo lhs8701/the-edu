@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 import styled from "styled-components";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { ScrollRestoration } from "react-router-dom";
 
 const Wrapper = styled.main`
   width: 1100px;
@@ -47,6 +48,7 @@ export default function Root() {
       </Wrapper>
       <Footer />
       <UpBtn onClick={goUp}>Up</UpBtn>
+      <ScrollRestoration />
     </span>
   );
 }

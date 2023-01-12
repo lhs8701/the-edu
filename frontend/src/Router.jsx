@@ -22,6 +22,7 @@ import MyClass from "./components/mypage/MyClass";
 import PurchaseHistory from "./components/mypage/PurchaseHistory";
 import FindAccount from "./components/account/FindAccount";
 import FindPassword from "./components/account/FindPassword";
+import KaKaoAuth from "./components/account/KakaoAuth";
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,7 @@ const router = createBrowserRouter([
         path: "password",
         element: <FindPassword />,
       },
+      { path: "kauth", element: <KaKaoAuth /> },
     ],
     errorElement: <NotFoundPage />,
   },

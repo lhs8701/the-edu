@@ -127,7 +127,10 @@ export default function MyClassCard({ info, data, progressRatio }) {
             {info?.nowUnitCnt}/{info?.totalUnitCnt}
           </RateNum>
         </div>
-        <GoTo to={PROCESS_MAIN_URL.COURSES + "/" + info?.courseId + "/lobby"}>
+        <GoTo
+          to={PROCESS_MAIN_URL.COURSES + "/" + info?.courseId + "/lobby"}
+          preventScrollReset={false}
+        >
           학습 하기
         </GoTo>
       </BottomTab>

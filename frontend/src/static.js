@@ -1,10 +1,32 @@
-export const CATE_VALUE = [
-  "전체보기",
-  "프로그래밍",
-  "자격증",
-  "외국어",
-  "재테크",
+const PROGRAMMING_DETAIL_CATEGORIES = [
+  { title: "전체보기", id: 0 },
+  { title: "백엔드", id: 1 },
+  { title: "프론트엔드", id: 2 },
 ];
+const FOREIGN_LANGUAGE_DETAIL_CATEGORIES = [
+  { title: "전체보기", id: 0 },
+  { title: "토익", id: 1 },
+  { title: "토플", id: 2 },
+];
+const LICENSE_DETAIL_CATEGORIES = [
+  { title: "전체보기", id: 0 },
+  { title: "정보처리", id: 1 },
+  { title: "전기", id: 2 },
+];
+const MONEY_MANAGEMENT_DETAIL_CATEGORIES = [
+  { title: "전체보기", id: 0 },
+  { title: "주식", id: 1 },
+  { title: "펀드", id: 2 },
+];
+
+export const CATE_VALUE = [
+  { big: "전체보기", id: 0, smallList: [] },
+  { big: "프로그래밍", id: 1, smallList: PROGRAMMING_DETAIL_CATEGORIES },
+  { big: "자격증", id: 2, smallList: LICENSE_DETAIL_CATEGORIES },
+  { big: "외국어", id: 3, smallList: FOREIGN_LANGUAGE_DETAIL_CATEGORIES },
+  { big: "재테크", id: 4, smallList: MONEY_MANAGEMENT_DETAIL_CATEGORIES },
+];
+
 export const PROCESS_ACCOUNT_URL = {
   LOGIN: "account/login",
   SIGNUP: "account/signup",
@@ -30,13 +52,7 @@ export const PROCESS_MAIN_URL = {
   SEARCH: "/search",
 };
 
-export const CATEGORY_LIST = {
-  isCategory: true,
-  list: CATE_VALUE,
-};
-
 export const BAR_LIST = {
-  isCategory: false,
   list: [
     {
       name: "나의 클래스",
@@ -63,4 +79,8 @@ export const BAR_LIST = {
       url: "withdraw",
     },
   ],
+};
+
+export const QUERYKEY = {
+  AUTH: {},
 };

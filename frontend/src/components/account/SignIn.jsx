@@ -17,6 +17,7 @@ import {
   AccountWrapper,
   InputLabel,
 } from "../../style/AccountComponentCss";
+import { useForm } from "react-hook-form";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -49,12 +50,38 @@ const AnyLink = styled(Link)`
 `;
 
 export default function SignIn() {
+  const [isID, setIsId] = useState("");
+  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
+
+  console.log(isID);
+
   return (
     <AccountWrapper>
       <AccountTitle>로그인</AccountTitle>
       <AccountForm>
-        <InputLabel>이메일주소 (아이디)</InputLabel>
-        <AccountInput type="email" placeholder="이메일 주소를 입력해주세요." />
+        <InputLabel htmlFor="email">이메일주소 (아이디)</InputLabel>
+        <AccountInput
+          {...register("email", {
+            name: "email",
+            required: "Write a email",
+            // 유효성 검사 파트
+            // pattern: {
+            //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+            //   message: "wrong input",
+            // },
+            onChange: (e) => {
+              setIsId(e.target.value);
+            },
+          })}
+          type="email"
+          placeholder="이메일 주소를 입력해주세요."
+        />
         <InputLabel>비밀번호</InputLabel>
         <AccountInput type="password" placeholder="비밀번호를 입력해주세요." />
         <LoginLinkBox>

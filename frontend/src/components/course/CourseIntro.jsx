@@ -11,6 +11,7 @@ const IntroduceWrapper = styled.div`
   margin-bottom: 25px;
   box-sizing: border-box;
   padding: 20px 30px;
+  box-shadow: 0 0 10px rgb(0 0 0 / 16%), 0 3px 10px rgb(0 0 0 / 16%);
 `;
 
 const IntroTitle = styled.h1`
