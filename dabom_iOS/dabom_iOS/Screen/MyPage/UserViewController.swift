@@ -39,6 +39,18 @@ class UserViewController: UIViewController {
         settingBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
     }
     
+    
+    @IBAction func accountBtnPressed(_ sender: Any) {
+//        guard let loginSignupVC = UIStoryboard(name: "LoginSignup", bundle: nil).instantiateViewController(withIdentifier: "LoginSignupVC") as? LoginSignupVC else {return}
+//        self.present(loginSignupVC, animated: true)
+        
+        // 로그인 안된 상태이면
+        guard let loginSignupVC = UIStoryboard(name: "LoginSignup", bundle: nil).instantiateViewController(withIdentifier: "LoginSignupNC") as? LoginSignupNC else {return}
+        
+        (UIApplication.shared.delegate as! AppDelegate).changeRootVC(loginSignupVC, animated: false)
+        
+    }
+    
 
     /*
     // MARK: - Navigation

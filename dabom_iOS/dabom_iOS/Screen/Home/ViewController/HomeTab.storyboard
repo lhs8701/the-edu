@@ -817,10 +817,10 @@
             </objects>
             <point key="canvasLocation" x="4777" y="739"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--HomeNC-->
         <scene sceneID="zS7-4x-SGP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SNS-57-BcH" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNC" automaticallyAdjustsScrollViewInsets="NO" id="SNS-57-BcH" customClass="HomeNC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="home" selectedImage="homeSelected" id="ojx-x6-qQb">
                         <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
