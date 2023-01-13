@@ -3,7 +3,7 @@ package joeuncamp.dabombackend.domain.auth.basic;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.basic.dto.SignUpRequestDto;
+import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class AuthController {
 
     @PostMapping("signup")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<Void> signup(@RequestBody @Valid SignUpRequestDto signUpRequestDto) {
+    public ResponseEntity<Void> signup(@RequestBody @Valid SignupRequestDto signUpRequestDto) {
         authService.signup(signUpRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
