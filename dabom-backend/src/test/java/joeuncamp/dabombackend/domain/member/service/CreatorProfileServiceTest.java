@@ -31,6 +31,30 @@ public class CreatorProfileServiceTest {
 
     @Mock
     MemberJpaRepository memberJpaRepository;
+<<<<<<< HEAD
+=======
+
+    @Test
+    @DisplayName("회원의 크리에이터 프로필을 생성한다.")
+    void 크리에이터_계정을_활성화한다() {
+        //given
+        Long memberId = 1L;
+        Member member = Member.builder()
+                .id(memberId)
+                .build();
+        CreatorRequestDto dto = CreatorRequestDto.builder()
+                .build();
+        CreatorProfile creatorProfile = dto.toEntity(member);
+        given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
+        given(creatorProfileJpaRepository.save(any())).willReturn(creatorProfile);
+
+        //when
+        creatorService.activateCreatorProfile(memberId, dto);
+
+        //then
+        assertThat(creatorProfile.getMember()).isEqualTo(member);
+    }
+>>>>>>> 7a661f3b621864659a0047516d34635d7490d7e8
 
     @Test
     @DisplayName("회원에게 크리에이터 계정이 있으면 true를 반환한다.")
@@ -67,6 +91,7 @@ public class CreatorProfileServiceTest {
     @DisplayName("이미 크리에이터인 경우 예외를 반환한다.")
     void 이미_크리에이터인_경우_예외를_반환한다() {
         // given
+<<<<<<< HEAD
         CreatorRequestDto dto = CreatorRequestDto.builder()
                 .memberId(1L)
                 .build();
@@ -76,11 +101,25 @@ public class CreatorProfileServiceTest {
                 .creatorProfile(creatorProfile)
                 .build();
         given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
+=======
+        Long memberId = 1L;
+        CreatorRequestDto dto = CreatorRequestDto.builder().build();
+        CreatorProfile creatorProfile = CreatorProfile.builder().build();
+        Member member = Member.builder()
+                .id(memberId)
+                .creatorProfile(creatorProfile)
+                .build();
+        given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
+>>>>>>> 7a661f3b621864659a0047516d34635d7490d7e8
 
         // when
 
         // then
+<<<<<<< HEAD
         assertThatThrownBy(() -> creatorService.activateCreatorProfile(dto))
+=======
+        assertThatThrownBy(() -> creatorService.activateCreatorProfile(memberId, dto))
+>>>>>>> 7a661f3b621864659a0047516d34635d7490d7e8
                 .isInstanceOf(CAlreadyCreatorException.class);
     }
 }

@@ -7,6 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E550140296EA96400DD5B75 /* Layer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E55013F296EA96400DD5B75 /* Layer+.swift */; };
+		0E550142296F8BC200DD5B75 /* CategoryResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */; };
+		0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028282965659D00A25F48 /* InCourseViewController.swift */; };
+		0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */; };
+		0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282C29656BB500A25F48 /* WishCourseViewController.swift */; };
+		0E60282F29656FC800A25F48 /* MyCourseTabManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282E29656FC800A25F48 /* MyCourseTabManViewController.swift */; };
+		0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E602834296665C600A25F48 /* CourseThumbnailDataModel.swift */; };
+		0E6028382966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028362966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift */; };
+		0E6028392966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E6028372966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib */; };
+		0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60283C2966777A00A25F48 /* CourseTableDataModel.swift */; };
+		0E69A039296542CB00BFD12E /* HomeTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A038296542CB00BFD12E /* HomeTab.storyboard */; };
+		0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A03A2965430D00BFD12E /* HomeViewController.swift */; };
+		0E69A03D2965439300BFD12E /* MyCourseTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */; };
+		0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A03E296543A200BFD12E /* MyCourseViewController.swift */; };
+		0E69A041296543B600BFD12E /* UserTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A040296543B600BFD12E /* UserTab.storyboard */; };
+		0E69A045296543D000BFD12E /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A044296543D000BFD12E /* UserViewController.swift */; };
+		0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A04A296544A500BFD12E /* TabBarViewController.swift */; };
+		0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E78ED7C2967A66B001424A7 /* BannerTableViewCell.swift */; };
+		0E78ED7F2967A66B001424A7 /* BannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E78ED7D2967A66B001424A7 /* BannerTableViewCell.xib */; };
+		0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E78ED802967A740001424A7 /* BannerCollectionViewCell.swift */; };
+		0E78ED832967A740001424A7 /* BannerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E78ED812967A740001424A7 /* BannerCollectionViewCell.xib */; };
+		0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E78ED842967AAD8001424A7 /* BannerDataModel.swift */; };
+		0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */; };
+		0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */; };
+		0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */; };
+		0EB576F3296BC9EF001EFBE1 /* CourseInfoView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */; };
+		0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */; };
+		0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */; };
+		0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7037D296D3EFD0095DD14 /* SearchVC.swift */; };
+		0ED70382296E58660095DD14 /* CourseInfoTMVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70381296E58660095DD14 /* CourseInfoTMVC.swift */; };
+		0ED70384296E593D0095DD14 /* IntroductionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70383296E593D0095DD14 /* IntroductionVC.swift */; };
+		0ED70386296E59620095DD14 /* CurriculumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70385296E59620095DD14 /* CurriculumVC.swift */; };
+		0ED70388296E597E0095DD14 /* CourseReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70387296E597E0095DD14 /* CourseReviewVC.swift */; };
+		0ED7038A296E59B30095DD14 /* CourseInquireVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70389296E59B30095DD14 /* CourseInquireVC.swift */; };
+		0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */; };
+		0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */; };
+		0EDEA203296D04FF00B4712B /* MyCourseCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */; };
+		0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */; };
 		0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C20296518EE006DC95D /* AppDelegate.swift */; };
 		0EF17C23296518EE006DC95D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C22296518EE006DC95D /* SceneDelegate.swift */; };
 		0EF17C25296518EE006DC95D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C24296518EE006DC95D /* ViewController.swift */; };
@@ -16,6 +54,9 @@
 		0EF17C38296518EF006DC95D /* dabom_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C37296518EF006DC95D /* dabom_iOSTests.swift */; };
 		0EF17C42296518EF006DC95D /* dabom_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C41296518EF006DC95D /* dabom_iOSUITests.swift */; };
 		0EF17C44296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C43296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift */; };
+		740880D55001884531A16AD9 /* Pods_dabom_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F546AE9673177BA4D7838E /* Pods_dabom_iOS.framework */; };
+		D34A465AEC502AF4611B2D40 /* Pods_dabom_iOS_dabom_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16541FCEC1F1DBB15C6E1593 /* Pods_dabom_iOS_dabom_iOSUITests.framework */; };
+		D92F01392F8EBD444A7A1F5A /* Pods_dabom_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +77,46 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E55013F296EA96400DD5B75 /* Layer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Layer+.swift"; sourceTree = "<group>"; };
+		0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResultVC.swift; sourceTree = "<group>"; };
+		0E6028282965659D00A25F48 /* InCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InCourseViewController.swift; sourceTree = "<group>"; };
+		0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionCourseViewController.swift; sourceTree = "<group>"; };
+		0E60282C29656BB500A25F48 /* WishCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCourseViewController.swift; sourceTree = "<group>"; };
+		0E60282E29656FC800A25F48 /* MyCourseTabManViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseTabManViewController.swift; sourceTree = "<group>"; };
+		0E602834296665C600A25F48 /* CourseThumbnailDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseThumbnailDataModel.swift; sourceTree = "<group>"; };
+		0E6028362966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
+		0E6028372966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseThumbnailCollectionViewCell.xib; sourceTree = "<group>"; };
+		0E60283C2966777A00A25F48 /* CourseTableDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableDataModel.swift; sourceTree = "<group>"; };
+		0E69A038296542CB00BFD12E /* HomeTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeTab.storyboard; sourceTree = "<group>"; };
+		0E69A03A2965430D00BFD12E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyCourseTab.storyboard; sourceTree = "<group>"; };
+		0E69A03E296543A200BFD12E /* MyCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseViewController.swift; sourceTree = "<group>"; };
+		0E69A040296543B600BFD12E /* UserTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserTab.storyboard; sourceTree = "<group>"; };
+		0E69A044296543D000BFD12E /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		0E69A04A296544A500BFD12E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		0E78ED7C2967A66B001424A7 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
+		0E78ED7D2967A66B001424A7 /* BannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerTableViewCell.xib; sourceTree = "<group>"; };
+		0E78ED802967A740001424A7 /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		0E78ED812967A740001424A7 /* BannerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BannerCollectionViewCell.xib; sourceTree = "<group>"; };
+		0E78ED842967AAD8001424A7 /* BannerDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDataModel.swift; sourceTree = "<group>"; };
+		0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoViewController.swift; sourceTree = "<group>"; };
+		0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerInfoViewController.swift; sourceTree = "<group>"; };
+		0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CourseInfoView.storyboard; sourceTree = "<group>"; };
+		0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
+		0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseTableViewCell.xib; sourceTree = "<group>"; };
+		0ED7037D296D3EFD0095DD14 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		0ED70381296E58660095DD14 /* CourseInfoTMVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoTMVC.swift; sourceTree = "<group>"; };
+		0ED70383296E593D0095DD14 /* IntroductionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionVC.swift; sourceTree = "<group>"; };
+		0ED70385296E59620095DD14 /* CurriculumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumVC.swift; sourceTree = "<group>"; };
+		0ED70387296E597E0095DD14 /* CourseReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewVC.swift; sourceTree = "<group>"; };
+		0ED70389296E59B30095DD14 /* CourseInquireVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquireVC.swift; sourceTree = "<group>"; };
+		0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePurchaseVC.swift; sourceTree = "<group>"; };
+		0EDEA1FE296CFFFC00B4712B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseCVC.swift; sourceTree = "<group>"; };
+		0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCourseCVC.xib; sourceTree = "<group>"; };
+		0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseDataModel.swift; sourceTree = "<group>"; };
 		0EF17C1D296518EE006DC95D /* dabom_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dabom_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EF17C20296518EE006DC95D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0EF17C22296518EE006DC95D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,12 +124,19 @@
 		0EF17C27296518EE006DC95D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0EF17C29296518EF006DC95D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0EF17C2C296518EF006DC95D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0EF17C2E296518EF006DC95D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EF17C33296518EF006DC95D /* dabom_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dabom_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EF17C37296518EF006DC95D /* dabom_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dabom_iOSTests.swift; sourceTree = "<group>"; };
 		0EF17C3D296518EF006DC95D /* dabom_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dabom_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EF17C41296518EF006DC95D /* dabom_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dabom_iOSUITests.swift; sourceTree = "<group>"; };
 		0EF17C43296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dabom_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		16541FCEC1F1DBB15C6E1593 /* Pods_dabom_iOS_dabom_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOS_dabom_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		18F546AE9673177BA4D7838E /* Pods_dabom_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3462F933209BFAC67DFF897E /* Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-dabom_iOS-dabom_iOSUITests/Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		44E319A24D18E108FBFB4EBE /* Pods-dabom_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dabom_iOS.release.xcconfig"; path = "Target Support Files/Pods-dabom_iOS/Pods-dabom_iOS.release.xcconfig"; sourceTree = "<group>"; };
+		5024AE2829C33A42B8D86E60 /* Pods-dabom_iOS-dabom_iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dabom_iOS-dabom_iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-dabom_iOS-dabom_iOSUITests/Pods-dabom_iOS-dabom_iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		541DA01D7A38C540F38C868D /* Pods-dabom_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dabom_iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-dabom_iOSTests/Pods-dabom_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		997113D4ADF4B0A040A5E995 /* Pods-dabom_iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dabom_iOSTests.release.xcconfig"; path = "Target Support Files/Pods-dabom_iOSTests/Pods-dabom_iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		D2F3EBB8D408A6D8BA945594 /* Pods-dabom_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dabom_iOS.debug.xcconfig"; path = "Target Support Files/Pods-dabom_iOS/Pods-dabom_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				740880D55001884531A16AD9 /* Pods_dabom_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D92F01392F8EBD444A7A1F5A /* Pods_dabom_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +160,155 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D34A465AEC502AF4611B2D40 /* Pods_dabom_iOS_dabom_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E55013E296EA94A00DD5B75 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0E55013F296EA96400DD5B75 /* Layer+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		0EDEA1ED296CFBFB00B4712B /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				0EF17C20296518EE006DC95D /* AppDelegate.swift */,
+				0EDEA1FE296CFFFC00B4712B /* Info.plist */,
+				0EF17C29296518EF006DC95D /* Assets.xcassets */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		0EDEA1EE296CFC2600B4712B /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				0EDEA1FD296CFE1E00B4712B /* TabBar */,
+				0EDEA1FC296CFDEE00B4712B /* Banner */,
+				0EDEA1FA296CFDCC00B4712B /* MyCourse */,
+				0EDEA1F4296CFD0400B4712B /* MyPage */,
+				0EDEA1F3296CFC9B00B4712B /* Course */,
+				0EDEA1EF296CFC3E00B4712B /* Home */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		0EDEA1EF296CFC3E00B4712B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				0EDEA1F6296CFD1900B4712B /* ViewController */,
+				0EDEA1F5296CFD1300B4712B /* Model */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		0EDEA1F3296CFC9B00B4712B /* Course */ = {
+			isa = PBXGroup;
+			children = (
+				0EDEA1F9296CFD6700B4712B /* ViewController */,
+				0EDEA1F8296CFD6200B4712B /* Model */,
+			);
+			path = Course;
+			sourceTree = "<group>";
+		};
+		0EDEA1F4296CFD0400B4712B /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				0E69A040296543B600BFD12E /* UserTab.storyboard */,
+				0E69A044296543D000BFD12E /* UserViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		0EDEA1F5296CFD1300B4712B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0EDEA1F6296CFD1900B4712B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0E69A038296542CB00BFD12E /* HomeTab.storyboard */,
+				0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */,
+				0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */,
+				0ED7037D296D3EFD0095DD14 /* SearchVC.swift */,
+				0E69A03A2965430D00BFD12E /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0EDEA1F8296CFD6200B4712B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0E602834296665C600A25F48 /* CourseThumbnailDataModel.swift */,
+				0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */,
+				0E60283C2966777A00A25F48 /* CourseTableDataModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0EDEA1F9296CFD6700B4712B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */,
+				0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */,
+				0E6028362966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift */,
+				0E6028372966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib */,
+				0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */,
+				0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */,
+				0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */,
+				0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */,
+				0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */,
+				0ED70381296E58660095DD14 /* CourseInfoTMVC.swift */,
+				0ED70385296E59620095DD14 /* CurriculumVC.swift */,
+				0ED70387296E597E0095DD14 /* CourseReviewVC.swift */,
+				0ED70389296E59B30095DD14 /* CourseInquireVC.swift */,
+				0ED70383296E593D0095DD14 /* IntroductionVC.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0EDEA1FA296CFDCC00B4712B /* MyCourse */ = {
+			isa = PBXGroup;
+			children = (
+				0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */,
+				0E60282E29656FC800A25F48 /* MyCourseTabManViewController.swift */,
+				0E69A03E296543A200BFD12E /* MyCourseViewController.swift */,
+				0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */,
+				0E6028282965659D00A25F48 /* InCourseViewController.swift */,
+				0E60282C29656BB500A25F48 /* WishCourseViewController.swift */,
+			);
+			path = MyCourse;
+			sourceTree = "<group>";
+		};
+		0EDEA1FC296CFDEE00B4712B /* Banner */ = {
+			isa = PBXGroup;
+			children = (
+				0E78ED842967AAD8001424A7 /* BannerDataModel.swift */,
+				0E78ED7C2967A66B001424A7 /* BannerTableViewCell.swift */,
+				0E78ED7D2967A66B001424A7 /* BannerTableViewCell.xib */,
+				0E78ED802967A740001424A7 /* BannerCollectionViewCell.swift */,
+				0E78ED812967A740001424A7 /* BannerCollectionViewCell.xib */,
+				0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */,
+			);
+			path = Banner;
+			sourceTree = "<group>";
+		};
+		0EDEA1FD296CFE1E00B4712B /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				0E69A04A296544A500BFD12E /* TabBarViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		0EF17C14296518EE006DC95D = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +316,8 @@
 				0EF17C36296518EF006DC95D /* dabom_iOSTests */,
 				0EF17C40296518EF006DC95D /* dabom_iOSUITests */,
 				0EF17C1E296518EE006DC95D /* Products */,
+				DBE3041A740500C294E99236 /* Pods */,
+				EA85B66DD96AEEE580721B5F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,16 +334,13 @@
 		0EF17C1F296518EE006DC95D /* dabom_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				0EF17C5229651CCF006DC95D /* Controller */,
-				0EF17C5129651CCA006DC95D /* View */,
-				0EF17C5029651CC1006DC95D /* Model */,
-				0EF17C20296518EE006DC95D /* AppDelegate.swift */,
+				0E55013E296EA94A00DD5B75 /* Extension */,
+				0EDEA1EE296CFC2600B4712B /* Screen */,
 				0EF17C22296518EE006DC95D /* SceneDelegate.swift */,
-				0EF17C24296518EE006DC95D /* ViewController.swift */,
-				0EF17C26296518EE006DC95D /* Main.storyboard */,
-				0EF17C29296518EF006DC95D /* Assets.xcassets */,
+				0EDEA1ED296CFBFB00B4712B /* Support */,
 				0EF17C2B296518EF006DC95D /* LaunchScreen.storyboard */,
-				0EF17C2E296518EF006DC95D /* Info.plist */,
+				0EF17C26296518EE006DC95D /* Main.storyboard */,
+				0EF17C24296518EE006DC95D /* ViewController.swift */,
 			);
 			path = dabom_iOS;
 			sourceTree = "<group>";
@@ -130,25 +362,27 @@
 			path = dabom_iOSUITests;
 			sourceTree = "<group>";
 		};
-		0EF17C5029651CC1006DC95D /* Model */ = {
+		DBE3041A740500C294E99236 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				D2F3EBB8D408A6D8BA945594 /* Pods-dabom_iOS.debug.xcconfig */,
+				44E319A24D18E108FBFB4EBE /* Pods-dabom_iOS.release.xcconfig */,
+				5024AE2829C33A42B8D86E60 /* Pods-dabom_iOS-dabom_iOSUITests.debug.xcconfig */,
+				3462F933209BFAC67DFF897E /* Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig */,
+				541DA01D7A38C540F38C868D /* Pods-dabom_iOSTests.debug.xcconfig */,
+				997113D4ADF4B0A040A5E995 /* Pods-dabom_iOSTests.release.xcconfig */,
 			);
-			path = Model;
+			path = Pods;
 			sourceTree = "<group>";
 		};
-		0EF17C5129651CCA006DC95D /* View */ = {
+		EA85B66DD96AEEE580721B5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18F546AE9673177BA4D7838E /* Pods_dabom_iOS.framework */,
+				16541FCEC1F1DBB15C6E1593 /* Pods_dabom_iOS_dabom_iOSUITests.framework */,
+				0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		0EF17C5229651CCF006DC95D /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,9 +392,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0EF17C47296518EF006DC95D /* Build configuration list for PBXNativeTarget "dabom_iOS" */;
 			buildPhases = (
+				9AD8B0566BC5AD0BCE49DE92 /* [CP] Check Pods Manifest.lock */,
 				0EF17C19296518EE006DC95D /* Sources */,
 				0EF17C1A296518EE006DC95D /* Frameworks */,
 				0EF17C1B296518EE006DC95D /* Resources */,
+				F94032610A96D344DB111CDC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -175,6 +411,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0EF17C4A296518EF006DC95D /* Build configuration list for PBXNativeTarget "dabom_iOSTests" */;
 			buildPhases = (
+				DF70923763F5A82A4F8933EE /* [CP] Check Pods Manifest.lock */,
 				0EF17C2F296518EF006DC95D /* Sources */,
 				0EF17C30296518EF006DC95D /* Frameworks */,
 				0EF17C31296518EF006DC95D /* Resources */,
@@ -193,9 +430,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0EF17C4D296518EF006DC95D /* Build configuration list for PBXNativeTarget "dabom_iOSUITests" */;
 			buildPhases = (
+				A00FAD9A9D351B7E35E25A84 /* [CP] Check Pods Manifest.lock */,
 				0EF17C39296518EF006DC95D /* Sources */,
 				0EF17C3A296518EF006DC95D /* Frameworks */,
 				0EF17C3B296518EF006DC95D /* Resources */,
+				DFCE7E6F070E1AE04920C8D3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -255,7 +494,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E69A03D2965439300BFD12E /* MyCourseTab.storyboard in Resources */,
 				0EF17C2D296518EF006DC95D /* LaunchScreen.storyboard in Resources */,
+				0E78ED7F2967A66B001424A7 /* BannerTableViewCell.xib in Resources */,
+				0EDEA203296D04FF00B4712B /* MyCourseCVC.xib in Resources */,
+				0E6028392966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib in Resources */,
+				0E78ED832967A740001424A7 /* BannerCollectionViewCell.xib in Resources */,
+				0E69A039296542CB00BFD12E /* HomeTab.storyboard in Resources */,
+				0E69A041296543B600BFD12E /* UserTab.storyboard in Resources */,
+				0EB576F3296BC9EF001EFBE1 /* CourseInfoView.storyboard in Resources */,
+				0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */,
 				0EF17C2A296518EF006DC95D /* Assets.xcassets in Resources */,
 				0EF17C28296518EE006DC95D /* Main.storyboard in Resources */,
 			);
@@ -277,14 +525,146 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9AD8B0566BC5AD0BCE49DE92 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dabom_iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A00FAD9A9D351B7E35E25A84 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dabom_iOS-dabom_iOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF70923763F5A82A4F8933EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dabom_iOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFCE7E6F070E1AE04920C8D3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dabom_iOS-dabom_iOSUITests/Pods-dabom_iOS-dabom_iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dabom_iOS-dabom_iOSUITests/Pods-dabom_iOS-dabom_iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dabom_iOS-dabom_iOSUITests/Pods-dabom_iOS-dabom_iOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F94032610A96D344DB111CDC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dabom_iOS/Pods-dabom_iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dabom_iOS/Pods-dabom_iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dabom_iOS/Pods-dabom_iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0EF17C19296518EE006DC95D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */,
+				0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */,
 				0EF17C25296518EE006DC95D /* ViewController.swift in Sources */,
+				0ED70384296E593D0095DD14 /* IntroductionVC.swift in Sources */,
+				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
+				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
+				0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */,
+				0E550142296F8BC200DD5B75 /* CategoryResultVC.swift in Sources */,
+				0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */,
+				0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */,
+				0E60282F29656FC800A25F48 /* MyCourseTabManViewController.swift in Sources */,
+				0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */,
+				0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */,
+				0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */,
+				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
+				0E550140296EA96400DD5B75 /* Layer+.swift in Sources */,
+				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
+				0ED7038A296E59B30095DD14 /* CourseInquireVC.swift in Sources */,
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,
+				0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */,
+				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,
+				0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */,
+				0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */,
 				0EF17C23296518EE006DC95D /* SceneDelegate.swift in Sources */,
+				0ED70388296E597E0095DD14 /* CourseReviewVC.swift in Sources */,
+				0ED70386296E59620095DD14 /* CurriculumVC.swift in Sources */,
+				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
+				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,
+				0ED70382296E58660095DD14 /* CourseInfoTMVC.swift in Sources */,
+				0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */,
+				0E6028382966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift in Sources */,
+				0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,18 +836,21 @@
 		};
 		0EF17C48296518EF006DC95D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2F3EBB8D408A6D8BA945594 /* Pods-dabom_iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = dabom_iOS/Info.plist;
+				INFOPLIST_FILE = dabom_iOS/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -483,18 +866,21 @@
 		};
 		0EF17C49296518EF006DC95D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44E319A24D18E108FBFB4EBE /* Pods-dabom_iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = dabom_iOS/Info.plist;
+				INFOPLIST_FILE = dabom_iOS/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -510,6 +896,7 @@
 		};
 		0EF17C4B296518EF006DC95D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 541DA01D7A38C540F38C868D /* Pods-dabom_iOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -529,6 +916,7 @@
 		};
 		0EF17C4C296518EF006DC95D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 997113D4ADF4B0A040A5E995 /* Pods-dabom_iOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -548,6 +936,7 @@
 		};
 		0EF17C4E296518EF006DC95D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5024AE2829C33A42B8D86E60 /* Pods-dabom_iOS-dabom_iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -565,6 +954,7 @@
 		};
 		0EF17C4F296518EF006DC95D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3462F933209BFAC67DFF897E /* Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -111,7 +111,7 @@ public class CourseControllerTest {
 
     @Test
     @WithAuthUser(role = "USER")
-    @DisplayName("강좌에 수강신청한다.")
+
     void 강좌에_수강신청한다() throws Exception {
         //given
 

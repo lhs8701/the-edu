@@ -29,16 +29,25 @@ public class CourseResponseDto {
     CategoryType category;
     @Schema(name = "가격", example = "143000")
     long price;
+<<<<<<< HEAD
     @Schema(name = "찜", example = "1500")
     long wish;
+=======
+>>>>>>> 7a661f3b621864659a0047516d34635d7490d7e8
 
     public CourseResponseDto(Course course) {
         this.id = course.getId();
         this.title = course.getTitle();
         this.description = course.getDescription();
+<<<<<<< HEAD
         this.instructor = course.getInstructorName();
         this.category = course.getCategory();
         this.price = course.getPrice();
         this.wish = course.getWishList().size();
+=======
+        this.instructor = course.getCreatorProfile().getMember().getName();
+        this.category = course.getCategory();
+        this.price = course.getPrice();
+>>>>>>> 7a661f3b621864659a0047516d34635d7490d7e8
     }
 }
