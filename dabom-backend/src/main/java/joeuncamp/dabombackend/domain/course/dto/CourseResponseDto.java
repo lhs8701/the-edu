@@ -36,7 +36,7 @@ public class CourseResponseDto {
         this.id = course.getId();
         this.title = course.getTitle();
         this.description = course.getDescription();
-        this.instructor = course.getCreatorProfile().getMember().getName();
+        this.instructor = course.getInstructorName();
         this.category = course.getCategory();
         this.price = course.getPrice();
         this.wish = course.getWishList().size();

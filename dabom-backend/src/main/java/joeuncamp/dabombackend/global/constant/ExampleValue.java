@@ -10,7 +10,7 @@ public class ExampleValue {
 
     public static class Course{
         public final static String TITLE = "스프링 핵심 원리 - 기본편";
-        public final static String DESCRIPTION = "스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해하고, 스프링 기본기를 확실히 다질 수 있습니다.";
+        public final static String DESCRIPTION = "스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.";
         public final static String CATEGORY = "백엔드";
         public final static Long PRICE = 143000L;
     }

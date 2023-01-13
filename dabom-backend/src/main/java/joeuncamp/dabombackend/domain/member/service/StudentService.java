@@ -45,7 +45,7 @@ public class StudentService {
      */
     public List<CourseShortResponseDto> getWishedCourses(Long memberId) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
-        List<Wish> wishes = wishJpaRepository.findAllByMember(memberId);
+        List<Wish> wishes = wishJpaRepository.findAllByMember(member);
         List<Course> wishedCourses = wishes.stream().map(Wish::getCourse).toList();
         return wishedCourses.stream().map(CourseShortResponseDto::new).toList();
     }
