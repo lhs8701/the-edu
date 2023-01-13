@@ -29,6 +29,8 @@ public class CourseResponseDto {
     CategoryType category;
     @Schema(name = "가격", example = "143000")
     long price;
+    @Schema(name = "찜", example = "1500")
+    long wish;
 
     public CourseResponseDto(Course course) {
         this.id = course.getId();
@@ -37,5 +39,6 @@ public class CourseResponseDto {
         this.instructor = course.getCreatorProfile().getMember().getName();
         this.category = course.getCategory();
         this.price = course.getPrice();
+        this.wish = course.getWishList().size();
     }
 }
