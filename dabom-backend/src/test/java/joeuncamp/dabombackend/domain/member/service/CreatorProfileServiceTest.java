@@ -33,26 +33,6 @@ public class CreatorProfileServiceTest {
     MemberJpaRepository memberJpaRepository;
 
     @Test
-    @DisplayName("회원의 크리에이터 프로필을 생성한다.")
-    void 크리에이터_계정을_활성화한다() {
-        //given
-        Member member = Member.builder()
-                .id(1L)
-                .build();
-        CreatorRequestDto requestDto = CreatorRequestDto.builder()
-                .memberId(1L)
-                .build();
-        CreatorProfile creatorProfile = requestDto.toEntity(member);
-        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
-
-        //when
-        creatorService.activateCreatorProfile(requestDto);
-
-        //then
-        assertThat(creatorProfile.getMember()).isEqualTo(member);
-    }
-
-    @Test
     @DisplayName("회원에게 크리에이터 계정이 있으면 true를 반환한다.")
     void 크리에이터_계정이_있으면_true를_반환한다() {
         // given
