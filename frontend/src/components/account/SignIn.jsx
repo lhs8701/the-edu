@@ -148,7 +148,7 @@ export default function SignIn() {
         bgcolor={"--color-account-naver"}
         textcolor={"--color-text"}
       >
-        네이버로 시작하기
+        네이버로 시작하기test
       </AccountBtn>
       <AccountBtn
         texthovercolor={"--color-text"}
