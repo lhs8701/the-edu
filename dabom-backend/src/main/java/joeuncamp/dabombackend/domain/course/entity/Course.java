@@ -45,4 +45,8 @@ public class Course extends BaseTimeEntity {
         this.creatorProfile = creatorProfile;
         creatorProfile.getUploadedCourses().add(this);
     }
+
+    public String getInstructorName(){
+        return this.creatorProfile.getMember().getName();
+    }
 }
