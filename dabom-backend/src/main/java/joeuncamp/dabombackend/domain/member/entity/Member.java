@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.member.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.LoginType;
@@ -46,6 +47,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     CreatorProfile creatorProfile;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "member")
+    List<Enroll> enrollList = new ArrayList<>();
 
     /* @ElementCollection
         @OneToMany 처럼 엔티티를 컬렉션으로 사용하는 것이 아닌, Integer, String, 임베디드 타입 같은 값 타입을 컬렉션으로 사용

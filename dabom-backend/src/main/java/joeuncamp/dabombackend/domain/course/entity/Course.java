@@ -9,6 +9,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @AllArgsConstructor
@@ -30,6 +33,10 @@ public class Course extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "creator_profile_id")
     CreatorProfile creatorProfile;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "course")
+    List<Enroll> enrollList = new ArrayList<>();
 
     public void setCreatorProfile(CreatorProfile creatorProfile) {
         if (this.creatorProfile != null){

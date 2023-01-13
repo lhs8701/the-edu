@@ -60,7 +60,6 @@ public class CourseService {
      */
     public CourseResponseDto getCourse(Long courseId) {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
-
         return new CourseResponseDto(course);
     }
 
