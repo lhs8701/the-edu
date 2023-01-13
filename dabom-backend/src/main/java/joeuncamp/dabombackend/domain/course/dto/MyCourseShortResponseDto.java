@@ -4,9 +4,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 @Getter
 @AllArgsConstructor
+@Builder
 public class MyCourseShortResponseDto {
 
     @Schema(name = "아이디넘버", example = "1")
