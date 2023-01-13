@@ -23,6 +23,8 @@ import PurchaseHistory from "./components/mypage/PurchaseHistory";
 import FindAccount from "./components/account/FindAccount";
 import FindPassword from "./components/account/FindPassword";
 import KaKaoAuth from "./components/account/KakaoAuth";
+import PlayerRoot from "./pages/PlayerRoot";
+
 
 const router = createBrowserRouter([
   {
@@ -118,7 +120,12 @@ const router = createBrowserRouter([
       },
       { path: "kauth", element: <KaKaoAuth /> },
     ],
-    errorElement: <NotFoundPage />,
+    errorElement: <ErrorComponent />,
+  },
+  {
+    path: "/player",
+    element: <PlayerRoot />,
+    errorElement: <ErrorComponent />,
   },
 ]);
 

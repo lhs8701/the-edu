@@ -7,8 +7,12 @@ import {
   AccountSmallBtn,
   AccountTitle,
   AccountWrapper,
+  ErrorMessage,
+  InputBox,
   InputLabel,
 } from "../../style/AccountComponentCss";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -46,16 +50,85 @@ const Div = styled.div`
 `;
 
 export default function FindPassword() {
+  const [isID, setIsId] = useState("");
+  const [isName, setIsName] = useState("");
+  const [isTele, setIsTele] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    formState,
+  } = useForm();
+
+  const submit = () => {
+    alert("Ss");
+  };
+
   return (
     <AccountWrapper>
       <AccountTitle>비밀번호 찾기</AccountTitle>
-      <AccountForm>
-        <InputLabel>아이디</InputLabel>
-        <AccountInput type="email" placeholder="비밀번호를 입력해주세요." />
-        <InputLabel>성명</InputLabel>
-        <AccountInput type="text" placeholder="비밀번호를 입력해주세요." />
-        <InputLabel>휴대전화 번호</InputLabel>
-        <AccountInput type="tel" placeholder="이메일 주소를 입력해주세요." />
+      <AccountForm onSubmit={handleSubmit(submit)}>
+        <InputBox>
+          <InputLabel>아이디</InputLabel>
+          <AccountInput
+            {...register("email", {
+              name: "email",
+              required: "아이디를 입력하세요!",
+              // 유효성 검사 파트
+              // pattern: {
+              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+              //   message: "wrong input",
+              // },
+              onChange: (e) => {
+                setIsId(e.target.value);
+              },
+            })}
+            type="email"
+            placeholder="아이디를 입력해주세요."
+          />
+          <ErrorMessage>{errors?.email?.message}</ErrorMessage>
+        </InputBox>
+        <InputBox>
+          <InputLabel>성명</InputLabel>
+          <AccountInput
+            {...register("name", {
+              name: "name",
+              required: "이름을 입력하세요!",
+              // 유효성 검사 파트
+              // pattern: {
+              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+              //   message: "wrong input",
+              // },
+              onChange: (e) => {
+                setIsName(e.target.value);
+              },
+            })}
+            type="text"
+            placeholder="이름을 입력해주세요."
+          />
+          <ErrorMessage>{errors?.name?.message}</ErrorMessage>
+        </InputBox>
+        <InputBox>
+          <InputLabel>휴대전화 번호</InputLabel>
+          <AccountInput
+            {...register("tele", {
+              name: "tele",
+              required: "전화번호를 입력하세요!",
+              // 유효성 검사 파트
+              // pattern: {
+              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+              //   message: "wrong input",
+              // },
+              onChange: (e) => {
+                setIsTele(e.target.value);
+              },
+            })}
+            type="tel"
+            placeholder="전화번호를 입력해주세요."
+          />
+          <ErrorMessage>{errors?.tele?.message}</ErrorMessage>
+        </InputBox>
         <LoginLinkBox>
           <Btn>비밀번호 찾기</Btn>
         </LoginLinkBox>

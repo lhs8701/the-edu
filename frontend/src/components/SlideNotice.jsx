@@ -3,7 +3,7 @@ import { motion, AnimatePresence, wrap } from "framer-motion";
 import { images } from "../dummy";
 import styled from "styled-components";
 
-const NoticeWrapper = styled.div`
+const NoticeWrapper = styled(motion.div)`
   width: 100%;
   height: 300px;
   display: flex;
@@ -11,6 +11,7 @@ const NoticeWrapper = styled.div`
   border-radius: var(--size-border-radius);
   overflow: hidden;
   margin-bottom: 50px;
+  background-image: images[imageIndex];
 `;
 
 const Ad = styled(motion.img)`

@@ -7,8 +7,12 @@ import {
   AccountSmallBtn,
   AccountTitle,
   AccountWrapper,
+  ErrorMessage,
+  InputBox,
   InputLabel,
 } from "../../style/AccountComponentCss";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -46,14 +50,67 @@ const Div = styled.div`
 `;
 
 export default function FindAccount() {
+  const [isName, setIsName] = useState("");
+  const [isTele, setIsTele] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      inputValue: "",
+    },
+  });
+
+  const submit = () => {
+    console.log(isName, isTele);
+  };
+
   return (
     <AccountWrapper>
       <AccountTitle>아이디 찾기</AccountTitle>
-      <AccountForm>
-        <InputLabel>성명</InputLabel>
-        <AccountInput type="tel" placeholder="비밀번호를 입력해주세요." />
-        <InputLabel>휴대전화 번호</InputLabel>
-        <AccountInput type="email" placeholder="이메일 주소를 입력해주세요." />
+      <AccountForm onSubmit={handleSubmit(submit)}>
+        <InputBox>
+          <InputLabel htmlFor="name">성명</InputLabel>
+          <AccountInput
+            {...register("name", {
+              name: "name",
+              required: "이름를 입력하세요!",
+
+              // pattern: {
+              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+              //   message: "wrong input",
+              // },
+              onChange: (e) => {
+                setIsName(e.target.value);
+              },
+            })}
+            type="text"
+            placeholder="이름을 입력해주세요."
+          />
+          <ErrorMessage>{errors?.name?.message}</ErrorMessage>
+        </InputBox>
+        <InputBox>
+          <InputLabel>휴대전화 번호</InputLabel>
+          <AccountInput
+            {...register("tele", {
+              name: "tele",
+              required: "전화번호를 입력하세요!",
+              pattern: {
+                value: [0 - 9],
+                message: "전화번호를 입력하세요.",
+              },
+              onChange: (e) => {
+                setIsTele(e.target.value);
+              },
+            })}
+            type="tel"
+            placeholder="전화번호를 입력해주세요."
+          />
+          <ErrorMessage>{errors?.tele?.message}</ErrorMessage>
+        </InputBox>
         <LoginLinkBox>
           <Btn>아이디 찾기</Btn>
         </LoginLinkBox>

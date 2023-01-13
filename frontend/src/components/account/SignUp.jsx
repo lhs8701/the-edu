@@ -9,6 +9,8 @@ import {
   AccountSmallBtn,
   AccountTitle,
   AccountWrapper,
+  ErrorMessage,
+  InputBox,
   InputLabel,
 } from "../../style/AccountComponentCss";
 import Term from "./Term";
@@ -68,46 +70,215 @@ const TermCheck = styled.input`
   height: 100%;
 `;
 
-const ErrorMessage = styled.span`
-  position: absolute;
-  color: tomato;
-  right: 10px;
+const TermErrMessage = styled(ErrorMessage)`
+  margin-top: 0;
 `;
 
 export default function SignUp() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isID, setIsId] = useState("");
+  const [isId, setIsId] = useState("");
+  const [isPwd, setIsPwd] = useState("");
+  const [isPwdConfirm, setIsPwdConfirm] = useState("");
+  const [isName, setIsName] = useState("");
+  const [isTele, setIsTele] = useState("");
+  const [isBirt, setIsBirth] = useState("");
+  const [isCheck, setIsCheck] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm();
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      inputValue: "",
+    },
+    reValidateMode: "onBlur",
+  });
+
+  const submit = () => {
+    try {
+      console.log(isId, isPwd);
+    } catch {}
+  };
+
 
   return (
     <AccountWrapper>
       <AccountTitle>회원가입</AccountTitle>
-      <AccountForm>
-        <InputLabel>성명</InputLabel>
-        <AccountInput type="text" placeholder="성명을 입력해주세요." />
-        <InputLabel>이메일 주소</InputLabel>
-        <AccountInput type="email" placeholder="이메일 주소를 입력해주세요." />
-        <InputLabel>비밀번호</InputLabel>
-        <AccountInput type="password" placeholder="비밀번호를 입력해주세요." />
-        <InputLabel>비밀번호 확인</InputLabel>
-        <AccountInput type="password" placeholder="비밀번호를 입력해주세요." />
-        <InputLabel>생년월일</InputLabel>
-        <AccountInput type="date" placeholder="입력해주세요." />
-        <InputLabel>휴대전화 번호</InputLabel>
-        <br />
-        <TeleInput type="tel" placeholder="휴대전화 번호를 입력해주세요." />
-        <AuthBtn>인증</AuthBtn>
+      <AccountForm onSubmit={handleSubmit(submit)}>
+        <InputBox>
+          <InputLabel htmlFor="name">성명</InputLabel>
+          <AccountInput
+            {...register("name", {
+              name: "name",
+              required: "성명을 입력하세요!",
+              // 유효성 검사 파트
+              // pattern: {
+              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+              //   message: "wrong input",
+              // },
+              onChange: (e) => {
+                setIsName(e.target.value);
+              },
+              minLength: {
+                value: 2,
+                message: "2글자 이상 입력해주세요.",
+              },
+              maxLength: {
+                value: 16,
+                message: "16글자 이하로 입력해주세요.",
+              },
+            })}
+            type="text"
+            placeholder="성명을 입력해주세요."
+          />
+          <ErrorMessage>{errors?.name?.message}</ErrorMessage>
+        </InputBox>
+        <InputBox>
+          <InputLabel>이메일 주소</InputLabel>
+          <AccountInput
+            {...register("email", {
+              name: "email",
+              required: "이메일을 입력하세요!",
+              // 유효성 검사 파트
+              // pattern: {
+              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+              //   message: "wrong input",
+              // },
+              onChange: (e) => {
+                setIsId(e.target.value);
+              },
+            })}
+            type="text"
+            placeholder="이메일 주소를 입력해주세요."
+          />
+          <ErrorMessage>{errors?.email?.message}</ErrorMessage>
+        </InputBox>
+        <InputBox>
+          <InputLabel>비밀번호</InputLabel>
+          <AccountInput
+            {...register("pwd", {
+              name: "pwd",
+              required: "비밀번호를 입력하세요!",
+              // 유효성 검사 파트
+              // pattern: {
+              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+              //   message: "wrong input",
+              // },
+              minLength: {
+                value: 8,
+                message: "8글자 이상 입력해주세요.",
+              },
+              maxLength: {
+                value: 16,
+                message: "16글자 이하로 입력해주세요.",
+              },
+              onChange: (e) => {
+                setIsPwd(e.target.value);
+              },
+            })}
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+          />
+          <ErrorMessage>{errors?.pwd?.message}</ErrorMessage>
+        </InputBox>
+        <InputBox>
+          <InputLabel>비밀번호 확인</InputLabel>
+          <AccountInput
+            {...register("pwdConfirm", {
+              name: "pwdConfirm",
+              required: "비밀번호를 다시 입력해주세요!",
+              // 유효성 검사 파트
+              // pattern: {
+              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+              //   message: "wrong input",
+              // },
+              minLength: {
+                value: 8,
+                message: "8글자 이상 입력해주세요.",
+              },
+              maxLength: {
+                value: 16,
+                message: "16글자 이하로 입력해주세요.",
+              },
+              onChange: (e) => {
+                setIsPwdConfirm(e.target.value);
+              },
+            })}
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+          />
+          <ErrorMessage>{errors?.pwdConfirm?.message}</ErrorMessage>
+        </InputBox>
+        <InputBox>
+          <InputLabel>생년월일</InputLabel>
+          <AccountInput
+            {...register("birth", {
+              name: "birth",
+              required: "생년월일을 입력해주세요!",
+              onChange: (e) => {
+                setIsBirth(e.target.value);
+              },
+            })}
+            type="date"
+          />
+          <ErrorMessage>{errors?.birth?.message}</ErrorMessage>
+        </InputBox>
+        <InputBox>
+          <InputLabel>휴대전화 번호</InputLabel>
+          <br />
+          <TeleInput
+            {...register("tele", {
+              name: "tele",
+              required: "휴대전화번호를 입력해주세요!",
+              // 유효성 검사 파트
+              // pattern: {
+              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+              //   message: "wrong input",
+              // },
+              minLength: {
+                value: 10,
+                message: "10글자 이상 입력해주세요.",
+              },
+              maxLength: {
+                value: 11,
+                message: "11글자 이하로 입력해주세요.",
+              },
+              onChange: (e) => {
+                setIsTele(e.target.value);
+              },
+            })}
+            type="tel"
+            placeholder="휴대전화 번호를 입력해주세요."
+          />
+
+          <AuthBtn
+            onClick={() => {
+              console.log("s");
+            }}
+            disabled={true}
+          >
+            인증
+          </AuthBtn>
+          <ErrorMessage>{errors?.tele?.message}</ErrorMessage>
+        </InputBox>
+
         <TermBox>
-          <TermLabel>
-            <TermCheck type="checkbox" />
+          <TermLabel checked={isCheck}>
+            <TermCheck
+              {...register("service", {
+                name: "service",
+                required: "약관에 동의해주세요!",
+                onChange: (e) => {
+                  setIsCheck((prev) => !prev);
+                },
+              })}
+              type="checkbox"
+            />
             [필수] 서비스 이용약관 동의
           </TermLabel>
-          <ErrorMessage></ErrorMessage>
+          <TermErrMessage>{errors?.service?.message}</TermErrMessage>
           <TermBtn
             onClick={() => {
               setModalOpen(true);

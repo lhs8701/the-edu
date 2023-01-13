@@ -4,6 +4,7 @@ import {
   AccountForm,
   AccountInput,
   AccountSmallBtn,
+  InputBox,
   InputLabel,
 } from "../../style/AccountComponentCss";
 import {
@@ -29,30 +30,37 @@ export default function Revise() {
       <MyPageTitle>개인정보 수정</MyPageTitle>
       <MyPageContentBox>
         <ReviseForm>
-          <InputLabel>성명</InputLabel>
-          <AccountInput type="text" placeholder="성명을 입력해주세요." />
-          <InputLabel>이메일 주소</InputLabel>
-          <AccountInput
-            type="email"
-            placeholder="이메일 주소를 입력해주세요."
-          />
-          <InputLabel>비밀번호</InputLabel>
-          <AccountInput
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-          />
-          <InputLabel>비밀번호 확인</InputLabel>
-          <AccountInput
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-          />
-          <InputLabel>생년월일</InputLabel>
-          <AccountInput type="date" placeholder="입력해주세요." />
-          <InputLabel>휴대전화 번호</InputLabel>
-          <br />
-          <TeleInput type="tel" placeholder="휴대전화 번호를 입력해주세요." />
-          <AuthBtn>인증</AuthBtn>
-          <br />
+          <InputBox>
+            <InputLabel>성명</InputLabel>
+            <AccountInput type="text" placeholder="성명을 입력해주세요." />
+          </InputBox>
+          <InputBox>
+            <InputLabel>이메일 주소</InputLabel>
+            <AccountInput
+              type="email"
+              placeholder="이메일 주소를 입력해주세요."
+            />
+          </InputBox>
+          <InputBox>
+            <InputLabel>비밀번호</InputLabel>
+            <AccountInput
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+            />
+          </InputBox>
+          <InputBox>
+            <InputLabel>비밀번호 확인</InputLabel>
+            <AccountInput
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+            />
+          </InputBox>
+          <InputBox>
+            <InputLabel>휴대전화 번호</InputLabel>
+            <TeleInput type="tel" placeholder="휴대전화 번호를 입력해주세요." />
+            <AuthBtn>인증</AuthBtn>
+          </InputBox>
+
           <AccountBtn
             texthovercolor={"--color-background"}
             bgcolor={"--color-primary"}
