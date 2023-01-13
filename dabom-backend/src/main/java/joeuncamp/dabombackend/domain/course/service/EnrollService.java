@@ -7,6 +7,7 @@ import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
+import joeuncamp.dabombackend.global.error.exception.CAlreadyEnrolledCourse;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,20 @@ public class EnrollService {
     public void enroll(EnrollRequestDto requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Course course = courseJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (isAlreadyEnrolled(member, course)){
+            throw new CAlreadyEnrolledCourse();
+        }
+        createAndSaveEnroll(member, course);
+    }
+    private void createAndSaveEnroll(Member member, Course course) {
         Enroll enroll = Enroll.builder()
                 .member(member)
                 .course(course)
                 .build();
         enrollJpaRepository.save(enroll);
+    }
+
+    public boolean isAlreadyEnrolled(Member member, Course course){
+        return enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
     }
 }
