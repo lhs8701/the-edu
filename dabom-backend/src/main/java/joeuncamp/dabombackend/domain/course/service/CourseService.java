@@ -15,8 +15,6 @@ import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,13 +40,12 @@ public class CourseService {
             throw new CCreationDeniedException();
         }
         CreatorProfile creatorProfile = member.getCreatorProfile();
-        Course course = saveCourse(dto, creatorProfile);
+        Course course = createAndSaveCourse(dto, creatorProfile);
         return course.getId();
     }
 
-    private Course saveCourse(CourseCreationRequestDto dto, CreatorProfile creatorProfile) {
-        Course course = dto.toEntity();
-        course.setCreatorProfile(creatorProfile);
+    private Course createAndSaveCourse(CourseCreationRequestDto dto, CreatorProfile creatorProfile) {
+        Course course = dto.toEntity(creatorProfile);
         courseJpaRepository.save(course);
         return course;
     }

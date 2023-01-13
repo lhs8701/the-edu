@@ -31,6 +31,9 @@ public class AuthService {
             throw new CMemberExistException();
         }
         String encodedPassword = passwordEncoder.encode(signUpRequestDto.getPassword());
+        createAndSaveMember(signUpRequestDto, encodedPassword);
+    }
+    private void createAndSaveMember(SignUpRequestDto signUpRequestDto, String encodedPassword) {
         Member member = signUpRequestDto.toEntity(encodedPassword);
         memberJpaRepository.save(member);
     }

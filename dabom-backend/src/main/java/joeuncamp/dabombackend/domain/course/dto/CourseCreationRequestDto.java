@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
@@ -34,17 +35,19 @@ public class CourseCreationRequestDto {
     @Schema(description = "가격", example = "143000")
     long price;
 
-    public Course toEntity() {
+    public Course toEntity(CreatorProfile creatorProfile) {
         CategoryType categoryType = CategoryType.findByTitle(category);
         if (categoryType == CategoryType.EMPTY) {
             throw new CIllegalArgumentException();
         }
 
-        return Course.builder()
+        Course course = Course.builder()
                 .title(title)
                 .description(description)
                 .category(categoryType)
                 .price(price)
                 .build();
+        course.setCreatorProfile(creatorProfile);
+        return course;
     }
 }

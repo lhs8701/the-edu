@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,5 +25,6 @@ public class CreatorProfile {
     Member member;
 
     @OneToMany(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Course> uploadedCourses;
+    @Builder.Default
+    List<Course> uploadedCourses = new ArrayList<>();
 }
