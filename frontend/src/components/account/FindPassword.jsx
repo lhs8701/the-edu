@@ -58,10 +58,11 @@ export default function FindPassword() {
     handleSubmit,
     formState: { errors },
     setError,
+    formState,
   } = useForm();
 
   const submit = () => {
-    console.log(isID, isName, isTele);
+    alert("Ss");
   };
 
   return (

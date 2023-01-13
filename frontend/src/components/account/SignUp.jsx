@@ -252,7 +252,14 @@ export default function SignUp() {
             placeholder="휴대전화 번호를 입력해주세요."
           />
 
-          <AuthBtn>인증</AuthBtn>
+          <AuthBtn
+            onClick={() => {
+              console.log("s");
+            }}
+            disabled={true}
+          >
+            인증
+          </AuthBtn>
           <ErrorMessage>{errors?.tele?.message}</ErrorMessage>
         </InputBox>
 

@@ -70,6 +70,7 @@ export default function SignIn() {
   const submit = () => {
     try {
       console.log(isID, password);
+      alert("Ss");
     } catch {}
   };
 
