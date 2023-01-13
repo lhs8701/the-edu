@@ -36,18 +36,17 @@ public class CreatorProfileServiceTest {
     @DisplayName("회원의 크리에이터 프로필을 생성한다.")
     void 크리에이터_계정을_활성화한다() {
         //given
-        Long memberId = 1L;
         Member member = Member.builder()
-                .id(memberId)
+                .id(1L)
                 .build();
-        CreatorRequestDto dto = CreatorRequestDto.builder()
+        CreatorRequestDto requestDto = CreatorRequestDto.builder()
+                .memberId(1L)
                 .build();
-        CreatorProfile creatorProfile = dto.toEntity(member);
-        given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
-        given(creatorProfileJpaRepository.save(any())).willReturn(creatorProfile);
+        CreatorProfile creatorProfile = requestDto.toEntity(member);
+        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
 
         //when
-        creatorService.activateCreatorProfile(memberId, dto);
+        creatorService.activateCreatorProfile(requestDto);
 
         //then
         assertThat(creatorProfile.getMember()).isEqualTo(member);
@@ -88,19 +87,20 @@ public class CreatorProfileServiceTest {
     @DisplayName("이미 크리에이터인 경우 예외를 반환한다.")
     void 이미_크리에이터인_경우_예외를_반환한다() {
         // given
-        Long memberId = 1L;
-        CreatorRequestDto dto = CreatorRequestDto.builder().build();
+        CreatorRequestDto dto = CreatorRequestDto.builder()
+                .memberId(1L)
+                .build();
         CreatorProfile creatorProfile = CreatorProfile.builder().build();
         Member member = Member.builder()
-                .id(memberId)
+                .id(1L)
                 .creatorProfile(creatorProfile)
                 .build();
-        given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
+        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
 
         // when
 
         // then
-        assertThatThrownBy(() -> creatorService.activateCreatorProfile(memberId, dto))
+        assertThatThrownBy(() -> creatorService.activateCreatorProfile(dto))
                 .isInstanceOf(CAlreadyCreatorException.class);
     }
 }

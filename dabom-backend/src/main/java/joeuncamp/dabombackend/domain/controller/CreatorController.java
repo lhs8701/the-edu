@@ -30,8 +30,8 @@ public class CreatorController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/activate")
-    public ResponseEntity<Void> activateCreatorProfile(@AuthenticationPrincipal Member member, CreatorRequestDto dto) {
-        creatorService.activateCreatorProfile(member.getId(), dto);
+    public ResponseEntity<Void> activateCreatorProfile(CreatorRequestDto requestDto) {
+        creatorService.activateCreatorProfile(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

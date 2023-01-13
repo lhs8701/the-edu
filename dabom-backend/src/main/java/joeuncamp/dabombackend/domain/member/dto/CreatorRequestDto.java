@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class CreatorRequestDto {
+    Long memberId;
 
     public CreatorProfile toEntity(Member member) {
         return CreatorProfile.builder()

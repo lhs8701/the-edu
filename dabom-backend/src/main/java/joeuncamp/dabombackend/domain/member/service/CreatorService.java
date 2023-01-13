@@ -16,16 +16,16 @@ public class CreatorService {
     private final MemberJpaRepository memberJpaRepository;
     private final CreatorProfileJpaRepository creatorProfileJpaRepository;
 
-    public boolean hasCreatorProfile(Member member) {
-        return member.getCreatorProfile() != null;
-    }
-
-    public void activateCreatorProfile(Long memberId, CreatorRequestDto dto) {
-        Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
-        if (member.getCreatorProfile() != null){
+    public void activateCreatorProfile(CreatorRequestDto dto) {
+        Member member = memberJpaRepository.findById(dto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (hasCreatorProfile(member)){
             throw new CAlreadyCreatorException();
         }
         saveCreatorProfile(dto, member);
+    }
+
+    public boolean hasCreatorProfile(Member member) {
+        return member.getCreatorProfile() != null;
     }
 
     private void saveCreatorProfile(CreatorRequestDto dto, Member member) {
