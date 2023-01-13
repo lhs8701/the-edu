@@ -26,6 +26,7 @@ class CourseInfoViewController: UIViewController {
 
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,13 +41,17 @@ class CourseInfoViewController: UIViewController {
         setNavigationBar()
     }
     
+    
     // MARK: - navigationBar 설정
+    
     private func setNavigationBar() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
+    
     // MARK: - rightBarButtonItem 설정
+    
     private func setRightBarButton() {
         let onOffImage = UIImage(named: "onoff")?.withRenderingMode(.alwaysOriginal)
         let onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 30))
@@ -61,7 +66,9 @@ class CourseInfoViewController: UIViewController {
         navigationItem.rightBarButtonItems = [heart, onOff]
     }
     
+    
     // MARK: - label 줄 간격 설정
+    
     private func setLabel() {
         let attrString = NSMutableAttributedString(string: shortIntro.text ?? "")
         let paragraphStyle = NSMutableParagraphStyle()
@@ -72,6 +79,7 @@ class CourseInfoViewController: UIViewController {
     
     
     // MARK: - courseInfo setting
+    
     private func setInfo() {
         self.classTitle.text = courseTitle
         self.shortIntro.text = "어쩌고 저쩌고 한 사람에게 좋은 강의 이렇고 저렇고 한 사람에게 좋은 강의"

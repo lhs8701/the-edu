@@ -27,7 +27,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="JB6-uS-Iie">
             <objects>
-                <tabBarController id="rCn-qY-T8K" customClass="TabBarViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="rCn-qY-T8K" customClass="TabBarViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="adA-YR-G6p">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

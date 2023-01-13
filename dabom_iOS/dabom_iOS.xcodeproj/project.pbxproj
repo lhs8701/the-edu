@@ -46,7 +46,6 @@
 		0EDEA203296D04FF00B4712B /* MyCourseCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */; };
 		0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */; };
 		0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C20296518EE006DC95D /* AppDelegate.swift */; };
-		0EF17C23296518EE006DC95D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C22296518EE006DC95D /* SceneDelegate.swift */; };
 		0EF17C25296518EE006DC95D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C24296518EE006DC95D /* ViewController.swift */; };
 		0EF17C28296518EE006DC95D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EF17C26296518EE006DC95D /* Main.storyboard */; };
 		0EF17C2A296518EF006DC95D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EF17C29296518EF006DC95D /* Assets.xcassets */; };
@@ -54,6 +53,12 @@
 		0EF17C38296518EF006DC95D /* dabom_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C37296518EF006DC95D /* dabom_iOSTests.swift */; };
 		0EF17C42296518EF006DC95D /* dabom_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C41296518EF006DC95D /* dabom_iOSUITests.swift */; };
 		0EF17C44296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C43296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift */; };
+		0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB743E2970DEE600C58E87 /* NetworkResult.swift */; };
+		0EFB74442970FB2500C58E87 /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EFB74432970FB2500C58E87 /* LoginSignup.storyboard */; };
+		0EFB744629710F8600C58E87 /* LoginSignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB744529710F8600C58E87 /* LoginSignupVC.swift */; };
+		0EFB7474297131BC00C58E87 /* LoginSignupNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB7473297131BC00C58E87 /* LoginSignupNC.swift */; };
+		0EFB74762971325600C58E87 /* HomeNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB74752971325600C58E87 /* HomeNC.swift */; };
+		0EFB7478297132F500C58E87 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB7477297132F500C58E87 /* LoginVC.swift */; };
 		740880D55001884531A16AD9 /* Pods_dabom_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F546AE9673177BA4D7838E /* Pods_dabom_iOS.framework */; };
 		D34A465AEC502AF4611B2D40 /* Pods_dabom_iOS_dabom_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16541FCEC1F1DBB15C6E1593 /* Pods_dabom_iOS_dabom_iOSUITests.framework */; };
 		D92F01392F8EBD444A7A1F5A /* Pods_dabom_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */; };
@@ -119,7 +124,6 @@
 		0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseDataModel.swift; sourceTree = "<group>"; };
 		0EF17C1D296518EE006DC95D /* dabom_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dabom_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EF17C20296518EE006DC95D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0EF17C22296518EE006DC95D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0EF17C24296518EE006DC95D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0EF17C27296518EE006DC95D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0EF17C29296518EF006DC95D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -129,6 +133,12 @@
 		0EF17C3D296518EF006DC95D /* dabom_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dabom_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EF17C41296518EF006DC95D /* dabom_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dabom_iOSUITests.swift; sourceTree = "<group>"; };
 		0EF17C43296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dabom_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0EFB743E2970DEE600C58E87 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		0EFB74432970FB2500C58E87 /* LoginSignup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
+		0EFB744529710F8600C58E87 /* LoginSignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupVC.swift; sourceTree = "<group>"; };
+		0EFB7473297131BC00C58E87 /* LoginSignupNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupNC.swift; sourceTree = "<group>"; };
+		0EFB74752971325600C58E87 /* HomeNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNC.swift; sourceTree = "<group>"; };
+		0EFB7477297132F500C58E87 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		16541FCEC1F1DBB15C6E1593 /* Pods_dabom_iOS_dabom_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOS_dabom_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F546AE9673177BA4D7838E /* Pods_dabom_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3462F933209BFAC67DFF897E /* Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-dabom_iOS-dabom_iOSUITests/Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +198,7 @@
 		0EDEA1EE296CFC2600B4712B /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				0EFB74402970F0D800C58E87 /* Login */,
 				0EDEA1FD296CFE1E00B4712B /* TabBar */,
 				0EDEA1FC296CFDEE00B4712B /* Banner */,
 				0EDEA1FA296CFDCC00B4712B /* MyCourse */,
@@ -236,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				0E69A038296542CB00BFD12E /* HomeTab.storyboard */,
+				0EFB74752971325600C58E87 /* HomeNC.swift */,
 				0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */,
 				0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */,
 				0ED7037D296D3EFD0095DD14 /* SearchVC.swift */,
@@ -334,9 +346,9 @@
 		0EF17C1F296518EE006DC95D /* dabom_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0EFB743D2970DED500C58E87 /* Network */,
 				0E55013E296EA94A00DD5B75 /* Extension */,
 				0EDEA1EE296CFC2600B4712B /* Screen */,
-				0EF17C22296518EE006DC95D /* SceneDelegate.swift */,
 				0EDEA1ED296CFBFB00B4712B /* Support */,
 				0EF17C2B296518EF006DC95D /* LaunchScreen.storyboard */,
 				0EF17C26296518EE006DC95D /* Main.storyboard */,
@@ -360,6 +372,25 @@
 				0EF17C43296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift */,
 			);
 			path = dabom_iOSUITests;
+			sourceTree = "<group>";
+		};
+		0EFB743D2970DED500C58E87 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0EFB743E2970DEE600C58E87 /* NetworkResult.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		0EFB74402970F0D800C58E87 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0EFB74432970FB2500C58E87 /* LoginSignup.storyboard */,
+				0EFB7473297131BC00C58E87 /* LoginSignupNC.swift */,
+				0EFB7477297132F500C58E87 /* LoginVC.swift */,
+				0EFB744529710F8600C58E87 /* LoginSignupVC.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		DBE3041A740500C294E99236 /* Pods */ = {
@@ -503,6 +534,7 @@
 				0E69A039296542CB00BFD12E /* HomeTab.storyboard in Resources */,
 				0E69A041296543B600BFD12E /* UserTab.storyboard in Resources */,
 				0EB576F3296BC9EF001EFBE1 /* CourseInfoView.storyboard in Resources */,
+				0EFB74442970FB2500C58E87 /* LoginSignup.storyboard in Resources */,
 				0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */,
 				0EF17C2A296518EF006DC95D /* Assets.xcassets in Resources */,
 				0EF17C28296518EE006DC95D /* Main.storyboard in Resources */,
@@ -633,6 +665,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EFB744629710F8600C58E87 /* LoginSignupVC.swift in Sources */,
 				0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */,
 				0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */,
 				0EF17C25296518EE006DC95D /* ViewController.swift in Sources */,
@@ -640,11 +673,13 @@
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
 				0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */,
+				0EFB74762971325600C58E87 /* HomeNC.swift in Sources */,
 				0E550142296F8BC200DD5B75 /* CategoryResultVC.swift in Sources */,
 				0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */,
 				0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */,
 				0E60282F29656FC800A25F48 /* MyCourseTabManViewController.swift in Sources */,
 				0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */,
+				0EFB7478297132F500C58E87 /* LoginVC.swift in Sources */,
 				0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */,
 				0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */,
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
@@ -656,13 +691,14 @@
 				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,
 				0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */,
 				0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */,
-				0EF17C23296518EE006DC95D /* SceneDelegate.swift in Sources */,
+				0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */,
 				0ED70388296E597E0095DD14 /* CourseReviewVC.swift in Sources */,
 				0ED70386296E59620095DD14 /* CurriculumVC.swift in Sources */,
 				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,
 				0ED70382296E58660095DD14 /* CourseInfoTMVC.swift in Sources */,
 				0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */,
+				0EFB7474297131BC00C58E87 /* LoginSignupNC.swift in Sources */,
 				0E6028382966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift in Sources */,
 				0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */,
 			);
