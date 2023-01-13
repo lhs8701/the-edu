@@ -28,7 +28,6 @@ public class WishRepositoryTest {
 
     @Autowired
     CourseJpaRepository courseJpaRepository;
-
     @Test
     @DisplayName("찜이 저장되면, 회원과 찜, 강좌와 찜 간에 연관관계가 맺어진다")
     void 찜이_저장되면_회원과_찜과_강좌_간에_연관관계가_맺어진다() {

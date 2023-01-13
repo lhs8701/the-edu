@@ -7,6 +7,8 @@ import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
+import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
+import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.WithAuthUser;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
@@ -42,6 +44,9 @@ public class CourseControllerTest {
 
     @MockBean
     EnrollService enrollService;
+
+    @MockBean
+    WishService wishService;
 
     @Test
     @WithAuthUser(role = "USER")
@@ -124,6 +129,26 @@ public class CourseControllerTest {
                 .with(csrf()));
 
         //then
+        actions.andExpect(status().isOk());
+    }
+
+    @WithAuthUser(role = "USER")
+    @Test
+    @DisplayName("강좌에 찜을 하거나, 해제한다.")
+    void 강좌에_찜을_하거나_해제한다() throws Exception {
+        // given
+        WishRequestDto requestDto = WishRequestDto.builder()
+                .memberId(1L)
+                .courseId(1L)
+                .build();
+
+        // when
+        ResultActions actions = mockMvc.perform(post("/api/courses/wish")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(new Gson().toJson(requestDto)));
+
+        // then
         actions.andExpect(status().isOk());
     }
 }
