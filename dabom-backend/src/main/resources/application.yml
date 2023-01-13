@@ -1,1 +1,9 @@
 
+spring:
+  profiles:
+    active: local
+    include: private
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher #swagger 3.0 오류 해결

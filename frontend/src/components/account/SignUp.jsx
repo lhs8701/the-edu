@@ -102,6 +102,7 @@ export default function SignUp() {
     } catch {}
   };
 
+
   return (
     <AccountWrapper>
       <AccountTitle>회원가입</AccountTitle>

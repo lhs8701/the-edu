@@ -25,6 +25,7 @@ import FindPassword from "./components/account/FindPassword";
 import KaKaoAuth from "./components/account/KakaoAuth";
 import PlayerRoot from "./pages/PlayerRoot";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
