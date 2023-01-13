@@ -2,7 +2,7 @@ package joeuncamp.dabombackend.domain.course.service;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
@@ -103,7 +103,7 @@ public class CourseServiceTest {
         given(courseJpaRepository.findAllByCategory(CategoryType.BACK_END)).willReturn(courses);
 
         // when
-        List<CourseThumbnailResponseDto> responseDto = courseService.getCoursesByCategory(category);
+        List<CourseShortResponseDto> responseDto = courseService.getCoursesByCategory(category);
 
         // then
         assertThat(responseDto.get(0).getTitle()).isEqualTo(ExampleValue.Course.TITLE);

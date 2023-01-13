@@ -3,7 +3,7 @@ package joeuncamp.dabombackend.domain.course.controller;
 import com.google.gson.Gson;
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
@@ -94,7 +94,7 @@ public class CourseControllerTest {
     void 전체_강좌를_조회한다() throws Exception {
         //given
         String category = ExampleValue.Course.CATEGORY;
-        List<CourseThumbnailResponseDto> responseDto = List.of(CourseThumbnailResponseDto.builder()
+        List<CourseShortResponseDto> responseDto = List.of(CourseShortResponseDto.builder()
                 .title(ExampleValue.Course.TITLE)
                 .build());
         given(courseService.getCoursesByCategory(category)).willReturn(responseDto);

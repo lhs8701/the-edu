@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CourseThumbnailResponseDto {
+public class CourseShortResponseDto {
     Long courseId;
     String title;
     String instructor;
 
-    public CourseThumbnailResponseDto(Course course){
+    public CourseShortResponseDto(Course course){
         this.courseId = course.getId();
         this.title = course.getTitle();
         this.instructor = course.getCreatorProfile().getMember().getName();

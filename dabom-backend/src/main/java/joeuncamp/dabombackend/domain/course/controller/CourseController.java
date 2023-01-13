@@ -7,9 +7,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
-import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -17,7 +16,6 @@ import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
-import joeuncamp.dabombackend.global.validation.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,8 +58,8 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in=ParameterIn.HEADER, example=ExampleValue.JWT.ACCESS)
     @PreAuthorize("permitAll()")
     @GetMapping("/courses/category/{category}")
-    public ResponseEntity<List<CourseThumbnailResponseDto>> getCourseByCategory(@PathVariable String category){
-        List<CourseThumbnailResponseDto> responseDto = courseService.getCoursesByCategory(category);
+    public ResponseEntity<List<CourseShortResponseDto>> getCourseByCategory(@PathVariable String category){
+        List<CourseShortResponseDto> responseDto = courseService.getCoursesByCategory(category);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

@@ -1,12 +1,14 @@
 package joeuncamp.dabombackend.domain.member.service;
 
+import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.MyCourseShortResponseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
-import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
+import joeuncamp.dabombackend.domain.wish.entity.Wish;
+import joeuncamp.dabombackend.domain.wish.repository.WishJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.List;
 public class StudentService {
     private final MemberJpaRepository memberJpaRepository;
     private final EnrollJpaRepository enrollJpaRepository;
+
+    private final WishJpaRepository wishJpaRepository;
 
     /**
      * 내가 등록한 강좌 목록을 조회합니다.
@@ -31,5 +35,13 @@ public class StudentService {
         List<Course> myCourses = enrolls.stream().map(Enroll::getCourse).toList();
 
         return myCourses.stream().map(MyCourseShortResponseDto::new).toList();
+    }
+
+
+    public List<CourseShortResponseDto> getWishCourses(Long memberId){
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
+        List<Wish> wishes = wishJpaRepository.findAllByMember(memberId);
+        List<Course> wishedCourses = wishes.stream().map(Wish::getCourse).toList();
+        return wishedCourses.stream().map(CourseShortResponseDto::new).toList();
     }
 }
