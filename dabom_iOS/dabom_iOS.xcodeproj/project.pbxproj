@@ -54,6 +54,7 @@
 		0EF17C38296518EF006DC95D /* dabom_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C37296518EF006DC95D /* dabom_iOSTests.swift */; };
 		0EF17C42296518EF006DC95D /* dabom_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C41296518EF006DC95D /* dabom_iOSUITests.swift */; };
 		0EF17C44296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C43296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift */; };
+		0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB743E2970DEE600C58E87 /* NetworkResult.swift */; };
 		740880D55001884531A16AD9 /* Pods_dabom_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F546AE9673177BA4D7838E /* Pods_dabom_iOS.framework */; };
 		D34A465AEC502AF4611B2D40 /* Pods_dabom_iOS_dabom_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16541FCEC1F1DBB15C6E1593 /* Pods_dabom_iOS_dabom_iOSUITests.framework */; };
 		D92F01392F8EBD444A7A1F5A /* Pods_dabom_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */; };
@@ -129,6 +130,7 @@
 		0EF17C3D296518EF006DC95D /* dabom_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dabom_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EF17C41296518EF006DC95D /* dabom_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dabom_iOSUITests.swift; sourceTree = "<group>"; };
 		0EF17C43296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dabom_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0EFB743E2970DEE600C58E87 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		16541FCEC1F1DBB15C6E1593 /* Pods_dabom_iOS_dabom_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOS_dabom_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F546AE9673177BA4D7838E /* Pods_dabom_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3462F933209BFAC67DFF897E /* Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-dabom_iOS-dabom_iOSUITests/Pods-dabom_iOS-dabom_iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 		0EF17C1F296518EE006DC95D /* dabom_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0EFB743D2970DED500C58E87 /* Network */,
 				0E55013E296EA94A00DD5B75 /* Extension */,
 				0EDEA1EE296CFC2600B4712B /* Screen */,
 				0EF17C22296518EE006DC95D /* SceneDelegate.swift */,
@@ -360,6 +363,14 @@
 				0EF17C43296518EF006DC95D /* dabom_iOSUITestsLaunchTests.swift */,
 			);
 			path = dabom_iOSUITests;
+			sourceTree = "<group>";
+		};
+		0EFB743D2970DED500C58E87 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0EFB743E2970DEE600C58E87 /* NetworkResult.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		DBE3041A740500C294E99236 /* Pods */ = {
@@ -657,6 +668,7 @@
 				0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */,
 				0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */,
 				0EF17C23296518EE006DC95D /* SceneDelegate.swift in Sources */,
+				0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */,
 				0ED70388296E597E0095DD14 /* CourseReviewVC.swift in Sources */,
 				0ED70386296E59620095DD14 /* CurriculumVC.swift in Sources */,
 				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,

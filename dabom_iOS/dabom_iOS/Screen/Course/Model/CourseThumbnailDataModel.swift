@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct CourseThumbnailDataModel {
+struct CourseThumbnailDataModel: Codable {
     let thumbnailImageName: String
     var thumbnailImage: UIImage? {
         return UIImage(named: thumbnailImageName)
