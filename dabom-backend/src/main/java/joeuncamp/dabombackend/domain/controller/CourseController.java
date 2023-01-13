@@ -8,8 +8,10 @@ import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
+import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
@@ -29,6 +31,7 @@ import java.util.List;
 @RequestMapping("/api/courses")
 public class CourseController {
     private final CourseService courseService;
+    private final EnrollService enrollService;
 
     @Operation(summary = "강좌를 개설합니다.", description = "강좌 개설은 크리에이터 프로필을 활성화한 회원만 가능합니다. \n 개설된 강좌의 아이디넘버가 반환됩니다.")
     @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
@@ -56,5 +59,15 @@ public class CourseController {
     public ResponseEntity<List<CourseThumbnailResponseDto>> getCourseByCategory(@PathVariable String category){
         List<CourseThumbnailResponseDto> responseDto = courseService.getCoursesByCategory(category);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+
+    @Operation(summary="강좌에 수강신청합니다.", description="이미 수강신청한 강좌인 경우 예외가 발생합니다.")
+    @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in=ParameterIn.HEADER, example=ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/enroll")
+    public ResponseEntity<Void> enroll(@RequestBody EnrollRequestDto requestDto){
+        enrollService.enroll(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

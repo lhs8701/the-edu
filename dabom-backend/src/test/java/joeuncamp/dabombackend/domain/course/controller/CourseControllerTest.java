@@ -5,8 +5,10 @@ import joeuncamp.dabombackend.domain.controller.CourseController;
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
+import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
 import joeuncamp.dabombackend.global.WithAuthUser;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -43,6 +45,9 @@ public class CourseControllerTest {
 
     @MockBean
     CourseService courseService;
+
+    @MockBean
+    EnrollService enrollService;
 
     @Test
     @WithAuthUser(role = "USER")
@@ -107,22 +112,24 @@ public class CourseControllerTest {
 
     @Test
     @WithAuthUser(role = "USER")
-    @DisplayName("카테고리로 강좌 조회시, 유효하지 않은 카테고리가 들어오면 예외가 발생한다")
-    void 유효하지_않은_카테고리가_들어오면_예외가_발생한다() throws Exception {
+    @DisplayName("강좌에 수강신청한다.")
+    void 강좌에_수강신청한다() throws Exception {
         //given
-        String category = ExampleValue.Course.CATEGORY;
-        List<CourseThumbnailResponseDto> responseDto = List.of(CourseThumbnailResponseDto.builder()
-                .title(ExampleValue.Course.TITLE)
-                .build());
-        given(courseService.getCoursesByCategory(category)).willReturn(responseDto);
+
+        Long memberId = 1L;
+        Long courseId = 1L;
+        EnrollRequestDto requestDto = EnrollRequestDto.builder()
+                .memberId(memberId)
+                .courseId(courseId)
+                .build();
 
         //when
-        final ResultActions actions = mockMvc.perform(get("/api/courses/category/{category}", category)
+        final ResultActions actions = mockMvc.perform(post("/api/courses/enroll")
+                .content(new Gson().toJson(requestDto))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .with(csrf()));
 
         //then
-        actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].title", equalTo(ExampleValue.Course.TITLE)));
+        actions.andExpect(status().isOk());
     }
 }
