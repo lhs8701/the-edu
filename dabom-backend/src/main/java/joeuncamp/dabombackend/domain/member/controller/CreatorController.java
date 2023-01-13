@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.controller;
+package joeuncamp.dabombackend.domain.member.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

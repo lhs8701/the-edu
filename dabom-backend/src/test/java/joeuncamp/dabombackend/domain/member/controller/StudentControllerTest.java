@@ -1,13 +1,7 @@
 package joeuncamp.dabombackend.domain.member.controller;
 
-import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.MyCourseShortResponseDto;
-import joeuncamp.dabombackend.domain.member.MemberController;
-import joeuncamp.dabombackend.domain.member.StudentController;
-import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
-import joeuncamp.dabombackend.domain.member.service.MemberService;
 import joeuncamp.dabombackend.domain.member.service.StudentService;
-import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

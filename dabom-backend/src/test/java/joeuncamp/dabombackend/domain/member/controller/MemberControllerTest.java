@@ -1,7 +1,6 @@
 package joeuncamp.dabombackend.domain.member.controller;
 
 import com.google.gson.Gson;
-import joeuncamp.dabombackend.domain.member.MemberController;
 import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
