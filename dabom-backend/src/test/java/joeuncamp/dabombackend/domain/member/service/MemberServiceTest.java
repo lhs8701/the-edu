@@ -1,6 +1,5 @@
 package joeuncamp.dabombackend.domain.member.service;
 
-import joeuncamp.dabombackend.domain.member.dto.MemberCreationRequestDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -20,7 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class ProfileTest {
+public class MemberServiceTest {
     @InjectMocks
     MemberService memberService;
 
@@ -31,13 +30,9 @@ public class ProfileTest {
     @DisplayName("나의 프로필을 조회한다.")
     void 나의_프로필을_조회한다() {
         // given
-        Member member = MemberCreationRequestDto.builder()
-                .account(ExampleValue.Member.ACCOUNT)
-                .password(ExampleValue.Member.PASSWORD)
+        Member member = Member.builder()
                 .nickname(ExampleValue.Member.NICKNAME)
-                .mobile(ExampleValue.Member.MOBILE)
-                .birthDate(ExampleValue.Member.BIRTH_DATE)
-                .build().toEntity();
+                .build();
 
         given(memberJpaRepository.findById(any())).willReturn(Optional.of(member));
 
@@ -52,13 +47,9 @@ public class ProfileTest {
     @DisplayName("나의 프로필을 수정한다.")
     void 나의_프로필을_수정한다() {
         // given
-        Member member = MemberCreationRequestDto.builder()
-                .account(ExampleValue.Member.ACCOUNT)
-                .password(ExampleValue.Member.PASSWORD)
+        Member member = Member.builder()
                 .nickname(ExampleValue.Member.NICKNAME)
-                .mobile(ExampleValue.Member.MOBILE)
-                .birthDate(ExampleValue.Member.BIRTH_DATE)
-                .build().toEntity();
+                .build();
 
         given(memberJpaRepository.findById(any())).willReturn(Optional.of(member));
 

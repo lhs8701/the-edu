@@ -1,7 +1,7 @@
 package joeuncamp.dabombackend.domain.auth.basic;
 
 import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.basic.dto.SignUpRequestDto;
+import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
@@ -26,11 +26,14 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
-    public void signup(SignUpRequestDto signUpRequestDto) {
+    public void signup(SignupRequestDto signUpRequestDto) {
         if (memberJpaRepository.findByAccount(signUpRequestDto.getAccount()).isPresent()) {
             throw new CMemberExistException();
         }
         String encodedPassword = passwordEncoder.encode(signUpRequestDto.getPassword());
+        createAndSaveMember(signUpRequestDto, encodedPassword);
+    }
+    private void createAndSaveMember(SignupRequestDto signUpRequestDto, String encodedPassword) {
         Member member = signUpRequestDto.toEntity(encodedPassword);
         memberJpaRepository.save(member);
     }

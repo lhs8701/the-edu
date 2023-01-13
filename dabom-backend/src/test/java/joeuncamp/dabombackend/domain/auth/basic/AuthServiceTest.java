@@ -1,7 +1,7 @@
 package joeuncamp.dabombackend.domain.auth.basic;
 
 import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.basic.dto.SignUpRequestDto;
+import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -48,7 +48,7 @@ public class AuthServiceTest {
                 .password(ExampleValue.Member.PASSWORD)
                 .build();
 
-        SignUpRequestDto dto = SignUpRequestDto.builder()
+        SignupRequestDto dto = SignupRequestDto.builder()
                 .account(ExampleValue.Member.ACCOUNT)
                 .password(ExampleValue.Member.PASSWORD)
                 .build();

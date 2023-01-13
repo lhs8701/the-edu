@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.member.dto;
+package joeuncamp.dabombackend.domain.auth.basic.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
@@ -16,13 +16,18 @@ import java.util.Collections;
 @Getter
 @AllArgsConstructor
 @Builder
-public class MemberCreationRequestDto {
+public class SignupRequestDto {
     @Email(message = ValidationMessage.NOT_VALID_EMAIL)
     @Schema(description = "계정", example = ExampleValue.Member.ACCOUNT)
     String account;
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$" , message = ValidationMessage.NOT_VALID_PASSWORD)
     @Schema(description = "비밀번호", example = ExampleValue.Member.PASSWORD)
     String password;
+
+    @Length(min=2, max = 16, message = ValidationMessage.NOT_VALID_NAME)
+    @Schema(description = "이름", example = ExampleValue.Member.NAME)
+    String name;
+
     @Length(min=2, max = 16, message = ValidationMessage.NOT_VALID_NICKNAME)
     @Schema(description = "닉네임", example = ExampleValue.Member.NICKNAME)
     String nickname;
@@ -40,10 +45,11 @@ public class MemberCreationRequestDto {
      *
      * @return 생성된 Member 엔티티
      */
-    public Member toEntity() {
+    public Member toEntity(String encodedPassword) {
         return Member.builder()
                 .account(this.account)
-                .password(this.password)
+                .password(encodedPassword)
+                .name(this.name)
                 .nickname(this.nickname)
                 .mobile(this.mobile)
                 .birthDate(this.birthDate)

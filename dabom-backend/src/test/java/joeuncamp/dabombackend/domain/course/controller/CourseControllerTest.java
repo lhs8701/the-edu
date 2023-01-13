@@ -1,24 +1,22 @@
 package joeuncamp.dabombackend.domain.course.controller;
 
 import com.google.gson.Gson;
-import joeuncamp.dabombackend.domain.controller.CourseController;
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
-import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
-import joeuncamp.dabombackend.domain.member.service.MemberService;
+import joeuncamp.dabombackend.domain.course.service.EnrollService;
+import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
+import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.WithAuthUser;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -43,6 +41,12 @@ public class CourseControllerTest {
 
     @MockBean
     CourseService courseService;
+
+    @MockBean
+    EnrollService enrollService;
+
+    @MockBean
+    WishService wishService;
 
     @Test
     @WithAuthUser(role = "USER")
@@ -90,7 +94,7 @@ public class CourseControllerTest {
     void 전체_강좌를_조회한다() throws Exception {
         //given
         String category = ExampleValue.Course.CATEGORY;
-        List<CourseThumbnailResponseDto> responseDto = List.of(CourseThumbnailResponseDto.builder()
+        List<CourseShortResponseDto> responseDto = List.of(CourseShortResponseDto.builder()
                 .title(ExampleValue.Course.TITLE)
                 .build());
         given(courseService.getCoursesByCategory(category)).willReturn(responseDto);
@@ -107,22 +111,44 @@ public class CourseControllerTest {
 
     @Test
     @WithAuthUser(role = "USER")
-    @DisplayName("카테고리로 강좌 조회시, 유효하지 않은 카테고리가 들어오면 예외가 발생한다")
-    void 유효하지_않은_카테고리가_들어오면_예외가_발생한다() throws Exception {
+
+    void 강좌에_수강신청한다() throws Exception {
         //given
-        String category = ExampleValue.Course.CATEGORY;
-        List<CourseThumbnailResponseDto> responseDto = List.of(CourseThumbnailResponseDto.builder()
-                .title(ExampleValue.Course.TITLE)
-                .build());
-        given(courseService.getCoursesByCategory(category)).willReturn(responseDto);
+
+        Long memberId = 1L;
+        Long courseId = 1L;
+        EnrollRequestDto requestDto = EnrollRequestDto.builder()
+                .memberId(memberId)
+                .courseId(courseId)
+                .build();
 
         //when
-        final ResultActions actions = mockMvc.perform(get("/api/courses/category/{category}", category)
+        final ResultActions actions = mockMvc.perform(post("/api/courses/enroll")
+                .content(new Gson().toJson(requestDto))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .with(csrf()));
 
         //then
-        actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].title", equalTo(ExampleValue.Course.TITLE)));
+        actions.andExpect(status().isOk());
+    }
+
+    @WithAuthUser(role = "USER")
+    @Test
+    @DisplayName("강좌에 찜을 하거나, 해제한다.")
+    void 강좌에_찜을_하거나_해제한다() throws Exception {
+        // given
+        WishRequestDto requestDto = WishRequestDto.builder()
+                .memberId(1L)
+                .courseId(1L)
+                .build();
+
+        // when
+        ResultActions actions = mockMvc.perform(post("/api/courses/wish")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(new Gson().toJson(requestDto)));
+
+        // then
+        actions.andExpect(status().isOk());
     }
 }
