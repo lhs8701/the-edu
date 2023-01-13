@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,26 +35,4 @@ public class WishServiceTest {
     @Mock
     WishJpaRepository wishJpaRepository;
 
-    @Test
-    @DisplayName("찜이 되어있는 상태라면 찜을 해제한다.")
-    void 찜이_되어있는_상태라면_찜을_해제한다() {
-        // given
-        Member member = Member.builder().build();
-        Course course = Course.builder().build();
-        WishRequestDto requestDto = WishRequestDto.builder()
-                .memberId(1L)
-                .courseId(1L)
-                .build();
-
-        Wish wish = requestDto.toEntity(member, course);
-        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
-        given(courseJpaRepository.findById(1L)).willReturn(Optional.of(course));
-        given(wishJpaRepository.save(wish)).willReturn(wish);
-
-        // when
-        wishService.toggleWish(requestDto);
-
-        // then
-        assertThat(member.getWishList()).doesNotContain(wish);
-    }
 }

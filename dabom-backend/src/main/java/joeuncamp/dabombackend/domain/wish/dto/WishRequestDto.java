@@ -17,6 +17,9 @@ public class WishRequestDto {
     Long courseId;
 
     public Wish toEntity(Member member, Course course) {
-        return null;
+        return Wish.builder()
+                .member(member)
+                .course(course)
+                .build();
     }
 }
