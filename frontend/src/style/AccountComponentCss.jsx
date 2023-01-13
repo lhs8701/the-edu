@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const ErrorMessage = styled.div`
+  color: tomato;
+
+  margin-top: 10px;
+`;
+
 export const InputLabel = styled.label`
   font-size: var(--size-login-btn);
   font-weight: var(--weight-normal);
@@ -19,7 +25,6 @@ export const AccountInput = styled.input`
   height: 40px;
   border: none;
   margin-top: 35px;
-  margin-bottom: 60px;
   border-bottom: 1.5px solid var(--color-gray);
   &:focus {
     outline: none;
@@ -81,4 +86,9 @@ export const AccountSmallBtn = styled.button`
   &:hover {
     color: var(--color-background);
   }
+`;
+
+export const InputBox = styled.div`
+  width: 100%;
+  height: 145px;
 `;

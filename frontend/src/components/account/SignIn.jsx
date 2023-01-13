@@ -15,6 +15,8 @@ import {
   AccountSmallBtn,
   AccountTitle,
   AccountWrapper,
+  ErrorMessage,
+  InputBox,
   InputLabel,
 } from "../../style/AccountComponentCss";
 import { useForm } from "react-hook-form";
@@ -57,33 +59,73 @@ export default function SignIn() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm();
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      inputValue: "",
+    },
+    reValidateMode: "onBlur",
+  });
 
-  console.log(isID);
+  const submit = () => {
+    try {
+      console.log(isID, password);
+    } catch {}
+  };
 
   return (
     <AccountWrapper>
       <AccountTitle>로그인</AccountTitle>
-      <AccountForm>
-        <InputLabel htmlFor="email">이메일주소 (아이디)</InputLabel>
-        <AccountInput
-          {...register("email", {
-            name: "email",
-            required: "Write a email",
-            // 유효성 검사 파트
-            // pattern: {
-            //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-            //   message: "wrong input",
-            // },
-            onChange: (e) => {
-              setIsId(e.target.value);
-            },
-          })}
-          type="email"
-          placeholder="이메일 주소를 입력해주세요."
-        />
-        <InputLabel>비밀번호</InputLabel>
-        <AccountInput type="password" placeholder="비밀번호를 입력해주세요." />
+      <AccountForm onSubmit={handleSubmit(submit)}>
+        <InputBox>
+          <InputLabel htmlFor="email">이메일주소 (아이디)</InputLabel>
+          <AccountInput
+            {...register("email", {
+              name: "email",
+              required: "아이디를 입력하세요!",
+              // pattern: {
+              //   value:
+              //     /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$/,
+              //   message: "올바른 아이디 형식을 입력해주세요.",
+              // },
+              onChange: (e) => {
+                setIsId(e.target.value);
+              },
+            })}
+            type="text"
+            placeholder="이메일 주소를 입력해주세요."
+          />
+
+          <ErrorMessage>{errors?.email?.message}</ErrorMessage>
+        </InputBox>
+        <InputBox>
+          <InputLabel>비밀번호</InputLabel>
+          <AccountInput
+            {...register("pwd", {
+              name: "pwd",
+              required: "비밀번호를 입력해주세요!",
+              // pattern: {
+              //   value:
+              //     /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$/,
+              //   message: "올바른 비밀번호 형식을 입력해주세요.",
+              // },
+              minLength: {
+                value: 8,
+                message: "8글자 이상 입력해주세요.",
+              },
+              maxLength: {
+                value: 16,
+                message: "16글자 이하로 입력해주세요.",
+              },
+              onChange: (e) => {
+                setPassword(e.target.value);
+              },
+            })}
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+          />
+          <ErrorMessage>{errors?.pwd?.message}</ErrorMessage>
+        </InputBox>
         <LoginLinkBox>
           <AnyLink to={"/" + PROCESS_ACCOUNT_URL.FINDID}>아이디찾기</AnyLink>
           <AnyLink to={"/" + PROCESS_ACCOUNT_URL.FINDPWD}>비밀번호찾기</AnyLink>
