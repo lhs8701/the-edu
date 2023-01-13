@@ -37,8 +37,13 @@ public class StudentService {
         return myCourses.stream().map(MyCourseShortResponseDto::new).toList();
     }
 
-
-    public List<CourseShortResponseDto> getWishCourses(Long memberId){
+    /**
+     * 찜한 모든 강좌를 조회합니다.
+     *
+     * @param memberId 회원 아이디넘버
+     * @return 찜한 강좌 목록
+     */
+    public List<CourseShortResponseDto> getWishedCourses(Long memberId) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
         List<Wish> wishes = wishJpaRepository.findAllByMember(memberId);
         List<Course> wishedCourses = wishes.stream().map(Wish::getCourse).toList();

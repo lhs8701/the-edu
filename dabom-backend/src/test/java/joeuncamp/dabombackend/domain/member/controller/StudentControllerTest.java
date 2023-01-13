@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.member.controller;
 
+import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.MyCourseShortResponseDto;
 import joeuncamp.dabombackend.domain.member.service.StudentService;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +37,7 @@ public class StudentControllerTest {
     void 등록한_모든_강좌의_목록을_조회한다() throws Exception {
         // given
         MyCourseShortResponseDto dto = MyCourseShortResponseDto.builder()
-                .id(1L)
+                .courseId(1L)
                 .build();
         List<MyCourseShortResponseDto> responseDto = List.of(dto);
         given(studentService.getMyCourses(1L)).willReturn(responseDto);
@@ -47,6 +48,26 @@ public class StudentControllerTest {
         // then
         actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].id", equalTo(1)));
+                .andExpect(jsonPath("$[0].courseId", equalTo(1)));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("찜한 강좌의 목록을 조회한다.")
+    void 찜한_모든_강좌의_목록을_조회한다() throws Exception {
+        // given
+        CourseShortResponseDto dto = CourseShortResponseDto.builder()
+                .courseId(1L)
+                .build();
+        List<CourseShortResponseDto> responseDto = List.of(dto);
+        given(studentService.getWishedCourses(1L)).willReturn(responseDto);
+
+        // when
+        final ResultActions actions = mockMvc.perform(get("/api/students/{memberId}/courses/wish", "1"));
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].courseId", equalTo(1)));
     }
 }

@@ -3,14 +3,11 @@ package joeuncamp.dabombackend.domain.member.service;
 import joeuncamp.dabombackend.domain.course.dto.MyCourseShortResponseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
-import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import org.assertj.core.api.Assertions;
-import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -64,6 +61,6 @@ class StudentServiceTest {
         // when
         List<MyCourseShortResponseDto> responseDto = studentService.getMyCourses(1L);
         // then
-        assertThat(responseDto.get(0).getId()).isEqualTo(1L);
+        assertThat(responseDto.get(0).getCourseId()).isEqualTo(1L);
     }
 }
