@@ -119,12 +119,12 @@ const router = createBrowserRouter([
       },
       { path: "kauth", element: <KaKaoAuth /> },
     ],
-    errorElement: <NotFoundPage />,
+    errorElement: <ErrorComponent />,
   },
   {
     path: "/player",
     element: <PlayerRoot />,
-    errorElement: <NotFoundPage />,
+    errorElement: <ErrorComponent />,
   },
 ]);
 

@@ -100,6 +100,14 @@ const PlayBtn = styled.button``;
 export default function LobbyPage() {
   const data = dummyCourseProgressData;
 
+  const playUnit = (link) => {
+    window.open(
+      "http://localhost:3000/player",
+      "the-edu 플레이어",
+      "location=no,status=no,scrollbars=no"
+    );
+  };
+
   const InFo = () => {
     return (
       <>
@@ -141,7 +149,7 @@ export default function LobbyPage() {
         <SmallCategoryTab>
           &nbsp;&nbsp;&nbsp;{idx + 1}. &nbsp;
           {small}
-          <PlayBtn>재생</PlayBtn>
+          <PlayBtn onClick={() => playUnit()}>재생</PlayBtn>
         </SmallCategoryTab>
       );
     });
