@@ -19,6 +19,8 @@ public class CourseDto {
 
     @Getter
     @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class CreationRequest{
         @NotBlank
         @Schema(description = "강좌 제목", example = ExampleValue.Course.TITLE)
@@ -51,23 +53,24 @@ public class CourseDto {
             return course;
         }
     }
-//
-//    @Getter
-//    @AllArgsConstructor
-//    public static class ShortResponse{
-//        @Schema(name = "아이디넘버", example = "1")
-//        Long courseId;
-//        @Schema(name = "제목", example = ExampleValue.Course.TITLE)
-//        String title;
-//        @Schema(name = "강사", example = ExampleValue.Member.NAME)
-//        String instructor;
-//
-//        public ShortResponse(Course course){
-//            this.courseId = course.getId();
-//            this.title = course.getTitle();
-//            this.instructor = course.getInstructorName();
-//        }
-//    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ShortResponse{
+        @Schema(name = "아이디넘버", example = "1")
+        Long courseId;
+        @Schema(name = "제목", example = ExampleValue.Course.TITLE)
+        String title;
+        @Schema(name = "강사", example = ExampleValue.Member.NAME)
+        String instructor;
+
+        public ShortResponse(Course course){
+            this.courseId = course.getId();
+            this.title = course.getTitle();
+            this.instructor = course.getInstructorName();
+        }
+    }
 
     @Getter
     @AllArgsConstructor

@@ -50,16 +50,16 @@ public class CourseControllerTest {
     @DisplayName("강좌를 개설한다.")
     void 강좌를_개설한다() throws Exception {
         // given
-        CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
+        CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder()
                 .build();
 
-        given(courseService.openCourse(dto, 1L)).willReturn(1L);
+        given(courseService.openCourse(requestDto, 1L)).willReturn(1L);
 
         // when
         final ResultActions actions = mockMvc.perform(post("/api/courses")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(new Gson().toJson(dto)));
+                .content(new Gson().toJson(requestDto)));
 
         // then
         actions.andExpect(status().isCreated());
@@ -91,7 +91,7 @@ public class CourseControllerTest {
     void 전체_강좌를_조회한다() throws Exception {
         //given
         String category = ExampleValue.Course.CATEGORY;
-        List<CourseShortResponseDto> responseDto = List.of(CourseShortResponseDto.builder()
+        List<CourseDto.ShortResponse> responseDto = List.of(CourseDto.ShortResponse.builder()
                 .title(ExampleValue.Course.TITLE)
                 .build());
         given(courseService.getCoursesByCategory(category)).willReturn(responseDto);

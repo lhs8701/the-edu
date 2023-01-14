@@ -36,8 +36,8 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses")
-    public ResponseEntity<Long> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseCreationRequestDto dto) {
-        Long response = courseService.openCourse(dto, member.getId());
+    public ResponseEntity<Long> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
+        Long response = courseService.openCourse(requestDto, member.getId());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -55,8 +55,8 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in=ParameterIn.HEADER, example=ExampleValue.JWT.ACCESS)
     @PreAuthorize("permitAll()")
     @GetMapping("/courses/category/{category}")
-    public ResponseEntity<List<CourseShortResponseDto>> getCourseByCategory(@PathVariable String category){
-        List<CourseShortResponseDto> responseDto = courseService.getCoursesByCategory(category);
+    public ResponseEntity<List<CourseDto.ShortResponse>> getCourseByCategory(@PathVariable String category){
+        List<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
