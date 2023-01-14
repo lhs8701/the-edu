@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.course.service;
 
+import joeuncamp.dabombackend.domain.course.dto.CategoryResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
@@ -7,6 +8,7 @@ import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.global.constant.CategoryGroup;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
@@ -14,6 +16,8 @@ import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,5 +76,14 @@ public class CourseService {
         return courses.stream()
                 .map(CourseDto.ShortResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 모든 카테고리를 반환합니다.
+     * @return
+     */
+    public List<CategoryResponseDto> getAllCategory(){
+        List<CategoryResponseDto> responseDto = new ArrayList<>();
+        return Arrays.stream(CategoryGroup.values()).map(CategoryResponseDto::new).collect(Collectors.toList());
     }
 }

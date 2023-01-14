@@ -1,6 +1,5 @@
 package joeuncamp.dabombackend.global.constant;
 
-import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

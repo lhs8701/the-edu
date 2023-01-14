@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
+import joeuncamp.dabombackend.domain.course.dto.CategoryResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
@@ -30,7 +31,6 @@ import java.util.List;
 public class CourseController {
     private final CourseService courseService;
     private final EnrollService enrollService;
-
     private final WishService wishService;
 
     @Operation(summary = "강좌를 개설합니다.", description = "강좌 개설은 크리에이터 프로필을 활성화한 회원만 가능합니다. \n 개설된 강좌의 아이디넘버가 반환됩니다.")
@@ -42,9 +42,7 @@ public class CourseController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-
     @Operation(summary = "강좌를 단건 조회합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("permitAll()")
     @GetMapping("/courses/{courseId}")
     public ResponseEntity<CourseDto.Response> getCourse(@PathVariable @NotNull Long courseId) {
@@ -53,14 +51,12 @@ public class CourseController {
     }
 
     @Operation(summary = "카테고리 내의 전체 강좌를 조회합니다.", description = "정해진 카테고리가 아닐 경우 예외가 반환됩니다.<br>카테고리 목록 : 카테고리 API 참조")
-    @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in=ParameterIn.HEADER, example=ExampleValue.JWT.ACCESS)
     @PreAuthorize("permitAll()")
     @GetMapping("/courses/category/{category}")
     public ResponseEntity<List<CourseDto.ShortResponse>> getCourseByCategory(@PathVariable @Schema(example = "백엔드") String category){
         List<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
-
 
     @Operation(summary="강좌에 수강신청합니다.", description="이미 수강신청한 강좌인 경우 예외가 발생합니다.")
     @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in=ParameterIn.HEADER, example=ExampleValue.JWT.ACCESS)
@@ -78,5 +74,13 @@ public class CourseController {
     public ResponseEntity<Void> toggleWish(@RequestBody WishRequestDto wishRequestDto){
         wishService.toggleWish(wishRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary="모든 카테고리를 반환합니다.", description="")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/category")
+    public ResponseEntity<List<CategoryResponseDto>> getAllCategory(){
+        List<CategoryResponseDto> responseDto = courseService.getAllCategory();
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
