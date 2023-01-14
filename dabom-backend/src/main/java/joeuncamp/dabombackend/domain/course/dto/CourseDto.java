@@ -37,7 +37,7 @@ public class CourseDto {
         @Schema(description = "가격", example = "143000")
         long price;
 
-        public Course toEntity(CreatorProfile creatorProfile) {
+        public Course toEntity(CreatorProfile creator) {
             CategoryType categoryType = CategoryType.findByTitle(category);
             if (categoryType == CategoryType.EMPTY) {
                 throw new CIllegalArgumentException();
@@ -49,7 +49,7 @@ public class CourseDto {
                     .category(categoryType)
                     .price(price)
                     .build();
-            course.setCreatorProfile(creatorProfile);
+            course.setCreatorProfile(creator);
             return course;
         }
     }

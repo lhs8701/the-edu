@@ -37,13 +37,13 @@ public class CourseService {
         if (!creatorService.hasCreatorProfile(member)) {
             throw new CCreationDeniedException();
         }
-        CreatorProfile creatorProfile = member.getCreatorProfile();
-        Course course = createAndSaveCourse(requestDto, creatorProfile);
+        CreatorProfile creator = member.getCreatorProfile();
+        Course course = createAndSaveCourse(requestDto, creator);
         return course.getId();
     }
 
-    private Course createAndSaveCourse(CourseDto.CreationRequest dto, CreatorProfile creatorProfile) {
-        Course course = dto.toEntity(creatorProfile);
+    private Course createAndSaveCourse(CourseDto.CreationRequest dto, CreatorProfile creator) {
+        Course course = dto.toEntity(creator);
         courseJpaRepository.save(course);
         return course;
     }

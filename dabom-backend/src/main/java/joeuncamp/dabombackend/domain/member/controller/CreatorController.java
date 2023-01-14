@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +31,7 @@ public class CreatorController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/activate")
-    public ResponseEntity<Void> activateCreatorProfile(CreatorRequestDto requestDto) {
+    public ResponseEntity<Void> activateCreatorProfile(@RequestBody CreatorRequestDto requestDto) {
         creatorService.activateCreatorProfile(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
