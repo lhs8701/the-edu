@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.course.service;
 
-import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.EnrollDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
@@ -51,7 +51,7 @@ public class EnrollServiceTest {
                 .id(1L)
                 .build();
 
-        EnrollRequestDto requestDto = EnrollRequestDto.builder()
+        EnrollDto.Request requestDto = EnrollDto.Request.builder()
                 .memberId(1L)
                 .courseId(1L)
                 .build();

@@ -35,7 +35,7 @@ public class CourseCreationDtoTest {
     @DisplayName("강좌의 가격이 0보다 작으면 예외가 발생한다.")
     void 가격이_0_보다_작으면_예외가_발생한다() {
         // given
-        CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
+        CourseDto.CreationRequest dto = CourseDto.CreationRequest.builder()
                 .title(ExampleValue.Course.TITLE)
                 .description(ExampleValue.Course.DESCRIPTION)
                 .category(ExampleValue.Course.CATEGORY)
@@ -43,7 +43,7 @@ public class CourseCreationDtoTest {
                 .build();
 
         // when
-        Set<ConstraintViolation<CourseCreationRequestDto>> violations = validator.validate(dto);
+        Set<ConstraintViolation<CourseDto.CreationRequest>> violations = validator.validate(dto);
 
         // then
         assertThat(violations).isNotEmpty();
@@ -54,7 +54,7 @@ public class CourseCreationDtoTest {
     @DisplayName("유효한 카테고리 값이 아닐 경우 예외가 발생한다.")
     void 유효한_카테고리_값이_아닐_경우_예외가_발생한다() {
         // given
-        CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
+        CourseDto.CreationRequest dto = CourseDto.CreationRequest.builder()
                 .title(ExampleValue.Course.TITLE)
                 .description(ExampleValue.Course.DESCRIPTION)
                 .category("테스트")
@@ -62,7 +62,7 @@ public class CourseCreationDtoTest {
                 .build();
 
         // when
-        Set<ConstraintViolation<CourseCreationRequestDto>> violations = validator.validate(dto);
+        Set<ConstraintViolation<CourseDto.CreationRequest>> violations = validator.validate(dto);
 
         // then
         assertThat(violations).isNotEmpty();

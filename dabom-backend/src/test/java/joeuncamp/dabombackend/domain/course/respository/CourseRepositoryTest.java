@@ -1,10 +1,9 @@
 package joeuncamp.dabombackend.domain.course.respository;
 
-import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
-import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.config.JpaAuditingConfig;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,11 +28,11 @@ public class CourseRepositoryTest {
     @Autowired
     CourseJpaRepository courseJpaRepository;
 
-    static CourseCreationRequestDto requestDto;
+    static CourseDto.CreationRequest requestDto;
 
     @BeforeAll
     static void init(){
-        requestDto = CourseCreationRequestDto.builder()
+        requestDto = CourseDto.CreationRequest.builder()
                 .title(ExampleValue.Course.TITLE)
                 .description(ExampleValue.Course.DESCRIPTION)
                 .category(ExampleValue.Course.CATEGORY)

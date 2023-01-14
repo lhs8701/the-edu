@@ -1,12 +1,6 @@
 package joeuncamp.dabombackend.domain.course.service;
 
-import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-<<<<<<< HEAD
-import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
-=======
-import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
->>>>>>> 7a661f3b621864659a0047516d34635d7490d7e8
+import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
@@ -70,7 +64,7 @@ public class CourseServiceTest {
     @DisplayName("크리에이터가 아닌 사람이 강좌를 개설할 경우 예외가 발생한다.")
     void 크리에이터가_아닌_사람이_강좌를_개설할_경우_예외가_발생한다() {
         // given
-        CourseCreationRequestDto dto = CourseCreationRequestDto.builder().build();
+        CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder().build();
         Member member = Member.builder().build();
         Long memberId = 1L;
         given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
@@ -79,7 +73,7 @@ public class CourseServiceTest {
         // when
 
         // then
-        Assertions.assertThatThrownBy(() -> courseService.openCourse(dto, memberId))
+        Assertions.assertThatThrownBy(() -> courseService.openCourse(requestDto, memberId))
                 .isInstanceOf(CCreationDeniedException.class);
     }
 
@@ -91,7 +85,7 @@ public class CourseServiceTest {
         given(courseJpaRepository.findById(courseId)).willReturn(Optional.of(course));
 
         // when
-        CourseResponseDto responseDto = courseService.getCourse(courseId);
+        CourseDto.Response responseDto = courseService.getCourse(courseId);
 
         // then
         assertThat(responseDto.getInstructor()).isEqualTo(instructor.getName());
@@ -107,11 +101,7 @@ public class CourseServiceTest {
         given(courseJpaRepository.findAllByCategory(CategoryType.BACK_END)).willReturn(courses);
 
         // when
-<<<<<<< HEAD
-        List<CourseShortResponseDto> responseDto = courseService.getCoursesByCategory(category);
-=======
-        List<CourseThumbnailResponseDto> responseDto = courseService.getCoursesByCategory(category);
->>>>>>> 7a661f3b621864659a0047516d34635d7490d7e8
+        List<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category);
 
         // then
         assertThat(responseDto.get(0).getTitle()).isEqualTo(ExampleValue.Course.TITLE);
