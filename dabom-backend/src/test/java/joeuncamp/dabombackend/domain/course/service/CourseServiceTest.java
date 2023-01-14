@@ -1,12 +1,9 @@
 package joeuncamp.dabombackend.domain.course.service;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-<<<<<<< HEAD
 import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
-=======
-import joeuncamp.dabombackend.domain.course.dto.CourseThumbnailResponseDto;
->>>>>>> 7a661f3b621864659a0047516d34635d7490d7e8
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
@@ -91,7 +88,7 @@ public class CourseServiceTest {
         given(courseJpaRepository.findById(courseId)).willReturn(Optional.of(course));
 
         // when
-        CourseResponseDto responseDto = courseService.getCourse(courseId);
+        CourseDto.Response responseDto = courseService.getCourse(courseId);
 
         // then
         assertThat(responseDto.getInstructor()).isEqualTo(instructor.getName());
@@ -107,11 +104,7 @@ public class CourseServiceTest {
         given(courseJpaRepository.findAllByCategory(CategoryType.BACK_END)).willReturn(courses);
 
         // when
-<<<<<<< HEAD
         List<CourseShortResponseDto> responseDto = courseService.getCoursesByCategory(category);
-=======
-        List<CourseThumbnailResponseDto> responseDto = courseService.getCoursesByCategory(category);
->>>>>>> 7a661f3b621864659a0047516d34635d7490d7e8
 
         // then
         assertThat(responseDto.get(0).getTitle()).isEqualTo(ExampleValue.Course.TITLE);

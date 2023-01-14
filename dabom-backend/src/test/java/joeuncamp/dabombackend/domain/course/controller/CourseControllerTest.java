@@ -1,10 +1,7 @@
 package joeuncamp.dabombackend.domain.course.controller;
 
 import com.google.gson.Gson;
-import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
@@ -74,7 +71,7 @@ public class CourseControllerTest {
     void 강좌를_단건_조회한다() throws Exception {
         //given
         Long courseId = 1L;
-        CourseResponseDto responseDto = CourseResponseDto.builder()
+        CourseDto.Response responseDto = CourseDto.Response.builder()
                 .title(ExampleValue.Course.TITLE)
                 .build();
         given(courseService.getCourse(courseId)).willReturn(responseDto);

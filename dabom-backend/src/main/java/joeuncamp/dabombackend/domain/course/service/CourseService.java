@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.course.service;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
@@ -60,9 +61,9 @@ public class CourseService {
      * @param courseId 조회할 강좌 아이디넘버
      * @return 강좌 정보
      */
-    public CourseResponseDto getCourse(Long courseId) {
+    public CourseDto.Response getCourse(Long courseId) {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
-        return new CourseResponseDto(course);
+        return new CourseDto.Response(course);
     }
 
     /**

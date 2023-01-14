@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
-import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -49,8 +46,8 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("permitAll()")
     @GetMapping("/courses/{courseId}")
-    public ResponseEntity<CourseResponseDto> getCourse(@PathVariable @NotNull Long courseId) {
-        CourseResponseDto responseDto = courseService.getCourse(courseId);
+    public ResponseEntity<CourseDto.Response> getCourse(@PathVariable @NotNull Long courseId) {
+        CourseDto.Response responseDto = courseService.getCourse(courseId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
