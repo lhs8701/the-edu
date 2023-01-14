@@ -1,9 +1,6 @@
 package joeuncamp.dabombackend.domain.course.service;
 
-import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;

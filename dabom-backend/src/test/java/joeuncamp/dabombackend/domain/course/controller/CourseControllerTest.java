@@ -114,7 +114,7 @@ public class CourseControllerTest {
 
         Long memberId = 1L;
         Long courseId = 1L;
-        EnrollRequestDto requestDto = EnrollRequestDto.builder()
+        EnrollDto.Request requestDto = EnrollDto.Request.builder()
                 .memberId(memberId)
                 .courseId(courseId)
                 .build();

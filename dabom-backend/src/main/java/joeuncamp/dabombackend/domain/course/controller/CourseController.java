@@ -65,7 +65,7 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in=ParameterIn.HEADER, example=ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/enroll")
-    public ResponseEntity<Void> enroll(@RequestBody EnrollRequestDto requestDto){
+    public ResponseEntity<Void> enroll(@RequestBody EnrollDto.Request requestDto){
         enrollService.enroll(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
