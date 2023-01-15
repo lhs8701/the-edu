@@ -1,6 +1,5 @@
 package joeuncamp.dabombackend.domain.post.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import joeuncamp.dabombackend.domain.course.entity.Course;
@@ -8,22 +7,19 @@ import joeuncamp.dabombackend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@DiscriminatorValue("review")
-public class Review extends Post{
-    int rating;
-    int likes;
+@DiscriminatorValue("inquiry")
+public class Inquiry extends Post{
+    String title;
 
     @Builder
-    public Review(Member member, Course course, String content, int rating, int likes){
+    public Inquiry(Member member, Course course, String content, String title){
         setMember(member);
         setCourse(course);
         this.content = content;
-        this.rating = rating;
-        this.likes = likes;
+        this.title = title;
     }
 }

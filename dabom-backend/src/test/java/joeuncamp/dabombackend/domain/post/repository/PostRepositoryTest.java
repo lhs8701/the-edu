@@ -69,6 +69,8 @@ public class PostRepositoryTest {
         Review saved = postJpaRepository.save(review);
 
         // then
+        assertThat(saved.getMember()).isEqualTo(member);
+        assertThat(saved.getCourse()).isEqualTo(course);
         assertThat(member.getPostList()).contains(saved);
         assertThat(course.getPostList()).contains(saved);
     }

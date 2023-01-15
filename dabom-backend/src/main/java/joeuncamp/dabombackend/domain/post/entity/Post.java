@@ -26,4 +26,19 @@ public abstract class Post extends BaseTimeEntity{
     @ManyToOne
     @JoinColumn
     Course course;
+
+    void setMember(Member member){
+        if (this.member != null){
+            this.member.getPostList().remove(this);
+        }
+        this.member = member;
+        member.getPostList().add(this);
+    }
+    void setCourse(Course course){
+        if(this.course != null){
+            this.course.getPostList().remove(this);
+        }
+        this.course = course;
+        course.getPostList().add(this);
+    }
 }
