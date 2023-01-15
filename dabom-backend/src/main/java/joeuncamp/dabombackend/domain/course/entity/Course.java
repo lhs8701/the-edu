@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.course.entity;
 
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.CategoryType;
@@ -42,6 +43,10 @@ public class Course extends BaseTimeEntity {
     @Builder.Default
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Wish> wishList = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Post> postList = new ArrayList<>();
 
     public void setCreatorProfile(CreatorProfile creatorProfile) {
         if (this.creatorProfile != null){
