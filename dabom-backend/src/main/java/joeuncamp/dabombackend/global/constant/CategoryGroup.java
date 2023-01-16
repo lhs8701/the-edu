@@ -1,12 +1,14 @@
 package joeuncamp.dabombackend.global.constant;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @AllArgsConstructor
+@Getter
 public enum CategoryGroup {
     PROGRAMING("프로그래밍", Arrays.asList(CategoryType.BACK_END, CategoryType.FRONT_END)),
     FOREIGN_LANGUAGE("외국어", Arrays.asList(CategoryType.TOEIC, CategoryType.TOEFL)),

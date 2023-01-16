@@ -5,6 +5,7 @@ import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
 import joeuncamp.dabombackend.global.WithAuthUser;
+import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,7 +60,7 @@ public class MemberControllerTest {
                 .nickname("updated")
                 .email("updated")
                 .build();
-        given(memberService.updateMyProfile(updateParam, 1L)).willReturn(1L);
+        given(memberService.updateMyProfile(updateParam, 1L)).willReturn(new IdResponseDto(1L));
 
         // when
         final ResultActions actions = mockMvc.perform(patch("/api/members/{memberId}/profile", "1").with(csrf())

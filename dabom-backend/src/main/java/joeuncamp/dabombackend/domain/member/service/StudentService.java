@@ -1,7 +1,7 @@
 package joeuncamp.dabombackend.domain.member.service;
 
-import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.MyCourseShortResponseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseDto;
+import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
@@ -29,12 +29,12 @@ public class StudentService {
      * @param memberId 회원 아이디넘버
      * @return 등록한 강좌 목록
      */
-    public List<MyCourseShortResponseDto> getMyCourses(Long memberId) {
+    public List<MyCourseDto.ShortResponse> getMyCourses(Long memberId) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
         List<Enroll> enrolls = enrollJpaRepository.findAllByMember(member);
         List<Course> myCourses = enrolls.stream().map(Enroll::getCourse).toList();
 
-        return myCourses.stream().map(MyCourseShortResponseDto::new).toList();
+        return myCourses.stream().map(MyCourseDto.ShortResponse::new).toList();
     }
 
     /**
@@ -43,10 +43,10 @@ public class StudentService {
      * @param memberId 회원 아이디넘버
      * @return 찜한 강좌 목록
      */
-    public List<CourseShortResponseDto> getWishedCourses(Long memberId) {
+    public List<CourseDto.ShortResponse> getWishedCourses(Long memberId) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
         List<Wish> wishes = wishJpaRepository.findAllByMember(member);
         List<Course> wishedCourses = wishes.stream().map(Wish::getCourse).toList();
-        return wishedCourses.stream().map(CourseShortResponseDto::new).toList();
+        return wishedCourses.stream().map(CourseDto.ShortResponse::new).toList();
     }
 }

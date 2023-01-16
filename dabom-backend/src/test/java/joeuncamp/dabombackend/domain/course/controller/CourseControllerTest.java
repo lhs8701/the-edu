@@ -1,21 +1,22 @@
 package joeuncamp.dabombackend.domain.course.controller;
 
 import com.google.gson.Gson;
-import joeuncamp.dabombackend.domain.course.dto.CourseCreationRequestDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.CourseShortResponseDto;
-import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.WithAuthUser;
+import joeuncamp.dabombackend.global.common.IdResponseDto;
+import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -53,16 +54,16 @@ public class CourseControllerTest {
     @DisplayName("강좌를 개설한다.")
     void 강좌를_개설한다() throws Exception {
         // given
-        CourseCreationRequestDto dto = CourseCreationRequestDto.builder()
+        CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder()
                 .build();
 
-        given(courseService.openCourse(dto, 1L)).willReturn(1L);
+        given(courseService.openCourse(requestDto, 1L)).willReturn(new IdResponseDto(1L));
 
         // when
         final ResultActions actions = mockMvc.perform(post("/api/courses")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(new Gson().toJson(dto)));
+                .content(new Gson().toJson(requestDto)));
 
         // then
         actions.andExpect(status().isCreated());
@@ -74,7 +75,7 @@ public class CourseControllerTest {
     void 강좌를_단건_조회한다() throws Exception {
         //given
         Long courseId = 1L;
-        CourseResponseDto responseDto = CourseResponseDto.builder()
+        CourseDto.Response responseDto = CourseDto.Response.builder()
                 .title(ExampleValue.Course.TITLE)
                 .build();
         given(courseService.getCourse(courseId)).willReturn(responseDto);
@@ -94,10 +95,9 @@ public class CourseControllerTest {
     void 전체_강좌를_조회한다() throws Exception {
         //given
         String category = ExampleValue.Course.CATEGORY;
-        List<CourseShortResponseDto> responseDto = List.of(CourseShortResponseDto.builder()
-                .title(ExampleValue.Course.TITLE)
-                .build());
-        given(courseService.getCoursesByCategory(category)).willReturn(responseDto);
+        Pageable pageable = PageRequest.of(0, 2);
+        PagingDto<CourseDto.ShortResponse> responseDto = new PagingDto<>(0, 2, List.of(CourseDto.ShortResponse.builder().build()));
+        given(courseService.getCoursesByCategory(category, pageable)).willReturn(responseDto);
 
         //when
         final ResultActions actions = mockMvc.perform(get("/api/courses/category/{category}", category)
@@ -105,19 +105,17 @@ public class CourseControllerTest {
 
         //then
         actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].title", equalTo(ExampleValue.Course.TITLE)));
+                .andExpect(jsonPath("$.list", hasSize(1)));
     }
 
     @Test
     @WithAuthUser(role = "USER")
-
     void 강좌에_수강신청한다() throws Exception {
         //given
 
         Long memberId = 1L;
         Long courseId = 1L;
-        EnrollRequestDto requestDto = EnrollRequestDto.builder()
+        EnrollDto.Request requestDto = EnrollDto.Request.builder()
                 .memberId(memberId)
                 .courseId(courseId)
                 .build();
