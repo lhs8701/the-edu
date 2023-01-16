@@ -16,8 +16,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.List;
+
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,5 +58,21 @@ public class ReviewControllerTest {
         // then
         actions
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    @WithAuthUser(role = "USER")
+    @DisplayName("후기를 작성한다.")
+    void 후기를_조회한다() throws Exception {
+        // given
+        given(reviewService.getReviews(1L)).willReturn(List.of(new ReviewDto.Response()));
+
+        // when
+        ResultActions actions = mockMvc.perform(get("/api/courses/{courseId}/reviews",1L)
+                .with(csrf()));
+
+        // then
+        actions
+                .andExpect(status().isOk());
     }
 }
