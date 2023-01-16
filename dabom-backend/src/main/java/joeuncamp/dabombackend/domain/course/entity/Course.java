@@ -49,14 +49,23 @@ public class Course extends BaseTimeEntity {
     List<Post> postList = new ArrayList<>();
 
     public void setCreatorProfile(CreatorProfile creatorProfile) {
-        if (this.creatorProfile != null){
+        if (this.creatorProfile != null) {
             this.creatorProfile.getUploadedCourses().remove(this);
         }
         this.creatorProfile = creatorProfile;
         creatorProfile.getUploadedCourses().add(this);
     }
 
-    public String getInstructorName(){
+    public String getInstructorName() {
         return this.creatorProfile.getMember().getName();
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", category=" + category +
+                '}';
     }
 }

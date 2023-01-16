@@ -16,6 +16,7 @@ import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -91,5 +92,16 @@ public class CourseService {
      */
     public List<CategoryResponseDto> getAllCategory() {
         return Arrays.stream(CategoryGroup.values()).map(CategoryResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<CourseDto.ShortResponse> getCoursesByCategoryTemp(String category, Pageable pageable) {
+        CategoryType type = CategoryType.findByTitle(category);
+        if (type.equals(CategoryType.EMPTY)) {
+            throw new CIllegalArgumentException();
+        }
+        List<Course> courses = courseJpaRepository.findAllByCategory(type);
+        return courses.stream()
+                .map(CourseDto.ShortResponse::new)
+                .collect(Collectors.toList());
     }
 }

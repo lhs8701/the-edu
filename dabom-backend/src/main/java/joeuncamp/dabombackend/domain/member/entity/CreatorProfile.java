@@ -27,5 +27,4 @@ public class CreatorProfile {
     @OneToMany(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Builder.Default
     List<Course> uploadedCourses = new ArrayList<>();
-
 }
