@@ -15,6 +15,9 @@ import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -45,5 +48,16 @@ public class ReviewService {
     private Long createAndSaveReview(ReviewDto.Request requestDto, Member member, Course course) {
         Review review = requestDto.toEntity(member, course);
         return reviewJpaRepository.save(review).getId();
+    }
+
+    /**
+     * 강좌 내의 수강 후기 목록을 반환합니다.
+     * @param courseId 강좌 아이디넘버
+     * @return 수강후기 목록
+     */
+    public List<ReviewDto.Response> getReviews(Long courseId){
+        Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
+        List<Review> reviews = reviewJpaRepository.findAllByCourse(course);
+        return reviews.stream().map(ReviewDto.Response::new).toList();
     }
 }

@@ -17,8 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -55,8 +57,32 @@ public class ReviewServiceTest {
         // when
 
         // then
-        Assertions.assertThatThrownBy(() -> reviewService.writeReview(requestDto))
+        assertThatThrownBy(() -> reviewService.writeReview(requestDto))
                 .isInstanceOf(CAccessDeniedException.class);
 
     }
+
+    @Test
+    @DisplayName("수강 후기 목록을 조회한다.")
+    void 수강_후기_목록을_조회한다() {
+        // given
+        Member member = Member.builder().build();
+        Course course = Course.builder().build();
+        Review review = Review.builder()
+                .member(member)
+                .course(course)
+                .build();
+        List<Review> reviews = List.of(review);
+
+        given(courseJpaRepository.findById(1L)).willReturn(Optional.of(course));
+        given(reviewJpaRepository.findAllByCourse(course)).willReturn(reviews);
+
+        // when
+        List<ReviewDto.Response> responseDto = reviewService.getReviews(1L);
+
+        // then
+        assertThat(responseDto).isNotNull();
+    }
+
+
 }

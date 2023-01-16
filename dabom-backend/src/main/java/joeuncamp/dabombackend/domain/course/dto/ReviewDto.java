@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.post.entity.Review;
+import joeuncamp.dabombackend.global.constant.ExampleValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,6 +37,39 @@ public class ReviewDto {
                     .content(content)
                     .rating(rating)
                     .build();
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class Response{
+        @Schema(description = "회원 아이디넘버", example = "1")
+        Long reviewId;
+
+        @Schema(description = "작성자명", example = ExampleValue.Member.NAME)
+        String writer;
+
+        @Schema(description = "강좌명", example = ExampleValue.Course.TITLE)
+        String course;
+
+        @Schema(description = "내용", example = ExampleValue.Post.CONTENT)
+        String content;
+
+        @Schema(description = "좋아요", example = "1150")
+        int likes;
+
+        @Schema(description = "평점", example = "5")
+        int rating;
+
+        public Response(Review review){
+            this.reviewId = review.getId();
+            this.writer = review.getMember().getName();
+            this.course = review.getCourse().getTitle();
+            this.content = review.getContent();
+            this.likes = review.getLikes();
+            this.rating = review.getRating();
         }
     }
 
