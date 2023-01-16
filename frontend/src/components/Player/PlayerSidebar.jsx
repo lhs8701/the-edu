@@ -53,6 +53,7 @@ export default function PlayerSidebar() {
     2: <UnitQuestion />,
     3: <UnitReview />,
   };
+
   const [menu, setMenu] = useState(0);
 
   return (

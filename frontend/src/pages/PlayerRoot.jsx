@@ -11,7 +11,7 @@ import Player from "../components/Player/Player";
 import PlayerSidebar from "../components/Player/PlayerSidebar";
 
 const Hm = styled.div`
-  width: 90vw;
+  width: 95vw;
   height: 100vh;
   margin: 0 auto;
   padding: 2rem 0;
@@ -45,14 +45,14 @@ const VideoTab = styled.div`
   height: 100%;
   width: 79%;
   position: relative;
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1180px) {
     width: 100%;
   }
 `;
 const BarTab = styled.div`
   height: 100%;
   width: 21%;
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1180px) {
     display: none;
   }
   z-index: 2;
@@ -79,7 +79,7 @@ const ArcodianBtn = styled.button`
   top: -20px;
   left: 0;
   background-color: var(--color-text);
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1180px) {
     display: none;
   }
   z-index: 5;
@@ -159,20 +159,9 @@ export default function PlayerRoot() {
             />
           </VideoTab>
 
-          <AniBarTab
-            // initial={{ display: !isCollapse ? "none" : "block" }}
-            // animate={{
-            //   translateX: isCollapse ? "-150%" : 0,
-            // }}
-            // transition={{
-            //   type: "linear",
-            //   duration: 0.2,
-            // }}
-            ison={isCollapse}
-          >
+          <AniBarTab ison={isCollapse}>
             <PlayerSidebar />
           </AniBarTab>
-
           <BarTab>
             <PlayerSidebar />
           </BarTab>

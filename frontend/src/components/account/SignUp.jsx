@@ -16,6 +16,13 @@ import {
 import Term from "./Term";
 import { useForm } from "react-hook-form";
 
+const MIN_PWD_LENGTH = 8;
+const MAX_NAME_LENGTH = 16;
+const MIN_NAME_LENGTH = 2;
+const MAX_PWD_LENGTH = 16;
+const MIN_TELE_LENGTH = 10;
+const MAX_TELE_LENGTH = 11;
+
 const TeleInput = styled(AccountInput)`
   width: 83%;
 `;
@@ -102,7 +109,6 @@ export default function SignUp() {
     } catch {}
   };
 
-
   return (
     <AccountWrapper>
       <AccountTitle>회원가입</AccountTitle>
@@ -122,11 +128,11 @@ export default function SignUp() {
                 setIsName(e.target.value);
               },
               minLength: {
-                value: 2,
+                value: MIN_NAME_LENGTH,
                 message: "2글자 이상 입력해주세요.",
               },
               maxLength: {
-                value: 16,
+                value: MAX_NAME_LENGTH,
                 message: "16글자 이하로 입력해주세요.",
               },
             })}
@@ -167,11 +173,11 @@ export default function SignUp() {
               //   message: "wrong input",
               // },
               minLength: {
-                value: 8,
+                value: MIN_PWD_LENGTH,
                 message: "8글자 이상 입력해주세요.",
               },
               maxLength: {
-                value: 16,
+                value: MAX_PWD_LENGTH,
                 message: "16글자 이하로 입력해주세요.",
               },
               onChange: (e) => {
@@ -238,11 +244,11 @@ export default function SignUp() {
               //   message: "wrong input",
               // },
               minLength: {
-                value: 10,
+                value: MIN_TELE_LENGTH,
                 message: "10글자 이상 입력해주세요.",
               },
               maxLength: {
-                value: 11,
+                value: MAX_TELE_LENGTH,
                 message: "11글자 이하로 입력해주세요.",
               },
               onChange: (e) => {

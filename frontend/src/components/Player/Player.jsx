@@ -32,7 +32,7 @@ const CControl = styled(motion.span)`
 `;
 const PlayAni = styled(motion.div)`
   position: absolute;
-  top: 45%;
+  top: 48%;
   left: 45%;
   z-index: 10;
   @media screen and (max-width: 600px) {
@@ -43,9 +43,9 @@ const Icon = styled(FontAwesomeIcon)`
   width: 5rem;
   height: 5rem;
   color: rgba(0, 0, 0, 0.5);
-  @media screen and (min-width: 1280px) {
+  /* @media screen and (min-width: 1280px) {
     display: none;
-  }
+  } */
 `;
 const ControlTab = styled(motion.div)`
   z-index: 1;

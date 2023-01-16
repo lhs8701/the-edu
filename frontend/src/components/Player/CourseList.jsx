@@ -18,10 +18,6 @@ const Catalog = styled(motion.li)`
   margin: 10px 0px;
 `;
 
-const Tab = styled.div`
-  margin-left: 25px;
-`;
-
 const ListBox = styled.ul`
   width: 100%;
   height: 92%;

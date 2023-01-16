@@ -12,9 +12,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faClosedCaptioning as regular } from "@fortawesome/free-regular-svg-icons";
-// import pip from "../images/pip.png";
-// import forward from "../images/plus.png";
-// import rewind from "../images/minus.png";
+import pip from "../../images/pip.png";
+import forward from "../../images/plus.png";
+import rewind from "../../images/minus.png";
 import Slider from "@mui/material/Slider";
 
 import { useEffect, useState } from "react";
@@ -55,6 +55,9 @@ const ProgressTab = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  @media screen and (max-width: 768px) {
+    padding: 0 8px;
+  }
 `;
 const ControlTab = styled.div`
   display: flex;
@@ -63,29 +66,54 @@ const ControlTab = styled.div`
   padding: 0 15px;
   box-sizing: border-box;
   width: 100%;
+  @media screen and (max-width: 768px) {
+    padding: 0 8px;
+  }
 `;
 
 const Icon = styled(FontAwesomeIcon)`
   cursor: pointer;
-
   width: 25px;
   height: 25px;
+  @media screen and (max-width: 1280px) {
+    width: 18px;
+    height: 18px;
+  }
+  @media screen and (max-width: 768px) {
+    width: 13px;
+    height: 13px;
+  }
+  @media screen and (max-width: 360px) {
+    width: 10px;
+    height: 10px;
+  }
 `;
-const VIcon = styled(Icon)``;
-const CIcon = styled(Icon)``;
 
 const Img = styled.img`
   cursor: pointer;
   width: 25px;
   height: 25px;
+  @media screen and (max-width: 1280px) {
+    width: 18px;
+    height: 18px;
+  }
+  @media screen and (max-width: 768px) {
+    width: 13px;
+    height: 13px;
+  }
+  @media screen and (max-width: 360px) {
+    width: 10px;
+    height: 10px;
+  }
+  padding-top: 3px;
 `;
-
-const PRImg = styled(Img)``;
 
 const IconTab = styled.div`
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  flex-shrink: 1;
 `;
 
 const IconSecTab = styled(IconTab)``;
@@ -101,7 +129,7 @@ const VolumeBar = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 5vw;
+  width: 4vw;
 `;
 
 const RateTab = styled(motion.div)`
@@ -132,6 +160,7 @@ const Rate = styled(motion.div)`
   padding: 5px 15px;
   padding: 5px;
   width: 85%;
+  font-size: 0.8rem;
 `;
 
 const Cc = styled(motion.div)`
@@ -142,17 +171,14 @@ const Cc = styled(motion.div)`
 
 const TimeTab = styled.div`
   margin-left: 15px;
-  font-size: 1.1rem;
+  font-size: 1rem;
 `;
 
-const TabVari = {
-  hover: {
-    scale: "1.1",
-  },
-  tap: {
-    scale: "1",
-  },
-};
+const IconDiv = styled(motion.div)`
+  height: 100%;
+  margin: 0 10px;
+  font-size: 0.8rem;
+`;
 
 export default function Controller({
   vRef,
@@ -380,30 +406,27 @@ export default function Controller({
       </ProgressTab>
       <ControlTab>
         <IconTab>
-          <motion.div variants={TabVari} whileHover="hover" whileTap="tap">
-            {/* <PRImg src={rewind} alt="no" onClick={rewindHandler} /> */}
-          </motion.div>
-          <motion.div variants={TabVari} whileHover="hover" whileTap="tap">
+          <IconDiv variants={TabVari} whileHover="hover" whileTap="tap">
+            <Img src={rewind} alt="no" onClick={rewindHandler} />
+          </IconDiv>
+          <IconDiv variants={TabVari} whileHover="hover" whileTap="tap">
             {!videoVal.playing ? (
               <Icon icon={faPlay} onClick={playHandler}></Icon>
             ) : (
               <Icon icon={faPause} onClick={playHandler}></Icon>
             )}
-          </motion.div>
-          <motion.div
-            style={{ marginLeft: "-2.7px" }}
-            variants={TabVari}
-            whileHover="hover"
-            whileTap="tap"
-          >
-            {/* <PRImg src={forward} alt="no" onClick={forwardHandler} /> */}
-          </motion.div>
+          </IconDiv>
+          <IconDiv variants={TabVari} whileHover="hover" whileTap="tap">
+            <Img src={forward} alt="no" onClick={forwardHandler} />
+          </IconDiv>
           <VolumnTab onMouseEnter={BarOn} onMouseLeave={BarOff}>
-            {videoVal.muted ? (
-              <VIcon icon={faVolumeXmark} onClick={muteHandler} />
-            ) : (
-              <VIcon icon={faVolumeUp} onClick={muteHandler} />
-            )}
+            <IconDiv>
+              {videoVal.muted ? (
+                <Icon icon={faVolumeXmark} onClick={muteHandler} />
+              ) : (
+                <Icon icon={faVolumeUp} onClick={muteHandler} />
+              )}
+            </IconDiv>
             <VolumeBar animate={{ scale: barOn ? 1 : 0 }}>
               <Slider
                 min={0}
@@ -451,9 +474,9 @@ export default function Controller({
               setIsBarTabs((prev) => ({ ...prev, rateBar: !prev.rateBar }));
             }}
           >
-            <motion.div variants={TabVari} whileHover="hover" whileTap="tap">
+            <IconDiv variants={TabVari} whileHover="hover" whileTap="tap">
               {videoVal.playbackRate}X
-            </motion.div>
+            </IconDiv>
             {isBarTabs.rateBar ? (
               <RateBar>
                 {[0.5, 0.75, 1, 1.25, 1.5, 2].map((rate) => {
@@ -472,21 +495,21 @@ export default function Controller({
               </RateBar>
             ) : null}
           </RateTab>
-          <motion.div variants={TabVari} whileHover="hover" whileTap="tap">
-            {/* <Img src={pip} alt="no" onClick={pipHandler} /> */}
-          </motion.div>
+          <IconDiv variants={TabVari} whileHover="hover" whileTap="tap">
+            <Img src={pip} alt="no" onClick={pipHandler} />
+          </IconDiv>
           <RateTab
             onClick={() => {
               setIsBarTabs((prev) => ({ ...prev, ccBar: !prev.ccBar }));
             }}
           >
-            <motion.div variants={TabVari} whileHover="hover" whileTap="tap">
+            <IconDiv variants={TabVari} whileHover="hover" whileTap="tap">
               {videoVal.cc ? (
-                <CIcon icon={faClosedCaptioning}></CIcon>
+                <Icon icon={faClosedCaptioning} />
               ) : (
-                <CIcon icon={regular}></CIcon>
+                <Icon icon={regular} />
               )}
-            </motion.div>
+            </IconDiv>
             {isBarTabs.ccBar ? (
               <RateBar style={{ bottom: "30px" }}>
                 <Cc
@@ -528,13 +551,13 @@ export default function Controller({
                 })}
               </GearBar>
             ) : null}
-            <motion.div variants={TabVari} whileHover="hover" whileTap="tap">
-              <Icon icon={faGear}></Icon>
-            </motion.div>
+            <IconDiv variants={TabVari} whileHover="hover" whileTap="tap">
+              <Icon icon={faGear} />
+            </IconDiv>
           </GearTab>
-          <motion.div variants={TabVari} whileHover="hover" whileTap="tap">
-            <Icon icon={faExpand} onClick={fullHandler}></Icon>
-          </motion.div>
+          <IconDiv variants={TabVari} whileHover="hover" whileTap="tap">
+            <Icon icon={faExpand} onClick={fullHandler} />
+          </IconDiv>
         </IconSecTab>
       </ControlTab>
     </BarWarpper>

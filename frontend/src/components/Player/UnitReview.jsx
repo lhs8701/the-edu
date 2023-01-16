@@ -16,30 +16,69 @@ import { SideTitle, Wrapper } from "../../style/PlayerSideBarCss";
 
 const ReviewIconTab = styled.div`
   width: 100%;
+  padding: 10px 0px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  justify-content: center;
+  flex-wrap: wrap;
   svg {
     &:nth-child(1) {
-      height: 4rem;
+      height: 3rem;
     }
     &:nth-child(2) {
-      height: 3rem;
+      height: 2.6rem;
     }
     &:nth-child(3) {
-      height: 2rem;
+      height: 2.2rem;
     }
     &:nth-child(4) {
-      height: 3rem;
+      height: 2.6rem;
     }
     &:nth-child(5) {
-      height: 4rem;
+      height: 3rem;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    svg {
+      &:nth-child(1) {
+        height: 2rem;
+        width: 2rem;
+      }
+      &:nth-child(2) {
+        height: 1.8rem;
+        width: 1.8rem;
+      }
+      &:nth-child(3) {
+        height: 1.6rem;
+        width: 1.6rem;
+      }
+      &:nth-child(4) {
+        height: 1.8rem;
+        width: 1.8rem;
+      }
+      &:nth-child(5) {
+        height: 2rem;
+        width: 2rem;
+      }
     }
   }
 `;
 
+const SideTitleAlignCenter = styled(SideTitle)`
+  text-align: center;
+`;
+
 const DivTab = styled(ReviewIconTab)`
-  margin-top: 15px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  @media screen and (min-width: 520px) {
+    width: 40%;
+  }
 `;
 
 const BtnTab = styled.div`
@@ -51,16 +90,24 @@ const BtnTab = styled.div`
 `;
 
 const Icon = styled(FontAwesomeIcon)`
-  width: 25%;
-
+  width: 2.8rem;
+  height: 2.8rem;
   color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
+  margin: 0 10px;
+  @media screen and (min-width: 1024px) {
+    margin: 0 5px;
+  }
 `;
 
-const Star = styled(Icon)`
-  cursor: default;
-  width: 50px;
-  height: 50px;
+const Star = styled(FontAwesomeIcon)`
+  width: 2.8rem;
+  height: 2.8rem;
+  color: rgba(0, 0, 0, 0.5);
+  @media screen and (min-width: 1024px) {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
 `;
 
 const Form = styled.div`
@@ -82,7 +129,9 @@ const StartTab = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: teal;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  padding-top: 15px;
 `;
 
 export default function UnitReview() {
@@ -186,8 +235,8 @@ export default function UnitReview() {
 
   useEffect(makeRateStarList, []);
 
-  return (
-    <Wrapper>
+  const UnitStarRate = () => {
+    return (
       <StartTab>
         {[...Array(starList?.starCnt)?.keys()]?.map((e) => {
           return <Star icon={faStar} />;
@@ -201,10 +250,13 @@ export default function UnitReview() {
         {/* <SideTitle>unitInfo?.rating?.score?.toFixed(1)</SideTitle> */}
         <SideTitle>3.3</SideTitle>
       </StartTab>
+    );
+  };
 
-      <div>
-        <SideTitle>강의에 점수를 주세요.</SideTitle>
-      </div>
+  return (
+    <Wrapper>
+      <UnitStarRate />
+      <SideTitleAlignCenter>강의에 점수를 주세요.</SideTitleAlignCenter>
       <ReviewIconTab>
         {[1, 2, 3, 4, 5].map((e, idx) => {
           if (check && check === idx + 1) {

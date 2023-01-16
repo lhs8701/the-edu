@@ -77,6 +77,9 @@ html {
     --size-category-title: 35px;
     --size-category-big:26px;
     --size-category-small:23px;
+
+
+    --font-size-question-any:0.8rem;
   }
   button{
     cursor: pointer;
