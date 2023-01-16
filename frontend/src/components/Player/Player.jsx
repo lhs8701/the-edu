@@ -32,14 +32,20 @@ const CControl = styled(motion.span)`
 `;
 const PlayAni = styled(motion.div)`
   position: absolute;
-  bottom: 38%;
-  right: 42%;
+  top: 45%;
+  left: 45%;
   z-index: 10;
+  @media screen and (max-width: 600px) {
+    left: 40%;
+  }
 `;
 const Icon = styled(FontAwesomeIcon)`
-  width: 150px;
-  height: 150px;
+  width: 5rem;
+  height: 5rem;
   color: rgba(0, 0, 0, 0.5);
+  @media screen and (min-width: 1280px) {
+    display: none;
+  }
 `;
 const ControlTab = styled(motion.div)`
   z-index: 1;
@@ -139,21 +145,6 @@ export default function Player() {
       onMouseMove={cMoveHandeler}
       onMouseLeave={cOffHandler}
     >
-      <AnimatePresence>
-        <PlayAni
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: videoVal.playing && controlOn ? 1 : 0,
-          }}
-          exit={{ opacity: 0 }}
-        >
-          {!videoVal.playing ? (
-            <Icon icon={faCirclePlay} />
-          ) : (
-            <Icon icon={faCirclePause} />
-          )}
-        </PlayAni>
-      </AnimatePresence>
       {url === "s" ? (
         <LoadingPlayer
           initial={{ backgroundColor: "#d4d4d4" }}
@@ -167,6 +158,21 @@ export default function Player() {
         ></LoadingPlayer>
       ) : (
         <VideoRelativeDiv ref={fullRef}>
+          <AnimatePresence>
+            <PlayAni
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: videoVal.playing && controlOn ? 1 : 0,
+              }}
+              exit={{ opacity: 0 }}
+            >
+              {!videoVal.playing ? (
+                <Icon icon={faCirclePlay} />
+              ) : (
+                <Icon icon={faCirclePause} />
+              )}
+            </PlayAni>
+          </AnimatePresence>
           <Clicker
             onClick={() => {
               setVideoVal({ ...videoVal, playing: !videoVal.playing });

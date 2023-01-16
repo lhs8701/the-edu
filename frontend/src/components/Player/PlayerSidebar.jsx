@@ -9,6 +9,7 @@ import UnitReview from "./UnitReview";
 const BarWrapper = styled.div`
   height: 100%;
   box-shadow: 0 0 0 rgb(0 0 0 / 16%), 0 1px 5px rgb(0 0 0 / 16%);
+  background-color: var(--color-background);
 `;
 
 const NoticeTab = styled(motion.div)`

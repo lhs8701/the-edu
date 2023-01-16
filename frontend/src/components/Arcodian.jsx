@@ -70,7 +70,6 @@ function Accordion({ target, setUsSmallTitle, categoryId, isSmallTitle }) {
   }, [isCollapse]);
 
   const SmallCategories = ({ target }) => {
-    console.log(target);
     return (
       <SmallCategory
         onClick={() => {
@@ -96,7 +95,6 @@ function Accordion({ target, setUsSmallTitle, categoryId, isSmallTitle }) {
       <SmallCateBox ref={parentRef} ison={isCollapse}>
         <ContentsWrapper ref={childRef}>
           {target.smallList?.map((small) => {
-            console.log(small);
             return (
               <div key={small.id}>
                 <SmallCategories target={small} />

@@ -30,7 +30,7 @@ const BarWarpper = styled.div`
   justify-content: center;
   position: absolute;
   background-color: transparent;
-  z-index: 10;
+  z-index: 3;
   /* background-image: linear-gradient(
     rgba(0, 0, 0, 0),
     rgba(0, 0, 0, 0.1),
