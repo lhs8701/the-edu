@@ -13,6 +13,7 @@ import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
+import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +38,8 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses")
-    public ResponseEntity<Long> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
-        Long response = courseService.openCourse(requestDto, member.getId());
+    public ResponseEntity<IdResponseDto> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
+        IdResponseDto response = courseService.openCourse(requestDto, member.getId());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

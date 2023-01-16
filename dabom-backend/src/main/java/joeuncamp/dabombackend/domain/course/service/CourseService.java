@@ -8,6 +8,7 @@ import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.constant.CategoryGroup;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
@@ -36,20 +37,19 @@ public class CourseService {
      * @param memberId 개설을 요청한 회원 아이디넘버
      * @return 개설된 강좌의 아이디넘버
      */
-    public long openCourse(CourseDto.CreationRequest requestDto, Long memberId) {
+    public IdResponseDto openCourse(CourseDto.CreationRequest requestDto, Long memberId) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
         if (!creatorService.hasCreatorProfile(member)) {
             throw new CCreationDeniedException();
         }
         CreatorProfile creator = member.getCreatorProfile();
-        Course course = createAndSaveCourse(requestDto, creator);
-        return course.getId();
+        Long savedId = createAndSaveCourse(requestDto, creator);
+        return new IdResponseDto(savedId);
     }
 
-    private Course createAndSaveCourse(CourseDto.CreationRequest dto, CreatorProfile creator) {
+    private Long createAndSaveCourse(CourseDto.CreationRequest dto, CreatorProfile creator) {
         Course course = dto.toEntity(creator);
-        courseJpaRepository.save(course);
-        return course;
+        return courseJpaRepository.save(course).getId();
     }
 
     /**

@@ -7,6 +7,7 @@ import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.WithAuthUser;
+import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ public class CourseControllerTest {
         CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder()
                 .build();
 
-        given(courseService.openCourse(requestDto, 1L)).willReturn(1L);
+        given(courseService.openCourse(requestDto, 1L)).willReturn(new IdResponseDto(1L));
 
         // when
         final ResultActions actions = mockMvc.perform(post("/api/courses")
