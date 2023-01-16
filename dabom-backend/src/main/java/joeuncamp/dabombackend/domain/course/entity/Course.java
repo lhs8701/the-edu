@@ -32,6 +32,8 @@ public class Course extends BaseTimeEntity {
     CategoryType category;
     long price;
 
+    double averageScore;
+
     @ManyToOne
     @JoinColumn(name = "creator_profile_id")
     CreatorProfile creatorProfile;

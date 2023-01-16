@@ -25,4 +25,11 @@ public class Review extends Post{
         this.score = score;
         this.likes = 0;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "score=" + score +
+                '}';
+    }
 }

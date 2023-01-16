@@ -18,7 +18,6 @@ import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -58,7 +57,7 @@ public class CourseController {
     @Operation(summary = "카테고리 내의 전체 강좌를 조회합니다.", description = "정해진 카테고리가 아닐 경우 예외가 반환됩니다.<br>카테고리 목록 : 카테고리 API 참조")
     @PreAuthorize("permitAll()")
     @GetMapping("/courses/category/{category}")
-    public ResponseEntity<PagingDto<CourseDto.ShortResponse>> getCourseByCategory(@PathVariable @Schema(example = "백엔드") String category, @ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
+    public ResponseEntity<PagingDto<CourseDto.ShortResponse>> getCourseByCategory(@PathVariable @Schema(example = "백엔드") String category, @PageableDefault(sort = "title") Pageable pageable) {
         PagingDto<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category, pageable);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
