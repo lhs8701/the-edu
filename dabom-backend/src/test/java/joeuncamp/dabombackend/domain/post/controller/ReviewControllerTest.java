@@ -3,7 +3,6 @@ package joeuncamp.dabombackend.domain.post.controller;
 import com.google.gson.Gson;
 import joeuncamp.dabombackend.domain.course.dto.ReviewDto;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
-import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.WithAuthUser;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -43,7 +42,7 @@ public class ReviewControllerTest {
                 .memberId(1L)
                 .courseId(1L)
                 .content(ExampleValue.Post.CONTENT)
-                .rating(ExampleValue.Post.RATING)
+                .score(ExampleValue.Post.RATING)
                 .build();
 
         given(reviewService.writeReview(requestDto)).willReturn(new IdResponseDto(1L));

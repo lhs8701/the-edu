@@ -28,14 +28,14 @@ public class ReviewDto {
         @Schema(description = "후기 내용", example = "1")
         String content;
 
-        int rating;
+        int score;
 
         public Review toEntity(Member member, Course course){
             return Review.builder()
                     .member(member)
                     .course(course)
                     .content(content)
-                    .rating(rating)
+                    .score(score)
                     .build();
         }
     }
@@ -69,7 +69,7 @@ public class ReviewDto {
             this.course = review.getCourse().getTitle();
             this.content = review.getContent();
             this.likes = review.getLikes();
-            this.rating = review.getRating();
+            this.rating = review.getScore();
         }
     }
 

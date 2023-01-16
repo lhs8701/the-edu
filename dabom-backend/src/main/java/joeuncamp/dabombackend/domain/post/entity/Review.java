@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 @DiscriminatorValue("review")
 @Getter
 public class Review extends Post{
-    int rating;
+    int score;
     int likes;
 
     @Builder
-    public Review(Member member, Course course, String content, int rating, int likes){
+    public Review(Member member, Course course, String content, int score, int likes){
         setMember(member);
         setCourse(course);
         this.content = content;
-        this.rating = rating;
+        this.score = score;
         this.likes = likes;
     }
 }

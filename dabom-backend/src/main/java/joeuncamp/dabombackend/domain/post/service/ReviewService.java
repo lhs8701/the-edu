@@ -60,4 +60,14 @@ public class ReviewService {
         List<Review> reviews = reviewJpaRepository.findAllByCourse(course);
         return reviews.stream().map(ReviewDto.Response::new).toList();
     }
+
+
+    public double calculateAverageScore(Course course){
+        List<Review> reviews = reviewJpaRepository.findAllByCourse(course);
+        double sum = 0;
+        for (Review review : reviews) {
+            sum += review.getScore();
+        }
+        return sum / reviews.size();
+    }
 }

@@ -13,6 +13,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -84,5 +86,36 @@ public class ReviewServiceTest {
         assertThat(responseDto).isNotNull();
     }
 
+    @ParameterizedTest
+    @CsvSource({"1,2,3,2", "3,3,4,3.3"})
+    @DisplayName("평점 평균을 계산한다.")
+    void 평점_평균을_계산한다(int score1, int score2, int score3, double expected) {
+        // given
+        Member member = Member.builder().build();
+        Course course = Course.builder().build();
+        Review r1 = Review.builder()
+                .score(score1)
+                .member(member)
+                .course(course)
+                .build();
+        Review r2 = Review.builder()
+                .score(score2)
+                .member(member)
+                .course(course)
+                .build();
+        Review r3 = Review.builder()
+                .score(score3)
+                .member(member)
+                .course(course)
+                .build();
+        List<Review> reviews = List.of(r1, r2, r3);
+        given(reviewJpaRepository.findAllByCourse(course)).willReturn(reviews);
+
+        // when
+        double result = reviewService.calculateAverageScore(course);
+
+        // then
+        assertThat(result).isEqualTo(expected);
+    }
 
 }
