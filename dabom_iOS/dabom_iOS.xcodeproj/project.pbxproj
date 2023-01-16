@@ -35,6 +35,7 @@
 		0E9D151F29744E910061D1ED /* InfoImageTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9D151D29744E910061D1ED /* InfoImageTVC.xib */; };
 		0E9D1522297452AB0061D1ED /* SegmentTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D1520297452AB0061D1ED /* SegmentTVC.swift */; };
 		0E9D1523297452AB0061D1ED /* SegmentTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9D1521297452AB0061D1ED /* SegmentTVC.xib */; };
+		0E9D15252974E11E0061D1ED /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D15242974E11E0061D1ED /* UIViewController+.swift */; };
 		0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */; };
 		0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */; };
 		0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */; };
@@ -117,6 +118,7 @@
 		0E9D151D29744E910061D1ED /* InfoImageTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoImageTVC.xib; sourceTree = "<group>"; };
 		0E9D1520297452AB0061D1ED /* SegmentTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentTVC.swift; sourceTree = "<group>"; };
 		0E9D1521297452AB0061D1ED /* SegmentTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentTVC.xib; sourceTree = "<group>"; };
+		0E9D15242974E11E0061D1ED /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoViewController.swift; sourceTree = "<group>"; };
 		0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerInfoViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				0E55013F296EA96400DD5B75 /* Layer+.swift */,
+				0E9D15242974E11E0061D1ED /* UIViewController+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 			files = (
 				0E9D151A297449700061D1ED /* CourseInfoTVC.swift in Sources */,
 				0EFB744629710F8600C58E87 /* LoginSignupVC.swift in Sources */,
+				0E9D15252974E11E0061D1ED /* UIViewController+.swift in Sources */,
 				0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */,
 				0E9D151E29744E910061D1ED /* InfoImageTVC.swift in Sources */,
 				0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */,
