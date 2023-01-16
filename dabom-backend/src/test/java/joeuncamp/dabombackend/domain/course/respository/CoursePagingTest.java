@@ -9,6 +9,7 @@ import joeuncamp.dabombackend.domain.member.repository.CreatorProfileJpaReposito
 import joeuncamp.dabombackend.global.config.JpaAuditingConfig;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -47,8 +48,8 @@ public class CoursePagingTest {
     static Course c5;
     static CreatorProfile creator;
 
-    @BeforeAll
-    static void init() {
+    @BeforeEach
+    void init() {
         creator = CreatorProfile.builder().build();
         c1 = Course.builder()
                 .title("apple")
@@ -101,7 +102,7 @@ public class CoursePagingTest {
     @DisplayName("강좌를 생성일 순으로 조회한다.")
     void 강좌를_생성일_순으로_조회한다() {
         // given
-        Pageable pageable = PageRequest.of(0, 5, Sort.by("createdTime").ascending());
+        Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "createdTime"));
         creatorProfileJpaRepository.save(creator);
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
@@ -135,6 +136,7 @@ public class CoursePagingTest {
         List<Course> courses = pages.getContent();
 
         // then
+        System.out.println("courses = " + courses);
         assertThat(courses).containsExactly(c5, c4, c3, c2, c1);
         assertThat(pages.getContent().size()).isEqualTo(5);
     }

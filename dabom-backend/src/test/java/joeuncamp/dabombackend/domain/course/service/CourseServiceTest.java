@@ -8,6 +8,7 @@ import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
+import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
@@ -21,6 +22,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
@@ -105,14 +108,15 @@ public class CourseServiceTest {
     @DisplayName("강좌 전체 조회시, 카테고리 내의 모든 강좌에 대한 정보가 반환된다.")
     void 카테고리_내의_모든_강좌_정보가_반환된다() {
         // given
-        List<Course> courses = List.of(course);
         String category = ExampleValue.Course.CATEGORY;
-        given(courseJpaRepository.findAllByCategory(CategoryType.BACK_END)).willReturn(courses);
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<Course> page = new PageImpl<>(List.of(course));
+        given(courseJpaRepository.findCourseByCategory(CategoryType.BACK_END, pageable)).willReturn(page);
 
         // when
-        List<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category);
+        PagingDto<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category, pageable);
 
         // then
-        assertThat(responseDto.get(0).getTitle()).isEqualTo(ExampleValue.Course.TITLE);
+        assertThat(responseDto.getList().get(0).getTitle()).isEqualTo(ExampleValue.Course.TITLE);
     }
 }

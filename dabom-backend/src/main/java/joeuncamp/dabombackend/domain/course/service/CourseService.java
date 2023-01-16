@@ -10,16 +10,17 @@ import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
+import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.CategoryGroup;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -74,15 +75,16 @@ public class CourseService {
      * @param category 카테고리명
      * @return 강좌 정보 리스트
      */
-    public List<CourseDto.ShortResponse> getCoursesByCategory(String category) {
+    public PagingDto<CourseDto.ShortResponse> getCoursesByCategory(String category, Pageable pageable) {
         CategoryType type = CategoryType.findByTitle(category);
         if (type.equals(CategoryType.EMPTY)) {
             throw new CIllegalArgumentException();
         }
-        List<Course> courses = courseJpaRepository.findAllByCategory(type);
-        return courses.stream()
+        Page<Course> page = courseJpaRepository.findCourseByCategory(type, pageable);
+        List<CourseDto.ShortResponse> courses = page.getContent().stream()
                 .map(CourseDto.ShortResponse::new)
-                .collect(Collectors.toList());
+                .toList();
+        return new PagingDto<>(page.getNumber(), page.getTotalPages(), courses);
     }
 
     /**
@@ -94,14 +96,4 @@ public class CourseService {
         return Arrays.stream(CategoryGroup.values()).map(CategoryResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<CourseDto.ShortResponse> getCoursesByCategoryTemp(String category, Pageable pageable) {
-        CategoryType type = CategoryType.findByTitle(category);
-        if (type.equals(CategoryType.EMPTY)) {
-            throw new CIllegalArgumentException();
-        }
-        List<Course> courses = courseJpaRepository.findAllByCategory(type);
-        return courses.stream()
-                .map(CourseDto.ShortResponse::new)
-                .collect(Collectors.toList());
-    }
 }
