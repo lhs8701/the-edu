@@ -13,6 +13,8 @@ class LoginSignupVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        self.navigationController?.navigationBar.tintColor = .black
     }
     
 
@@ -29,7 +31,6 @@ class LoginSignupVC: UIViewController {
     @IBAction func signupBtnPressed(_ sender: Any) {
         guard let selectVC = UIStoryboard(name: "LoginSignup", bundle: nil).instantiateViewController(withIdentifier: "SignupSelectVC") as? SignupSelectVC else {return}
         
-        selectVC.view.backgroundColor = .systemBlue
         selectVC.modalPresentationStyle = .pageSheet
         
         if let sheet = selectVC.sheetPresentationController {
@@ -40,6 +41,7 @@ class LoginSignupVC: UIViewController {
             sheet.prefersGrabberVisible = true
         }
         
+        selectVC.rootView = self
         present(selectVC, animated: true, completion: nil)
     }
     

@@ -8,6 +8,8 @@
 import UIKit
 
 class SignupSelectVC: UIViewController {
+    
+    var rootView: LoginSignupVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,15 +17,15 @@ class SignupSelectVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func nextBtnPressed(_ sender: Any) {
-        guard let pvc = self.presentingViewController else {return}
-        
+    
+    @IBAction func emailSignupBtnPressed(_ sender: Any) {
         self.dismiss(animated: true) {
             let nextVC = UIStoryboard(name: "LoginSignup", bundle: nil).instantiateViewController(withIdentifier: "SignupVC") as! SignupVC
-//            pvc.navigationController?.pushViewController(nextVC, animated: true)
-            pvc.present(nextVC, animated: true)
+
+            self.rootView?.navigationController?.pushViewController(nextVC, animated: true)
         }
     }
+    
     
     /*
     // MARK: - Navigation
