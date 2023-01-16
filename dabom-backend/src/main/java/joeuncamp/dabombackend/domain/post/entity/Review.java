@@ -1,6 +1,5 @@
 package joeuncamp.dabombackend.domain.post.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import joeuncamp.dabombackend.domain.course.entity.Course;
@@ -8,7 +7,6 @@ import joeuncamp.dabombackend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @AllArgsConstructor

@@ -119,6 +119,4 @@ public class PostRepositoryTest {
         assertThat(member.getPostList()).contains(saved);
         assertThat(course.getPostList()).contains(saved);
     }
-
-
 }

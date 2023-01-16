@@ -4,7 +4,6 @@ import javax.swing.text.html.HTML;
 
 public class ExampleValue {
     public static class CreatorProfile{
-
         public static final String CREATOR_NICKNAME = "심재헌";
     }
 
@@ -28,5 +27,10 @@ public class ExampleValue {
         public final static String MOBILE = "010-1234-5678";
         public final static String BIRTH_DATE = "1999.01.01";
         public final static String EMAIL = "user@naver.com";
+    }
+
+    public static class Post{
+        public final static String CONTENT = "정말 좋은 강의에요 !";
+        public final static int RATING = 5;
     }
 }
