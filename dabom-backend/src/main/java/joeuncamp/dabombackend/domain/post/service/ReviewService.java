@@ -7,7 +7,7 @@ import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.post.entity.Review;
-import joeuncamp.dabombackend.domain.post.repository.PostJpaRepository;
+import joeuncamp.dabombackend.domain.post.repository.ReviewJpaRepository;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewService {
 
-    private final PostJpaRepository<Review> reviewJpaRepository;
+    private final ReviewJpaRepository reviewJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
 

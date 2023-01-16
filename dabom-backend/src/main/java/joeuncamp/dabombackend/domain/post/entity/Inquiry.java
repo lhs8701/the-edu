@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @DiscriminatorValue("inquiry")
 public class Inquiry extends Post{
 

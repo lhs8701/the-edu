@@ -7,6 +7,7 @@ import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
@@ -40,6 +41,9 @@ public class CourseServiceTest {
 
     @Mock
     CourseJpaRepository courseJpaRepository;
+
+    @Mock
+    ReviewService reviewService;
 
     static Member instructor;
     static CreatorProfile creatorProfile;
@@ -83,6 +87,7 @@ public class CourseServiceTest {
         // given
         Long courseId = 1L;
         given(courseJpaRepository.findById(courseId)).willReturn(Optional.of(course));
+        given(reviewService.calculateAverageScore(course)).willReturn(3.5);
 
         // when
         CourseDto.Response responseDto = courseService.getCourse(courseId);

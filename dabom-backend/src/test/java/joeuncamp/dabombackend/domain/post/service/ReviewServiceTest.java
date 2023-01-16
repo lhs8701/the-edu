@@ -7,7 +7,7 @@ import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.post.entity.Review;
-import joeuncamp.dabombackend.domain.post.repository.PostJpaRepository;
+import joeuncamp.dabombackend.domain.post.repository.ReviewJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ public class ReviewServiceTest {
     CourseJpaRepository courseJpaRepository;
 
     @Mock
-    PostJpaRepository<Review> reviewJpaRepository;
+    ReviewJpaRepository reviewJpaRepository;
 
     @Mock
     EnrollService enrollService;

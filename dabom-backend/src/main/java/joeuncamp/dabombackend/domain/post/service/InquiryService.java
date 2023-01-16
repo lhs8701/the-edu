@@ -3,12 +3,10 @@ package joeuncamp.dabombackend.domain.post.service;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.post.dto.InquiryDto;
-import joeuncamp.dabombackend.domain.post.dto.ReviewDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.post.entity.Inquiry;
-import joeuncamp.dabombackend.domain.post.entity.Review;
-import joeuncamp.dabombackend.domain.post.repository.PostJpaRepository;
+import joeuncamp.dabombackend.domain.post.repository.InquiryJpaRepository;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class InquiryService {
-    private final PostJpaRepository<Inquiry> inquiryJpaRepository;
+    private final InquiryJpaRepository inquiryJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
 

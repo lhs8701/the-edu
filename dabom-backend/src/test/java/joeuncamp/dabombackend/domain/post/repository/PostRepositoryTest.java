@@ -23,10 +23,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PostRepositoryTest {
     @Autowired
-    PostJpaRepository<Review> reviewJpaRepository;
+    ReviewJpaRepository reviewJpaRepository;
 
     @Autowired
-    PostJpaRepository<Inquiry> inquiryJpaRepository;
+    InquiryJpaRepository inquiryJpaRepository;
 
     @Autowired
     MemberJpaRepository memberJpaRepository;
