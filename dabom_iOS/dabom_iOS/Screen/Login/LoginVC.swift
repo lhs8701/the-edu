@@ -35,6 +35,7 @@ class LoginVC: UIViewController {
     @IBAction func loginBtnPressed(_ sender: Any) {
         guard let email = emailTextField.text, !email.isEmpty else {
             emailTextField.placeholder = "아이디를 입력해주세요"
+            passwordTextField.placeholder = "비밀번호를 입력해주세요"
             emailTextField.becomeFirstResponder()
             return
         }
@@ -43,27 +44,6 @@ class LoginVC: UIViewController {
             passwordTextField.becomeFirstResponder()
             return
         }
-        
-//        if isValidEmail(id: email) {
-//            if let removable = self.view.viewWithTag(100) {
-//                removable.removeFromSuperview()
-//            }
-//        } else {
-//            shakeTextField(textField: emailTextField)
-//            emailTextField.text = ""
-//            emailTextField.placeholder = "이메일 형식을 확인해주세요"
-//        }
-//
-//        if isValidPassword(pwd: password){
-//            if let removable = self.view.viewWithTag(101) {
-//                    removable.removeFromSuperview()
-//                }
-//        } else {
-//            shakeTextField(textField: passwordTextField)
-//
-//            passwordTextField.text = ""
-//            passwordTextField.placeholder = "비밀번호 형식을 확인해주세요"
-//        }
         
         
         if !isValidEmail(id: email) {
@@ -91,7 +71,6 @@ class LoginVC: UIViewController {
         guard let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as? TabBarViewController else {return}
         
         (UIApplication.shared.delegate as! AppDelegate).changeRootVC(mainVC, animated: false)
-        
     }
     
     

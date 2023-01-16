@@ -36,6 +36,8 @@
 		0E9D1522297452AB0061D1ED /* SegmentTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D1520297452AB0061D1ED /* SegmentTVC.swift */; };
 		0E9D1523297452AB0061D1ED /* SegmentTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9D1521297452AB0061D1ED /* SegmentTVC.xib */; };
 		0E9D15252974E11E0061D1ED /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D15242974E11E0061D1ED /* UIViewController+.swift */; };
+		0E9D15272974EECD0061D1ED /* SignupSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D15262974EECD0061D1ED /* SignupSelectVC.swift */; };
+		0E9D15292974F0620061D1ED /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D15282974F0620061D1ED /* SignupVC.swift */; };
 		0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */; };
 		0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */; };
 		0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */; };
@@ -119,6 +121,8 @@
 		0E9D1520297452AB0061D1ED /* SegmentTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentTVC.swift; sourceTree = "<group>"; };
 		0E9D1521297452AB0061D1ED /* SegmentTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentTVC.xib; sourceTree = "<group>"; };
 		0E9D15242974E11E0061D1ED /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		0E9D15262974EECD0061D1ED /* SignupSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupSelectVC.swift; sourceTree = "<group>"; };
+		0E9D15282974F0620061D1ED /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoViewController.swift; sourceTree = "<group>"; };
 		0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerInfoViewController.swift; sourceTree = "<group>"; };
@@ -400,6 +404,8 @@
 			children = (
 				0EFB74432970FB2500C58E87 /* LoginSignup.storyboard */,
 				0EFB7473297131BC00C58E87 /* LoginSignupNC.swift */,
+				0E9D15282974F0620061D1ED /* SignupVC.swift */,
+				0E9D15262974EECD0061D1ED /* SignupSelectVC.swift */,
 				0EFB7477297132F500C58E87 /* LoginVC.swift */,
 				0EFB744529710F8600C58E87 /* LoginSignupVC.swift */,
 			);
@@ -711,11 +717,13 @@
 				0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */,
 				0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */,
 				0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */,
+				0E9D15272974EECD0061D1ED /* SignupSelectVC.swift in Sources */,
 				0ED70388296E597E0095DD14 /* CourseReviewVC.swift in Sources */,
 				0E9D1522297452AB0061D1ED /* SegmentTVC.swift in Sources */,
 				0ED70386296E59620095DD14 /* CurriculumVC.swift in Sources */,
 				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,
+				0E9D15292974F0620061D1ED /* SignupVC.swift in Sources */,
 				0ED70382296E58660095DD14 /* CourseInfoTMVC.swift in Sources */,
 				0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */,
 				0EFB7474297131BC00C58E87 /* LoginSignupNC.swift in Sources */,
