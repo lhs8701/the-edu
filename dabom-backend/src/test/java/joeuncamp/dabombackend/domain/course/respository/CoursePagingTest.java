@@ -10,6 +10,8 @@ import joeuncamp.dabombackend.domain.member.repository.CreatorProfileJpaReposito
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.post.entity.Review;
 import joeuncamp.dabombackend.domain.post.repository.ReviewJpaRepository;
+import joeuncamp.dabombackend.domain.wish.entity.Wish;
+import joeuncamp.dabombackend.domain.wish.repository.WishJpaRepository;
 import joeuncamp.dabombackend.global.config.JpaAuditingConfig;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import org.junit.jupiter.api.*;
@@ -48,6 +50,9 @@ public class CoursePagingTest {
 
     @Autowired
     EnrollJpaRepository enrollJpaRepository;
+
+    @Autowired
+    WishJpaRepository wishJpaRepository;
 
     @Test
     @DisplayName("강좌를 페이지 단위로 조회한다.")
@@ -197,6 +202,34 @@ public class CoursePagingTest {
 
         // when
         Page<Course> pages = courseJpaRepository.findCourseByCategoryOrderByEnrollCount(CategoryType.BACK_END, pageable);
+        List<Course> courses = pages.getContent();
+
+        // then
+        assertThat(courses).containsExactly(c2, c1);
+        assertThat(pages.getContent().size()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("강좌를 찜(DESC) 순으로 조회한다.")
+    void 강좌를_찜_순으로_조회한다() {
+        // given
+        Pageable pageable = PageRequest.of(0, 5);
+        Member member = Member.builder().build();
+        memberJpaRepository.save(member);
+        Course c1 = Course.builder().category(CategoryType.BACK_END).title("1").build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).title("2").build();
+        courseJpaRepository.save(c1);
+        courseJpaRepository.save(c2);
+
+        Wish w1 = Wish.builder().member(member).course(c1).build();
+        Wish w2 = Wish.builder().member(member).course(c2).build();
+        Wish w3 = Wish.builder().member(member).course(c2).build();
+        wishJpaRepository.save(w1);
+        wishJpaRepository.save(w2);
+        wishJpaRepository.save(w3);
+
+        // when
+        Page<Course> pages = courseJpaRepository.findCourseByCategoryOrderByWishCount(CategoryType.BACK_END, pageable);
         List<Course> courses = pages.getContent();
 
         // then
