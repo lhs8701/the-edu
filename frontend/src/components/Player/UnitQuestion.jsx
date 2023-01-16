@@ -6,12 +6,11 @@ import Swal from "sweetalert2";
 import { Wrapper } from "../../style/PlayerSideBarCss";
 
 const Overlay = styled(motion.div)`
-  width: 90%;
-  height: 80vh;
+  width: 100%;
+  min-height: 100%;
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  top: 0;
+  left: 25%;
 `;
 
 const CateBox = styled.div`
@@ -64,54 +63,45 @@ const QuestionInfoBox = styled.div`
 `;
 
 const QuestionBox = styled(motion.div)`
-  width: 100%;
-
-  /* display: flex;
-  align-items: center;
-  flex-direction: column;
-  flex-wrap: nowrap; */
+  width: 80%;
   position: relative;
-  border-radius: 25px;
   overflow: auto;
-  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
   /* @media screen and (max-height: 90vh) and (min-height: 617px) {
     height: 30vh;
   } */
 `;
 
-const OverLay = styled(Overlay)`
-  position: fixed;
-  max-width: 21vw;
-  max-height: 90vh;
-`;
-
 const QuestionTab = styled(motion.div)`
-  padding: 1px;
+  box-sizing: border-box;
   width: 80%;
   text-align: center;
-  height: 49px;
-  border: 1px solid white;
+  min-height: 50px;
   margin-bottom: 10px;
+  margin-top: 5px;
   cursor: pointer;
   background-color: white;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 16%), 0px 1px 7px rgb(0 0 0 / 16%);
 `;
 
-const Box = styled(motion.div)`
-  margin-top: 20px;
-  min-height: 70%;
-  width: 90%;
-  background-color: white;
+const QuestionCard = styled(motion.div)`
+  width: 100%;
+  background-color: pink;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border: 1px solid;
+  border: 1px solid rgba(0, 0, 0, 1);
 `;
 
 const Tab = styled(motion.div)`
-  margin: 0 10px;
   overflow: hidden;
   white-space: nowrap;
+  font-size: var(--font-size-question-any);
   text-overflow: ellipsis;
   /* display: ${(props) => (props.visible ? "default" : "none")}; */
 `;
@@ -156,7 +146,7 @@ const QuestionBtn = styled(motion.button)`
 
 export default function UnitQuestion() {
   const [type, setType] = useState(false);
-  const [nowQ, setNowQ] = useState(null);
+  const [nowQ, setNowQ] = useState([1, 2, 3]);
   const [qTitle, setQTitle] = useState("");
   const [q, setQ] = useState("");
   const [clicked, setClicked] = useState(null);
@@ -382,7 +372,7 @@ export default function UnitQuestion() {
           <QuestionBox click={clicked}>
             <AnimatePresence>
               {clicked ? (
-                <OverLay
+                <Overlay
                   initial={{ backgroundColor: "rgba(0,0,0,0)" }}
                   animate={{
                     display: ["none", "default"],
@@ -392,7 +382,7 @@ export default function UnitQuestion() {
                     backgroundColor: "rgba(0,0,0,0)",
                   }}
                 >
-                  <Box layoutId={clicked}>
+                  <QuestionCard layoutId={clicked}>
                     <QBox>
                       <div>{nowQ[clicked - 1].title}</div>
                       <Div
@@ -445,17 +435,20 @@ export default function UnitQuestion() {
                         </div> */}
                       </ReplyBox>
                     )}
-                  </Box>
-                </OverLay>
+                  </QuestionCard>
+                </Overlay>
               ) : null}
             </AnimatePresence>
-            {/* {nowQ?.map((e, idx) => {
+            {nowQ?.map((e, idx) => {
               return (
                 <QuestionTab
-                  whileHover={{ border: "1px inset #000000" }}
+                  whileHover={{
+                    boxShadow:
+                      "0 0px 0px rgb(0 0 0 / 16%), 0px 1px 4px rgb(0 0 0 / 16%)",
+                  }}
                   onClick={() => {
-                    getQuestionContent(e.questionId);
-                    getQuestionReply(e.questionId);
+                    // getQuestionContent(e.questionId);
+                    // getQuestionReply(e.questionId);
                     setQData(true);
                     toggle(idx + 1);
                   }}
@@ -476,7 +469,7 @@ export default function UnitQuestion() {
                   </Tab>
                 </QuestionTab>
               );
-            })} */}
+            })}
           </QuestionBox>
         </>
       )}
