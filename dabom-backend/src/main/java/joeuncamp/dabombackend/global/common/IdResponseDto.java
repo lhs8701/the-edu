@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-public class CreationResponseDto {
+public class IdResponseDto {
     @Schema(description = "아이디넘버", example = "1")
     Long id;
 }

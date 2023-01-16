@@ -7,7 +7,7 @@ import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.post.entity.Review;
 import joeuncamp.dabombackend.domain.post.repository.PostJpaRepository;
-import joeuncamp.dabombackend.global.common.CreationResponseDto;
+import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,11 +25,11 @@ public class ReviewService {
      * @param requestDto 후기 작성 DTO
      * @return 작성된 후기 아이디넘버
      */
-    public CreationResponseDto writeReview(ReviewDto.Request requestDto){
+    public IdResponseDto writeReview(ReviewDto.Request requestDto){
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         Long savedId = createAndSaveReview(requestDto, member, course);
-        return new CreationResponseDto(savedId);
+        return new IdResponseDto(savedId);
     }
 
     private Long createAndSaveReview(ReviewDto.Request requestDto, Member member, Course course) {
