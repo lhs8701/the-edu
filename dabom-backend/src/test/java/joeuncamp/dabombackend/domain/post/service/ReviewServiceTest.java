@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.post.service;
 
-import joeuncamp.dabombackend.domain.course.dto.ReviewDto;
+import joeuncamp.dabombackend.domain.post.dto.ReviewDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
@@ -9,7 +9,6 @@ import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.post.entity.Review;
 import joeuncamp.dabombackend.domain.post.repository.PostJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

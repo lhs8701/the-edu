@@ -4,8 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import joeuncamp.dabombackend.domain.course.dto.ReviewDto;
-import joeuncamp.dabombackend.domain.post.entity.Review;
+import joeuncamp.dabombackend.domain.post.dto.ReviewDto;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -30,7 +29,7 @@ public class ReviewController {
     @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/reviews")
-    public ResponseEntity<IdResponseDto> writeReview(ReviewDto.Request requestDto){
+    public ResponseEntity<IdResponseDto> writeReview(@RequestBody ReviewDto.Request requestDto){
         IdResponseDto responseDto = reviewService.writeReview(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }

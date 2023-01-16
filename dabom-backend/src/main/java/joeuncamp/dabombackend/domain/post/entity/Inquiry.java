@@ -13,13 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @DiscriminatorValue("inquiry")
 public class Inquiry extends Post{
-    String title;
 
     @Builder
-    public Inquiry(Member member, Course course, String content, String title){
+    public Inquiry(Member member, Course course, String content){
         setMember(member);
         setCourse(course);
+        this.likes = 0;
         this.content = content;
-        this.title = title;
     }
 }

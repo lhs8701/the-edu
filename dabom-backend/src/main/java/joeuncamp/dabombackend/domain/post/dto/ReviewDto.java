@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.course.dto;
+package joeuncamp.dabombackend.domain.post.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -25,7 +25,7 @@ public class ReviewDto {
         Long courseId;
 
         @NotNull
-        @Schema(description = "후기 내용", example = "1")
+        @Schema(description = "내용", example = ExampleValue.Post.CONTENT)
         String content;
 
         int score;
@@ -45,7 +45,7 @@ public class ReviewDto {
     @AllArgsConstructor
     @Builder
     public static class Response{
-        @Schema(description = "회원 아이디넘버", example = "1")
+        @Schema(description = "아이디넘버", example = "1")
         Long reviewId;
 
         @Schema(description = "작성자명", example = ExampleValue.Member.NAME)

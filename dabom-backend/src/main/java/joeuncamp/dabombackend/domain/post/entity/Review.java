@@ -16,14 +16,13 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Review extends Post{
     int score;
-    int likes;
 
     @Builder
-    public Review(Member member, Course course, String content, int score, int likes){
+    public Review(Member member, Course course, String content, int score){
         setMember(member);
         setCourse(course);
         this.content = content;
         this.score = score;
-        this.likes = likes;
+        this.likes = 0;
     }
 }

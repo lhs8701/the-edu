@@ -1,7 +1,7 @@
 package joeuncamp.dabombackend.domain.post.controller;
 
 import com.google.gson.Gson;
-import joeuncamp.dabombackend.domain.course.dto.ReviewDto;
+import joeuncamp.dabombackend.domain.post.dto.ReviewDto;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.WithAuthUser;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
