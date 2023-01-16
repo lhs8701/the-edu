@@ -12,6 +12,7 @@ import joeuncamp.dabombackend.domain.post.repository.PostJpaRepository;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
+import joeuncamp.dabombackend.util.RoundCalculator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,10 +36,10 @@ public class ReviewService {
      * @param requestDto 후기 작성 DTO
      * @return 작성된 후기 아이디넘버
      */
-    public IdResponseDto writeReview(ReviewDto.Request requestDto){
+    public IdResponseDto writeReview(ReviewDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
-        if (!enrollService.isEnrolled(member, course)){
+        if (!enrollService.isEnrolled(member, course)) {
             throw new CAccessDeniedException();
         }
         Long savedId = createAndSaveReview(requestDto, member, course);
@@ -52,22 +53,30 @@ public class ReviewService {
 
     /**
      * 강좌 내의 수강 후기 목록을 반환합니다.
+     *
      * @param courseId 강좌 아이디넘버
      * @return 수강후기 목록
      */
-    public List<ReviewDto.Response> getReviews(Long courseId){
+    public List<ReviewDto.Response> getReviews(Long courseId) {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
         List<Review> reviews = reviewJpaRepository.findAllByCourse(course);
         return reviews.stream().map(ReviewDto.Response::new).toList();
     }
 
 
-    public double calculateAverageScore(Course course){
+    /**
+     * 강좌의 평균 평점을 계산합니다.
+     * 평균 평점은 반올림하여 첫번째 자리까지 나타냅니다.
+     *
+     * @param course 계산할 강좌
+     * @return 평균 평점
+     */
+    public double calculateAverageScore(Course course) {
         List<Review> reviews = reviewJpaRepository.findAllByCourse(course);
         double sum = 0;
         for (Review review : reviews) {
             sum += review.getScore();
         }
-        return sum / reviews.size();
+        return RoundCalculator.round(sum / reviews.size(), 1);
     }
 }
