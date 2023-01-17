@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import KakaoSDKAuth
+import KakaoSDKUser
 
 class SignupSelectVC: UIViewController {
     
@@ -26,6 +28,23 @@ class SignupSelectVC: UIViewController {
         }
     }
     
+    @IBAction func kakaoSignup(_ sender: Any) {
+        if (UserApi.isKakaoTalkLoginAvailable()) {
+            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("loginWithKakaoTalk() success")
+                    
+                    let accessToken = oauthToken?.accessToken
+                    let refreshToken = oauthToken?.refreshToken
+                    print(accessToken)
+                    print(refreshToken)
+                }
+            }
+        }
+        
+    }
     
     /*
     // MARK: - Navigation

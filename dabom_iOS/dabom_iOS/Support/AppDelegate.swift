@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import KakaoSDKCommon
+import KakaoSDKAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isLogin: Bool = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
+        // MARK: - 카카오톡 로그인 설정
+        KakaoSDK.initSDK(appKey: "9d5a7db9c37d4b17c44b843e6c4fa727")
+        
+        
+        // MARK: - 로그인 분기
         window = UIWindow()
         
         if isLogin {
@@ -31,6 +37,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if (AuthApi.isKakaoTalkLoginUrl(url)) {
+            return AuthController.handleOpenUrl(url: url)
+        }
+        
+        return false
+    }
+    
 
     func changeRootVC(_ vc: UIViewController, animated: Bool) {
         print("here")
