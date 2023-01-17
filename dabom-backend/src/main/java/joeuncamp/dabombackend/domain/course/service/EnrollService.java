@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.course.service;
 
-import joeuncamp.dabombackend.domain.course.dto.EnrollRequestDto;
+import joeuncamp.dabombackend.domain.course.dto.EnrollDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
@@ -24,10 +24,10 @@ public class EnrollService {
      *
      * @param requestDto 등록할 회원과 등록할 강좌
      */
-    public void enroll(EnrollRequestDto requestDto) {
+    public void enroll(EnrollDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Course course = courseJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
-        if (isAlreadyEnrolled(member, course)){
+        if (isEnrolled(member, course)){
             throw new CAlreadyEnrolledCourse();
         }
         createAndSaveEnroll(member, course);
@@ -40,7 +40,7 @@ public class EnrollService {
         enrollJpaRepository.save(enroll);
     }
 
-    public boolean isAlreadyEnrolled(Member member, Course course){
+    public boolean isEnrolled(Member member, Course course){
         return enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
     }
 }

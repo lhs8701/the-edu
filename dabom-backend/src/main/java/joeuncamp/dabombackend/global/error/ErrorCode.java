@@ -16,6 +16,7 @@ public enum ErrorCode {
     ALREADY_CREATOR_ERROR(-6003, "이미 크리에이터입니다.", HttpStatus.FORBIDDEN),
 
     ALREADY_ENROLLED_COURSE(-6004, "이미 등록한 강좌입니다.", HttpStatus.FORBIDDEN),
+    ACCESS_DENIED(-6005, "접근 권한이 없습니다.", HttpStatus.FORBIDDEN),
 
     // 7000 ~ : 시큐리티 에러
     NOT_AUTHORIZED(-7000, "해당 리소스에 접근하기 위한 권한이 없습니다.", HttpStatus.FORBIDDEN),

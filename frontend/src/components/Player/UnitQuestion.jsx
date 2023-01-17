@@ -70,7 +70,6 @@ const QuestionBox = styled(motion.div)`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
   margin: 0 auto;
   /* @media screen and (max-height: 90vh) and (min-height: 617px) {
     height: 30vh;

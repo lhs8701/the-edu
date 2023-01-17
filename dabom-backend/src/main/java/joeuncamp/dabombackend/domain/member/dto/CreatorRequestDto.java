@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.member.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CreatorRequestDto {
     @NotNull
+    @Schema(description = "회원 아이디넘버", example = "1")
     Long memberId;
 
     public CreatorProfile toEntity(Member member) {
