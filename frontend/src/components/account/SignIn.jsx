@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  CATE_VALUE,
-  PROCESS_ACCOUNT_URL,
-  PROCESS_MAIN_URL,
-  COLOR,
-} from "../../static";
+import { PROCESS_ACCOUNT_URL } from "../../static";
 import {
   AccountBtn,
   AccountForm,
@@ -20,6 +14,7 @@ import {
   InputLabel,
 } from "../../style/AccountComponentCss";
 import { useForm } from "react-hook-form";
+import { KAKAO_CLIENT_ID, KAKAO_REDIRECT_URL } from "../../AuthKey";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -52,6 +47,7 @@ const AnyLink = styled(Link)`
 `;
 
 export default function SignIn() {
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
   const [isID, setIsId] = useState("");
   const [password, setPassword] = useState("");
   const {
@@ -140,6 +136,9 @@ export default function SignIn() {
         texthovercolor={"--color-background"}
         bgcolor={"--color-primary"}
         textcolor={"--color-text"}
+        onClick={() => {
+          window.location.href = KAKAO_AUTH_URL;
+        }}
       >
         카카오로 시작하기
       </AccountBtn>
