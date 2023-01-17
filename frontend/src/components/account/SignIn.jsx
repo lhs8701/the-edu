@@ -73,7 +73,7 @@ export default function SignIn() {
       alert("Ss");
     } catch {}
   };
-  console.log("fds")
+  console.log("eee");
   return (
     <AccountWrapper>
       <AccountTitle>로그인</AccountTitle>
