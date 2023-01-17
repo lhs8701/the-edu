@@ -67,14 +67,13 @@ export default function SignIn() {
     reValidateMode: "onBlur",
   });
 
-
   const submit = () => {
     try {
       console.log(isID, password);
       alert("Ss");
     } catch {}
   };
-  console.log("eee");
+  console.log("eees");
   return (
     <AccountWrapper>
       <AccountTitle>로그인</AccountTitle>
