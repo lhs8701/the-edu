@@ -8,6 +8,7 @@ import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
+import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +38,9 @@ public class MemberController {
     @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{memberId}/profile")
-    public ResponseEntity<Long> updateMyProfile(@AuthenticationPrincipal Member member, @RequestBody ProfileUpdateParam updateParam, @PathVariable Long memberId) {
-        return new ResponseEntity<>(memberService.updateMyProfile(updateParam, member.getId()), HttpStatus.OK);
+    public ResponseEntity<IdResponseDto> updateMyProfile(@AuthenticationPrincipal Member member, @RequestBody ProfileUpdateParam updateParam, @PathVariable Long memberId) {
+        IdResponseDto responseDto = memberService.updateMyProfile(updateParam, member.getId());
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
 
