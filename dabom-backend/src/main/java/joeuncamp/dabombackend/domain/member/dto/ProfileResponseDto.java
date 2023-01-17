@@ -14,19 +14,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ProfileResponseDto {
-    @Schema(name = "아이디넘버", example = "1")
+    @Schema(description = "아이디넘버", example = "1")
     Long id;
-    @Schema(name="계정", example = ExampleValue.Member.ACCOUNT)
+    @Schema(description="계정", example = ExampleValue.Member.ACCOUNT)
     String account;
-    @Schema(name="별명", example = ExampleValue.Member.NICKNAME)
+    @Schema(description="별명", example = ExampleValue.Member.NICKNAME)
     String nickname;
-    @Schema(name="전화번호", example = ExampleValue.Member.MOBILE)
+    @Schema(description="전화번호", example = ExampleValue.Member.MOBILE)
     String mobile;
-    @Schema(name = "생년월일", example = ExampleValue.Member.BIRTH_DATE)
+    @Schema(description = "생년월일", example = ExampleValue.Member.BIRTH_DATE)
     String birthDate;
-    @Schema(name = "이메일", example = ExampleValue.Member.EMAIL)
+    @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
     String email;
-    @Schema(name = "로그인 유형", example = "basic")
+    @Schema(description = "로그인 유형", example = "basic")
     LoginType loginType;
 
     public ProfileResponseDto(Member member) {

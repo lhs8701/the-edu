@@ -13,11 +13,11 @@ public class MyCourseDto {
     @AllArgsConstructor
     @Builder
     public static class ShortResponse{
-        @Schema(name = "아이디넘버", example = "1")
+        @Schema(description = "아이디넘버", example = "1")
         Long courseId;
-        @Schema(name = "제목", example = ExampleValue.Course.TITLE)
+        @Schema(description = "제목", example = ExampleValue.Course.TITLE)
         String title;
-        @Schema(name = "강사", example = ExampleValue.Member.NAME)
+        @Schema(description = "강사", example = ExampleValue.Member.NAME)
         String instructor;
 
         public ShortResponse(Course course){
