@@ -116,7 +116,6 @@ const IconTab = styled.div`
   flex-shrink: 1;
 `;
 
-
 const IconSecTab = styled(IconTab)``;
 
 const VolumnTab = styled(motion.div)`
@@ -180,8 +179,6 @@ const IconDiv = styled(motion.div)`
   margin: 0 10px;
   font-size: 0.8rem;
 `;
-
-  
 
 export default function Controller({
   vRef,
