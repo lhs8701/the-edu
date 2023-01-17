@@ -10,6 +10,10 @@ target 'dabom_iOS' do
 #  pod 'SideMenu'
   
   pod 'Tabman', '~> 2.9'
+  pod 'KakaoSDKCommon'
+  pod 'KakaoSDKAuth'
+  pod 'KakaoSDKUser'
+  pod 'Alamofire'
   
 
   target 'dabom_iOSTests' do
