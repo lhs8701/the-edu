@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-
+import { ReactQueryDevtools } from "react-query/devtools";
 import App from "./App.jsx";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -23,6 +23,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
       <App />
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
     </QueryClientProvider>
   </RecoilRoot>
 );
