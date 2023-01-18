@@ -2,7 +2,13 @@ spring:
   jwt:
     secret: HelloMyNickNameIsBeHangAndNiceToMeetYouHowAreYouImFineThankYouAndYou
 
-
-
-
-
+auth:
+  kakao:
+    rest-key: 15265237d6ec7899b112f70f071ab90f
+    redirect-uri: http://localhost:3000/account/kauth
+    api:
+      login: https://kauth.kakao.com/oauth/authorize
+      token: https://kauth.kakao.com/oauth/token
+      profile: https://kapi.kakao.com/v2/user/me
+      logout: https://kapi.kakao.com/v1/user/logout
+      unlink: https://kapi.kakao.com/v1/user/unlink
