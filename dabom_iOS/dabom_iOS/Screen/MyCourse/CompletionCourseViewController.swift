@@ -23,7 +23,7 @@ class CompletionCourseViewController: UIViewController {
     
     // MARK: - func
     private func setCV() {
-        self.completionCourseCV.register(UINib(nibName: "MyCourseCVC", bundle: nil), forCellWithReuseIdentifier: "MyCourseCVC")
+        self.completionCourseCV.register(UINib(nibName: Const.Xib.Name.myCourseCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.myCourseCVC)
         self.completionCourseCV.delegate = self
         self.completionCourseCV.dataSource = self
         self.completionCourseCV.isScrollEnabled = true
@@ -42,7 +42,7 @@ extension CompletionCourseViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let nextVC = UIStoryboard(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
         nextVC.courseTitle = completionCourseData![indexPath.row].courseTitle
 //        print(courseName)

@@ -8,13 +8,10 @@
 import UIKit
 
 class SignupVC: UIViewController {
-
+    // MARK: - IBOutlet
     @IBOutlet weak var birthdayTextField: UITextField!
-    let datePicker = UIDatePicker()
-    
     
     @IBOutlet var defaultHidden: [UILabel]!
-    
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var emailTextFieldDesc: UILabel!
@@ -22,14 +19,17 @@ class SignupVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordTextFieldDesc: UILabel!
     
-
     @IBOutlet weak var passwordConfirmTextField: UITextField!
     @IBOutlet weak var passwordConfirmDesc: UILabel!
     
     @IBOutlet weak var nameTextField: UITextField!
     
+    // MARK: - let, var
+    let datePicker = UIDatePicker()
     
     
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,41 +39,38 @@ class SignupVC: UIViewController {
         }
         
         self.showDatePicker()
-        
-        self.emailTextField.delegate = self
-        self.passwordTextField.delegate = self
-        self.passwordConfirmTextField.delegate = self
-        self.nameTextField.delegate = self
-        
+        self.textFieldSetting()
         self.hideKeyboardWhenTappedAround()
     }
     
     
+    // MARK: - IBAction
     @IBAction func signupBtnPressed(_ sender: Any) {
+        // 이메일, 비밀번호 입력 여부
         guard let email = emailTextField.text, !email.isEmpty else {
             emailTextField.placeholder = "아이디를 입력해주세요"
             emailTextFieldDesc.isHidden = false
             emailTextField.becomeFirstResponder()
             return
         }
-        
         guard let password = passwordTextField.text, !password.isEmpty else {
             passwordTextField.placeholder = "비밀번호를 입력해주세요"
             passwordTextField.becomeFirstResponder()
             return
         }
-        
+            
+        // 이메일, 비밀번호 유효성 검사
         if !isValidEmail(id: email) {
             emailTextField.text = ""
             emailTextField.placeholder = "잘못된 이메일 형식입니다"
         }
-        
         if !isValidPassword(pwd: password) {
             passwordTextField.text = ""
             passwordConfirmTextField.text = ""
             passwordTextField.placeholder = "잘못된 비밀번호 형식입니다"
         }
         
+        // 키보드 내리기
         view.endEditing(true)
         
         print(email)
@@ -82,10 +79,16 @@ class SignupVC: UIViewController {
         
     }
     
+    // MARK: - setting
+    func textFieldSetting() {
+        // delegate 설정
+        self.emailTextField.delegate = self
+        self.passwordTextField.delegate = self
+        self.passwordConfirmTextField.delegate = self
+        self.nameTextField.delegate = self
+    }
     
-    
-    
-
+    // MARK: - datePicker 설정
     func showDatePicker() {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
@@ -112,6 +115,8 @@ class SignupVC: UIViewController {
         self.view.endEditing(true)
     }
     
+    
+    // MARK: - 유효성 검사
     func isValidEmail(id: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
@@ -125,7 +130,9 @@ class SignupVC: UIViewController {
     }
 }
 
+// MARK: - extension
 extension SignupVC: UITextFieldDelegate {
+    // 리턴 시에 유효성 검사
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.emailTextField {
             if !isValidEmail(id: textField.text ?? "") {
@@ -170,15 +177,6 @@ extension SignupVC: UITextFieldDelegate {
             }
         }
           
-            
-            
-//        } else if textField == self.passwordTextField {
-//            self.passwordConfirmTextField.becomeFirstResponder()
-//        } else if textField == self.passwordConfirmTextField {
-//            self.nameTextField.becomeFirstResponder()
-//        } else if textField == self.nameTextField {
-//            self.nameTextField.resignFirstResponder()
-//        }
         return true
     }
 }
