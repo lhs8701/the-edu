@@ -23,7 +23,7 @@ class CompletionCourseViewController: UIViewController {
     
     // MARK: - func
     private func setCV() {
-        self.completionCourseCV.register(UINib(nibName: "MyCourseCVC", bundle: nil), forCellWithReuseIdentifier: "MyCourseCVC")
+        self.completionCourseCV.register(UINib(nibName: Const.Xib.Name.myCourseCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.myCourseCVC)
         self.completionCourseCV.delegate = self
         self.completionCourseCV.dataSource = self
         self.completionCourseCV.isScrollEnabled = true

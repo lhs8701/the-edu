@@ -38,7 +38,7 @@ class CategoryResultVC: UIViewController {
     
     // MARK: - CollectionView Setting
     private func setCV() {
-        self.categoryResultCV.register(UINib(nibName: "CourseThumbnailCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CourseThumbnailCollectionViewCell")
+        self.categoryResultCV.register(UINib(nibName: Const.Xib.Name.courseThumbnailCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.courseThumbnailCVC)
         self.categoryResultCV.delegate = self
         self.categoryResultCV.dataSource = self
         self.categoryResultCV.isScrollEnabled = true

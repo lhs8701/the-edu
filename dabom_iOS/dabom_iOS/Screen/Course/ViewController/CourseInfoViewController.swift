@@ -38,9 +38,9 @@ class CourseInfoViewController: UIViewController {
         
         self.mainTV.delegate = self
         self.mainTV.dataSource = self
-        self.mainTV.register(UINib(nibName: "InfoImageTVC", bundle: nil), forCellReuseIdentifier: "InfoImageTVC")
-        self.mainTV.register(UINib(nibName: "CourseInfoTVC", bundle: nil), forCellReuseIdentifier: "CourseInfoTVC")
-        self.mainTV.register(UINib(nibName: "SegmentTVC", bundle: nil), forCellReuseIdentifier: "SegmentTVC")
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.infoImageTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.infoImageTVC)
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInfoTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInfoTVC)
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.segmentTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.segmentTVC)
 
         
         let backgroundImg = UIImage(named: "segment")

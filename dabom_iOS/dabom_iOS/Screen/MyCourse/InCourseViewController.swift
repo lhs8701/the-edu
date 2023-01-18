@@ -23,7 +23,7 @@ class InCourseViewController: UIViewController {
     
     // MARK: - func
     private func setCV() {
-        self.inCourseCV.register(UINib(nibName: "MyCourseCVC", bundle: nil), forCellWithReuseIdentifier: "MyCourseCVC")
+        self.inCourseCV.register(UINib(nibName: Const.Xib.Name.myCourseCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.myCourseCVC)
         self.inCourseCV.delegate = self
         self.inCourseCV.dataSource = self
         self.inCourseCV.isScrollEnabled = true

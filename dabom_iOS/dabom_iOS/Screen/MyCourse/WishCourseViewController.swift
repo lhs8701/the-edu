@@ -22,7 +22,7 @@ class WishCourseViewController: UIViewController {
     
     // MARK: - func
     private func setCV() {
-        self.wishCourseCollectionView.register(UINib(nibName: "CourseThumbnailCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CourseThumbnailCollectionViewCell")
+        self.wishCourseCollectionView.register(UINib(nibName: Const.Xib.Name.courseThumbnailCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.courseThumbnailCVC)
         self.wishCourseCollectionView.delegate = self
         self.wishCourseCollectionView.dataSource = self
         self.wishCourseCollectionView.isScrollEnabled = true
