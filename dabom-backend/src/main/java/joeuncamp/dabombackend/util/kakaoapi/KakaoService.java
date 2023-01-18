@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.util.kakaoapi;
 import joeuncamp.dabombackend.global.error.exception.CCommunicationFailedException;
 import joeuncamp.dabombackend.util.kakaoapi.dto.KakaoProfile;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +27,9 @@ public class KakaoService {
 
     public KakaoProfile getKakaoProfile(String kakaoToken) {
         WebClient webClient = WebClient.create();
-        return webClient.post()
+        return webClient.method(HttpMethod.POST)
                 .uri(PROFILE_API)
                 .header("Authorization", "Bearer " + kakaoToken)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .retrieve()
                 .bodyToMono(KakaoProfile.class)
                 .block();
