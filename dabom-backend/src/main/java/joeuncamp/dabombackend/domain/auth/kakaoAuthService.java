@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth;
 
+import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.LoginType;
@@ -26,14 +27,15 @@ public class kakaoAuthService {
         String kakaoId = String.valueOf(profile.getId());
         Optional<Member> found = memberJpaRepository.findByLoginTypeAndSocialId(LoginType.KAKAO, kakaoId);
         if (found.isEmpty()){
-            Member created = signup(kakaoToken, profile);
+            Member created = signup(profile);
             return jwtProvider.generateToken(created);
         }
         return jwtProvider.generateToken(found.get());
     }
 
-    private Member signup(String kakaoToken, KakaoProfile kakaoProfile) {
-        return null;
+    private Member signup(KakaoProfile kakaoProfile) {
+        Member member = kakaoProfile.toEntity();
+        return memberJpaRepository.save(member);
     }
 
     public void logout() {
