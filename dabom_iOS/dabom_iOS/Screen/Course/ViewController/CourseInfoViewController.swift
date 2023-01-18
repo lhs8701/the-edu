@@ -26,6 +26,10 @@ class CourseInfoViewController: UIViewController {
     
     // MARK: - 변수, 상수
     var courseTitle: String?
+    var courseDescription: String?
+    var instructor: String?
+    
+    var courseId: Int?
 
     let maxUpper: CGFloat = 450.0
     let minUpper: CGFloat = 0.0
@@ -36,25 +40,15 @@ class CourseInfoViewController: UIViewController {
 
         setRightBarButton()
         
-        self.mainTV.delegate = self
-        self.mainTV.dataSource = self
-        self.mainTV.register(UINib(nibName: Const.Xib.Name.infoImageTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.infoImageTVC)
-        self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInfoTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInfoTVC)
-        self.mainTV.register(UINib(nibName: Const.Xib.Name.segmentTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.segmentTVC)
+        setTableView()
+        
+        setSegmentController()
+        
+        self.courseId = 1
+        getCourseInfo(id: self.courseId!)
 
         
-        let backgroundImg = UIImage(named: "segment")
-        let Img = UIImage()
-        self.segmentCtrl.setBackgroundImage(Img, for: .normal, barMetrics: .default)
-        self.segmentCtrl.setBackgroundImage(backgroundImg, for: .selected, barMetrics: .default)
-        self.segmentCtrl.setBackgroundImage(Img, for: .highlighted, barMetrics: .default)
         
-        
-        self.segmentCtrl.setDividerImage(Img, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
-        self.segmentCtrl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray, .font: UIFont.systemFont(ofSize: 17)], for: .normal)
-        self.segmentCtrl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 17, weight: .bold)], for: .selected)
-                
-        self.segmentCtrl.addTarget(self, action: #selector(segCtrlValChanged(_:)), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +78,15 @@ class CourseInfoViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
+    // MARK: - tableView 설정
+    private func setTableView() {
+        self.mainTV.delegate = self
+        self.mainTV.dataSource = self
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.infoImageTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.infoImageTVC)
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInfoTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInfoTVC)
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.segmentTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.segmentTVC)
+    }
+    
     
     // MARK: - rightBarButtonItem 설정
     
@@ -104,15 +107,45 @@ class CourseInfoViewController: UIViewController {
     
     
     
-    // MARK: - courseInfo setting
+    // MARK: - segmentController 설정
+    private func setSegmentController() {
+        let backgroundImg = UIImage(named: "segment")
+        let Img = UIImage()
+        self.segmentCtrl.setBackgroundImage(Img, for: .normal, barMetrics: .default)
+        self.segmentCtrl.setBackgroundImage(backgroundImg, for: .selected, barMetrics: .default)
+        self.segmentCtrl.setBackgroundImage(Img, for: .highlighted, barMetrics: .default)
+        
+        
+        self.segmentCtrl.setDividerImage(Img, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
+        self.segmentCtrl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray, .font: UIFont.systemFont(ofSize: 17)], for: .normal)
+        self.segmentCtrl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 17, weight: .bold)], for: .selected)
+                
+        self.segmentCtrl.addTarget(self, action: #selector(segCtrlValChanged(_:)), for: .valueChanged)
+    }
     
-//    private func setInfo() {
-//        self.classTitle.text = courseTitle
-//        self.shortIntro.text = "어쩌고 저쩌고 한 사람에게 좋은 강의 이렇고 저렇고 한 사람에게 좋은 강의"
-//        self.creatorName.text = "김태현"
-//    }
-    
-
+    // MARK: - getCourse
+    private func getCourseInfo(id: Int) {
+        GetCourseInfoDataService.shared.getCourseInfo(id: id) { response in
+            switch (response) {
+            case .success(let courseInfoData):
+                if let data = courseInfoData as? CourseInfoDataModel {
+                    self.courseTitle = data.title
+                    self.courseDescription = data.description
+                    self.instructor = data.instructor
+                    
+                    self.mainTV.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
 }
 
 
@@ -136,9 +169,9 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 0:
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: "CourseInfoTVC", for: indexPath) as? CourseInfoTVC else { return UITableViewCell() }
-            cell.classTitle.text = courseTitle
-            cell.shortIntro.text = "어쩌고 저쩌고 한 사람에게 좋은 강의 이렇고 저렇고 한 사람에게 좋은 강의"
-            cell.creatorName.text = "김태현"
+            cell.classTitle.text = self.courseTitle
+            cell.courseDescription.text = self.courseDescription
+            cell.instructor.text = self.instructor
             return cell
         case 1:
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: "SegmentTVC", for: indexPath) as? SegmentTVC else { return UITableViewCell() }
