@@ -1,3 +1,4 @@
+import { useQueries, useQuery } from "react-query";
 import styled from "styled-components";
 import CourseDetail from "../components/course/CourseDetail";
 import CourseIntro from "../components/course/CourseIntro";
@@ -12,6 +13,7 @@ const DividerBox = styled.div`
 
 export default function CoursePage() {
   const courseInfo = dummyCourseInfo;
+  // const { data, isLoading, isError } = useQuery();
   return (
     <div>
       <CourseIntro courseInfo={courseInfo.courseInfo} />
