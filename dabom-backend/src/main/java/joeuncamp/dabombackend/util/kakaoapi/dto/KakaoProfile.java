@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.util.kakaoapi;
+package joeuncamp.dabombackend.util.kakaoapi.dto;
 
 import lombok.Getter;
 import lombok.ToString;
