@@ -13,6 +13,9 @@ const queryClient = new QueryClient({
       retry: 0,
       suspense: true,
     },
+    mutations: {
+      useErrorBoundary: true,
+    },
   },
 });
 root.render(

@@ -4,21 +4,15 @@ import { Suspense, useEffect } from "react";
 import { useParams } from "react-router";
 
 export default function KaKaoAuth() {
-  const kakao = useMutation(getKakaoAuthToken.post);
-  // const { status, data, error, isIdle } = useMutation(
-  //   "test",
-  //   getKakaoAuthToken.post,
-  //   {
-  //     suspense: true,
-  //   }
-  // );
-
   const code = new URL(window.location.href).searchParams.get("code");
+  const kakaoMutation = useMutation(["KakaoAuthKey"], (code) => {
+    getKakaoAuthToken(code);
+  });
 
   useEffect(() => {
-    kakao.mutate({ code });
+    kakaoMutation.mutate({ code });
   }, [code]);
-  console.log(kakao);
+
   return (
     <Suspense fallback={<div>loading</div>}>
       <div>실험중</div>
