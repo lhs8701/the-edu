@@ -1,22 +1,22 @@
 package joeuncamp.dabombackend.global.common;
 
-import joeuncamp.dabombackend.domain.course.dto.CourseDto;
-import joeuncamp.dabombackend.domain.course.entity.Course;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class PagingDto<T> {
+    @Schema(description = "현재 페이지", example = "0")
     int page;
+    @Schema(description = "전체 페이지", example = "20")
     int totalPage;
+    @Schema(description = "목록")
     List<T> list;
 }

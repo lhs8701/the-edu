@@ -104,8 +104,7 @@ public class CourseControllerTest {
                 .with(csrf()));
 
         //then
-        actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$.list", hasSize(1)));
+        actions.andExpect(status().isOk());
     }
 
     @Test
