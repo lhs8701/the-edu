@@ -1,6 +1,8 @@
 import { getKakaoAuthToken } from "../../api/socialAuthApi";
 import { useMutation } from "react-query";
 import { Suspense, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { LoginState } from "../../atom";
 
 export default function KaKaoAuth() {
   const code = new URL(window.location.href).searchParams.get("code");
@@ -18,6 +20,7 @@ export default function KaKaoAuth() {
   //     },
   //   }
   // );
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
 
   useEffect(() => {
     try {
