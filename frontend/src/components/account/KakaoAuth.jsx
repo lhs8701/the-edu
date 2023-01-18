@@ -1,19 +1,34 @@
-import { fetchCoins, getKakaoAuthToken } from "../../api/socialAuthApi";
-import { useMutation, useQuery } from "react-query";
+import { getKakaoAuthToken } from "../../api/socialAuthApi";
+import { useMutation } from "react-query";
 import { Suspense, useEffect } from "react";
-import { useParams } from "react-router";
+import { useRecoilState } from "recoil";
+import { LoginState } from "../../atom";
 
 export default function KaKaoAuth() {
-  const kakao = useMutation(getKakaoAuthToken.post);
-  // const { status, data, error, isIdle } = useMutation(
-  //   "test",
-  //   getKakaoAuthToken.post,
+  const code = new URL(window.location.href).searchParams.get("code");
+  // const kakaoMutation = useMutation(
+  //   ["KakaoAuthKey"],
+  //   (code) => {
+  //     getKakaoAuthToken(code);
+  //   },
   //   {
-  //     suspense: true,
+  //     onSuccess: (data) => {
+  //       console.log(data);
+  //     },
+  //     onError: () => {
+  //       alert("우우");
+  //     },
   //   }
   // );
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
 
-  const code = new URL(window.location.href).searchParams.get("code");
+  useEffect(() => {
+    try {
+      getKakaoAuthToken({ code }).then((data) => {
+        console.log(data.data);
+      });
+    } catch {}
+  }, [code]);
 
   useEffect(() => {
     kakao.mutate({ code });
@@ -21,7 +36,7 @@ export default function KaKaoAuth() {
   console.log(kakao);
   return (
     <Suspense fallback={<div>loading</div>}>
-      <div>실험중</div>
+      <div>login..</div>
     </Suspense>
   );
 }
