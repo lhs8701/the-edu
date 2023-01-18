@@ -33,41 +33,25 @@ class CourseInfoViewController: UIViewController {
 
     let maxUpper: CGFloat = 450.0
     let minUpper: CGFloat = 0.0
+    
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setRightBarButton()
-        
         setTableView()
-        
         setSegmentController()
-        
+            
+        // courseId 기본값 설정 (임시)
         self.courseId = 1
         getCourseInfo(id: self.courseId!)
 
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setNavigationBar()
-    }
-    
-    @objc func segCtrlValChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            self.mainTV.scrollToRow(at: NSIndexPath(row: 2, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
-        case 1:
-            self.mainTV.scrollToRow(at: NSIndexPath(row: 3, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
-        case 2:
-            self.mainTV.scrollToRow(at: NSIndexPath(row: 4, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
-        case 3:
-            self.mainTV.scrollToRow(at: NSIndexPath(row: 5, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
-        default:
-            break
-        }
     }
     
     
@@ -89,7 +73,6 @@ class CourseInfoViewController: UIViewController {
     
     
     // MARK: - rightBarButtonItem 설정
-    
     private func setRightBarButton() {
         let onOffImage = UIImage(named: "onoff")?.withRenderingMode(.alwaysOriginal)
         let onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 30))
@@ -123,6 +106,21 @@ class CourseInfoViewController: UIViewController {
         self.segmentCtrl.addTarget(self, action: #selector(segCtrlValChanged(_:)), for: .valueChanged)
     }
     
+    @objc func segCtrlValChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.mainTV.scrollToRow(at: NSIndexPath(row: 2, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
+        case 1:
+            self.mainTV.scrollToRow(at: NSIndexPath(row: 3, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
+        case 2:
+            self.mainTV.scrollToRow(at: NSIndexPath(row: 4, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
+        case 3:
+            self.mainTV.scrollToRow(at: NSIndexPath(row: 5, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
+        default:
+            break
+        }
+    }
+    
     // MARK: - getCourse
     private func getCourseInfo(id: Int) {
         GetCourseInfoDataService.shared.getCourseInfo(id: id) { response in
@@ -149,6 +147,7 @@ class CourseInfoViewController: UIViewController {
 }
 
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
@@ -189,6 +188,7 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    // StickyView 조절
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0 {
             upperConstraint.constant = max((maxUpper - scrollView.contentOffset.y), minUpper)

@@ -52,11 +52,6 @@
 		0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */; };
 		0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */; };
 		0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7037D296D3EFD0095DD14 /* SearchVC.swift */; };
-		0ED70382296E58660095DD14 /* CourseInfoTMVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70381296E58660095DD14 /* CourseInfoTMVC.swift */; };
-		0ED70384296E593D0095DD14 /* IntroductionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70383296E593D0095DD14 /* IntroductionVC.swift */; };
-		0ED70386296E59620095DD14 /* CurriculumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70385296E59620095DD14 /* CurriculumVC.swift */; };
-		0ED70388296E597E0095DD14 /* CourseReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70387296E597E0095DD14 /* CourseReviewVC.swift */; };
-		0ED7038A296E59B30095DD14 /* CourseInquireVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED70389296E59B30095DD14 /* CourseInquireVC.swift */; };
 		0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */; };
 		0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */; };
 		0EDEA203296D04FF00B4712B /* MyCourseCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */; };
@@ -143,11 +138,6 @@
 		0EBEA84C2966B020006102F3 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		0EBEA84D2966B020006102F3 /* CourseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseTableViewCell.xib; sourceTree = "<group>"; };
 		0ED7037D296D3EFD0095DD14 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
-		0ED70381296E58660095DD14 /* CourseInfoTMVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoTMVC.swift; sourceTree = "<group>"; };
-		0ED70383296E593D0095DD14 /* IntroductionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionVC.swift; sourceTree = "<group>"; };
-		0ED70385296E59620095DD14 /* CurriculumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumVC.swift; sourceTree = "<group>"; };
-		0ED70387296E597E0095DD14 /* CourseReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewVC.swift; sourceTree = "<group>"; };
-		0ED70389296E59B30095DD14 /* CourseInquireVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquireVC.swift; sourceTree = "<group>"; };
 		0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePurchaseVC.swift; sourceTree = "<group>"; };
 		0EDEA1FE296CFFFC00B4712B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseCVC.swift; sourceTree = "<group>"; };
@@ -320,11 +310,6 @@
 				0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */,
 				0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */,
 				0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */,
-				0ED70381296E58660095DD14 /* CourseInfoTMVC.swift */,
-				0ED70385296E59620095DD14 /* CurriculumVC.swift */,
-				0ED70387296E597E0095DD14 /* CourseReviewVC.swift */,
-				0ED70389296E59B30095DD14 /* CourseInquireVC.swift */,
-				0ED70383296E593D0095DD14 /* IntroductionVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -720,7 +705,6 @@
 				0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */,
 				0E9D151E29744E910061D1ED /* InfoImageTVC.swift in Sources */,
 				0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */,
-				0ED70384296E593D0095DD14 /* IntroductionVC.swift in Sources */,
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
 				0E1E959529778C1300CBE70B /* Xib.swift in Sources */,
@@ -740,7 +724,6 @@
 				0E1E95972977AB8800CBE70B /* Url.swift in Sources */,
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
 				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,
-				0ED7038A296E59B30095DD14 /* CourseInquireVC.swift in Sources */,
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,
 				0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */,
 				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,
@@ -749,13 +732,10 @@
 				0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */,
 				0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */,
 				0E9D15272974EECD0061D1ED /* SignupSelectVC.swift in Sources */,
-				0ED70388296E597E0095DD14 /* CourseReviewVC.swift in Sources */,
 				0E9D1522297452AB0061D1ED /* SegmentTVC.swift in Sources */,
-				0ED70386296E59620095DD14 /* CurriculumVC.swift in Sources */,
 				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,
 				0E9D15292974F0620061D1ED /* SignupVC.swift in Sources */,
-				0ED70382296E58660095DD14 /* CourseInfoTMVC.swift in Sources */,
 				0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */,
 				0E1E95992977ABEA00CBE70B /* CourseInfoDataModel.swift in Sources */,
 				0EFB7474297131BC00C58E87 /* LoginSignupNC.swift in Sources */,
