@@ -17,10 +17,10 @@ class CourseInfoTMVC: TabmanViewController {
         super.viewDidLoad()
 
         // MARK: - VC setting
-        let introductionVC = UIStoryboard.init(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "IntroductionVC") as! IntroductionVC
-        let curriculumVC = UIStoryboard.init(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CurriculumVC") as! CurriculumVC
-        let courseReviewVC = UIStoryboard.init(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseReviewVC") as! CourseReviewVC
-        let courseInquireVC = UIStoryboard.init(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInquireVC") as! CourseInquireVC
+        let introductionVC = UIStoryboard.init(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: "IntroductionVC") as! IntroductionVC
+        let curriculumVC = UIStoryboard.init(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: "CurriculumVC") as! CurriculumVC
+        let courseReviewVC = UIStoryboard.init(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: "CourseReviewVC") as! CourseReviewVC
+        let courseInquireVC = UIStoryboard.init(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: "CourseInquireVC") as! CourseInquireVC
         
         introductionVC.firstImage = UIImage(named: "testIntro01")!
         introductionVC.secondImage = UIImage(named: "testIntro02")!

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E1E958F297783FD00CBE70B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E958E297783FD00CBE70B /* Const.swift */; };
+		0E1E95912977841400CBE70B /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95902977841400CBE70B /* Storyboard.swift */; };
 		0E550140296EA96400DD5B75 /* Layer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E55013F296EA96400DD5B75 /* Layer+.swift */; };
 		0E550142296F8BC200DD5B75 /* CategoryResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */; };
 		0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028282965659D00A25F48 /* InCourseViewController.swift */; };
@@ -92,6 +94,8 @@
 
 /* Begin PBXFileReference section */
 		0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E1E958E297783FD00CBE70B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		0E1E95902977841400CBE70B /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		0E55013F296EA96400DD5B75 /* Layer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Layer+.swift"; sourceTree = "<group>"; };
 		0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResultVC.swift; sourceTree = "<group>"; };
 		0E6028282965659D00A25F48 /* InCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InCourseViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +199,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E1E958D297783ED00CBE70B /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				0E1E958E297783FD00CBE70B /* Const.swift */,
+				0E1E95902977841400CBE70B /* Storyboard.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		0E55013E296EA94A00DD5B75 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +376,7 @@
 		0EF17C1F296518EE006DC95D /* dabom_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0E1E958D297783ED00CBE70B /* Constants */,
 				0EFB743D2970DED500C58E87 /* Network */,
 				0E55013E296EA94A00DD5B75 /* Extension */,
 				0EDEA1EE296CFC2600B4712B /* Screen */,
@@ -699,6 +713,7 @@
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
 				0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */,
 				0EFB74762971325600C58E87 /* HomeNC.swift in Sources */,
+				0E1E95912977841400CBE70B /* Storyboard.swift in Sources */,
 				0E550142296F8BC200DD5B75 /* CategoryResultVC.swift in Sources */,
 				0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */,
 				0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */,
@@ -710,6 +725,7 @@
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
 				0E550140296EA96400DD5B75 /* Layer+.swift in Sources */,
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
+				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,
 				0ED7038A296E59B30095DD14 /* CourseInquireVC.swift in Sources */,
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,
 				0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */,

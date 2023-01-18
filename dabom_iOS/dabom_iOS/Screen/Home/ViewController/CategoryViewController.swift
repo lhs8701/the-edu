@@ -37,7 +37,7 @@ class CategoryViewController: UIViewController {
         
     
     @IBAction func categorySelected(_ sender: Any) {
-        let nextVC = UIStoryboard.init(name: "HomeTab", bundle: nil).instantiateViewController(withIdentifier: "CategoryResultVC") as! CategoryResultVC
+        let nextVC = UIStoryboard.init(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: "CategoryResultVC") as! CategoryResultVC
         
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)

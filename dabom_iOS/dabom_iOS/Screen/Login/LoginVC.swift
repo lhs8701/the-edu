@@ -54,7 +54,7 @@ class LoginVC: UIViewController {
     
     
     @IBAction func goToMain(_ sender: Any) {
-        guard let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as? TabBarViewController else {return}
+        guard let mainVC = UIStoryboard(name: Const.Storyboard.Name.main, bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as? TabBarViewController else {return}
         
         (UIApplication.shared.delegate as! AppDelegate).changeRootVC(mainVC, animated: false)
     }

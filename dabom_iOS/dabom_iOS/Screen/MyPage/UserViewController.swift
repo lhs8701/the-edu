@@ -45,21 +45,11 @@ class UserViewController: UIViewController {
 //        self.present(loginSignupVC, animated: true)
         
         // 로그인 안된 상태이면
-        guard let loginSignupVC = UIStoryboard(name: "LoginSignup", bundle: nil).instantiateViewController(withIdentifier: "LoginSignupNC") as? LoginSignupNC else {return}
+        guard let loginSignupVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: "LoginSignupNC") as? LoginSignupNC else {return}
         
         (UIApplication.shared.delegate as! AppDelegate).changeRootVC(loginSignupVC, animated: false)
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

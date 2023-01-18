@@ -113,7 +113,7 @@ extension HomeViewController: CourseCVCellDelegate {
 
 extension HomeViewController: BannerCVCellDelegate {
     func BannerSelectedCVCell(index: Int, bannerName: String) {
-        guard let nextVC = UIStoryboard(name: "HomeTab", bundle: nil).instantiateViewController(withIdentifier: "BannerInfoViewController") as? BannerInfoViewController else { return }
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: "BannerInfoViewController") as? BannerInfoViewController else { return }
         
         nextVC.bannerImageName = bannerName
         nextVC.modalPresentationStyle = .fullScreen

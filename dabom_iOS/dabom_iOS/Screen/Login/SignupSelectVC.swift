@@ -22,7 +22,7 @@ class SignupSelectVC: UIViewController {
     
     @IBAction func emailSignupBtnPressed(_ sender: Any) {
         self.dismiss(animated: true) {
-            let nextVC = UIStoryboard(name: "LoginSignup", bundle: nil).instantiateViewController(withIdentifier: "SignupVC") as! SignupVC
+            let nextVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: "SignupVC") as! SignupVC
 
             self.rootView?.navigationController?.pushViewController(nextVC, animated: true)
         }
