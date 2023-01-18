@@ -20,7 +20,7 @@ class LoginSignupVC: UIViewController {
 
     @available(iOS 15.0, *)
     @IBAction func signupBtnPressed(_ sender: Any) {
-        guard let selectVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: "SignupSelectVC") as? SignupSelectVC else {return}
+        guard let selectVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.signupSelect) as? SignupSelectVC else {return}
         
         selectVC.modalPresentationStyle = .pageSheet
         

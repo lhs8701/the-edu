@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E1E958F297783FD00CBE70B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E958E297783FD00CBE70B /* Const.swift */; };
 		0E1E95912977841400CBE70B /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95902977841400CBE70B /* Storyboard.swift */; };
+		0E1E95932977873C00CBE70B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95922977873C00CBE70B /* ViewController.swift */; };
 		0E550140296EA96400DD5B75 /* Layer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E55013F296EA96400DD5B75 /* Layer+.swift */; };
 		0E550142296F8BC200DD5B75 /* CategoryResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */; };
 		0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028282965659D00A25F48 /* InCourseViewController.swift */; };
@@ -57,7 +58,6 @@
 		0EDEA203296D04FF00B4712B /* MyCourseCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */; };
 		0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */; };
 		0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C20296518EE006DC95D /* AppDelegate.swift */; };
-		0EF17C25296518EE006DC95D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17C24296518EE006DC95D /* ViewController.swift */; };
 		0EF17C28296518EE006DC95D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EF17C26296518EE006DC95D /* Main.storyboard */; };
 		0EF17C2A296518EF006DC95D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EF17C29296518EF006DC95D /* Assets.xcassets */; };
 		0EF17C2D296518EF006DC95D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EF17C2B296518EF006DC95D /* LaunchScreen.storyboard */; };
@@ -96,6 +96,7 @@
 		0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E1E958E297783FD00CBE70B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		0E1E95902977841400CBE70B /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
+		0E1E95922977873C00CBE70B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0E55013F296EA96400DD5B75 /* Layer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Layer+.swift"; sourceTree = "<group>"; };
 		0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResultVC.swift; sourceTree = "<group>"; };
 		0E6028282965659D00A25F48 /* InCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InCourseViewController.swift; sourceTree = "<group>"; };
@@ -146,7 +147,6 @@
 		0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseDataModel.swift; sourceTree = "<group>"; };
 		0EF17C1D296518EE006DC95D /* dabom_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dabom_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EF17C20296518EE006DC95D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0EF17C24296518EE006DC95D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0EF17C27296518EE006DC95D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0EF17C29296518EF006DC95D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0EF17C2C296518EF006DC95D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -204,6 +204,7 @@
 			children = (
 				0E1E958E297783FD00CBE70B /* Const.swift */,
 				0E1E95902977841400CBE70B /* Storyboard.swift */,
+				0E1E95922977873C00CBE70B /* ViewController.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -383,7 +384,6 @@
 				0EDEA1ED296CFBFB00B4712B /* Support */,
 				0EF17C2B296518EF006DC95D /* LaunchScreen.storyboard */,
 				0EF17C26296518EE006DC95D /* Main.storyboard */,
-				0EF17C24296518EE006DC95D /* ViewController.swift */,
 			);
 			path = dabom_iOS;
 			sourceTree = "<group>";
@@ -707,7 +707,6 @@
 				0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */,
 				0E9D151E29744E910061D1ED /* InfoImageTVC.swift in Sources */,
 				0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */,
-				0EF17C25296518EE006DC95D /* ViewController.swift in Sources */,
 				0ED70384296E593D0095DD14 /* IntroductionVC.swift in Sources */,
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
@@ -731,6 +730,7 @@
 				0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */,
 				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,
 				0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */,
+				0E1E95932977873C00CBE70B /* ViewController.swift in Sources */,
 				0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */,
 				0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */,
 				0E9D15272974EECD0061D1ED /* SignupSelectVC.swift in Sources */,

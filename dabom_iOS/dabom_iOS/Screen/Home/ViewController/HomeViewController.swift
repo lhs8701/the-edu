@@ -102,7 +102,7 @@ extension HomeViewController: UITableViewDataSource {
 
 extension HomeViewController: CourseCVCellDelegate {
     func CourseSelectedCVCell(index: Int, courseName: String) {
-        guard let nextVC = UIStoryboard(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
         nextVC.courseTitle = courseName
         nextVC.modalPresentationStyle = .fullScreen
@@ -113,7 +113,7 @@ extension HomeViewController: CourseCVCellDelegate {
 
 extension HomeViewController: BannerCVCellDelegate {
     func BannerSelectedCVCell(index: Int, bannerName: String) {
-        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: "BannerInfoViewController") as? BannerInfoViewController else { return }
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.bannerInfo) as? BannerInfoViewController else { return }
         
         nextVC.bannerImageName = bannerName
         nextVC.modalPresentationStyle = .fullScreen

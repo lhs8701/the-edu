@@ -45,7 +45,7 @@ class UserViewController: UIViewController {
 //        self.present(loginSignupVC, animated: true)
         
         // 로그인 안된 상태이면
-        guard let loginSignupVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: "LoginSignupNC") as? LoginSignupNC else {return}
+        guard let loginSignupVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.loginSignupNavi) as? LoginSignupNC else {return}
         
         (UIApplication.shared.delegate as! AppDelegate).changeRootVC(loginSignupVC, animated: false)
         

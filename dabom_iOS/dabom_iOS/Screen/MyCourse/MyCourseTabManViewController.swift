@@ -16,9 +16,9 @@ class MyCourseTabManViewController: TabmanViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let inCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: "InCourseViewController") as! InCourseViewController
-        let completionCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: "CompletionCourseViewController") as! CompletionCourseViewController
-        let wishCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: "WishCourseViewController") as! WishCourseViewController
+        let inCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.inCourse) as! InCourseViewController
+        let completionCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.completionCourse) as! CompletionCourseViewController
+        let wishCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.wishCourse) as! WishCourseViewController
         
         viewControllers.append(inCourseVC)
         viewControllers.append(completionCourseVC)
