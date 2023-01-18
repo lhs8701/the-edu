@@ -508,6 +508,7 @@
                         <outlet property="birthdayTextField" destination="AGD-Hs-uto" id="dkZ-Ax-ijo"/>
                         <outlet property="emailTextField" destination="k5e-qQ-WWW" id="GrU-On-kSm"/>
                         <outlet property="emailTextFieldDesc" destination="KkE-dM-g4J" id="Fp4-TS-q6h"/>
+                        <outlet property="mobileTextField" destination="usO-gu-AGD" id="zLX-ik-aZ7"/>
                         <outlet property="nameTextField" destination="pfJ-RC-X5c" id="he8-OF-7qR"/>
                         <outlet property="passwordConfirmDesc" destination="W3Q-VI-oFq" id="lkv-Q5-pzc"/>
                         <outlet property="passwordConfirmTextField" destination="Y0m-3D-Vaw" id="pnj-n6-bmk"/>

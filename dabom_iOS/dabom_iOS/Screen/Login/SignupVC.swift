@@ -24,9 +24,13 @@ class SignupVC: UIViewController {
     
     @IBOutlet weak var nameTextField: UITextField!
     
+    @IBOutlet weak var mobileTextField: UITextField!
+    
+    
     // MARK: - let, var
     let datePicker = UIDatePicker()
     
+    var User = UserDataModel()
     
     
     // MARK: - Life Cycle
@@ -73,6 +77,15 @@ class SignupVC: UIViewController {
         // 키보드 내리기
         view.endEditing(true)
         
+        User.account = email
+        User.password = password
+        User.name = nameTextField.text!
+        User.nickname = "임시"
+        User.mobile = mobileTextField.text!
+        User.birthDate = birthdayTextField.text!
+        
+        LoginSignupService.shared.signup(user: User)
+        
         print(email)
         print(password)
         
@@ -105,7 +118,7 @@ class SignupVC: UIViewController {
     
     @objc func doneDatePicker() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 dd일"
+        formatter.dateFormat = "yyyy.MM.dd"
         formatter.locale = Locale(identifier: "ko_KR")
         birthdayTextField.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)
@@ -128,6 +141,11 @@ class SignupVC: UIViewController {
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
         return passwordTest.evaluate(with: pwd)
     }
+    
+
+    
+    
+    
 }
 
 // MARK: - extension

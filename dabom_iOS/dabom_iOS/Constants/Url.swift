@@ -27,5 +27,7 @@ extension Const {
         static let signup = "http://\(serverIP)/api/auth/basic/signup"
         static let login = "http://\(serverIP)/api/auth/basic/login"
         
+        
+        
     }
 }
