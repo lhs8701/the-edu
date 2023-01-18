@@ -8,31 +8,26 @@
 import UIKit
 
 class LoginVC: UIViewController {
-
+    
+    // MARK: - IBOutlet
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var loginBtn: UIButton!
     
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        self.emailTextField.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 1.0)
-        self.passwordTextField.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 1.0)
         
-//        self.emailTextField.addTarget(self, action: #selector(didEndOnExit), for: UIControl.Event.editingDidEndOnExit)
-//        self.passwordTextField.addTarget(self, action: #selector(didEndOnExit), for: UIControl.Event.editingDidEndOnExit)
-//        self.loginBtn.addTarget(self, action: #selector(didEndOnExit), for: UIControl.Event.editingDidEndOnExit)
-        self.emailTextField.delegate = self
-        self.passwordTextField.delegate = self
+        
+        self.textFieldSetting()
         self.hideKeyboardWhenTappedAround()
     }
     
     
-    
+    // MARK: - IBAction
     @IBAction func loginBtnPressed(_ sender: Any) {
+        // 아이디, 비밀번호 입력 여부 확인
         guard let email = emailTextField.text, !email.isEmpty else {
             emailTextField.placeholder = "아이디를 입력해주세요"
             passwordTextField.placeholder = "비밀번호를 입력해주세요"
@@ -45,26 +40,17 @@ class LoginVC: UIViewController {
             return
         }
         
+        // 아이디, 비밀번호 유효성 검사
+        validCheck(id: email, pwd: password)
         
-        if !isValidEmail(id: email) {
-            shakeTextField(textField: emailTextField)
-            emailTextField.text = ""
-            emailTextField.placeholder = "이메일 형식을 확인해주세요"
-        }
-        
-        if !isValidPassword(pwd: password) {
-            shakeTextField(textField: passwordTextField)
-            passwordTextField.text = ""
-            passwordTextField.placeholder = "비밀번호 형식을 확인해주세요"
-        }
-        
+        // 키보드 내리기
         view.endEditing(true)
+        
         
         print(email)
         print(password)
         
     }
-    
     
     
     @IBAction func goToMain(_ sender: Any) {
@@ -74,6 +60,16 @@ class LoginVC: UIViewController {
     }
     
     
+    // MARK: - func
+    func textFieldSetting() {
+        // TextField 아래 선
+        self.emailTextField.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 1.0)
+        self.passwordTextField.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 1.0)
+        
+        // delegate 설정
+        self.emailTextField.delegate = self
+        self.passwordTextField.delegate = self
+    }
     
     func isValidEmail(id: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
@@ -87,11 +83,27 @@ class LoginVC: UIViewController {
         return passwordTest.evaluate(with: pwd)
     }
     
-    
+    func validCheck(id: String, pwd: String) {
+        // 아이디 유효성 검사
+        if !isValidEmail(id: id) {
+            shakeTextField(textField: emailTextField)
+            emailTextField.text = ""
+            emailTextField.placeholder = "이메일 형식을 확인해주세요"
+        }
+        
+        // 비밀번호 유효성 검사
+        if !isValidPassword(pwd: pwd) {
+            shakeTextField(textField: passwordTextField)
+            passwordTextField.text = ""
+            passwordTextField.placeholder = "비밀번호 형식을 확인해주세요"
+        }
+    }
     
 }
 
+// MARK: - extension
 extension LoginVC: UITextFieldDelegate {
+    // 유효성 검사 틀렸을 때 TextField 흔들기
     func shakeTextField(textField: UITextField) -> Void{
         UIView.animate(withDuration: 0.2, animations: {
             textField.frame.origin.x -= 10
@@ -106,12 +118,14 @@ extension LoginVC: UITextFieldDelegate {
         })
     }
     
+    // 이메일 입력 이후 비밀번호로 커서 이동
     @objc func didEndOnExit(_ sender: UITextField) {
         if emailTextField.isFirstResponder {
             passwordTextField.becomeFirstResponder()
         }
     }
     
+    // 비밀번호까지 입력 후 리턴 시 로그인 액션
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.emailTextField {
             self.passwordTextField.becomeFirstResponder()
