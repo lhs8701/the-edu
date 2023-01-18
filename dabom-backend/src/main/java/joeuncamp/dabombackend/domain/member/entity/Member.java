@@ -45,7 +45,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     LoginType loginType;
 
-    String loginToken;
+    String socialId;
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     CreatorProfile creatorProfile;
