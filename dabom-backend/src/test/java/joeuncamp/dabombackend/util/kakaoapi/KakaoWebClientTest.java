@@ -19,7 +19,7 @@ public class KakaoWebClientTest {
     @DisplayName("카카오 프로필 API를 호출하면, 프로필 정보를 가져온다.")
     void 카카오_프로필_정보를_가져온다() {
         // given
-        String kakaoToken = "A1bD3OwEQ-v8XV4_Eh_J8nYJ4mQYQ9zNjCKCd2XlCisM0gAAAYXHZTjQ";
+        String kakaoToken = "1lsu9n3vzuLyRVeG5t5oTDcjYXbi9CekaK96kxXRCinJYAAAAYXHk73l";
         WebClient webClient = WebClient.create();
 
         // when
@@ -57,6 +57,27 @@ public class KakaoWebClientTest {
         if (responseEntity == null || !responseEntity.getStatusCode().equals(HttpStatus.OK)){
             throw new CCommunicationFailedException();
         }
+        assertThat(responseEntity).isNotNull();
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("카카오 계정 연결을 끊는다.")
+    void 카카오_계정_연결을_끊는다() {
+        // given
+        String kakaoToken = "1lsu9n3vzuLyRVeG5t5oTDcjYXbi9CekaK96kxXRCinJYAAAAYXHk73l";
+        WebClient webClient = WebClient.create();
+
+        // when
+        final String PROFILE_API = "https://kapi.kakao.com/v1/user/unlink";
+        ResponseEntity<Void> responseEntity  = webClient.method(HttpMethod.POST)
+                .uri(PROFILE_API)
+                .header("Authorization", "Bearer " + kakaoToken)
+                .retrieve()
+                .toEntity(Void.class)
+                .block();
+
+        // then
         assertThat(responseEntity).isNotNull();
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
