@@ -2,7 +2,3 @@ spring:
   jwt:
     secret: HelloMyNickNameIsBeHangAndNiceToMeetYouHowAreYouImFineThankYouAndYou
 
-
-
-
-

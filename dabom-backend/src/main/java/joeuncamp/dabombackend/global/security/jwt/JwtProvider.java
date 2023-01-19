@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,7 +38,6 @@ public class JwtProvider {
         byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
 
     public TokenForm generateToken(Member member) {
 
@@ -105,12 +105,12 @@ public class JwtProvider {
     }
 
     public boolean isTokenExpired(String token) {
-        Date expiration = Jwts.parserBuilder()
-                .setSigningKey(getSigningKey(secretKey))
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();
-        return expiration.before(new Date());
+        Claims claims = getClaims(token);
+        if (claims == null) {
+            log.error("토큰 정보가 없습니다.");
+            throw new BadCredentialsException("토큰 정보가 없습니다.");
+        }
+
+        return claims.getExpiration().before(new Date());
     }
 }

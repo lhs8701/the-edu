@@ -7,3 +7,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher #swagger 3.0 오류 해결
+
+api:
+  kakao:
+    profile: https://kapi.kakao.com/v2/user/me
+    logout: https://kapi.kakao.com/v1/user/logout
+    unlink: https://kapi.kakao.com/v1/user/unlink
