@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dabom_dev?validationQuery="select 1"&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: root
+    password: Camp!@&webmaster!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-test-query: select 1 from dual
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Seoul
+        enable_lazy_load_no_trans: true
+        format_sql: true
+        hbm2ddl:
+          auto: update
+    show-sql: true
+
+logging:
+  pattern:
+    console: "%d{yy-MM-dd HH:mm:ss} %clr(%-5level) [%thread] %logger[%method:%line] - %msg%n"
+    file: "%d{yy-MM-dd HH:mm:ss} %-5level [%thread] %logger[%method:%line] - %msg%n"
+  logback:
+    rollingpolicy:
+      file-name-pattern: "C:/Dabom/logs/dev/%d{yy-MM-dd}/log_%i.zip"
+      max-history: 30
+      max-file-size: 20KB
+      total-size-cap: 100MB
+  level:
+    root: info
+    org.springframework: info
+    org.hibernate:
+      SQL: debug
+      type: trace
+  file:
+    name: "C:/Dabom/logs/dev/current.log"
+
+springdoc:
+  api-docs:
+    enabled: true
+
+  swagger-ui:
+    display-request-duration: true  # try it out 을 했을 때 request duration 을 추가로 찍어줌

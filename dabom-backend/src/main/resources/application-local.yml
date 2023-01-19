@@ -20,14 +20,9 @@ spring:
           auto: update
     show-sql: true
 
-log:
-  config:
-    path: /logs/local
-    filename: local_log
+springdoc:
+  api-docs:
+    enabled: true
 
-#springdoc:
-#  api-docs:
-#    enabled: true
-#
-#  swagger-ui:
-#    display-request-duration: true  # try it out 을 했을 때 request duration 을 추가로 찍어줌
+  swagger-ui:
+    display-request-duration: true  # try it out 을 했을 때 request duration 을 추가로 찍어줌
