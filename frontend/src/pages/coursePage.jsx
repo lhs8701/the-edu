@@ -15,7 +15,7 @@ const DividerBox = styled.div`
 `;
 
 export default function CoursePage() {
-  // const courseInfo = dummyCourseInfo;
+  const dummycourseInfo = dummyCourseInfo;
   // const { courseId } = useParams();
   const courseId = 1;
   const courseInfo = useQuery(
@@ -25,23 +25,27 @@ export default function CoursePage() {
     },
     {
       enabled: !!courseId,
-      retry: 1,
-      // onSuccess: (data) => {},
+      onSuccess: () => {
+        console.log("성공");
+      },
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
     }
   );
 
   return (
     <div>
       <Suspense fallback={<div>로딩중</div>}>
-        <CourseIntro courseInfo={courseInfo.data} />
-        {/* <DividerBox>
-          <CourseDetail courseInfo={courseInfo.data} />
+        <CourseIntro courseInfo={courseInfo?.data} />
+        <DividerBox>
+          <CourseDetail courseInfo={dummycourseInfo} />
           <CoursePayment
-            title={courseInfo?.data?.title}
-            teacher={courseInfo?.data?.instructor}
-            purchaseOption={courseInfo.data}
+            title={dummycourseInfo?.courseInfo?.title}
+            teacher={dummycourseInfo?.courseInfo?.teacher}
+            purchaseOption={dummycourseInfo.coursePurchaseInfo}
           />
-        </DividerBox> */}
+        </DividerBox>
       </Suspense>
     </div>
   );

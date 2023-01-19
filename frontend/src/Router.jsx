@@ -1,4 +1,9 @@
-import { createBrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  Route,
+  Routes,
+} from "react-router-dom";
 import Root from "./Root";
 import ErrorComponent from "./components/ErrComponents";
 import MainPage from "./pages/MainPage";
@@ -25,108 +30,119 @@ import FindPassword from "./components/account/FindPassword";
 import KaKaoAuth from "./components/account/KakaoAuth";
 import PlayerRoot from "./pages/PlayerRoot";
 
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Root />,
+//     children: [
+//       {
+//         path: "",
+//         element: <MainPage />,
+//         errorElement: <ErrorComponent />,
+//       },
+//       {
+//         path: "category/:categoryId",
+//         element: <CategoryPage />,
+//         errorElement: <ErrorComponent />,
+//       },
+//       {
+//         path: "course/:courseId",
+//         element: <CoursePage />,
+//         errorElement: <ErrorComponent />,
+//       },
+//       {
+//         path: "course/:courseId/lobby",
+//         element: <LobbyPage />,
+//       },
+//       {
+//         path: "my",
+//         element: <MyPage />,
+//         children: [
+//           {
+//             path: "",
+//             element: <MyClass />,
+//           },
+//           {
+//             path: "wish",
+//             element: <WishClass />,
+//           },
+//           {
+//             path: "coupon",
+//             element: <Coupon />,
+//           },
+//           {
+//             path: "deal",
+//             element: <PurchaseHistory />,
+//           },
+//           {
+//             path: "revise",
+//             element: <Revise />,
+//           },
+//           {
+//             path: "withdraw",
+//             element: <Withdraw />,
+//           },
+//         ],
+//       },
+//       {
+//         path: "purchase",
+//         element: <PurchasePage />,
+//       },
+//       {
+//         path: "roadmap",
+//         element: <RoadMapPage />,
+//       },
+//       {
+//         path: "event",
+//         element: <EventPage />,
+//       },
+//       {
+//         path: "search",
+//         element: <SearchPage />,
+//       },
+//     ],
+//     errorElement: <NotFoundPage />,
+//   },
+//   {
+//     path: "/account",
+//     element: <AccountRoot />,
+//     children: [
+//       {
+//         path: "login",
+//         element: <SignIn />,
+//       },
+//       {
+//         path: "signup",
+//         element: <SignUp />,
+//       },
+//       {
+//         path: "id",
+//         element: <FindAccount />,
+//       },
+//       {
+//         path: "password",
+//         element: <FindPassword />,
+//       },
+//       { path: "kauth", element: <KaKaoAuth /> },
+//     ],
+//     errorElement: <ErrorComponent />,
+//   },
+//   {
+//     path: "/player",
+//     element: <PlayerRoot />,
+//     errorElement: <ErrorComponent />,
+//   },
+// ]);
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    children: [
-      {
-        path: "",
-        element: <MainPage />,
-        errorElement: <ErrorComponent />,
-      },
-      {
-        path: "category/:categoryId",
-        element: <CategoryPage />,
-        errorElement: <ErrorComponent />,
-      },
-      {
-        path: "course/:courseId",
-        element: <CoursePage />,
-      },
-      {
-        path: "course/:courseId/lobby",
-        element: <LobbyPage />,
-      },
-      {
-        path: "my",
-        element: <MyPage />,
-        children: [
-          {
-            path: "",
-            element: <MyClass />,
-          },
-          {
-            path: "wish",
-            element: <WishClass />,
-          },
-          {
-            path: "coupon",
-            element: <Coupon />,
-          },
-          {
-            path: "deal",
-            element: <PurchaseHistory />,
-          },
-          {
-            path: "revise",
-            element: <Revise />,
-          },
-          {
-            path: "withdraw",
-            element: <Withdraw />,
-          },
-        ],
-      },
-      {
-        path: "purchase",
-        element: <PurchasePage />,
-      },
-      {
-        path: "roadmap",
-        element: <RoadMapPage />,
-      },
-      {
-        path: "event",
-        element: <EventPage />,
-      },
-      {
-        path: "search",
-        element: <SearchPage />,
-      },
-    ],
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/account",
-    element: <AccountRoot />,
-    children: [
-      {
-        path: "login",
-        element: <SignIn />,
-      },
-      {
-        path: "signup",
-        element: <SignUp />,
-      },
-      {
-        path: "id",
-        element: <FindAccount />,
-      },
-      {
-        path: "password",
-        element: <FindPassword />,
-      },
-      { path: "kauth", element: <KaKaoAuth /> },
-    ],
-    errorElement: <ErrorComponent />,
-  },
-  {
-    path: "/player",
-    element: <PlayerRoot />,
-    errorElement: <ErrorComponent />,
-  },
-]);
+// export default router;
 
-export default router;
+function Router() {
+  return (
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Routes>
+        <Route path="/" element={<Root />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+export default Router;
