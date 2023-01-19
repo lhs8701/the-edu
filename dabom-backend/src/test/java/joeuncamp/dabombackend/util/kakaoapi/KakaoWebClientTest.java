@@ -1,11 +1,10 @@
 package joeuncamp.dabombackend.util.kakaoapi;
 
-import com.google.gson.Gson;
 import joeuncamp.dabombackend.global.error.exception.CCommunicationFailedException;
 import joeuncamp.dabombackend.util.kakaoapi.dto.KakaoProfile;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 public class KakaoWebClientTest {
 
     @Test

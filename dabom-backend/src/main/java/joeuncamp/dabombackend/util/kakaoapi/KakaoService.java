@@ -32,7 +32,7 @@ public class KakaoService {
     public KakaoProfile getKakaoProfile(String kakaoToken) {
         WebClient webClient = WebClient.create();
         return webClient.method(HttpMethod.POST)
-                .uri("https://kapi.kakao.com/v2/user/me")
+                .uri(PROFILE_API)
                 .header("Authorization", "Bearer " + kakaoToken)
                 .retrieve()
                 .bodyToMono(KakaoProfile.class)
