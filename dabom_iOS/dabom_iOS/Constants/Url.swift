@@ -16,7 +16,6 @@ extension Const {
         static let getCourseInfo = "http://\(serverIP)/api/courses/"
         static let getCourseReview = "http://\(serverIP)/api/courses/"
         static let getCourseInquiries = "http://\(serverIP)/api/courses/"
-        
         static let getCategoryCourses = "http://\(serverIP)/api/courses/category/"
         
         // MARK: - Student
@@ -26,6 +25,8 @@ extension Const {
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"
         static let login = "http://\(serverIP)/api/auth/basic/login"
+        
+        static let kakaoLogin = "http://\(serverIP)/api/auth/kakao/login"
         
     }
 }

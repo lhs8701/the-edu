@@ -14,6 +14,9 @@
 		0E1E95972977AB8800CBE70B /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95962977AB8800CBE70B /* Url.swift */; };
 		0E1E95992977ABEA00CBE70B /* CourseInfoDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95982977ABEA00CBE70B /* CourseInfoDataModel.swift */; };
 		0E1E959B2977AC8200CBE70B /* GetCourseInfoDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959A2977AC8200CBE70B /* GetCourseInfoDataService.swift */; };
+		0E1E959D2977BDE800CBE70B /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959C2977BDE800CBE70B /* UserDataModel.swift */; };
+		0E1E959F2977C05B00CBE70B /* LoginSignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959E2977C05B00CBE70B /* LoginSignupService.swift */; };
+		0E1E95A12978CE0700CBE70B /* UserGrantInfoDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */; };
 		0E550140296EA96400DD5B75 /* Layer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E55013F296EA96400DD5B75 /* Layer+.swift */; };
 		0E550142296F8BC200DD5B75 /* CategoryResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */; };
 		0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028282965659D00A25F48 /* InCourseViewController.swift */; };
@@ -100,6 +103,10 @@
 		0E1E95962977AB8800CBE70B /* Url.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Url.swift; sourceTree = "<group>"; };
 		0E1E95982977ABEA00CBE70B /* CourseInfoDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoDataModel.swift; sourceTree = "<group>"; };
 		0E1E959A2977AC8200CBE70B /* GetCourseInfoDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCourseInfoDataService.swift; sourceTree = "<group>"; };
+		0E1E959C2977BDE800CBE70B /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
+		0E1E959E2977C05B00CBE70B /* LoginSignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupService.swift; sourceTree = "<group>"; };
+		0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGrantInfoDataModel.swift; sourceTree = "<group>"; };
+		0E1E95A2297916B400CBE70B /* dabom_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dabom_iOS.entitlements; sourceTree = "<group>"; };
 		0E55013F296EA96400DD5B75 /* Layer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Layer+.swift"; sourceTree = "<group>"; };
 		0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResultVC.swift; sourceTree = "<group>"; };
 		0E6028282965659D00A25F48 /* InCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InCourseViewController.swift; sourceTree = "<group>"; };
@@ -373,6 +380,7 @@
 		0EF17C1F296518EE006DC95D /* dabom_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0E1E95A2297916B400CBE70B /* dabom_iOS.entitlements */,
 				0E1E958D297783ED00CBE70B /* Constants */,
 				0EFB743D2970DED500C58E87 /* Network */,
 				0E55013E296EA94A00DD5B75 /* Extension */,
@@ -406,6 +414,7 @@
 			children = (
 				0EFB743E2970DEE600C58E87 /* NetworkResult.swift */,
 				0E1E959A2977AC8200CBE70B /* GetCourseInfoDataService.swift */,
+				0E1E959E2977C05B00CBE70B /* LoginSignupService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -416,6 +425,8 @@
 				0EFB74432970FB2500C58E87 /* LoginSignup.storyboard */,
 				0EFB7473297131BC00C58E87 /* LoginSignupNC.swift */,
 				0E9D15282974F0620061D1ED /* SignupVC.swift */,
+				0E1E959C2977BDE800CBE70B /* UserDataModel.swift */,
+				0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */,
 				0E9D15262974EECD0061D1ED /* SignupSelectVC.swift */,
 				0EFB7477297132F500C58E87 /* LoginVC.swift */,
 				0EFB744529710F8600C58E87 /* LoginSignupVC.swift */,
@@ -705,6 +716,7 @@
 				0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */,
 				0E9D151E29744E910061D1ED /* InfoImageTVC.swift in Sources */,
 				0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */,
+				0E1E959F2977C05B00CBE70B /* LoginSignupService.swift in Sources */,
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
 				0E1E959529778C1300CBE70B /* Xib.swift in Sources */,
@@ -718,6 +730,7 @@
 				0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */,
 				0EFB7478297132F500C58E87 /* LoginVC.swift in Sources */,
 				0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */,
+				0E1E959D2977BDE800CBE70B /* UserDataModel.swift in Sources */,
 				0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */,
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
 				0E550140296EA96400DD5B75 /* Layer+.swift in Sources */,
@@ -741,6 +754,7 @@
 				0EFB7474297131BC00C58E87 /* LoginSignupNC.swift in Sources */,
 				0E6028382966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift in Sources */,
 				0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */,
+				0E1E95A12978CE0700CBE70B /* UserGrantInfoDataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,6 +930,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = dabom_iOS/dabom_iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C9U8778A7W;
@@ -947,6 +962,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = dabom_iOS/dabom_iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C9U8778A7W;

@@ -14,6 +14,8 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
     
+    // MARK: - let, var
+    var User = UserDataModel()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -42,22 +44,42 @@ class LoginVC: UIViewController {
         
         // 아이디, 비밀번호 유효성 검사
         validCheck(id: email, pwd: password)
-        
+        User.account = email
+        User.password = password
         // 키보드 내리기
         view.endEditing(true)
         
+        LoginSignupService.shared.emailLogin(user: User) { response in
+            switch (response) {
+            case .success:
+                print("login Success")
+                self.goToMain()
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
         
         print(email)
         print(password)
         
     }
     
+    @IBAction func temp(_ sender: Any) {
+        self.goToMain()
+    }
     
-    @IBAction func goToMain(_ sender: Any) {
+    func goToMain() {
         guard let mainVC = UIStoryboard(name: Const.Storyboard.Name.main, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.mainTabBar) as? TabBarViewController else {return}
         
         (UIApplication.shared.delegate as! AppDelegate).changeRootVC(mainVC, animated: false)
     }
+    
     
     
     // MARK: - func
