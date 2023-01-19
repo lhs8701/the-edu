@@ -39,10 +39,24 @@ class SignupSelectVC: UIViewController {
                 } else {
                     print("loginWithKakaoTalk() success")
 
-                    let accessToken = oauthToken?.accessToken
-                    let refreshToken = oauthToken?.refreshToken
-                    print(String(accessToken ?? ""))
-                    print(String(refreshToken ?? ""))
+                    let accessToken = String(oauthToken?.accessToken ?? "")
+//                    let refreshToken = oauthToken?.refreshToken
+                    
+                    LoginSignupService.shared.kakaoLogin(accessToken: accessToken) { response in
+                        switch (response) {
+                        case .success:
+                            print("kakaoLogin Success")
+                            LoginSignupService.shared.goToMain()
+                        case .requestErr(let message):
+                            print("requestErr", message)
+                        case .pathErr:
+                            print("pathErr")
+                        case .serverErr:
+                            print("serverErr")
+                        case .networkFail:
+                            print("networkFail")
+                        }
+                    }
                 }
             }
         } else { // 카카오톡 앱으로 로그인 안되면 account로 로그인

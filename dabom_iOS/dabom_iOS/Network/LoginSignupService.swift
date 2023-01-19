@@ -11,7 +11,7 @@ import Alamofire
 struct LoginSignupService {
     static let shared = LoginSignupService()
     
-    // MARK: - Signup
+    // MARK: - email Signup
     func signup(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.signup)"
         print(URL)
@@ -45,7 +45,7 @@ struct LoginSignupService {
         }
     }
     
-    // MARK: - Login
+    // MARK: - email Login
     func login(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.login)"
         print(URL)
@@ -75,11 +75,40 @@ struct LoginSignupService {
         }
     }
     
+    // MARK: - kakao Login
+    func kakaoLogin(accessToken: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.kakaoLogin)"
+        print(URL)
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json"
+        ]
+        
+        let bodyData: Parameters = [
+            "socialToken" : accessToken
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData { dataResponse in
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                guard let value = dataResponse.value else {return}
+                
+                let networkResult = self.judgeStatus(by: statusCode, value)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+    
     
     // MARK: - HTTP StatusCode 분기
     private func judgeStatus(by statusCode: Int, _ data: Data?) -> NetworkResult<Any> {
         if let data = data {
-            // 데이터가 있을 때 -> 로그인 시
+            // response 데이터가 있을 때 -> 로그인 시
             switch statusCode {
             case 200:
                 return setUserGrant(data: data)
@@ -92,7 +121,7 @@ struct LoginSignupService {
                 return .networkFail
             }
         } else {
-            // 데이터가 없을 때 -> 회원가입 시
+            // response 데이터가 없을 때 -> 회원가입 시
             switch statusCode {
             case 200:
                 return .success(true)
@@ -128,5 +157,12 @@ struct LoginSignupService {
         UserDefaults.standard.setValue(decodedData.refreshToken, forKey: "refreshToken")
         
         return .success(true)
+    }
+    
+    // MARK: - 로그인 성공 시 main 화면으로 이동
+    func goToMain() {
+        guard let mainVC = UIStoryboard(name: Const.Storyboard.Name.main, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.mainTabBar) as? TabBarViewController else {return}
+        
+        (UIApplication.shared.delegate as! AppDelegate).changeRootVC(mainVC, animated: false)
     }
 }
