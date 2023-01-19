@@ -58,3 +58,30 @@
 > - 랭킹 강좌 선택 시, 찜한 강좌 선택 시 재사용 완료
 > ### 카테고리 뷰 구성
 > - 대분류 - 소분류 기준으로 카테고리 구성
+
+## 23.01.12
+> ### 카테고리 뷰 구성
+> - 카테고리 별로 강좌 리스트 백엔드에 요청 필요
+> - CourseThumbnailDataModel 설계
+> ### 강좌 상세 조회 뷰 구성
+> - Sticky View 구현 필요
+> - 전체적인 layout을 Stack View -> Table View 변경
+
+## 23.01.13
+> ### Http 통신 데이터 모델 샘플 구성
+> ### 로그인 분기 설계
+> - SceneDelegate 삭제
+> - AppDelegate에서 window?.rootViewController 사용
+> - 로그인 / 회원가입 뷰 분기 구성
+
+## 23.01.16
+> ### Course Info View에 Sticky View 구현
+> - Table View로 변경하고 Sroll 감지해 Sticky View 이동
+> ### 로그인 화면 구성
+> - 이메일 유효성 검사
+> - 비밀번호 유효성 검사
+> ### 회원가입 화면 구성
+> - 신규 회원 가입 분기
+> - 이메일로 회원 가입 시 화면 구성
+> - 이메일, 비밀번호 유효성 검사, 비밀번호 확인
+> - UIDatePicker -> 생년월일 선택

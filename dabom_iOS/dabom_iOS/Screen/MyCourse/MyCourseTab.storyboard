@@ -13,7 +13,7 @@
         <!--My Course View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="MyCourseTab" id="Y6W-OH-hqX" customClass="MyCourseViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyCourseViewController" id="Y6W-OH-hqX" customClass="MyCourseViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

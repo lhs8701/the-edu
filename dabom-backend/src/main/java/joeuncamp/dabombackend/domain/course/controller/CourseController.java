@@ -18,7 +18,9 @@ import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,33 +58,33 @@ public class CourseController {
     @Operation(summary = "카테고리 내의 전체 강좌를 조회합니다.", description = "정해진 카테고리가 아닐 경우 예외가 반환됩니다.<br>카테고리 목록 : 카테고리 API 참조")
     @PreAuthorize("permitAll()")
     @GetMapping("/courses/category/{category}")
-    public ResponseEntity<PagingDto<CourseDto.ShortResponse>> getCourseByCategory(@PathVariable @Schema(example = "백엔드") String category, Pageable pageable){
+    public ResponseEntity<PagingDto<CourseDto.ShortResponse>> getCourseByCategory(@PathVariable @Schema(example = "백엔드") String category, @ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
         PagingDto<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category, pageable);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @Operation(summary="강좌에 수강신청합니다.", description="이미 수강신청한 강좌인 경우 예외가 발생합니다.")
-    @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in=ParameterIn.HEADER, example=ExampleValue.JWT.ACCESS)
+    @Operation(summary = "강좌에 수강신청합니다.", description = "이미 수강신청한 강좌인 경우 예외가 발생합니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/enroll")
-    public ResponseEntity<Void> enroll(@RequestBody EnrollDto.Request requestDto){
+    public ResponseEntity<Void> enroll(@RequestBody EnrollDto.Request requestDto) {
         enrollService.enroll(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary="찜을 하거나, 해제합니다.", description="이미 찜이 되어있는 경우, 해제합니다.")
-    @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @Operation(summary = "찜을 하거나, 해제합니다.", description = "이미 찜이 되어있는 경우, 해제합니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/wish")
-    public ResponseEntity<Void> toggleWish(@RequestBody WishRequestDto wishRequestDto){
+    public ResponseEntity<Void> toggleWish(@RequestBody WishRequestDto wishRequestDto) {
         wishService.toggleWish(wishRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary="모든 카테고리를 반환합니다.", description="")
+    @Operation(summary = "모든 카테고리를 반환합니다.", description = "")
     @PreAuthorize("permitAll()")
     @GetMapping("/category")
-    public ResponseEntity<List<CategoryResponseDto>> getAllCategory(){
+    public ResponseEntity<List<CategoryResponseDto>> getAllCategory() {
         List<CategoryResponseDto> responseDto = courseService.getAllCategory();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

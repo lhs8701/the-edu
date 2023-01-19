@@ -37,7 +37,7 @@ class CourseTableViewCell: UITableViewCell {
     }
     
     private func setCV() {
-        self.courseThumbnailCollectionView.register(UINib(nibName: "CourseThumbnailCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CourseThumbnailCollectionViewCell")
+        self.courseThumbnailCollectionView.register(UINib(nibName: Const.Xib.Name.courseThumbnailCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Name.courseThumbnailCVC)
         self.courseThumbnailCollectionView.delegate = self
         self.courseThumbnailCollectionView.dataSource = self
         self.courseThumbnailCollectionView.isScrollEnabled = false

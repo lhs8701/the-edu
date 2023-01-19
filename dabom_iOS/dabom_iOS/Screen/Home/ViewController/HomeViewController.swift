@@ -33,8 +33,8 @@ class HomeViewController: UIViewController {
 //    }
 
     private func setTV() {
-        homeTableView.register(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: "CourseTableViewCell")
-        homeTableView.register(UINib(nibName: "BannerTableViewCell", bundle: nil), forCellReuseIdentifier: "BannerTableViewCell")
+        homeTableView.register(UINib(nibName: Const.Xib.Name.courseTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseTVC)
+        homeTableView.register(UINib(nibName: Const.Xib.Name.bannerTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.bannerTVC)
         
         homeTableView.delegate = self
         homeTableView.dataSource = self
@@ -102,7 +102,7 @@ extension HomeViewController: UITableViewDataSource {
 
 extension HomeViewController: CourseCVCellDelegate {
     func CourseSelectedCVCell(index: Int, courseName: String) {
-        guard let nextVC = UIStoryboard(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
         nextVC.courseTitle = courseName
         nextVC.modalPresentationStyle = .fullScreen
@@ -113,7 +113,7 @@ extension HomeViewController: CourseCVCellDelegate {
 
 extension HomeViewController: BannerCVCellDelegate {
     func BannerSelectedCVCell(index: Int, bannerName: String) {
-        guard let nextVC = UIStoryboard(name: "HomeTab", bundle: nil).instantiateViewController(withIdentifier: "BannerInfoViewController") as? BannerInfoViewController else { return }
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.bannerInfo) as? BannerInfoViewController else { return }
         
         nextVC.bannerImageName = bannerName
         nextVC.modalPresentationStyle = .fullScreen

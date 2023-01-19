@@ -23,7 +23,7 @@ class InCourseViewController: UIViewController {
     
     // MARK: - func
     private func setCV() {
-        self.inCourseCV.register(UINib(nibName: "MyCourseCVC", bundle: nil), forCellWithReuseIdentifier: "MyCourseCVC")
+        self.inCourseCV.register(UINib(nibName: Const.Xib.Name.myCourseCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.myCourseCVC)
         self.inCourseCV.delegate = self
         self.inCourseCV.dataSource = self
         self.inCourseCV.isScrollEnabled = true
@@ -43,7 +43,7 @@ extension InCourseViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let nextVC = UIStoryboard(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
         nextVC.courseTitle = inCourseData![indexPath.row].courseTitle
 //        print(courseName)

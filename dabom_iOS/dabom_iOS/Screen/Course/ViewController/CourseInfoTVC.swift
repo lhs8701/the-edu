@@ -11,9 +11,11 @@ class CourseInfoTVC: UITableViewCell {
 
     @IBOutlet weak var classTitle: UILabel!
     
-    @IBOutlet weak var shortIntro: UILabel!
+
+    @IBOutlet weak var courseDescription: UILabel!
     
-    @IBOutlet weak var creatorName: UILabel!
+    
+    @IBOutlet weak var instructor: UILabel!
     
     
     
@@ -32,11 +34,11 @@ class CourseInfoTVC: UITableViewCell {
     }
     
     private func setLabel() {
-        let attrString = NSMutableAttributedString(string: shortIntro.text ?? "")
+        let attrString = NSMutableAttributedString(string: courseDescription.text ?? "")
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 4
         attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
-        shortIntro.attributedText = attrString
+        courseDescription.attributedText = attrString
     }
     
 }

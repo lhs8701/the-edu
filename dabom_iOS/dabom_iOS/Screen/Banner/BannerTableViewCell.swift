@@ -29,7 +29,7 @@ class BannerTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        bannerCollectionView.register(UINib(nibName: "BannerCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BannerCollectionViewCell")
+        bannerCollectionView.register(UINib(nibName: Const.Xib.Name.bannerCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.bannerCVC)
         bannerCollectionView.delegate = self
         bannerCollectionView.dataSource = self
         

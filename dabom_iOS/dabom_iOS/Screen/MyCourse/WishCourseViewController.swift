@@ -22,7 +22,7 @@ class WishCourseViewController: UIViewController {
     
     // MARK: - func
     private func setCV() {
-        self.wishCourseCollectionView.register(UINib(nibName: "CourseThumbnailCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CourseThumbnailCollectionViewCell")
+        self.wishCourseCollectionView.register(UINib(nibName: Const.Xib.Name.courseThumbnailCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.courseThumbnailCVC)
         self.wishCourseCollectionView.delegate = self
         self.wishCourseCollectionView.dataSource = self
         self.wishCourseCollectionView.isScrollEnabled = true
@@ -46,7 +46,7 @@ extension WishCourseViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let nextVC = UIStoryboard(name: "CourseInfoView", bundle: nil).instantiateViewController(withIdentifier: "CourseInfoViewController") as? CourseInfoViewController else { return }
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
         nextVC.courseTitle = wishCourseData![indexPath.row].courseTitle
 //        print(courseName)
