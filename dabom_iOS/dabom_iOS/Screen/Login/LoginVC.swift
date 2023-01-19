@@ -49,11 +49,11 @@ class LoginVC: UIViewController {
         // 키보드 내리기
         view.endEditing(true)
         
-//        LoginSignupService.shared.login(user: User)
         LoginSignupService.shared.login(user: User) { response in
             switch (response) {
             case .success:
                 print("login Success")
+                self.goToMain()
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:
@@ -70,12 +70,16 @@ class LoginVC: UIViewController {
         
     }
     
+    @IBAction func temp(_ sender: Any) {
+        self.goToMain()
+    }
     
-    @IBAction func goToMain(_ sender: Any) {
+    func goToMain() {
         guard let mainVC = UIStoryboard(name: Const.Storyboard.Name.main, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.mainTabBar) as? TabBarViewController else {return}
         
         (UIApplication.shared.delegate as! AppDelegate).changeRootVC(mainVC, animated: false)
     }
+    
     
     
     // MARK: - func

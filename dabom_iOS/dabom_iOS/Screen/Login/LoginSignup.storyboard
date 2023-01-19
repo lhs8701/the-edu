@@ -100,7 +100,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="goToMain:" destination="Qg5-Iw-TLz" eventType="touchUpInside" id="iYt-cP-hfb"/>
+                                    <action selector="temp:" destination="Qg5-Iw-TLz" eventType="touchUpInside" id="OBT-Me-J4k"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fBw-4Y-QNl">
