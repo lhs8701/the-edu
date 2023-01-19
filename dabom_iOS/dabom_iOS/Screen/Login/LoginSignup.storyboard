@@ -243,6 +243,9 @@
                                 <state key="normal" title="Apple로 시작하기">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="appleSignup:" destination="fsC-fl-o0Y" eventType="touchUpInside" id="MGb-An-Eej"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZCB-AU-lPs"/>
