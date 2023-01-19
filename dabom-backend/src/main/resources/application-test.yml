@@ -1,8 +1,8 @@
 spring:
   datasource:  # mysql 사용
     url: jdbc:mysql://localhost:3306/dabom_test?validationQuery="select 1"&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: test
-    password: test
+    username: temp
+    password: temp
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-test-query: select 1 from dual
