@@ -25,7 +25,6 @@ import FindPassword from "./components/account/FindPassword";
 import KaKaoAuth from "./components/account/KakaoAuth";
 import PlayerRoot from "./pages/PlayerRoot";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +43,7 @@ const router = createBrowserRouter([
       {
         path: "course/:courseId",
         element: <CoursePage />,
+        errorElement: <ErrorComponent />,
       },
       {
         path: "course/:courseId/lobby",

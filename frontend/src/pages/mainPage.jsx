@@ -1,4 +1,6 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { getLoginState } from "../atom";
 import ClassRankList from "../components/ClassRankList";
 import MyClassCard from "../components/MyClassCard";
 import { SlideNotice } from "../components/SlideNotice";
@@ -27,6 +29,7 @@ const ListTitle = styled.h1`
 
 export default function MainPage() {
   const weekRankList = dummyCourseRank;
+  const loginState = useRecoilValue(getLoginState);
 
   const MyClassList = () => {
     return dummyMyClassList.map((course, index) => {
@@ -47,10 +50,15 @@ export default function MainPage() {
   return (
     <Wrapper>
       <SlideNotice />
-      <ListTitle>나의 클래스</ListTitle>
-      <MyClassListBox>
-        <MyClassList />
-      </MyClassListBox>
+      {loginState ? (
+        <>
+          <ListTitle>나의 클래스</ListTitle>{" "}
+          <MyClassListBox>
+            <MyClassList />
+          </MyClassListBox>
+        </>
+      ) : null}
+
       <ClassRankList ranklist={weekRankList} />
       <ClassRankList ranklist={dummyProgrammingCourseRank} />
     </Wrapper>

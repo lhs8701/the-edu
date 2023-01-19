@@ -1,5 +1,8 @@
+import { Suspense, useEffect } from "react";
 import { useQueries, useQuery } from "react-query";
+import { useParams } from "react-router";
 import styled from "styled-components";
+import { courseApi } from "../api/courseApi";
 import CourseDetail from "../components/course/CourseDetail";
 import CourseIntro from "../components/course/CourseIntro";
 import CoursePayment from "../components/course/CoursePayment";
@@ -12,19 +15,38 @@ const DividerBox = styled.div`
 `;
 
 export default function CoursePage() {
-  const courseInfo = dummyCourseInfo;
-  // const { data, isLoading, isError } = useQuery();
+  const dummycourseInfo = dummyCourseInfo;
+  // const { courseId } = useParams();
+  const courseId = 1;
+  const courseInfo = useQuery(
+    ["courseDetailInfo", courseId],
+    () => {
+      return courseApi(courseId);
+    },
+    {
+      enabled: !!courseId,
+      onSuccess: () => {
+        console.log("성공");
+      },
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
   return (
     <div>
-      <CourseIntro courseInfo={courseInfo.courseInfo} />
-      <DividerBox>
-        <CourseDetail courseInfo={courseInfo} />
-        <CoursePayment
-          title={courseInfo?.courseInfo?.title}
-          teacher={courseInfo?.courseInfo?.teacher}
-          purchaseOption={courseInfo.coursePurchaseInfo}
-        />
-      </DividerBox>
+      <Suspense fallback={<div>로딩중</div>}>
+        <CourseIntro courseInfo={courseInfo?.data} />
+        <DividerBox>
+          <CourseDetail courseInfo={dummycourseInfo} />
+          <CoursePayment
+            title={dummycourseInfo?.courseInfo?.title}
+            teacher={dummycourseInfo?.courseInfo?.teacher}
+            purchaseOption={dummycourseInfo.coursePurchaseInfo}
+          />
+        </DividerBox>
+      </Suspense>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PROCESS_ACCOUNT_URL } from "../../static";
@@ -15,6 +15,15 @@ import {
 } from "../../style/AccountComponentCss";
 import { useForm } from "react-hook-form";
 import { KAKAO_CLIENT_ID, KAKAO_REDIRECT_URL } from "../../AuthKey";
+import { login } from "../../api/authApi";
+import axios from "axios";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from "recoil";
+import { getLoginState, LoginState, selectLoginStatus } from "../../atom";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -48,13 +57,19 @@ const AnyLink = styled(Link)`
 
 export default function SignIn() {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
+
+  // const resetTemp = useResetRecoilState(LoginState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
+  const loginState = useRecoilValue(getLoginState);
+
+  const navigate = useNavigate();
   const [isID, setIsId] = useState("");
   const [password, setPassword] = useState("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -63,14 +78,27 @@ export default function SignIn() {
     reValidateMode: "onBlur",
   });
 
-
-  const submit = () => {
+  async function submit() {
     try {
-      console.log(isID, password);
-      alert("Ss");
-    } catch {}
-  };
-  console.log("eeesss");
+      const { data } = await login({
+        account: isID,
+        password: password,
+      });
+
+      setIsLoggedIn({
+        state: true,
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      });
+    } catch (err) {
+      console.log(err.response.status);
+      alert("다시 로그인 해주세요.");
+    }
+  }
+
+  if (loginState) {
+    navigate(-1);
+  }
   return (
     <AccountWrapper>
       <AccountTitle>로그인</AccountTitle>

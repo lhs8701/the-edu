@@ -60,7 +60,7 @@ const RateTab = styled.div`
 export default function CourseIntro({ courseInfo }) {
   return (
     <IntroduceWrapper>
-      <IntroTitle>{courseInfo.title}</IntroTitle>
+      <IntroTitle>{courseInfo?.title}</IntroTitle>
       <MoreInfoBox>
         <IntroPlayerTab>
           <YouTubePlayer
@@ -71,9 +71,9 @@ export default function CourseIntro({ courseInfo }) {
           />
         </IntroPlayerTab>
         <DetailInfoBox>
-          <TeacherTab>강사: {courseInfo.teacher}</TeacherTab>
-          <DescriptionTab>{courseInfo.description}</DescriptionTab>
-          <RateTab>별{courseInfo.rate}</RateTab>
+          <TeacherTab>강사: {courseInfo?.instructor}</TeacherTab>
+          <DescriptionTab>{courseInfo?.description}</DescriptionTab>
+          <RateTab>별{courseInfo?.score}</RateTab>
         </DetailInfoBox>
       </MoreInfoBox>
     </IntroduceWrapper>

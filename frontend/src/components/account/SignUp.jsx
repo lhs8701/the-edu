@@ -15,6 +15,7 @@ import {
 } from "../../style/AccountComponentCss";
 import Term from "./Term";
 import { useForm } from "react-hook-form";
+import { signUp } from "../../api/authApi";
 
 const MIN_PWD_LENGTH = 8;
 const MAX_NAME_LENGTH = 16;
@@ -85,16 +86,17 @@ export default function SignUp() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isId, setIsId] = useState("");
   const [isPwd, setIsPwd] = useState("");
-  const [isPwdConfirm, setIsPwdConfirm] = useState("");
   const [isName, setIsName] = useState("");
   const [isTele, setIsTele] = useState("");
-  const [isBirt, setIsBirth] = useState("");
+  const [isBirth, setIsBirth] = useState("");
   const [isCheck, setIsCheck] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
+    watch,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -103,11 +105,26 @@ export default function SignUp() {
     reValidateMode: "onBlur",
   });
 
-  const submit = () => {
+  async function submit() {
     try {
-      console.log(isId, isPwd);
-    } catch {}
-  };
+      const dd = await signUp({
+        account: isId,
+        password: isPwd,
+        name: isName,
+        nickname: isName,
+        mobile: "010-1234-5678",
+        birthDate:
+          isBirth.substr(0, 4) +
+          "." +
+          isBirth.substr(5, 2) +
+          "." +
+          isBirth.substr(8, 2),
+      });
+      console.log(dd);
+    } catch (err) {
+      console.log(err.response.status);
+    }
+  }
 
   return (
     <AccountWrapper>
@@ -200,6 +217,11 @@ export default function SignUp() {
               //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
               //   message: "wrong input",
               // },
+              validate: (val) => {
+                if (watch("pwd") !== val) {
+                  return "비밀번호가 서로 다릅니다!";
+                }
+              },
               minLength: {
                 value: 8,
                 message: "8글자 이상 입력해주세요.",
@@ -209,7 +231,7 @@ export default function SignUp() {
                 message: "16글자 이하로 입력해주세요.",
               },
               onChange: (e) => {
-                setIsPwdConfirm(e.target.value);
+                // setIsPwdConfirm(e.target.value);
               },
             })}
             type="password"

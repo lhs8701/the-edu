@@ -1,4 +1,4 @@
-import { getKakaoAuthToken } from "../../api/socialAuthApi";
+import { getKakaoAuthToken } from "../../api/authApi";
 import { useMutation } from "react-query";
 import { Suspense, useEffect } from "react";
 import { useRecoilState } from "recoil";
@@ -24,7 +24,7 @@ export default function KaKaoAuth() {
 
   useEffect(() => {
     try {
-      getKakaoAuthToken({ code }).then((data) => {
+      getKakaoAuthToken(code).then((data) => {
         console.log(data.data);
       });
     } catch {}
