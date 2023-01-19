@@ -34,7 +34,7 @@ public class kakaoAuthService implements SocialAuthService{
         return jwtProvider.generateToken(found.get());
     }
 
-    public Member signup(KakaoProfile kakaoProfile) {
+    private Member signup(KakaoProfile kakaoProfile) {
         Member member = kakaoProfile.toEntity();
         return memberJpaRepository.save(member);
     }

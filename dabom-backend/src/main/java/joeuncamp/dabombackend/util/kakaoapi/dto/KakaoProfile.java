@@ -2,6 +2,8 @@ package joeuncamp.dabombackend.util.kakaoapi.dto;
 
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.LoginType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -15,12 +17,14 @@ public class KakaoProfile {
 
     @Getter
     @ToString
+    @AllArgsConstructor
     public static class KakaoAccount {
         private String email;
         private Profile profile;
 
         @Getter
         @ToString
+        @AllArgsConstructor
         public static class Profile {
             private String nickname;
             private String thumbnail_image_url;
@@ -31,7 +35,7 @@ public class KakaoProfile {
 
     public Member toEntity(){
         return Member.builder()
-                .account(null)
+                .account(this.kakao_account.email)
                 .password(null)
                 .name(null)
                 .nickname(this.kakao_account.profile.nickname)
@@ -42,5 +46,13 @@ public class KakaoProfile {
                 .socialId(String.valueOf(this.id))
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
+    }
+
+    @Builder
+    public KakaoProfile(Long id, String email, String nickname, String thumbnail_image_url, String profile_image_url, boolean is_default_image){
+        KakaoAccount.Profile profile = new KakaoAccount.Profile(nickname, thumbnail_image_url, profile_image_url, is_default_image);
+        KakaoAccount kakaoAccount = new KakaoAccount(email, profile);
+        this.id = id;
+        this.kakao_account = kakaoAccount;
     }
 }
