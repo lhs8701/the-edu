@@ -11,7 +11,7 @@ import Alamofire
 struct LoginSignupService {
     static let shared = LoginSignupService()
     
-    func signup(user: UserDataModel) {
+    func signup(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.signup)"
         print(URL)
         
@@ -37,25 +37,50 @@ struct LoginSignupService {
                 guard let statusCode = dataResponse.response?.statusCode else {return}
 
                 let networkResult = self.judgeStatus(by: statusCode, nil)
-
-                switch networkResult {
-                case .success(let data):
-                    print("signup Success")
-                case .requestErr(let message):
-                    print("requestErr", message)
-                case .pathErr:
-                    print("networkResult pathErr")
-                    print("pathErr")
-                case .serverErr:
-                    print("serverErr")
-                case .networkFail:
-                    print("networkFail")
-                }
+                completion(networkResult)
             case .failure:
-                print("request failure")
+                completion(.pathErr)
             }
         }
     }
+    
+    func login(user: UserDataModel) {
+        let URL = "\(Const.Url.login)"
+        print(URL)
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json"
+        ]
+        
+        let bodyData : Parameters = [
+            "account" : user.account,
+            "password" : user.password
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData { dataResponse in
+            switch dataResponse.result {
+            case .success(let data):
+                do {
+                    let asJSON = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
+                    let grantType = asJSON["grantType"] as! String
+                    let accessToken = asJSON["accessToken"] as! String
+                    let refreshToken = asJSON["refreshToken"] as! String
+                    
+                    print(grantType)
+                    print(accessToken)
+                    print(refreshToken)
+                } catch {
+                    print("JSONSerialization Error")
+                }
+            case .failure(let error):
+                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+                
+            }
+        }
+    }
+    
     
     
     private func judgeStatus(by statusCode: Int, _ data: Data?) -> NetworkResult<Any> {

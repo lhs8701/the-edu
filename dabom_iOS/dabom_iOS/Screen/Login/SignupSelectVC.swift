@@ -36,7 +36,7 @@ class SignupSelectVC: UIViewController {
                     print(error)
                 } else {
                     print("loginWithKakaoTalk() success")
-                    
+
                     let accessToken = oauthToken?.accessToken
                     let refreshToken = oauthToken?.refreshToken
                     print(String(accessToken ?? ""))
@@ -49,7 +49,7 @@ class SignupSelectVC: UIViewController {
                     print(error)
                 } else {
                     print("loginWithKakaoAccount() success")
-                    
+
                     let accessToken = oauthToken?.accessToken
                     let refreshToken = oauthToken?.refreshToken
                     print(String(accessToken ?? ""))
@@ -57,6 +57,20 @@ class SignupSelectVC: UIViewController {
                 }
             }
         }
+        
+        
+//        UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+//            if let error = error {
+//                print(error)
+//            } else {
+//                print("loginWithKakaoAccount() success")
+//
+//                let accessToken = oauthToken?.accessToken
+//                let refreshToken = oauthToken?.refreshToken
+//                print(String(accessToken ?? ""))
+//                print(String(refreshToken ?? ""))
+//            }
+//        }
         
     }
     
