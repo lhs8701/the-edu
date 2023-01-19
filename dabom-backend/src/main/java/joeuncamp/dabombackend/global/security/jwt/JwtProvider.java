@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -55,23 +56,26 @@ public class JwtProvider {
         String authorities = member.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
-        String account = member.getAccount();
         long now = (new Date()).getTime();
         Claims claims = Jwts.claims();
-        claims.setSubject(account);
-        claims.put("account", account);
+        claims.setSubject(member.getAccount());
+        claims.setIssuedAt(new Date());
+        claims.setExpiration(new Date(now + expireTime));
+        claims.setId(UUID.randomUUID().toString());
         claims.put("authorities", authorities);
 
         return Jwts.builder()
+                .setHeaderParam("type","jwt")
                 .setClaims(claims)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(now + expireTime))
                 .signWith(getSigningKey(secretKey), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
+        if (claims == null){
+            throw new BadCredentialsException("토큰 정보가 없습니다.");
+        }
         if (claims.get("authorities") == null) {
             throw new AccessDeniedException("권한이 없습니다.");
         }
