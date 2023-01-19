@@ -53,10 +53,21 @@ public class JwtProvider {
     }
 
     private String createToken(Member member, Long expireTime) {
+        Claims claims = injectValues(member, expireTime);
+
+        return Jwts.builder()
+                .setHeaderParam("type","jwt")
+                .setClaims(claims)
+                .signWith(getSigningKey(secretKey), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    private Claims injectValues(Member member, Long expireTime) {
+        long now = (new Date()).getTime();
         String authorities = member.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
-        long now = (new Date()).getTime();
+
         Claims claims = Jwts.claims();
         claims.setSubject(member.getAccount());
         claims.setIssuedAt(new Date());
@@ -64,11 +75,7 @@ public class JwtProvider {
         claims.setId(UUID.randomUUID().toString());
         claims.put("authorities", authorities);
 
-        return Jwts.builder()
-                .setHeaderParam("type","jwt")
-                .setClaims(claims)
-                .signWith(getSigningKey(secretKey), SignatureAlgorithm.HS256)
-                .compact();
+        return claims;
     }
 
     public Authentication getAuthentication(String token) {
