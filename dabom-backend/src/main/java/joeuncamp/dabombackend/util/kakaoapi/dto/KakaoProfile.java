@@ -8,6 +8,7 @@ import lombok.ToString;
 import java.util.Collections;
 
 @Getter
+@ToString
 public class KakaoProfile {
     private long id;
     private KakaoAccount kakao_account;
@@ -15,13 +16,11 @@ public class KakaoProfile {
     @Getter
     @ToString
     public static class KakaoAccount {
-        private String name;
         private String email;
         private Profile profile;
-        private boolean is_email_valid;
-        private boolean is_email_verified;
 
         @Getter
+        @ToString
         public static class Profile {
             private String nickname;
             private String thumbnail_image_url;
@@ -34,7 +33,7 @@ public class KakaoProfile {
         return Member.builder()
                 .account(null)
                 .password(null)
-                .name(this.kakao_account.name)
+                .name(null)
                 .nickname(this.kakao_account.profile.nickname)
                 .mobile(null)
                 .birthDate(null)

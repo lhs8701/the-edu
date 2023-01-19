@@ -13,16 +13,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class KakaoService {
 
-    @Value("${auth.kakao.rest-key}")
-    private static String REST_API_KEY;
-
-    @Value("${auth.kakao.redirect-uri}")
-    private static String REDIRECT_URI;
-
-    @Value("${auth.kakao.api.profile}")
+    @Value("${api.kakao.profile}")
     private static String PROFILE_API;
 
-    @Value("${auth.kakao.api.logout}")
+    @Value("${api.kakao.logout}")
     private static String LOGOUT_API;
 
     public KakaoProfile getKakaoProfile(String kakaoToken) {

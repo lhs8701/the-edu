@@ -44,3 +44,4 @@ public class EnrollService {
         return enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
     }
 }
+

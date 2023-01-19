@@ -40,17 +40,19 @@ public class AuthService {
 
     public TokenForm login(LoginRequestDto loginRequestDto) {
         Member member = memberJpaRepository.findByAccount(loginRequestDto.getAccount()).orElseThrow(CResourceNotFoundException::new);
-
         if (!passwordEncoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new CLoginFailedException();
         }
         return jwtProvider.generateToken(member);
     }
 
-    public void logout(){
+    public void logout(String accessToken) {
+        /* +어세스 토큰 만료 로직 */
     }
 
-    public void withdraw(){
+    public void withdraw(String accessToken) {
+        Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
+        memberJpaRepository.deleteById(member.getId());
     }
 
 
