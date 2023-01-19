@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { CATE_VALUE, PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
+import { getLoginState, LoginState } from "../atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 const HeadWrapper = styled.header`
   width: 100%;
   height: 65px;
@@ -143,6 +145,20 @@ const LoginLink = styled(NavLink)`
   font-size: 18px;
 `;
 
+const LogoutBtn = styled.button`
+  border: none;
+  display: flex;
+  align-items: center;
+  font-weight: var(--weight-middle);
+  color: ${(props) =>
+    props.mouse ? "var(--color-primary)" : "var(--color-text)"};
+  &:hover {
+    color: var(--color-primary);
+  }
+  font-size: 18px;
+  background-color: transparent;
+`;
+
 const CateLink = styled(Link)`
   font-size: 18px;
   text-decoration: none;
@@ -159,6 +175,9 @@ const CateLink = styled(Link)`
 
 export default function Header() {
   const [isCategoryOn, setCategoryOn] = useState("false");
+  const loginState = useRecoilValue(getLoginState);
+  const setIsLoggedIn = useSetRecoilState(LoginState);
+
   return (
     <HeadWrapper>
       <TitleBox
@@ -248,20 +267,36 @@ export default function Header() {
       <SearchBox>
         <SearchInput placeholder="검색어를 입력해주세요." />
       </SearchBox>
-      <LoginTab>
-        <LoginLink to={PROCESS_ACCOUNT_URL.LOGIN} preventScrollReset={true}>
-          로그인
-        </LoginLink>
-        <UserTab>
-          <UserLink>크리에이터</UserLink>
-          <UserLink
-            to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}
-            preventScrollReset={true}
+      {loginState ? (
+        <LoginTab>
+          <LogoutBtn
+            onClick={() => {
+              setIsLoggedIn({
+                state: false,
+                accessToken: "",
+                refreshToken: "",
+              });
+            }}
           >
-            마이페이지
-          </UserLink>
-        </UserTab>
-      </LoginTab>
+            로그아웃
+          </LogoutBtn>
+          <UserTab>
+            <UserLink>크리에이터</UserLink>
+            <UserLink
+              to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}
+              preventScrollReset={true}
+            >
+              마이페이지
+            </UserLink>
+          </UserTab>
+        </LoginTab>
+      ) : (
+        <LoginTab>
+          <LoginLink to={PROCESS_ACCOUNT_URL.LOGIN} preventScrollReset={true}>
+            로그인
+          </LoginLink>
+        </LoginTab>
+      )}
     </HeadWrapper>
   );
 }

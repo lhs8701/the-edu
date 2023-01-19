@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { useQueries, useQuery } from "react-query";
 import { useParams } from "react-router";
 import styled from "styled-components";

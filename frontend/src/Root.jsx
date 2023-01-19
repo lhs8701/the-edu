@@ -48,7 +48,7 @@ export default function Root() {
       </Wrapper>
       <Footer />
       <UpBtn onClick={goUp}>Up</UpBtn>
-      {/* <ScrollRestoration /> */}
+      <ScrollRestoration />
     </span>
   );
 }

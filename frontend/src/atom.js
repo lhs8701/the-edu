@@ -1,19 +1,20 @@
 import { atom, selector } from "recoil";
+import { login } from "./api/authApi";
 
 export const LoginState = atom({
   key: "LoginState",
-  default: "",
+  default: {
+    state: false,
+    accessToken: "",
+    refreshToken: "",
+  },
   storage: sessionStorage,
 });
 
-export const selectLoginState = selector({
-  key: "selectToDos",
+export const getLoginState = selector({
+  key: "getLoginState",
   get: ({ get }) => {
-    // const originalToDos = get(toDos);
-
-    return;
-  },
-  set: ({ set }, newToken) => {
-    // set(toDos, newToken);
+    const data = get(LoginState);
+    return data.state;
   },
 });

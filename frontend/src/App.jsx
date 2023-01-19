@@ -1,9 +1,29 @@
-import "./App.css";
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { RecoilRoot } from "recoil";
+import { QueryClient, QueryClientProvider } from "react-query";
+import GlobalStyle from "./style/GlobalStyle";
 import { RouterProvider } from "react-router";
-import Router from "./Router.jsx";
+import router from "./Router";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      useErrorBoundary: true,
+    },
+  },
+});
 function App() {
-  // return <RouterProvider router={router} />;
-  return <Router />;
+  return (
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
+      </QueryClientProvider>
+    </RecoilRoot>
+  );
 }
 
 export default App;
