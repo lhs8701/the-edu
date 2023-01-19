@@ -10,9 +10,6 @@ import java.util.Arrays;
 public enum test {
     BACK_END("백엔드"),
     FRONT_END("프론트엔드"),
-    TOEFL("토플"),
-    STOCK("주식"),
-    FUND("펀드"),
     EMPTY("없음");
 
 
