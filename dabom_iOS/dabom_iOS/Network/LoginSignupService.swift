@@ -12,7 +12,7 @@ struct LoginSignupService {
     static let shared = LoginSignupService()
     
     // MARK: - email Signup
-    func signup(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
+    func emailSignup(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.signup)"
         print(URL)
         
@@ -46,7 +46,7 @@ struct LoginSignupService {
     }
     
     // MARK: - email Login
-    func login(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
+    func emailLogin(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.login)"
         print(URL)
         

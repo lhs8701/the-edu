@@ -84,7 +84,7 @@ class SignupVC: UIViewController {
         User.mobile = mobileTextField.text!
         User.birthDate = birthdayTextField.text!
         
-        LoginSignupService.shared.signup(user: User) { response in
+        LoginSignupService.shared.emailSignup(user: User) { response in
             switch (response) {
             case .success:
                 print("signup Success")

@@ -49,7 +49,7 @@ class LoginVC: UIViewController {
         // 키보드 내리기
         view.endEditing(true)
         
-        LoginSignupService.shared.login(user: User) { response in
+        LoginSignupService.shared.emailLogin(user: User) { response in
             switch (response) {
             case .success:
                 print("login Success")
