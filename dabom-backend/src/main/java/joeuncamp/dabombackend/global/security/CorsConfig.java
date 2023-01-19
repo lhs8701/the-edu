@@ -11,7 +11,6 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
 
-        //test
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*");
