@@ -30,10 +30,6 @@ export default function KaKaoAuth() {
     } catch {}
   }, [code]);
 
-  useEffect(() => {
-    kakao.mutate({ code });
-  }, [code]);
-  console.log(kakao);
   return (
     <Suspense fallback={<div>loading</div>}>
       <div>login..</div>
