@@ -20,6 +20,11 @@ spring:
           auto: update
     show-sql: true
 
+log:
+  config:
+    path: /logs/local
+    filename: local_log
+
 #springdoc:
 #  api-docs:
 #    enabled: true
