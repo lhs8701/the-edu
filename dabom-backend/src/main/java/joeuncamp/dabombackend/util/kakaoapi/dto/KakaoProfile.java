@@ -2,21 +2,20 @@ package joeuncamp.dabombackend.util.kakaoapi.dto;
 
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.LoginType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Collections;
 
 @Getter
 @ToString
+@NoArgsConstructor
 public class KakaoProfile {
     private long id;
     private KakaoAccount kakao_account;
 
     @Getter
     @ToString
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class KakaoAccount {
         private String email;
@@ -24,6 +23,7 @@ public class KakaoProfile {
 
         @Getter
         @ToString
+        @NoArgsConstructor
         @AllArgsConstructor
         public static class Profile {
             private String nickname;

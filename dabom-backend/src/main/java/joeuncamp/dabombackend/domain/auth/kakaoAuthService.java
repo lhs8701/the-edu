@@ -24,12 +24,12 @@ public class kakaoAuthService implements SocialAuthService {
      * 카카오 토큰으로 로그인합니다.
      * 카카오 계정의 아이디와 '카카오'로그인 타입을 파라미터로 DB에서 회원을 조회한 후, 없으면 회원을 생성합니다.
      *
-     * @param kakaoToken 카카오에서 발급한 토큰
+     * @param requestDto 카카오에서 발급한 토큰
      * @return 어세스토큰, 리프레시 토큰
      */
     @Override
-    public TokenForm login(String kakaoToken) {
-        KakaoProfile profile = kakaoService.getKakaoProfile(kakaoToken);
+    public TokenForm login(SocialTokenRequestDto requestDto) {
+        KakaoProfile profile = kakaoService.getKakaoProfile(requestDto.getSocialToken());
         String kakaoId = String.valueOf(profile.getId());
         Optional<Member> found = memberJpaRepository.findByLoginTypeAndSocialId(LoginType.KAKAO, kakaoId);
         if (found.isEmpty()) {
@@ -48,12 +48,12 @@ public class kakaoAuthService implements SocialAuthService {
      * 카카오 토큰으로 로그아웃합니다.
      * 카카오 로그아웃 API를 호출한 후, 어세스토큰과 리프레시토큰을 만료시킵니다.
      *
-     * @param kakaoToken  카카오에서 발급한 토큰
+     * @param requestDto 카카오에서 발급한 토큰
      * @param accessToken 어세스토큰
      */
     @Override
-    public void logout(String kakaoToken, String accessToken) {
-        kakaoService.logout(kakaoToken);
+    public void logout(SocialTokenRequestDto requestDto,  String accessToken) {
+        kakaoService.logout(requestDto.getSocialToken());
         /* +어세스 토큰 만료 로직 */
     }
 
@@ -62,12 +62,12 @@ public class kakaoAuthService implements SocialAuthService {
      * 카카오 Unlink API를 호출한 후, 어세스토큰과 리프레시토큰을 만료시킵니다.
      * DB에서 회원을 삭제합니다.
      *
-     * @param kakaoToken  카카오에서 발급한 토큰
+     * @param requestDto 카카오에서 발급한 토큰
      * @param accessToken 어세스토큰
      */
     @Override
-    public void withdraw(String kakaoToken, String accessToken) {
-        kakaoService.unlink(kakaoToken);
+    public void withdraw(SocialTokenRequestDto requestDto, String accessToken) {
+        kakaoService.unlink(requestDto.socialToken);
         /* +어세스 토큰 만료 로직 */
         Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
         memberJpaRepository.deleteById(member.getId());
