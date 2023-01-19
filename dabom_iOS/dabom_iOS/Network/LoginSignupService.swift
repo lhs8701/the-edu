@@ -11,6 +11,7 @@ import Alamofire
 struct LoginSignupService {
     static let shared = LoginSignupService()
     
+    // MARK: - Signup
     func signup(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.signup)"
         print(URL)
@@ -44,6 +45,7 @@ struct LoginSignupService {
         }
     }
     
+    // MARK: - Login
     func login(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.login)"
         print(URL)
@@ -61,39 +63,23 @@ struct LoginSignupService {
         
         request.responseData { dataResponse in
             switch dataResponse.result {
-            case .success(let data):
-//                do {
-//                    let asJSON = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
-//                    let grantType = asJSON["grantType"] as! String
-//                    let accessToken = asJSON["accessToken"] as! String
-//                    let refreshToken = asJSON["refreshToken"] as! String
-//
-//                    print(grantType)
-//                    print(accessToken)
-//                    print(refreshToken)
-//                } catch {
-//                    print("JSONSerialization Error")
-//                }
+            case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
                 guard let value = dataResponse.value else {return}
                 
                 let networkResult = self.judgeStatus(by: statusCode, value)
                 completion(networkResult)
             case .failure:
-//                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
                 completion(.pathErr)
             }
         }
     }
     
     
-    
+    // MARK: - HTTP StatusCode 분기
     private func judgeStatus(by statusCode: Int, _ data: Data?) -> NetworkResult<Any> {
         if let data = data {
-//            switch statusCode {
-//            case 200:
-//
-//            }
+            // 데이터가 있을 때 -> 로그인 시
             switch statusCode {
             case 200:
                 return setUserGrant(data: data)
@@ -106,6 +92,7 @@ struct LoginSignupService {
                 return .networkFail
             }
         } else {
+            // 데이터가 없을 때 -> 회원가입 시
             switch statusCode {
             case 200:
                 return .success(true)
@@ -122,9 +109,9 @@ struct LoginSignupService {
                 return .networkFail
             }
         }
-        return .networkFail
     }
     
+    // MARK: - 로그인 시에 회원 권한, 토큰 Setting
     private func setUserGrant(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
