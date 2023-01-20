@@ -35,6 +35,8 @@ public class JwtProvider {
     private final static long REFRESH_TOKEN_EXPIRATION = 2000L * 60 * 60 * 24 * 365;
     private final UserDetailsService userDetailsService;
 
+    private final JwtValidator jwtValidator;
+
     private Key getSigningKey(String secretKey) {
         byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
@@ -80,9 +82,6 @@ public class JwtProvider {
 
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
-        if (claims == null){
-            throw new BadCredentialsException("토큰 정보가 없습니다.");
-        }
         if (claims.get("authorities") == null) {
             throw new AccessDeniedException("권한이 없습니다.");
         }
@@ -91,37 +90,11 @@ public class JwtProvider {
     }
 
     private Claims getClaims(String token) {
-        try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(getSigningKey(secretKey))
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (SecurityException e) {
-            log.error("잘못된 시그니처");
-            throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
-        } catch (MalformedJwtException e) {
-            log.error("유효하지 않은 JWT 토큰");
-            throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
-        } catch (ExpiredJwtException e) {
-            log.error("Jwt 만료");
-            throw new JwtException(String.valueOf(ErrorCode.JWT_EXPIRED.getCode()));
-        } catch (UnsupportedJwtException e) {
-            log.error("지원하지 않는 토큰 형식");
-        } catch (IllegalArgumentException e) {
-            log.error("JWT token compact of handler are invalid.");
+        Claims claims = jwtValidator.validateAccessToken(token);
+        if (claims == null){
+            log.error("null claims");
             throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
         }
-        return null;
-    }
-
-    public boolean isTokenExpired(String token) {
-        Claims claims = getClaims(token);
-        if (claims == null) {
-            log.error("토큰 정보가 없습니다.");
-            throw new BadCredentialsException("토큰 정보가 없습니다.");
-        }
-
-        return claims.getExpiration().before(new Date());
+        return claims;
     }
 }

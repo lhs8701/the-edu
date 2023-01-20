@@ -36,11 +36,4 @@ public class BasicAuthController {
         TokenForm tokenForm = basicAuthService.login(loginRequestDto);
         return new ResponseEntity<>(tokenForm, HttpStatus.OK);
     }
-
-    @PostMapping("/test")
-    @PreAuthorize("permitAll()")
-    public ResponseEntity<Void> test(){
-        basicAuthService.AuthenticationTest();
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }

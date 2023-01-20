@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class RefreshTokenRequestDto {
+public class UnlinkRequestDto {
     @Schema(description = "리프레시 토큰", example = "abcedfg12345678")
     String refreshToken;
 }

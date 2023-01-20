@@ -1,7 +1,7 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
 import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.RefreshTokenRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.UnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -13,8 +13,6 @@ import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +71,7 @@ public class BasicAuthService {
      * @param accessToken 어세스토큰
      * @param requestDto  리프레시토큰
      */
-    public void logout(String accessToken, RefreshTokenRequestDto requestDto) {
+    public void logout(String accessToken, UnlinkRequestDto requestDto) {
         tokenRedisRepository.saveBlockedToken(accessToken);
         tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
     }
@@ -85,9 +83,13 @@ public class BasicAuthService {
      * @param accessToken 어세스토큰
      * @param requestDto  리프레시토큰
      */
-    public void withdraw(String accessToken, RefreshTokenRequestDto requestDto) {
+    public void withdraw(String accessToken, UnlinkRequestDto requestDto) {
         Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
         memberJpaRepository.deleteById(member.getId());
         logout(accessToken, requestDto);
+    }
+
+    public void reissue(String accessToken, UnlinkRequestDto requestDto){
+
     }
 }
