@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.repository;
 
+import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.JwtExpiration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -36,16 +37,14 @@ public class TokenRedisRepository {
      * Block된 어세스토큰을 저장합니다.
      * 'PREFIX:[어세스토큰]'을 key로 사용합니다.
      * "empty"문자열을 value로 설정합니다.
-     * 어세스토큰의 남은 시간동안 저장됩니다.
      *
      * @param accessToken 어세스토큰
-     * @param remainTime  남은 시간
      */
-    public void saveBlockedToken(String accessToken, Long remainTime) {
+    public void saveBlockedToken(String accessToken) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         String key = PREFIX_BLOCKED + accessToken;
         valueOperations.set(key, "empty");
-        redisTemplate.expire(key, remainTime, TimeUnit.SECONDS);
+        redisTemplate.expire(key, JwtExpiration.ACCESS_TOKEN.getTime(), TimeUnit.SECONDS);
     }
 
     /**

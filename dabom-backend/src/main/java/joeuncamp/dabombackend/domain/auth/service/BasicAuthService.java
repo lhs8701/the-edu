@@ -1,7 +1,9 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
 import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.RefreshTokenRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
+import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
@@ -26,6 +28,14 @@ public class BasicAuthService {
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
+    private final TokenRedisRepository tokenRedisRepository;
+
+    /**
+     * 회원가입합니다.
+     * DB에 회원을 저장합니다.
+     *
+     * @param signUpRequestDto 개인정보
+     */
     public void signup(SignupRequestDto signUpRequestDto) {
         if (memberJpaRepository.findByAccount(signUpRequestDto.getAccount()).isPresent()) {
             throw new CMemberExistException();
@@ -33,35 +43,51 @@ public class BasicAuthService {
         String encodedPassword = passwordEncoder.encode(signUpRequestDto.getPassword());
         createAndSaveMember(signUpRequestDto, encodedPassword);
     }
+
     private void createAndSaveMember(SignupRequestDto signUpRequestDto, String encodedPassword) {
         Member member = signUpRequestDto.toEntity(encodedPassword);
         memberJpaRepository.save(member);
     }
 
+    /**
+     * 로그인합니다.
+     * 어세스토큰과 리프레시토큰을 반환합니다.
+     *
+     * @param loginRequestDto 계정, 비밀번호
+     * @return 어세스토큰, 리프레시토큰
+     */
     public TokenForm login(LoginRequestDto loginRequestDto) {
         Member member = memberJpaRepository.findByAccount(loginRequestDto.getAccount()).orElseThrow(CResourceNotFoundException::new);
         if (!passwordEncoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new CLoginFailedException();
         }
-        return jwtProvider.generateToken(member);
+        TokenForm tokenForm = jwtProvider.generateToken(member);
+        tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), member.getAccount());
+        return tokenForm;
     }
 
-    public void logout(String accessToken) {
-        /* +어세스 토큰 만료 로직 */
+    /**
+     * 로그아웃합니다.
+     * 어세스토큰을 Block처리하고, 리프레시토큰을 레디스에서 제거합니다.
+     *
+     * @param accessToken 어세스토큰
+     * @param requestDto  리프레시토큰
+     */
+    public void logout(String accessToken, RefreshTokenRequestDto requestDto) {
+        tokenRedisRepository.saveBlockedToken(accessToken);
+        tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
     }
 
-    public void withdraw(String accessToken) {
+    /**
+     * 회원을 탈퇴합니다.
+     * DB에서 회원을 삭제하고, 로그아웃 로직을 실행합니다.
+     *
+     * @param accessToken 어세스토큰
+     * @param requestDto  리프레시토큰
+     */
+    public void withdraw(String accessToken, RefreshTokenRequestDto requestDto) {
         Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
         memberJpaRepository.deleteById(member.getId());
-    }
-
-
-    public void AuthenticationTest() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info("{}", authentication.getPrincipal());
-        log.info("{}", authentication.getCredentials());
-        log.info("{}", authentication.isAuthenticated());
-
-        log.info("");
+        logout(accessToken, requestDto);
     }
 }
