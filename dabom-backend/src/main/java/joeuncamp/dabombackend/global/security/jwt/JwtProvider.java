@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -38,7 +40,6 @@ public class JwtProvider {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-
     public TokenForm generateToken(Member member) {
 
         String accessToken = createToken(member, ACCESS_TOKEN_EXPIRATION);
@@ -52,26 +53,36 @@ public class JwtProvider {
     }
 
     private String createToken(Member member, Long expireTime) {
-        String authorities = member.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
-        String account = member.getAccount();
-        long now = (new Date()).getTime();
-        Claims claims = Jwts.claims();
-        claims.setSubject(account);
-        claims.put("account", account);
-        claims.put("authorities", authorities);
+        Claims claims = injectValues(member, expireTime);
 
         return Jwts.builder()
+                .setHeaderParam("type","jwt")
                 .setClaims(claims)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(now + expireTime))
                 .signWith(getSigningKey(secretKey), SignatureAlgorithm.HS256)
                 .compact();
     }
 
+    private Claims injectValues(Member member, Long expireTime) {
+        long now = (new Date()).getTime();
+        String authorities = member.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        Claims claims = Jwts.claims();
+        claims.setSubject(member.getAccount());
+        claims.setIssuedAt(new Date());
+        claims.setExpiration(new Date(now + expireTime));
+        claims.setId(UUID.randomUUID().toString());
+        claims.put("authorities", authorities);
+
+        return claims;
+    }
+
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
+        if (claims == null){
+            throw new BadCredentialsException("토큰 정보가 없습니다.");
+        }
         if (claims.get("authorities") == null) {
             throw new AccessDeniedException("권한이 없습니다.");
         }
@@ -105,12 +116,12 @@ public class JwtProvider {
     }
 
     public boolean isTokenExpired(String token) {
-        Date expiration = Jwts.parserBuilder()
-                .setSigningKey(getSigningKey(secretKey))
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();
-        return expiration.before(new Date());
+        Claims claims = getClaims(token);
+        if (claims == null) {
+            log.error("토큰 정보가 없습니다.");
+            throw new BadCredentialsException("토큰 정보가 없습니다.");
+        }
+
+        return claims.getExpiration().before(new Date());
     }
 }

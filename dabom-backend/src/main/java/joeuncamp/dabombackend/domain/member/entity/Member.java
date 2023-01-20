@@ -45,7 +45,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     LoginType loginType;
 
-    String loginToken;
+    String socialId;
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     CreatorProfile creatorProfile;
@@ -62,18 +62,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Post> postList = new ArrayList<>();
 
-    /* @ElementCollection
-        @OneToMany 처럼 엔티티를 컬렉션으로 사용하는 것이 아닌, Integer, String, 임베디드 타입 같은 값 타입을 컬렉션으로 사용
-        컬렉션과 같은 형태의 데이터를 컬럼에 저장할 수 없기 때문에, 별도의 테이블을 생성하여 컬렉션을 관리
-     */
-    /* @Builder.Default
-    특정 속성에 기본값을 지정할 때 사용
-    컬렉션을 생성자로 생성할 경우, null로 초기화 되지 않지만,
-    builder 패턴으로 생성하면서 해당 컬렉션을 초기화하지 않으면, null로 초기화 된다.
-    이 때, 컬렉션 필드에 @Builder.Default 어노테이션을 붙여주면 builder 패턴으로 생성시에도 컬렉션으로 초기화된다.
-    */
     @Schema(description = "권한", example = "일반")
-    @ElementCollection(fetch = FetchType.EAGER) //LAZY -> 오류
+    @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 

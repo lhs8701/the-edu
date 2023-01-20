@@ -1,13 +1,13 @@
-
 spring:
-  datasource:  # mysql 사용
+  datasource:
     url: jdbc:mysql://localhost:3306/dabom_dev?validationQuery="select 1"&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: root
-    password: root
+    username: dabom
+    password: Camp!@&webmaster!
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-test-query: select 1 from dual
-  jpa:  # jpa 사용시 추가
+
+  jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
@@ -19,10 +19,31 @@ spring:
         hbm2ddl:
           auto: update
     show-sql: true
+
   data:
     redis:
       host: localhost
       port: 6379
+
+logging:
+  pattern:
+    console: "%d{yy-MM-dd HH:mm:ss} %clr(%-5level) [%thread] %logger[%method:%line] - %msg%n"
+    file: "%d{yy-MM-dd HH:mm:ss} %-5level [%thread] %logger[%method:%line] - %msg%n"
+  logback:
+    rollingpolicy:
+      file-name-pattern: "C:/Dabom/logs/dev/%d{yy-MM-dd}/log_%i.zip"
+      max-history: 30
+      max-file-size: 20KB
+      total-size-cap: 100MB
+  level:
+    root: info
+    org.springframework: info
+    org.hibernate:
+      SQL: debug
+      type: trace
+  file:
+    name: "C:/Dabom/logs/dev/current.log"
+
 springdoc:
   api-docs:
     enabled: true

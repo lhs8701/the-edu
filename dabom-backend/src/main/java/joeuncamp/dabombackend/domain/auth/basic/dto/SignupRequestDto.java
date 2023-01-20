@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
+import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,7 +55,8 @@ public class SignupRequestDto {
                 .mobile(this.mobile)
                 .birthDate(this.birthDate)
                 .email(this.account)
-                .loginToken("normal")
+                .loginType(LoginType.BASIC)
+                .socialId(null)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
     }

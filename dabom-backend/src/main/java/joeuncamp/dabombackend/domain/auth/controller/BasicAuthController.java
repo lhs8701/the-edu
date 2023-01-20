@@ -1,7 +1,8 @@
-package joeuncamp.dabombackend.domain.auth.basic;
+package joeuncamp.dabombackend.domain.auth.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import joeuncamp.dabombackend.domain.auth.dto.BasicAuthService;
 import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
@@ -18,28 +19,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth/basic")
-public class AuthController {
+public class BasicAuthController {
 
-    private final AuthService authService;
+    private final BasicAuthService basicAuthService;
 
     @PostMapping("signup")
     @PreAuthorize("permitAll()")
     public ResponseEntity<Void> signup(@RequestBody @Valid SignupRequestDto signUpRequestDto) {
-        authService.signup(signUpRequestDto);
+        basicAuthService.signup(signUpRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/login")
     @PreAuthorize("permitAll()")
     public ResponseEntity<TokenForm> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
-        TokenForm tokenForm = authService.login(loginRequestDto);
+        TokenForm tokenForm = basicAuthService.login(loginRequestDto);
         return new ResponseEntity<>(tokenForm, HttpStatus.OK);
     }
 
     @PostMapping("/test")
     @PreAuthorize("permitAll()")
     public ResponseEntity<Void> test(){
-        authService.AuthenticationTest();
+        basicAuthService.AuthenticationTest();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
