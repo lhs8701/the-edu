@@ -77,7 +77,7 @@ public class BasicAuthService {
      * @param accessToken 어세스토큰
      * @param requestDto  리프레시토큰
      */
-    public void logout(String accessToken, UnlinkRequestDto requestDto) {
+    public void logout(UnlinkRequestDto requestDto, String accessToken) {
         tokenRedisRepository.saveBlockedToken(accessToken);
         tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
     }
@@ -89,10 +89,10 @@ public class BasicAuthService {
      * @param accessToken 어세스토큰
      * @param requestDto  리프레시토큰
      */
-    public void withdraw(String accessToken, UnlinkRequestDto requestDto) {
+    public void withdraw(UnlinkRequestDto requestDto, String accessToken) {
         Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
         memberJpaRepository.deleteById(member.getId());
-        logout(accessToken, requestDto);
+        logout(requestDto, accessToken);
     }
 
 
