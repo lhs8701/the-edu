@@ -96,7 +96,7 @@ public class BasicAuthService {
     }
 
 
-    public TokenForm reissue(String accessToken, UnlinkRequestDto requestDto){
+    public TokenForm reissue(UnlinkRequestDto requestDto, String accessToken){
         isReissueAvailable(accessToken, requestDto.getRefreshToken());
         Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
         TokenForm tokenForm = jwtProvider.generateToken(member);

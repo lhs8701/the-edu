@@ -26,14 +26,15 @@ public class BasicAuthController {
 
     private final BasicAuthService basicAuthService;
 
-    @Operation(summary="이메일로 회원가입합니다.", description="")
+    @Operation(summary = "이메일로 회원가입합니다.", description = "")
     @PostMapping("/auth/basic/signup")
     @PreAuthorize("permitAll()")
     public ResponseEntity<Void> signup(@RequestBody @Valid SignupRequestDto requestDto) {
         basicAuthService.signup(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @Operation(summary="이메일로 로그인합니다.", description="")
+
+    @Operation(summary = "이메일로 로그인합니다.", description = "")
     @PostMapping("/auth/basic/login")
     @PreAuthorize("permitAll()")
     public ResponseEntity<TokenForm> login(@RequestBody @Valid LoginRequestDto requestDto) {
@@ -42,21 +43,30 @@ public class BasicAuthController {
     }
 
 
-    @Operation(summary="로그아웃합니다.", description="")
-    @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @Operation(summary = "로그아웃합니다.", description = "")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/basic/logout")
-    public ResponseEntity<?> logout(@RequestBody UnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken){
+    public ResponseEntity<?> logout(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken) {
         basicAuthService.logout(requestDto, accessToken);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary="회원 탈퇴합니다.", description="")
-    @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @Operation(summary = "회원 탈퇴합니다.", description = "")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/basic/withdraw")
-    public ResponseEntity<?> withdraw(@RequestBody UnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken){
+    public ResponseEntity<?> withdraw(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken) {
         basicAuthService.withdraw(requestDto, accessToken);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "어세스토큰과 리프레시토큰을 재발급합니다.", description = "만료된 어세스토큰으로만 리이슈를 호출할 수 있습니다.<br>" +
+            "리프레시토큰도 만료된 경우, 리이슈에 실패합니다.")
+    @PostMapping("/auth/reissue")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<TokenForm> reissue(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken) {
+        TokenForm responseDto = basicAuthService.reissue(requestDto, accessToken);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
