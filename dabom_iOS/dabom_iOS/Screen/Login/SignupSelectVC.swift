@@ -38,9 +38,9 @@ class SignupSelectVC: UIViewController {
                     print(error)
                 } else {
                     print("loginWithKakaoTalk() success")
-
+                    
                     let accessToken = String(oauthToken?.accessToken ?? "")
-//                    let refreshToken = oauthToken?.refreshToken
+                    //                    let refreshToken = oauthToken?.refreshToken
                     
                     LoginSignupService.shared.kakaoLogin(accessToken: accessToken) { response in
                         switch (response) {
