@@ -22,16 +22,17 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (JwtException e) {
-            setErrorResponse(request, response, e);
+            setErrorResponse(response, e);
         }
     }
-    public void setErrorResponse(HttpServletRequest request, HttpServletResponse response, Throwable e) throws IOException {
+    public void setErrorResponse(HttpServletResponse response, Throwable e) throws IOException {
         final Map<String, Object> body = new HashMap<>();
         final ObjectMapper mapper = new ObjectMapper();
         ErrorCode errorCode = ErrorCode.findByName(e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        body.put("name", errorCode.name());
+        body.put("status", errorCode.getStatusCode().value());
         body.put("code", errorCode.getCode());
+        body.put("name", errorCode.name());
         body.put("message", errorCode.getMessage());
         mapper.writeValue(response.getOutputStream(), body);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

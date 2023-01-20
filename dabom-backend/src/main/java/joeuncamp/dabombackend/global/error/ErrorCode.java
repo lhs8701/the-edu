@@ -30,7 +30,7 @@ public enum ErrorCode {
 
     JWT_INVALID(-7002, "유효하지 않은 토큰 형식입니다.", HttpStatus.UNAUTHORIZED),
     JWT_EXPIRED(-7003, "토큰이 만료되었습니다.", HttpStatus.UNAUTHORIZED),
-    JWT_BLOCKED(-7004, "사용이 중지된 토큰입니다.", HttpStatus.BAD_REQUEST),
+    JWT_BLOCKED(-7004, "사용이 중지된 토큰입니다.", HttpStatus.UNAUTHORIZED),
 
     //8000 ~ : 클라이언트 에러
     ILLEGAL_ARGUMENT_ERROR(-8000, "잘못된 파라미터입니다.", HttpStatus.BAD_REQUEST),

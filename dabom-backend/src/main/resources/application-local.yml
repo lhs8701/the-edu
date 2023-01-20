@@ -26,7 +26,7 @@ spring:
 springdoc:
   api-docs:
     enabled: true
-
   swagger-ui:
     display-request-duration: true  # try it out 을 했을 때 request duration 을 추가로 찍어줌
+    tags-sorter: alpha # @Tag를 알파벳 순으로 정렬
 

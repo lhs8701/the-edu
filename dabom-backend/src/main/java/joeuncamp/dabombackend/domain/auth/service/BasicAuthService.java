@@ -97,7 +97,14 @@ public class BasicAuthService {
     }
 
 
-    public TokenForm reissue(ReissueRequestDto requestDto){
+    /**
+     * 어세스토큰과 리프레시토큰을 재발급합니다.
+     * 리프레시토큰도 만료되면 리이슈에 실패합니다.
+     *
+     * @param requestDto 어세스토큰, 리프레시토큰
+     * @return 재발급한 어세스토큰, 리프레시토큰
+     */
+    public TokenForm reissue(ReissueRequestDto requestDto) {
         isReissueAvailable(requestDto.getAccessToken(), requestDto.getRefreshToken());
         Member member = (Member) jwtProvider.getAuthentication(requestDto.getRefreshToken()).getPrincipal();
         TokenForm tokenForm = jwtProvider.generateToken(member);
@@ -110,7 +117,7 @@ public class BasicAuthService {
         String subject = jwtValidator.validateAccessTokenForReissue(accessToken).getSubject();
         jwtValidator.validateRefreshTokenForReissue(refreshToken);
         String account = tokenRedisRepository.findByRefreshToken(refreshToken).orElseThrow(CReissueFailedException::new);
-        if (!subject.equals(account)){
+        if (!subject.equals(account)) {
             throw new CReissueFailedException();
         }
     }
