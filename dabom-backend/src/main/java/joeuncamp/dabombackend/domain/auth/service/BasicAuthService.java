@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.auth.service;
 
 import io.jsonwebtoken.Claims;
 import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.ReissueRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.UnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
@@ -96,9 +97,9 @@ public class BasicAuthService {
     }
 
 
-    public TokenForm reissue(UnlinkRequestDto requestDto, String accessToken){
-        isReissueAvailable(accessToken, requestDto.getRefreshToken());
-        Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
+    public TokenForm reissue(ReissueRequestDto requestDto){
+        isReissueAvailable(requestDto.getAccessToken(), requestDto.getRefreshToken());
+        Member member = (Member) jwtProvider.getAuthentication(requestDto.getRefreshToken()).getPrincipal();
         TokenForm tokenForm = jwtProvider.generateToken(member);
         tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), member.getAccount());
         tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import joeuncamp.dabombackend.domain.auth.dto.ReissueRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.UnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.service.BasicAuthService;
 import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
@@ -65,8 +66,8 @@ public class BasicAuthController {
             "리프레시토큰도 만료된 경우, 리이슈에 실패합니다.")
     @PostMapping("/auth/reissue")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<TokenForm> reissue(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken) {
-        TokenForm responseDto = basicAuthService.reissue(requestDto, accessToken);
+    public ResponseEntity<TokenForm> reissue(@RequestBody @Valid ReissueRequestDto requestDto) {
+        TokenForm responseDto = basicAuthService.reissue(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

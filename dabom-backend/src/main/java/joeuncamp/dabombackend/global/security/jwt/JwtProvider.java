@@ -4,6 +4,7 @@ package joeuncamp.dabombackend.global.security.jwt;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import joeuncamp.dabombackend.domain.member.entity.Member;
+import joeuncamp.dabombackend.global.constant.JwtExpiration;
 import joeuncamp.dabombackend.global.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +31,6 @@ public class JwtProvider {
 
     @Value("${spring.jwt.secret}")
     private String secretKey;
-
-    private final static long ACCESS_TOKEN_EXPIRATION = 1000L * 60 * 60 * 24 * 365;
-    private final static long REFRESH_TOKEN_EXPIRATION = 2000L * 60 * 60 * 24 * 365;
     private final UserDetailsService userDetailsService;
 
     private final JwtValidator jwtValidator;
@@ -44,8 +42,8 @@ public class JwtProvider {
 
     public TokenForm generateToken(Member member) {
 
-        String accessToken = createToken(member, ACCESS_TOKEN_EXPIRATION);
-        String refreshToken = createToken(member, REFRESH_TOKEN_EXPIRATION);
+        String accessToken = createToken(member, 1000 * JwtExpiration.ACCESS_TOKEN.getTime());
+        String refreshToken = createToken(member, 1000 * JwtExpiration.REFRESH_TOKEN.getTime());
 
         return TokenForm.builder()
                 .grantType("Bearer")
@@ -58,7 +56,7 @@ public class JwtProvider {
         Claims claims = injectValues(member, expireTime);
 
         return Jwts.builder()
-                .setHeaderParam("type","jwt")
+                .setHeaderParam("type", "jwt")
                 .setClaims(claims)
                 .signWith(getSigningKey(secretKey), SignatureAlgorithm.HS256)
                 .compact();
@@ -89,9 +87,17 @@ public class JwtProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
+    public Authentication getAuthentication(Claims claims) {
+        if (claims.get("authorities") == null) {
+            throw new AccessDeniedException("권한이 없습니다.");
+        }
+        UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
     private Claims getClaims(String token) {
         Claims claims = jwtValidator.validateAccessToken(token);
-        if (claims == null){
+        if (claims == null) {
             log.error("null claims");
             throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
         }

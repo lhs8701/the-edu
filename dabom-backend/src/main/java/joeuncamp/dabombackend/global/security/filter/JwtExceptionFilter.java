@@ -6,6 +6,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import joeuncamp.dabombackend.global.error.ErrorCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,10 +28,11 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
     public void setErrorResponse(HttpServletRequest request, HttpServletResponse response, Throwable e) throws IOException {
         final Map<String, Object> body = new HashMap<>();
         final ObjectMapper mapper = new ObjectMapper();
-
+        ErrorCode errorCode = ErrorCode.findByName(e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        body.put("code", "커스텀 코드");
-        body.put("message", e.getMessage());
+        body.put("name", errorCode.name());
+        body.put("code", errorCode.getCode());
+        body.put("message", errorCode.getMessage());
         mapper.writeValue(response.getOutputStream(), body);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }

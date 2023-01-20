@@ -33,7 +33,7 @@ public class JwtValidator {
         try {
             if (tokenRedisRepository.doesTokenBlocked(accessToken)) {
                 log.error("사용 중지된 토큰");
-                throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
+                throw new JwtException(ErrorCode.JWT_BLOCKED.name());
             }
             return Jwts.parserBuilder()
                     .setSigningKey(getSigningKey(secretKey))
@@ -42,19 +42,19 @@ public class JwtValidator {
                     .getBody();
         } catch (SecurityException e) {
             log.error("잘못된 시그니처");
-            throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
+            throw new JwtException(ErrorCode.JWT_INVALID.name());
         } catch (MalformedJwtException e) {
             log.error("유효하지 않은 JWT 토큰");
-            throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
+            throw new JwtException(ErrorCode.JWT_INVALID.name());
         } catch (ExpiredJwtException e) {
             log.error("Jwt 만료");
-            throw new JwtException(String.valueOf(ErrorCode.JWT_EXPIRED.getCode()));
+            throw new JwtException(ErrorCode.JWT_EXPIRED.name());
         } catch (UnsupportedJwtException e) {
             log.error("지원하지 않는 토큰 형식");
-            throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
+            throw new JwtException(ErrorCode.JWT_INVALID.name());
         } catch (IllegalArgumentException e) {
             log.error("JWT token compact of handler are invalid.");
-            throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
+            throw new JwtException(ErrorCode.JWT_INVALID.name());
         }
     }
 
@@ -108,7 +108,8 @@ public class JwtValidator {
             log.error("JWT token compact of handler are invalid.");
             throw new CReissueFailedException();
         } catch (ExpiredJwtException e) {
-            throw new CReissueFailedException();
+            log.error("리프레시 토큰 만료");
+            throw new CRefreshTokenExpiredException();
         }
     }
 }
