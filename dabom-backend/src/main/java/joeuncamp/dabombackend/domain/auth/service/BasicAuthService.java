@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
+import io.jsonwebtoken.Claims;
 import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.UnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
@@ -7,14 +8,18 @@ import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
+import joeuncamp.dabombackend.global.error.exception.CReissueFailedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
+import joeuncamp.dabombackend.global.security.jwt.JwtValidator;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -24,6 +29,7 @@ public class BasicAuthService {
     private final MemberJpaRepository memberJpaRepository;
 
     private final JwtProvider jwtProvider;
+    private final JwtValidator jwtValidator;
     private final PasswordEncoder passwordEncoder;
 
     private final TokenRedisRepository tokenRedisRepository;
@@ -89,7 +95,22 @@ public class BasicAuthService {
         logout(accessToken, requestDto);
     }
 
-    public void reissue(String accessToken, UnlinkRequestDto requestDto){
 
+    public TokenForm reissue(String accessToken, UnlinkRequestDto requestDto){
+        isReissueAvailable(accessToken, requestDto.getRefreshToken());
+        Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
+        TokenForm tokenForm = jwtProvider.generateToken(member);
+        tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), member.getAccount());
+        tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
+        return tokenForm;
+    }
+
+    private void isReissueAvailable(String accessToken, String refreshToken) {
+        String subject = jwtValidator.validateAccessTokenForReissue(accessToken).getSubject();
+        jwtValidator.validateRefreshTokenForReissue(refreshToken);
+        String account = tokenRedisRepository.findByRefreshToken(refreshToken).orElseThrow(CReissueFailedException::new);
+        if (!subject.equals(account)){
+            throw new CReissueFailedException();
+        }
     }
 }
