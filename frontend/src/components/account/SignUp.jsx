@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Modal from "react-modal";
 import {
@@ -105,27 +105,33 @@ export default function SignUp() {
     reValidateMode: "onBlur",
   });
 
-  async function submit() {
-    try {
-      const dd = await signUp({
-        account: isId,
-        password: isPwd,
-        name: isName,
-        nickname: isName,
-        mobile: "010-1234-5678",
-        birthDate:
-          isBirth.substr(0, 4) +
-          "." +
-          isBirth.substr(5, 2) +
-          "." +
-          isBirth.substr(8, 2),
+  const submit = () => {
+    signUp({
+      account: isId,
+      password: isPwd,
+      name: isName,
+      nickname: isName,
+      mobile: "010-1234-5678",
+      birthDate:
+        isBirth.substr(0, 4) +
+        "." +
+        isBirth.substr(5, 2) +
+        "." +
+        isBirth.substr(8, 2),
+    })
+      .then(() => {
+        alert("회원 가입이 되셨습니다.");
+        navigate("");
+      })
+      .catch((err) => {
+        console.log(err.response.status);
+        if (err.response.status == 401) {
+          alert("이미 가입된 정보입니다.");
+        } else {
+          alert("잘못된 정보입니다. 정확한 정보를 입력해주세요.");
+        }
       });
-      console.log(dd);
-    } catch (err) {
-      console.log(err.response.status);
-    }
-  }
-
+  };
   return (
     <AccountWrapper>
       <AccountTitle>회원가입</AccountTitle>

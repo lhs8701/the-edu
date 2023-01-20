@@ -96,9 +96,6 @@ export default function SignIn() {
     }
   }
 
-  if (loginState) {
-    navigate(-1);
-  }
   return (
     <AccountWrapper>
       <AccountTitle>로그인</AccountTitle>
