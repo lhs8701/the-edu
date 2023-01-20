@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.auth.basic;
+package joeuncamp.dabombackend.domain.auth.dto;
 
 import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;

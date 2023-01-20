@@ -1,9 +1,11 @@
-package joeuncamp.dabombackend.domain.auth;
+package joeuncamp.dabombackend.domain.auth.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import joeuncamp.dabombackend.domain.auth.SocialAuthService;
+import joeuncamp.dabombackend.domain.auth.SocialTokenRequestDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
