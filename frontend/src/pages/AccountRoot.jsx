@@ -1,6 +1,8 @@
 import { Outlet, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { getLoginState } from "../atom";
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -50,7 +52,13 @@ const Description = styled.p`
 `;
 
 export default function AccountRoot() {
+  const loginState = useRecoilValue(getLoginState);
   const navigate = useNavigate();
+
+  if (loginState) {
+    navigate(-1);
+  }
+
   return (
     <>
       <Wrapper>
