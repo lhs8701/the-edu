@@ -1,6 +1,5 @@
 import axios from "axios";
-import { KAKAO_CLIENT_ID, KAKAO_REDIRECT_URL } from "../AuthKey";
-import queryString from "query-string";
+import { KAKAO_CLIENT_ID, KAKAO_REDIRECT_URL, KAKAO_JSKEY } from "../AuthKey";
 
 const BASE_URL = "http://218.38.127.26:8080/api/auth";
 const KAKAO_URL = "https://kauth.kakao.com/oauth/token";
@@ -65,7 +64,7 @@ export async function login(userData) {
 export async function getKakaoAuthToken(code) {
   const payload = {
     grant_type: "authorization_code",
-    client_id: KAKAO_CLIENT_ID,
+    client_id: KAKAO_JSKEY,
     redirect_uri: KAKAO_REDIRECT_URL,
     code: code,
   };

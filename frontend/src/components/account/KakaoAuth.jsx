@@ -25,8 +25,8 @@ export default function KaKaoAuth() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
 
   const getProfile = (token) => {
-    fetch(`https://kapi.kakao.com/v1/user/logout`, {
-      method: "POST",
+    fetch(`https://kapi.kakao.com/v2/user/me`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
         Authorization: "Bearer" + token,
@@ -41,20 +41,20 @@ export default function KaKaoAuth() {
   useEffect(() => {
     getKakaoAuthToken(code)
       .then((res) => {
-        getProfile(res.data.access_token);
-        // kakaoLogin(res.data.access_token)
-        //   .then(({ data }) => {
-        //     setIsLoggedIn({
-        //       state: true,
-        //       accessToken: data.accessToken,
-        //       refreshToken: data.refreshToken,
-        //     });
-        //   })
-        //   .catch((err) => {
-        //     console.log(err.response.status);
-        //     alert("이미 가입된 정보입니다.");
-        //     // navigate(-1);
-        //   });
+        kakaoLogin(res.data.access_token)
+          .then(({ data }) => {
+            setIsLoggedIn({
+              state: true,
+              accessToken: data.accessToken,
+              refreshToken: data.refreshToken,
+            });
+            navigate("/");
+          })
+          .catch((err) => {
+            console.log(err.response.status);
+            alert("이미 가입된 정보입니다.");
+            navigate(-1);
+          });
       })
       .catch((err) => {
         console.log(err.response.status);
@@ -63,7 +63,7 @@ export default function KaKaoAuth() {
         } else {
           alert("카카오 로그인 정보가 부정확합니다.");
         }
-        // navigate(-1);
+        navigate(-1);
       });
   }, [code]);
 

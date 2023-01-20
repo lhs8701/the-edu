@@ -1,6 +1,8 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { getLoginState } from "../atom";
 import { BAR_LIST } from "../static";
 import { Wrapper } from "../style/CommonCss";
 import { MyLink, NavBox, NavTab } from "../style/SideBarCss";
@@ -31,6 +33,12 @@ const SideBarBox = styled.nav`
 `;
 
 export default function MyPage() {
+  const loginState = useRecoilValue(getLoginState);
+  const navigate = useNavigate();
+
+  if (!loginState) {
+    navigate("/");
+  }
   const SideBar = ({ barList }) => {
     return (
       <SideBarBox>
