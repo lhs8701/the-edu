@@ -2,9 +2,9 @@ package joeuncamp.dabombackend.domain.auth.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import joeuncamp.dabombackend.domain.auth.dto.BasicAuthService;
-import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
+import joeuncamp.dabombackend.domain.auth.service.BasicAuthService;
+import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
-package joeuncamp.dabombackend.domain.auth.dto;
+package joeuncamp.dabombackend.domain.auth.service;
 
-import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;

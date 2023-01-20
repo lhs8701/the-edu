@@ -1,5 +1,6 @@
-package joeuncamp.dabombackend.domain.auth;
+package joeuncamp.dabombackend.domain.auth.service;
 
+import joeuncamp.dabombackend.domain.auth.dto.SocialTokenRequestDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.LoginType;

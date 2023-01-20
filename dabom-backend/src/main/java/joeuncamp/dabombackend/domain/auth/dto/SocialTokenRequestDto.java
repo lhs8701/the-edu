@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.auth;
+package joeuncamp.dabombackend.domain.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
