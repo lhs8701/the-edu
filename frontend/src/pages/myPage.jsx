@@ -35,7 +35,7 @@ const SideBarBox = styled.nav`
 export default function MyPage() {
   const loginState = useRecoilValue(getLoginState);
   const navigate = useNavigate();
-
+  console.log("TTTEST");
   if (!loginState) {
     navigate("/");
   }
