@@ -23,6 +23,17 @@ repositories {
 }
 
 dependencies {
+
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	//logback
+	implementation 'ch.qos.logback:logback-classic:1.4.1'
+	implementation 'org.slf4j:slf4j-api:2.0.3'
+
+	//web client
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
 	//Gson
 	implementation 'com.google.code.gson:gson:2.9.0'
 

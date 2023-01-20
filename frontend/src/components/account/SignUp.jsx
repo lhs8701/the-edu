@@ -132,7 +132,6 @@ export default function SignUp() {
         }
       });
   };
-
   return (
     <AccountWrapper>
       <AccountTitle>회원가입</AccountTitle>

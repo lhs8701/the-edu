@@ -13,6 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableMethodSecurity(securedEnabled = true) //@PreAuthorize, @Secured 사용을 위함
 @EnableWebSecurity
@@ -21,6 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtProvider jwtProvider;
+    private final CorsConfig corsConfig;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,6 +38,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
+                .addFilter(corsConfig.corsFilter())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtExceptionFilter(), JwtAuthenticationFilter.class)
                 .build();

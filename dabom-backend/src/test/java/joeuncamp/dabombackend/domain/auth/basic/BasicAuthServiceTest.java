@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.auth.basic;
 
 import joeuncamp.dabombackend.domain.auth.basic.dto.LoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.BasicAuthService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -25,10 +26,10 @@ import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
-public class AuthServiceTest {
+public class BasicAuthServiceTest {
 
     @InjectMocks
-    AuthService authService;
+    BasicAuthService basicAuthService;
 
     @Mock
     MemberJpaRepository memberJpaRepository;
@@ -57,7 +58,7 @@ public class AuthServiceTest {
         // when
 
         // then
-        assertThatThrownBy(() -> authService.signup(dto))
+        assertThatThrownBy(() -> basicAuthService.signup(dto))
                 .isInstanceOf(CMemberExistException.class);
     }
 
@@ -82,7 +83,7 @@ public class AuthServiceTest {
         // when
 
         // then
-        assertThatThrownBy(() -> authService.login(dto))
+        assertThatThrownBy(() -> basicAuthService.login(dto))
                 .isInstanceOf(CLoginFailedException.class);
     }
 
