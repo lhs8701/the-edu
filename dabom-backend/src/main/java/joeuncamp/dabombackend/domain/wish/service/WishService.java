@@ -44,6 +44,8 @@ public class WishService {
     }
 
     public boolean checkWish(WishDto.Request requestDto){
-        return false;
+        Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        return wishJpaRepository.findByMemberAndCourse(member, course).isPresent();
     }
 }
