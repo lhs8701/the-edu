@@ -817,23 +817,77 @@
                                     <outlet property="delegate" destination="QFP-xB-QfI" id="BeM-IF-JlH"/>
                                 </connections>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="skf-mJ-cZX">
+                                <rect key="frame" x="0.0" y="187" width="390" height="574"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentSearchTVC" rowHeight="53" id="kEx-OF-TDy" customClass="RecentSearchTVC" customModule="dabom_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="390" height="53"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kEx-OF-TDy" id="gHy-YH-xmo">
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="53"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTZ-DX-smV">
+                                                    <rect key="frame" x="20" y="14.666666666666664" width="48" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ZTZ-DX-smV" firstAttribute="leading" secondItem="gHy-YH-xmo" secondAttribute="leadingMargin" id="Bne-ww-5Od"/>
+                                                <constraint firstItem="ZTZ-DX-smV" firstAttribute="centerY" secondItem="gHy-YH-xmo" secondAttribute="centerY" id="vfh-ct-wVb"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="recentSearchTerm" destination="ZTZ-DX-smV" id="w0g-dx-k4N"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTW-OE-ajB">
+                                <rect key="frame" x="0.0" y="147" width="390" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근 검색어" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uxs-kW-gaK">
+                                        <rect key="frame" x="20" y="7" width="96" height="26"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="uxs-kW-gaK" firstAttribute="leading" secondItem="QTW-OE-ajB" secondAttribute="leading" constant="20" id="K45-Hr-K1m"/>
+                                    <constraint firstAttribute="height" constant="40" id="pZF-54-fYw"/>
+                                    <constraint firstItem="uxs-kW-gaK" firstAttribute="centerY" secondItem="QTW-OE-ajB" secondAttribute="centerY" id="seX-qb-YxE"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kQt-YH-eqL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="rQR-ae-rRU" firstAttribute="trailing" secondItem="kQt-YH-eqL" secondAttribute="trailing" id="91j-fg-tnF"/>
+                            <constraint firstItem="QTW-OE-ajB" firstAttribute="leading" secondItem="kQt-YH-eqL" secondAttribute="leading" id="EOv-WO-t8g"/>
+                            <constraint firstItem="skf-mJ-cZX" firstAttribute="leading" secondItem="kQt-YH-eqL" secondAttribute="leading" id="EeJ-zf-xiF"/>
+                            <constraint firstItem="QTW-OE-ajB" firstAttribute="trailing" secondItem="kQt-YH-eqL" secondAttribute="trailing" id="Fpb-oJ-seX"/>
+                            <constraint firstItem="QTW-OE-ajB" firstAttribute="top" secondItem="rQR-ae-rRU" secondAttribute="bottom" id="Nfx-Go-SiF"/>
                             <constraint firstItem="rQR-ae-rRU" firstAttribute="leading" secondItem="kQt-YH-eqL" secondAttribute="leading" id="OIq-9g-3oN"/>
+                            <constraint firstItem="skf-mJ-cZX" firstAttribute="trailing" secondItem="kQt-YH-eqL" secondAttribute="trailing" id="RgZ-2h-7k0"/>
+                            <constraint firstItem="skf-mJ-cZX" firstAttribute="bottom" secondItem="kQt-YH-eqL" secondAttribute="bottom" id="TPd-Pb-HPm"/>
+                            <constraint firstItem="skf-mJ-cZX" firstAttribute="top" secondItem="QTW-OE-ajB" secondAttribute="bottom" id="hSA-h1-IaE"/>
                             <constraint firstItem="rQR-ae-rRU" firstAttribute="top" secondItem="kQt-YH-eqL" secondAttribute="top" id="qn0-5G-KFB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="search" id="lan-j8-8FM"/>
                     <connections>
+                        <outlet property="recentSearchTV" destination="skf-mJ-cZX" id="1Ab-li-axT"/>
                         <outlet property="searchBar" destination="rQR-ae-rRU" id="zdW-YR-Xox"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D2d-Zc-mq1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4777" y="739"/>
+            <point key="canvasLocation" x="4776.9230769230771" y="738.62559241706163"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Rb2-Kl-ojv">

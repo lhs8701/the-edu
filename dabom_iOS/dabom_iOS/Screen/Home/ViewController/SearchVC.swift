@@ -11,6 +11,10 @@ class SearchVC: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var recentSearchTV: UITableView!
+    
+    var recentSearchList: Array<String>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +23,15 @@ class SearchVC: UIViewController {
         
         self.searchBar.delegate = self
         self.searchBar.searchBarStyle = .minimal
+        
+        self.recentSearchTV.delegate = self
+        self.recentSearchTV.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.recentSearchList = UserDefaults.standard.array(forKey: "recentSearch") as? [String]
+        self.recentSearchTV.reloadData()
+        self.searchBar.becomeFirstResponder()
     }
     
 
@@ -41,9 +54,55 @@ extension SearchVC: UISearchBarDelegate {
         nextVC.resultTitle = searchTerm
         nextVC.kind = "검색 결과"
         
+        if recentSearchList == nil {
+            var newRecent = [String]()
+            
+            newRecent.append(searchTerm)
+            
+            UserDefaults.standard.set(newRecent, forKey: "recentSearch")
+        } else {
+            recentSearchList?.insert(searchTerm, at: 0)
+            
+            if recentSearchList!.count > 5 {
+                recentSearchList?.remove(at: 5)
+            }
+            
+            UserDefaults.standard.set(recentSearchList, forKey: "recentSearch")
+        }
+        
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
         
         print("검색어 : \(searchTerm)")
+    }
+}
+
+extension SearchVC: UITableViewDelegate {
+    
+}
+
+extension SearchVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.recentSearchList?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.recentSearchTVC, for: indexPath) as! RecentSearchTVC
+        
+        cell.recentSearchTerm.text = recentSearchList?[indexPath.row]
+//        cell.selectionStyle = .none
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nextVC = UIStoryboard.init(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.categoryResult) as! ResultVC
+        
+        nextVC.resultTitle = recentSearchList?[indexPath.row]
+        nextVC.kind = "검색 결과"
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
