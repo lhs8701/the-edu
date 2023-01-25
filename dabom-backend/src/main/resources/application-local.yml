@@ -24,6 +24,7 @@ spring:
       host: localhost
       port: 6379
 springdoc:
+  use-fqn: true
   api-docs:
     enabled: true
   swagger-ui:

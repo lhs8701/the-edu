@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 public class TokenForm {
+    Long memberId;
     String grantType;
     String accessToken;
     String refreshToken;

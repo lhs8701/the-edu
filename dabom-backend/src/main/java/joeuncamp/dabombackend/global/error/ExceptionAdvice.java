@@ -95,4 +95,11 @@ public class ExceptionAdvice {
         log.error(errorCode.getMessage());
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
     }
+
+    @ExceptionHandler(CAccessDeniedException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CAccessDeniedException e){
+        ErrorCode errorCode = e.getErrorCode();
+        log.error(errorCode.getMessage());
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
 }
