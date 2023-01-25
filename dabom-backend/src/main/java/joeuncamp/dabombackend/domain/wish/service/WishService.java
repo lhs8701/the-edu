@@ -4,6 +4,7 @@ import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
+import joeuncamp.dabombackend.domain.wish.dto.WishDto;
 import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.domain.wish.repository.WishJpaRepository;
@@ -40,5 +41,9 @@ public class WishService {
     private void CreateAndSaveWish(WishRequestDto wishRequestDto, Member member, Course course) {
         Wish wish = wishRequestDto.toEntity(member, course);
         wishJpaRepository.save(wish);
+    }
+
+    public boolean checkWish(WishDto.Request requestDto){
+        return false;
     }
 }
