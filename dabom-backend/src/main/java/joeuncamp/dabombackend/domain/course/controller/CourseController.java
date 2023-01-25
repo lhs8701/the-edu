@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "[Course]", description = "클래스와 관련된 API입니다.")
+@Tag(name = "[3.Course]", description = "클래스와 관련된 API입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -79,13 +79,5 @@ public class CourseController {
     public ResponseEntity<Void> toggleWish(@RequestBody WishRequestDto wishRequestDto) {
         wishService.toggleWish(wishRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @Operation(summary = "모든 카테고리를 반환합니다.", description = "")
-    @PreAuthorize("permitAll()")
-    @GetMapping("/category")
-    public ResponseEntity<List<CategoryResponseDto>> getAllCategory() {
-        List<CategoryResponseDto> responseDto = courseService.getAllCategory();
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

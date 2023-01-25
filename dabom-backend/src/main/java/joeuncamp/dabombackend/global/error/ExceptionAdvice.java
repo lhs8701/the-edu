@@ -74,4 +74,25 @@ public class ExceptionAdvice {
         log.error(errorCode.getMessage());
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
     }
+
+    @ExceptionHandler(CCommunicationFailedException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CCommunicationFailedException e){
+        ErrorCode errorCode = e.getErrorCode();
+        log.error(errorCode.getMessage());
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
+
+    @ExceptionHandler(CRefreshTokenExpiredException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CRefreshTokenExpiredException e){
+        ErrorCode errorCode = e.getErrorCode();
+        log.error(errorCode.getMessage());
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
+
+    @ExceptionHandler(CReissueFailedException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CReissueFailedException e){
+        ErrorCode errorCode = e.getErrorCode();
+        log.error(errorCode.getMessage());
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
 }

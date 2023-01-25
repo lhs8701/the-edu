@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "[Review]", description = "수강 후기 관련 API입니다.")
+@Tag(name = "[3.Review]", description = "수강 후기 관련 API입니다.")
 @RequestMapping("/api")
 public class ReviewController {
 

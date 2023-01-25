@@ -4,7 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
 import org.junit.jupiter.api.AfterAll;

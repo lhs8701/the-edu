@@ -4,11 +4,11 @@ import joeuncamp.dabombackend.global.error.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class CCommunicationFailedException extends RuntimeException{
+public class CReissueFailedException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public CCommunicationFailedException(){
+    public CReissueFailedException(){
         super();
-        errorCode = ErrorCode.COMMUNICATION_FAILED;
+        errorCode = ErrorCode.REISSUE_FAILED;
     }
 }
