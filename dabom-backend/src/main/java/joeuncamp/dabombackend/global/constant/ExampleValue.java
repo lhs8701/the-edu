@@ -3,9 +3,6 @@ package joeuncamp.dabombackend.global.constant;
 import javax.swing.text.html.HTML;
 
 public class ExampleValue {
-    public static class CreatorProfile{
-        public static final String CREATOR_NICKNAME = "심재헌";
-    }
 
     public static class Course{
         public final static String TITLE = "스프링 핵심 원리 - 기본편";

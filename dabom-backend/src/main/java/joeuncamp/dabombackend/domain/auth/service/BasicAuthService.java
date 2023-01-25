@@ -32,7 +32,6 @@ public class BasicAuthService {
     private final JwtProvider jwtProvider;
     private final JwtValidator jwtValidator;
     private final PasswordEncoder passwordEncoder;
-
     private final TokenRedisRepository tokenRedisRepository;
 
     /**

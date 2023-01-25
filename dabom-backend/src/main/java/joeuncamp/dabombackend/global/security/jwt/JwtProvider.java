@@ -46,6 +46,7 @@ public class JwtProvider {
         String refreshToken = createToken(member, 1000 * JwtExpiration.REFRESH_TOKEN.getTime());
 
         return TokenForm.builder()
+                .memberId(member.getId())
                 .grantType("Bearer")
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
@@ -79,7 +80,7 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        Claims claims = getClaims(token);
+        Claims claims = jwtValidator.validateAccessToken(token);
         if (claims.get("authorities") == null) {
             throw new AccessDeniedException("권한이 없습니다.");
         }
@@ -93,14 +94,5 @@ public class JwtProvider {
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-    }
-
-    private Claims getClaims(String token) {
-        Claims claims = jwtValidator.validateAccessToken(token);
-        if (claims == null) {
-            log.error("null claims");
-            throw new JwtException(String.valueOf(ErrorCode.JWT_INVALID.getCode()));
-        }
-        return claims;
     }
 }
