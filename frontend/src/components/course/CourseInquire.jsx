@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { queryClient } from "../../App";
 import { AccountSmallBtn } from "../../style/AccountComponentCss";
 import { Title } from "../../style/CourseCss";
 import {
@@ -20,13 +21,24 @@ const InputBox = styled.div`
   justify-content: flex-end;
 `;
 
-export default function CourseInquire() {
+export default function CourseInquire({ courseId }) {
+  const courseInquiries = queryClient.getQueryData([
+    "courseInquiries",
+    courseId,
+  ]);
+
   const Inquires = () => {
+    return courseInquiries?.map((inquire) => {
+      return <Inquire key={inquire.inquiryId} userInfo={inquire} />;
+    });
+  };
+
+  const Inquire = ({ userInfo }) => {
     return (
       <>
         <Box>
-          <ChatUserInfo />
-          <ChatContextArea />
+          <ChatUserInfo writer={userInfo?.writer} rate={""} />
+          <ChatContextArea content={userInfo?.content} />
         </Box>
         <UnderBar />
       </>

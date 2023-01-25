@@ -7,7 +7,7 @@ import GlobalStyle from "./style/GlobalStyle";
 import { RouterProvider } from "react-router";
 import router from "./Router";
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     mutations: {
       useErrorBoundary: true,

@@ -1,7 +1,9 @@
 import { useInView } from "framer-motion";
 import { useEffect } from "react";
 import { useRef, useState } from "react";
+import { QueryClient } from "react-query";
 import styled from "styled-components";
+import { queryClient } from "../../App";
 import CourseCategory from "./CourseCategory";
 import CourseImg from "./CourseImg";
 import CourseInquire from "./CourseInquire";
@@ -22,7 +24,7 @@ const RefDiv = styled.div`
   padding-top: 50px;
 `;
 
-export default function CourseDetail({ courseInfo }) {
+export default function CourseDetail({ courseId }) {
   const [isTabStatus, setIsTabStatus] = useState(0);
 
   // const courseRef = useRef([]);
@@ -30,7 +32,7 @@ export default function CourseDetail({ courseInfo }) {
   const cateRef = useRef(null);
   const reviewRef = useRef(null);
   const inquireRef = useRef(null);
-
+  // const data = queryClient.getQueryData(["courseDetailInfo", courseId]);
   const refArr = [imgRef, cateRef, reviewRef, inquireRef];
 
   const viewArr = [
@@ -87,15 +89,15 @@ export default function CourseDetail({ courseInfo }) {
         </RefDiv>
       </DetailBox> */}
       <DetailBox>
-        <CourseImg images={courseInfo?.courseInfoImg} />
+        {/* <CourseImg images={courseInfo?.courseInfoImg} /> */}
         <RefDiv ref={cateRef}>
-          <CourseCategory courseIdx={courseInfo.courseIndex} />
+          {/* <CourseCategory courseIdx={courseInfo.courseIndex} /> */}
         </RefDiv>
         <RefDiv ref={reviewRef}>
-          <CourseReview courseReviewInfo={courseInfo.courseReview} />
+          <CourseReview courseId={courseId} />
         </RefDiv>
         <RefDiv ref={inquireRef}>
-          <CourseInquire courseInquireInfo={courseInfo.CourseInquire} />
+          <CourseInquire courseId={courseId} />
         </RefDiv>
       </DetailBox>
     </DetailWrapper>
