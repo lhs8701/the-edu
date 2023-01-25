@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Arcodian from "../components/Arcodian";
 import ClassCard from "../components/ClassCard";
@@ -10,7 +11,7 @@ import {
   MyPageContentBox,
   MyPageTitle,
 } from "../style/MypageComponentsCss";
-import { MyLink, NavBox, NavTab } from "../style/SideBarCss";
+import { NavBox } from "../style/SideBarCss";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,7 +21,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const WishListBox = styled.div`
+const CourseListBox = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 40px;
@@ -45,23 +46,40 @@ const SideBarBox = styled.nav`
   margin-top: 80px;
 `;
 
+const AllLink = styled(Link)`
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  font-weight: var(--weight-middle);
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  color: ${(props) =>
+    props.ison ? "var(--color-primary)" : "var(--color-text)"};
+  &:hover {
+    color: var(--color-primary);
+  }
+  padding: 0 20px;
+  box-sizing: border-box;
+  padding-bottom: 7px;
+  margin-top: 5px;
+  text-decoration: none;
+`;
+
 export default function CategoryPage() {
-  const { categoryId } = useParams();
-  const [isSmallTitle, setUsSmallTitle] = useState(0);
+  const { categoryId, smallCategoryId } = useParams();
 
   const SideBar = ({ barList }) => {
     return (
       <SideBarBox>
         <NavBox>
+          <AllLink to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0 + "/" + 0}>
+            전체보기
+          </AllLink>
           {barList.map((target) => {
             return (
               <div key={target.id}>
-                <Arcodian
-                  categoryId={categoryId}
-                  isSmallTitle={isSmallTitle}
-                  setUsSmallTitle={setUsSmallTitle}
-                  target={target}
-                />
+                <Arcodian target={target} />
               </div>
             );
           })}
@@ -70,7 +88,7 @@ export default function CategoryPage() {
     );
   };
 
-  const Wishes = ({ dummyWishList }) => {
+  const CourseList = ({ dummyWishList }) => {
     return dummyWishList.map((course) => {
       return <ClassCard key={course.courseId} course={course} />;
     });
@@ -80,13 +98,19 @@ export default function CategoryPage() {
     return (
       <MyPageBox>
         <MyPageTitle>
-          {CATE_VALUE[categoryId].big}&nbsp;&nbsp;/ &nbsp;
-          {CATE_VALUE[categoryId].smallList[isSmallTitle].title}
+          {Number(categoryId) === 0 && Number(smallCategoryId) === 0 ? (
+            <>전체보기</>
+          ) : (
+            <>
+              {CATE_VALUE[categoryId - 1].big}&nbsp;&nbsp;/ &nbsp;
+              {CATE_VALUE[categoryId - 1].smallList[smallCategoryId].title}
+            </>
+          )}
         </MyPageTitle>
         <MyPageContentBox>
-          <WishListBox>
-            <Wishes dummyWishList={dummyWishList} />
-          </WishListBox>
+          <CourseListBox>
+            <CourseList dummyWishList={dummyWishList} />
+          </CourseListBox>
         </MyPageContentBox>
       </MyPageBox>
     );
@@ -95,6 +119,7 @@ export default function CategoryPage() {
   return (
     <Wrapper>
       <SideBar barList={CATE_VALUE} />
+
       <Classes />
     </Wrapper>
   );

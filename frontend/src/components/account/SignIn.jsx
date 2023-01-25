@@ -23,7 +23,7 @@ import {
   useResetRecoilState,
   useSetRecoilState,
 } from "recoil";
-import { getLoginState, LoginState, selectLoginStatus } from "../../atom";
+import { getLoginState, LoginState } from "../../atom";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -61,8 +61,6 @@ export default function SignIn() {
   // const resetTemp = useResetRecoilState(LoginState);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
   const loginState = useRecoilValue(getLoginState);
-
-  const navigate = useNavigate();
   const [isID, setIsId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -88,12 +86,13 @@ export default function SignIn() {
       setIsLoggedIn({
         state: true,
         isKakao: false,
+        isBasic: true,
         accessToken: data.accessToken,
         refreshToken: data.refreshToken,
       });
     } catch (err) {
       console.log(err.response.status);
-      alert("다시 로그인 해주세요.");
+      alert("로그인 오류입니다.");
     }
   }
 

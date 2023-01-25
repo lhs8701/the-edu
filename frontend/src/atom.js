@@ -1,11 +1,12 @@
 import { atom, selector } from "recoil";
-import { login } from "./api/authApi";
 
 export const LoginState = atom({
   key: "LoginState",
   default: {
     state: false,
     isKakao: false,
+    isBasic: false,
+    memberId: 0,
     accessToken: "",
     refreshToken: "",
   },
@@ -26,6 +27,14 @@ export const getLoginState = selector({
   },
 });
 
+export const getIsBasicSelector = selector({
+  key: "getLoginState",
+  get: ({ get }) => {
+    const data = get(LoginState);
+    return data.isBasic;
+  },
+});
+
 export const getIsKakaoSelector = selector({
   key: "getIsKakaoSelector",
   get: ({ get }) => {
@@ -39,6 +48,14 @@ export const getAccessTokenSelector = selector({
   get: ({ get }) => {
     const data = get(LoginState);
     return data.accessToken;
+  },
+});
+
+export const getRefreshTokenSelector = selector({
+  key: "getRefreshToken",
+  get: ({ get }) => {
+    const data = get(LoginState);
+    return data.refreshToken;
   },
 });
 

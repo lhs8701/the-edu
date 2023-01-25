@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
-        path: "category/:categoryId",
+        path: "category/:categoryId/:smallCategoryId",
         element: <CategoryPage />,
         errorElement: <ErrorComponent />,
       },

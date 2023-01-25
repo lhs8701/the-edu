@@ -7,6 +7,7 @@ const FOREIGN_LANGUAGE_DETAIL_CATEGORIES = [
   { title: "전체보기", id: 0 },
   { title: "토익", id: 1 },
   { title: "토플", id: 2 },
+  { title: "일본어", id: 3 },
 ];
 const LICENSE_DETAIL_CATEGORIES = [
   { title: "전체보기", id: 0 },
@@ -20,7 +21,6 @@ const MONEY_MANAGEMENT_DETAIL_CATEGORIES = [
 ];
 
 export const CATE_VALUE = [
-  { big: "전체보기", id: 0, smallList: [] },
   { big: "프로그래밍", id: 1, smallList: PROGRAMMING_DETAIL_CATEGORIES },
   { big: "자격증", id: 2, smallList: LICENSE_DETAIL_CATEGORIES },
   { big: "외국어", id: 3, smallList: FOREIGN_LANGUAGE_DETAIL_CATEGORIES },

@@ -35,6 +35,7 @@ export default function KaKaoAuth() {
             setIsLoggedIn({
               state: true,
               isKakao: true,
+              isBasic: false,
               accessToken: data.accessToken,
               refreshToken: data.refreshToken,
             });

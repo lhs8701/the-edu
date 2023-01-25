@@ -122,7 +122,6 @@ export const ChatUserInfo = ({ writer, rate }) => {
 };
 
 export const ChatContextArea = ({ content }) => {
-  console.log(content);
   return (
     <ContextTab>
       <Context>{content}</Context>

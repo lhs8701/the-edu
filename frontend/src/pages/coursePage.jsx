@@ -23,7 +23,7 @@ export default function CoursePage() {
   // const { courseId } = useParams();
   const courseId = 1;
 
-  const courseInfo = useQuery(
+  useQuery(
     ["courseDetailInfo", courseId],
     () => {
       return courseApi(courseId);
@@ -36,7 +36,7 @@ export default function CoursePage() {
       },
     }
   );
-  const courseReviews = useQuery(
+  useQuery(
     ["courseReviews", courseId],
     () => {
       return getcourseReviewsApi(courseId);
@@ -50,7 +50,7 @@ export default function CoursePage() {
     }
   );
 
-  const courseInquiries = useQuery(
+  useQuery(
     ["courseInquiries", courseId],
     () => {
       return getcourseInquiriessApi(courseId);
