@@ -3,8 +3,16 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { CATE_VALUE, PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
-import { getLoginState, LoginState } from "../atom";
+import {
+  getAccessTokenSelector,
+  getIsKakaoSelector,
+  getKakaoAuthTokenSelector,
+  getLoginState,
+  LoginState,
+} from "../atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { KakaoLogout } from "../api/authApi";
+
 const HeadWrapper = styled.header`
   width: 100%;
   height: 65px;
@@ -177,6 +185,20 @@ export default function Header() {
   const [isCategoryOn, setCategoryOn] = useState("false");
   const loginState = useRecoilValue(getLoginState);
   const setIsLoggedIn = useSetRecoilState(LoginState);
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+  const isKakaoState = useRecoilValue(getIsKakaoSelector);
+  const socialToken = useRecoilValue(getKakaoAuthTokenSelector);
+
+  const logOut = () => {
+    if (isKakaoState) {
+      KakaoLogout(accessToken, socialToken);
+    }
+    setIsLoggedIn({
+      state: false,
+      accessToken: "",
+      refreshToken: "",
+    });
+  };
 
   return (
     <HeadWrapper>
@@ -269,17 +291,7 @@ export default function Header() {
       </SearchBox>
       {loginState ? (
         <LoginTab>
-          <LogoutBtn
-            onClick={() => {
-              setIsLoggedIn({
-                state: false,
-                accessToken: "",
-                refreshToken: "",
-              });
-            }}
-          >
-            로그아웃
-          </LogoutBtn>
+          <LogoutBtn onClick={logOut}>로그아웃</LogoutBtn>
           <UserTab>
             <UserLink>크리에이터</UserLink>
             <UserLink
