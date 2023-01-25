@@ -707,10 +707,10 @@
             </objects>
             <point key="canvasLocation" x="5867.6923076923076" y="-34.834123222748815"/>
         </scene>
-        <!--Category ResultVC-->
+        <!--ResultVC-->
         <scene sceneID="qLR-iU-Dzc">
             <objects>
-                <viewController storyboardIdentifier="CategoryResultVC" id="fMX-dx-XB6" customClass="CategoryResultVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResultVC" id="fMX-dx-XB6" customClass="ResultVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ksh-OZ-xUM">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -738,14 +738,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jho-jy-zRp">
                                 <rect key="frame" x="0.0" y="47" width="390" height="35"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cc8-ll-uEu">
-                                        <rect key="frame" x="15" y="2" width="125" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="결과 이름" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cc8-ll-uEu">
+                                        <rect key="frame" x="15" y="2" width="84.666666666666671" height="28"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2S-dQ-KAq">
-                                        <rect key="frame" x="148" y="9.6666666666666625" width="59" height="20.333333333333329"/>
+                                        <rect key="frame" x="107.66666666666669" y="9.6666666666666625" width="59" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -775,13 +775,14 @@
                     </view>
                     <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="c7e-vb-pzS"/>
                     <connections>
-                        <outlet property="categoryName" destination="cc8-ll-uEu" id="B1r-z5-q33"/>
-                        <outlet property="categoryResultCV" destination="I7p-sb-1Gd" id="a2o-rD-2o8"/>
+                        <outlet property="resultCV" destination="I7p-sb-1Gd" id="doK-ym-I2z"/>
+                        <outlet property="resultKind" destination="u2S-dQ-KAq" id="zyl-Sc-lnm"/>
+                        <outlet property="resultName" destination="cc8-ll-uEu" id="0NG-jc-9sh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S22-gD-H6T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6861.538461538461" y="-267.29857819905214"/>
+            <point key="canvasLocation" x="5868" y="988"/>
         </scene>
         <!--bannerName-->
         <scene sceneID="bsu-bg-V0N">
@@ -808,14 +809,46 @@
                     <view key="view" contentMode="scaleToFill" id="7Ee-gg-kcs">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="rQR-ae-rRU">
+                                <rect key="frame" x="0.0" y="91" width="390" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="QFP-xB-QfI" id="BeM-IF-JlH"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="kQt-YH-eqL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="rQR-ae-rRU" firstAttribute="trailing" secondItem="kQt-YH-eqL" secondAttribute="trailing" id="91j-fg-tnF"/>
+                            <constraint firstItem="rQR-ae-rRU" firstAttribute="leading" secondItem="kQt-YH-eqL" secondAttribute="leading" id="OIq-9g-3oN"/>
+                            <constraint firstItem="rQR-ae-rRU" firstAttribute="top" secondItem="kQt-YH-eqL" secondAttribute="top" id="qn0-5G-KFB"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="search" id="lan-j8-8FM"/>
+                    <connections>
+                        <outlet property="searchBar" destination="rQR-ae-rRU" id="zdW-YR-Xox"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D2d-Zc-mq1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4777" y="739"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Rb2-Kl-ojv">
+            <objects>
+                <viewController id="P1r-Wp-rz4" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eBF-ij-Zfe">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="6Nc-tU-cFB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VqS-B8-wh5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4777" y="1449"/>
         </scene>
         <!--HomeNC-->
         <scene sceneID="zS7-4x-SGP">
