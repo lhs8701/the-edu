@@ -12,10 +12,10 @@ import lombok.Getter;
 @Builder
 public class ProfileUpdateParam {
     @Null
-    @Schema(name="별명", example = ExampleValue.Member.NICKNAME)
+    @Schema(description="별명", example = ExampleValue.Member.NICKNAME)
     String nickname;
 
     @Null
-    @Schema(name = "이메일", example = ExampleValue.Member.EMAIL)
+    @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
     String email;
 }

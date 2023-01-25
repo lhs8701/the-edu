@@ -4,11 +4,11 @@ import joeuncamp.dabombackend.global.error.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class CAccessDeniedException extends RuntimeException{
+public class CRefreshTokenExpiredException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public CAccessDeniedException(){
+    public CRefreshTokenExpiredException(){
         super();
-        errorCode = ErrorCode.ACCESS_DENIED;
+        errorCode = ErrorCode.REFRESH_TOKEN_EXPIRED;
     }
 }

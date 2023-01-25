@@ -11,6 +11,7 @@ import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
+import joeuncamp.dabombackend.domain.wish.dto.WishDto;
 import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "[Course]", description = "클래스와 관련된 API입니다.")
+@Tag(name = "[3.Course]", description = "클래스와 관련된 API입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -81,11 +82,12 @@ public class CourseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary = "모든 카테고리를 반환합니다.", description = "")
-    @PreAuthorize("permitAll()")
-    @GetMapping("/category")
-    public ResponseEntity<List<CategoryResponseDto>> getAllCategory() {
-        List<CategoryResponseDto> responseDto = courseService.getAllCategory();
+    @Operation(summary = "찜한 강의인지 확인합니다.", description = "찜이 되어있는 경우, true를 반환합니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/courses/wish/check")
+    public ResponseEntity<Boolean> toggleWish(@RequestBody WishDto.Request requestDto) {
+        boolean responseDto = wishService.checkWish(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

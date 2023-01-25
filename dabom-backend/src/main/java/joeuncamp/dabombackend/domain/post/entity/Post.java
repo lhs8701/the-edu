@@ -20,7 +20,7 @@ public abstract class Post extends BaseTimeEntity{
     Long id;
 
     String content;
-    int likes;
+    Integer likes;
 
     @ManyToOne
     @JoinColumn

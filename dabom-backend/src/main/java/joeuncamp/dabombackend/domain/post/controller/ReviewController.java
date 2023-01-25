@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.post.dto.ReviewDto;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "[Review]", description = "수강 후기 관련 API입니다.")
+@Tag(name = "[3.Review]", description = "수강 후기 관련 API입니다.")
 @RequestMapping("/api")
 public class ReviewController {
 
@@ -29,7 +30,7 @@ public class ReviewController {
     @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/reviews")
-    public ResponseEntity<IdResponseDto> writeReview(@RequestBody ReviewDto.Request requestDto){
+    public ResponseEntity<IdResponseDto> writeReview(@RequestBody @Valid ReviewDto.Request requestDto){
         IdResponseDto responseDto = reviewService.writeReview(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }

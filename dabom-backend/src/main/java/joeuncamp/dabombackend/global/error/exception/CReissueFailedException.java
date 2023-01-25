@@ -4,11 +4,11 @@ import joeuncamp.dabombackend.global.error.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class CAccessDeniedException extends RuntimeException{
+public class CReissueFailedException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public CAccessDeniedException(){
+    public CReissueFailedException(){
         super();
-        errorCode = ErrorCode.ACCESS_DENIED;
+        errorCode = ErrorCode.REISSUE_FAILED;
     }
 }

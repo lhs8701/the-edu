@@ -86,14 +86,4 @@ public class CourseService {
                 .toList();
         return new PagingDto<>(page.getNumber(), page.getTotalPages(), courses);
     }
-
-    /**
-     * 모든 카테고리를 반환합니다.
-     *
-     * @return
-     */
-    public List<CategoryResponseDto> getAllCategory() {
-        return Arrays.stream(CategoryGroup.values()).map(CategoryResponseDto::new).collect(Collectors.toList());
-    }
-
 }

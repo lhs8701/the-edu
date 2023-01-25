@@ -2,7 +2,7 @@ package joeuncamp.dabombackend.integrationtest;
 
 
 import com.google.gson.Gson;
-import joeuncamp.dabombackend.domain.auth.basic.dto.SignupRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;

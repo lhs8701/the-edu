@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "[Inquiry]", description = "문의사항 관련 API입니다.")
+@Tag(name = "[3.Inquiry]", description = "문의사항 관련 API입니다.")
 @RequestMapping("/api")
 public class InquiryController {
     private final InquiryService inquiryService;
