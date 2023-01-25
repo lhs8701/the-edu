@@ -1,6 +1,7 @@
 import ReactPlayer from "react-player";
 import YouTubePlayer from "react-player/youtube";
 import styled from "styled-components";
+import { queryClient } from "../../App";
 
 const IntroduceWrapper = styled.div`
   width: 100%;
@@ -57,7 +58,9 @@ const RateTab = styled.div`
   font-size: var(--size-mypage-title);
   font-weight: var(--weight-middle);
 `;
-export default function CourseIntro({ courseInfo }) {
+export default function CourseIntro({ courseId }) {
+  const courseInfo = queryClient.getQueryData(["courseDetailInfo", courseId]);
+
   return (
     <IntroduceWrapper>
       <IntroTitle>{courseInfo?.title}</IntroTitle>

@@ -2,7 +2,11 @@ import { Suspense, useEffect } from "react";
 import { useQueries, useQuery } from "react-query";
 import { useParams } from "react-router";
 import styled from "styled-components";
-import { courseApi } from "../api/courseApi";
+import {
+  courseApi,
+  getcourseInquiriessApi,
+  getcourseReviewsApi,
+} from "../api/courseApi";
 import CourseDetail from "../components/course/CourseDetail";
 import CourseIntro from "../components/course/CourseIntro";
 import CoursePayment from "../components/course/CoursePayment";
@@ -18,16 +22,42 @@ export default function CoursePage() {
   const dummycourseInfo = dummyCourseInfo;
   // const { courseId } = useParams();
   const courseId = 1;
-  const courseInfo = useQuery(
+
+  useQuery(
     ["courseDetailInfo", courseId],
     () => {
       return courseApi(courseId);
     },
     {
       enabled: !!courseId,
-      onSuccess: () => {
-        console.log("성공");
+      onSuccess: () => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
       },
+    }
+  );
+  useQuery(
+    ["courseReviews", courseId],
+    () => {
+      return getcourseReviewsApi(courseId);
+    },
+    {
+      enabled: !!courseId,
+      onSuccess: () => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
+  useQuery(
+    ["courseInquiries", courseId],
+    () => {
+      return getcourseInquiriessApi(courseId);
+    },
+    {
+      enabled: !!courseId,
+      onSuccess: () => {},
       onError: () => {
         console.error("에러 발생했지롱");
       },
@@ -37,9 +67,9 @@ export default function CoursePage() {
   return (
     <div>
       <Suspense fallback={<div>로딩중</div>}>
-        <CourseIntro courseInfo={courseInfo?.data} />
+        <CourseIntro courseId={courseId} />
         <DividerBox>
-          <CourseDetail courseInfo={dummycourseInfo} />
+          <CourseDetail courseId={courseId} />
           <CoursePayment
             title={dummycourseInfo?.courseInfo?.title}
             teacher={dummycourseInfo?.courseInfo?.teacher}

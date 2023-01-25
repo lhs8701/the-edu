@@ -111,7 +111,7 @@ export default function SignUp() {
       password: isPwd,
       name: isName,
       nickname: isName,
-      mobile: "010-1234-5678",
+      mobile: "010-1234-5578",
       birthDate:
         isBirth.substr(0, 4) +
         "." +
@@ -121,12 +121,13 @@ export default function SignUp() {
     })
       .then(() => {
         alert("회원 가입이 되셨습니다.");
-        navigate("");
+        navigate("/account/login");
       })
       .catch((err) => {
         console.log(err.response.status);
         if (err.response.status == 401) {
           alert("이미 가입된 정보입니다.");
+          navigate("/account/login");
         } else {
           alert("잘못된 정보입니다. 정확한 정보를 입력해주세요.");
         }
@@ -217,7 +218,7 @@ export default function SignUp() {
           <AccountInput
             {...register("pwdConfirm", {
               name: "pwdConfirm",
-              required: "비밀번호를 다시 입력해주세요!",
+              required: "비밀번호를 한번 더 입력해주세요!",
               // 유효성 검사 파트
               // pattern: {
               //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,

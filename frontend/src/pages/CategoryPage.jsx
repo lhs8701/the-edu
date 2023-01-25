@@ -1,5 +1,8 @@
-import { useCallback, useRef, useState } from "react";
+import { useInView } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useInfiniteQuery, useQuery } from "react-query";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Arcodian from "../components/Arcodian";
 import ClassCard from "../components/ClassCard";
@@ -10,7 +13,8 @@ import {
   MyPageContentBox,
   MyPageTitle,
 } from "../style/MypageComponentsCss";
-import { MyLink, NavBox, NavTab } from "../style/SideBarCss";
+import { NavBox } from "../style/SideBarCss";
+import { getCategoryListApi } from "../api/courseApi";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,7 +24,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const WishListBox = styled.div`
+const CourseListBox = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 40px;
@@ -45,23 +49,81 @@ const SideBarBox = styled.nav`
   margin-top: 80px;
 `;
 
+const AllLink = styled(Link)`
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  font-weight: var(--weight-middle);
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  color: ${(props) =>
+    props.ison ? "var(--color-primary)" : "var(--color-text)"};
+  &:hover {
+    color: var(--color-primary);
+  }
+  padding: 0 20px;
+  box-sizing: border-box;
+  padding-bottom: 7px;
+  margin-top: 5px;
+  text-decoration: none;
+`;
+
+const BottomDiv = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 0.1px;
+  height: 0.1px;
+`;
+
 export default function CategoryPage() {
-  const { categoryId } = useParams();
-  const [isSmallTitle, setUsSmallTitle] = useState(0);
+  const { categoryId, smallCategoryId } = useParams();
+  const bottomRef = useRef(null);
+  const isInView = useInView(bottomRef);
+
+  const courseList = useInfiniteQuery(
+    [
+      "getCategoryList",
+      CATE_VALUE[categoryId - 1].smallList[smallCategoryId].title,
+    ],
+    ({ pageParam = 0 }) => {
+      return getCategoryListApi(
+        pageParam,
+        CATE_VALUE[categoryId - 1].smallList[smallCategoryId].title
+      );
+    },
+    {
+      onSuccess: () => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+      getNextPageParam: (lastPage, allPages) => {
+        if (lastPage.totalPage === lastPage.page + 1) {
+          return false;
+        }
+        return lastPage.page + 1;
+      },
+    }
+  );
+
+  useEffect(() => {
+    console.log(courseList.hasNextPage);
+    if (isInView && courseList.hasNextPage && courseList.isSuccess) {
+      courseList.fetchNextPage();
+    }
+  }, [isInView, courseList.data]);
 
   const SideBar = ({ barList }) => {
     return (
       <SideBarBox>
         <NavBox>
+          <AllLink to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0 + "/" + 0}>
+            전체보기
+          </AllLink>
           {barList.map((target) => {
             return (
               <div key={target.id}>
-                <Arcodian
-                  categoryId={categoryId}
-                  isSmallTitle={isSmallTitle}
-                  setUsSmallTitle={setUsSmallTitle}
-                  target={target}
-                />
+                <Arcodian target={target} />
               </div>
             );
           })}
@@ -70,8 +132,8 @@ export default function CategoryPage() {
     );
   };
 
-  const Wishes = ({ dummyWishList }) => {
-    return dummyWishList.map((course) => {
+  const CourseList = ({ courseList }) => {
+    return courseList?.map((course) => {
       return <ClassCard key={course.courseId} course={course} />;
     });
   };
@@ -80,13 +142,21 @@ export default function CategoryPage() {
     return (
       <MyPageBox>
         <MyPageTitle>
-          {CATE_VALUE[categoryId].big}&nbsp;&nbsp;/ &nbsp;
-          {CATE_VALUE[categoryId].smallList[isSmallTitle].title}
+          {Number(categoryId) === 0 && Number(smallCategoryId) === 0 ? (
+            <>전체보기</>
+          ) : (
+            <>
+              {CATE_VALUE[categoryId - 1].big}&nbsp;&nbsp;/ &nbsp;
+              {CATE_VALUE[categoryId - 1].smallList[smallCategoryId].title}
+            </>
+          )}
         </MyPageTitle>
         <MyPageContentBox>
-          <WishListBox>
-            <Wishes dummyWishList={dummyWishList} />
-          </WishListBox>
+          <CourseListBox>
+            {courseList?.data?.pages.map((page) => {
+              return <CourseList courseList={page?.list} />;
+            })}
+          </CourseListBox>
         </MyPageContentBox>
       </MyPageBox>
     );
@@ -96,6 +166,7 @@ export default function CategoryPage() {
     <Wrapper>
       <SideBar barList={CATE_VALUE} />
       <Classes />
+      <BottomDiv ref={bottomRef} />
     </Wrapper>
   );
 }

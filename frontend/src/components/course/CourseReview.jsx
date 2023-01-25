@@ -1,4 +1,7 @@
+import { useQuery } from "react-query";
 import styled from "styled-components";
+import { getcourseReviewsApi } from "../../api/courseApi";
+import { queryClient } from "../../App";
 import { AccountSmallBtn } from "../../style/AccountComponentCss";
 import { Wrapper } from "../../style/CommonCss";
 import { Title } from "../../style/CourseCss";
@@ -16,7 +19,9 @@ const BtnBox = styled.div`
   justify-content: flex-end;
 `;
 
-export default function CourseReview() {
+export default function CourseReview({ courseId }) {
+  const courseReviews = queryClient.getQueryData(["courseReviews", courseId]);
+
   const ReviewCreator = () => {
     return (
       <>

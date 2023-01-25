@@ -52,7 +52,7 @@ const SmallCategory = styled(MyLink)`
   cursor: pointer;
 `;
 
-function Accordion({ target, setUsSmallTitle, categoryId, isSmallTitle }) {
+function Accordion({ target }) {
   const parentRef = useRef(null);
   const childRef = useRef(null);
   const [isCollapse, setIsCollapse] = useState(false);
@@ -72,10 +72,7 @@ function Accordion({ target, setUsSmallTitle, categoryId, isSmallTitle }) {
   const SmallCategories = ({ target }) => {
     return (
       <SmallCategory
-        onClick={() => {
-          setUsSmallTitle(target.id);
-        }}
-        to={PROCESS_MAIN_URL.CATEGORIES + "/" + nowId}
+        to={PROCESS_MAIN_URL.CATEGORIES + "/" + nowId + "/" + target.id}
       >
         &nbsp;&nbsp;{target.title}
       </SmallCategory>

@@ -93,7 +93,7 @@ export const UnderBar = styled.div`
   background-color: #c8c8c8;
 `;
 
-export const ChatUserInfo = () => {
+export const ChatUserInfo = ({ writer, rate }) => {
   return (
     <UserInfoBox>
       <InfoTab>
@@ -104,10 +104,16 @@ export const ChatUserInfo = () => {
             }
           />
         </ImgBox>
-        <UserName>심재헌</UserName>
+        <UserName>{writer}</UserName>
 
         <UserRateTab>
-          별<Rate>&nbsp;5.0</Rate>
+          {rate === "" ? (
+            <Rate>&nbsp;</Rate>
+          ) : (
+            <>
+              별 <Rate>&nbsp;5.0</Rate>
+            </>
+          )}
         </UserRateTab>
       </InfoTab>
       <Date>2023.02.03</Date>
@@ -115,12 +121,10 @@ export const ChatUserInfo = () => {
   );
 };
 
-export const ChatContextArea = () => {
+export const ChatContextArea = ({ content }) => {
   return (
     <ContextTab>
-      <Context>
-        dsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasddsadasdasd
-      </Context>
+      <Context>{content}</Context>
     </ContextTab>
   );
 };

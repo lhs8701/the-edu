@@ -5,13 +5,15 @@ import { motion } from "framer-motion";
 import { CATE_VALUE, PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
 import {
   getAccessTokenSelector,
+  getIsBasicSelector,
   getIsKakaoSelector,
   getKakaoAuthTokenSelector,
   getLoginState,
+  getRefreshTokenSelector,
   LoginState,
 } from "../atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { KakaoLogout } from "../api/authApi";
+import { BasicLogout, KakaoLogout } from "../api/authApi";
 
 const HeadWrapper = styled.header`
   width: 100%;
@@ -186,15 +188,22 @@ export default function Header() {
   const loginState = useRecoilValue(getLoginState);
   const setIsLoggedIn = useSetRecoilState(LoginState);
   const accessToken = useRecoilValue(getAccessTokenSelector);
+  const refreshToken = useRecoilValue(getRefreshTokenSelector);
   const isKakaoState = useRecoilValue(getIsKakaoSelector);
+  const isBasicState = useRecoilValue(getIsBasicSelector);
   const socialToken = useRecoilValue(getKakaoAuthTokenSelector);
 
   const logOut = () => {
     if (isKakaoState) {
       KakaoLogout(accessToken, socialToken);
+    } else if (isBasicState) {
+      BasicLogout(accessToken, refreshToken);
     }
     setIsLoggedIn({
       state: false,
+      isKakao: false,
+      isBasic: false,
+      memberId: 0,
       accessToken: "",
       refreshToken: "",
     });
@@ -244,19 +253,19 @@ export default function Header() {
                     setCategoryOn("true");
                   }}
                 >
-                  {/* <CateLink
+                  <CateLink
                     iscategoryon={isCategoryOn}
-                    to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0}
+                    to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0 + "/" + 0}
                   >
                     전체 보기
-                  </CateLink> */}
-
+                  </CateLink>
+                  <br />
                   {CATE_VALUE.map((e, index) => {
                     return (
                       <span key={index}>
                         <CateLink
                           iscategoryon={isCategoryOn}
-                          to={PROCESS_MAIN_URL.CATEGORIES + "/" + e.id}
+                          to={PROCESS_MAIN_URL.CATEGORIES + "/" + e.id + "/0"}
                           preventScrollReset={true}
                         >
                           {e.big}
