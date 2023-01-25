@@ -1,4 +1,6 @@
-import { useCallback, useRef, useState } from "react";
+import { useInView } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useInfiniteQuery, useQuery } from "react-query";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -12,6 +14,7 @@ import {
   MyPageTitle,
 } from "../style/MypageComponentsCss";
 import { NavBox } from "../style/SideBarCss";
+import { getCategoryListApi } from "../api/courseApi";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -66,8 +69,49 @@ const AllLink = styled(Link)`
   text-decoration: none;
 `;
 
+const BottomDiv = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 0.1px;
+  height: 0.1px;
+`;
+
 export default function CategoryPage() {
   const { categoryId, smallCategoryId } = useParams();
+  const bottomRef = useRef(null);
+  const isInView = useInView(bottomRef);
+
+  const courseList = useInfiniteQuery(
+    [
+      "getCategoryList",
+      CATE_VALUE[categoryId - 1].smallList[smallCategoryId].title,
+    ],
+    ({ pageParam = 0 }) => {
+      return getCategoryListApi(
+        pageParam,
+        CATE_VALUE[categoryId - 1].smallList[smallCategoryId].title
+      );
+    },
+    {
+      onSuccess: () => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+      getNextPageParam: (lastPage, allPages) => {
+        if (lastPage.totalPage === lastPage.page + 1) {
+          return false;
+        }
+        return lastPage.page + 1;
+      },
+    }
+  );
+
+  useEffect(() => {
+    console.log(courseList.hasNextPage);
+    if (isInView && courseList.hasNextPage && courseList.isSuccess) {
+      courseList.fetchNextPage();
+    }
+  }, [isInView, courseList.data]);
 
   const SideBar = ({ barList }) => {
     return (
@@ -88,8 +132,8 @@ export default function CategoryPage() {
     );
   };
 
-  const CourseList = ({ dummyWishList }) => {
-    return dummyWishList.map((course) => {
+  const CourseList = ({ courseList }) => {
+    return courseList?.map((course) => {
       return <ClassCard key={course.courseId} course={course} />;
     });
   };
@@ -109,7 +153,9 @@ export default function CategoryPage() {
         </MyPageTitle>
         <MyPageContentBox>
           <CourseListBox>
-            <CourseList dummyWishList={dummyWishList} />
+            {courseList?.data?.pages.map((page) => {
+              return <CourseList courseList={page?.list} />;
+            })}
           </CourseListBox>
         </MyPageContentBox>
       </MyPageBox>
@@ -119,8 +165,8 @@ export default function CategoryPage() {
   return (
     <Wrapper>
       <SideBar barList={CATE_VALUE} />
-
       <Classes />
+      <BottomDiv ref={bottomRef} />
     </Wrapper>
   );
 }

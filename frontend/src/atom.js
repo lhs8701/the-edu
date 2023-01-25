@@ -28,7 +28,7 @@ export const getLoginState = selector({
 });
 
 export const getIsBasicSelector = selector({
-  key: "getLoginState",
+  key: "getBasicState",
   get: ({ get }) => {
     const data = get(LoginState);
     return data.isBasic;

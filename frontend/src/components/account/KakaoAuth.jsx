@@ -2,7 +2,7 @@ import { getKakaoAuthToken, kakaoLogin } from "../../api/authApi";
 import { useMutation } from "react-query";
 import { Suspense, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { KakaoAuthState, KakaoAuthTokenAtom, LoginState } from "../../atom";
+import { KakaoAuthTokenAtom, LoginState } from "../../atom";
 import { useNavigate } from "react-router";
 
 export default function KaKaoAuth() {
@@ -38,6 +38,7 @@ export default function KaKaoAuth() {
               isBasic: false,
               accessToken: data.accessToken,
               refreshToken: data.refreshToken,
+              memberId: data.memberId,
             });
             navigate("/");
           })

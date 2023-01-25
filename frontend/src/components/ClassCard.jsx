@@ -97,13 +97,13 @@ export default function ClassCard({ course }) {
         //     : "var(--weight-thin)",
         // }}
         >
-          {course?.courseTitle}
+          {course?.title}
         </ClassTitle>
       </ClassTitleBox>
 
       <ClassInfoBox>
         <ClassInfoTeacherP>
-          &nbsp;&nbsp;&nbsp;&nbsp;{course?.courseTeacher}
+          &nbsp;&nbsp;&nbsp;&nbsp;{course?.instructor}
         </ClassInfoTeacherP>
         <ClassInfoP
           animate={{

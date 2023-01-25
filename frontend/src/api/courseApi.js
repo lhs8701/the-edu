@@ -19,8 +19,15 @@ export async function getcourseInquiriessApi(courseId) {
   return data.data;
 }
 
-export async function getCategoryListApi(category) {
-  const data = await axios.get(`${BASE_URL}${CATEGORY_URL}/${category}`);
+export async function getCategoryListApi(pageParam, category) {
+  const params = {
+    page: pageParam,
+    size: 10,
+    sort: "ASC",
+  };
+  const data = await axios.get(`${BASE_URL}${CATEGORY_URL}/${category}`, {
+    params,
+  });
   return data.data;
 }
 
