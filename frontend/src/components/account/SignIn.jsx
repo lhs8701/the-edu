@@ -87,6 +87,7 @@ export default function SignIn() {
 
       setIsLoggedIn({
         state: true,
+        isKakao: false,
         accessToken: data.accessToken,
         refreshToken: data.refreshToken,
       });

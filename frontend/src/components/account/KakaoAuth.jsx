@@ -2,7 +2,7 @@ import { getKakaoAuthToken, kakaoLogin } from "../../api/authApi";
 import { useMutation } from "react-query";
 import { Suspense, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { LoginState } from "../../atom";
+import { KakaoAuthState, KakaoAuthTokenAtom, LoginState } from "../../atom";
 import { useNavigate } from "react-router";
 
 export default function KaKaoAuth() {
@@ -23,28 +23,18 @@ export default function KaKaoAuth() {
   //   }
   // );
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
-
-  const getProfile = (token) => {
-    fetch(`https://kapi.kakao.com/v2/user/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-        Authorization: "Bearer" + token,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {});
-
-    // 사용자 정보 변수에 저장
-  };
+  const [isKakaoAuthToken, setIsKakaoAuthToken] =
+    useRecoilState(KakaoAuthTokenAtom);
 
   useEffect(() => {
     getKakaoAuthToken(code)
       .then((res) => {
+        setIsKakaoAuthToken(res.data.access_token);
         kakaoLogin(res.data.access_token)
           .then(({ data }) => {
             setIsLoggedIn({
               state: true,
+              isKakao: true,
               accessToken: data.accessToken,
               refreshToken: data.refreshToken,
             });
