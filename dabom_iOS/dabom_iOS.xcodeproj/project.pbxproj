@@ -17,8 +17,10 @@
 		0E1E959D2977BDE800CBE70B /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959C2977BDE800CBE70B /* UserDataModel.swift */; };
 		0E1E959F2977C05B00CBE70B /* LoginSignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959E2977C05B00CBE70B /* LoginSignupService.swift */; };
 		0E1E95A12978CE0700CBE70B /* UserGrantInfoDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */; };
+		0E1E95DE297BB90600CBE70B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95DD297BB90600CBE70B /* Image.swift */; };
+		0E1E95E0297BBD9300CBE70B /* OnOffDescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95DF297BBD9300CBE70B /* OnOffDescriptionVC.swift */; };
 		0E550140296EA96400DD5B75 /* Layer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E55013F296EA96400DD5B75 /* Layer+.swift */; };
-		0E550142296F8BC200DD5B75 /* CategoryResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */; };
+		0E550142296F8BC200DD5B75 /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E550141296F8BC200DD5B75 /* ResultVC.swift */; };
 		0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028282965659D00A25F48 /* InCourseViewController.swift */; };
 		0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */; };
 		0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60282C29656BB500A25F48 /* WishCourseViewController.swift */; };
@@ -48,6 +50,7 @@
 		0E9D15252974E11E0061D1ED /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D15242974E11E0061D1ED /* UIViewController+.swift */; };
 		0E9D15272974EECD0061D1ED /* SignupSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D15262974EECD0061D1ED /* SignupSelectVC.swift */; };
 		0E9D15292974F0620061D1ED /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D15282974F0620061D1ED /* SignupVC.swift */; };
+		0EAF7B312980C6CC00F65E5A /* RecentSearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAF7B302980C6CC00F65E5A /* RecentSearchTVC.swift */; };
 		0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */; };
 		0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */; };
 		0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */; };
@@ -107,8 +110,10 @@
 		0E1E959E2977C05B00CBE70B /* LoginSignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupService.swift; sourceTree = "<group>"; };
 		0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGrantInfoDataModel.swift; sourceTree = "<group>"; };
 		0E1E95A2297916B400CBE70B /* dabom_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dabom_iOS.entitlements; sourceTree = "<group>"; };
+		0E1E95DD297BB90600CBE70B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		0E1E95DF297BBD9300CBE70B /* OnOffDescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffDescriptionVC.swift; sourceTree = "<group>"; };
 		0E55013F296EA96400DD5B75 /* Layer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Layer+.swift"; sourceTree = "<group>"; };
-		0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResultVC.swift; sourceTree = "<group>"; };
+		0E550141296F8BC200DD5B75 /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		0E6028282965659D00A25F48 /* InCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InCourseViewController.swift; sourceTree = "<group>"; };
 		0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionCourseViewController.swift; sourceTree = "<group>"; };
 		0E60282C29656BB500A25F48 /* WishCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishCourseViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +143,7 @@
 		0E9D15242974E11E0061D1ED /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		0E9D15262974EECD0061D1ED /* SignupSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupSelectVC.swift; sourceTree = "<group>"; };
 		0E9D15282974F0620061D1ED /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
+		0EAF7B302980C6CC00F65E5A /* RecentSearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTVC.swift; sourceTree = "<group>"; };
 		0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoViewController.swift; sourceTree = "<group>"; };
 		0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerInfoViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +217,7 @@
 				0E1E95902977841400CBE70B /* Storyboard.swift */,
 				0E1E95922977873C00CBE70B /* ViewController.swift */,
 				0E1E959429778C1300CBE70B /* Xib.swift */,
+				0E1E95DD297BB90600CBE70B /* Image.swift */,
 				0E1E95962977AB8800CBE70B /* Url.swift */,
 			);
 			path = Constants;
@@ -281,7 +288,8 @@
 				0E69A038296542CB00BFD12E /* HomeTab.storyboard */,
 				0EFB74752971325600C58E87 /* HomeNC.swift */,
 				0EB576EA296B982A001EFBE1 /* CategoryViewController.swift */,
-				0E550141296F8BC200DD5B75 /* CategoryResultVC.swift */,
+				0E550141296F8BC200DD5B75 /* ResultVC.swift */,
+				0EAF7B302980C6CC00F65E5A /* RecentSearchTVC.swift */,
 				0ED7037D296D3EFD0095DD14 /* SearchVC.swift */,
 				0E69A03A2965430D00BFD12E /* HomeViewController.swift */,
 			);
@@ -316,6 +324,7 @@
 				0E9D1521297452AB0061D1ED /* SegmentTVC.xib */,
 				0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */,
 				0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */,
+				0E1E95DF297BBD9300CBE70B /* OnOffDescriptionVC.swift */,
 				0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */,
 			);
 			path = ViewController;
@@ -711,6 +720,7 @@
 			files = (
 				0E9D151A297449700061D1ED /* CourseInfoTVC.swift in Sources */,
 				0E1E959B2977AC8200CBE70B /* GetCourseInfoDataService.swift in Sources */,
+				0EAF7B312980C6CC00F65E5A /* RecentSearchTVC.swift in Sources */,
 				0EFB744629710F8600C58E87 /* LoginSignupVC.swift in Sources */,
 				0E9D15252974E11E0061D1ED /* UIViewController+.swift in Sources */,
 				0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */,
@@ -723,7 +733,7 @@
 				0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */,
 				0EFB74762971325600C58E87 /* HomeNC.swift in Sources */,
 				0E1E95912977841400CBE70B /* Storyboard.swift in Sources */,
-				0E550142296F8BC200DD5B75 /* CategoryResultVC.swift in Sources */,
+				0E550142296F8BC200DD5B75 /* ResultVC.swift in Sources */,
 				0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */,
 				0E78ED822967A740001424A7 /* BannerCollectionViewCell.swift in Sources */,
 				0E60282F29656FC800A25F48 /* MyCourseTabManViewController.swift in Sources */,
@@ -733,6 +743,7 @@
 				0E1E959D2977BDE800CBE70B /* UserDataModel.swift in Sources */,
 				0E60282B296565C600A25F48 /* CompletionCourseViewController.swift in Sources */,
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
+				0E1E95E0297BBD9300CBE70B /* OnOffDescriptionVC.swift in Sources */,
 				0E550140296EA96400DD5B75 /* Layer+.swift in Sources */,
 				0E1E95972977AB8800CBE70B /* Url.swift in Sources */,
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
@@ -745,6 +756,7 @@
 				0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */,
 				0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */,
 				0E9D15272974EECD0061D1ED /* SignupSelectVC.swift in Sources */,
+				0E1E95DE297BB90600CBE70B /* Image.swift in Sources */,
 				0E9D1522297452AB0061D1ED /* SegmentTVC.swift in Sources */,
 				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,

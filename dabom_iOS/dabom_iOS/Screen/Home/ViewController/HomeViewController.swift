@@ -20,7 +20,6 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
         self.navigationController?.navigationBar.tintColor = .black
         
-        
         setTV()
     }
     

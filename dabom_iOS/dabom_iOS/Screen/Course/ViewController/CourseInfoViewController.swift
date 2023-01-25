@@ -30,6 +30,8 @@ class CourseInfoViewController: UIViewController {
     var instructor: String?
     
     var courseId: Int?
+    
+    var isWish: Bool?
 
     let maxUpper: CGFloat = 450.0
     let minUpper: CGFloat = 0.0
@@ -62,6 +64,39 @@ class CourseInfoViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
+    // MARK: - rightBarButtonItem 설정
+    private func setRightBarButton() {
+        let onOffImage = UIImage(named: "onoff")?.withRenderingMode(.alwaysOriginal)
+        let onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 30))
+        onOffButton.setImage(onOffImage, for: .normal)
+        onOffButton.addTarget(self, action: #selector(onOffBtnPressed(_:)), for: .touchUpInside)
+        let onOff = UIBarButtonItem(customView: onOffButton)
+        
+        let unselectedHeart = UIImage(named: Const.Image.unselectedHeart)
+        let selectedHeart = UIImage(named: Const.Image.selectedHeart)
+        let heartButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
+        heartButton.setImage(unselectedHeart, for: .normal)
+        heartButton.setImage(selectedHeart, for: .selected)
+        heartButton.addTarget(self, action: #selector(wishBtnPressed(_:)), for: .touchUpInside)
+        let heart = UIBarButtonItem(customView: heartButton)
+
+        navigationItem.rightBarButtonItems = [heart, onOff]
+    }
+    
+    @objc func wishBtnPressed(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
+        } else {
+            sender.isSelected = true
+        }
+    }
+    
+    @objc func onOffBtnPressed(_ sender: UIButton) {
+        guard let descVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.onOffDescription) as? OnOffDescriptionVC else {return}
+        
+        present(descVC, animated: true)
+    }
+    
     // MARK: - tableView 설정
     private func setTableView() {
         self.mainTV.delegate = self
@@ -70,25 +105,7 @@ class CourseInfoViewController: UIViewController {
         self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInfoTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInfoTVC)
         self.mainTV.register(UINib(nibName: Const.Xib.Name.segmentTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.segmentTVC)
     }
-    
-    
-    // MARK: - rightBarButtonItem 설정
-    private func setRightBarButton() {
-        let onOffImage = UIImage(named: "onoff")?.withRenderingMode(.alwaysOriginal)
-        let onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 30))
-        onOffButton.setImage(onOffImage, for: .normal)
-        let onOff = UIBarButtonItem(customView: onOffButton)
-        
-        let heartImage = UIImage(named: "heart")
-        let heartButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
-        heartButton.setImage(heartImage, for: .normal)
-        let heart = UIBarButtonItem(customView: heartButton)
 
-        navigationItem.rightBarButtonItems = [heart, onOff]
-    }
-    
-    
-    
     
     // MARK: - segmentController 설정
     private func setSegmentController() {
@@ -167,20 +184,20 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            guard let cell = mainTV.dequeueReusableCell(withIdentifier: "CourseInfoTVC", for: indexPath) as? CourseInfoTVC else { return UITableViewCell() }
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInfoTVC, for: indexPath) as? CourseInfoTVC else { return UITableViewCell() }
             cell.classTitle.text = self.courseTitle
             cell.courseDescription.text = self.courseDescription
             cell.instructor.text = self.instructor
             return cell
         case 1:
-            guard let cell = mainTV.dequeueReusableCell(withIdentifier: "SegmentTVC", for: indexPath) as? SegmentTVC else { return UITableViewCell() }
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.segmentTVC, for: indexPath) as? SegmentTVC else { return UITableViewCell() }
             return cell
         case 2:
-            guard let cell = mainTV.dequeueReusableCell(withIdentifier: "InfoImageTVC", for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
             cell.infoImageView.image = UIImage(named: "testIntro01")
             return cell
         case 3,4,5,6:
-            guard let cell = mainTV.dequeueReusableCell(withIdentifier: "InfoImageTVC", for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
             cell.infoImageView.image = UIImage(named: "testIntro02")
             return cell
         default:

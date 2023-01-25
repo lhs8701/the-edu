@@ -11,12 +11,13 @@ extension Const {
     struct ViewController {
         
         struct Identifier {
-            static let categoryResult = "CategoryResultVC"
+            static let categoryResult = "ResultVC"
             static let category = "CategoryViewController"
             static let search = "SearchVC"
             static let bannerInfo = "BannerInfoViewController"
             
             static let courseInfo = "CourseInfoViewController"
+            static let onOffDescription = "OnOffDescriptionVC"
             
             static let myPage = "UserViewController"
             

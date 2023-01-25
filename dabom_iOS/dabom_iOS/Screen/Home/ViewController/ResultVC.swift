@@ -7,15 +7,19 @@
 
 import UIKit
 
-class CategoryResultVC: UIViewController {
+class ResultVC: UIViewController {
     
-    @IBOutlet weak var categoryResultCV: UICollectionView!
+    @IBOutlet weak var resultCV: UICollectionView!
     
-    @IBOutlet weak var categoryName: UILabel!
+    @IBOutlet weak var resultName: UILabel!
+    
+    @IBOutlet weak var resultKind: UILabel!
     
     
+    var resultTitle: String?
+    var kind: String?
     
-    var categoryResultData: Array<CourseThumbnailDataModel>?
+    var resultData: Array<CourseThumbnailDataModel>?
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -23,35 +27,34 @@ class CategoryResultVC: UIViewController {
         
         setCV()
         
-        self.categoryName.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor")!, width: 3.0)
+        self.resultName.text = (self.resultTitle ?? "")
+        self.resultKind.text = (self.kind ?? "")
+        
+        self.resultName.sizeToFit()
+        self.resultName.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor")!, width: 3.0)
+        
+        
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
-//        self.navigationController?.navigationBar.topItem?.title = ""
 
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.navigationBar.isHidden = false
-//        self.navigationController?.navigationBar.topItem?.title = "hi"
-    }
-    
     
     
     // MARK: - CollectionView Setting
     private func setCV() {
-        self.categoryResultCV.register(UINib(nibName: Const.Xib.Name.courseThumbnailCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.courseThumbnailCVC)
-        self.categoryResultCV.delegate = self
-        self.categoryResultCV.dataSource = self
-        self.categoryResultCV.isScrollEnabled = true
+        self.resultCV.register(UINib(nibName: Const.Xib.Name.courseThumbnailCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.courseThumbnailCVC)
+        self.resultCV.delegate = self
+        self.resultCV.dataSource = self
+        self.resultCV.isScrollEnabled = true
         
-        categoryResultData = CourseThumbnailDataModel.sampleData
+        resultData = CourseThumbnailDataModel.sampleData
     }
     
     
 }
 
-extension CategoryResultVC: UICollectionViewDelegate {
+extension ResultVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let categoryResultData = categoryResultData {
+        if let categoryResultData = resultData {
             return categoryResultData.count
         } else {
             return 0
@@ -62,7 +65,7 @@ extension CategoryResultVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
-        nextVC.courseTitle = categoryResultData![indexPath.row].courseTitle
+        nextVC.courseTitle = resultData![indexPath.row].courseTitle
 //        print(courseName)
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
@@ -70,11 +73,11 @@ extension CategoryResultVC: UICollectionViewDelegate {
     }
 }
 
-extension CategoryResultVC: UICollectionViewDataSource {
+extension ResultVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CourseThumbnailCollectionViewCell.identifier, for: indexPath) as? CourseThumbnailCollectionViewCell else { return UICollectionViewCell() }
         
-        if let categoryResultData = categoryResultData {
+        if let categoryResultData = resultData {
             cell.setData(categoryResultData[indexPath.row])
         }
         
@@ -86,7 +89,7 @@ extension CategoryResultVC: UICollectionViewDataSource {
     }
 }
 
-extension CategoryResultVC: UICollectionViewDelegateFlowLayout {
+extension ResultVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellWidth = (UIScreen.main.bounds.width - (10 * 3)) / 2
