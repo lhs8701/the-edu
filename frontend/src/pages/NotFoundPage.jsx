@@ -3,8 +3,6 @@ import { useNavigate } from "react-router";
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
-  useEffect(() => {
-    navigate(-1);
-  }, []);
+  useEffect(() => {}, []);
   return <h1>404 Not Found</h1>;
 }
