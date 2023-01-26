@@ -148,10 +148,12 @@ struct LoginSignupService {
             print("userGrant Data decode fail")
             return .pathErr
         }
+        print(decodedData.memberId)
         print(decodedData.grantType)
         print(decodedData.accessToken)
         print(decodedData.refreshToken)
         
+        UserDefaults.standard.setValue(decodedData.memberId, forKey: "memberId")
         UserDefaults.standard.setValue(decodedData.grantType, forKey: "grantType")
         UserDefaults.standard.setValue(decodedData.accessToken, forKey: "accessToken")
         UserDefaults.standard.setValue(decodedData.refreshToken, forKey: "refreshToken")
