@@ -1,7 +1,7 @@
 import ReactPlayer from "react-player";
 import YouTubePlayer from "react-player/youtube";
 import styled from "styled-components";
-import { queryClient } from "../../App";
+import { queryClient } from "../../index";
 
 const IntroduceWrapper = styled.div`
   width: 100%;

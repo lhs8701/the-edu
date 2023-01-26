@@ -31,11 +31,16 @@ export async function getCategoryListApi(pageParam, category) {
   return data.data;
 }
 
-export async function postcourseInquiriessApi(accessToken, courseId, content) {
+export async function postcourseInquiriessApi(
+  accessToken,
+  courseId,
+  content,
+  memberId
+) {
   return await axios.post(
     BASE_URL + INQUIRE_URL,
     {
-      memberId: 1,
+      memberId: memberId,
       courseId: courseId,
       content: content,
       score: 0,

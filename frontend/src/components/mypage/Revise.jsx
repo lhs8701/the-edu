@@ -58,7 +58,7 @@ export default function Revise() {
           <InputBox>
             <InputLabel>휴대전화 번호</InputLabel>
             <TeleInput type="tel" placeholder="휴대전화 번호를 입력해주세요." />
-            <AuthBtn>인증</AuthBtn>
+            <button>인증</button>
           </InputBox>
 
           <AccountBtn

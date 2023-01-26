@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { postcourseInquiriessApi } from "../../api/courseApi";
-import { queryClient } from "../../App";
-import { getAccessTokenSelector } from "../../atom";
+import { queryClient } from "../../index";
+import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import { AccountSmallBtn } from "../../style/AccountComponentCss";
 import { Title } from "../../style/CourseCss";
 import {
@@ -28,6 +28,7 @@ const InputBox = styled.div`
 export default function CourseInquire({ courseId }) {
   const [textValue, setTextValue] = useState("");
   const accessToken = useRecoilValue(getAccessTokenSelector);
+  const memberId = useRecoilValue(getMemberIdSelector);
   const courseInquiries = queryClient.getQueryData([
     "courseInquiries",
     courseId,
@@ -55,7 +56,8 @@ export default function CourseInquire({ courseId }) {
       const { data } = await postcourseInquiriessApi(
         accessToken,
         courseId,
-        textValue
+        textValue,
+        memberId
       );
       console.log(data);
       // if(data.)

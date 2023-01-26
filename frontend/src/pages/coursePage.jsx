@@ -30,7 +30,7 @@ export default function CoursePage() {
     },
     {
       enabled: !!courseId,
-      onSuccess: () => {},
+      onSuccess: (res) => {},
       onError: () => {
         console.error("에러 발생했지롱");
       },
@@ -43,7 +43,7 @@ export default function CoursePage() {
     },
     {
       enabled: !!courseId,
-      onSuccess: () => {},
+      onSuccess: (res) => {},
       onError: () => {
         console.error("에러 발생했지롱");
       },
@@ -57,7 +57,7 @@ export default function CoursePage() {
     },
     {
       enabled: !!courseId,
-      onSuccess: () => {},
+      onSuccess: (res) => {},
       onError: () => {
         console.error("에러 발생했지롱");
       },
