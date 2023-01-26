@@ -6,13 +6,11 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
-import joeuncamp.dabombackend.domain.course.dto.CategoryResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.wish.dto.WishDto;
-import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
@@ -27,8 +25,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Tag(name = "[3.Course]", description = "클래스와 관련된 API입니다.")
 @RestController
@@ -77,7 +73,7 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/wish")
-    public ResponseEntity<Void> toggleWish(@RequestBody WishRequestDto wishRequestDto) {
+    public ResponseEntity<Void> toggleWish(@RequestBody WishDto.Request wishRequestDto) {
         wishService.toggleWish(wishRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -86,7 +82,7 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/wish/check")
-    public ResponseEntity<Boolean> toggleWish(@RequestBody WishDto.Request requestDto) {
+    public ResponseEntity<Boolean> checkWish(@RequestBody WishDto.Request requestDto) {
         boolean responseDto = wishService.checkWish(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
