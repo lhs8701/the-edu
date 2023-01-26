@@ -259,35 +259,36 @@ public class CoursePagingTest {
         assertThat(pages.getContent()).containsExactly(c1, c3);
     }
 
-//    @Test
-//    @DisplayName("강사명에 키워드가 포함된 강좌를 모두 조회한다.")
-//    void 강사명에_키워드가_포함된_강좌를_모두_조회한다() {
-//        String keyword = "스프링";
-//        Member m1 = Member.builder().name("김철수").build();
-//        Member m2 = Member.builder().name("이철수").build();
-//        Member m3 = Member.builder().name("정민수").build();
-//        memberJpaRepository.save(m1);
-//        memberJpaRepository.save(m2);
-//        memberJpaRepository.save(m3);
-//        CreatorProfile cr1 = CreatorProfile.builder().member(m1).build();
-//        CreatorProfile cr2 = CreatorProfile.builder().member(m2).build();
-//        CreatorProfile cr3 = CreatorProfile.builder().member(m3).build();
-//        creatorProfileJpaRepository.save(cr1);
-//        creatorProfileJpaRepository.save(cr2);
-//        creatorProfileJpaRepository.save(cr3);
-//        Pageable pageable = PageRequest.of(0, 5,  Sort.by(Sort.Direction.ASC, "title"));
-//        Course c1 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr1).build();
-//        Course c2 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr1).build();
-//        Course c3 = Course.builder().category(CategoryType.BACK_END).creatorProfile("스프링 만들기").build();
-//        Course c4 = Course.builder().category(CategoryType.BACK_END).creatorProfile("스프링 만들기").build();
-//        courseJpaRepository.save(c1);
-//        courseJpaRepository.save(c2);
-//        courseJpaRepository.save(c3);
-//
-//        // when
-//        Page<Course> pages = courseJpaRepository.findAllByTitleContaining(keyword, pageable);
-//
-//        // then
-//        assertThat(pages.getContent()).containsExactly(c1, c3);
-//    }
+    @Test
+    @DisplayName("강사명에 키워드가 포함된 강좌를 모두 조회한다.")
+    void 강사명에_키워드가_포함된_강좌를_모두_조회한다() {
+        String name = "철수";
+        Member m1 = Member.builder().name("김철수").build();
+        Member m2 = Member.builder().name("이철수").build();
+        Member m3 = Member.builder().name("정민수").build();
+        memberJpaRepository.save(m1);
+        memberJpaRepository.save(m2);
+        memberJpaRepository.save(m3);
+        CreatorProfile cr1 = CreatorProfile.builder().member(m1).build();
+        CreatorProfile cr2 = CreatorProfile.builder().member(m2).build();
+        CreatorProfile cr3 = CreatorProfile.builder().member(m3).build();
+        creatorProfileJpaRepository.save(cr1);
+        creatorProfileJpaRepository.save(cr2);
+        creatorProfileJpaRepository.save(cr3);
+        Pageable pageable = PageRequest.of(0, 5,  Sort.by(Sort.Direction.ASC, "title"));
+        Course c1 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr1).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr1).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr2).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr3).build();
+        courseJpaRepository.save(c1);
+        courseJpaRepository.save(c2);
+        courseJpaRepository.save(c3);
+        courseJpaRepository.save(c4);
+
+        // when
+        Page<Course> pages = courseJpaRepository.findAllByCreatorName(name, pageable);
+
+        // then
+        assertThat(pages.getContent()).containsExactly(c1, c2, c3);
+    }
 }

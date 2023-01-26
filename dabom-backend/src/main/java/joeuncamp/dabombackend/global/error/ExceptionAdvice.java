@@ -75,6 +75,13 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
     }
 
+    @ExceptionHandler(CAlreadyEnrolledCourse.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CAlreadyEnrolledCourse e){
+        ErrorCode errorCode = e.getErrorCode();
+        log.error(errorCode.getMessage());
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
+
     @ExceptionHandler(CCommunicationFailedException.class)
     protected ResponseEntity<ErrorResponseDto> handle(CCommunicationFailedException e){
         ErrorCode errorCode = e.getErrorCode();

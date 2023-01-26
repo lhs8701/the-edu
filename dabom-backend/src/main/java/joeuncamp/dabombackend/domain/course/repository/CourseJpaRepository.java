@@ -25,4 +25,7 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
     Page<Course> findCourseByCategoryOrderByWishCount(CategoryType categoryType, Pageable pageable);
 
     Page<Course> findAllByTitleContaining(String keyword, Pageable pageable);
+
+    @Query("select c from Course c" + " where c.creatorProfile.member.name like %:name% ")
+    Page<Course> findAllByCreatorName(@Param("name")String name, Pageable pageable);
 }
