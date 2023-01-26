@@ -96,6 +96,7 @@ public class CourseService {
      * @return 강좌 정보 리스트
      */
     public PagingDto<CourseDto.ShortResponse> searchCourses(String keyword, Pageable pageable) {
+        keyword = keyword.trim();
         Page<Course> page = courseJpaRepository.findAllByKeyword(keyword, pageable);
         List<CourseDto.ShortResponse> courses = page.getContent().stream()
                 .map(CourseDto.ShortResponse::new)

@@ -273,4 +273,19 @@ public class CoursePagingTest {
         System.out.println("pages = " + pages.getContent());
         assertThat(pages.getContent()).containsExactlyInAnyOrder(c1, c2, c3, c5);
     }
+
+
+    @Test
+    @DisplayName("검색어 앞뒤의 공백을 제거한다.")
+    void 검색어_앞뒤의_공백을_제거한다() {
+        // given
+        String keyword = "   start  ";
+
+        // when
+        String result = keyword.trim();
+
+        // then
+        assertThat(result).isEqualTo("start");
+    }
+
 }
