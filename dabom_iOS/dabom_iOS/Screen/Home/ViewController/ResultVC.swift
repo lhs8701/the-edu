@@ -8,6 +8,7 @@
 import UIKit
 
 class ResultVC: UIViewController {
+    // MARK: - IBOutlet
     
     @IBOutlet weak var resultCV: UICollectionView!
     
@@ -15,13 +16,20 @@ class ResultVC: UIViewController {
     
     @IBOutlet weak var resultKind: UILabel!
     
+    // MARK: - let, var
     
     var resultTitle: String?
     var kind: String?
     
-    var resultData: Array<CourseThumbnailDataModel>?
+    var resultData: Array<CourseThumbnailDataModel> = []
+    var sampleApiData: Array<CourseThumbnailDataModel> = CourseThumbnailDataModel.sampleAPI
+    
+    var page = 0
+    var isPaging: Bool = false
+    var hasNextPage: Bool = false
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,54 +48,74 @@ class ResultVC: UIViewController {
     
     
     // MARK: - CollectionView Setting
+    
     private func setCV() {
         self.resultCV.register(UINib(nibName: Const.Xib.Name.courseThumbnailCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.courseThumbnailCVC)
         self.resultCV.delegate = self
         self.resultCV.dataSource = self
         self.resultCV.isScrollEnabled = true
         
-        resultData = CourseThumbnailDataModel.sampleData
+//        resultData = CourseThumbnailDataModel.sampleData
+        self.getData(page: self.page)
     }
     
     
+    
+    func getData(page: Int) {
+        print("getData!!")
+        self.isPaging = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+            self.page += 1
+            
+            self.resultData.append(contentsOf: self.sampleApiData)
+            
+            self.resultCV.reloadData()
+            self.isPaging = false
+        })
+    }
 }
 
+// MARK: - UICollectionViewDelegate
+
 extension ResultVC: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let categoryResultData = resultData {
-            return categoryResultData.count
-        } else {
-            return 0
-        }
-        
+        return resultData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
-        nextVC.courseTitle = resultData![indexPath.row].courseTitle
-//        print(courseName)
+        nextVC.courseTitle = resultData[indexPath.row].courseTitle
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
-//        self.present(nextVC, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if resultCV.contentOffset.y > (resultCV.contentSize.height - resultCV.bounds.size.height) {
+            if !isPaging {
+                self.getData(page: self.page)
+            }
+        }
+        
     }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension ResultVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CourseThumbnailCollectionViewCell.identifier, for: indexPath) as? CourseThumbnailCollectionViewCell else { return UICollectionViewCell() }
-        
-        if let categoryResultData = resultData {
-            cell.setData(categoryResultData[indexPath.row])
-        }
+
+        cell.setData(resultData[indexPath.row])
         
         return cell
-//        return UICollectionViewCell()
-        
-//        cell.setData(CourseThumbnailDataModel.sampleData[indexPath.row])
-//        return cell
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension ResultVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
