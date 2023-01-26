@@ -86,4 +86,12 @@ public class CourseController {
         boolean responseDto = wishService.checkWish(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @Operation(summary = "강좌를 검색합니다.", description = "제목이나 강사명 중에 검색어가 포함되어 있는 강좌를 모두 조회합니다.")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/courses/keyword/{keyword}")
+    public ResponseEntity<PagingDto<CourseDto.ShortResponse>> searchCourses(@PathVariable @Schema(example = "검색어") String keyword, @ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
+        PagingDto<CourseDto.ShortResponse> responseDto = courseService.searchCourses(keyword, pageable);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }

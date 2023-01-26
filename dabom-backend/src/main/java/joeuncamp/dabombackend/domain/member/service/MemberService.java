@@ -35,6 +35,7 @@ public class MemberService {
     public IdResponseDto updateMyProfile(ProfileUpdateParam profileUpdateParam, Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
         member.updateProfile(profileUpdateParam);
+        memberRepository.save(member);
         return new IdResponseDto(member.getId());
     }
 }
