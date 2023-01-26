@@ -254,12 +254,12 @@ public class CoursePagingTest {
         creatorProfileJpaRepository.save(cr1);
         creatorProfileJpaRepository.save(cr2);
         creatorProfileJpaRepository.save(cr3);
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of(0, 10);
         Course c1 = Course.builder().category(CategoryType.BACK_END).title("c1 철수").creatorProfile(cr1).build();
         Course c2 = Course.builder().category(CategoryType.BACK_END).title("c2 test").creatorProfile(cr1).build();
         Course c3 = Course.builder().category(CategoryType.BACK_END).title("c3 test").creatorProfile(cr2).build();
         Course c4 = Course.builder().category(CategoryType.BACK_END).title("c4 test").creatorProfile(cr3).build();
-        Course c5 = Course.builder().category(CategoryType.BACK_END).title("c5 철수").build();
+        Course c5 = Course.builder().category(CategoryType.BACK_END).title("c5 철수").creatorProfile(cr3).build();
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
         courseJpaRepository.save(c3);
