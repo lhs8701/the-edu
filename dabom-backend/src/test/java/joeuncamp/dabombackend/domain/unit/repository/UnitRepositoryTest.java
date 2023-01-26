@@ -33,7 +33,8 @@ public class UnitRepositoryTest {
     @DisplayName("강의를 생성하고 저장한다.")
     void 강의를_생성하고_저장한다() {
         // given
-        Unit unit = Unit.builder().build();
+        Course course = Course.builder().build();
+        Unit unit = Unit.builder().course(course).build();
         Unit saved = unitJpaRepository.save(unit);
 
         // when
@@ -48,7 +49,8 @@ public class UnitRepositoryTest {
     @DisplayName("강의를 삭제한다.")
     void 강의를_삭제한다() {
         // given
-        Unit unit = Unit.builder().build();
+        Course course = Course.builder().build();
+        Unit unit = Unit.builder().course(course).build();
         Long savedId = unitJpaRepository.save(unit).getId();
 
         // when
