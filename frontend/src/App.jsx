@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-import ReactDOM from "react-dom/client";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";

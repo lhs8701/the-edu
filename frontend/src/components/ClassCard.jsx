@@ -98,6 +98,7 @@ export default function ClassCard({ course }) {
         // }}
         >
           {course?.title}
+          {course?.courseId}
         </ClassTitle>
       </ClassTitleBox>
 

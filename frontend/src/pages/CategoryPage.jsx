@@ -1,5 +1,5 @@
 import { useInView } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useInfiniteQuery, useQuery } from "react-query";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -70,10 +70,8 @@ const AllLink = styled(Link)`
 `;
 
 const BottomDiv = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 0.1px;
-  height: 0.1px;
+  width: 100%;
+  height: 1px;
 `;
 
 export default function CategoryPage() {
@@ -98,16 +96,23 @@ export default function CategoryPage() {
         console.error("에러 발생했지롱");
       },
       getNextPageParam: (lastPage, allPages) => {
+        if (Number(lastPage.totalPage) === 0) {
+          return undefined;
+        }
         if (lastPage.totalPage === lastPage.page + 1) {
-          return false;
+          return undefined;
         }
         return lastPage.page + 1;
       },
     }
   );
+  const courses = useMemo(
+    () => courseList?.data?.pages.flatMap((page) => page.list),
+    [courseList?.data?.pages]
+  );
 
   useEffect(() => {
-    console.log(courseList.hasNextPage);
+    console.log("fdfd");
     if (isInView && courseList.hasNextPage && courseList.isSuccess) {
       courseList.fetchNextPage();
     }
@@ -132,12 +137,6 @@ export default function CategoryPage() {
     );
   };
 
-  const CourseList = ({ courseList }) => {
-    return courseList?.map((course) => {
-      return <ClassCard key={course.courseId} course={course} />;
-    });
-  };
-
   const Classes = () => {
     return (
       <MyPageBox>
@@ -153,8 +152,8 @@ export default function CategoryPage() {
         </MyPageTitle>
         <MyPageContentBox>
           <CourseListBox>
-            {courseList?.data?.pages.map((page) => {
-              return <CourseList courseList={page?.list} />;
+            {courses?.map((course) => {
+              return <ClassCard key={course.courseId} course={course} />;
             })}
           </CourseListBox>
         </MyPageContentBox>
@@ -163,10 +162,12 @@ export default function CategoryPage() {
   };
 
   return (
-    <Wrapper>
-      <SideBar barList={CATE_VALUE} />
-      <Classes />
+    <>
+      <Wrapper>
+        <SideBar barList={CATE_VALUE} />
+        <Classes />
+      </Wrapper>
       <BottomDiv ref={bottomRef} />
-    </Wrapper>
+    </>
   );
 }
