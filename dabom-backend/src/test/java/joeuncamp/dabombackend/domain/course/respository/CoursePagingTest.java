@@ -236,4 +236,56 @@ public class CoursePagingTest {
         assertThat(courses).containsExactly(c2, c1);
         assertThat(pages.getContent().size()).isEqualTo(2);
     }
+
+
+    @Test
+    @DisplayName("강사명이나 제목에 키워드가 포함된 강좌를 모두 조회한다.")
+    void 강사명이나_제목에_키워드가_포함된_강좌를_모두_조회한다() {
+        String keyword = "철수";
+        Member m1 = Member.builder().name("김철수").build();
+        Member m2 = Member.builder().name("이철수").build();
+        Member m3 = Member.builder().name("정민수").build();
+        memberJpaRepository.save(m1);
+        memberJpaRepository.save(m2);
+        memberJpaRepository.save(m3);
+        CreatorProfile cr1 = CreatorProfile.builder().member(m1).build();
+        CreatorProfile cr2 = CreatorProfile.builder().member(m2).build();
+        CreatorProfile cr3 = CreatorProfile.builder().member(m3).build();
+        creatorProfileJpaRepository.save(cr1);
+        creatorProfileJpaRepository.save(cr2);
+        creatorProfileJpaRepository.save(cr3);
+        Pageable pageable = PageRequest.of(0, 10);
+        Course c1 = Course.builder().category(CategoryType.BACK_END).title("c1 철수").creatorProfile(cr1).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).title("c2 test").creatorProfile(cr1).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).title("c3 test").creatorProfile(cr2).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c4 test").creatorProfile(cr3).build();
+        Course c5 = Course.builder().category(CategoryType.BACK_END).title("c5 철수").creatorProfile(cr3).build();
+        courseJpaRepository.save(c1);
+        courseJpaRepository.save(c2);
+        courseJpaRepository.save(c3);
+        courseJpaRepository.save(c4);
+        courseJpaRepository.save(c5);
+
+        // when
+        Page<Course> pages = courseJpaRepository.findAllByKeyword(keyword, pageable);
+
+        // then
+        System.out.println("pages = " + pages.getContent());
+        assertThat(pages.getContent()).containsExactlyInAnyOrder(c1, c2, c3, c5);
+    }
+
+
+    @Test
+    @DisplayName("검색어 앞뒤의 공백을 제거한다.")
+    void 검색어_앞뒤의_공백을_제거한다() {
+        // given
+        String keyword = "   start  ";
+
+        // when
+        String result = keyword.trim();
+
+        // then
+        assertThat(result).isEqualTo("start");
+    }
+
 }

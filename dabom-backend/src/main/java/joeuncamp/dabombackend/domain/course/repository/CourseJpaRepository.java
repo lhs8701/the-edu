@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -21,4 +22,9 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
 
     @Query("select c from Course c" + " join Wish w on w.course = c " + "group by c " + "order by count(w) desc ")
     Page<Course> findCourseByCategoryOrderByWishCount(CategoryType categoryType, Pageable pageable);
+
+    Page<Course> findAllByTitleContaining(String keyword, Pageable pageable);
+
+    @Query(" select c from Course c " + " where c.title like %:keyword% or c.creatorProfile.member.name like %:keyword% ")
+    Page<Course> findAllByKeyword(@Param("keyword")String keyword, Pageable pageable);
 }
