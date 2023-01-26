@@ -20,8 +20,7 @@ const DividerBox = styled.div`
 
 export default function CoursePage() {
   const dummycourseInfo = dummyCourseInfo;
-  // const { courseId } = useParams();
-  const courseId = 1;
+  const { courseId } = useParams();
 
   useQuery(
     ["courseDetailInfo", courseId],

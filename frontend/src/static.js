@@ -84,3 +84,5 @@ export const BAR_LIST = {
 export const QUERYKEY = {
   AUTH: {},
 };
+
+export const BASE_URL = "http://218.38.127.26:8080/api";

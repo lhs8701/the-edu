@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { CATE_VALUE, PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
@@ -192,6 +192,7 @@ export default function Header() {
   const isKakaoState = useRecoilValue(getIsKakaoSelector);
   const isBasicState = useRecoilValue(getIsBasicSelector);
   const socialToken = useRecoilValue(getKakaoAuthTokenSelector);
+  const navigate = useNavigate();
 
   const logOut = () => {
     if (isKakaoState) {
@@ -207,6 +208,7 @@ export default function Header() {
       accessToken: "",
       refreshToken: "",
     });
+    navigate("/");
   };
 
   return (

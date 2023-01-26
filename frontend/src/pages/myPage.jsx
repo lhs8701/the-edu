@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { myCourseApi, wishCourseApi } from "../api/myPageApi";
+import { myCourseApi, myInfoApi, wishCourseApi } from "../api/myPageApi";
 import {
   getAccessTokenSelector,
   getLoginState,
@@ -64,6 +64,20 @@ export default function MyPage() {
     ["wishCourseList", memberId],
     () => {
       return wishCourseApi(memberId, accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
+  useQuery(
+    ["myInfo", memberId],
+    () => {
+      return myInfoApi(memberId, accessToken);
     },
     {
       enabled: !!memberId,

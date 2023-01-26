@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-export default function NotFoundPage() {
+export default function MypageErrComponent() {
   const navigate = useNavigate();
   useEffect(() => {
-    navigate(-1);
+    navigate("/my");
   }, []);
-  return <h1>404 Not Found</h1>;
+  return <h1>새로고침했음</h1>;
 }

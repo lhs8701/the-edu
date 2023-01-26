@@ -60,8 +60,9 @@ export default function CourseInquire({ courseId }) {
         memberId
       );
       console.log(data);
-      // if(data.)
-      // window.location.reload();
+      if (data) {
+        window.location.reload();
+      }
     } catch (err) {
       alert(err);
     }

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { KAKAO_REDIRECT_URL, KAKAO_JSKEY } from "../AuthKey";
+import { BASE_URL } from "../static";
 
-const BASE_URL = "http://218.38.127.26:8080/api/auth";
+const AUTH_URL = `${BASE_URL}/auth`;
 const KAKAO_URL = "https://kauth.kakao.com/oauth/token";
 const SIGNUP_PATH = "/basic/signup";
 const SIGNIN_PATH = "/basic/login";
@@ -11,7 +12,7 @@ const KAKAO_LOGOUT_PATH = "/kakao/logout";
 
 export async function signUp(userData) {
   return await axios.post(
-    BASE_URL + SIGNUP_PATH,
+    AUTH_URL + SIGNUP_PATH,
     {
       account: userData.account,
       password: userData.password,
@@ -32,7 +33,7 @@ export async function signUp(userData) {
 
 export async function kakaoLogin(socialToken) {
   return await axios.post(
-    BASE_URL + KAKAO_SIGNIN_PATH,
+    AUTH_URL + KAKAO_SIGNIN_PATH,
     {
       socialToken: socialToken,
     },
@@ -48,7 +49,7 @@ export async function kakaoLogin(socialToken) {
 
 export async function login(userData) {
   return await axios.post(
-    BASE_URL + SIGNIN_PATH,
+    AUTH_URL + SIGNIN_PATH,
     {
       account: userData.account,
       password: userData.password,
@@ -80,7 +81,7 @@ export async function getKakaoAuthToken(code) {
 
 export async function BasicLogout(accessToken, refreshToken) {
   return await axios.post(
-    BASE_URL + BASIC_LOGOUT_PATH,
+    AUTH_URL + BASIC_LOGOUT_PATH,
     {
       refreshToken: refreshToken,
     },
@@ -97,7 +98,7 @@ export async function BasicLogout(accessToken, refreshToken) {
 
 export async function KakaoLogout(accessToken, socialToken) {
   return await axios.post(
-    BASE_URL + KAKAO_LOGOUT_PATH,
+    AUTH_URL + KAKAO_LOGOUT_PATH,
     {
       socialToken: socialToken,
     },
