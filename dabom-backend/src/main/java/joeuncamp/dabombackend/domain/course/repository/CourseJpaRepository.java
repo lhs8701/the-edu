@@ -23,4 +23,6 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
 
     @Query("select c from Course c" + " join Wish w on w.course = c " + "group by c " + "order by count(w) desc ")
     Page<Course> findCourseByCategoryOrderByWishCount(CategoryType categoryType, Pageable pageable);
+
+    Page<Course> findAllByTitleContaining(String keyword, Pageable pageable);
 }
