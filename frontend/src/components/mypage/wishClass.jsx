@@ -1,4 +1,7 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { queryClient } from "../..";
+import { getMemberIdSelector } from "../../atom";
 import { dummyWishList } from "../../dummy";
 import {
   MyPageBox,
@@ -18,12 +21,15 @@ const WishListBox = styled.div`
 `;
 
 export default function WishClass() {
+  const memberId = useRecoilValue(getMemberIdSelector);
+  const wishCourses = queryClient.getQueryData(["wishCourseList", memberId]);
+
   return (
     <MyPageBox>
       <MyPageTitle>찜한 클래스</MyPageTitle>
       <MyPageContentBox>
         <WishListBox>
-          {dummyWishList.map((course) => {
+          {wishCourses.map((course) => {
             return <ClassCard key={course.courseId} course={course} />;
           })}
         </WishListBox>

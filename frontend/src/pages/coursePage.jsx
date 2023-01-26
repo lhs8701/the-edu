@@ -20,8 +20,7 @@ const DividerBox = styled.div`
 
 export default function CoursePage() {
   const dummycourseInfo = dummyCourseInfo;
-  // const { courseId } = useParams();
-  const courseId = 1;
+  const { courseId } = useParams();
 
   useQuery(
     ["courseDetailInfo", courseId],
@@ -30,7 +29,7 @@ export default function CoursePage() {
     },
     {
       enabled: !!courseId,
-      onSuccess: () => {},
+      onSuccess: (res) => {},
       onError: () => {
         console.error("에러 발생했지롱");
       },
@@ -43,7 +42,7 @@ export default function CoursePage() {
     },
     {
       enabled: !!courseId,
-      onSuccess: () => {},
+      onSuccess: (res) => {},
       onError: () => {
         console.error("에러 발생했지롱");
       },
@@ -57,7 +56,7 @@ export default function CoursePage() {
     },
     {
       enabled: !!courseId,
-      onSuccess: () => {},
+      onSuccess: (res) => {},
       onError: () => {
         console.error("에러 발생했지롱");
       },

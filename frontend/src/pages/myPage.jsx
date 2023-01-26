@@ -1,8 +1,14 @@
+import { useQuery } from "react-query";
 import { Outlet, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getLoginState } from "../atom";
+import { myCourseApi, myInfoApi, wishCourseApi } from "../api/myPageApi";
+import {
+  getAccessTokenSelector,
+  getLoginState,
+  getMemberIdSelector,
+} from "../atom";
 import { BAR_LIST } from "../static";
 import { Wrapper } from "../style/CommonCss";
 import { MyLink, NavBox, NavTab } from "../style/SideBarCss";
@@ -35,10 +41,57 @@ const SideBarBox = styled.nav`
 export default function MyPage() {
   const loginState = useRecoilValue(getLoginState);
   const navigate = useNavigate();
-  // console.log("TTTEST");
+  const memberId = useRecoilValue(getMemberIdSelector);
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+
+  useQuery(
+    ["myCourseList", memberId],
+    () => {
+      return myCourseApi(memberId, accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: (res) => {
+        console.log(res);
+      },
+      onError: (err) => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
+  useQuery(
+    ["wishCourseList", memberId],
+    () => {
+      return wishCourseApi(memberId, accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
+  useQuery(
+    ["myInfo", memberId],
+    () => {
+      return myInfoApi(memberId, accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
   if (!loginState) {
     navigate("/");
   }
+
   const SideBar = ({ barList }) => {
     return (
       <SideBarBox>

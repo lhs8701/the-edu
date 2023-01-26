@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { getcourseReviewsApi } from "../../api/courseApi";
-import { queryClient } from "../../App";
+import { queryClient } from "../../index";
 import { AccountSmallBtn } from "../../style/AccountComponentCss";
 import { Wrapper } from "../../style/CommonCss";
 import { Title } from "../../style/CourseCss";

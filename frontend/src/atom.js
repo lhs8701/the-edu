@@ -1,4 +1,11 @@
 import { atom, selector } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist({
+  key: "recoil-persist-atom",
+  storage: sessionStorage,
+  // storage: localStorage,
+});
 
 export const LoginState = atom({
   key: "LoginState",
@@ -10,13 +17,13 @@ export const LoginState = atom({
     accessToken: "",
     refreshToken: "",
   },
-  storage: sessionStorage,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const KakaoAuthTokenAtom = atom({
   key: "KakaoAuthToken",
   default: "",
-  storage: sessionStorage,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const getLoginState = selector({
@@ -26,7 +33,13 @@ export const getLoginState = selector({
     return data.state;
   },
 });
-
+export const getMemberIdSelector = selector({
+  key: "getMemberId",
+  get: ({ get }) => {
+    const data = get(LoginState);
+    return data.memberId;
+  },
+});
 export const getIsBasicSelector = selector({
   key: "getBasicState",
   get: ({ get }) => {
