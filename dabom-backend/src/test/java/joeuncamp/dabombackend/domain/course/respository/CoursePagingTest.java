@@ -14,7 +14,6 @@ import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.domain.wish.repository.WishJpaRepository;
 import joeuncamp.dabombackend.global.config.JpaAuditingConfig;
 import joeuncamp.dabombackend.global.constant.CategoryType;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -238,31 +237,11 @@ public class CoursePagingTest {
         assertThat(pages.getContent().size()).isEqualTo(2);
     }
 
-    @Test
-    @DisplayName("제목에 키워드가 포함된 강좌를 모두 조회한다.")
-    void 제목에_키워드가_포함된_강좌를_모두_조회한다() {
-        // given
-        String keyword = "스프링";
-
-        Pageable pageable = PageRequest.of(0, 5,  Sort.by(Sort.Direction.ASC, "title"));
-        Course c1 = Course.builder().category(CategoryType.BACK_END).title("모두의스프링").build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).title("라면 스프").build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).title("스프링 만들기").build();
-        courseJpaRepository.save(c1);
-        courseJpaRepository.save(c2);
-        courseJpaRepository.save(c3);
-
-        // when
-        Page<Course> pages = courseJpaRepository.findAllByTitleContaining(keyword, pageable);
-
-        // then
-        assertThat(pages.getContent()).containsExactly(c1, c3);
-    }
 
     @Test
-    @DisplayName("강사명에 키워드가 포함된 강좌를 모두 조회한다.")
-    void 강사명에_키워드가_포함된_강좌를_모두_조회한다() {
-        String name = "철수";
+    @DisplayName("강사명이나 제목에 키워드가 포함된 강좌를 모두 조회한다.")
+    void 강사명이나_제목에_키워드가_포함된_강좌를_모두_조회한다() {
+        String keyword = "철수";
         Member m1 = Member.builder().name("김철수").build();
         Member m2 = Member.builder().name("이철수").build();
         Member m3 = Member.builder().name("정민수").build();
@@ -275,20 +254,23 @@ public class CoursePagingTest {
         creatorProfileJpaRepository.save(cr1);
         creatorProfileJpaRepository.save(cr2);
         creatorProfileJpaRepository.save(cr3);
-        Pageable pageable = PageRequest.of(0, 5,  Sort.by(Sort.Direction.ASC, "title"));
-        Course c1 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr1).build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr1).build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr2).build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).creatorProfile(cr3).build();
+        Pageable pageable = PageRequest.of(0, 5);
+        Course c1 = Course.builder().category(CategoryType.BACK_END).title("c1 철수").creatorProfile(cr1).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).title("c2 test").creatorProfile(cr1).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).title("c3 test").creatorProfile(cr2).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c4 test").creatorProfile(cr3).build();
+        Course c5 = Course.builder().category(CategoryType.BACK_END).title("c5 철수").build();
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
         courseJpaRepository.save(c3);
         courseJpaRepository.save(c4);
+        courseJpaRepository.save(c5);
 
         // when
-        Page<Course> pages = courseJpaRepository.findAllByCreatorName(name, pageable);
+        Page<Course> pages = courseJpaRepository.findAllByKeyword(keyword, pageable);
 
         // then
-        assertThat(pages.getContent()).containsExactly(c1, c2, c3);
+        System.out.println("pages = " + pages.getContent());
+        assertThat(pages.getContent()).containsExactlyInAnyOrder(c1, c2, c3, c5);
     }
 }

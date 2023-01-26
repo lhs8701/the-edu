@@ -1,7 +1,6 @@
 package joeuncamp.dabombackend.domain.course.repository;
 
 import joeuncamp.dabombackend.domain.course.entity.Course;
-import joeuncamp.dabombackend.global.constant.CategoryGroup;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +25,6 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
 
     Page<Course> findAllByTitleContaining(String keyword, Pageable pageable);
 
-    @Query("select c from Course c" + " where c.creatorProfile.member.name like %:name% ")
-    Page<Course> findAllByCreatorName(@Param("name")String name, Pageable pageable);
+    @Query(" select c from Course c " + " where c.title like %:keyword% or c.creatorProfile.member.name like %:keyword% ")
+    Page<Course> findAllByKeyword(@Param("keyword")String keyword, Pageable pageable);
 }
