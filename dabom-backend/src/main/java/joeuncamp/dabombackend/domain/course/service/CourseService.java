@@ -86,4 +86,20 @@ public class CourseService {
                 .toList();
         return new PagingDto<>(page.getNumber(), page.getTotalPages(), courses);
     }
+
+    /**
+     * 강좌를 검색합니다.
+     * 제목이나, 강사명에 키워드가 포함된 강좌를 모두 조회합니다.
+     *
+     * @param keyword 검색어
+     * @param pageable pageable
+     * @return 강좌 정보 리스트
+     */
+    public PagingDto<CourseDto.ShortResponse> searchCourses(String keyword, Pageable pageable) {
+        Page<Course> page = courseJpaRepository.findAllByKeyword(keyword, pageable);
+        List<CourseDto.ShortResponse> courses = page.getContent().stream()
+                .map(CourseDto.ShortResponse::new)
+                .toList();
+        return new PagingDto<>(page.getNumber(), page.getTotalPages(), courses);
+    }
 }
