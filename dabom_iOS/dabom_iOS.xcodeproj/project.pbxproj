@@ -13,7 +13,7 @@
 		0E1E959529778C1300CBE70B /* Xib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959429778C1300CBE70B /* Xib.swift */; };
 		0E1E95972977AB8800CBE70B /* Url.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95962977AB8800CBE70B /* Url.swift */; };
 		0E1E95992977ABEA00CBE70B /* CourseInfoDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95982977ABEA00CBE70B /* CourseInfoDataModel.swift */; };
-		0E1E959B2977AC8200CBE70B /* GetCourseInfoDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959A2977AC8200CBE70B /* GetCourseInfoDataService.swift */; };
+		0E1E959B2977AC8200CBE70B /* CourseInfoDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959A2977AC8200CBE70B /* CourseInfoDataService.swift */; };
 		0E1E959D2977BDE800CBE70B /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959C2977BDE800CBE70B /* UserDataModel.swift */; };
 		0E1E959F2977C05B00CBE70B /* LoginSignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E959E2977C05B00CBE70B /* LoginSignupService.swift */; };
 		0E1E95A12978CE0700CBE70B /* UserGrantInfoDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */; };
@@ -105,7 +105,7 @@
 		0E1E959429778C1300CBE70B /* Xib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xib.swift; sourceTree = "<group>"; };
 		0E1E95962977AB8800CBE70B /* Url.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Url.swift; sourceTree = "<group>"; };
 		0E1E95982977ABEA00CBE70B /* CourseInfoDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoDataModel.swift; sourceTree = "<group>"; };
-		0E1E959A2977AC8200CBE70B /* GetCourseInfoDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCourseInfoDataService.swift; sourceTree = "<group>"; };
+		0E1E959A2977AC8200CBE70B /* CourseInfoDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInfoDataService.swift; sourceTree = "<group>"; };
 		0E1E959C2977BDE800CBE70B /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		0E1E959E2977C05B00CBE70B /* LoginSignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupService.swift; sourceTree = "<group>"; };
 		0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGrantInfoDataModel.swift; sourceTree = "<group>"; };
@@ -422,7 +422,7 @@
 			isa = PBXGroup;
 			children = (
 				0EFB743E2970DEE600C58E87 /* NetworkResult.swift */,
-				0E1E959A2977AC8200CBE70B /* GetCourseInfoDataService.swift */,
+				0E1E959A2977AC8200CBE70B /* CourseInfoDataService.swift */,
 				0E1E959E2977C05B00CBE70B /* LoginSignupService.swift */,
 			);
 			path = Network;
@@ -719,7 +719,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E9D151A297449700061D1ED /* CourseInfoTVC.swift in Sources */,
-				0E1E959B2977AC8200CBE70B /* GetCourseInfoDataService.swift in Sources */,
+				0E1E959B2977AC8200CBE70B /* CourseInfoDataService.swift in Sources */,
 				0EAF7B312980C6CC00F65E5A /* RecentSearchTVC.swift in Sources */,
 				0EFB744629710F8600C58E87 /* LoginSignupVC.swift in Sources */,
 				0E9D15252974E11E0061D1ED /* UIViewController+.swift in Sources */,

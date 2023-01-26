@@ -36,6 +36,12 @@ class CourseInfoViewController: UIViewController {
     let maxUpper: CGFloat = 450.0
     let minUpper: CGFloat = 0.0
     
+    let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
+    
+    
+    var onOffButton: UIButton!
+    var heartButton: UIButton!
+    
     
     // MARK: - Life Cycle
     
@@ -49,6 +55,7 @@ class CourseInfoViewController: UIViewController {
         // courseId 기본값 설정 (임시)
         self.courseId = 1
         getCourseInfo(id: self.courseId!)
+        checkWish()
 
     }
     
@@ -67,23 +74,53 @@ class CourseInfoViewController: UIViewController {
     // MARK: - rightBarButtonItem 설정
     private func setRightBarButton() {
         let onOffImage = UIImage(named: "onoff")?.withRenderingMode(.alwaysOriginal)
-        let onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 30))
-        onOffButton.setImage(onOffImage, for: .normal)
-        onOffButton.addTarget(self, action: #selector(onOffBtnPressed(_:)), for: .touchUpInside)
+        self.onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 30))
+        self.onOffButton.setImage(onOffImage, for: .normal)
+        self.onOffButton.addTarget(self, action: #selector(onOffBtnPressed(_:)), for: .touchUpInside)
         let onOff = UIBarButtonItem(customView: onOffButton)
         
         let unselectedHeart = UIImage(named: Const.Image.unselectedHeart)
         let selectedHeart = UIImage(named: Const.Image.selectedHeart)
-        let heartButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
-        heartButton.setImage(unselectedHeart, for: .normal)
-        heartButton.setImage(selectedHeart, for: .selected)
-        heartButton.addTarget(self, action: #selector(wishBtnPressed(_:)), for: .touchUpInside)
+        self.heartButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
+        self.heartButton.setImage(unselectedHeart, for: .normal)
+        self.heartButton.setImage(selectedHeart, for: .selected)
+        self.heartButton.addTarget(self, action: #selector(wishBtnPressed(_:)), for: .touchUpInside)
         let heart = UIBarButtonItem(customView: heartButton)
 
         navigationItem.rightBarButtonItems = [heart, onOff]
     }
     
+    func checkWish() {
+        CourseInfoDataService.shared.isWishCourse(memberId: self.memberId, courseId: self.courseId!) { check in
+            switch check {
+            case true:
+                print("true!!")
+                self.heartButton.isSelected = true
+            case false:
+                print("false!!")
+                self.heartButton.isSelected = false
+            }
+        }
+    }
+    
     @objc func wishBtnPressed(_ sender: UIButton) {
+        CourseInfoDataService.shared.changeWishCourse(memberId: self.memberId, courseId: self.courseId!) { response in
+            switch (response) {
+            case .success:
+                print("change Success")
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("networkResult pathErr")
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+        
+        
         if sender.isSelected {
             sender.isSelected = false
         } else {
@@ -140,7 +177,7 @@ class CourseInfoViewController: UIViewController {
     
     // MARK: - getCourse
     private func getCourseInfo(id: Int) {
-        GetCourseInfoDataService.shared.getCourseInfo(id: id) { response in
+        CourseInfoDataService.shared.getCourseInfo(id: id) { response in
             switch (response) {
             case .success(let courseInfoData):
                 if let data = courseInfoData as? CourseInfoDataModel {
