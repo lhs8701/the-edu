@@ -9,6 +9,7 @@ import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.common.PagingDto;
+import joeuncamp.dabombackend.global.constant.CategoryGroup;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
@@ -117,6 +118,8 @@ public class CourseServiceTest {
         PagingDto<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category, pageable);
 
         // then
+        assertThat(responseDto).isNotNull();
         assertThat(responseDto.getList().get(0).getTitle()).isEqualTo(ExampleValue.Course.TITLE);
     }
+
 }

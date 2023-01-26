@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
-import joeuncamp.dabombackend.domain.wish.dto.WishRequestDto;
+import joeuncamp.dabombackend.domain.wish.dto.WishDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.WithAuthUser;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -134,7 +133,7 @@ public class CourseControllerTest {
     @DisplayName("강좌에 찜을 하거나, 해제한다.")
     void 강좌에_찜을_하거나_해제한다() throws Exception {
         // given
-        WishRequestDto requestDto = WishRequestDto.builder()
+        WishDto.Request requestDto = WishDto.Request.builder()
                 .memberId(1L)
                 .courseId(1L)
                 .build();
