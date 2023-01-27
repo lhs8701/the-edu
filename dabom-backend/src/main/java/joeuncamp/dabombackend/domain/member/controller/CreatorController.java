@@ -14,25 +14,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @Tag(name = "[2.Creator]", description = "크리에이터 관련 API입니다.")
 @RequiredArgsConstructor
-@RequestMapping("/api/creators")
+@RequestMapping("/api")
 public class CreatorController {
-
     private final CreatorService creatorService;
 
     @Operation(summary = "크리에이터 프로필 활성화", description = "회원이 크리에이터 기능을 수행할 수 있게 됩니다.")
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/activate")
+    @PostMapping("/creators/activate")
     public ResponseEntity<Void> activateCreatorProfile(@RequestBody CreatorRequestDto requestDto) {
         creatorService.activateCreatorProfile(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

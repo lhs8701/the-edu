@@ -14,6 +14,7 @@ import joeuncamp.dabombackend.domain.wish.dto.WishDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
+import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -92,6 +93,15 @@ public class CourseController {
     @GetMapping("/courses/keyword/{keyword}")
     public ResponseEntity<PagingDto<CourseDto.ShortResponse>> searchCourses(@PathVariable @Schema(example = "검색어") String keyword, @ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
         PagingDto<CourseDto.ShortResponse> responseDto = courseService.searchCourses(keyword, pageable);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary = "강좌 수강 등록 여부를 조회합니다.", description = "")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/courses/{courseId}/enroll")
+    public ResponseEntity<SingleResponseDto<Boolean>> doesEnrolled(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
+        SingleResponseDto<Boolean> responseDto = enrollService.doesEnrolled(courseId, member.getId());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

@@ -1,5 +1,7 @@
 package joeuncamp.dabombackend.domain.member.service;
 
+import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.dto.CreatorRequestDto;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -10,11 +12,14 @@ import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class CreatorService {
     private final MemberJpaRepository memberJpaRepository;
     private final CreatorProfileJpaRepository creatorProfileJpaRepository;
+    private final CourseJpaRepository courseJpaRepository;
 
     /**
      * 회원의 크리에이터 프로필을 활성화합니다.

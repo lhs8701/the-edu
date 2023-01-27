@@ -53,7 +53,7 @@ public class ReviewServiceTest {
                 .build();
         given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
         given(courseJpaRepository.findById(1L)).willReturn(Optional.of(course));
-        given(enrollService.isEnrolled(member, course)).willReturn(false);
+        given(enrollService.doesEnrolled(member, course)).willReturn(false);
 
         // when
 

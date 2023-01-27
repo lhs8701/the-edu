@@ -5,12 +5,6 @@ plugins {
 	id 'war'
 }
 
-bootWar{
-	archiveBaseName = 'ROOT'
-	archiveFileName = 'ROOT.war'
-	archiveVersion = "0.0.0"
-}
-
 jar {
 	enabled = false
 }

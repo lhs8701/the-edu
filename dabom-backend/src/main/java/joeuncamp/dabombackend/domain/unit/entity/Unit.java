@@ -18,6 +18,8 @@ public class Unit extends BaseTimeEntity {
     Long id;
 
     int sequence;
+
+    Long chapterId;
     String title;
     String description;
 
