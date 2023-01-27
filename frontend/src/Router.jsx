@@ -26,6 +26,8 @@ import KaKaoAuth from "./components/account/KakaoAuth";
 import PlayerRoot from "./pages/PlayerRoot";
 import MypageErrComponent from "./components/mypage/MypageErrComponent";
 import AdminRoot from "./pages/admin/AdminRoot";
+import Dashboard from "./components/admin/Dashboard";
+import AdminLogin from "./components/admin/AdminLogin";
 
 const router = createBrowserRouter([
   {
@@ -133,7 +135,6 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminRoot />,
-    errorElement: <ErrorComponent />,
   },
 ]);
 

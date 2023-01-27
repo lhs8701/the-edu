@@ -123,7 +123,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              The-Edu 관리자 페이지
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
