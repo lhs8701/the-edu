@@ -89,7 +89,7 @@ const HearTCnt = styled.p`
 
 export const UnderBar = styled.div`
   width: 100%;
-  height: 2px;
+  height: 1.4px;
   background-color: #c8c8c8;
 `;
 
@@ -160,5 +160,5 @@ export const InputTextArea = styled.textarea`
 
 export const Box = styled.div`
   width: 100%;
-  margin: 30px 0px;
+  margin: 32px 0px;
 `;

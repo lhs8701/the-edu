@@ -1,4 +1,9 @@
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { enrollApi } from "../api/courseApi";
+import { getAccessTokenSelector, getMemberIdSelector } from "../atom";
 import { UnderBar } from "../components/course/ChatComponents";
 import { TabTitle } from "../style/CommonCss";
 
@@ -73,6 +78,23 @@ const PaymentBtn = styled(PurchaseBtn)`
 `;
 
 export default function PurchasePage() {
+  const { courseId } = useParams();
+  const navigate = useNavigate();
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+  const memberId = useRecoilValue(getMemberIdSelector);
+
+  const enrollCourse = () => {
+    enrollApi(memberId, courseId, accessToken)
+      .then(() => {
+        alert("구매가 완료 되었습니다.");
+        navigate("/");
+      })
+      .catch((err) => {
+        alert("결제가 완료되지 않았습니다.");
+        navigate(0);
+      });
+  };
+
   const PurchaseThing = () => {
     return (
       <>
@@ -128,7 +150,7 @@ export default function PurchasePage() {
         </InfoSection>
         <CardSection>
           <PurchaseCard />
-          <PaymentBtn>결제</PaymentBtn>
+          <PaymentBtn onClick={enrollCourse}>결제</PaymentBtn>
         </CardSection>
       </DividerBox>
     </MyPageWrapper>

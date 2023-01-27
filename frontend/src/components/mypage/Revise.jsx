@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { queryClient } from "../..";
-import { revisemyInfoApi } from "../../api/myPageApi";
+import { myInfoApi, revisemyInfoApi } from "../../api/myPageApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import {
   AccountBtn,
@@ -39,18 +40,31 @@ const ReviseForm = styled(AccountForm)`
 
 export default function Revise() {
   const memberId = useRecoilValue(getMemberIdSelector);
-  const infos = queryClient.getQueryData(["myInfo", memberId]);
   const accessToken = useRecoilValue(getAccessTokenSelector);
+  const infos = useQuery(
+    ["myInfo", memberId],
+    () => {
+      return myInfoApi(memberId, accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
-  const [isId, setIsId] = useState(infos.email);
-  const [isName, setIsName] = useState(infos.nickname);
-  const [isTele, setIsTele] = useState(infos.mobile);
+  const [isId, setIsId] = useState(infos?.data?.email);
+  const [isName, setIsName] = useState(infos?.data?.nickname);
+  const [isTele, setIsTele] = useState(infos?.data?.mobile);
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
     watch,
+    setValue,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -62,7 +76,6 @@ export default function Revise() {
   });
 
   const submit = () => {
-    console.log("fdd");
     const info = {
       nickname: isName,
       email: isId,
@@ -79,6 +92,15 @@ export default function Revise() {
         }
       });
   };
+
+  useLayoutEffect(() => {
+    setIsId(infos?.data?.email);
+    setIsName(infos?.data?.nickname);
+    setIsTele(infos?.data?.mobile);
+    setValue("tele", infos?.data?.mobile);
+    setValue("name", infos?.data?.nickname);
+    setValue("email", infos?.data?.email);
+  }, [infos]);
 
   return (
     <MyPageBox>

@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "purchase",
+        path: "purchase/:courseId",
         element: <PurchasePage />,
       },
       {

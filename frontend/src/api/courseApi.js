@@ -4,6 +4,57 @@ import { BASE_URL } from "../static";
 const COURSE_URL = `${BASE_URL}/courses`;
 const INQUIRE_URL = "/inquiries";
 const CATEGORY_URL = "/category";
+const WISHCHECK_URL = "/wish/check";
+const WISH_URL = "/wish";
+const ENROLL_URL = "/enroll";
+
+export async function enrollApi(memberId, courseId, accessToken) {
+  return await axios.post(
+    COURSE_URL + ENROLL_URL,
+    {
+      memberId: memberId,
+      courseId: Number(courseId),
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "X-AUTH-TOKEN": accessToken,
+      },
+    }
+  );
+}
+
+export async function courseWishCheckApi(memberId, courseId, accessToken) {
+  return await axios.post(
+    COURSE_URL + WISHCHECK_URL,
+    {
+      memberId: memberId,
+      courseId: courseId,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "X-AUTH-TOKEN": accessToken,
+      },
+    }
+  );
+}
+
+export async function courseWishApi(memberId, courseId, accessToken) {
+  return await axios.post(
+    COURSE_URL + WISH_URL,
+    {
+      memberId: memberId,
+      courseId: courseId,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "X-AUTH-TOKEN": accessToken,
+      },
+    }
+  );
+}
 
 export async function courseApi(courseId) {
   const data = await axios.get(`${COURSE_URL}/${courseId}`);
@@ -49,8 +100,6 @@ export async function postcourseInquiriessApi(
     {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": "*",
         "X-AUTH-TOKEN": accessToken,
       },
     }

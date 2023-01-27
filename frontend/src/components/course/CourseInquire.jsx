@@ -20,6 +20,7 @@ const InquireWrapper = styled.div`
 
 const InputBox = styled.div`
   margin-top: 20px;
+  margin-bottom: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -52,19 +53,23 @@ export default function CourseInquire({ courseId }) {
   };
 
   async function enrollInquire() {
-    try {
-      const { data } = await postcourseInquiriessApi(
-        accessToken,
-        courseId,
-        textValue,
-        memberId
-      );
-      console.log(data);
-      if (data) {
-        window.location.reload();
+    if (textValue === "") {
+      alert("문의를 적어주세요!");
+    } else {
+      try {
+        const { data } = await postcourseInquiriessApi(
+          accessToken,
+          courseId,
+          textValue,
+          memberId
+        );
+
+        if (data) {
+          window.location.reload();
+        }
+      } catch (err) {
+        alert(err);
       }
-    } catch (err) {
-      alert(err);
     }
   }
 
@@ -89,6 +94,8 @@ export default function CourseInquire({ courseId }) {
   return (
     <InquireWrapper>
       <Title>문의 사항</Title>
+      <br />
+      <br />
       <br />
       <br />
       <InputTextArea

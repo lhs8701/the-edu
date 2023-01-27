@@ -41,54 +41,9 @@ const SideBarBox = styled.nav`
 export default function MyPage() {
   const loginState = useRecoilValue(getLoginState);
   const navigate = useNavigate();
-  const memberId = useRecoilValue(getMemberIdSelector);
-  const accessToken = useRecoilValue(getAccessTokenSelector);
-
-  useQuery(
-    ["myCourseList", memberId],
-    () => {
-      return myCourseApi(memberId, accessToken);
-    },
-    {
-      enabled: !!memberId,
-      onSuccess: (res) => {
-        console.log(res);
-      },
-      onError: (err) => {
-        console.error("에러 발생했지롱");
-      },
-    }
-  );
-
-  useQuery(
-    ["wishCourseList", memberId],
-    () => {
-      return wishCourseApi(memberId, accessToken);
-    },
-    {
-      enabled: !!memberId,
-      onSuccess: (res) => {},
-      onError: () => {
-        console.error("에러 발생했지롱");
-      },
-    }
-  );
-
-  useQuery(
-    ["myInfo", memberId],
-    () => {
-      return myInfoApi(memberId, accessToken);
-    },
-    {
-      enabled: !!memberId,
-      onSuccess: (res) => {},
-      onError: () => {
-        console.error("에러 발생했지롱");
-      },
-    }
-  );
 
   if (!loginState) {
+    alert("로그인 하세요.");
     navigate("/");
   }
 
