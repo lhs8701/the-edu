@@ -89,6 +89,7 @@ export default function MyPage() {
   );
 
   if (!loginState) {
+    alert("로그인 하세요.");
     navigate("/");
   }
 

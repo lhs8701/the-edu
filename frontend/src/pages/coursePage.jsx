@@ -73,6 +73,7 @@ export default function CoursePage() {
             title={dummycourseInfo?.courseInfo?.title}
             teacher={dummycourseInfo?.courseInfo?.teacher}
             purchaseOption={dummycourseInfo.coursePurchaseInfo}
+            courseId={courseId}
           />
         </DividerBox>
       </Suspense>
