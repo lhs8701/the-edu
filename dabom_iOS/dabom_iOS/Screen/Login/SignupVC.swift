@@ -84,7 +84,7 @@ class SignupVC: UIViewController {
         User.mobile = mobileTextField.text!
         User.birthDate = birthdayTextField.text!
         
-        LoginSignupService.shared.emailSignup(user: User) { response in
+        AuthenticationService.shared.emailSignup(user: User) { response in
             switch (response) {
             case .success:
                 print("signup Success")
@@ -97,6 +97,8 @@ class SignupVC: UIViewController {
                 print("serverErr")
             case .networkFail:
                 print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
             }
         }
         

@@ -117,6 +117,8 @@ class CourseInfoViewController: UIViewController {
                 print("serverErr")
             case .networkFail:
                 print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
             }
         }
         
@@ -195,7 +197,10 @@ class CourseInfoViewController: UIViewController {
                 print("serverErr")
             case .networkFail:
                 print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
             }
+            
         }
     }
 }

@@ -42,11 +42,11 @@ class SignupSelectVC: UIViewController {
                     let accessToken = String(oauthToken?.accessToken ?? "")
                     //                    let refreshToken = oauthToken?.refreshToken
                     
-                    LoginSignupService.shared.kakaoLogin(accessToken: accessToken) { response in
+                    AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
                         switch (response) {
                         case .success:
                             print("kakaoLogin Success")
-                            LoginSignupService.shared.goToMain()
+                            AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)
                         case .pathErr:
@@ -55,6 +55,8 @@ class SignupSelectVC: UIViewController {
                             print("serverErr")
                         case .networkFail:
                             print("networkFail")
+                        case .resourceErr:
+                            print("resourceErr")
                         }
                     }
                 }

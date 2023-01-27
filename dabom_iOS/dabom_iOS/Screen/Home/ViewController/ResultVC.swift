@@ -19,14 +19,17 @@ class ResultVC: UIViewController {
     // MARK: - let, var
     
     var resultTitle: String?
-    var kind: String?
     
-    var resultData: Array<CourseThumbnailDataModel> = []
+    var resultData: Array<SampleCourseThumbnail> = []
     var sampleApiData: Array<CourseThumbnailDataModel> = CourseThumbnailDataModel.sampleAPI
     
+    var kind: String = "category"
     var page = 0
+    var totalPage = 0
+    var size = 10
     var isPaging: Bool = false
     var hasNextPage: Bool = false
+    
     
     // MARK: - Life Cycle
     
@@ -35,8 +38,12 @@ class ResultVC: UIViewController {
         
         setCV()
         
-        self.resultName.text = (self.resultTitle ?? "")
-        self.resultKind.text = (self.kind ?? "")
+        self.resultName.text = self.resultTitle ?? ""
+        if kind == "category" {
+            self.resultKind.text = "카테고리"
+        } else if kind == "search" {
+            self.resultKind.text = "검색 결과"
+        }
         
         self.resultName.sizeToFit()
         self.resultName.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor")!, width: 3.0)
@@ -55,24 +62,45 @@ class ResultVC: UIViewController {
         self.resultCV.dataSource = self
         self.resultCV.isScrollEnabled = true
         
-//        resultData = CourseThumbnailDataModel.sampleData
         self.getData(page: self.page)
     }
     
     
+    // MARK: - getData
     
     func getData(page: Int) {
         print("getData!!")
         self.isPaging = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
-            self.page += 1
-            
-            self.resultData.append(contentsOf: self.sampleApiData)
-            
-            self.resultCV.reloadData()
-            self.isPaging = false
-        })
+        if page <= totalPage {
+            GetPaginationDataService.shared.getPagination(kind: self.kind, keyword: self.resultTitle ?? "", page: self.page, size: self.size) { response in
+                switch response {
+                case .success(let paginationData):
+                    if let data = paginationData as? PaginationDataModel {
+                        self.page += 1
+                        self.totalPage = data.totalPage
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                            self.resultData.append(contentsOf: data.list)
+                            self.resultCV.reloadData()
+                            self.isPaging = false
+                        })
+                    }
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
+            }
+        }
+        
+        
     }
 }
 
@@ -87,7 +115,8 @@ extension ResultVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
-        nextVC.courseTitle = resultData[indexPath.row].courseTitle
+        nextVC.courseTitle = resultData[indexPath.row].title
+        
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -109,7 +138,8 @@ extension ResultVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CourseThumbnailCollectionViewCell.identifier, for: indexPath) as? CourseThumbnailCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.setData(resultData[indexPath.row])
+//        cell.setData(resultData[indexPath.row])
+        cell.setTemp(resultData[indexPath.row])
         
         return cell
     }

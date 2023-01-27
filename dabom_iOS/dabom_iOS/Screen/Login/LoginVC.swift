@@ -29,6 +29,9 @@ class LoginVC: UIViewController {
     
     // MARK: - IBAction
     @IBAction func loginBtnPressed(_ sender: Any) {
+        // 키보드 내리기
+        view.endEditing(true)
+        
         // 아이디, 비밀번호 입력 여부 확인
         guard let email = emailTextField.text, !email.isEmpty else {
             emailTextField.placeholder = "아이디를 입력해주세요"
@@ -42,46 +45,45 @@ class LoginVC: UIViewController {
             return
         }
         
-        // 아이디, 비밀번호 유효성 검사
-        validCheck(id: email, pwd: password)
-        User.account = email
-        User.password = password
-        // 키보드 내리기
-        view.endEditing(true)
         
-        LoginSignupService.shared.emailLogin(user: User) { response in
-            switch (response) {
-            case .success:
-                print("login Success")
-                self.goToMain()
-            case .requestErr(let message):
-                print("requestErr", message)
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
+        // 아이디, 비밀번호 유효성 검사
+        if validCheck(id: email, pwd: password) {
+            User.account = email
+            User.password = password
+            
+            AuthenticationService.shared.emailLogin(user: User) { response in
+                switch (response) {
+                case .success:
+                    print("login Success")
+                    AuthenticationService.shared.goToMain()
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("잘못된 아이디 혹은 비밀번호")
+                    let alert = UIAlertController(title: "", message: "아이디 또는 비밀번호를 확인해주세요", preferredStyle: .alert)
+                    let confirm = UIAlertAction(title: "확인", style: .default)
+                    alert.addAction(confirm)
+                    self.present(alert, animated: true)
+                }
             }
+            
+            print(email)
+            print(password)
         }
         
-        print(email)
-        print(password)
         
     }
     
     @IBAction func temp(_ sender: Any) {
-        self.goToMain()
+        AuthenticationService.shared.goToMain()
     }
-    
-    func goToMain() {
-        guard let mainVC = UIStoryboard(name: Const.Storyboard.Name.main, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.mainTabBar) as? TabBarViewController else {return}
-        
-        (UIApplication.shared.delegate as! AppDelegate).changeRootVC(mainVC, animated: false)
-    }
-    
-    
-    
+ 
     // MARK: - func
     func textFieldSetting() {
         // TextField 아래 선
@@ -105,12 +107,14 @@ class LoginVC: UIViewController {
         return passwordTest.evaluate(with: pwd)
     }
     
-    func validCheck(id: String, pwd: String) {
+    func validCheck(id: String, pwd: String) -> Bool {
         // 아이디 유효성 검사
         if !isValidEmail(id: id) {
             shakeTextField(textField: emailTextField)
             emailTextField.text = ""
             emailTextField.placeholder = "이메일 형식을 확인해주세요"
+            
+            return false
         }
         
         // 비밀번호 유효성 검사
@@ -118,7 +122,11 @@ class LoginVC: UIViewController {
             shakeTextField(textField: passwordTextField)
             passwordTextField.text = ""
             passwordTextField.placeholder = "비밀번호 형식을 확인해주세요"
+            
+            return false
         }
+        
+        return true
     }
     
 }

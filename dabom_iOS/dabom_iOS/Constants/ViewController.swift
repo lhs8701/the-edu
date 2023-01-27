@@ -20,6 +20,8 @@ extension Const {
             static let onOffDescription = "OnOffDescriptionVC"
             
             static let myPage = "UserViewController"
+            static let setting = "SettingVC"
+            
             
             static let myCourse = "MyCourseViewController"
             static let myCourseTabMan = "MyCourseTabManViewController"
