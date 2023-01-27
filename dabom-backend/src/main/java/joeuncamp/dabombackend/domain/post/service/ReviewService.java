@@ -37,7 +37,7 @@ public class ReviewService {
     public IdResponseDto writeReview(ReviewDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
-        if (!enrollService.isEnrolled(member, course)) {
+        if (!enrollService.doesEnrolled(member, course)) {
             throw new CAccessDeniedException();
         }
         Long savedId = createAndSaveReview(requestDto, member, course);
