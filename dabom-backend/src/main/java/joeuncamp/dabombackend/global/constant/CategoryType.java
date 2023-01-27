@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.global.constant;
 
+import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -25,6 +26,6 @@ public enum CategoryType {
         return Arrays.stream(values())
                 .filter(type -> type.getTitle().equals(title))
                 .findAny()
-                .orElse(EMPTY);
+                .orElseThrow(CIllegalArgumentException::new);
     }
 }

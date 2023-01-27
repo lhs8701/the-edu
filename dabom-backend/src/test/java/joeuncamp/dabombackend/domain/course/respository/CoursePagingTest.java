@@ -260,11 +260,7 @@ public class CoursePagingTest {
         Course c3 = Course.builder().category(CategoryType.BACK_END).title("c3 test").creatorProfile(cr2).build();
         Course c4 = Course.builder().category(CategoryType.BACK_END).title("c4 test").creatorProfile(cr3).build();
         Course c5 = Course.builder().category(CategoryType.BACK_END).title("c5 철수").creatorProfile(cr3).build();
-        courseJpaRepository.save(c1);
-        courseJpaRepository.save(c2);
-        courseJpaRepository.save(c3);
-        courseJpaRepository.save(c4);
-        courseJpaRepository.save(c5);
+        courseJpaRepository.saveAll(List.of(c1, c2, c3, c4, c5));
 
         // when
         Page<Course> pages = courseJpaRepository.findAllByKeyword(keyword, pageable);
@@ -286,6 +282,35 @@ public class CoursePagingTest {
 
         // then
         assertThat(result).isEqualTo("start");
+    }
+
+    @Test
+    @DisplayName("일주일 간 등록자 수가 많은 순으로 강좌를 정렬한다.")
+    void 일주일_간_등록자_수가_많은_순으로_강좌를_정렬한다() {
+        // given
+        Member m1 = Member.builder().name("김철수").build();
+        memberJpaRepository.save(m1);
+        Course c1 = Course.builder().category(CategoryType.BACK_END).title("c1").build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).title("c2").build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).title("c3").build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c4").build();
+        Course c5 = Course.builder().category(CategoryType.FRONT_END).title("c5").build();
+        courseJpaRepository.saveAll(List.of(c1,c2,c3,c4,c5));
+        Enroll e1 = Enroll.builder().course(c1).member(m1).build();
+        Enroll e2 = Enroll.builder().course(c1).member(m1).build();
+        Enroll e3 = Enroll.builder().course(c2).member(m1).build();
+        Enroll e4 = Enroll.builder().course(c3).member(m1).build();
+        Enroll e5 = Enroll.builder().course(c3).member(m1).build();
+        Enroll e6 = Enroll.builder().course(c3).member(m1).build();
+        enrollJpaRepository.saveAll(List.of(e1, e2, e3, e4, e5, e6));
+        Pageable pageable = PageRequest.of(0, 10);
+
+        // when
+        Page<Course> pages = courseJpaRepository.findByEnrolledCountFromWeek(CategoryType.BACK_END);
+
+        // then
+        System.out.println("pages = " + pages.getContent());
+        assertThat(pages.getContent()).containsExactlyInAnyOrder(c3, c1, c2);
     }
 
 }
