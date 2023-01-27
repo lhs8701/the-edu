@@ -22,7 +22,7 @@ class SettingVC: UIViewController {
 
     // MARK: - Logout
     @IBAction func logoutBtnPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "로그아웃", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "로그아웃 하시겠습니까?", preferredStyle: .actionSheet)
         
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
@@ -56,7 +56,7 @@ class SettingVC: UIViewController {
     
     // MARK: - Withdraw
     @IBAction func withdrawBtnPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "회원탈퇴", message: "정말로 탈퇴 하시겠습니까?", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "정말로 탈퇴 하시겠습니까?", preferredStyle: .actionSheet)
         
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
