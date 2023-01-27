@@ -9,6 +9,7 @@ import UIKit
 
 class UserViewController: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var profileView: UIView!
@@ -24,13 +25,13 @@ class UserViewController: UIViewController {
     
     @IBOutlet weak var settingBtn: UIButton!
     
-    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         
 
-        // Do any additional setup after loading the view.
         profileImageView.image = UIImage(named: "testProfile")
         myCouponBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
         noticeBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
@@ -39,11 +40,14 @@ class UserViewController: UIViewController {
         settingBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
     
+    // MARK: - func
     @IBAction func accountBtnPressed(_ sender: Any) {
-//        guard let loginSignupVC = UIStoryboard(name: "LoginSignup", bundle: nil).instantiateViewController(withIdentifier: "LoginSignupVC") as? LoginSignupVC else {return}
-//        self.present(loginSignupVC, animated: true)
-        
         // 로그인 안된 상태이면
         guard let loginSignupVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.loginSignupNavi) as? LoginSignupNC else {return}
         
@@ -51,5 +55,12 @@ class UserViewController: UIViewController {
         
     }
     
-
+    
+    @IBAction func settingBtnPressed(_ sender: Any) {
+        guard let settingVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.setting) as? SettingVC else {return}
+        
+        settingVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(settingVC, animated: true)
+    }
+    
 }

@@ -60,6 +60,8 @@ class WishCourseViewController: UIViewController {
                 print("serverErr")
             case .networkFail:
                 print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
             }
         }
     }
