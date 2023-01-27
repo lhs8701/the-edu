@@ -35,6 +35,7 @@ public class UnitRepositoryTest {
         // given
         Course course = Course.builder().build();
         courseJpaRepository.save(course);
+
         Unit unit = Unit.builder().course(course).build();
         Unit saved = unitJpaRepository.save(unit);
 
@@ -52,6 +53,7 @@ public class UnitRepositoryTest {
         // given
         Course course = Course.builder().build();
         courseJpaRepository.save(course);
+
         Unit unit = Unit.builder().course(course).build();
         Long savedId = unitJpaRepository.save(unit).getId();
 
