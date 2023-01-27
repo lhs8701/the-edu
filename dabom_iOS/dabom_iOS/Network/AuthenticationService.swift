@@ -172,12 +172,46 @@ struct AuthenticationService {
         }
     }
     
+    // MARK: - Reissue
+    func reissue(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.reissue)"
+        
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json"
+        ]
+        
+        let bodyData: Parameters = [
+            "accessToken" : accessToken,
+            "refreshToken" : refreshToken
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                guard let value = dataResponse.value else {return}
+                
+                let networkResult = self.judgeStatus(by: statusCode, value)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+        
+        
+    }
+    
     
     // MARK: - HTTP StatusCode 분기
     private func judgeStatus(by statusCode: Int, _ data: Data?) -> NetworkResult<Any> {
         if let data = data {
-            // response 데이터가 있을 때 -> 로그인 시
-            print("heheheheheheh")
+            // response 데이터가 있을 때 -> 로그인, reissue 시
             switch statusCode {
             case 200:
                 return setUserGrant(data: data)

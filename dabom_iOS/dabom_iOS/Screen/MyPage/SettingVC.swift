@@ -88,6 +88,25 @@ class SettingVC: UIViewController {
         
     }
     
-    
+    // MARK: - Reissue Test
+    @IBAction func reissueTest(_ sender: Any) {
+        
+        AuthenticationService.shared.reissue { response in
+            switch response {
+            case .success:
+                print("reissue Success")
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("networkResult pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
     
 }
