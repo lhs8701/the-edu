@@ -12,7 +12,7 @@ struct CourseInfoDataService {
     static let shared = CourseInfoDataService()
     
     func getCourseInfo(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.getCourseInfo)\(id)"
+        let URL = "\(Const.Url.getCourseInfo)/\(id)"
         print(URL)
         let dataRequest = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
@@ -53,7 +53,7 @@ struct CourseInfoDataService {
                 guard let statusCode = dataResponse.response?.statusCode else {return}
                 guard let value = dataResponse.value else {return}
                 
-                var data = String(data: value, encoding: .utf8).flatMap(Bool.init) ?? false
+                let data = String(data: value, encoding: .utf8).flatMap(Bool.init) ?? false
                 
                 switch statusCode {
                 case 200:

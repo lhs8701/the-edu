@@ -12,12 +12,22 @@ class WishCourseViewController: UIViewController {
     @IBOutlet weak var wishCourseCollectionView: UICollectionView!
     
     var wishCourseData: Array<CourseThumbnailDataModel>?
+    let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
+    
+    var temp: [SampleCourseThumbnail] = []
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setCV()
+//        getWishCourse()
+        print("viewDidLoad()")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear()")
+        getWishCourse()
     }
     
     // MARK: - func
@@ -29,7 +39,30 @@ class WishCourseViewController: UIViewController {
         
         wishCourseData = CourseThumbnailDataModel.sampleData
     }
-
+    
+    private func getWishCourse() {
+        print("call getWishCourse!")
+        GetWishCourseDataService.shared.getWishCourse(memberId: self.memberId) { response in
+            switch response {
+            case .success(let wishCourseData):
+                if let data = wishCourseData as? [SampleCourseThumbnail] {
+//                    for d in data {
+//                        print(d)
+//                    }
+                    self.temp = data
+                    self.wishCourseCollectionView.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
 
 }
 
@@ -37,11 +70,12 @@ class WishCourseViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension WishCourseViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let wishCourseData = wishCourseData {
-            return wishCourseData.count
-        } else {
-            return 0
-        }
+//        if let wishCourseData = wishCourseData {
+//            return wishCourseData.count
+//        } else {
+//            return 0
+//        }
+        return self.temp.count
         
     }
     
@@ -49,10 +83,9 @@ extension WishCourseViewController: UICollectionViewDelegate {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
         nextVC.courseTitle = wishCourseData![indexPath.row].courseTitle
-//        print(courseName)
+        
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
-//        self.present(nextVC, animated: true)
     }
     
 }
@@ -62,15 +95,14 @@ extension WishCourseViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CourseThumbnailCollectionViewCell.identifier, for: indexPath) as? CourseThumbnailCollectionViewCell else { return UICollectionViewCell() }
         
-        if let wishCourseData = wishCourseData {
-            cell.setData(wishCourseData[indexPath.row])
-        }
+//        if let wishCourseData = wishCourseData {
+//            cell.setData(wishCourseData[indexPath.row])
+//        }
+        
+        
+        cell.setTemp(temp[indexPath.row])
         
         return cell
-//        return UICollectionViewCell()
-        
-//        cell.setData(CourseThumbnailDataModel.sampleData[indexPath.row])
-//        return cell
     }
     
     
