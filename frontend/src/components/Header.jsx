@@ -193,6 +193,7 @@ export default function Header() {
   const isKakaoState = useRecoilValue(getIsKakaoSelector);
   const isBasicState = useRecoilValue(getIsBasicSelector);
   const socialToken = useRecoilValue(getKakaoAuthTokenSelector);
+  const [isSearchKeyword, setIsSearchKeyword] = useState("");
   const navigate = useNavigate();
 
   const logOut = () => {
@@ -300,7 +301,20 @@ export default function Header() {
         </NavBox>
       </NavBar>
       <SearchBox>
-        <SearchInput placeholder="검색어를 입력해주세요." />
+        <SearchInput
+          value={isSearchKeyword}
+          onChange={(e) => {
+            setIsSearchKeyword(e.target.value);
+          }}
+          placeholder="검색어를 입력해주세요."
+        />
+        <div
+          onClick={() => {
+            navigate(`${PROCESS_MAIN_URL.SEARCH}/${isSearchKeyword}`);
+          }}
+        >
+          검색
+        </div>
       </SearchBox>
       {loginState ? (
         <LoginTab>

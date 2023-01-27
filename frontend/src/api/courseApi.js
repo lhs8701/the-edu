@@ -7,6 +7,19 @@ const CATEGORY_URL = "/category";
 const WISHCHECK_URL = "/wish/check";
 const WISH_URL = "/wish";
 const ENROLL_URL = "/enroll";
+const SEARCH_URL = "/keyword";
+
+export async function searchApi(pageParam, keyword) {
+  const params = {
+    page: pageParam,
+    size: 10,
+    sort: "ASC",
+  };
+  const data = await axios.get(`${COURSE_URL}${SEARCH_URL}/${keyword}`, {
+    params,
+  });
+  return data.data;
+}
 
 export async function enrollApi(memberId, courseId, accessToken) {
   return await axios.post(

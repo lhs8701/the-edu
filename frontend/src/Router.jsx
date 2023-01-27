@@ -97,7 +97,7 @@ const router = createBrowserRouter([
         element: <EventPage />,
       },
       {
-        path: "search",
+        path: "search/:keyword",
         element: <SearchPage />,
       },
     ],
