@@ -25,6 +25,7 @@ import FindPassword from "./components/account/FindPassword";
 import KaKaoAuth from "./components/account/KakaoAuth";
 import PlayerRoot from "./pages/PlayerRoot";
 import MypageErrComponent from "./components/mypage/MypageErrComponent";
+import AdminRoot from "./pages/admin/AdminRoot";
 
 const router = createBrowserRouter([
   {
@@ -127,6 +128,11 @@ const router = createBrowserRouter([
   {
     path: "/player",
     element: <PlayerRoot />,
+    errorElement: <ErrorComponent />,
+  },
+  {
+    path: "/admin",
+    element: <AdminRoot />,
     errorElement: <ErrorComponent />,
   },
 ]);
