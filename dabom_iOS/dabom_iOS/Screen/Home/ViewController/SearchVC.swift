@@ -52,7 +52,7 @@ extension SearchVC: UISearchBarDelegate {
         let nextVC = UIStoryboard.init(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.categoryResult) as! ResultVC
         
         nextVC.resultTitle = searchTerm
-        nextVC.kind = "검색 결과"
+        nextVC.kind = "search"
         
         if recentSearchList == nil {
             var newRecent = [String]()
@@ -99,7 +99,7 @@ extension SearchVC: UITableViewDataSource {
         let nextVC = UIStoryboard.init(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.categoryResult) as! ResultVC
         
         nextVC.resultTitle = recentSearchList?[indexPath.row]
-        nextVC.kind = "검색 결과"
+        nextVC.kind = "search"
         tableView.deselectRow(at: indexPath, animated: true)
         
         nextVC.modalPresentationStyle = .fullScreen

@@ -40,7 +40,7 @@ class CategoryViewController: UIViewController {
         let nextVC = UIStoryboard.init(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.categoryResult) as! ResultVC
         
         nextVC.resultTitle = sender.titleLabel?.text
-        nextVC.kind = "카테고리"
+        nextVC.kind = "category"
         
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)

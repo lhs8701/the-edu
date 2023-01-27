@@ -36,6 +36,7 @@ extension Const {
         static let getCourseInfo = "http://\(serverIP)/api/courses"
         static let getCourseReview = "http://\(serverIP)/api/courses"
         static let getCourseInquiries = "http://\(serverIP)/api/courses"
+        static let getSearchResult = "http://\(serverIP)/api/courses/keyword"
         static let getCategoryCourses = "http://\(serverIP)/api/courses/category"
         static let changeWishStatus = "http://\(serverIP)/api/courses/wish"
         static let isWishCourse = "http://\(serverIP)/api/courses/wish/check"
