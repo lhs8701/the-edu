@@ -20,19 +20,7 @@ struct GetPaginationDataService {
             URL = "\(Const.Url.getCategoryCourses)/\(keyword)?page=\(page)&size=\(size)&sort=\(sort)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         } else if kind == "search" {
             URL = "\(Const.Url.getSearchResult)/\(keyword)?page=\(page)&size=\(size)&sort=\(sort)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-            print(URL)
         }
-        
-        
-//        var components = URLComponents(string: "\(Const.Url.getCategoryCourses)/\(category)")
-//        let categoryParam = URLQueryItem(name: "category", value: category)
-//        let pageParam = URLQueryItem(name: "page", value: String(page))
-//        let sizeParam = URLQueryItem(name: "size", value: String(size))
-//        let sortParam = URLQueryItem(name: "sort", value: "title,ASC")
-//
-//        components?.queryItems = [categoryParam, pageParam, sizeParam, sortParam]
-//
-//        let url = components?.url
         
         let request = AF.request(URL!, method: .get, encoding: JSONEncoding.default)
         
