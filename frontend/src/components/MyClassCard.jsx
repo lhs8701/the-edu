@@ -1,5 +1,6 @@
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   PieChart,
   Pie,
@@ -49,11 +50,13 @@ const UnitRate = styled.p`
   font-size: 1.3rem;
 `;
 
-const TitleTab = styled.div`
+const TitleTab = styled(motion.div)`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  cursor: pointer;
+  z-index: 10;
 `;
 
 const BottomTab = styled.div`
@@ -90,6 +93,10 @@ const GoTo = styled(Link)`
   cursor: pointer;
 `;
 
+const LinkDiv = styled.div`
+  cursor: pointer;
+`;
+
 function easeOutExpo(t) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }
@@ -98,6 +105,7 @@ export default function MyClassCard({ info, data, progressRatio }) {
   const [count, setCount] = useState(0);
   const frameRate = 1000 / 60;
   const totalFrame = Math.round(2000 / frameRate);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let currentNumber = 0;
@@ -113,13 +121,20 @@ export default function MyClassCard({ info, data, progressRatio }) {
 
   return (
     <ClassCard>
-      <TitleTab>
+      <TitleTab
+        whileHover={{ x: 10 }}
+        onClick={() => {
+          navigate(`${PROCESS_MAIN_URL.COURSES}/${info?.courseId}`);
+        }}
+      >
         <div>
-          <ChartTitle>{info?.title}</ChartTitle>
+          <ChartTitle>
+            {info?.title}
+            {info?.courseId}
+          </ChartTitle>
           <UnitTitle>&nbsp;{info?.nowUnitTitle}</UnitTitle>
         </div>
       </TitleTab>
-      {/* <UnitRate>{count}%</UnitRate> */}
       <BottomTab>
         <div>
           <ProgressRate>학습 상황</ProgressRate>

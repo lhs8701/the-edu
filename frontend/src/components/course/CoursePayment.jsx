@@ -17,8 +17,13 @@ import {
 } from "../../style/CourseCss";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { courseWishApi, courseWishCheckApi } from "../../api/courseApi";
-import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
+import {
+  getAccessTokenSelector,
+  getLoginState,
+  getMemberIdSelector,
+} from "../../atom";
 import { useRecoilValue } from "recoil";
+import { queryClient } from "../..";
 
 const IconBox = styled.div`
   width: 100%;
@@ -34,7 +39,12 @@ const Teacher = styled.h2`
   width: 100%;
   font-size: 15px;
 `;
-
+const Tab = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 const Icon = styled(FontAwesomeIcon)`
   width: 1.5rem;
   height: 1.5rem;
@@ -53,10 +63,12 @@ export default function CoursePayment({
   teacher,
   purchaseOption,
   courseId,
+  price,
 }) {
   const navigate = useNavigate();
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const memberId = useRecoilValue(getMemberIdSelector);
+  const loginState = useRecoilValue(getLoginState);
   const [isWishState, setIsWishState] = useState();
   const [isWishPushState, setIsWishPushState] = useState();
 
@@ -70,7 +82,7 @@ export default function CoursePayment({
         }
       })
       .catch((err) => {
-        console.log(err);
+        setIsWishState(false);
       });
   }, []);
 
@@ -83,10 +95,19 @@ export default function CoursePayment({
   }, [isWishState]);
 
   const pushWish = () => {
-    setIsWishPushState((prev) => !prev);
-    courseWishApi(memberId, courseId, accessToken);
+    if (loginState) {
+      setIsWishPushState((prev) => !prev);
+      courseWishApi(memberId, courseId, accessToken);
+      if (
+        queryClient?.getQueryData({ queryKey: ["wishCourseList", memberId] })
+      ) {
+        queryClient.refetchQueries({ queryKey: ["wishCourseList", memberId] });
+      }
+    } else {
+      alert("로그인이 필요해요!");
+    }
   };
-  console.log(isWishPushState, isWishState);
+
   return (
     <PaymentBox>
       <IconBox>
@@ -106,18 +127,24 @@ export default function CoursePayment({
       </Select>
       <br />
       <PriceBox>
-        <PrimaryCostTab>원 가격</PrimaryCostTab>
-        <PrimaryCostTab></PrimaryCostTab>
-        <DiscountTab>할인 가격</DiscountTab>
-        <PrimaryCostTab></PrimaryCostTab>
+        <Tab>
+          <PrimaryCostTab>원 가격</PrimaryCostTab>
+          <PrimaryCostTab>{price}</PrimaryCostTab>
+        </Tab>
+        <Tab>
+          <DiscountTab>할인 가격</DiscountTab>
+          <PrimaryCostTab></PrimaryCostTab>
+        </Tab>
         <PriceUnderBar />
-        <OwnPriceTab>결제 가격</OwnPriceTab>
-        <PrimaryCostTab></PrimaryCostTab>
+        <Tab>
+          <OwnPriceTab>결제 가격</OwnPriceTab>
+          <PrimaryCostTab></PrimaryCostTab>
+        </Tab>
       </PriceBox>
 
       <PurchaseBtn
         onClick={() => {
-          navigate(PROCESS_MAIN_URL.PURCHASE);
+          navigate(`${PROCESS_MAIN_URL.PURCHASE}/${courseId}`);
         }}
       >
         결제

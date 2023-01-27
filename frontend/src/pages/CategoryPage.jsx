@@ -1,12 +1,11 @@
 import { useInView } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Arcodian from "../components/Arcodian";
 import ClassCard from "../components/ClassCard";
-import { dummyWishList } from "../dummy";
 import { CATE_VALUE, PROCESS_MAIN_URL } from "../static";
 import {
   MyPageBox,
@@ -91,6 +90,8 @@ export default function CategoryPage() {
       );
     },
     {
+      retry: 1,
+      retryDelay: 5000,
       onSuccess: () => {},
       onError: () => {
         console.error("에러 발생했지롱");
@@ -151,11 +152,21 @@ export default function CategoryPage() {
           )}
         </MyPageTitle>
         <MyPageContentBox>
-          <CourseListBox>
-            {courses?.map((course) => {
-              return <ClassCard key={course.courseId} course={course} />;
-            })}
-          </CourseListBox>
+          {courseList.error ? (
+            <div>에러임</div>
+          ) : (
+            <CourseListBox>
+              {courseList.isLoading ? (
+                <div>로딩중..</div>
+              ) : (
+                courses?.map((course) => {
+                  return <ClassCard key={course.courseId} course={course} />;
+                })
+              )}
+
+              {/* {courseList.isError ?? <div>강좌가 없어용</div>} */}
+            </CourseListBox>
+          )}
         </MyPageContentBox>
       </MyPageBox>
     );

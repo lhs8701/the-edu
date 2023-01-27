@@ -14,6 +14,7 @@ import {
 } from "../atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { BasicLogout, KakaoLogout } from "../api/authApi";
+import { queryClient } from "../index";
 
 const HeadWrapper = styled.header`
   width: 100%;
@@ -208,6 +209,7 @@ export default function Header() {
       accessToken: "",
       refreshToken: "",
     });
+    queryClient.clear();
     navigate("/");
   };
 

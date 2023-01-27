@@ -1,6 +1,6 @@
 import { Suspense, useEffect } from "react";
 import { useQueries, useQuery } from "react-query";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import {
   courseApi,
@@ -21,8 +21,8 @@ const DividerBox = styled.div`
 export default function CoursePage() {
   const dummycourseInfo = dummyCourseInfo;
   const { courseId } = useParams();
-
-  useQuery(
+  const navigate = useNavigate();
+  const info = useQuery(
     ["courseDetailInfo", courseId],
     () => {
       return courseApi(courseId);
@@ -63,6 +63,10 @@ export default function CoursePage() {
     }
   );
 
+  if (info.error) {
+    navigate("/error");
+  }
+
   return (
     <div>
       <Suspense fallback={<div>로딩중</div>}>
@@ -70,9 +74,10 @@ export default function CoursePage() {
         <DividerBox>
           <CourseDetail courseId={courseId} />
           <CoursePayment
-            title={dummycourseInfo?.courseInfo?.title}
-            teacher={dummycourseInfo?.courseInfo?.teacher}
+            title={info?.data?.title}
+            teacher={info?.data?.instructor}
             purchaseOption={dummycourseInfo.coursePurchaseInfo}
+            price={info?.data?.price}
             courseId={courseId}
           />
         </DividerBox>

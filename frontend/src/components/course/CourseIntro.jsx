@@ -76,7 +76,7 @@ export default function CourseIntro({ courseId }) {
         <DetailInfoBox>
           <TeacherTab>강사: {courseInfo?.instructor}</TeacherTab>
           <DescriptionTab>{courseInfo?.description}</DescriptionTab>
-          <RateTab>별{courseInfo?.score}</RateTab>
+          <RateTab>{courseInfo?.score}점</RateTab>
         </DetailInfoBox>
       </MoreInfoBox>
     </IntroduceWrapper>

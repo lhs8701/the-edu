@@ -1,7 +1,9 @@
+import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { queryClient } from "../..";
-import { getMemberIdSelector } from "../../atom";
+import { wishCourseApi } from "../../api/myPageApi";
+import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import { dummyWishList } from "../../dummy";
 import {
   MyPageBox,
@@ -22,16 +24,31 @@ const WishListBox = styled.div`
 
 export default function WishClass() {
   const memberId = useRecoilValue(getMemberIdSelector);
-  const wishCourses = queryClient.getQueryData(["wishCourseList", memberId]);
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+
+  const wishCourses = useQuery(
+    ["wishCourseList", memberId],
+    () => {
+      return wishCourseApi(memberId, accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
   return (
     <MyPageBox>
       <MyPageTitle>찜한 클래스</MyPageTitle>
       <MyPageContentBox>
         <WishListBox>
-          {wishCourses.map((course) => {
+          {wishCourses?.data?.map((course) => {
             return <ClassCard key={course.courseId} course={course} />;
           })}
+          {wishCourses?.data?.length === 0 && <h1>원하는 강의가 없어요</h1>}
         </WishListBox>
       </MyPageContentBox>
     </MyPageBox>

@@ -10,6 +10,7 @@ import {
   ChatBottom,
   ChatContextArea,
   ChatUserInfo,
+  UnderBar,
 } from "./ChatComponents";
 
 const BtnBox = styled.div`
@@ -22,17 +23,22 @@ const BtnBox = styled.div`
 export default function CourseReview({ courseId }) {
   const courseReviews = queryClient.getQueryData(["courseReviews", courseId]);
 
-  const ReviewCreator = () => {
+  const Review = ({ userInfo }) => {
     return (
       <>
         <Box>
-          <ChatUserInfo />
-          <ChatContextArea />
-          <ChatBottom />
+          <ChatUserInfo writer={userInfo?.writer} />
+          <ChatContextArea content={userInfo?.content} />
+          {/* <ChatBottom /> */}
         </Box>
-        {/* <UnderBar /> */}
+        <UnderBar />
       </>
     );
+  };
+  const Reviews = () => {
+    return courseReviews?.map((review) => {
+      return <Review key={review.reviewId} userInfo={review} />;
+    });
   };
   return (
     <Wrapper>
@@ -40,7 +46,7 @@ export default function CourseReview({ courseId }) {
       <BtnBox>
         <AccountSmallBtn>등록</AccountSmallBtn>
       </BtnBox>
-      <ReviewCreator />
+      <Reviews />
     </Wrapper>
   );
 }

@@ -6,6 +6,23 @@ const INQUIRE_URL = "/inquiries";
 const CATEGORY_URL = "/category";
 const WISHCHECK_URL = "/wish/check";
 const WISH_URL = "/wish";
+const ENROLL_URL = "/enroll";
+
+export async function enrollApi(memberId, courseId, accessToken) {
+  return await axios.post(
+    COURSE_URL + ENROLL_URL,
+    {
+      memberId: memberId,
+      courseId: Number(courseId),
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "X-AUTH-TOKEN": accessToken,
+      },
+    }
+  );
+}
 
 export async function courseWishCheckApi(memberId, courseId, accessToken) {
   return await axios.post(
