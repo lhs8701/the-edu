@@ -37,6 +37,10 @@ class CourseInfoViewController: UIViewController {
     let minUpper: CGFloat = 0.0
     
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
+    let isLogin: Bool = UserDefaults.standard.bool(forKey: "isLogin")
+    
+    var reviewData: [CourseReviewDataModel] = []
+    var inquiryData: [CourseInquiryDataModel] = []
     
     
     var onOffButton: UIButton!
@@ -53,9 +57,12 @@ class CourseInfoViewController: UIViewController {
         setSegmentController()
             
         // courseId 기본값 설정 (임시)
-        self.courseId = 1
+        self.courseId = 2
         getCourseInfo(id: self.courseId!)
-        checkWish()
+        
+        if isLogin {
+            checkWish()
+        }
 
     }
     
@@ -90,46 +97,60 @@ class CourseInfoViewController: UIViewController {
         navigationItem.rightBarButtonItems = [heart, onOff]
     }
     
+    // MARK: - 찜한 강좌인지 확인
     func checkWish() {
         CourseInfoDataService.shared.isWishCourse(memberId: self.memberId, courseId: self.courseId!) { check in
             switch check {
             case true:
-                print("true!!")
                 self.heartButton.isSelected = true
             case false:
-                print("false!!")
                 self.heartButton.isSelected = false
             }
         }
     }
     
+    // MARK: - 찜하기 버튼 눌렀을 때
     @objc func wishBtnPressed(_ sender: UIButton) {
-        CourseInfoDataService.shared.changeWishCourse(memberId: self.memberId, courseId: self.courseId!) { response in
-            switch (response) {
-            case .success:
-                print("change Success")
-            case .requestErr(let message):
-                print("requestErr", message)
-            case .pathErr:
-                print("networkResult pathErr")
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            case .resourceErr:
-                print("resourceErr")
+        if self.isLogin {
+            CourseInfoDataService.shared.changeWishCourse(memberId: self.memberId, courseId: self.courseId!) { response in
+                switch (response) {
+                case .success:
+                    print("change Success")
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("networkResult pathErr")
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
             }
-        }
-        
-        
-        if sender.isSelected {
-            sender.isSelected = false
+            
+            if sender.isSelected {
+                sender.isSelected = false
+            } else {
+                sender.isSelected = true
+            }
         } else {
-            sender.isSelected = true
+            let alert = UIAlertController(title: "로그인이 필요한 서비스입니다", message: "로그인 하시겠습니까?", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "취소", style: .cancel)
+            let login = UIAlertAction(title: "확인", style: .default) { _ in
+                AuthenticationService.shared.goToLoginSignup()
+            }
+            
+            alert.addAction(cancel)
+            alert.addAction(login)
+            
+            present(alert, animated: true)
         }
+        
     }
     
+    // MARK: - OnOff 설명 버튼
     @objc func onOffBtnPressed(_ sender: UIButton) {
         guard let descVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.onOffDescription) as? OnOffDescriptionVC else {return}
         
@@ -143,6 +164,8 @@ class CourseInfoViewController: UIViewController {
         self.mainTV.register(UINib(nibName: Const.Xib.Name.infoImageTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.infoImageTVC)
         self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInfoTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInfoTVC)
         self.mainTV.register(UINib(nibName: Const.Xib.Name.segmentTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.segmentTVC)
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.courseReviewTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseReviewTVC)
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInquiryTVC)
     }
 
     
@@ -187,6 +210,8 @@ class CourseInfoViewController: UIViewController {
                     self.courseDescription = data.description
                     self.instructor = data.instructor
                     
+                    self.getCourseReview()
+                    self.getCourseInquiry()
                     self.mainTV.reloadData()
                 }
             case .requestErr(let message):
@@ -203,6 +228,57 @@ class CourseInfoViewController: UIViewController {
             
         }
     }
+    
+    // MARK: - getCourseReview
+    private func getCourseReview() {
+        GetReviewDataService.shared.getReview(courseId: self.courseId ?? 1) { response in
+            switch response {
+            case .success(let reviewData):
+                if let data = reviewData as? [CourseReviewDataModel] {
+                    self.reviewData = data
+                    
+                    self.mainTV.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
+    // MARK: - getCourseInquiry
+    private func getCourseInquiry() {
+        GetInquiryDataService.shared.getInquiry(courseId: self.courseId ?? 1) { response in
+            switch response {
+            case .success(let inquiryData):
+                if let data = inquiryData as? [CourseInquiryDataModel] {
+                    self.inquiryData = data
+                    
+                    self.mainTV.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
+    
+    
 }
 
 
@@ -214,9 +290,14 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             return 450
         case 1:
             return 50
-        default:
+        case 2, 3:
             return 800
+        case 4, 5:
+            return 575
+        default:
+            return 0
         }
+//        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -226,21 +307,37 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
+            // 메인 정보 자리
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInfoTVC, for: indexPath) as? CourseInfoTVC else { return UITableViewCell() }
             cell.classTitle.text = self.courseTitle
             cell.courseDescription.text = self.courseDescription
             cell.instructor.text = self.instructor
             return cell
         case 1:
+            // Sticky View 자리
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.segmentTVC, for: indexPath) as? SegmentTVC else { return UITableViewCell() }
             return cell
         case 2:
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
             cell.infoImageView.image = UIImage(named: "testIntro01")
             return cell
-        case 3,4,5,6:
+        case 3:
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
             cell.infoImageView.image = UIImage(named: "testIntro02")
+            return cell
+        case 4:
+            // Review
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseReviewTVC, for: indexPath) as? CourseReviewTVC else { return UITableViewCell() }
+            cell.setData(self.reviewData)
+            cell.delegate = self
+            
+            return cell
+        case 5:
+            // Inquiry
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInquiryTVC, for: indexPath) as? CourseInquiryTVC else { return UITableViewCell() }
+            cell.setData(self.inquiryData)
+            cell.delegate = self
+            
             return cell
         default:
             return UITableViewCell()
@@ -254,5 +351,28 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             upperConstraint.constant = maxUpper - scrollView.contentOffset.y
         }
+    }
+}
+
+// MARK: - allInquiryBtnDelegate
+extension CourseInfoViewController: allInquiryBtnDelegate {
+    func allInquiryBtnPressed() {
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInquiryAllVC) as? CourseInquiryAllVC else { return }
+        
+        nextVC.inquiryData = self.inquiryData
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }    
+    
+}
+
+// MARK: - allReviewBtnDelegate
+extension CourseInfoViewController: allReviewBtnDelegate {
+    func allReviewBtnPressed() {
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseReviewAllVC) as? CourseReviewAllVC else { return }
+        
+        nextVC.reviewData = self.reviewData
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

@@ -20,6 +20,9 @@ extension Const {
             static let bannerTVC = "BannerTableViewCell"
             static let bannerCVC = "BannerCollectionViewCell"
             static let recentSearchTVC = "RecentSearchTVC"
+            static let courseReviewTVC = "CourseReviewTVC"
+            static let courseInquiryTVC = "CourseInquiryTVC"
+            static let reviewInquiryTVC = "ReviewInquiryTVC"
         }
         
         struct Identifier {
@@ -32,6 +35,9 @@ extension Const {
             static let bannerTVC = "BannerTableViewCell"
             static let bannerCVC = "BannerCollectionViewCell"
             static let recentSearchTVC = "RecentSearchTVC"
+            static let courseReviewTVC = "CourseReviewTVC"
+            static let courseInquiryTVC = "CourseInquiryTVC"
+            static let reviewInquiryTVC = "ReviewInquiryTVC"
         }
         
     }
