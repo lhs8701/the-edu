@@ -40,6 +40,13 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
     }
 
+    @ExceptionHandler(CMemberNotFoundException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CMemberNotFoundException e){
+        ErrorCode errorCode = e.getErrorCode();
+        log.error(errorCode.getMessage());
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
+
     @ExceptionHandler(CIllegalArgumentException.class)
     protected ResponseEntity<ErrorResponseDto> handle(CIllegalArgumentException e){
         ErrorCode errorCode = e.getErrorCode();
@@ -109,4 +116,12 @@ public class ExceptionAdvice {
         log.error(errorCode.getMessage());
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
     }
+
+    @ExceptionHandler(CInternalServerException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CInternalServerException e){
+        ErrorCode errorCode = e.getErrorCode();
+        log.error(errorCode.getMessage());
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
+
 }
