@@ -1,15 +1,9 @@
-import { useQuery } from "react-query";
+import { useLayoutEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { myCourseApi, myInfoApi, wishCourseApi } from "../api/myPageApi";
-import {
-  getAccessTokenSelector,
-  getLoginState,
-  getMemberIdSelector,
-} from "../atom";
-import { BAR_LIST } from "../static";
+import { getLoginState } from "../atom";
+import { BAR_LIST, PROCESS_ACCOUNT_URL } from "../static";
 import { Wrapper } from "../style/CommonCss";
 import { MyLink, NavBox, NavTab } from "../style/SideBarCss";
 
@@ -40,12 +34,13 @@ const SideBarBox = styled.nav`
 
 export default function MyPage() {
   const loginState = useRecoilValue(getLoginState);
-  const navigate = useNavigate();
 
-  if (!loginState) {
-    alert("로그인 하세요.");
-    navigate("/");
-  }
+  useLayoutEffect(() => {
+    if (!loginState) {
+      window.location.replace(PROCESS_ACCOUNT_URL.LOGIN);
+      alert("확인되지 않은 접근입니다.");
+    }
+  }, []);
 
   const SideBar = ({ barList }) => {
     return (

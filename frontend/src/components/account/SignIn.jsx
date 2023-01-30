@@ -51,10 +51,7 @@ const AnyLink = styled(Link)`
 
 export default function SignIn() {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
-
-  // const resetTemp = useResetRecoilState(LoginState);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
-  const loginState = useRecoilValue(getLoginState);
   const [isID, setIsId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -163,7 +160,7 @@ export default function SignIn() {
       >
         카카오로 시작하기
       </AccountBtn>
-      <AccountBtn
+      {/* <AccountBtn
         texthovercolor={"--color-background"}
         bgcolor={"--color-account-naver"}
         textcolor={"--color-text"}
@@ -176,7 +173,7 @@ export default function SignIn() {
         textcolor={"--color-background"}
       >
         애플로 시작하기
-      </AccountBtn>
+      </AccountBtn> */}
     </AccountWrapper>
   );
 }

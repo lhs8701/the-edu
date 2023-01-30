@@ -105,38 +105,39 @@ export default function SearchPage() {
       },
     }
   );
+
   const courses = useMemo(
     () => courseList?.data?.pages.flatMap((page) => page.list),
     [courseList?.data?.pages]
   );
 
   useEffect(() => {
-    console.log("fdfd");
     if (isInView && courseList.hasNextPage && courseList.isSuccess) {
       courseList.fetchNextPage();
     }
   }, [isInView, courseList.data]);
+
+  const CoursesBox = () => {
+    return (
+      <CourseListBox>
+        {courseList.isLoading ? (
+          <div>로딩중..</div>
+        ) : (
+          courses?.map((course) => {
+            return <ClassCard key={course.courseId} course={course} />;
+          })
+        )}
+        {courses?.length === 0 && <div>검색 결과가 없어요!</div>}
+      </CourseListBox>
+    );
+  };
 
   const Classes = () => {
     return (
       <SearchPageBox>
         <MyPageTitle>"{keyword}" &nbsp; 검색 결과</MyPageTitle>
         <MyPageContentBox>
-          {courseList.error ? (
-            <div>에러임</div>
-          ) : (
-            <CourseListBox>
-              {courseList.isLoading ? (
-                <div>로딩중..</div>
-              ) : (
-                courses?.map((course) => {
-                  return <ClassCard key={course.courseId} course={course} />;
-                })
-              )}
-
-              {/* {courseList.isError ?? <div>강좌가 없어용</div>} */}
-            </CourseListBox>
-          )}
+          {courseList.error ? <div>에러</div> : <CoursesBox />}
         </MyPageContentBox>
       </SearchPageBox>
     );

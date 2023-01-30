@@ -12,7 +12,7 @@ import CoursePage from "./pages/CoursePage";
 import LobbyPage from "./pages/LobbyPage";
 import PurchasePage from "./pages/PurchasePage";
 import RoadMapPage from "./pages/RoadMapPage";
-import EventPage from "./pages/EventPage";
+import EventPage from "./pages/event/EventPage";
 import SearchPage from "./pages/SearchPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AccountRoot from "./pages/AccountRoot";
@@ -26,8 +26,15 @@ import KaKaoAuth from "./components/account/KakaoAuth";
 import PlayerRoot from "./pages/PlayerRoot";
 import MypageErrComponent from "./components/mypage/MypageErrComponent";
 import AdminRoot from "./pages/admin/AdminRoot";
-import Dashboard from "./components/admin/Dashboard";
+
 import AdminLogin from "./components/admin/AdminLogin";
+import EventDetailPage from "./pages/event/EventDetailPage";
+import CreatorRoot from "./pages/creator/CreatorRoot";
+import ResearchBox from "./components/creator/RegistResearch";
+import Board from "./pages/creator/Board";
+import Info from "./pages/creator/Info";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import CreatorRequest from "./components/admin/CreatorRequest";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +104,10 @@ const router = createBrowserRouter([
         element: <EventPage />,
       },
       {
+        path: "event/:eventId",
+        element: <EventDetailPage />,
+      },
+      {
         path: "search/:keyword",
         element: <SearchPage />,
       },
@@ -135,6 +146,56 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminRoot />,
+    children: [
+      {
+        path: "dashboard",
+        element: <div>우</div>,
+      },
+      {
+        path: "courses",
+        element: <div>우</div>,
+      },
+      {
+        path: "users",
+        element: <div>우</div>,
+      },
+      {
+        path: "profit",
+        element: <div>우</div>,
+      },
+      {
+        path: "creators",
+        element: <CreatorRequest />,
+      },
+      { path: "dashboard", element: <AdminDashboard /> },
+    ],
+  },
+  {
+    path: "/creator",
+    element: <CreatorRoot />,
+    children: [
+      {
+        path: "register",
+        element: <ResearchBox />,
+      },
+      {
+        path: "info",
+        element: <Info />,
+      },
+      {
+        path: "courses",
+        element: <Board />,
+      },
+      {
+        path: "profit",
+        element: <Board />,
+      },
+      {
+        path: "comment",
+        element: <Board />,
+      },
+      { path: "dashboard", element: <Board /> },
+    ],
   },
 ]);
 

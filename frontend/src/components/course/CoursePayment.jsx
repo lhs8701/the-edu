@@ -69,21 +69,27 @@ export default function CoursePayment({
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const memberId = useRecoilValue(getMemberIdSelector);
   const loginState = useRecoilValue(getLoginState);
-  const [isWishState, setIsWishState] = useState();
+  const [isWishState, setIsWishState] = useState(false);
   const [isWishPushState, setIsWishPushState] = useState();
 
   useLayoutEffect(() => {
-    courseWishCheckApi(memberId, courseId, accessToken)
-      .then(({ data }) => {
-        if (data) {
-          setIsWishState(true);
-        } else {
+    if (loginState) {
+      courseWishCheckApi(memberId, courseId, accessToken)
+        .then(({ data }) => {
+          if (data.code === -7001) {
+            setIsWishState(false);
+          } else {
+            if (data) {
+              setIsWishState(true);
+            } else {
+              setIsWishState(false);
+            }
+          }
+        })
+        .catch((err) => {
           setIsWishState(false);
-        }
-      })
-      .catch((err) => {
-        setIsWishState(false);
-      });
+        });
+    }
   }, []);
 
   useEffect(() => {

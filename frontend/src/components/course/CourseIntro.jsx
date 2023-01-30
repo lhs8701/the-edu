@@ -66,12 +66,14 @@ export default function CourseIntro({ courseId }) {
       <IntroTitle>{courseInfo?.title}</IntroTitle>
       <MoreInfoBox>
         <IntroPlayerTab>
-          <YouTubePlayer
-            width="100%"
-            height="100%"
-            url="https://www.youtube.com/watch?v=_q3uE_cStGM"
-            controls
-          />
+          {courseInfo && (
+            <YouTubePlayer
+              width="100%"
+              height="100%"
+              url="https://www.youtube.com/watch?v=_q3uE_cStGM"
+              controls
+            />
+          )}
         </IntroPlayerTab>
         <DetailInfoBox>
           <TeacherTab>강사: {courseInfo?.instructor}</TeacherTab>

@@ -52,6 +52,23 @@ export const PROCESS_MAIN_URL = {
   SEARCH: "/search",
 };
 
+export const PROCESS_CREATOR_URL = {
+  REGIST: "/creator/register",
+  DASHBOARD: "/creator/dashboard",
+  COURSES: "/creator/courses",
+  COMMENT: "/creator/comment",
+  PROFIT: "/creator/profit",
+  INFO: "/creator/info",
+};
+
+export const PROCESS_ADMIN_URL = {
+  DASHBOARD: "/admin/dashboard",
+  COURSES: "/admin/courses",
+  USERS: "/admin/users",
+  PROFIT: "/admin/profit",
+  CREATORS: "/admin/creators",
+};
+
 export const BAR_LIST = {
   list: [
     {
@@ -79,10 +96,6 @@ export const BAR_LIST = {
       url: "withdraw",
     },
   ],
-};
-
-export const QUERYKEY = {
-  AUTH: {},
 };
 
 export const BASE_URL = "http://218.38.127.26:8080/api";

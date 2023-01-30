@@ -1,6 +1,9 @@
 import { useParams } from "react-router";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { getLoginState } from "../atom";
 import { dummyCourseProgressData } from "../dummy";
+import { PROCESS_ACCOUNT_URL } from "../static";
 
 const LobbyWrapper = styled.div`
   width: 100%;
@@ -99,6 +102,7 @@ const PlayBtn = styled.button``;
 
 export default function LobbyPage() {
   const data = dummyCourseProgressData;
+  const loginState = useRecoilValue(getLoginState);
 
   const playUnit = (link) => {
     window.open(
@@ -154,6 +158,11 @@ export default function LobbyPage() {
       );
     });
   };
+
+  if (!loginState) {
+    alert("로그인 하세요.");
+    window.location.replace(PROCESS_ACCOUNT_URL.LOGIN);
+  }
 
   return (
     <LobbyWrapper>

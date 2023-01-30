@@ -77,7 +77,6 @@ export const SlideNotice = () => {
     const interval = setInterval(() => {
       setPage([page + 1, 1]);
     }, 8000);
-
     return () => clearInterval(interval);
   }, [page]);
 
