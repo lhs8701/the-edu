@@ -31,6 +31,9 @@ repositories {
 
 dependencies {
 
+	//tika
+	implementation group: 'org.apache.tika', name: 'tika-core', version: '1.24'
+
 	//redis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 

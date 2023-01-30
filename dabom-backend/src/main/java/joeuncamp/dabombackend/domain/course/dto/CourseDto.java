@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -65,11 +66,21 @@ public class CourseDto {
         String title;
         @Schema(description = "강사", example = ExampleValue.Member.NAME)
         String instructor;
+        @Schema(description = "카테고리", example = ExampleValue.Course.CATEGORY)
+        String category;
 
         public ShortResponse(Course course) {
             this.courseId = course.getId();
             this.title = course.getTitle();
             this.instructor = course.getInstructorName();
+            this.category = course.getCategory().getTitle();
+        }
+
+        public ShortResponse(RankedCourse rankedCourse) {
+            this.courseId = rankedCourse.getId();
+            this.title = rankedCourse.getTitle();
+            this.instructor = rankedCourse.getInstructor();
+            this.category = rankedCourse.getCategory().getTitle();
         }
     }
 
@@ -86,7 +97,7 @@ public class CourseDto {
         @Schema(description = "강사", example = ExampleValue.Member.NAME)
         String instructor;
         @Schema(description = "카테고리", example = ExampleValue.Course.CATEGORY)
-        CategoryType category;
+        String category;
 
         @Schema(description = "평점", example = "3.5")
         double score;
@@ -101,7 +112,7 @@ public class CourseDto {
             this.title = course.getTitle();
             this.description = course.getDescription();
             this.instructor = course.getInstructorName();
-            this.category = course.getCategory();
+            this.category = course.getCategory().getTitle();
             this.score = averageScore;
             this.price = course.getPrice();
             this.wish = course.getWishList().size();

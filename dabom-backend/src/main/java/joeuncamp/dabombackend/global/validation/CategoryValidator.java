@@ -8,6 +8,7 @@ public class CategoryValidator implements ConstraintValidator<Category, String> 
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return CategoryType.findByTitle(value) != CategoryType.EMPTY;
+        return true;
+//        return CategoryType.findByTitle(value) != CategoryType.EMPTY;
     }
 }
