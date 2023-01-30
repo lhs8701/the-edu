@@ -4,6 +4,7 @@ import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import joeuncamp.dabombackend.global.constant.ImageSize;
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,9 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class ImageService {
-    String TEMP_STORAGE_URL = "E:\\ROOM\\Github\\dabom\\dabom-backend\\src\\test\\resources\\temp";
+
+    @Value("${path.resources}")
+    String TEMP_STORAGE_URL;
     ImageConvertor imageConvertor;
     ImageUploader imageUploader;
     ImageResizer imageResizer;

@@ -24,6 +24,7 @@ public class ImageUploaderTest {
         // given
         String IMAGE_STORAGE_URL = "E:\\ROOM\\Github\\dabom\\dabom-backend\\src\\test\\resources\\storage";
         File file = new File("src/test/resources/sample.jpg");
+
         // when
         File created = imageUploader.upload(file);
 

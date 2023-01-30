@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.image.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -11,6 +12,7 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class ImageUploader {
 
+    @Value("${path.resources.images}")
     String IMAGE_STORAGE_URL = "E:\\ROOM\\Github\\dabom\\dabom-backend\\src\\test\\resources\\storage";
     String DELIMITER = "\\";
 
