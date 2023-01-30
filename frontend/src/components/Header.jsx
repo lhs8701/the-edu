@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { CATE_VALUE, PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
+import {
+  CATE_VALUE,
+  PROCESS_ACCOUNT_URL,
+  PROCESS_CREATOR_URL,
+  PROCESS_MAIN_URL,
+} from "../static";
 import {
   getAccessTokenSelector,
   getIsBasicSelector,
@@ -13,7 +20,7 @@ import {
   LoginState,
 } from "../atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { BasicLogout, KakaoLogout } from "../api/authApi";
+import { basicLogout, kakaoLogout } from "../api/authApi";
 import { queryClient } from "../index";
 
 const HeadWrapper = styled.header`
@@ -66,6 +73,21 @@ const NavTab = styled.li`
   align-items: center;
 `;
 
+const Icon = styled(FontAwesomeIcon)`
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-text);
+  cursor: pointer;
+  &:hover {
+    scale: 1.2;
+  }
+  &:active {
+    scale: 0.8;
+  }
+  right: 0;
+`;
+
 const NavLink = styled(Link)`
   text-decoration: none;
   height: 100%;
@@ -112,6 +134,7 @@ const SearchBox = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 const SearchInput = styled.input`
@@ -198,9 +221,9 @@ export default function Header() {
 
   const logOut = () => {
     if (isKakaoState) {
-      KakaoLogout(accessToken, socialToken);
+      kakaoLogout(accessToken, socialToken);
     } else if (isBasicState) {
-      BasicLogout(accessToken, refreshToken);
+      basicLogout(accessToken, refreshToken);
     }
     setIsLoggedIn({
       state: false,
@@ -212,6 +235,21 @@ export default function Header() {
     });
     queryClient.clear();
     navigate("/");
+  };
+
+  const goSearch = () => {
+    if (isSearchKeyword.length !== 0) {
+      navigate(`${PROCESS_MAIN_URL.SEARCH}/${isSearchKeyword}`);
+    } else {
+      alert("검색어를 입력하세요!");
+    }
+  };
+
+  const keyUpHandler = (e) => {
+    var keyCode = e.keyCode ? e.keyCode : e.which;
+    if (Number(keyCode) === 13) {
+      goSearch();
+    }
   };
 
   return (
@@ -302,31 +340,22 @@ export default function Header() {
       </NavBar>
       <SearchBox>
         <SearchInput
+          onKeyUp={keyUpHandler}
           value={isSearchKeyword}
           onChange={(e) => {
             setIsSearchKeyword(e.target.value);
           }}
           placeholder="검색어를 입력해주세요."
         />
-        <div
-          onClick={() => {
-            navigate(`${PROCESS_MAIN_URL.SEARCH}/${isSearchKeyword}`);
-          }}
-        >
-          검색
-        </div>
+
+        <Icon onClick={goSearch} icon={faMagnifyingGlass} />
       </SearchBox>
       {loginState ? (
         <LoginTab>
           <LogoutBtn onClick={logOut}>로그아웃</LogoutBtn>
           <UserTab>
-            <UserLink>크리에이터</UserLink>
-            <UserLink
-              to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}
-              preventScrollReset={true}
-            >
-              마이페이지
-            </UserLink>
+            <UserLink to={PROCESS_CREATOR_URL.DASHBOARD}>크리에이터</UserLink>
+            <UserLink to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}>마이페이지</UserLink>
           </UserTab>
         </LoginTab>
       ) : (

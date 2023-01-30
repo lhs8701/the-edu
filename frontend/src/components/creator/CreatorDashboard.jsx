@@ -17,10 +17,11 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems, secondaryListItems } from "./listItems";
-import Chart from "./Chart";
-import Deposits from "./Deposits";
-import Orders from "./Orders";
+import Orders from "../dashboard/Orders";
+import Chart from "../dashboard/Chart";
+import Deposits from "../dashboard/Deposits";
+import { Outlet } from "react-router";
+import CreatorListItems from "./CreatorListItems";
 
 function Copyright(props) {
   return (
@@ -98,7 +99,11 @@ function DashboardContent() {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar
+          position="absolute"
+          open={open}
+          sx={{ backgroundColor: "var(--color-primary)", boxShadow: "none" }}
+        >
           <Toolbar
             sx={{
               pr: "24px", // keep right padding when drawer closed
@@ -121,9 +126,9 @@ function DashboardContent() {
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1, fontWeight: "var(--size-middle)" }}
             >
-              The-Edu 관리자 페이지
+              The-Edu 크리에이터 페이지
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -147,9 +152,9 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            <CreatorListItems isCreator={false} />
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            {/* {secondaryListItems} */}
           </List>
         </Drawer>
         <Box
@@ -165,9 +170,11 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
+          <Container
+            maxWidth="lg"
+            sx={{ mt: 4, mb: 4, height: "70vh", width: "100%" }}
+          >
+            {/* <Grid container spacing={3}>
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -180,7 +187,7 @@ function DashboardContent() {
                   <Chart />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
+
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -193,13 +200,14 @@ function DashboardContent() {
                   <Deposits />
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
+
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
                   <Orders />
                 </Paper>
               </Grid>
-            </Grid>
+            </Grid> */}
+            <Outlet />
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
@@ -208,6 +216,6 @@ function DashboardContent() {
   );
 }
 
-export default function Dashboard() {
+export default function CreatorDashboard() {
   return <DashboardContent />;
 }

@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { enrollApi } from "../api/courseApi";
-import { getAccessTokenSelector, getMemberIdSelector } from "../atom";
+import {
+  getAccessTokenSelector,
+  getLoginState,
+  getMemberIdSelector,
+} from "../atom";
 import { UnderBar } from "../components/course/ChatComponents";
+import { PROCESS_ACCOUNT_URL } from "../static";
 import { TabTitle } from "../style/CommonCss";
 
 import {
@@ -82,6 +87,7 @@ export default function PurchasePage() {
   const navigate = useNavigate();
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const memberId = useRecoilValue(getMemberIdSelector);
+  const loginState = useRecoilValue(getLoginState);
 
   const enrollCourse = () => {
     enrollApi(memberId, courseId, accessToken)
@@ -140,6 +146,13 @@ export default function PurchasePage() {
       </PaymentCard>
     );
   };
+
+  useLayoutEffect(() => {
+    if (!loginState) {
+      window.location.replace(PROCESS_ACCOUNT_URL.LOGIN);
+      alert("확인되지 않은 접근입니다.");
+    }
+  }, []);
 
   return (
     <MyPageWrapper>

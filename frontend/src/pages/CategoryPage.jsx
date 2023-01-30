@@ -107,13 +107,13 @@ export default function CategoryPage() {
       },
     }
   );
+
   const courses = useMemo(
     () => courseList?.data?.pages.flatMap((page) => page.list),
     [courseList?.data?.pages]
   );
 
   useEffect(() => {
-    console.log("fdfd");
     if (isInView && courseList.hasNextPage && courseList.isSuccess) {
       courseList.fetchNextPage();
     }
@@ -153,7 +153,7 @@ export default function CategoryPage() {
         </MyPageTitle>
         <MyPageContentBox>
           {courseList.error ? (
-            <div>에러임</div>
+            <div>강좌가 없어요.</div>
           ) : (
             <CourseListBox>
               {courseList.isLoading ? (
@@ -163,8 +163,6 @@ export default function CategoryPage() {
                   return <ClassCard key={course.courseId} course={course} />;
                 })
               )}
-
-              {/* {courseList.isError ?? <div>강좌가 없어용</div>} */}
             </CourseListBox>
           )}
         </MyPageContentBox>

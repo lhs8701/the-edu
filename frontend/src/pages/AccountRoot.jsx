@@ -18,7 +18,10 @@ const AccountBox = styled.div`
   margin-top: 50px;
   margin-bottom: 50px;
   width: 60%;
-  min-height: 75vh;
+  border: 3px solid var(--color-box-gray);
+  border-radius: var(--size-border-radius);
+  box-shadow: 0 0px 1px rgb(0 0 0 / 16%), 0 1px 7px rgb(0 0 0 / 16%);
+  padding: 50px;
 `;
 
 const TitleBox = styled.div`
@@ -44,13 +47,6 @@ const SubTitle = styled(Title)`
   font-weight: var(--weight-middle);
 `;
 
-const Description = styled.p`
-  color: var(--color-gray);
-  margin-left: 10%;
-  font-size: 1.1rem;
-  font-weight: var(--weight-thin);
-`;
-
 export default function AccountRoot() {
   const loginState = useRecoilValue(getLoginState);
   const navigate = useNavigate();
@@ -74,7 +70,7 @@ export default function AccountRoot() {
           </TitleBox>
           <br />
           <br />
-          <Description>교육 최강!! 다 봄 조은캠프</Description>
+
           <br />
           <br />
           <br />

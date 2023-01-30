@@ -6,6 +6,7 @@ const AUTH_URL = `${BASE_URL}/auth`;
 const KAKAO_URL = "https://kauth.kakao.com/oauth/token";
 const SIGNUP_PATH = "/basic/signup";
 const SIGNIN_PATH = "/basic/login";
+const REISSUE_PATH = "/reissue";
 const BASIC_LOGOUT_PATH = "/basic/logout";
 const KAKAO_SIGNIN_PATH = "/kakao/login";
 const KAKAO_LOGOUT_PATH = "/kakao/logout";
@@ -24,8 +25,6 @@ export async function signUp(userData) {
     {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": "*",
       },
     }
   );
@@ -40,8 +39,6 @@ export async function kakaoLogin(socialToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": "*",
       },
     }
   );
@@ -57,8 +54,6 @@ export async function login(userData) {
     {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": "*",
       },
     }
   );
@@ -79,7 +74,7 @@ export async function getKakaoAuthToken(code) {
   });
 }
 
-export async function BasicLogout(accessToken, refreshToken) {
+export async function basicLogout(accessToken, refreshToken) {
   return await axios.post(
     AUTH_URL + BASIC_LOGOUT_PATH,
     {
@@ -88,15 +83,28 @@ export async function BasicLogout(accessToken, refreshToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": "*",
         "X-AUTH-TOKEN": accessToken,
       },
     }
   );
 }
 
-export async function KakaoLogout(accessToken, socialToken) {
+export async function reIssue(accessToken, refreshToken) {
+  return await axios.post(
+    AUTH_URL + REISSUE_PATH,
+    {
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+
+export async function kakaoLogout(accessToken, socialToken) {
   return await axios.post(
     AUTH_URL + KAKAO_LOGOUT_PATH,
     {
@@ -105,8 +113,6 @@ export async function KakaoLogout(accessToken, socialToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": "*",
         "X-AUTH-TOKEN": accessToken,
       },
     }

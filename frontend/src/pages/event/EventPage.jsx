@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { TabTitle, Wrapper } from "../style/CommonCss";
-import { Card } from "../style/MypageComponentsCss";
+import { PROCESS_MAIN_URL } from "../../static";
+import { TabTitle, Wrapper } from "../../style/CommonCss";
+import { Card } from "../../style/MypageComponentsCss";
 
 const EventCardBox = styled(motion.div)`
   width: 100%;
@@ -32,10 +34,15 @@ const EventPeriod = styled.text`
 `;
 
 export default function EventPage() {
+  const navigate = useNavigate();
   const EventList = () => {
-    return [1, 2, 3, 4].map(() => {
+    return [1, 2, 3, 4].map((e, idx) => {
       return (
-        <div>
+        <div
+          onClick={() => {
+            navigate(`${PROCESS_MAIN_URL.EVENT}/${idx}`);
+          }}
+        >
           <EventCardBox
             initial={{ opacity: 0, y: 30 }}
             animate={{
