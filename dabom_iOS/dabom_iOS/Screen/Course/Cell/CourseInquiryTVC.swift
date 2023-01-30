@@ -12,17 +12,20 @@ protocol allInquiryBtnDelegate {
 }
 
 class CourseInquiryTVC: UITableViewCell {
-
+    
+    // MARK: - IBOutlet
     @IBOutlet weak var inquiryTitle: UILabel!
     
     @IBOutlet weak var inquiryTV: UITableView!
     
     @IBOutlet weak var allReviewBtn: UIButton!
-    
+  
+    // MARK: - var, let
     var delegate: allInquiryBtnDelegate?
     
     var inquiryData: [CourseInquiryDataModel] = []
     
+    // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -43,6 +46,7 @@ class CourseInquiryTVC: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - setData
     func setData(_ data: [CourseInquiryDataModel]?) {
         
         if let data = data {
@@ -50,6 +54,7 @@ class CourseInquiryTVC: UITableViewCell {
         }
     }
     
+    // MARK: - IBAction
     @IBAction func allBtnPressed(_ sender: UIButton) {
         delegate?.allInquiryBtnPressed()
     }
@@ -57,11 +62,14 @@ class CourseInquiryTVC: UITableViewCell {
     
 }
 
+// MARK: - extension
 extension CourseInquiryTVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // 데이터가 3개 이하면 갯수만큼 보여주기
         if self.inquiryData.count < 4 {
             return self.inquiryData.count
         } else {
+            // 데이터가 4개 이상이면 3개만 보여주기
             return 3
         }
     }
@@ -71,7 +79,7 @@ extension CourseInquiryTVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = inquiryTV.dequeueReusableCell(withIdentifier: "ReviewInquiryTVC", for: indexPath) as? ReviewInquiryTVC else {return UITableViewCell()}
+        guard let cell = inquiryTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.reviewInquiryTVC, for: indexPath) as? ReviewInquiryTVC else {return UITableViewCell()}
         cell.setInquiryData(self.inquiryData[indexPath.row])
         cell.selectionStyle = .none
         

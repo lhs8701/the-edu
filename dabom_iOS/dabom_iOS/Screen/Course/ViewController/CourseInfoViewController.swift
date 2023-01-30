@@ -37,6 +37,7 @@ class CourseInfoViewController: UIViewController {
     let minUpper: CGFloat = 0.0
     
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
+    let isLogin: Bool = UserDefaults.standard.bool(forKey: "isLogin")
     
     var reviewData: [CourseReviewDataModel] = []
     var inquiryData: [CourseInquiryDataModel] = []
@@ -58,7 +59,10 @@ class CourseInfoViewController: UIViewController {
         // courseId 기본값 설정 (임시)
         self.courseId = 2
         getCourseInfo(id: self.courseId!)
-        checkWish()
+        
+        if isLogin {
+            checkWish()
+        }
 
     }
     
@@ -93,46 +97,60 @@ class CourseInfoViewController: UIViewController {
         navigationItem.rightBarButtonItems = [heart, onOff]
     }
     
+    // MARK: - 찜한 강좌인지 확인
     func checkWish() {
         CourseInfoDataService.shared.isWishCourse(memberId: self.memberId, courseId: self.courseId!) { check in
             switch check {
             case true:
-                print("true!!")
                 self.heartButton.isSelected = true
             case false:
-                print("false!!")
                 self.heartButton.isSelected = false
             }
         }
     }
     
+    // MARK: - 찜하기 버튼 눌렀을 때
     @objc func wishBtnPressed(_ sender: UIButton) {
-        CourseInfoDataService.shared.changeWishCourse(memberId: self.memberId, courseId: self.courseId!) { response in
-            switch (response) {
-            case .success:
-                print("change Success")
-            case .requestErr(let message):
-                print("requestErr", message)
-            case .pathErr:
-                print("networkResult pathErr")
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            case .resourceErr:
-                print("resourceErr")
+        if self.isLogin {
+            CourseInfoDataService.shared.changeWishCourse(memberId: self.memberId, courseId: self.courseId!) { response in
+                switch (response) {
+                case .success:
+                    print("change Success")
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("networkResult pathErr")
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
             }
-        }
-        
-        
-        if sender.isSelected {
-            sender.isSelected = false
+            
+            if sender.isSelected {
+                sender.isSelected = false
+            } else {
+                sender.isSelected = true
+            }
         } else {
-            sender.isSelected = true
+            let alert = UIAlertController(title: "로그인이 필요한 서비스입니다", message: "로그인 하시겠습니까?", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "취소", style: .cancel)
+            let login = UIAlertAction(title: "확인", style: .default) { _ in
+                AuthenticationService.shared.goToLoginSignup()
+            }
+            
+            alert.addAction(cancel)
+            alert.addAction(login)
+            
+            present(alert, animated: true)
         }
+        
     }
     
+    // MARK: - OnOff 설명 버튼
     @objc func onOffBtnPressed(_ sender: UIButton) {
         guard let descVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.onOffDescription) as? OnOffDescriptionVC else {return}
         
@@ -194,7 +212,7 @@ class CourseInfoViewController: UIViewController {
                     
                     self.getCourseReview()
                     self.getCourseInquiry()
-//                    self.mainTV.reloadData()
+                    self.mainTV.reloadData()
                 }
             case .requestErr(let message):
                 print("requestErr", message)
@@ -308,15 +326,15 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.infoImageView.image = UIImage(named: "testIntro02")
             return cell
         case 4:
+            // Review
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseReviewTVC, for: indexPath) as? CourseReviewTVC else { return UITableViewCell() }
-//            cell.reviewData = self.reviewData
             cell.setData(self.reviewData)
             cell.delegate = self
             
             return cell
         case 5:
+            // Inquiry
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInquiryTVC, for: indexPath) as? CourseInquiryTVC else { return UITableViewCell() }
-            
             cell.setData(self.inquiryData)
             cell.delegate = self
             
@@ -336,6 +354,7 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - allInquiryBtnDelegate
 extension CourseInfoViewController: allInquiryBtnDelegate {
     func allInquiryBtnPressed() {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInquiryAllVC) as? CourseInquiryAllVC else { return }
@@ -347,6 +366,7 @@ extension CourseInfoViewController: allInquiryBtnDelegate {
     
 }
 
+// MARK: - allReviewBtnDelegate
 extension CourseInfoViewController: allReviewBtnDelegate {
     func allReviewBtnPressed() {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseReviewAllVC) as? CourseReviewAllVC else { return }

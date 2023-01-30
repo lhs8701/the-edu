@@ -9,12 +9,14 @@ import UIKit
 
 class ReviewInquiryTVC: UITableViewCell {
     
-    
+    // MARK: - IBOutlet
     @IBOutlet weak var writerLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     
+    // MARK: - var, let
     var reviewData: CourseReviewDataModel?
     
+    // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,6 +28,7 @@ class ReviewInquiryTVC: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - setData
     func setReviewData(_ data: CourseReviewDataModel) {
         self.writerLabel.text = data.writer
         self.contentLabel.text = data.content

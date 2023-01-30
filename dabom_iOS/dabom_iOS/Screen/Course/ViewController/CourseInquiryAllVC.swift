@@ -8,21 +8,28 @@
 import UIKit
 
 class CourseInquiryAllVC: UIViewController {
-
+    
+    // MARK: - IBOutlet
     @IBOutlet weak var inquiryTV: UITableView!
     
+    // MARK: - var, let
     var inquiryData: [CourseInquiryDataModel] = []
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
+        setTV()
+    }
+
+    // MARK: - setTV
+    private func setTV() {
         inquiryTV.delegate = self
         inquiryTV.dataSource = self
         inquiryTV.register(UINib(nibName: "ReviewInquiryTVC", bundle: nil), forCellReuseIdentifier: "ReviewInquiryTVC")
     }
     
+    // MARK: - setData
     func setData(_ data: [CourseInquiryDataModel]?) {
         
         if let data = data {
@@ -30,9 +37,9 @@ class CourseInquiryAllVC: UIViewController {
         }
     }
 
-
 }
 
+// MARK: - extension
 extension CourseInquiryAllVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.inquiryData.count

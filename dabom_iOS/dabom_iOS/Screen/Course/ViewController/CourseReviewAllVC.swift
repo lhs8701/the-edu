@@ -9,20 +9,29 @@ import UIKit
 
 class CourseReviewAllVC: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet weak var reviewTV: UITableView!
     
+    // MARK: - var, let
     var reviewData: [CourseReviewDataModel] = []
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
+        setTV()
+    }
+    
+    // MARK: - setTV
+    private func setTV() {
         reviewTV.delegate = self
         reviewTV.dataSource = self
         reviewTV.register(UINib(nibName: Const.Xib.Name.reviewInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.reviewInquiryTVC)
     }
     
+    // MARK: - setData
     func setData(_ data: [CourseReviewDataModel]?) {
         if let data = data {
             self.reviewData = data
@@ -31,6 +40,7 @@ class CourseReviewAllVC: UIViewController {
 
 }
 
+// MARK: - extension
 extension CourseReviewAllVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.reviewData.count

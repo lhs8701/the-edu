@@ -13,6 +13,7 @@ class WishCourseViewController: UIViewController {
     
     var wishCourseData: Array<CourseThumbnailDataModel>?
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
+    let isLogin: Bool = UserDefaults.standard.bool(forKey: "isLogin")
     
     var temp: [SampleCourseThumbnail] = []
     
@@ -21,13 +22,13 @@ class WishCourseViewController: UIViewController {
         super.viewDidLoad()
 
         setCV()
-//        getWishCourse()
-        print("viewDidLoad()")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear()")
-        getWishCourse()
+        if self.isLogin {
+            getWishCourse()
+        }
+        
     }
     
     // MARK: - func
