@@ -11,6 +11,7 @@ import Alamofire
 struct CourseInfoDataService {
     static let shared = CourseInfoDataService()
     
+    // MARK: - Course 기본 정보 가져오기
     func getCourseInfo(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getCourseInfo)/\(id)"
         print(URL)
@@ -30,6 +31,7 @@ struct CourseInfoDataService {
         }
     }
     
+    // MARK: - Course가 찜한 강좌인지 확인
     func isWishCourse(memberId: Int, courseId: Int, completion: @escaping (Bool) -> Void) {
         let URL = "\(Const.Url.isWishCourse)"
         let accessToken = UserDefaults.standard.string(forKey: "accessToken")
@@ -71,6 +73,7 @@ struct CourseInfoDataService {
         
     }
     
+    // MARK: - 찜하기
     func changeWishCourse(memberId: Int, courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.changeWishStatus)"
         print(URL)
@@ -101,6 +104,8 @@ struct CourseInfoDataService {
         }
     }
     
+    
+    // MARK: - Status Code 분기
     private func judgeStatus(by statusCode: Int, _ data: Data?) -> NetworkResult<Any> {
         
         if let data = data {
@@ -133,6 +138,7 @@ struct CourseInfoDataService {
         
     }
     
+    // MARK: - JSON Parsing
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         

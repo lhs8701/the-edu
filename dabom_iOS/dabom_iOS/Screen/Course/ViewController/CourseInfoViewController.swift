@@ -38,6 +38,8 @@ class CourseInfoViewController: UIViewController {
     
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
     
+    var reviewData: [CourseReviewDataModel]?
+    
     
     var onOffButton: UIButton!
     var heartButton: UIButton!
@@ -143,6 +145,7 @@ class CourseInfoViewController: UIViewController {
         self.mainTV.register(UINib(nibName: Const.Xib.Name.infoImageTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.infoImageTVC)
         self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInfoTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInfoTVC)
         self.mainTV.register(UINib(nibName: Const.Xib.Name.segmentTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.segmentTVC)
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.courseReviewTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseReviewTVC)
     }
 
     
@@ -187,7 +190,8 @@ class CourseInfoViewController: UIViewController {
                     self.courseDescription = data.description
                     self.instructor = data.instructor
                     
-                    self.mainTV.reloadData()
+                    self.getCourseReview()
+//                    self.mainTV.reloadData()
                 }
             case .requestErr(let message):
                 print("requestErr", message)
@@ -203,6 +207,30 @@ class CourseInfoViewController: UIViewController {
             
         }
     }
+    
+    // MARK: - getCourseReview
+    private func getCourseReview() {
+        GetReviewDataService.shared.getReview(courseId: self.courseId ?? 1) { response in
+            switch response {
+            case .success(let reviewData):
+                if let data = reviewData as? [CourseReviewDataModel] {
+                    self.reviewData = data
+                    
+                    self.mainTV.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
 }
 
 
@@ -214,9 +242,14 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             return 450
         case 1:
             return 50
-        default:
+        case 2, 3:
             return 800
+        case 4, 5:
+            return 575
+        default:
+            return 0
         }
+//        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -226,21 +259,36 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
+            // 메인 정보 자리
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInfoTVC, for: indexPath) as? CourseInfoTVC else { return UITableViewCell() }
             cell.classTitle.text = self.courseTitle
             cell.courseDescription.text = self.courseDescription
             cell.instructor.text = self.instructor
             return cell
         case 1:
+            // Sticky View 자리
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.segmentTVC, for: indexPath) as? SegmentTVC else { return UITableViewCell() }
             return cell
         case 2:
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
             cell.infoImageView.image = UIImage(named: "testIntro01")
             return cell
-        case 3,4,5,6:
+        case 3:
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
             cell.infoImageView.image = UIImage(named: "testIntro02")
+            return cell
+        case 4:
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseReviewTVC, for: indexPath) as? CourseReviewTVC else { return UITableViewCell() }
+//            cell.reviewData = self.reviewData
+            cell.setData(self.reviewData)
+            
+            return cell
+        case 5:
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseReviewTVC, for: indexPath) as? CourseReviewTVC else { return UITableViewCell() }
+            
+            cell.reviewTitle.text = "문의 사항"
+            cell.allReviewBtn.setTitle("문의 모두 보기", for: .normal)
+            
             return cell
         default:
             return UITableViewCell()
