@@ -47,6 +47,9 @@
                         <state key="normal" title="후기 모두 보기">
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
+                        <connections>
+                            <action selector="allBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zFf-9C-bkn"/>
+                        </connections>
                     </button>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1SR-cS-uJ5">
                         <rect key="frame" x="0.0" y="50" width="468" height="450"/>

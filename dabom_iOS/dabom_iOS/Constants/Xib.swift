@@ -22,6 +22,7 @@ extension Const {
             static let recentSearchTVC = "RecentSearchTVC"
             static let courseReviewTVC = "CourseReviewTVC"
             static let courseInquiryTVC = "CourseInquiryTVC"
+            static let reviewInquiryTVC = "ReviewInquiryTVC"
         }
         
         struct Identifier {
@@ -36,6 +37,7 @@ extension Const {
             static let recentSearchTVC = "RecentSearchTVC"
             static let courseReviewTVC = "CourseReviewTVC"
             static let courseInquiryTVC = "CourseInquiryTVC"
+            static let reviewInquiryTVC = "ReviewInquiryTVC"
         }
         
     }

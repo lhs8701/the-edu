@@ -1,5 +1,5 @@
 //
-//  CourseInquiryTVC.swift
+//  CourseReviewTVC.swift
 //  dabom_iOS
 //
 //  Created by 김태현 on 2023/01/30.
@@ -7,7 +7,11 @@
 
 import UIKit
 
-class CourseInquiryTVC: UITableViewCell {
+protocol allReviewBtnDelegate {
+    func allReviewBtnPressed()
+}
+
+class CourseReviewTVC: UITableViewCell {
 
     @IBOutlet weak var reviewTitle: UILabel!
     
@@ -15,7 +19,9 @@ class CourseInquiryTVC: UITableViewCell {
     
     @IBOutlet weak var allReviewBtn: UIButton!
     
-    var inquiryData: [CourseInquiryDataModel]!
+    var delegate: allReviewBtnDelegate?
+    
+    var reviewData: [CourseReviewDataModel] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,7 +33,7 @@ class CourseInquiryTVC: UITableViewCell {
         
         reviewTV.delegate = self
         reviewTV.dataSource = self
-        reviewTV.register(UINib(nibName: "ReviewInquiryTVC", bundle: nil), forCellReuseIdentifier: "ReviewInquiryTVC")
+        reviewTV.register(UINib(nibName: Const.Xib.Name.reviewInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.reviewInquiryTVC)
 
     }
 
@@ -37,17 +43,27 @@ class CourseInquiryTVC: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(_ data: [CourseInquiryDataModel]?) {
+    func setData(_ data: [CourseReviewDataModel]?) {
         
         if let data = data {
-            self.inquiryData = data
+            self.reviewData = data
         }
     }
+    
+    @IBAction func allBtnPressed(_ sender: Any) {
+        delegate?.allReviewBtnPressed()
+    }
+    
 }
 
-extension CourseInquiryTVC: UITableViewDelegate, UITableViewDataSource {
+extension CourseReviewTVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.inquiryData?.count ?? 0
+        if self.reviewData.count < 4 {
+            return self.reviewData.count
+        } else {
+            return 3
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -56,7 +72,8 @@ extension CourseInquiryTVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = reviewTV.dequeueReusableCell(withIdentifier: "ReviewInquiryTVC", for: indexPath) as? ReviewInquiryTVC else {return UITableViewCell()}
-        cell.setInquiryData(self.inquiryData[indexPath.row])
+        cell.setReviewData(self.reviewData[indexPath.row])
+        cell.selectionStyle = .none
         
         return cell
     }

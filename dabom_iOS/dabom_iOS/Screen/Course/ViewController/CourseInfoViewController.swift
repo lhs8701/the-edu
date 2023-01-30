@@ -38,8 +38,8 @@ class CourseInfoViewController: UIViewController {
     
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
     
-    var reviewData: [CourseReviewDataModel]?
-    var inquiryData: [CourseInquiryDataModel]?
+    var reviewData: [CourseReviewDataModel] = []
+    var inquiryData: [CourseInquiryDataModel] = []
     
     
     var onOffButton: UIButton!
@@ -311,12 +311,14 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseReviewTVC, for: indexPath) as? CourseReviewTVC else { return UITableViewCell() }
 //            cell.reviewData = self.reviewData
             cell.setData(self.reviewData)
+            cell.delegate = self
             
             return cell
         case 5:
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInquiryTVC, for: indexPath) as? CourseInquiryTVC else { return UITableViewCell() }
             
             cell.setData(self.inquiryData)
+            cell.delegate = self
             
             return cell
         default:
@@ -331,5 +333,26 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             upperConstraint.constant = maxUpper - scrollView.contentOffset.y
         }
+    }
+}
+
+extension CourseInfoViewController: allInquiryBtnDelegate {
+    func allInquiryBtnPressed() {
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInquiryAllVC) as? CourseInquiryAllVC else { return }
+        
+        nextVC.inquiryData = self.inquiryData
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }    
+    
+}
+
+extension CourseInfoViewController: allReviewBtnDelegate {
+    func allReviewBtnPressed() {
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseReviewAllVC) as? CourseReviewAllVC else { return }
+        
+        nextVC.reviewData = self.reviewData
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
