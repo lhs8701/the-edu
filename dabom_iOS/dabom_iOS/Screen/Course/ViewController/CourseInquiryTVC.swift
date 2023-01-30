@@ -1,5 +1,5 @@
 //
-//  CourseReviewTVC.swift
+//  CourseInquiryTVC.swift
 //  dabom_iOS
 //
 //  Created by 김태현 on 2023/01/30.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CourseReviewTVC: UITableViewCell {
+class CourseInquiryTVC: UITableViewCell {
 
     @IBOutlet weak var reviewTitle: UILabel!
     
@@ -15,7 +15,7 @@ class CourseReviewTVC: UITableViewCell {
     
     @IBOutlet weak var allReviewBtn: UIButton!
     
-    var reviewData: [CourseReviewDataModel]!
+    var inquiryData: [CourseInquiryDataModel]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,17 +37,17 @@ class CourseReviewTVC: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(_ data: [CourseReviewDataModel]?) {
+    func setData(_ data: [CourseInquiryDataModel]?) {
         
         if let data = data {
-            self.reviewData = data
+            self.inquiryData = data
         }
     }
 }
 
-extension CourseReviewTVC: UITableViewDelegate, UITableViewDataSource {
+extension CourseInquiryTVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.reviewData?.count ?? 0
+        self.inquiryData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -56,7 +56,7 @@ extension CourseReviewTVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = reviewTV.dequeueReusableCell(withIdentifier: "ReviewInquiryTVC", for: indexPath) as? ReviewInquiryTVC else {return UITableViewCell()}
-        cell.setReviewData(self.reviewData[indexPath.row])
+        cell.setInquiryData(self.inquiryData[indexPath.row])
         
         return cell
     }

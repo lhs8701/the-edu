@@ -39,6 +39,7 @@ class CourseInfoViewController: UIViewController {
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
     
     var reviewData: [CourseReviewDataModel]?
+    var inquiryData: [CourseInquiryDataModel]?
     
     
     var onOffButton: UIButton!
@@ -55,7 +56,7 @@ class CourseInfoViewController: UIViewController {
         setSegmentController()
             
         // courseId 기본값 설정 (임시)
-        self.courseId = 1
+        self.courseId = 2
         getCourseInfo(id: self.courseId!)
         checkWish()
 
@@ -146,6 +147,7 @@ class CourseInfoViewController: UIViewController {
         self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInfoTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInfoTVC)
         self.mainTV.register(UINib(nibName: Const.Xib.Name.segmentTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.segmentTVC)
         self.mainTV.register(UINib(nibName: Const.Xib.Name.courseReviewTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseReviewTVC)
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInquiryTVC)
     }
 
     
@@ -191,6 +193,7 @@ class CourseInfoViewController: UIViewController {
                     self.instructor = data.instructor
                     
                     self.getCourseReview()
+                    self.getCourseInquiry()
 //                    self.mainTV.reloadData()
                 }
             case .requestErr(let message):
@@ -231,6 +234,33 @@ class CourseInfoViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - getCourseInquiry
+    private func getCourseInquiry() {
+        GetInquiryDataService.shared.getInquiry(courseId: self.courseId ?? 1) { response in
+            switch response {
+            case .success(let inquiryData):
+                if let data = inquiryData as? [CourseInquiryDataModel] {
+                    self.inquiryData = data
+                    
+                    self.mainTV.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
+    
+    
 }
 
 
@@ -284,10 +314,9 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         case 5:
-            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseReviewTVC, for: indexPath) as? CourseReviewTVC else { return UITableViewCell() }
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInquiryTVC, for: indexPath) as? CourseInquiryTVC else { return UITableViewCell() }
             
-            cell.reviewTitle.text = "문의 사항"
-            cell.allReviewBtn.setTitle("문의 모두 보기", for: .normal)
+            cell.setData(self.inquiryData)
             
             return cell
         default:

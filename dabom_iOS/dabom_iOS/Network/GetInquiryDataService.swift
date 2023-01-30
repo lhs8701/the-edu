@@ -1,5 +1,5 @@
 //
-//  GetReviewDataService.swift
+//  GetInquiryDataService.swift
 //  dabom_iOS
 //
 //  Created by 김태현 on 2023/01/30.
@@ -8,17 +8,17 @@
 import Foundation
 import Alamofire
 
-struct GetReviewDataService {
-    static let shared = GetReviewDataService()
+struct GetInquiryDataService {
+    static let shared = GetInquiryDataService()
     
-    func getReview(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.getCourseReview)/\(courseId)/reviews"
+    func getInquiry(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.getCourseInquiries)/\(courseId)/inquiries"
         print(URL)
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
         request.responseData { dataResponse in
-//            debugPrint(dataResponse)
+            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -30,6 +30,7 @@ struct GetReviewDataService {
                 completion(.pathErr)
             }
         }
+
     }
     
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
@@ -51,7 +52,7 @@ struct GetReviewDataService {
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
-        guard let decodedData = try? decoder.decode([CourseReviewDataModel].self, from: data) else {
+        guard let decodedData = try? decoder.decode([CourseInquiryDataModel].self, from: data) else {
             print("decode fail")
             return .pathErr }
         

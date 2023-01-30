@@ -68,6 +68,10 @@
 		0EC314DF29875529004C82CF /* ReviewInquiryTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EC314DD29875529004C82CF /* ReviewInquiryTVC.xib */; };
 		0EC314E129875753004C82CF /* CourseReviewDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E029875753004C82CF /* CourseReviewDataModel.swift */; };
 		0EC314E32987582A004C82CF /* GetReviewDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E22987582A004C82CF /* GetReviewDataService.swift */; };
+		0EC314E529876491004C82CF /* CourseInquiryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E429876491004C82CF /* CourseInquiryDataModel.swift */; };
+		0EC314E7298764EA004C82CF /* GetInquiryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E6298764EA004C82CF /* GetInquiryDataService.swift */; };
+		0EC314EA29876601004C82CF /* CourseInquiryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E829876601004C82CF /* CourseInquiryTVC.swift */; };
+		0EC314EB29876601004C82CF /* CourseInquiryTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EC314E929876601004C82CF /* CourseInquiryTVC.xib */; };
 		0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7037D296D3EFD0095DD14 /* SearchVC.swift */; };
 		0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */; };
 		0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */; };
@@ -172,6 +176,10 @@
 		0EC314DD29875529004C82CF /* ReviewInquiryTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewInquiryTVC.xib; sourceTree = "<group>"; };
 		0EC314E029875753004C82CF /* CourseReviewDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewDataModel.swift; sourceTree = "<group>"; };
 		0EC314E22987582A004C82CF /* GetReviewDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReviewDataService.swift; sourceTree = "<group>"; };
+		0EC314E429876491004C82CF /* CourseInquiryDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquiryDataModel.swift; sourceTree = "<group>"; };
+		0EC314E6298764EA004C82CF /* GetInquiryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInquiryDataService.swift; sourceTree = "<group>"; };
+		0EC314E829876601004C82CF /* CourseInquiryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquiryTVC.swift; sourceTree = "<group>"; };
+		0EC314E929876601004C82CF /* CourseInquiryTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseInquiryTVC.xib; sourceTree = "<group>"; };
 		0ED7037D296D3EFD0095DD14 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePurchaseVC.swift; sourceTree = "<group>"; };
 		0EDEA1FE296CFFFC00B4712B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -325,6 +333,7 @@
 			children = (
 				0E602834296665C600A25F48 /* CourseThumbnailDataModel.swift */,
 				0EC314E029875753004C82CF /* CourseReviewDataModel.swift */,
+				0EC314E429876491004C82CF /* CourseInquiryDataModel.swift */,
 				0EAF7B52298256CE00F65E5A /* SampleCourseThumbnail.swift */,
 				0E1E95982977ABEA00CBE70B /* CourseInfoDataModel.swift */,
 				0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */,
@@ -351,6 +360,8 @@
 				0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */,
 				0EC314D8298748C1004C82CF /* CourseReviewTVC.swift */,
 				0EC314D9298748C1004C82CF /* CourseReviewTVC.xib */,
+				0EC314E829876601004C82CF /* CourseInquiryTVC.swift */,
+				0EC314E929876601004C82CF /* CourseInquiryTVC.xib */,
 				0EC314DC29875529004C82CF /* ReviewInquiryTVC.swift */,
 				0EC314DD29875529004C82CF /* ReviewInquiryTVC.xib */,
 				0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */,
@@ -457,6 +468,7 @@
 				0EAF7B5A298392BB00F65E5A /* GetPaginationDataService.swift */,
 				0E1E959E2977C05B00CBE70B /* AuthenticationService.swift */,
 				0EC314E22987582A004C82CF /* GetReviewDataService.swift */,
+				0EC314E6298764EA004C82CF /* GetInquiryDataService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -622,6 +634,7 @@
 				0EFB74442970FB2500C58E87 /* LoginSignup.storyboard in Resources */,
 				0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */,
 				0EF17C2A296518EF006DC95D /* Assets.xcassets in Resources */,
+				0EC314EB29876601004C82CF /* CourseInquiryTVC.xib in Resources */,
 				0E9D151F29744E910061D1ED /* InfoImageTVC.xib in Resources */,
 				0EC314DF29875529004C82CF /* ReviewInquiryTVC.xib in Resources */,
 				0EF17C28296518EE006DC95D /* Main.storyboard in Resources */,
@@ -764,6 +777,7 @@
 				0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */,
 				0E9D151E29744E910061D1ED /* InfoImageTVC.swift in Sources */,
 				0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */,
+				0EC314E529876491004C82CF /* CourseInquiryDataModel.swift in Sources */,
 				0E1E959F2977C05B00CBE70B /* AuthenticationService.swift in Sources */,
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
@@ -790,12 +804,14 @@
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
 				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,
 				0EC314E32987582A004C82CF /* GetReviewDataService.swift in Sources */,
+				0EC314E7298764EA004C82CF /* GetInquiryDataService.swift in Sources */,
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,
 				0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */,
 				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,
 				0EB576EF296BAB75001EFBE1 /* CourseInfoViewController.swift in Sources */,
 				0E1E95932977873C00CBE70B /* ViewController.swift in Sources */,
 				0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */,
+				0EC314EA29876601004C82CF /* CourseInquiryTVC.swift in Sources */,
 				0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */,
 				0E9D15272974EECD0061D1ED /* SignupSelectVC.swift in Sources */,
 				0E1E95DE297BB90600CBE70B /* Image.swift in Sources */,

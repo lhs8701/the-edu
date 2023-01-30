@@ -26,7 +26,12 @@ class ReviewInquiryTVC: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(data: CourseReviewDataModel) {
+    func setReviewData(_ data: CourseReviewDataModel) {
+        self.writerLabel.text = data.writer
+        self.contentLabel.text = data.content
+    }
+    
+    func setInquiryData(_ data: CourseInquiryDataModel) {
         self.writerLabel.text = data.writer
         self.contentLabel.text = data.content
     }
