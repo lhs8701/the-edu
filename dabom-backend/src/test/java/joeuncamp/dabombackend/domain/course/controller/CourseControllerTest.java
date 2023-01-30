@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
+import joeuncamp.dabombackend.domain.course.service.RankingService;
 import joeuncamp.dabombackend.domain.wish.dto.WishDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.WithAuthUser;
@@ -47,6 +48,9 @@ public class CourseControllerTest {
 
     @MockBean
     WishService wishService;
+
+    @MockBean
+    RankingService rankingService;
 
     @Test
     @WithAuthUser(role = "USER")

@@ -13,7 +13,6 @@ import java.io.IOException;
 
 @Service
 public class ImageResizer {
-
     public File resize(File file, ImageSize imageSize) {
         try {
             BufferedImage bufferedImage = resizeImage(file, imageSize);

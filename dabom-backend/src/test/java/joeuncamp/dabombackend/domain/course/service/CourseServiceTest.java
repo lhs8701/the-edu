@@ -102,7 +102,7 @@ public class CourseServiceTest {
 
         // then
         assertThat(responseDto.getInstructor()).isEqualTo(instructor.getName());
-        assertThat(responseDto.getCategory()).isEqualTo(CategoryType.findByTitle(ExampleValue.Course.CATEGORY));
+        assertThat(responseDto.getCategory()).isEqualTo(ExampleValue.Course.CATEGORY);
     }
 
     @Test

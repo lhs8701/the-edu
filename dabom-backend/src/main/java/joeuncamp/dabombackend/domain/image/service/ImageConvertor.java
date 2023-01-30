@@ -42,8 +42,6 @@ public class ImageConvertor {
     private ImageWriteParam setImageWriteParam() {
         JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.KOREA);
         imageWriteParam.setProgressiveMode(ImageWriteParam.MODE_DEFAULT);
-        imageWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        imageWriteParam.setCompressionQuality(0.01f);
         return imageWriteParam;
     }
 }

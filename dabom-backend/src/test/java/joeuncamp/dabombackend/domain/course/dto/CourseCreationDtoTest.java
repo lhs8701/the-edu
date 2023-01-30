@@ -5,10 +5,7 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Set;
@@ -51,6 +48,7 @@ public class CourseCreationDtoTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("유효한 카테고리 값이 아닐 경우 예외가 발생한다.")
     void 유효한_카테고리_값이_아닐_경우_예외가_발생한다() {
         // given

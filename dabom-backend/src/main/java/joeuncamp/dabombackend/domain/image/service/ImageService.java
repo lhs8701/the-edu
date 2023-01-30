@@ -19,10 +19,11 @@ public class ImageService {
     ImageUploader imageUploader;
     ImageResizer imageResizer;
 
-    public ImageInfo save(MultipartFile multipartFile) throws IOException {
+
+    public ImageInfo save(MultipartFile multipartFile, ImageSize imageSize) throws IOException {
         File tempFile = toFile(multipartFile);
         tempFile = imageConvertor.convertImage(tempFile);
-        tempFile = imageResizer.resize(tempFile, ImageSize.MEDIUM);
+        tempFile = imageResizer.resize(tempFile, imageSize);
         File created = imageUploader.upload(tempFile);
         imageUploader.delete(tempFile);
         return new ImageInfo(created);
