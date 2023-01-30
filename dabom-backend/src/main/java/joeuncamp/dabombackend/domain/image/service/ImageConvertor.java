@@ -21,9 +21,9 @@ import java.util.Locale;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ImageConverter {
+public class ImageConvertor {
     private final Tika tika;
-    public void convertImage(File file) {
+    public File convertImage(File file) {
         try (ImageOutputStream stream = new FileImageOutputStream(file)) {
             String mimeType = tika.detect(file);
             ImageWriter imageWriter = ImageIO.getImageWritersByMIMEType(mimeType).next();
@@ -32,6 +32,7 @@ public class ImageConverter {
             IIOImage iioImage = new IIOImage(image, null, null);
             imageWriter.write(null, iioImage, setImageWriteParam());
             imageWriter.dispose();
+            return file;
         } catch (IOException e) {
             log.error("이미지파일 변환 중 오류 발생");
             throw new CInternalServerException();
@@ -41,6 +42,8 @@ public class ImageConverter {
     private ImageWriteParam setImageWriteParam() {
         JPEGImageWriteParam imageWriteParam = new JPEGImageWriteParam(Locale.KOREA);
         imageWriteParam.setProgressiveMode(ImageWriteParam.MODE_DEFAULT);
+        imageWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        imageWriteParam.setCompressionQuality(0.01f);
         return imageWriteParam;
     }
 }

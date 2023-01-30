@@ -1,12 +1,9 @@
 package joeuncamp.dabombackend.domain.image.service;
 
 import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
-import org.apache.tomcat.jni.FileInfo;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -30,7 +27,7 @@ public class ImageServiceTest {
     ImageUploader imageUploader;
 
     @Mock
-    ImageConverter imageConverter;
+    ImageConvertor imageConvertor;
 
     private MockMultipartFile getMockMultipartFile(String fileName, String contentType, String path) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(path);
