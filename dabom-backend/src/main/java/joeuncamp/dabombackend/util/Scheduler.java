@@ -21,14 +21,14 @@ public class Scheduler {
     private final CourseJpaRepository courseJpaRepository;
     private final RankingJpaRepository rankingJpaRepository;
 
-    @Scheduled(fixedRate = 1000 * 60)
-    private void renewWeeklyRanking(){
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 24 * 7)
+    private void renewWeeklyRanking() {
         rankingJpaRepository.deleteAll();
         Arrays.stream(CategoryType.values()).forEach(type -> {
             Page<Course> pages = courseJpaRepository.findByEnrolledCountFromWeek(type);
             List<RankedCourse> rankedCourses = pages.getContent().stream().map(RankedCourse::new).toList();
             rankingJpaRepository.saveAll(rankedCourses);
         });
-        log.info("60초 간격으로 랭킹 갱신 완료");
+        log.info("일주일 간격으로 랭킹 갱신 완료");
     }
 }

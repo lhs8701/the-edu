@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
+import joeuncamp.dabombackend.domain.course.service.RankingService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.wish.dto.WishDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
@@ -27,6 +28,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "[3.Course]", description = "클래스와 관련된 API입니다.")
 @RestController
 @RequiredArgsConstructor
@@ -35,6 +38,8 @@ public class CourseController {
     private final CourseService courseService;
     private final EnrollService enrollService;
     private final WishService wishService;
+
+    private final RankingService rankingService;
 
     @Operation(summary = "강좌를 개설합니다.", description = "강좌 개설은 크리에이터 프로필을 활성화한 회원만 가능합니다. \n 개설된 강좌의 아이디넘버가 반환됩니다.")
     @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
@@ -102,6 +107,14 @@ public class CourseController {
     @GetMapping("/courses/{courseId}/enroll")
     public ResponseEntity<SingleResponseDto<Boolean>> doesEnrolled(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
         SingleResponseDto<Boolean> responseDto = enrollService.doesEnrolled(courseId, member.getId());
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary = "강좌 랭킹을 조회합니다.", description = "일주일 간격으로 갱신됩니다.")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/courses/category/{category}/ranking")
+    public ResponseEntity<List<CourseDto.ShortResponse>> getRanking(@PathVariable @Schema(example = "백엔드") String category) {
+        List<CourseDto.ShortResponse> responseDto = rankingService.findTop4FromCategory(category);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
