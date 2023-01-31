@@ -10,7 +10,8 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router";
-import { CREATOR_BAR_LIST } from "../../static";
+import { CREATOR_BAR_LIST, PROCESS_ADMIN_URL } from "../../static";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 
 export default function CreatorListItems({ isCreator }) {
   const navigate = useNavigate();
@@ -30,8 +31,46 @@ export default function CreatorListItems({ isCreator }) {
     );
   };
 
+  const ArcodianDetails = ({ smallList }) => {
+    return (
+      <AccordionDetails
+        sx={{
+          p: 0,
+        }}
+      >
+        <ListComponent list={smallList} />
+      </AccordionDetails>
+    );
+  };
+
+  const Arcodian = ({ list }) => {
+    return (
+      <div>
+        <Accordion
+          sx={{
+            boxShadow: 0,
+            borderRadius: 0,
+          }}
+        >
+          <AccordionSummary
+            expandIcon={<AssignmentIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            sx={{
+              mb: -1,
+            }}
+          >
+            {list.name}
+          </AccordionSummary>
+          {list.list.map((smallList, idx) => {
+            return <ArcodianDetails smallList={smallList} />;
+          })}
+        </Accordion>
+      </div>
+    );
+  };
+
   const listFilter = (list, idx) => {
-    console.log(CREATOR_BAR_LIST.list[0]);
     if (idx === 0) {
       if (isCreator) {
         return <ListComponent list={CREATOR_BAR_LIST.list[idx].creator[idx]} />;
@@ -40,6 +79,8 @@ export default function CreatorListItems({ isCreator }) {
           <ListComponent list={CREATOR_BAR_LIST.list[idx].creator[idx + 1]} />
         );
       }
+    } else if (idx === 3) {
+      return <Arcodian list={list} />;
     } else {
       return <ListComponent list={list} />;
     }

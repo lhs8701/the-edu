@@ -355,7 +355,7 @@ export default function Header() {
         <LoginTab>
           <LogoutBtn onClick={logOut}>로그아웃</LogoutBtn>
           <UserTab>
-            <UserLink to={CREATOR_BAR_LIST.list[0].url}>크리에이터</UserLink>
+            <UserLink to={"creator"}>크리에이터</UserLink>
             <UserLink to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}>마이페이지</UserLink>
           </UserTab>
         </LoginTab>

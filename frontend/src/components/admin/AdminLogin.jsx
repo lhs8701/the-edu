@@ -57,7 +57,7 @@ export default function SignIn({ setLoginState }) {
         accessToken: data.accessToken,
         refreshToken: data.refreshToken,
       });
-      navigate(PROCESS_ADMIN_URL.DASHBOARD);
+      navigate("/admin");
     } catch (err) {
       console.log(err.response.status);
       alert("로그인 오류입니다.");

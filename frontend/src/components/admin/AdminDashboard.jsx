@@ -155,7 +155,7 @@ function DashboardContent() {
           <List component="nav">
             <AdminListItems />
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            {/* {secondaryListItems} */}
           </List>
         </Drawer>
         <Box

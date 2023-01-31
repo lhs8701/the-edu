@@ -22,7 +22,6 @@ import Chart from "../dashboard/Chart";
 import Deposits from "../dashboard/Deposits";
 import { Outlet, useNavigate } from "react-router";
 import CreatorListItems from "./CreatorListItems";
-import { PROCESS_MAIN_URL } from "../../static";
 
 function Copyright(props) {
   return (
@@ -90,7 +89,7 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+function DashboardContent({ isCreator }) {
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
   const toggleDrawer = () => {
@@ -162,7 +161,7 @@ function DashboardContent() {
           <Divider />
           <List component="nav">
             <CreatorListItems isCreator={false} />
-            <Divider sx={{ my: 1 }} />
+            {/* <Divider sx={{ my: 1 }} /> */}
             {/* {secondaryListItems} */}
           </List>
         </Drawer>
@@ -225,6 +224,7 @@ function DashboardContent() {
   );
 }
 
-export default function CreatorDashboard() {
-  return <DashboardContent />;
+export default function CreatorDashboard({ isCreator }) {
+  const navigate = useNavigate();
+  return <DashboardContent isCreator={isCreator} />;
 }

@@ -3,23 +3,21 @@ import { useNavigate } from "react-router";
 import { getFormResponse } from "../../api/adminApi";
 
 import CreatorDashboard from "../../components/creator/CreatorDashboard";
-import { PROCESS_CREATOR_URL } from "../../static";
+import { CREATOR_BAR_LIST } from "../../static";
 
 export default function CreatorRoot() {
   const navigate = useNavigate();
-  const [loginState, setLoginState] = useState({
-    state: false,
-    accessToken: "",
-    refreshToken: "",
-  });
-  //   if (loginState) {
-  //     navigate(PROCESS_CREATOR_URL.REGIST);
-  //   }
+  const isCreator = false;
+
+  useEffect(() => {
+    if (!isCreator) {
+      navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
+    }
+  }, []);
 
   return (
     <div>
-      <CreatorDashboard loginState={loginState} />
-      {/* <ResearchBox /> */}
+      <CreatorDashboard isCreator={isCreator} />
     </div>
   );
 }
