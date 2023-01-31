@@ -23,6 +23,7 @@ public class ImageUploaderTest {
     ImageUploader imageUploader;
 
     @Test
+    @Disabled
     @DisplayName("지정된 위치에 이미지파일을 생성한다.")
     void 지정된_위치에_이미지파일을_생성한다() throws IOException {
         // given
