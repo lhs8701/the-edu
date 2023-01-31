@@ -54,4 +54,4 @@ springdoc:
 
 path:
   resources: C:Dabom\resources
-  images: C:Dabom\resources\images\
+  images: C:Dabom\resources\images
