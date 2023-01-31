@@ -1,6 +1,8 @@
 package joeuncamp.dabombackend.util.kakaoapi.dto;
 
+import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
+import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import lombok.*;
 
@@ -38,6 +40,11 @@ public class KakaoProfile {
                 .account(this.kakao_account.email)
                 .nickname(this.kakao_account.profile.nickname)
                 .email(this.kakao_account.email)
+                .profileImage(ImageInfo.builder()
+                        .smallFilePath(this.kakao_account.profile.thumbnail_image_url)
+                        .mediumFilePath(this.kakao_account.profile.thumbnail_image_url)
+                        .originalFilePath(this.kakao_account.profile.profile_image_url)
+                        .build())
                 .loginType(LoginType.KAKAO)
                 .socialId(String.valueOf(this.id))
                 .roles(Collections.singletonList("ROLE_USER"))

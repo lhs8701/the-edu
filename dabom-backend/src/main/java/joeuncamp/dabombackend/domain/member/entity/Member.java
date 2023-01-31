@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.member.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
+import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
@@ -41,6 +42,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
     String birthDate;
 
     String email;
+
+    ImageInfo profileImage;
 
     @Enumerated(value = EnumType.STRING)
     LoginType loginType;

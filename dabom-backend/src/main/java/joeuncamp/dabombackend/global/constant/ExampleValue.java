@@ -25,6 +25,7 @@ public class ExampleValue {
         public final static String MOBILE = "010-1234-5678";
         public final static String BIRTH_DATE = "1999.01.01";
         public final static String EMAIL = "user@naver.com";
+        public final static String PROFILE_IMAGE = "https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927";
     }
 
     public static class Post{
