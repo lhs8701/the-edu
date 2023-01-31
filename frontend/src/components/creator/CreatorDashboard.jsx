@@ -20,8 +20,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Orders from "../dashboard/Orders";
 import Chart from "../dashboard/Chart";
 import Deposits from "../dashboard/Deposits";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import CreatorListItems from "./CreatorListItems";
+import { PROCESS_MAIN_URL } from "../../static";
 
 function Copyright(props) {
   return (
@@ -91,6 +92,7 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
+  const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -146,6 +148,13 @@ function DashboardContent() {
               px: [1],
             }}
           >
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              The-Edu
+            </button>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>

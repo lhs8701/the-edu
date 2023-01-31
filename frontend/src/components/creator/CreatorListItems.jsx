@@ -10,77 +10,42 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router";
-import { PROCESS_CREATOR_URL } from "../../static";
+import { CREATOR_BAR_LIST } from "../../static";
 
 export default function CreatorListItems({ isCreator }) {
   const navigate = useNavigate();
 
-  return (
-    <React.Fragment>
-      {isCreator ? (
-        <ListItemButton
-          onClick={() => {
-            navigate(PROCESS_CREATOR_URL.INFO);
-          }}
-        >
-          <ListItemIcon>
-            <LayersIcon />
-          </ListItemIcon>
-          <ListItemText primary="크리에이터 정보" />
-        </ListItemButton>
-      ) : (
-        <ListItemButton
-          onClick={() => {
-            navigate(PROCESS_CREATOR_URL.REGIST);
-          }}
-        >
-          <ListItemIcon>
-            <LayersIcon />
-          </ListItemIcon>
-          <ListItemText primary="크리에이터 신청" />
-        </ListItemButton>
-      )}
+  const ListComponent = ({ list, idx }) => {
+    return (
+      <ListItemButton
+        onClick={() => {
+          navigate(list.url);
+        }}
+      >
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary={list.name} />
+      </ListItemButton>
+    );
+  };
 
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_CREATOR_URL.DASHBOARD);
-        }}
-      >
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="대시보드" />
-      </ListItemButton>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_CREATOR_URL.COURSES);
-        }}
-      >
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="강좌 내역" />
-      </ListItemButton>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_CREATOR_URL.COMMENT);
-        }}
-      >
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="강좌 댓글 관리" />
-      </ListItemButton>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_CREATOR_URL.PROFIT);
-        }}
-      >
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="수익" />
-      </ListItemButton>
-    </React.Fragment>
-  );
+  const listFilter = (list, idx) => {
+    console.log(CREATOR_BAR_LIST.list[0]);
+    if (idx === 0) {
+      if (isCreator) {
+        return <ListComponent list={CREATOR_BAR_LIST.list[idx].creator[idx]} />;
+      } else {
+        return (
+          <ListComponent list={CREATOR_BAR_LIST.list[idx].creator[idx + 1]} />
+        );
+      }
+    } else {
+      return <ListComponent list={list} />;
+    }
+  };
+
+  return CREATOR_BAR_LIST.list.map((list, idx) => {
+    return listFilter(list, idx);
+  });
 }

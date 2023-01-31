@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import {
   CATE_VALUE,
+  CREATOR_BAR_LIST,
   PROCESS_ACCOUNT_URL,
   PROCESS_CREATOR_URL,
   PROCESS_MAIN_URL,
@@ -354,7 +355,7 @@ export default function Header() {
         <LoginTab>
           <LogoutBtn onClick={logOut}>로그아웃</LogoutBtn>
           <UserTab>
-            <UserLink to={PROCESS_CREATOR_URL.DASHBOARD}>크리에이터</UserLink>
+            <UserLink to={CREATOR_BAR_LIST.list[0].url}>크리에이터</UserLink>
             <UserLink to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}>마이페이지</UserLink>
           </UserTab>
         </LoginTab>

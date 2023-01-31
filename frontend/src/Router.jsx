@@ -35,6 +35,7 @@ import Board from "./pages/creator/Board";
 import Info from "./pages/creator/Info";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import CreatorRequest from "./components/admin/CreatorRequest";
+import Comment from "./components/mypage/Comment";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
           {
             path: "revise",
             element: <Revise />,
+          },
+          {
+            path: "comment",
+            element: <Comment />,
           },
           {
             path: "withdraw",

@@ -52,15 +52,6 @@ export const PROCESS_MAIN_URL = {
   SEARCH: "/search",
 };
 
-export const PROCESS_CREATOR_URL = {
-  REGIST: "/creator/register",
-  DASHBOARD: "/creator/dashboard",
-  COURSES: "/creator/courses",
-  COMMENT: "/creator/comment",
-  PROFIT: "/creator/profit",
-  INFO: "/creator/info",
-};
-
 export const PROCESS_ADMIN_URL = {
   DASHBOARD: "/admin/dashboard",
   COURSES: "/admin/courses",
@@ -80,6 +71,10 @@ export const BAR_LIST = {
       url: "wish",
     },
     {
+      name: "나의 댓글",
+      url: "comment",
+    },
+    {
       name: "개인정보 수정",
       url: "revise",
     },
@@ -94,6 +89,33 @@ export const BAR_LIST = {
     {
       name: "회원 탈퇴",
       url: "withdraw",
+    },
+  ],
+};
+
+export const CREATOR_BAR_LIST = {
+  list: [
+    {
+      creator: [
+        { name: "크리에이터 정보", url: "/creator/info" },
+        {
+          name: "크리에이터 신청",
+          url: "/creator/register",
+        },
+      ],
+    },
+
+    {
+      name: "강좌 내역",
+      url: "/creator/courses",
+    },
+    {
+      name: "수익",
+      url: "/creator/profit",
+    },
+    {
+      name: "댓글 관리",
+      url: "/creator/comment",
     },
   ],
 };
