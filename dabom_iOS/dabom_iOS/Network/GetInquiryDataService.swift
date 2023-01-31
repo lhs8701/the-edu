@@ -11,6 +11,7 @@ import Alamofire
 struct GetInquiryDataService {
     static let shared = GetInquiryDataService()
     
+    // MARK: - courseId에 맞는 강좌 문의사항 가져오기
     func getInquiry(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getCourseInquiries)/\(courseId)/inquiries"
         print(URL)
@@ -33,6 +34,7 @@ struct GetInquiryDataService {
 
     }
     
+    // MARK: - Status Code 분기
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode {
         case 200:
@@ -49,6 +51,7 @@ struct GetInquiryDataService {
         
     }
     
+    // MARK: - JSON Parsing
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
