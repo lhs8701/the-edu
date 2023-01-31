@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.image.service;
 
 import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import joeuncamp.dabombackend.global.constant.ImageSize;
+import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ public class ImageService {
     private final ImageConvertor imageConvertor;
     private final ImageResizer imageResizer;
     private final ImageUploader imageUploader;
+    private final ImageUtil imageUtil;
 
     /**
      * 이미지 파일을 저장소에 저장합니다.
@@ -87,5 +89,18 @@ public class ImageService {
         imageUploader.delete(fileSmall);
         imageUploader.delete(fileMedium);
         imageUploader.delete(fileOriginal);
+    }
+
+    public ImageInfo getImageInfo(String originalImageUrl){
+        File originalFile = new File(originalImageUrl);
+        if (!originalFile.exists()){
+            log.error("해당 파일이 존재하지 않습니다.");
+            throw new CIllegalArgumentException();
+        }
+        return ImageInfo.builder()
+                .originalFilePath(originalImageUrl)
+                .mediumFilePath(IMAGE_STORAGE_PATH + DELIMITER + ImageUtil.makeFileName(originalFile.getName(), ImageSize.MEDIUM))
+                .smallFilePath(IMAGE_STORAGE_PATH + DELIMITER + ImageUtil.makeFileName(originalFile.getName(), ImageSize.SMALL))
+                .build();
     }
 }

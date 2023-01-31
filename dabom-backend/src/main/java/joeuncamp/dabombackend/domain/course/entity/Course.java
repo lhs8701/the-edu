@@ -24,7 +24,6 @@ public class Course extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     String title;
 
     String description;

@@ -34,6 +34,11 @@ public class CourseDto {
         @Category
         @Schema(description = "세부 카테고리", example = ExampleValue.Course.CATEGORY)
         String category;
+
+        @NotBlank
+        @Schema(description = "썸네일이미지 URL")
+        String thumbnailImage;
+
         @NotNull
         @PositiveOrZero
         @Schema(description = "가격", example = "143000")

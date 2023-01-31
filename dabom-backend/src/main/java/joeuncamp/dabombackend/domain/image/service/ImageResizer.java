@@ -16,7 +16,7 @@ public class ImageResizer {
     public File createResizedFile(File file, ImageSize imageSize) {
         try {
             BufferedImage bufferedImage = resize(file, imageSize);
-            String fileName = makeFileName(file.getName(), imageSize);
+            String fileName = ImageUtil.makeFileName(file.getName(), imageSize);
             return bufferedImageToFile(file.getParent() + DELIMITER + fileName, bufferedImage);
         } catch (IOException e) {
             throw new CInternalServerException();
@@ -35,13 +35,6 @@ public class ImageResizer {
         Graphics graphics = newBufferedImage.getGraphics();
         graphics.drawImage(image, 0, 0, Color.WHITE, null);
         return newBufferedImage;
-    }
-
-    private String makeFileName(String fileName, ImageSize imageSize) {
-        int index = fileName.indexOf(".");
-        String extension = fileName.substring(index + 1);
-        String nameOnly = fileName.substring(0, index);
-        return String.format("%s_%s.%s", nameOnly, imageSize.getPostFix(), extension);
     }
 
     private File bufferedImageToFile(String fileName, BufferedImage bufferedImage) {
