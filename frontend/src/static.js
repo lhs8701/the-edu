@@ -87,16 +87,15 @@ export const BAR_LIST = {
 export const ADMIN_BAR_LIST = {
   list: [
     {
-      name: "강좌 관리",
-
+      name: "회원관리",
       list: [
         {
-          name: "카테고리 추가",
-          url: "/admin/revisecategories",
+          name: "전체 조회",
+          url: "/admin/users",
         },
         {
-          name: "전체 강좌 목록",
-          url: "/admin/courses",
+          name: "탈퇴 관리",
+          url: "/admin/leaveusers",
         },
       ],
     },
@@ -104,24 +103,29 @@ export const ADMIN_BAR_LIST = {
       name: "크리에이터 관리",
       list: [
         {
-          name: "새 강좌 신청 목록",
-          url: "/admin/creatorsrequest",
+          name: "목록 조회",
+          url: "/admin/creators",
         },
         {
-          name: "크리에이터 목록",
-          url: "/admin/creators",
+          name: "신청 목록 조회",
+          url: "/admin/creatorsrequest",
         },
       ],
     },
     {
-      name: "회원관리",
+      name: "강좌 관리",
       list: [
         {
-          name: "사이트 회원 조회",
-          url: "/admin/users",
+          name: "신규 조회 및 관리",
+          url: "/admin/revisecourses",
+        },
+        {
+          name: "전체 조회 및 관리",
+          url: "/admin/courses",
         },
       ],
     },
+
     {
       name: "수익",
       list: [
@@ -130,8 +134,30 @@ export const ADMIN_BAR_LIST = {
           url: "/admin/categoryprofit",
         },
         {
-          name: "강좌 수익",
+          name: "강좌별 수익",
           url: "/admin/coursesprofit",
+        },
+        {
+          name: "전체 수익",
+          url: "/admin/profit",
+        },
+      ],
+    },
+    {
+      name: "이벤트 및 공지사항",
+      list: [
+        {
+          name: "조회 및 관리",
+          url: "/admin/eventnotice",
+        },
+
+        {
+          name: "이벤트 업로드",
+          url: "/admin/uploadevent",
+        },
+        {
+          name: "공지사항 업로드",
+          url: "/admin/uploadnotice",
         },
       ],
     },
@@ -153,10 +179,7 @@ export const CREATOR_BAR_LIST = {
       name: "수익",
       url: "/creator/profit",
     },
-    {
-      name: "댓글 관리",
-      url: "/creator/comment",
-    },
+
     {
       name: "강좌 관리",
       list: [
@@ -165,16 +188,20 @@ export const CREATOR_BAR_LIST = {
           url: "/creator/mycourses",
         },
         {
-          name: "신청한 강좌",
+          name: "등록 신청한 강좌",
           url: "/creator/registcourses",
         },
         {
-          name: "강좌 정보 입력",
+          name: "강좌 등록 신청",
           url: "/creator/inputcourses",
         },
         {
-          name: "강좌 정보 확인",
-          url: "/creator/ratecourses",
+          name: "강좌 댓글 관리",
+          url: "/creator/comment",
+        },
+        {
+          name: "강좌 문의 관리",
+          url: "/creator/inquirecourses",
         },
       ],
     },

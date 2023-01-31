@@ -79,7 +79,7 @@ export default function CreatorListItems({ isCreator }) {
           <ListComponent list={CREATOR_BAR_LIST.list[idx].creator[idx + 1]} />
         );
       }
-    } else if (idx === 3) {
+    } else if (idx === 2) {
       return <Arcodian list={list} />;
     } else {
       return <ListComponent list={list} />;

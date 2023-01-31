@@ -42,8 +42,9 @@ import CourseProfit from "./components/admin/CourseProfit";
 import CategoryProfit from "./components/admin/CategoryProfit";
 import Users from "./components/admin/Users";
 import Creators from "./components/admin/Creators";
-import ReviseCategories from "./components/admin/ReviseCategories";
+import ReviseCategories from "./components/admin/Revisecourses";
 import Courses from "./components/admin/Courses";
+import Revisecourses from "./components/admin/Revisecourses";
 
 const router = createBrowserRouter([
   {
@@ -165,11 +166,19 @@ const router = createBrowserRouter([
         element: <CategoryProfit />,
       },
       {
-        path: "courseprofit",
+        path: "coursesprofit",
+        element: <CourseProfit />,
+      },
+      {
+        path: "profit",
         element: <CourseProfit />,
       },
       {
         path: "users",
+        element: <Users />,
+      },
+      {
+        path: "leaveusers",
         element: <Users />,
       },
       {
@@ -181,12 +190,24 @@ const router = createBrowserRouter([
         element: <Creators />,
       },
       {
-        path: "revisecategories",
-        element: <ReviseCategories />,
+        path: "revisecourses",
+        element: <Revisecourses />,
       },
       {
         path: "courses",
         element: <Courses />,
+      },
+      {
+        path: "eventnotice",
+        element: <CoursesRate />,
+      },
+      {
+        path: "uploadevent",
+        element: <CoursesRate />,
+      },
+      {
+        path: "uploadnotice",
+        element: <CoursesRate />,
       },
     ],
   },
@@ -224,6 +245,14 @@ const router = createBrowserRouter([
       },
       {
         path: "ratecourses",
+        element: <CoursesRate />,
+      },
+      {
+        path: "inquirecourses",
+        element: <CoursesRate />,
+      },
+      {
+        path: "profit",
         element: <CoursesRate />,
       },
     ],

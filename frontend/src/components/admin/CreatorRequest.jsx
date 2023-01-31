@@ -10,11 +10,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-const Iframe = styled.iframe`
-  width: 100%;
-  height: 80vh;
-`;
-
 export default function CreatorRequest() {
   const [rows, setRows] = useState([]);
 
