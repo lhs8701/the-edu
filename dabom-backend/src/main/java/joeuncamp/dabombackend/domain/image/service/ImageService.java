@@ -23,7 +23,6 @@ public class ImageService {
     String IMAGE_STORAGE_PATH;
     String DELIMITER = "\\";
     private final ImageConvertor imageConvertor;
-
     private final ImageResizer imageResizer;
     private final ImageUploader imageUploader;
 
