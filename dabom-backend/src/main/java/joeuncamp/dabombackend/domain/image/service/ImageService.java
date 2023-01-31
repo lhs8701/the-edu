@@ -18,22 +18,19 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ImageService {
 
-    @Value("${path.root}")
-    String ROOT_PATH;
-    String DELIMITER = "\\";
     private final ImageConvertor imageConvertor;
     private final ImageUploader imageUploader;
     private final ImageResizer imageResizer;
 
     public ImageInfo save(MultipartFile multipartFile, ImageSize imageSize) {
         try {
-            File originalFile = saveToTemporaryStorage(multipartFile);
+            File originalFile = imageUploader.uploadMultipartFile(multipartFile);
             log.info("1"+originalFile.getAbsolutePath());
             imageConvertor.convertImage(originalFile);
             log.info("2"+originalFile.getAbsolutePath());
             File resizedFile = imageResizer.resize(originalFile, imageSize);
             log.info("3"+resizedFile.getAbsolutePath());
-            ImageInfo imageInfo = imageUploader.upload(resizedFile);
+            ImageInfo imageInfo = imageUploader.uploadFile(resizedFile);
             imageUploader.delete(originalFile);
             imageUploader.delete(resizedFile);
             return imageInfo;
@@ -42,17 +39,6 @@ public class ImageService {
             log.error("IO Exception 발생");
             throw new CInternalServerException();
         }
-    }
-
-    private File saveToTemporaryStorage(MultipartFile multipartFile) {
-        File convertedFile = new File(ROOT_PATH + DELIMITER + Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        try {
-            multipartFile.transferTo(convertedFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new CInternalServerException();
-        }
-        return convertedFile;
     }
 
     public ImageInfo update(MultipartFile file) {

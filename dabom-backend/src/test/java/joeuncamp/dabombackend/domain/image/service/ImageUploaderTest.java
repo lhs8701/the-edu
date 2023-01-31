@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +32,7 @@ public class ImageUploaderTest {
         File file = new File(path + "\\src\\test\\resources\\sample.jpg");
 
         // when
-        ImageInfo imageInfo = imageUploader.upload(file);
+        ImageInfo imageInfo = imageUploader.uploadFile(file);
 
         // then
         assertThat(imageInfo.getFileName()).isEqualTo("sample.jpg");

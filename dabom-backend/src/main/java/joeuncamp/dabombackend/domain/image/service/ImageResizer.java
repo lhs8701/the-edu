@@ -13,11 +13,12 @@ import java.io.IOException;
 
 @Service
 public class ImageResizer {
+    final String DELIMITER = "\\";
     public File resize(File file, ImageSize imageSize) {
         try {
             BufferedImage bufferedImage = resizeImage(file, imageSize);
             String fileName = makeFileName(file.getName(), imageSize);
-            return bufferedImageToFile(fileName, bufferedImage);
+            return bufferedImageToFile(file.getParent() + DELIMITER + fileName, bufferedImage);
         } catch (IOException e) {
             throw new CInternalServerException();
         }
