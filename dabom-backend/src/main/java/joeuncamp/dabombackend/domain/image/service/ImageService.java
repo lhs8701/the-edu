@@ -26,8 +26,11 @@ public class ImageService {
     public ImageInfo save(MultipartFile multipartFile, ImageSize imageSize) {
         try {
             File originalFile = saveToTemporaryStorage(multipartFile);
+            log.info("1"+originalFile.getAbsolutePath());
             imageConvertor.convertImage(originalFile);
+            log.info("2"+originalFile.getAbsolutePath());
             File resizedFile = imageResizer.resize(originalFile, imageSize);
+            log.info("3"+resizedFile.getAbsolutePath());
             ImageInfo imageInfo = imageUploader.upload(resizedFile);
             imageUploader.delete(originalFile);
             imageUploader.delete(resizedFile);
