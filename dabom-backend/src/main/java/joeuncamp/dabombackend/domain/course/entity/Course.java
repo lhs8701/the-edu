@@ -70,7 +70,7 @@ public class Course extends BaseTimeEntity {
     }
 
     public String getInstructorName() {
-        return this.creatorProfile.getMember().getName();
+        return this.creatorProfile.getMember().getNickname();
     }
 
     @Override

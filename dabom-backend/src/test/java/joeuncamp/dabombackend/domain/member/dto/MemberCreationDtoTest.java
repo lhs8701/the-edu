@@ -44,8 +44,6 @@ public class MemberCreationDtoTest {
                 .account("test")
                 .password(ExampleValue.Member.PASSWORD)
                 .nickname(ExampleValue.Member.NICKNAME)
-                .mobile(ExampleValue.Member.MOBILE)
-                .birthDate(ExampleValue.Member.BIRTH_DATE)
                 .build();
         // when
         Set<ConstraintViolation<SignupRequestDto>> violations = validator.validate(signupRequestDto);
@@ -66,8 +64,6 @@ public class MemberCreationDtoTest {
                 .account( ExampleValue.Member.ACCOUNT)
                 .password(invalidPassword)
                 .nickname(ExampleValue.Member.NICKNAME)
-                .mobile(ExampleValue.Member.MOBILE)
-                .birthDate(ExampleValue.Member.BIRTH_DATE)
                 .build();
         // when
         Set<ConstraintViolation<SignupRequestDto>> violations = validator.validate(signupRequestDto);
@@ -87,8 +83,6 @@ public class MemberCreationDtoTest {
                 .account( ExampleValue.Member.ACCOUNT)
                 .password(ExampleValue.Member.PASSWORD)
                 .nickname(invalidNickname)
-                .mobile(ExampleValue.Member.MOBILE)
-                .birthDate(ExampleValue.Member.BIRTH_DATE)
                 .build();
         // when
         Set<ConstraintViolation<SignupRequestDto>> violations = validator.validate(signupRequestDto);
@@ -97,50 +91,6 @@ public class MemberCreationDtoTest {
         assertThat(violations).isNotEmpty();
         violations.forEach(error -> {
             assertThat(error.getMessage()).isEqualTo(ValidationMessage.NOT_VALID_NICKNAME);
-        });
-    }
-
-    @Test
-    @DisplayName("전화번호가 형식에 맞지 않으면 예외가 발생한다.")
-    void 전화번호가_형식에_맞지_않으면_예외가_발생한다() {
-        // given
-        SignupRequestDto signupRequestDto = SignupRequestDto.builder()
-                .account( ExampleValue.Member.ACCOUNT)
-                .password(ExampleValue.Member.PASSWORD)
-                .nickname(ExampleValue.Member.NICKNAME)
-                .mobile("0104564546")
-                .birthDate(ExampleValue.Member.BIRTH_DATE)
-                .build();
-
-        // when
-        Set<ConstraintViolation<SignupRequestDto>> violations = validator.validate(signupRequestDto);
-
-        // then
-        assertThat(violations).isNotEmpty();
-        violations.forEach(error -> {
-            assertThat(error.getMessage()).isEqualTo(ValidationMessage.NOT_VALID_MOBILE);
-        });
-    }
-
-    @Test
-    @DisplayName("생년월일이 형식에 맞지 않으면 예외가 발생한다.")
-    void 생년월일이_형식에_맞지_않으면_예외가_발생한다() {
-        // given
-        SignupRequestDto signupRequestDto = SignupRequestDto.builder()
-                .account( ExampleValue.Member.ACCOUNT)
-                .password(ExampleValue.Member.PASSWORD)
-                .nickname(ExampleValue.Member.NICKNAME)
-                .mobile(ExampleValue.Member.MOBILE)
-                .birthDate("19990311")
-                .build();
-
-        // when
-        Set<ConstraintViolation<SignupRequestDto>> violations = validator.validate(signupRequestDto);
-
-        // then
-        assertThat(violations).isNotEmpty();
-        violations.forEach(error -> {
-            assertThat(error.getMessage()).isEqualTo(ValidationMessage.NOT_VALID_BIRTH_DATE);
         });
     }
 }

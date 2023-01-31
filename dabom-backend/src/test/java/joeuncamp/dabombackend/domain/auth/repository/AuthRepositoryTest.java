@@ -33,8 +33,6 @@ public class AuthRepositoryTest {
                 .account(ExampleValue.Member.ACCOUNT)
                 .password(ExampleValue.Member.PASSWORD)
                 .nickname(ExampleValue.Member.NICKNAME)
-                .mobile(ExampleValue.Member.MOBILE)
-                .birthDate(ExampleValue.Member.BIRTH_DATE)
                 .build();
 
         Member member = signupRequestDto.toEntity("encoded");
