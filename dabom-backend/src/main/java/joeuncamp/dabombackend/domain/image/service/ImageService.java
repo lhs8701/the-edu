@@ -36,6 +36,7 @@ public class ImageService {
             return imageInfo;
         } catch (IOException e) {
             e.printStackTrace();
+            log.error(e.getMessage());
             log.error("IO Exception 발생");
             throw new CInternalServerException();
         }
