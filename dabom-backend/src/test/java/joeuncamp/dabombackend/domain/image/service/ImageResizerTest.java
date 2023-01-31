@@ -19,7 +19,7 @@ public class ImageResizerTest {
     void test() {
         // given
         File file = new File("src/test/resources/sample.jpg");
-        imageResizer.resize(file, ImageSize.MEDIUM);
+        imageResizer.createResizedFile(file, ImageSize.MEDIUM);
         // when
 
         // then

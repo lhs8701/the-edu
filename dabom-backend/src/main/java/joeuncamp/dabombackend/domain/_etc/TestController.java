@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.image.service.ImageService;
-import joeuncamp.dabombackend.global.constant.ImageSize;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ public class TestController {
     @PreAuthorize("permitAll()")
     @PostMapping("/test/image")
     public ResponseEntity<ImageInfo> uploadImage(@RequestPart MultipartFile multipartFile){
-        ImageInfo imageInfo = imageService.save(multipartFile, ImageSize.MEDIUM);
+        ImageInfo imageInfo = imageService.saveImage(multipartFile);
         return new ResponseEntity<>(imageInfo, HttpStatus.OK);
     }
 }

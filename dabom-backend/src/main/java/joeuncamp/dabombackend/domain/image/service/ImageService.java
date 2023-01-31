@@ -18,28 +18,52 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ImageService {
 
+    @Value("${path.images}")
+    String IMAGE_STORAGE_PATH;
+    String DELIMITER = "\\";
     private final ImageConvertor imageConvertor;
-    private final ImageUploader imageUploader;
-    private final ImageResizer imageResizer;
 
-    public ImageInfo save(MultipartFile multipartFile, ImageSize imageSize) {
+    private final ImageResizer imageResizer;
+    private final ImageUploader imageUploader;
+
+    public ImageInfo saveImage(MultipartFile multipartFile) {
         try {
-            File originalFile = imageUploader.uploadMultipartFile(multipartFile);
-            log.info("1"+originalFile.getAbsolutePath());
-            imageConvertor.convertImage(originalFile);
-            log.info("2"+originalFile.getAbsolutePath());
-            File resizedFile = imageResizer.resize(originalFile, imageSize);
-            log.info("3"+resizedFile.getAbsolutePath());
-            ImageInfo imageInfo = imageUploader.uploadFile(resizedFile);
-            imageUploader.delete(originalFile);
-            imageUploader.delete(resizedFile);
-            return imageInfo;
+            File localFileOriginal = createFileFromMultipart(multipartFile);
+            imageConvertor.convertImage(localFileOriginal);
+
+            File localFileSmall = imageResizer.createResizedFile(localFileOriginal, ImageSize.SMALL);
+            File localFileMedium = imageResizer.createResizedFile(localFileOriginal, ImageSize.MEDIUM);
+
+            String remotePathSmall = getRemoteFilePath(localFileSmall);
+            String remotePathMedium = getRemoteFilePath(localFileMedium);
+            String remotePathOriginal = getRemoteFilePath(localFileOriginal);
+            imageUploader.uploadFile(localFileSmall, remotePathSmall);
+            imageUploader.uploadFile(localFileMedium, remotePathMedium);
+            imageUploader.uploadFile(localFileOriginal, remotePathOriginal);
+
+            imageUploader.delete(localFileSmall);
+            imageUploader.delete(localFileMedium);
+            imageUploader.delete(localFileOriginal);
+            return ImageInfo.builder()
+                    .smallFilePath(remotePathSmall)
+                    .mediumFilePath(remotePathMedium)
+                    .originalFilePath(remotePathOriginal)
+                    .build();
         } catch (IOException e) {
             e.printStackTrace();
             log.error(e.getMessage());
-            log.error("IO Exception 발생");
             throw new CInternalServerException();
         }
+    }
+    private File createFileFromMultipart(MultipartFile multipartFile) throws IOException{
+        String path = System.getProperty("user.dir");
+        File convertedFile = new File(path + DELIMITER + Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        multipartFile.transferTo(convertedFile);
+        return convertedFile;
+    }
+
+    private String getRemoteFilePath(File file) {
+        return IMAGE_STORAGE_PATH + DELIMITER + file.getName();
     }
 
     public ImageInfo update(MultipartFile file) {

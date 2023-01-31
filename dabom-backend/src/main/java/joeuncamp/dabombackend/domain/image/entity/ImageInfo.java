@@ -15,6 +15,7 @@ import java.io.File;
 @Getter
 @Builder
 public class ImageInfo {
-    String fileName;
-    String filePath;
+    String smallFilePath;
+    String mediumFilePath;
+    String originalFilePath;
 }

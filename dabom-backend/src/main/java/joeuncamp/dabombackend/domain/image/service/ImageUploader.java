@@ -17,27 +17,11 @@ import java.util.Objects;
 @Slf4j
 public class ImageUploader {
 
-    @Value("${path.images}")
-    String IMAGE_STORAGE_PATH;
-    String DELIMITER = "\\";
-
-    public File uploadMultipartFile(MultipartFile multipartFile) throws IOException{
-        String path = System.getProperty("user.dir");
-        File convertedFile = new File(path + DELIMITER + Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        multipartFile.transferTo(convertedFile);
-        return convertedFile;
-    }
-    public ImageInfo uploadFile(File file) throws IOException {
-        log.info(System.getProperty("user.dir"));
-        log.info("파일 업로드");
-        log.info(file.toPath().toString());
-        log.info(IMAGE_STORAGE_PATH + DELIMITER + file.getName());
-        Files.copy(Path.of(file.getAbsolutePath()), Path.of(IMAGE_STORAGE_PATH + DELIMITER + file.getName()), StandardCopyOption.REPLACE_EXISTING);
-        return new ImageInfo(file.getName(), file.getAbsolutePath());
+    public void uploadFile(File file, String destination) throws IOException {
+        Files.copy(Path.of(file.getAbsolutePath()), Path.of(destination), StandardCopyOption.REPLACE_EXISTING);
     }
 
     public void delete(File file) throws IOException {
-        log.info("파일 삭제");
         Files.deleteIfExists(Path.of(file.getAbsolutePath()));
     }
 }
