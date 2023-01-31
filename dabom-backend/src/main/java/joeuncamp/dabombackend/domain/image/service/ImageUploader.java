@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.image.service;
 
+import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,18 @@ import java.nio.file.StandardCopyOption;
 public class ImageUploader {
 
     @Value("${path.images}")
-    String IMAGE_STORAGE_URL = "E:\\ROOM\\Github\\dabom\\dabom-backend\\src\\test\\resources\\storage";
+    String IMAGE_STORAGE_URL;
     String DELIMITER = "\\";
 
-    public File upload(File file) throws IOException {
+    public ImageInfo upload(File file) throws IOException {
         log.info(System.getProperty("user.dir"));
-        Path path = Files.copy(file.toPath(), Path.of(IMAGE_STORAGE_URL + DELIMITER + file.getName()), StandardCopyOption.REPLACE_EXISTING);
-        return new File(path.toUri());
+        log.info("파일 업로드");
+        Files.copy(file.toPath(), Path.of(IMAGE_STORAGE_URL + DELIMITER + file.getName()), StandardCopyOption.REPLACE_EXISTING);
+        return new ImageInfo(file.getName(), file.getAbsolutePath());
     }
 
     public void delete(File file) throws IOException {
-        Files.delete(file.toPath());
+        log.info("파일 삭제");
+        Files.deleteIfExists(Path.of(file.getAbsolutePath()));
     }
 }
