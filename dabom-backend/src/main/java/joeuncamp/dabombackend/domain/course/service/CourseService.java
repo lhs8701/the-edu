@@ -4,6 +4,8 @@ import joeuncamp.dabombackend.domain.course.dto.CategoryResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
+import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.image.service.ImageService;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -33,6 +35,7 @@ public class CourseService {
     private final CourseJpaRepository courseJpaRepository;
     private final CreatorService creatorService;
 
+    private final ImageService imageService;
     private final ReviewService reviewService;
 
     /**
@@ -47,6 +50,7 @@ public class CourseService {
         if (!creatorService.hasCreatorProfile(member)) {
             throw new CCreationDeniedException();
         }
+
         CreatorProfile creator = member.getCreatorProfile();
         Long savedId = createAndSaveCourse(requestDto, creator);
         return new IdResponseDto(savedId);

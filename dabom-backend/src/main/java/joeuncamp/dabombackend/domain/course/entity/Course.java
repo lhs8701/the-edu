@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.course.entity;
 
 import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
@@ -33,6 +34,12 @@ public class Course extends BaseTimeEntity {
     long price;
 
     double averageScore;
+
+    ImageInfo thumbnailImage;
+
+    @ElementCollection
+    @CollectionTable(name="description_image", joinColumns = @JoinColumn(name= "description_image_id", referencedColumnName = "id"))
+    List<ImageInfo> descriptionImage;
 
     @ManyToOne
     @JoinColumn(name = "creator_profile_id")

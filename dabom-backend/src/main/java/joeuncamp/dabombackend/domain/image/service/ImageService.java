@@ -90,17 +90,4 @@ public class ImageService {
         imageUploader.delete(fileMedium);
         imageUploader.delete(fileOriginal);
     }
-
-    public ImageInfo getImageInfo(String originalImageUrl){
-        File originalFile = new File(originalImageUrl);
-        if (!originalFile.exists()){
-            log.error("해당 파일이 존재하지 않습니다.");
-            throw new CIllegalArgumentException();
-        }
-        return ImageInfo.builder()
-                .originalFilePath(originalImageUrl)
-                .mediumFilePath(IMAGE_STORAGE_PATH + DELIMITER + ImageUtil.makeFileName(originalFile.getName(), ImageSize.MEDIUM))
-                .smallFilePath(IMAGE_STORAGE_PATH + DELIMITER + ImageUtil.makeFileName(originalFile.getName(), ImageSize.SMALL))
-                .build();
-    }
 }
