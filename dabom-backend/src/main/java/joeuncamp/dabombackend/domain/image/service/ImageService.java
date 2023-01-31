@@ -28,11 +28,11 @@ public class ImageService {
     public ImageInfo save(MultipartFile multipartFile, ImageSize imageSize) {
         try {
             File originalFile = saveToTemporaryStorage(multipartFile);
-            log.info("1"+originalFile.getAbsolutePath());
+            log.info("1" + originalFile.getAbsolutePath());
             imageConvertor.convertImage(originalFile);
-            log.info("2"+originalFile.getAbsolutePath());
+            log.info("2" + originalFile.getAbsolutePath());
             File resizedFile = imageResizer.resize(originalFile, imageSize);
-            log.info("3"+resizedFile.getAbsolutePath());
+            log.info("3" + resizedFile.getAbsolutePath());
             ImageInfo imageInfo = imageUploader.upload(resizedFile);
             imageUploader.delete(originalFile);
             imageUploader.delete(resizedFile);
@@ -44,13 +44,9 @@ public class ImageService {
         }
     }
 
-    private File saveToTemporaryStorage(MultipartFile multipartFile) {
+    private File saveToTemporaryStorage(MultipartFile multipartFile) throws IOException {
         File convertedFile = new File(ROOT_PATH + DELIMITER + Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        try {
-            multipartFile.transferTo(convertedFile);
-        } catch (IOException e) {
-            throw new CInternalServerException();
-        }
+        multipartFile.transferTo(convertedFile);
         return convertedFile;
     }
 
