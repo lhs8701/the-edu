@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
+import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.image.service.ImageService;
+import joeuncamp.dabombackend.domain.image.service.ImageUtil;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -16,6 +19,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 public class CourseDto {
 
@@ -34,22 +39,39 @@ public class CourseDto {
         @Category
         @Schema(description = "세부 카테고리", example = ExampleValue.Course.CATEGORY)
         String category;
+
         @NotNull
         @PositiveOrZero
         @Schema(description = "가격", example = "143000")
         long price;
+
+        ImageDto imageDto;
+
+        @Getter
+        public static class ImageDto {
+            @NotBlank
+            @Schema(description = "썸네일 이미지 URL")
+            String thumbnailImage;
+
+            @Schema(description = "소개 이미지 URL")
+            List<String> descriptionImages;
+        }
 
         public Course toEntity(CreatorProfile creator) {
             CategoryType categoryType = CategoryType.findByTitle(category);
             if (categoryType == CategoryType.EMPTY) {
                 throw new CIllegalArgumentException();
             }
-
             Course course = Course.builder()
                     .title(title)
                     .description(description)
                     .category(categoryType)
                     .price(price)
+                    .thumbnailImage(ImageUtil.getImageInfo(imageDto.thumbnailImage))
+                    .descriptionImage(
+                            imageDto.getDescriptionImages().stream()
+                            .map(ImageUtil::getImageInfo)
+                            .toList())
                     .build();
             course.setCreatorProfile(creator);
             return course;

@@ -19,3 +19,7 @@ spring:
         hbm2ddl:
           auto: update
     show-sql: true
+
+path:
+  resources: E:\ROOM\Github\dabom\dabom-backend\src\test\resources
+  images: E:\ROOM\Github\dabom\dabom-backend\src\test\resources\images

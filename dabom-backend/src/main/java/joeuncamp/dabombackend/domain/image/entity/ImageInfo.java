@@ -15,11 +15,13 @@ import java.io.File;
 @Getter
 @Builder
 public class ImageInfo {
-    String fileName;
-    String filePath;
+    String smallFilePath;
+    String mediumFilePath;
+    String originalFilePath;
 
-    public ImageInfo(File file){
-        this.fileName = file.getName();
-        this.filePath = file.getPath();
+    public ImageInfo(String url){
+        this.smallFilePath = url;
+        this.mediumFilePath = url;
+        this.originalFilePath = url;
     }
 }

@@ -1,25 +1,27 @@
 package joeuncamp.dabombackend.domain.image.service;
 
+import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 @Service
+@Slf4j
 public class ImageUploader {
 
-    String IMAGE_STORAGE_URL = "E:\\ROOM\\Github\\dabom\\dabom-backend\\src\\test\\resources\\storage";
-    String DELIMITER = "\\";
-
-    public File upload(File file) throws IOException {
-        Path path = Files.copy(file.toPath(), Path.of(IMAGE_STORAGE_URL + DELIMITER + file.getName()), StandardCopyOption.REPLACE_EXISTING);
-        return new File(path.toUri());
+    public void uploadFile(File file, String destination) throws IOException {
+        Files.copy(Path.of(file.getAbsolutePath()), Path.of(destination), StandardCopyOption.REPLACE_EXISTING);
     }
 
     public void delete(File file) throws IOException {
-        Files.delete(file.toPath());
+        Files.deleteIfExists(Path.of(file.getAbsolutePath()));
     }
 }

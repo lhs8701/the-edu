@@ -54,27 +54,29 @@ public class CourseRepositoryTest {
     @DisplayName("DB에 강좌를 저장하고 조회한다.")
     void DB에_강좌를_저장하고_조회한다() {
         // given
+        Course course = Course.builder().title(ExampleValue.Course.TITLE).build();
 
         // when
-        Course course = courseJpaRepository.save(requestDto.toEntity(new CreatorProfile()));
+        Long saved = courseJpaRepository.save(course).getId();
 
         // then
-        Course found = courseJpaRepository.findById(course.getId()).orElse(null);
-        assertThat(found).isNotNull();
-        assertThat(found.getTitle()).isEqualTo(requestDto.getTitle());
+        Optional<Course> found = courseJpaRepository.findById(saved);
+        assertThat(found.isPresent()).isEqualTo(true);
+        assertThat(found.get().getTitle()).isEqualTo(ExampleValue.Course.TITLE);
     }
 
     @Test
     @DisplayName("DB에서 강좌를 삭제한다.")
     void DB에서_강좌를_삭제한다() {
         // given
-        Course created = courseJpaRepository.save(requestDto.toEntity(new CreatorProfile()));
+        Course course = Course.builder().title(ExampleValue.Course.TITLE).build();
+        Long saved = courseJpaRepository.save(course).getId();
 
         // when
-        courseJpaRepository.deleteById(created.getId());
+        courseJpaRepository.deleteById(saved);
 
         // then
-        Optional<Course> found = courseJpaRepository.findById(created.getId());
+        Optional<Course> found = courseJpaRepository.findById(saved);
         assertThat(found.isEmpty()).isEqualTo(true);
     }
 }

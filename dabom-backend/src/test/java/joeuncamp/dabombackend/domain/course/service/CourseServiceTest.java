@@ -60,7 +60,7 @@ public class CourseServiceTest {
     @BeforeAll
     static void init() {
         instructor = Member.builder()
-                .name(ExampleValue.Member.NAME)
+                .nickname(ExampleValue.Member.NAME)
                 .build();
         creatorProfile = CreatorProfile.builder()
                 .member(instructor)
@@ -101,7 +101,7 @@ public class CourseServiceTest {
         CourseDto.Response responseDto = courseService.getCourse(courseId);
 
         // then
-        assertThat(responseDto.getInstructor()).isEqualTo(instructor.getName());
+        assertThat(responseDto.getInstructor()).isEqualTo(instructor.getNickname());
         assertThat(responseDto.getCategory()).isEqualTo(ExampleValue.Course.CATEGORY);
     }
 

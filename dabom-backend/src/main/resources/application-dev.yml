@@ -24,6 +24,10 @@ spring:
     redis:
       host: localhost
       port: 6379
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
 
 logging:
   pattern:
@@ -52,3 +56,6 @@ springdoc:
     display-request-duration: true  # try it out 을 했을 때 request duration 을 추가로 찍어줌
     tags-sorter: alpha # @Tag를 알파벳 순으로 정렬
 
+path:
+  temp: C:\Dabom
+  images: C:\apache-tomcat-9.0.71\webapps\ROOT\images

@@ -33,34 +33,9 @@ public class AuthRepositoryTest {
                 .account(ExampleValue.Member.ACCOUNT)
                 .password(ExampleValue.Member.PASSWORD)
                 .nickname(ExampleValue.Member.NICKNAME)
-                .mobile(ExampleValue.Member.MOBILE)
-                .birthDate(ExampleValue.Member.BIRTH_DATE)
                 .build();
 
         Member member = signupRequestDto.toEntity("encoded");
-
-        // when
-        Member saved = memberJpaRepository.save(member);
-        Member found = memberJpaRepository.findById(saved.getId()).orElse(null);
-
-        // then
-        assertThat(found).isNotNull();
-    }
-
-    @Test
-    @DisplayName("카카오 계정으로 회원을 생성하고 저장한다.")
-    void 카카오_계정으로_회원을_생성하고_저장한다() {
-        // given
-        KakaoProfile kakaoProfile = KakaoProfile.builder()
-                .id(1L)
-                .email(ExampleValue.Member.EMAIL)
-                .nickname(ExampleValue.Member.NICKNAME)
-                .profile_image_url("image")
-                .thumbnail_image_url("image")
-                .is_default_image(false)
-                .build();
-
-        Member member = kakaoProfile.toEntity();
 
         // when
         Member saved = memberJpaRepository.save(member);

@@ -9,5 +9,4 @@ class DabomBackendApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
