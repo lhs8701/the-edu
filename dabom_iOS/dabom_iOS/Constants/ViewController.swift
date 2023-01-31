@@ -30,6 +30,7 @@ extension Const {
             static let inCourse = "InCourseViewController"
             static let completionCourse = "CompletionCourseViewController"
             static let wishCourse = "WishCourseViewController"
+            static let coursePlayerVC = "CoursePlayerVC"
             
             static let loginSignupNavi = "LoginSignupNC"
             static let loginSignup = "LoginSignupVC"

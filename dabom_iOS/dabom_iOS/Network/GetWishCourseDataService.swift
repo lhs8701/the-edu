@@ -11,6 +11,7 @@ import Alamofire
 struct GetWishCourseDataService {
     static let shared = GetWishCourseDataService()
     
+    // MARK: - 유저의 찜한 강좌 가져오기
     func getWishCourse(memberId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getMyWishCourses)/\(memberId)/courses/wish"
         print(URL)
@@ -39,38 +40,25 @@ struct GetWishCourseDataService {
         
     }
     
-    private func judgeStatus(by statusCode: Int, _ data: Data?) -> NetworkResult<Any> {
+    // MARK: - Status Code 분기
+    private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         
-        if let data = data {
-            switch statusCode {
-            case 200:
-                return isValidData(data: data)
-            case 400:
-                print("Status 400")
-                return .pathErr
-            case 500:
-                print("Status 500")
-                return .serverErr
-            default:
-                return .networkFail
-            }
-        } else {
-            switch statusCode {
-            case 200:
-                return .success(true)
-            case 400:
-                print("Status 400")
-                return .pathErr
-            case 500:
-                print("Status 500")
-                return .serverErr
-            default:
-                return .networkFail
-            }
+        switch statusCode {
+        case 200:
+            return isValidData(data: data)
+        case 400:
+            print("Status 400")
+            return .pathErr
+        case 500:
+            print("Status 500")
+            return .serverErr
+        default:
+            return .networkFail
         }
         
     }
     
+    // MARK: - JSON Parsing
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         

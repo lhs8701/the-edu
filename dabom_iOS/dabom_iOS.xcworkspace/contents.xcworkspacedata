@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/kimtaehyun/Desktop/project/dabom/dabom_iOS/dabom_iOS/Screen/MyCourse/CoursePlayerVC.swift">
+   </FileRef>
+   <FileRef
       location = "group:/Users/kimtaehyun/Desktop/project/dabom/dabom_iOS/dabom_iOS.xcodeproj">
    </FileRef>
    <FileRef

@@ -63,7 +63,6 @@ class CourseInfoViewController: UIViewController {
         if isLogin {
             checkWish()
         }
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

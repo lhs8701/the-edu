@@ -9,12 +9,15 @@ import UIKit
 
 class SearchVC: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var recentSearchTV: UITableView!
     
+    // MARK: - let, var
     var recentSearchList: Array<String>?
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,17 +29,19 @@ class SearchVC: UIViewController {
         
         self.recentSearchTV.delegate = self
         self.recentSearchTV.dataSource = self
+        self.searchBar.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.recentSearchList = UserDefaults.standard.array(forKey: "recentSearch") as? [String]
         self.recentSearchTV.reloadData()
-        self.searchBar.becomeFirstResponder()
+        
     }
     
 
 }
 
+// MARK: - extension
 extension SearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         

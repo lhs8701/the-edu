@@ -11,6 +11,7 @@ import Alamofire
 struct GetReviewDataService {
     static let shared = GetReviewDataService()
     
+    // MARK: - courseId에 맞는 강좌 리뷰 가져오기
     func getReview(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getCourseReview)/\(courseId)/reviews"
         print(URL)
@@ -18,7 +19,6 @@ struct GetReviewDataService {
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
         request.responseData { dataResponse in
-//            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -32,6 +32,7 @@ struct GetReviewDataService {
         }
     }
     
+    // MARK: - Status Code 분기
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode {
         case 200:
@@ -48,6 +49,7 @@ struct GetReviewDataService {
         
     }
     
+    // MARK: - JSON Parsing
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
