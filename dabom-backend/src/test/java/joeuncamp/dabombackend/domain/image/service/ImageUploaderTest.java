@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.image.service;
 
+import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,9 +33,9 @@ public class ImageUploaderTest {
         File file = new File(path + "\\src\\test\\resources\\sample.jpg");
 
         // when
-        File created = imageUploader.upload(file);
+        ImageInfo imageInfo = imageUploader.upload(file);
 
         // then
-        assertThat(created.exists()).isEqualTo(true);
+        assertThat(imageInfo.getFileName()).isEqualTo("sample.jpg");
     }
 }
