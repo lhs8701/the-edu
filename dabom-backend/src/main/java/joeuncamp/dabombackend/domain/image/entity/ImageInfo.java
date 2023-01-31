@@ -17,9 +17,4 @@ import java.io.File;
 public class ImageInfo {
     String fileName;
     String filePath;
-
-    public ImageInfo(File file){
-        this.fileName = file.getName();
-        this.filePath = file.getPath();
-    }
 }
