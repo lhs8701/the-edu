@@ -17,7 +17,7 @@ const MyPageWrapper = styled(Wrapper)`
 
 const SideBarBox = styled.nav`
   width: 17%;
-  height: 300px;
+  height: 350px;
   border-radius: 10px;
   top: 200px;
   position: sticky;

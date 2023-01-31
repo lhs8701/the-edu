@@ -52,23 +52,6 @@ export const PROCESS_MAIN_URL = {
   SEARCH: "/search",
 };
 
-export const PROCESS_CREATOR_URL = {
-  REGIST: "/creator/register",
-  DASHBOARD: "/creator/dashboard",
-  COURSES: "/creator/courses",
-  COMMENT: "/creator/comment",
-  PROFIT: "/creator/profit",
-  INFO: "/creator/info",
-};
-
-export const PROCESS_ADMIN_URL = {
-  DASHBOARD: "/admin/dashboard",
-  COURSES: "/admin/courses",
-  USERS: "/admin/users",
-  PROFIT: "/admin/profit",
-  CREATORS: "/admin/creators",
-};
-
 export const BAR_LIST = {
   list: [
     {
@@ -78,6 +61,10 @@ export const BAR_LIST = {
     {
       name: "찜한 클래스",
       url: "wish",
+    },
+    {
+      name: "나의 댓글",
+      url: "comment",
     },
     {
       name: "개인정보 수정",
@@ -94,6 +81,129 @@ export const BAR_LIST = {
     {
       name: "회원 탈퇴",
       url: "withdraw",
+    },
+  ],
+};
+export const ADMIN_BAR_LIST = {
+  list: [
+    {
+      name: "회원관리",
+      list: [
+        {
+          name: "전체 조회",
+          url: "/admin/users",
+        },
+        {
+          name: "탈퇴 관리",
+          url: "/admin/leaveusers",
+        },
+      ],
+    },
+    {
+      name: "크리에이터 관리",
+      list: [
+        {
+          name: "목록 조회",
+          url: "/admin/creators",
+        },
+        {
+          name: "신청 목록 조회",
+          url: "/admin/creatorsrequest",
+        },
+      ],
+    },
+    {
+      name: "강좌 관리",
+      list: [
+        {
+          name: "신규 조회 및 관리",
+          url: "/admin/revisecourses",
+        },
+        {
+          name: "전체 조회 및 관리",
+          url: "/admin/courses",
+        },
+      ],
+    },
+
+    {
+      name: "수익",
+      list: [
+        {
+          name: "카데고리별 수익",
+          url: "/admin/categoryprofit",
+        },
+        {
+          name: "강좌별 수익",
+          url: "/admin/coursesprofit",
+        },
+        {
+          name: "전체 수익",
+          url: "/admin/profit",
+        },
+      ],
+    },
+    {
+      name: "이벤트 및 공지사항",
+      list: [
+        {
+          name: "조회 및 관리",
+          url: "/admin/eventnotice",
+        },
+
+        {
+          name: "이벤트 업로드",
+          url: "/admin/uploadevent",
+        },
+        {
+          name: "공지사항 업로드",
+          url: "/admin/uploadnotice",
+        },
+      ],
+    },
+  ],
+};
+
+export const CREATOR_BAR_LIST = {
+  list: [
+    {
+      creator: [
+        { name: "크리에이터 정보", url: "/creator/info" },
+        {
+          name: "크리에이터 신청",
+          url: "/creator/register",
+        },
+      ],
+    },
+    {
+      name: "수익",
+      url: "/creator/profit",
+    },
+
+    {
+      name: "강좌 관리",
+      list: [
+        {
+          name: "나의 강좌",
+          url: "/creator/mycourses",
+        },
+        {
+          name: "등록 신청한 강좌",
+          url: "/creator/registcourses",
+        },
+        {
+          name: "강좌 등록 신청",
+          url: "/creator/inputcourses",
+        },
+        {
+          name: "강좌 댓글 관리",
+          url: "/creator/comment",
+        },
+        {
+          name: "강좌 문의 관리",
+          url: "/creator/inquirecourses",
+        },
+      ],
     },
   ],
 };

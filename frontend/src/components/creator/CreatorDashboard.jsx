@@ -20,7 +20,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Orders from "../dashboard/Orders";
 import Chart from "../dashboard/Chart";
 import Deposits from "../dashboard/Deposits";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import CreatorListItems from "./CreatorListItems";
 
 function Copyright(props) {
@@ -89,8 +89,9 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+function DashboardContent({ isCreator }) {
   const [open, setOpen] = React.useState(true);
+  const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -146,6 +147,13 @@ function DashboardContent() {
               px: [1],
             }}
           >
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              The-Edu
+            </button>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
@@ -153,7 +161,7 @@ function DashboardContent() {
           <Divider />
           <List component="nav">
             <CreatorListItems isCreator={false} />
-            <Divider sx={{ my: 1 }} />
+            {/* <Divider sx={{ my: 1 }} /> */}
             {/* {secondaryListItems} */}
           </List>
         </Drawer>
@@ -216,6 +224,7 @@ function DashboardContent() {
   );
 }
 
-export default function CreatorDashboard() {
-  return <DashboardContent />;
+export default function CreatorDashboard({ isCreator }) {
+  const navigate = useNavigate();
+  return <DashboardContent isCreator={isCreator} />;
 }

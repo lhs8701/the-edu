@@ -26,15 +26,25 @@ import KaKaoAuth from "./components/account/KakaoAuth";
 import PlayerRoot from "./pages/PlayerRoot";
 import MypageErrComponent from "./components/mypage/MypageErrComponent";
 import AdminRoot from "./pages/admin/AdminRoot";
-
-import AdminLogin from "./components/admin/AdminLogin";
 import EventDetailPage from "./pages/event/EventDetailPage";
 import CreatorRoot from "./pages/creator/CreatorRoot";
 import ResearchBox from "./components/creator/RegistResearch";
-import Board from "./pages/creator/Board";
-import Info from "./pages/creator/Info";
-import AdminDashboard from "./components/admin/AdminDashboard";
 import CreatorRequest from "./components/admin/CreatorRequest";
+import Comment from "./components/mypage/Comment";
+import CreatorInfo from "./components/creator/CreatorInfo";
+import CreatorProfit from "./components/creator/CreatorProfit";
+import CoursesComment from "./components/creator/CoursesComment";
+import Outline from "./components/creator/Outline";
+import CoursesRate from "./components/creator/CoursesRate";
+import CreatorsCourses from "./components/creator/CreatorsCourses";
+import CreatorsRegisted from "./components/creator/CreatorsRegisted";
+import CourseProfit from "./components/admin/CourseProfit";
+import CategoryProfit from "./components/admin/CategoryProfit";
+import Users from "./components/admin/Users";
+import Creators from "./components/admin/Creators";
+import ReviseCategories from "./components/admin/Revisecourses";
+import Courses from "./components/admin/Courses";
+import Revisecourses from "./components/admin/Revisecourses";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +94,10 @@ const router = createBrowserRouter([
           {
             path: "revise",
             element: <Revise />,
+          },
+          {
+            path: "comment",
+            element: <Comment />,
           },
           {
             path: "withdraw",
@@ -148,26 +162,53 @@ const router = createBrowserRouter([
     element: <AdminRoot />,
     children: [
       {
-        path: "dashboard",
-        element: <div>우</div>,
+        path: "categoryprofit",
+        element: <CategoryProfit />,
       },
       {
-        path: "courses",
-        element: <div>우</div>,
-      },
-      {
-        path: "users",
-        element: <div>우</div>,
+        path: "coursesprofit",
+        element: <CourseProfit />,
       },
       {
         path: "profit",
-        element: <div>우</div>,
+        element: <CourseProfit />,
+      },
+      {
+        path: "users",
+        element: <Users />,
+      },
+      {
+        path: "leaveusers",
+        element: <Users />,
+      },
+      {
+        path: "creatorsrequest",
+        element: <CreatorRequest />,
       },
       {
         path: "creators",
-        element: <CreatorRequest />,
+        element: <Creators />,
       },
-      { path: "dashboard", element: <AdminDashboard /> },
+      {
+        path: "revisecourses",
+        element: <Revisecourses />,
+      },
+      {
+        path: "courses",
+        element: <Courses />,
+      },
+      {
+        path: "eventnotice",
+        element: <CoursesRate />,
+      },
+      {
+        path: "uploadevent",
+        element: <CoursesRate />,
+      },
+      {
+        path: "uploadnotice",
+        element: <CoursesRate />,
+      },
     ],
   },
   {
@@ -180,21 +221,40 @@ const router = createBrowserRouter([
       },
       {
         path: "info",
-        element: <Info />,
-      },
-      {
-        path: "courses",
-        element: <Board />,
+        element: <CreatorInfo />,
       },
       {
         path: "profit",
-        element: <Board />,
+        element: <CreatorProfit />,
       },
       {
         path: "comment",
-        element: <Board />,
+        element: <CoursesComment />,
       },
-      { path: "dashboard", element: <Board /> },
+      {
+        path: "mycourses",
+        element: <CreatorsCourses />,
+      },
+      {
+        path: "registcourses",
+        element: <CreatorsRegisted />,
+      },
+      {
+        path: "inputcourses",
+        element: <Outline />,
+      },
+      {
+        path: "ratecourses",
+        element: <CoursesRate />,
+      },
+      {
+        path: "inquirecourses",
+        element: <CoursesRate />,
+      },
+      {
+        path: "profit",
+        element: <CoursesRate />,
+      },
     ],
   },
 ]);

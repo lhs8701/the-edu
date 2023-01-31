@@ -10,101 +10,71 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router";
-import { PROCESS_ADMIN_URL } from "../../static";
+import { ADMIN_BAR_LIST } from "../../static";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 
 export default function AdminListItems() {
   const navigate = useNavigate();
 
-  const ListComponent = ({ path, title }) => {
+  const ListComponent = ({ list, idx }) => {
     return (
       <ListItemButton
         onClick={() => {
-          navigate(path);
-        }}
-      >
-        <ListItemText primary={title} />
-      </ListItemButton>
-    );
-  };
-
-  return (
-    <React.Fragment>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_ADMIN_URL.DASHBOARD);
+          navigate(list.url);
         }}
       >
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
-        <ListItemText primary="대시보드" />
+        <ListItemText primary={list.name} />
       </ListItemButton>
+    );
+  };
 
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_ADMIN_URL.CREATORS);
+  const ArcodianDetails = ({ smallList }) => {
+    return (
+      <AccordionDetails
+        sx={{
+          p: 0,
         }}
       >
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="크리에이터 관리" />
-      </ListItemButton>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_ADMIN_URL.COURSES);
-        }}
-      >
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="강좌 관리" />
-      </ListItemButton>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_ADMIN_URL.USERS);
-        }}
-      >
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="회원 관리" />
-      </ListItemButton>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_ADMIN_URL.PROFIT);
-        }}
-      >
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="수익" />
-      </ListItemButton>
+        <ListComponent list={smallList} />
+      </AccordionDetails>
+    );
+  };
+
+  const Arcodian = ({ list }) => {
+    return (
       <div>
-        <Accordion sx={{ m: 0 }}>
+        <Accordion
+          sx={{
+            boxShadow: 0,
+            borderRadius: 0,
+          }}
+        >
           <AccordionSummary
             expandIcon={<AssignmentIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
+            sx={{
+              mb: -1,
+            }}
           >
-            <ListComponent
-              path={PROCESS_ADMIN_URL.CREATORS}
-              title="크리에이터 관리"
-            />
+            {list.name}
           </AccordionSummary>
-          <AccordionDetails sx={{ m: 0 }}>
-            <h1>크리에이터 신청 목록</h1>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          ></AccordionSummary>
-          <AccordionDetails sx={{ m: 0 }}></AccordionDetails>
+          {list.list.map((smallList, idx) => {
+            return <ArcodianDetails smallList={smallList} />;
+          })}
         </Accordion>
       </div>
-    </React.Fragment>
-  );
+    );
+  };
+
+  const listFilter = (list, idx) => {
+    return <Arcodian list={list} />;
+  };
+
+  return ADMIN_BAR_LIST.list.map((list, idx) => {
+    return listFilter(list, idx);
+  });
 }

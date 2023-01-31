@@ -10,77 +10,83 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router";
-import { PROCESS_CREATOR_URL } from "../../static";
+import { CREATOR_BAR_LIST, PROCESS_ADMIN_URL } from "../../static";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 
 export default function CreatorListItems({ isCreator }) {
   const navigate = useNavigate();
 
-  return (
-    <React.Fragment>
-      {isCreator ? (
-        <ListItemButton
-          onClick={() => {
-            navigate(PROCESS_CREATOR_URL.INFO);
-          }}
-        >
-          <ListItemIcon>
-            <LayersIcon />
-          </ListItemIcon>
-          <ListItemText primary="크리에이터 정보" />
-        </ListItemButton>
-      ) : (
-        <ListItemButton
-          onClick={() => {
-            navigate(PROCESS_CREATOR_URL.REGIST);
-          }}
-        >
-          <ListItemIcon>
-            <LayersIcon />
-          </ListItemIcon>
-          <ListItemText primary="크리에이터 신청" />
-        </ListItemButton>
-      )}
+  const ListComponent = ({ list, idx }) => {
+    return (
+      <ListItemButton
+        onClick={() => {
+          navigate(list.url);
+        }}
+      >
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary={list.name} />
+      </ListItemButton>
+    );
+  };
 
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_CREATOR_URL.DASHBOARD);
+  const ArcodianDetails = ({ smallList }) => {
+    return (
+      <AccordionDetails
+        sx={{
+          p: 0,
         }}
       >
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="대시보드" />
-      </ListItemButton>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_CREATOR_URL.COURSES);
-        }}
-      >
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="강좌 내역" />
-      </ListItemButton>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_CREATOR_URL.COMMENT);
-        }}
-      >
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="강좌 댓글 관리" />
-      </ListItemButton>
-      <ListItemButton
-        onClick={() => {
-          navigate(PROCESS_CREATOR_URL.PROFIT);
-        }}
-      >
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="수익" />
-      </ListItemButton>
-    </React.Fragment>
-  );
+        <ListComponent list={smallList} />
+      </AccordionDetails>
+    );
+  };
+
+  const Arcodian = ({ list }) => {
+    return (
+      <div>
+        <Accordion
+          sx={{
+            boxShadow: 0,
+            borderRadius: 0,
+          }}
+        >
+          <AccordionSummary
+            expandIcon={<AssignmentIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            sx={{
+              mb: -1,
+            }}
+          >
+            {list.name}
+          </AccordionSummary>
+          {list.list.map((smallList, idx) => {
+            return <ArcodianDetails smallList={smallList} />;
+          })}
+        </Accordion>
+      </div>
+    );
+  };
+
+  const listFilter = (list, idx) => {
+    if (idx === 0) {
+      if (isCreator) {
+        return <ListComponent list={CREATOR_BAR_LIST.list[idx].creator[idx]} />;
+      } else {
+        return (
+          <ListComponent list={CREATOR_BAR_LIST.list[idx].creator[idx + 1]} />
+        );
+      }
+    } else if (idx === 2) {
+      return <Arcodian list={list} />;
+    } else {
+      return <ListComponent list={list} />;
+    }
+  };
+
+  return CREATOR_BAR_LIST.list.map((list, idx) => {
+    return listFilter(list, idx);
+  });
 }
