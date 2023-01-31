@@ -11,6 +11,7 @@ import Alamofire
 struct GetPaginationDataService {
     static let shared = GetPaginationDataService()
     
+    // MARK: - 페이지, 사이즈 받아서 Pagination 구현 -> 검색 결과, 카테고리 결과
     func getPagination(kind: String, keyword: String, page: Int, size: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let sort = "title,ASC"
         
@@ -40,38 +41,25 @@ struct GetPaginationDataService {
         
     }
     
-    private func judgeStatus(by statusCode: Int, _ data: Data?) -> NetworkResult<Any> {
+    // MARK: - Status Code 분기
+    private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         
-        if let data = data {
-            switch statusCode {
-            case 200:
-                return isValidData(data: data)
-            case 400:
-                print("Status 400")
-                return .pathErr
-            case 500:
-                print("Status 500")
-                return .serverErr
-            default:
-                return .networkFail
-            }
-        } else {
-            switch statusCode {
-            case 200:
-                return .success(true)
-            case 400:
-                print("Status 400")
-                return .pathErr
-            case 500:
-                print("Status 500")
-                return .serverErr
-            default:
-                return .networkFail
-            }
+        switch statusCode {
+        case 200:
+            return isValidData(data: data)
+        case 400:
+            print("Status 400")
+            return .pathErr
+        case 500:
+            print("Status 500")
+            return .serverErr
+        default:
+            return .networkFail
         }
-        
+
     }
     
+    // MARK: - JSON Parsing
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
