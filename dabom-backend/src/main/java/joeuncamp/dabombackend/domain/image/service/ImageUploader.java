@@ -22,6 +22,8 @@ public class ImageUploader {
     public ImageInfo upload(File file) throws IOException {
         log.info(System.getProperty("user.dir"));
         log.info("파일 업로드");
+        log.info(file.toPath().toString());
+        log.info(IMAGE_STORAGE_URL + DELIMITER + file.getName());
         Files.copy(file.toPath(), Path.of(IMAGE_STORAGE_URL + DELIMITER + file.getName()), StandardCopyOption.REPLACE_EXISTING);
         return new ImageInfo(file.getName(), file.getAbsolutePath());
     }
