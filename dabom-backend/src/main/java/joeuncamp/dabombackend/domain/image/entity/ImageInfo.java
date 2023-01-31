@@ -18,4 +18,10 @@ public class ImageInfo {
     String smallFilePath;
     String mediumFilePath;
     String originalFilePath;
+
+    public ImageInfo(String url){
+        this.smallFilePath = url;
+        this.mediumFilePath = url;
+        this.originalFilePath = url;
+    }
 }
