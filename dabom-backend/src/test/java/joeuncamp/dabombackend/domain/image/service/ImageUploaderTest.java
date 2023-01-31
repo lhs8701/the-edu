@@ -26,9 +26,9 @@ public class ImageUploaderTest {
     @DisplayName("지정된 위치에 이미지파일을 생성한다.")
     void 지정된_위치에_이미지파일을_생성한다() throws IOException {
         // given
-//        String path = System.getProperty("user.dir");
-//        System.out.println("path = " + path);
-        File file = new File("src/test/resources/sample.jpg");
+        String path = System.getProperty("user.dir");
+        System.out.println("path = " + path);
+        File file = new File(path + "\\src\\test\\resources\\sample.jpg");
 
         // when
         File created = imageUploader.upload(file);
