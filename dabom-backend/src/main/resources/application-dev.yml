@@ -53,4 +53,5 @@ springdoc:
     tags-sorter: alpha # @Tag를 알파벳 순으로 정렬
 
 path:
-  images: C:Dabom\resources\images
+  temp: C:\Dabom
+  images: C:\Dabom\resources\images
