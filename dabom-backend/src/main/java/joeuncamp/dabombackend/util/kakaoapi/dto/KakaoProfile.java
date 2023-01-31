@@ -15,18 +15,10 @@ public class KakaoProfile {
     private long id;
     private KakaoAccount kakao_account;
 
-    @Getter
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class KakaoAccount {
         private String email;
         private Profile profile;
 
-        @Getter
-        @ToString
-        @NoArgsConstructor
-        @AllArgsConstructor
         public static class Profile {
             private String nickname;
             private String thumbnail_image_url;
