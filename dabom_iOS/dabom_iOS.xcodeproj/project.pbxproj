@@ -72,6 +72,7 @@
 		0EC314E7298764EA004C82CF /* GetInquiryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E6298764EA004C82CF /* GetInquiryDataService.swift */; };
 		0EC314EA29876601004C82CF /* CourseInquiryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E829876601004C82CF /* CourseInquiryTVC.swift */; };
 		0EC314EB29876601004C82CF /* CourseInquiryTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EC314E929876601004C82CF /* CourseInquiryTVC.xib */; };
+		0EC8CAF52988948B000C41E9 /* CoursePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8CAF42988948B000C41E9 /* CoursePlayerVC.swift */; };
 		0ED17B29298782BD0008D3C0 /* CourseInquiryAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED17B28298782BD0008D3C0 /* CourseInquiryAllVC.swift */; };
 		0ED17B2B2987854D0008D3C0 /* CourseReviewAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED17B2A2987854D0008D3C0 /* CourseReviewAllVC.swift */; };
 		0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7037D296D3EFD0095DD14 /* SearchVC.swift */; };
@@ -182,6 +183,7 @@
 		0EC314E6298764EA004C82CF /* GetInquiryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInquiryDataService.swift; sourceTree = "<group>"; };
 		0EC314E829876601004C82CF /* CourseInquiryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquiryTVC.swift; sourceTree = "<group>"; };
 		0EC314E929876601004C82CF /* CourseInquiryTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseInquiryTVC.xib; sourceTree = "<group>"; };
+		0EC8CAF42988948B000C41E9 /* CoursePlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoursePlayerVC.swift; path = /Users/kimtaehyun/Desktop/project/dabom/dabom_iOS/dabom_iOS/Screen/MyCourse/CoursePlayerVC.swift; sourceTree = "<absolute>"; };
 		0ED17B28298782BD0008D3C0 /* CourseInquiryAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquiryAllVC.swift; sourceTree = "<group>"; };
 		0ED17B2A2987854D0008D3C0 /* CourseReviewAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewAllVC.swift; sourceTree = "<group>"; };
 		0ED7037D296D3EFD0095DD14 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				0E60282E29656FC800A25F48 /* MyCourseTabManViewController.swift */,
 				0E69A03E296543A200BFD12E /* MyCourseViewController.swift */,
 				0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */,
+				0EC8CAF42988948B000C41E9 /* CoursePlayerVC.swift */,
 				0E6028282965659D00A25F48 /* InCourseViewController.swift */,
 				0E60282C29656BB500A25F48 /* WishCourseViewController.swift */,
 			);
@@ -818,6 +821,7 @@
 				0E550140296EA96400DD5B75 /* Layer+.swift in Sources */,
 				0E1E95972977AB8800CBE70B /* Url.swift in Sources */,
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
+				0EC8CAF52988948B000C41E9 /* CoursePlayerVC.swift in Sources */,
 				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,
 				0EC314E32987582A004C82CF /* GetReviewDataService.swift in Sources */,
 				0EC314E7298764EA004C82CF /* GetInquiryDataService.swift in Sources */,

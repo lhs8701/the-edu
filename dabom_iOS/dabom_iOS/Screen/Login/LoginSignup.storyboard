@@ -203,16 +203,13 @@
                                     <action selector="emailSignupBtnPressed:" destination="fsC-fl-o0Y" eventType="touchUpInside" id="nkS-xD-Rqn"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NgP-S0-KcT">
-                                <rect key="frame" x="50" y="197" width="275" height="50"/>
-                                <color key="backgroundColor" name="mainColor"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NgP-S0-KcT">
+                                <rect key="frame" x="50" y="197" width="275" height="43"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="3da-dW-fe9"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="yjR-R5-YvT"/>
+                                    <constraint firstAttribute="width" secondItem="NgP-S0-KcT" secondAttribute="height" multiplier="32:5" id="Txj-OG-OTu"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="카카오톡으로 시작하기">
+                                <state key="normal" image="kakaoLoginButton">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -220,7 +217,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zct-a6-Qb8">
-                                <rect key="frame" x="50" y="267" width="275" height="50"/>
+                                <rect key="frame" x="50" y="260" width="275" height="50"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="dzd-LC-6cX"/>
@@ -233,14 +230,13 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deG-Fs-MkM">
-                                <rect key="frame" x="50" y="337" width="275" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="50" y="330" width="275" height="43"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="8aL-aw-cVQ"/>
+                                    <constraint firstAttribute="width" secondItem="deG-Fs-MkM" secondAttribute="height" multiplier="32:5" id="oAo-iP-66O"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Apple로 시작하기">
+                                <state key="normal" backgroundImage="appleLoginButton">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -550,6 +546,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="appleLoginButton" width="320" height="45"/>
+        <image name="kakaoLoginButton" width="600" height="90"/>
         <namedColor name="mainColor">
             <color red="1" green="0.85500001907348633" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

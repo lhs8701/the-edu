@@ -12,6 +12,7 @@ extension Const {
         
         static let serverIP = "218.38.127.26:8080"
         static let baseUrl = "http://\(serverIP)/api"
+        static let m3u8Test = "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
         
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"
