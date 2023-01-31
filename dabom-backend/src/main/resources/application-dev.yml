@@ -58,4 +58,4 @@ springdoc:
 
 path:
   temp: C:\Dabom
-  images: C:\Dabom\resources\images
+  images: C:\apache-tomcat-9.0.71\webapps\ROOT\images
