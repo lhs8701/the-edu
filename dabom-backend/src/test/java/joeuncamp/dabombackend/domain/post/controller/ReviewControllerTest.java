@@ -29,7 +29,6 @@ public class ReviewControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-
     @MockBean
     ReviewService reviewService;
 

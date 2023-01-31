@@ -33,5 +33,4 @@ springdoc:
 
 path:
   resources: E:\ROOM\Github\dabom\dabom-backend\src\test\resources
-    images: E:\ROOM\Github\dabom\dabom-backend\src\test\resources\images
-
+  images: E:\ROOM\Github\dabom\dabom-backend\src\test\resources\images
