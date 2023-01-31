@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Objects;
 
 @Service
@@ -26,6 +27,12 @@ public class ImageService {
     private final ImageResizer imageResizer;
     private final ImageUploader imageUploader;
 
+    /**
+     * 이미지 파일을 저장소에 저장합니다.
+     *
+     * @param multipartFile 멀티파트파일
+     * @return 이미지 정보
+     */
     public ImageInfo saveImage(MultipartFile multipartFile) {
         try {
             File localFileOriginal = createFileFromMultipart(multipartFile);
@@ -55,7 +62,8 @@ public class ImageService {
             throw new CInternalServerException();
         }
     }
-    private File createFileFromMultipart(MultipartFile multipartFile) throws IOException{
+
+    private File createFileFromMultipart(MultipartFile multipartFile) throws IOException {
         String path = System.getProperty("user.dir");
         File convertedFile = new File(path + DELIMITER + Objects.requireNonNull(multipartFile.getOriginalFilename()));
         multipartFile.transferTo(convertedFile);
@@ -66,11 +74,19 @@ public class ImageService {
         return IMAGE_STORAGE_PATH + DELIMITER + file.getName();
     }
 
-    public ImageInfo update(MultipartFile file) {
-        return null;
-    }
-
-    public void delete(ImageInfo imageInfo) {
-
+    /**
+     * 이미지를 삭제합니다.
+     * 해당 이미지의 모든 사이즈 버전이 일괄 삭제됩니다.
+     *
+     * @param imageInfo 이미지 정보
+     * @throws IOException
+     */
+    public void delete(ImageInfo imageInfo) throws IOException {
+        File fileSmall = new File(imageInfo.getSmallFilePath());
+        File fileMedium = new File(imageInfo.getMediumFilePath());
+        File fileOriginal = new File(imageInfo.getOriginalFilePath());
+        imageUploader.delete(fileSmall);
+        imageUploader.delete(fileMedium);
+        imageUploader.delete(fileOriginal);
     }
 }
