@@ -18,6 +18,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ImageService {
 
+    @Value("${path.root}")
+    String ROOT_PATH;
     String DELIMITER = "\\";
     private final ImageConvertor imageConvertor;
     private final ImageUploader imageUploader;
@@ -43,7 +45,7 @@ public class ImageService {
     }
 
     private File saveToTemporaryStorage(MultipartFile multipartFile) {
-        File convertedFile = new File(System.getProperty("user.dir") + DELIMITER + Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        File convertedFile = new File(ROOT_PATH + DELIMITER + Objects.requireNonNull(multipartFile.getOriginalFilename()));
         try {
             multipartFile.transferTo(convertedFile);
         } catch (IOException e) {
