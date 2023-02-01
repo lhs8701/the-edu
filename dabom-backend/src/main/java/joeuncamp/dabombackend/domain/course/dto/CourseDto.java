@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
-import joeuncamp.dabombackend.domain.file.image.service.ImageUtil;
+import joeuncamp.dabombackend.domain.file.FileUtil;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -64,10 +64,10 @@ public class CourseDto {
                     .description(description)
                     .category(categoryType)
                     .price(price)
-                    .thumbnailImage(ImageUtil.getImageInfo(imageDto.thumbnailImage))
+                    .thumbnailImage(FileUtil.getImageInfo(imageDto.thumbnailImage))
                     .descriptionImage(
                             imageDto.getDescriptionImages().stream()
-                            .map(ImageUtil::getImageInfo)
+                            .map(FileUtil::getImageInfo)
                             .toList())
                     .build();
             course.setCreatorProfile(creator);

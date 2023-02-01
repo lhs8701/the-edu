@@ -24,7 +24,6 @@ public class ImageService {
     private final ImageConvertor imageConvertor;
     private final ImageResizer imageResizer;
     private final ImageUploader imageUploader;
-    private final ImageUtil imageUtil;
 
     /**
      * 이미지 파일을 저장소에 저장합니다.
