@@ -4,6 +4,7 @@ import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import joeuncamp.dabombackend.global.constant.ImageSize;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
+import joeuncamp.dabombackend.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +37,7 @@ public class ImageService {
      */
     public ImageInfo saveImage(MultipartFile multipartFile) {
         try {
-            File localFileOriginal = createFileFromMultipart(multipartFile);
+            File localFileOriginal = FileUtil.createFromMultipart(multipartFile);
             imageConvertor.convertImage(localFileOriginal);
 
             File localFileSmall = imageResizer.createResizedFile(localFileOriginal, ImageSize.SMALL);
@@ -62,13 +63,6 @@ public class ImageService {
             log.error(e.getMessage());
             throw new CInternalServerException();
         }
-    }
-
-    private File createFileFromMultipart(MultipartFile multipartFile) throws IOException {
-        String path = System.getProperty("user.dir");
-        File convertedFile = new File(path + DELIMITER + Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        multipartFile.transferTo(convertedFile);
-        return convertedFile;
     }
 
     private String getRemoteFilePath(File file) {

@@ -26,7 +26,7 @@ spring:
       port: 6379
   servlet:
     multipart:
-      max-file-size: 10MB
+      max-file-size: 100MB
       max-request-size: 100MB
 
 logging:
@@ -59,3 +59,8 @@ springdoc:
 path:
   temp: C:\Dabom
   images: C:\apache-tomcat-9.0.71\webapps\ROOT\images
+  videos: C:\apache-tomcat-9.0.71\webapps\ROOT\videos
+
+hls:
+  ffmpeg: C://ProgramData/chocolatey/bin/ffmpeg.exe
+  ffprobe: C://ProgramData/chocolatey/bin/ffprobe.exe
