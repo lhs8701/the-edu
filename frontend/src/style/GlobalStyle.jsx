@@ -60,7 +60,6 @@ html {
     --color-box-gray:#d0cfcf;
     --color-box-primary:#ffd555;
 
-
     --weight-point:900;
     --weight-middle:500;
     --weight-thin:300;

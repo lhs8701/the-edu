@@ -1,9 +1,6 @@
-import { Typography } from "@mui/material";
+import { CREATOR_BAR_LIST } from "../../static";
+import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 
 export default function CreatorsRegisted() {
-  return (
-    <Typography variant="h4" mb={1}>
-      개설 요청한 강좌 관리
-    </Typography>
-  );
+  return <DashboardTitleTab title={CREATOR_BAR_LIST.list[2].list[1].name} />;
 }

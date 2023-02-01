@@ -98,7 +98,9 @@ function DashboardContent({ isCreator }) {
 
   return (
     <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{ display: "flex", fontFamily: "Spoqa Han Sans Neo, 'sans-serif" }}
+      >
         <CssBaseline />
         <AppBar
           position="absolute"
@@ -127,7 +129,10 @@ function DashboardContent({ isCreator }) {
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1, fontWeight: "var(--size-middle)" }}
+              sx={{
+                flexGrow: 1,
+                fontWeight: "var(--size-middle)",
+              }}
             >
               The-Edu 크리에이터 페이지
             </Typography>
@@ -138,6 +143,7 @@ function DashboardContent({ isCreator }) {
             </IconButton>
           </Toolbar>
         </AppBar>
+
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -168,10 +174,7 @@ function DashboardContent({ isCreator }) {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            backgroundColor: "var(--color-background)",
             flexGrow: 1,
             height: "100vh",
             overflow: "auto",
