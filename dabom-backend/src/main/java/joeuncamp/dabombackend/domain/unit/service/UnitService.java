@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.unit.service;
 
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
+import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
@@ -9,6 +10,7 @@ import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.common.SingleResponseDto;
+import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,9 +22,11 @@ public class UnitService {
     private final CreatorService creatorService;
     private final CourseJpaRepository courseJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
+    private final EnrollService enrollService;
 
     /**
      * 강의를 업로드합니다.
+     *
      * @param unitDto 강의 업로드 DTO
      * @return 생성된 강의 아이디
      */

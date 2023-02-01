@@ -66,7 +66,7 @@ public class CourseDto {
                     .price(price)
                     .thumbnailImage(FileUtil.getImageInfo(imageDto.thumbnailImage))
                     .descriptionImage(
-                            imageDto.getDescriptionImages().stream()
+                            imageDto.descriptionImages.stream()
                             .map(FileUtil::getImageInfo)
                             .toList())
                     .build();

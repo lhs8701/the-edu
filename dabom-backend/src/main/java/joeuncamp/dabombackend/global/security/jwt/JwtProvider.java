@@ -70,7 +70,7 @@ public class JwtProvider {
                 .collect(Collectors.joining(","));
 
         Claims claims = Jwts.claims();
-        claims.setSubject(member.getAccount());
+        claims.setSubject(String.valueOf(member.getId()));
         claims.setIssuedAt(new Date());
         claims.setExpiration(new Date(now + expireTime));
         claims.setId(UUID.randomUUID().toString());
