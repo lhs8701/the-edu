@@ -2,9 +2,9 @@ package joeuncamp.dabombackend.domain._etc;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import joeuncamp.dabombackend.domain.image.dto.MultipartDto;
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.image.service.ImageService;
+import joeuncamp.dabombackend.domain.file.FileUtil;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.file.image.service.ImageService;
 import joeuncamp.dabombackend.util.hls.service.HlsConvertor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,8 @@ public class TestController {
     @PreAuthorize("permitAll()")
     @PostMapping("/test/media")
     public ResponseEntity<?> convertToM3u8(@RequestPart MultipartFile multipartFile){
-        hlsConvertor.convertToM3u8(multipartFile);
+        File file = FileUtil.createFromMultipart(multipartFile);
+        hlsConvertor.convertToM3u8(file);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

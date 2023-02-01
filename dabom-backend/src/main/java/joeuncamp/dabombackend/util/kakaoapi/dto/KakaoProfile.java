@@ -1,8 +1,7 @@
 package joeuncamp.dabombackend.util.kakaoapi.dto;
 
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
-import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import lombok.*;
 

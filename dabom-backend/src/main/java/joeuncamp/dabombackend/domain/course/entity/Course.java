@@ -1,7 +1,7 @@
 package joeuncamp.dabombackend.domain.course.entity;
 
 import jakarta.persistence.*;
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;

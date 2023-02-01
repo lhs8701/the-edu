@@ -1,10 +1,9 @@
-package joeuncamp.dabombackend.domain.image.service;
+package joeuncamp.dabombackend.domain.file.image.service;
 
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.global.constant.ImageSize;
-import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
-import joeuncamp.dabombackend.util.FileUtil;
+import joeuncamp.dabombackend.domain.file.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Objects;
 
 @Service
 @Slf4j

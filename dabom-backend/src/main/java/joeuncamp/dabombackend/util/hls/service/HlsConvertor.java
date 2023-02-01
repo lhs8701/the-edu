@@ -1,7 +1,7 @@
 package joeuncamp.dabombackend.util.hls.service;
 
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
-import joeuncamp.dabombackend.util.FileUtil;
+import joeuncamp.dabombackend.domain.file.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.bramp.ffmpeg.FFmpeg;
@@ -31,30 +31,25 @@ public class HlsConvertor {
 
     /**
      * m3u8 포맷으로 변환합니다.
-     * @param multipartFile multipartFile
+     *
+     * @param file 변환할 파일
      * @return 변환된 파일의 절대경로
      */
-    public String convertToM3u8(MultipartFile multipartFile) {
-        try {
-            File originalFile = FileUtil.createFromMultipart(multipartFile);
-            String fileName = originalFile.getName();
-            String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
+    public String convertToM3u8(File file) {
+        String fileName = file.getName();
+        String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
 
-            mkdirM3u8Directory(onlyFileName);
-            String inputPath = originalFile.getAbsolutePath();
-            String outputPath = VIDEO_STORAGE_PATH + DELIMITER + onlyFileName + M3U8_POSTFIX + DELIMITER + onlyFileName + M3U8_EXTENSION;
+        mkdirM3u8Directory(onlyFileName);
+        String inputPath = file.getAbsolutePath();
+        String outputPath = VIDEO_STORAGE_PATH + DELIMITER + onlyFileName + M3U8_POSTFIX + DELIMITER + onlyFileName + M3U8_EXTENSION;
 
-            log.info("[input file information]");
-            getMediaInfo(inputPath);
+        log.info("[input file information]");
+        getMediaInfo(inputPath);
 
-            executeConvertor(inputPath, outputPath);
-            log.info("[output file information]");
-            getMediaInfo(outputPath);
-            return outputPath;
-        } catch (IOException e) {
-            log.info(e.getMessage());
-            throw new CInternalServerException();
-        }
+        executeConvertor(inputPath, outputPath);
+        log.info("[output file information]");
+        getMediaInfo(outputPath);
+        return outputPath;
     }
 
     private void executeConvertor(String inputPath, String outputPath) {

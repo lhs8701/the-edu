@@ -1,6 +1,6 @@
-package joeuncamp.dabombackend.domain.image.service;
+package joeuncamp.dabombackend.domain.file.image.service;
 
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.global.constant.ImageSize;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import lombok.extern.slf4j.Slf4j;

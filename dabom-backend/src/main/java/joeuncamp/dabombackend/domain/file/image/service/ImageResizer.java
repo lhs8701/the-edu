@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.image.service;
+package joeuncamp.dabombackend.domain.file.image.service;
 
 import joeuncamp.dabombackend.global.constant.ImageSize;
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
