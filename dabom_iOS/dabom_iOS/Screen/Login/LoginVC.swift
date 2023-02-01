@@ -61,6 +61,7 @@ class LoginVC: UIViewController {
                 switch (response) {
                 case .success:
                     print("login Success")
+                    UserDefaults.standard.setValue("email", forKey: "loginType")
                     AuthenticationService.shared.goToMain()
                 case .requestErr(let message):
                     print("requestErr", message)
@@ -72,6 +73,7 @@ class LoginVC: UIViewController {
                     print("networkFail")
                 case .resourceErr:
                     print("잘못된 아이디 혹은 비밀번호")
+                    self.passwordTextField.text = ""
                     let alert = UIAlertController(title: "", message: "아이디 또는 비밀번호를 확인해주세요", preferredStyle: .alert)
                     let confirm = UIAlertAction(title: "확인", style: .default)
                     alert.addAction(confirm)
@@ -105,6 +107,8 @@ class LoginVC: UIViewController {
                         switch (response) {
                         case .success:
                             print("kakaoLogin Success")
+                            UserDefaults.standard.setValue("kakao", forKey: "loginType")
+                            UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)
@@ -134,6 +138,8 @@ class LoginVC: UIViewController {
                         switch (response) {
                         case .success:
                             print("kakaoLogin Success")
+                            UserDefaults.standard.setValue("kakao", forKey: "loginType")
+                            UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)
@@ -249,6 +255,7 @@ extension LoginVC: UITextFieldDelegate {
 }
 
 
+// MARK: - Apple Login extension
 extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!

@@ -49,6 +49,7 @@ class SignupSelectVC: UIViewController {
                         switch (response) {
                         case .success:
                             print("kakaoLogin Success")
+                            UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)

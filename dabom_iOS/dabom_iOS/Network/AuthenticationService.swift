@@ -72,35 +72,7 @@ struct AuthenticationService {
             }
         }
     }
-    
-    // MARK: - kakao Login
-    func kakaoLogin(accessToken: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.kakaoLogin)"
-        print(URL)
-        
-        let header: HTTPHeaders = [
-            "Content-Type" : "application/json"
-        ]
-        
-        let bodyData: Parameters = [
-            "socialToken" : accessToken
-        ] as Dictionary
-        
-        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
-        
-        request.responseData { dataResponse in
-            switch dataResponse.result {
-            case .success:
-                guard let statusCode = dataResponse.response?.statusCode else {return}
-                guard let value = dataResponse.value else {return}
-                
-                let networkResult = self.judgeStatus(by: statusCode, value)
-                completion(networkResult)
-            case .failure:
-                completion(.pathErr)
-            }
-        }
-    }
+
     
     // MARK: - Logout
     func logout(completion: @escaping (NetworkResult<Any>) -> Void) {
@@ -169,6 +141,104 @@ struct AuthenticationService {
         }
     }
     
+    // MARK: - kakao Login
+    func kakaoLogin(accessToken: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.kakaoLogin)"
+        print(URL)
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json"
+        ]
+        
+        let bodyData: Parameters = [
+            "socialToken" : accessToken
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                guard let value = dataResponse.value else {return}
+                
+                let networkResult = self.judgeStatus(by: statusCode, value)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+    
+    func kakaoLogout(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.kakaoLogout)"
+        print(URL)
+        
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
+        let socialToken = UserDefaults.standard.string(forKey: "kakaoToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "X-AUTH-TOKEN" : accessToken
+        ]
+        
+        let bodyData: Parameters = [
+            "socialToken" : socialToken,
+            "refreshToken" : refreshToken
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+
+                let networkResult = self.judgeStatus(by: statusCode, nil)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+    
+    func kakaoWithdraw(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.kakaoWithdraw)"
+        print(URL)
+        
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
+        let socialToken = UserDefaults.standard.string(forKey: "kakaoToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "X-AUTH-TOKEN" : accessToken
+        ]
+        
+        let bodyData: Parameters = [
+            "socialToken" : socialToken,
+            "refreshToken" : refreshToken
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+
+                let networkResult = self.judgeStatus(by: statusCode, nil)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+    
     // MARK: - Reissue
     func reissue(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.reissue)"
@@ -215,7 +285,7 @@ struct AuthenticationService {
             case 400:
                 print("statusCode 400")
                 return .pathErr
-            case 404:
+            case 401, 404:
                 print("잘못된 리소스")
                 return .resourceErr
             case 500:
@@ -256,7 +326,7 @@ struct AuthenticationService {
         print(decodedData.accessToken)
         print(decodedData.refreshToken)
         
-        UserDefaults.standard.setValue(true, forKey: "isLogin")
+//        UserDefaults.standard.setValue(true, forKey: "isLogin")
         UserDefaults.standard.setValue(decodedData.memberId, forKey: "memberId")
         UserDefaults.standard.setValue(decodedData.grantType, forKey: "grantType")
         UserDefaults.standard.setValue(decodedData.accessToken, forKey: "accessToken")
@@ -267,7 +337,10 @@ struct AuthenticationService {
     
     // MARK: - 로그아웃, 회원탈퇴 시에 회원 권한, 토큰, 최근 검색어 Reset
     func resetUserGrant() {
-        UserDefaults.standard.setValue(false, forKey: "isLogin")
+//        UserDefaults.standard.setValue(false, forKey: "isLogin")
+//        UserDefaults.standard.removeObject(forKey: "isLogin")
+        
+        UserDefaults.standard.removeObject(forKey: "loginType")
         UserDefaults.standard.removeObject(forKey: "memberId")
         UserDefaults.standard.removeObject(forKey: "grantType")
         UserDefaults.standard.removeObject(forKey: "accessToken")

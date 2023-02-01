@@ -44,4 +44,11 @@ class LoginSignupVC: UIViewController {
         present(selectVC, animated: true, completion: nil)
     }
     
+    
+    @IBAction func loginBtnPressed(_ sender: Any) {
+        guard let loginVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.login) as? LoginVC else {return}
+        
+        self.navigationController?.pushViewController(loginVC, animated: true)
+    }
+    
 }

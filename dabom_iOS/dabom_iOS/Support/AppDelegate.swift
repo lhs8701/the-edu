@@ -14,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    var isLogin: Bool = false
+//    var isLogin: Bool = false
+    var loginType: String? = UserDefaults.standard.string(forKey: "loginType")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -24,14 +25,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // MARK: - 로그인 분기
         window = UIWindow()
-        
-        if isLogin {
-            guard let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as? TabBarViewController else {return false}
-            window?.rootViewController = mainVC
-        } else {
-            print("22")
-            guard let loginVC = UIStoryboard(name: "LoginSignup", bundle: nil).instantiateViewController(withIdentifier: "LoginSignupNC") as? LoginSignupNC else {return false}
+//        if isLogin {
+//            guard let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as? TabBarViewController else {return false}
+//            window?.rootViewController = mainVC
+//        } else {
+//            print("22")
+//            guard let loginVC = UIStoryboard(name: "LoginSignup", bundle: nil).instantiateViewController(withIdentifier: "LoginSignupNC") as? LoginSignupNC else {return false}
+//            window?.rootViewController = loginVC
+//        }
+
+        if loginType == nil {
+            guard let loginVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.loginSignupNavi) as? LoginSignupNC else {return false}
             window?.rootViewController = loginVC
+        } else {
+            guard let mainVC = UIStoryboard(name: Const.Storyboard.Name.main, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.mainTabBar) as? TabBarViewController else {return false}
+            window?.rootViewController = mainVC
         }
         
         
