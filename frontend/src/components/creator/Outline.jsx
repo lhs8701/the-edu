@@ -78,8 +78,8 @@ export default function Outline() {
   const [firstCategory, setFirstCategory] = useState("");
   const [secCategory, setSecCategory] = useState("");
   const [tabVal, setTabVal] = useState(0);
+  const [chapterCnt, setChapterCnt] = useState(1);
   const [introImgVal, setIntroImgVal] = useState(1);
-
   const chapter = {
     title: "제목 없음",
     id: 0,
@@ -91,13 +91,12 @@ export default function Outline() {
       },
     ],
   };
-
   const [chapterList, setChapterList] = useState([chapter]);
 
   const plusChapter = () => {
     const chapter = {
       title: "제목 없음",
-      id: chapterList.length,
+      id: chapterCnt,
       smallList: [
         {
           title: "제목없음",
@@ -107,11 +106,14 @@ export default function Outline() {
       ],
     };
     setChapterList((prev) => [...prev, chapter]);
+    setChapterCnt((prev) => prev + 1);
   };
 
-  const removeChapter = (removeIdx) => {
+  const removeChapter = (removeKey) => {
     setChapterList((current) =>
-      current.filter((chapter, idx) => idx !== removeIdx)
+      current.filter((chapter) => {
+        return chapter.id !== removeKey;
+      })
     );
   };
 
@@ -265,28 +267,31 @@ export default function Outline() {
     );
   };
 
-  const SmallListComponent = ({
-    value,
-    unitIdx,
-    setSmallChapters,
-    smallChapters,
-  }) => {
+  const SmallListComponent = ({ value, unitIdx, setUnits, units }) => {
     const [unittitle, setUnitTitle] = useState("");
     const [clicked, setClicked] = useState(false);
 
-    const removeUnit = (removeIdx) => {
-      setSmallChapters((current) =>
-        current.filter((chapter, idx) => idx !== removeIdx)
+    const removeUnit = () => {
+      setUnits((current) =>
+        current.filter((unit) => {
+          console.log(unit, value.id);
+          return unit.id !== value.id;
+        })
       );
     };
 
-    const reviseChaterTitle = (unitIdx) => {
-      const prevList = smallChapters;
-      const unit = smallChapters[unitIdx];
-      console.log(unit);
-      unit.title = unittitle;
-      prevList.splice(unitIdx, 1, unit);
-      setSmallChapters(prevList);
+    const reviseUnitTitle = () => {
+      const prevList = units;
+      let keyIdx = 0;
+      const unit = units.filter((chapter, idx) => {
+        if (chapter.id === value.id) {
+          keyIdx = idx;
+          return chapter;
+        }
+      });
+      unit[0].title = unittitle;
+      prevList.splice(keyIdx, 1, unit[0]);
+      setUnits(prevList);
     };
 
     return (
@@ -304,7 +309,7 @@ export default function Outline() {
             }}
           />
         ) : (
-          <ListItemText primary={value.title} />
+          <ListItemText primary={unitIdx + ". " + value.title} />
         )}
         <div>
           {clicked ? (
@@ -312,7 +317,7 @@ export default function Outline() {
               sx={{ color: "black" }}
               onClick={() => {
                 setClicked(false);
-                reviseChaterTitle(unitIdx);
+                reviseUnitTitle(unitIdx);
               }}
             >
               확인
@@ -321,6 +326,7 @@ export default function Outline() {
             <Button
               sx={{ color: "black" }}
               onClick={() => {
+                console.log();
                 setClicked(true);
               }}
             >
@@ -330,8 +336,7 @@ export default function Outline() {
 
           <Button
             onClick={() => {
-              console.log(unitIdx);
-              removeUnit(unitIdx);
+              removeUnit();
             }}
             variant="text"
             size="large"
@@ -344,38 +349,52 @@ export default function Outline() {
     );
   };
 
-  const ChapterCard = ({ chapter, nowIdx }) => {
-    const [smallChapters, setSmallChapters] = useState([chapter.smallList]);
+  const ChapterCard = ({ chapter, nowIdx, nowKey }) => {
+    const [units, setUnits] = useState(chapter.smallList);
     const [clicked, setClicked] = useState(false);
     const [chaptertitle, setChapterTitle] = useState("");
+    const [unitCnt, setUnitCnt] = useState(1);
 
-    const reviseChaterTitle = () => {
+    const reviseChapterTitle = () => {
       const prevList = chapterList;
-      const chapter = chapterList[nowIdx];
-      chapter.title = chaptertitle;
-      prevList.splice(nowIdx, 1, chapter);
+      let keyIdx = 0;
+      const chapter = chapterList.filter((chapter, idx) => {
+        if (chapter.id === nowKey) {
+          keyIdx = idx;
+          return chapter;
+        }
+      });
+      chapter[0].title = chaptertitle; //filter의 리턴은 배열이다 주의
+      prevList.splice(keyIdx, 1, chapter[0]); //이건 그 자리 인덱스를 찾아야지
       setChapterList(prevList);
     };
 
-    const plusUnit = (changeIdx) => {
+    const plusUnit = () => {
       const smallChapter = {
         title: "제목 없음",
-        id: smallChapters.length,
+        id: unitCnt,
         url: "",
       };
-      setSmallChapters((prev) => [...prev, smallChapter]);
+      setUnitCnt((prev) => prev + 1);
+      setUnits((prev) => [...prev, smallChapter]);
+      updateSmallListInChapter();
     };
 
-    useEffect(() => {
-      console.log("fdd");
+    const updateSmallListInChapter = () => {
       const prevList = chapterList;
-      const oneChapter = chapterList.filter((chapter) => {
-        return chapter.id === nowIdx;
+      let keyIdx = 0;
+      const chapter = chapterList.filter((chapter, idx) => {
+        if (chapter.id === nowKey) {
+          keyIdx = idx;
+          return chapter;
+        }
       });
-      oneChapter.smallList = smallChapters;
-      prevList.splice(nowIdx, 1, oneChapter);
+      chapter[0].smallList = units; //filter의 리턴은 배열이다 주의
+      prevList.splice(keyIdx, 1, chapter[0]); //이건 그 자리 인덱스를 찾아야지
       setChapterList(prevList);
-    }, [smallChapters]);
+    };
+
+    useEffect(updateSmallListInChapter, [units]);
 
     return (
       <Box mt={2}>
@@ -406,7 +425,7 @@ export default function Outline() {
                     sx={{ color: "black" }}
                     onClick={() => {
                       setClicked(false);
-                      reviseChaterTitle();
+                      reviseChapterTitle();
                     }}
                   >
                     확인
@@ -432,7 +451,7 @@ export default function Outline() {
                 </Button>
                 <Button
                   onClick={() => {
-                    removeChapter(nowIdx);
+                    removeChapter(nowKey);
                   }}
                   variant="text"
                   size="large"
@@ -442,19 +461,19 @@ export default function Outline() {
                 </Button>
               </CardActions>
             </CardDiv>
-            {/* <List dense={true}>
-              {smallChapters.map((value, unitIdx) => {
+            <List dense={true}>
+              {units.map((unit, unitIdx) => {
                 return (
                   <SmallListComponent
-                    smallChapters={smallChapters}
-                    setSmallChapters={setSmallChapters}
-                    key={value.id}
-                    unitIdx={value.id}
-                    value={value}
+                    units={units}
+                    setUnits={setUnits}
+                    key={unit.id}
+                    unitIdx={unitIdx}
+                    value={unit}
                   />
                 );
               })}
-            </List> */}
+            </List>
           </CardContent>
         </Card>
       </Box>
@@ -483,11 +502,12 @@ export default function Outline() {
     return (
       <>
         <ChapterPlushComponent />
-        {chapterList.map((chapter) => {
+        {chapterList.map((chapter, idx) => {
           return (
             <ChapterCard
               key={chapter.id}
-              nowIdx={chapter.id}
+              nowIdx={idx}
+              nowKey={chapter.id}
               chapter={chapter}
             />
           );
@@ -504,7 +524,7 @@ export default function Outline() {
       </Tabs>
     );
   };
-  console.log(chapterList);
+
   return (
     <>
       <DashboardTitleTab title={CREATOR_BAR_LIST.list[2].list[2].name} />
