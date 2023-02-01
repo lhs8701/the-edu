@@ -78,9 +78,9 @@ public class kakaoAuthService implements SocialAuthService {
      */
     @Override
     public void withdraw(SocialUnlinkRequestDto requestDto, String accessToken) {
+        logout(requestDto, accessToken);
         kakaoApiService.unlink(requestDto.getSocialToken());
         Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
         memberJpaRepository.deleteById(member.getId());
-        logout(requestDto, accessToken);
     }
 }
