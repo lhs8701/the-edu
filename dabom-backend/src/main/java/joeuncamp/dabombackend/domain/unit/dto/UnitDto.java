@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.unit.dto;
 
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.file.FileUtil;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,11 +17,13 @@ public class UnitDto {
         Long courseId;
         String title;
         String description;
+        String videoUrl;
 
         public Unit toEntity(Course course){
             return Unit.builder()
                     .title(title)
                     .description(description)
+                    .videoInfo(FileUtil.getVideoInfo(videoUrl))
                     .course(course)
                     .build();
         }
