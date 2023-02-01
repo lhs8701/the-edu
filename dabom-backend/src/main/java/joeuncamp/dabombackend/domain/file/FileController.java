@@ -25,7 +25,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "[4.Image]", description = "이미지 업로드 관련 API입니다.")
+@Tag(name = "[8.File]", description = "파일 업로드 관련 API입니다.")
 @RequestMapping("/api")
 public class FileController {
     private final ImageService imageService;
@@ -51,6 +51,7 @@ public class FileController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
     @Operation(summary = "동영상을 업로드합니다.", description = "")
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
