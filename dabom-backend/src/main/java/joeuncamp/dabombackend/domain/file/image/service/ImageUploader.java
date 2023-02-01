@@ -1,17 +1,13 @@
-package joeuncamp.dabombackend.domain.image.service;
+package joeuncamp.dabombackend.domain.file.image.service;
 
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Objects;
 
 @Service
 @Slf4j

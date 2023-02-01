@@ -1,5 +1,6 @@
-package joeuncamp.dabombackend.domain.image.service;
+package joeuncamp.dabombackend.domain.file.image.service;
 
+import joeuncamp.dabombackend.domain.file.FileUtil;
 import joeuncamp.dabombackend.global.constant.ImageSize;
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class ImageResizer {
     public File createResizedFile(File file, ImageSize imageSize) {
         try {
             BufferedImage bufferedImage = resize(file, imageSize);
-            String fileName = ImageUtil.makeFileName(file.getName(), imageSize);
+            String fileName = FileUtil.makeImageFileName(file.getName(), imageSize);
             return bufferedImageToFile(file.getParent() + DELIMITER + fileName, bufferedImage);
         } catch (IOException e) {
             throw new CInternalServerException();

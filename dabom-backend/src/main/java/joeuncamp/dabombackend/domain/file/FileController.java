@@ -1,11 +1,13 @@
-package joeuncamp.dabombackend.domain.image.controller;
+package joeuncamp.dabombackend.domain.file;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.image.service.ImageService;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.file.image.service.ImageService;
+import joeuncamp.dabombackend.domain.file.video.entity.VideoInfo;
+import joeuncamp.dabombackend.domain.file.video.service.VideoService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -23,29 +25,39 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "[4.Image]", description = "이미지 업로드 관련 API입니다.")
+@Tag(name = "[8.File]", description = "파일 업로드 관련 API입니다.")
 @RequestMapping("/api")
-public class ImageController {
+public class FileController {
     private final ImageService imageService;
+    private final VideoService videoService;
 
     @Operation(summary = "이미지 하나를 업로드합니다.", description = "")
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/images/single")
+    @PostMapping("/file/image")
     public ResponseEntity<ImageInfo> uploadImage(@RequestPart MultipartFile multipartFile) {
         ImageInfo imageInfo = imageService.saveImage(multipartFile);
         return new ResponseEntity<>(imageInfo, HttpStatus.OK);
     }
 
-    @Operation(summary = "이미지 여러개를 업로드합니다.", description = "")
+    @Operation(summary = "이미지 여러장을 업로드합니다.", description = "")
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/images/multiple")
+    @PostMapping("/file/image/muli")
     public ResponseEntity<List<ImageInfo>> uploadImages(@RequestPart List<MultipartFile> multipartFiles) {
         List<ImageInfo> list = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             list.add(imageService.saveImage(multipartFile));
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @Operation(summary = "동영상을 업로드합니다.", description = "")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/file/video")
+    public ResponseEntity<VideoInfo> uploadVideo(@RequestPart MultipartFile multipartFile) {
+        VideoInfo videoInfo = videoService.saveVideo(multipartFile);
+        return new ResponseEntity<>(videoInfo, HttpStatus.OK);
     }
 }

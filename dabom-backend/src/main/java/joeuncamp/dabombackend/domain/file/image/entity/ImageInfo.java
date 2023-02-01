@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.image.entity;
+package joeuncamp.dabombackend.domain.file.image.entity;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

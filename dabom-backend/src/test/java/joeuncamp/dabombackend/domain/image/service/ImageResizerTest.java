@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.image.service;
 
+import joeuncamp.dabombackend.domain.file.image.service.ImageResizer;
 import joeuncamp.dabombackend.global.constant.ImageSize;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

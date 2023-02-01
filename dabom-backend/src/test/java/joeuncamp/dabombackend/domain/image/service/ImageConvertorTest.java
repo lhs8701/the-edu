@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.image.service;
 
+import joeuncamp.dabombackend.domain.file.image.service.ImageConvertor;
 import org.apache.tika.Tika;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

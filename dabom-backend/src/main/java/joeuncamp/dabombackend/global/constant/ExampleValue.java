@@ -4,11 +4,18 @@ import javax.swing.text.html.HTML;
 
 public class ExampleValue {
 
+    public static class Unit{
+        public final static String TITLE = "스프링 빈에 대한 이해";
+        public final static String DESCRIPTION = "스프링 빈에 대해 알아봅시다.";
+        public final static String VIDEO_URL = "E:\\ROOM\\Github\\dabom\\dabom-backend\\src\\test\\resources\\videos\\sample-m3u8\\sample.m3u8";
+    }
+
     public static class Course{
         public final static String TITLE = "스프링 핵심 원리 - 기본편";
         public final static String DESCRIPTION = "스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.";
         public final static String CATEGORY = "백엔드";
         public final static long PRICE = 143000L;
+        public final static String THUMBNAIL_IMAGE_URL = "E:\\ROOM\\Github\\dabom\\dabom-backend\\src\\test\\resources\\images\\sample.jpg";
         public final static double score = 3.5;
     }
 
