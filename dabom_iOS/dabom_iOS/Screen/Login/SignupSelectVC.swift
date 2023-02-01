@@ -12,12 +12,15 @@ import AuthenticationServices
 
 class SignupSelectVC: UIViewController {
     
+    @IBOutlet weak var emailSignupBtn: UIButton!
+    
     var rootView: LoginSignupVC?
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.emailSignupBtn.layer.cornerRadius = 5
     }
     
     // MARK: - 이메일 회원가입
@@ -46,6 +49,7 @@ class SignupSelectVC: UIViewController {
                         switch (response) {
                         case .success:
                             print("kakaoLogin Success")
+                            UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)
@@ -67,11 +71,27 @@ class SignupSelectVC: UIViewController {
                     print(error)
                 } else {
                     print("loginWithKakaoAccount() success")
-
-                    let accessToken = oauthToken?.accessToken
-                    let refreshToken = oauthToken?.refreshToken
-                    print(String(accessToken ?? ""))
-                    print(String(refreshToken ?? ""))
+                    
+                    let accessToken = String(oauthToken?.accessToken ?? "")
+                    //                    let refreshToken = oauthToken?.refreshToken
+                    
+                    AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
+                        switch (response) {
+                        case .success:
+                            print("kakaoLogin Success")
+                            AuthenticationService.shared.goToMain()
+                        case .requestErr(let message):
+                            print("requestErr", message)
+                        case .pathErr:
+                            print("pathErr")
+                        case .serverErr:
+                            print("serverErr")
+                        case .networkFail:
+                            print("networkFail")
+                        case .resourceErr:
+                            print("resourceErr")
+                        }
+                    }
                 }
             }
         }

@@ -9,12 +9,20 @@ import UIKit
 
 class LoginSignupVC: UIViewController {
 
+    @IBOutlet weak var signupSelectBtn: UIButton!
+    
+    @IBOutlet weak var loginSelectBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
         self.navigationController?.navigationBar.tintColor = .black
+        
+        [signupSelectBtn, loginSelectBtn].forEach {
+            $0?.layer.cornerRadius = 10
+        }
     }
     
 
@@ -34,6 +42,13 @@ class LoginSignupVC: UIViewController {
         
         selectVC.rootView = self
         present(selectVC, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func loginBtnPressed(_ sender: Any) {
+        guard let loginVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.login) as? LoginVC else {return}
+        
+        self.navigationController?.pushViewController(loginVC, animated: true)
     }
     
 }

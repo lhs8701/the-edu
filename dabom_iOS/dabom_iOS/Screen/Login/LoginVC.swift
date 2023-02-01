@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import KakaoSDKAuth
+import KakaoSDKUser
+import AuthenticationServices
 
 class LoginVC: UIViewController {
     
@@ -13,6 +16,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginBtn: UIButton!
+    @IBOutlet weak var loginLabel: UILabel!
     
     // MARK: - let, var
     var User = UserDataModel()
@@ -24,6 +28,8 @@ class LoginVC: UIViewController {
         
         self.textFieldSetting()
         self.hideKeyboardWhenTappedAround()
+        self.loginBtn.layer.cornerRadius = 10
+        self.loginLabel.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 5.0)
     }
     
     
@@ -55,6 +61,7 @@ class LoginVC: UIViewController {
                 switch (response) {
                 case .success:
                     print("login Success")
+                    UserDefaults.standard.setValue("email", forKey: "loginType")
                     AuthenticationService.shared.goToMain()
                 case .requestErr(let message):
                     print("requestErr", message)
@@ -66,6 +73,7 @@ class LoginVC: UIViewController {
                     print("networkFail")
                 case .resourceErr:
                     print("잘못된 아이디 혹은 비밀번호")
+                    self.passwordTextField.text = ""
                     let alert = UIAlertController(title: "", message: "아이디 또는 비밀번호를 확인해주세요", preferredStyle: .alert)
                     let confirm = UIAlertAction(title: "확인", style: .default)
                     alert.addAction(confirm)
@@ -84,11 +92,91 @@ class LoginVC: UIViewController {
         AuthenticationService.shared.goToMain()
     }
  
+    @IBAction func kakaoLoginBtnPressed(_ sender: Any) {
+        if (UserApi.isKakaoTalkLoginAvailable()) {
+            UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("loginWithKakaoTalk() success")
+                    
+                    let accessToken = String(oauthToken?.accessToken ?? "")
+                    //                    let refreshToken = oauthToken?.refreshToken
+                    
+                    AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
+                        switch (response) {
+                        case .success:
+                            print("kakaoLogin Success")
+                            UserDefaults.standard.setValue("kakao", forKey: "loginType")
+                            UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
+                            AuthenticationService.shared.goToMain()
+                        case .requestErr(let message):
+                            print("requestErr", message)
+                        case .pathErr:
+                            print("pathErr")
+                        case .serverErr:
+                            print("serverErr")
+                        case .networkFail:
+                            print("networkFail")
+                        case .resourceErr:
+                            print("resourceErr")
+                        }
+                    }
+                }
+            }
+        } else { // 카카오톡 앱으로 로그인 안되면 account로 로그인
+            UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("loginWithKakaoAccount() success")
+
+                    let accessToken = String(oauthToken?.accessToken ?? "")
+                    //                    let refreshToken = oauthToken?.refreshToken
+                    
+                    AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
+                        switch (response) {
+                        case .success:
+                            print("kakaoLogin Success")
+                            UserDefaults.standard.setValue("kakao", forKey: "loginType")
+                            UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
+                            AuthenticationService.shared.goToMain()
+                        case .requestErr(let message):
+                            print("requestErr", message)
+                        case .pathErr:
+                            print("pathErr")
+                        case .serverErr:
+                            print("serverErr")
+                        case .networkFail:
+                            print("networkFail")
+                        case .resourceErr:
+                            print("resourceErr")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @IBAction func appleLoginBtnPressed(_ sender: Any) {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
     // MARK: - func
     func textFieldSetting() {
         // TextField 아래 선
-        self.emailTextField.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 1.0)
-        self.passwordTextField.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 1.0)
+        self.emailTextField.layer.drawLineAt(edges: [.bottom], color: UIColor.darkGray, width: 1.0)
+        self.passwordTextField.layer.drawLineAt(edges: [.bottom], color: UIColor.darkGray, width: 1.0)
+        
+        self.emailTextField.placeholder = "sample@gmail.com"
+        self.passwordTextField.placeholder = "영문, 숫자, 특수문자 포함 8 ~ 16자"
         
         // delegate 설정
         self.emailTextField.delegate = self
@@ -135,14 +223,14 @@ class LoginVC: UIViewController {
 extension LoginVC: UITextFieldDelegate {
     // 유효성 검사 틀렸을 때 TextField 흔들기
     func shakeTextField(textField: UITextField) -> Void{
-        UIView.animate(withDuration: 0.2, animations: {
-            textField.frame.origin.x -= 10
+        UIView.animate(withDuration: 0.1, animations: {
+            textField.frame.origin.x -= 8
         }, completion: { _ in
-            UIView.animate(withDuration: 0.2, animations: {
-                textField.frame.origin.x += 20
+            UIView.animate(withDuration: 0.1, animations: {
+                textField.frame.origin.x += 8
              }, completion: { _ in
-                 UIView.animate(withDuration: 0.2, animations: {
-                    textField.frame.origin.x -= 20
+                 UIView.animate(withDuration: 0.1, animations: {
+                    textField.frame.origin.x -= 8
                 })
             })
         })
@@ -163,5 +251,40 @@ extension LoginVC: UITextFieldDelegate {
             self.loginBtnPressed(self.loginBtn!)
         }
         return true
+    }
+}
+
+
+// MARK: - Apple Login extension
+extension LoginVC: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+}
+
+extension LoginVC: ASAuthorizationControllerDelegate {
+    // MARK: - Apple 인증 성공 시
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let userIdentifier = appleIDCredential.user
+            let userName = (appleIDCredential.fullName?.familyName ?? "") + (appleIDCredential.fullName?.givenName ?? "")
+            if let email = appleIDCredential.email {
+                print(email)
+            }
+            print(userIdentifier)
+            print(userName)
+            
+            
+        }
+    }
+    
+    // MARK: - Apple 인증 실패 시
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("authorization Error: \(error)")
+        let alert = UIAlertController(title: "알림", message: "Apple 로그인 실패", preferredStyle: UIAlertController.Style.alert)
+        let confirm = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel, handler: nil)
+        
+        alert.addAction(confirm)
+        self.present(alert, animated: true)
     }
 }

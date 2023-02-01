@@ -37,7 +37,7 @@ class CourseInfoViewController: UIViewController {
     let minUpper: CGFloat = 0.0
     
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
-    let isLogin: Bool = UserDefaults.standard.bool(forKey: "isLogin")
+    let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
     
     var reviewData: [CourseReviewDataModel] = []
     var inquiryData: [CourseInquiryDataModel] = []
@@ -60,7 +60,7 @@ class CourseInfoViewController: UIViewController {
         self.courseId = 2
         getCourseInfo(id: self.courseId!)
         
-        if isLogin {
+        if self.loginType != nil {
             checkWish()
         }
     }
@@ -110,7 +110,7 @@ class CourseInfoViewController: UIViewController {
     
     // MARK: - 찜하기 버튼 눌렀을 때
     @objc func wishBtnPressed(_ sender: UIButton) {
-        if self.isLogin {
+        if self.loginType != nil {
             CourseInfoDataService.shared.changeWishCourse(memberId: self.memberId, courseId: self.courseId!) { response in
                 switch (response) {
                 case .success:

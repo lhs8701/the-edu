@@ -9,8 +9,6 @@ import UIKit
 
 class SignupVC: UIViewController {
     // MARK: - IBOutlet
-    @IBOutlet weak var birthdayTextField: UITextField!
-    
     @IBOutlet var defaultHidden: [UILabel]!
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -23,9 +21,8 @@ class SignupVC: UIViewController {
     @IBOutlet weak var passwordConfirmDesc: UILabel!
     
     @IBOutlet weak var nameTextField: UITextField!
-    
-    @IBOutlet weak var mobileTextField: UITextField!
-    
+        
+    @IBOutlet weak var signupBtn: UIButton!
     
     // MARK: - let, var
     let datePicker = UIDatePicker()
@@ -42,9 +39,9 @@ class SignupVC: UIViewController {
             label.isHidden = true
         }
         
-        self.showDatePicker()
         self.textFieldSetting()
         self.hideKeyboardWhenTappedAround()
+        self.signupBtn.layer.cornerRadius = 10
     }
     
     
@@ -62,6 +59,11 @@ class SignupVC: UIViewController {
             passwordTextField.becomeFirstResponder()
             return
         }
+        guard let nickname = nameTextField.text, !nickname.isEmpty else {
+            nameTextField.placeholder = "닉네임을 입력해주세요"
+            nameTextField.becomeFirstResponder()
+            return
+        }
             
         // 이메일, 비밀번호 유효성 검사
         if !isValidEmail(id: email) {
@@ -73,21 +75,23 @@ class SignupVC: UIViewController {
             passwordConfirmTextField.text = ""
             passwordTextField.placeholder = "잘못된 비밀번호 형식입니다"
         }
+        if !isValidNickname(nickname: nickname) {
+            nameTextField.text = ""
+            nameTextField.placeholder = "닉네임은 2 ~ 16자여야 합니다"
+        }
         
         // 키보드 내리기
         view.endEditing(true)
         
         User.account = email
         User.password = password
-        User.name = nameTextField.text!
-        User.nickname = "임시"
-        User.mobile = mobileTextField.text!
-        User.birthDate = birthdayTextField.text!
+        User.nickname = nickname
         
         AuthenticationService.shared.emailSignup(user: User) { response in
             switch (response) {
             case .success:
                 print("signup Success")
+                self.goToLogin()
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:
@@ -115,34 +119,13 @@ class SignupVC: UIViewController {
         self.passwordTextField.delegate = self
         self.passwordConfirmTextField.delegate = self
         self.nameTextField.delegate = self
-    }
-    
-    // MARK: - datePicker 설정
-    func showDatePicker() {
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .wheels
         
-        let toolbar = UIToolbar();
-        toolbar.sizeToFit()
-        let doneBtn = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDatePicker))
-        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker))
+        self.emailTextField.placeholder = "sample@gmail.com"
+        self.passwordTextField.placeholder = "영문, 숫자, 특수문자 포함 8 ~ 16자"
+        self.nameTextField.placeholder = "2 ~ 16자 닉네임"
         
-        toolbar.setItems([doneBtn, cancelBtn], animated: false)
-        birthdayTextField.inputAccessoryView = toolbar
-        birthdayTextField.inputView = datePicker
     }
     
-    @objc func doneDatePicker() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
-        formatter.locale = Locale(identifier: "ko_KR")
-        birthdayTextField.text = formatter.string(from: datePicker.date)
-        self.view.endEditing(true)
-    }
-    
-    @objc func cancelDatePicker() {
-        self.view.endEditing(true)
-    }
     
     
     // MARK: - 유효성 검사
@@ -158,9 +141,20 @@ class SignupVC: UIViewController {
         return passwordTest.evaluate(with: pwd)
     }
     
-
+    func isValidNickname(nickname: String) -> Bool {
+        if nickname.count >= 2 && nickname.count <= 16 {
+            return true
+        } else {
+            return false
+        }
+    }
     
     
+    func goToLogin() {
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.login) as? LoginVC else {return}
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
     
 }
 
@@ -171,7 +165,7 @@ extension SignupVC: UITextFieldDelegate {
         if textField == self.emailTextField {
             if !isValidEmail(id: textField.text ?? "") {
                 textField.text = ""
-                textField.placeholder = "이메일 형식 ~~"
+                textField.placeholder = "sample@gmail.com"
                 emailTextFieldDesc.text = "잘못된 이메일 형식입니다."
                 emailTextFieldDesc.isHidden = false
             } else {
@@ -183,7 +177,7 @@ extension SignupVC: UITextFieldDelegate {
         if textField == self.passwordTextField {
             if !isValidPassword(pwd: textField.text ?? "") {
                 textField.text = ""
-                textField.placeholder = "비밀번호 형식 ~~"
+                textField.placeholder = "영문, 숫자, 특수문자 포함 8 ~ 16자"
                 passwordTextFieldDesc.text = "잘못된 비밀번호 형식입니다."
                 passwordTextFieldDesc.isHidden = false
             } else {
@@ -195,7 +189,7 @@ extension SignupVC: UITextFieldDelegate {
         if textField == self.passwordConfirmTextField {
             if !isValidPassword(pwd: passwordTextField.text ?? "") {
                 passwordTextField.text = ""
-                passwordTextField.placeholder = "비밀번호 형식 ~~"
+                passwordTextField.placeholder = "영문, 숫자, 특수문자 포함 8 ~ 16자"
                 passwordTextFieldDesc.text = "잘못된 비밀번호 형식입니다."
                 passwordTextFieldDesc.isHidden = false
             } else {
