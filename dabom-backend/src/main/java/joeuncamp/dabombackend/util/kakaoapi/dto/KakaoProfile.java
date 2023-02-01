@@ -14,10 +14,11 @@ public class KakaoProfile {
     private long id;
     private KakaoAccount kakao_account;
 
+    @Getter
     public static class KakaoAccount {
         private String email;
         private Profile profile;
-
+        @Getter
         public static class Profile {
             private String nickname;
             private String thumbnail_image_url;
@@ -26,7 +27,7 @@ public class KakaoProfile {
         }
     }
 
-    public Member toEntity(){
+    public Member toEntity() {
         return Member.builder()
                 .account(this.kakao_account.email)
                 .nickname(this.kakao_account.profile.nickname)
