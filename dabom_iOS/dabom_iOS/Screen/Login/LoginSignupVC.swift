@@ -9,12 +9,20 @@ import UIKit
 
 class LoginSignupVC: UIViewController {
 
+    @IBOutlet weak var signupSelectBtn: UIButton!
+    
+    @IBOutlet weak var loginSelectBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
         self.navigationController?.navigationBar.tintColor = .black
+        
+        [signupSelectBtn, loginSelectBtn].forEach {
+            $0?.layer.cornerRadius = 10
+        }
     }
     
 

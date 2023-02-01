@@ -23,10 +23,7 @@ struct AuthenticationService {
         let bodyData : Parameters = [
             "account" : user.account,
             "password" : user.password,
-            "name" : user.name,
             "nickname" : user.nickname,
-            "mobile" : user.mobile,
-            "birthDate" : user.birthDate
         ] as Dictionary
         
         let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
