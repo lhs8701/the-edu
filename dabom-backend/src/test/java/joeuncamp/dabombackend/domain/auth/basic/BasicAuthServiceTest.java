@@ -6,6 +6,7 @@ import joeuncamp.dabombackend.domain.auth.service.BasicAuthService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
+import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
 import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
@@ -77,7 +78,7 @@ public class BasicAuthServiceTest {
                 .password("invalid_password")
                 .build();
 
-        when(memberJpaRepository.findByAccount(dto.getAccount())).thenReturn(Optional.of(member));
+        when(memberJpaRepository.findByAccountAndLoginType(dto.getAccount(), LoginType.BASIC)).thenReturn(Optional.of(member));
         when(passwordEncoder.matches(dto.getPassword(), member.getPassword())).thenReturn(false);
 
         // when
