@@ -1,9 +1,6 @@
-import { Typography } from "@mui/material";
+import { CREATOR_BAR_LIST } from "../../static";
+import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 
 export default function CreatorProfit() {
-  return (
-    <Typography variant="h4" mb={1}>
-      수익 관리
-    </Typography>
-  );
+  return <DashboardTitleTab title={CREATOR_BAR_LIST.list[1].name} />;
 }
