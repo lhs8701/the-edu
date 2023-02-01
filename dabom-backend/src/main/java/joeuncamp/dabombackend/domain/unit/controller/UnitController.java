@@ -15,10 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Tag(name = "[4.Unit]", description = "강의 관련 API입니다.")
@@ -28,11 +25,11 @@ public class UnitController {
 
     private final UnitService unitService;
 
-    @Operation(summary="강의를 업로드합니다.", description="")
-    @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @Operation(summary = "강의를 업로드합니다.", description = "")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/units")
-    public ResponseEntity<SingleResponseDto<Long>> uploadUnit(@PathVariable Long courseId, UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member){
+    public ResponseEntity<SingleResponseDto<Long>> uploadUnit(@PathVariable Long courseId, UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member) {
         UnitDto unitDto = UnitDto.builder()
                 .memberId(member.getId())
                 .courseId(courseId)
@@ -42,5 +39,17 @@ public class UnitController {
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "강의를 재생합니다.", description = "")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/courses/units/{unitId}")
+    public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
+        UnitDto unitDto = UnitDto.builder()
+                .memberId(member.getId())
+                .unitId(unitId)
+                .build();
+        UnitDto.Response responseDto = unitService.playUnit(unitDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
 
 }
