@@ -25,6 +25,12 @@ class UserViewController: UIViewController {
     
     @IBOutlet weak var settingBtn: UIButton!
     
+    
+    // MARK: - let, var
+    var userProfile = UserProfileDataModel()
+    
+    
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +50,14 @@ class UserViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        self.getProfile()
     }
     
     // MARK: - func
     @IBAction func accountBtnPressed(_ sender: Any) {
         guard let accountVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.account) as? AccountVC else {return}
+        accountVC.userProfile = self.userProfile
         
         accountVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(accountVC, animated: true)
@@ -63,4 +72,27 @@ class UserViewController: UIViewController {
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
     
+    private func getProfile() {
+        UserProfileService.shared.getProfile { response in
+            switch response {
+            case .success(let userData):
+                if let profile = userData as? UserProfileDataModel {
+                    self.userProfile = profile
+                    self.userNameLabel.text = profile.nickname
+                    
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+
 }
