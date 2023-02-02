@@ -21,7 +21,6 @@ public class Question extends BaseTimeEntity {
     private Long id;
     private String title;
     private String content;
-    private int timeline;
 
     @ManyToOne
     @JoinColumn

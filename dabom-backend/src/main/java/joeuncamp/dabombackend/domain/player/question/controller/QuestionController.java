@@ -49,4 +49,14 @@ public class QuestionController {
         PagingDto<QuestionDto.ShortResponse> responseDto = questionService.getQuestions(requestDto, pageable);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @Operation(summary = "질문을 상세 조회합니다.", description = "")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/unit/questions/{questionId}")
+    public ResponseEntity<QuestionDto.Response> getQuestions(@PathVariable Long questionId, @AuthenticationPrincipal Member member) {
+        QuestionDto.GetRequest requestDto = new QuestionDto.GetRequest(member.getId(), questionId);
+        QuestionDto.Response responseDto = questionService.getQuestion(requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }

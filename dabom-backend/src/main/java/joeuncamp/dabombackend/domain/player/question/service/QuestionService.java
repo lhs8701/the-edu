@@ -39,6 +39,12 @@ public class QuestionService {
     }
 
 
+    /**
+     * 강의 내의 모든 질문을 조회합니다.
+     * @param requestDto 유닛 아이디넘버, 멤버 아이디넘버
+     * @param pageable 페이지정보
+     * @return 전체 질문 목록
+     */
     public PagingDto<QuestionDto.ShortResponse> getQuestions(QuestionDto.GetAllRequest requestDto, Pageable pageable) {
         Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
         Page<Question> page = questionJpaRepository.findByUnit(unit, pageable);
@@ -46,6 +52,16 @@ public class QuestionService {
                 .map(QuestionDto.ShortResponse::new)
                 .toList();
         return new PagingDto<>(page.getNumber(), page.getTotalPages(), questions);
+    }
+
+    /**
+     * 질문을 상세 조회합니다.
+     * @param requestDto 멤버 아이디넘버, 질문 아이디넘버
+     * @return 질문 상세 정보
+     */
+    public QuestionDto.Response getQuestion(QuestionDto.GetRequest requestDto){
+        Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
+        return new QuestionDto.Response(question);
     }
 
 }

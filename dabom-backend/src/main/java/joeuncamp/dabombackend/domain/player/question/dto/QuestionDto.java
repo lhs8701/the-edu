@@ -1,8 +1,8 @@
 package joeuncamp.dabombackend.domain.player.question.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.question.entity.Question;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
@@ -29,15 +29,11 @@ public class QuestionDto {
         @Schema(description = "질문 내용", example = ExampleValue.Question.DESCRIPTION)
         @NotEmpty
         private String content;
-        @Schema(description = "타임라인", example = "13.2")
-        @NotEmpty
-        private int timeline;
 
         public Question toEntity(Member member, Unit unit) {
             return Question.builder()
                     .title(this.title)
                     .content(this.content)
-                    .timeline(this.timeline)
                     .unit(unit)
                     .member(member)
                     .build();
@@ -54,6 +50,15 @@ public class QuestionDto {
     }
 
     @Getter
+    @AllArgsConstructor
+    public static class GetRequest{
+        @Schema(hidden = true)
+        Long memberId;
+        @Schema(hidden = true)
+        Long questionId;
+    }
+
+    @Getter
     public static class ShortResponse{
         @Schema(hidden = true, description = "질문 아이디넘버", example = "1")
         Long questionId;
@@ -61,15 +66,12 @@ public class QuestionDto {
         String title;
         @Schema(description = "작성자명", example = ExampleValue.Member.NICKNAME)
         String writer;
-        @Schema(description = "타임라인", example = "15.6")
-        double timeline;
 
 
         public ShortResponse(Question question) {
             this.questionId = question.getId();
             this.title = question.getTitle();
             this.writer = question.getMember().getNickname();
-            this.timeline = question.getTimeline();
         }
     }
 
@@ -81,18 +83,17 @@ public class QuestionDto {
         String title;
         @Schema(description = "질문 내용", example = ExampleValue.Question.DESCRIPTION)
         String content;
-        @Schema(description = "타임라인", example = "15.6")
-        double timeline;
-        @Schema(description = "생성 시간")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
+        @Schema(description = "생성 시간", example = ExampleValue.Time.DATE)
         LocalDateTime createdTIme;
-        @Schema(description = "최근 수정 시간")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
+        @Schema(description = "최근 수정 시간", example = ExampleValue.Time.DATE)
         LocalDateTime modifiedTIme;
 
         public Response(Question question) {
             this.questionId = question.getId();
             this.title = question.getTitle();
             this.content = question.getContent();
-            this.timeline = question.getTimeline();
             this.createdTIme = question.getCreatedTime();
             this.modifiedTIme = question.getModifiedTime();
         }
