@@ -40,9 +40,8 @@ public class UnitController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/units/{unitId}")
-    public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId, @RequestBody UnitDto.PlayRequest requestDto, @AuthenticationPrincipal Member member) {
-        requestDto.setMemberId(member.getId());
-        requestDto.setUnitId(unitId);
+    public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
+        UnitDto.PlayRequest requestDto = new UnitDto.PlayRequest(member.getId(), unitId);
         UnitDto.Response responseDto = unitService.playUnit(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
