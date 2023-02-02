@@ -4,6 +4,11 @@ import javax.swing.text.html.HTML;
 
 public class ExampleValue {
 
+    public static class Question{
+        public final static String TITLE = "RequestBody에 DTO 정보가 넘어오지 않는 현상";
+        public final static String DESCRIPTION = "RequestBody를 resolve할 수 없다는 에러가 발생합니다. 이유가 뭘까요?";
+    }
+
     public static class Unit{
         public final static String TITLE = "스프링 빈에 대한 이해";
         public final static String DESCRIPTION = "스프링 빈에 대해 알아봅시다.";

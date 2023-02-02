@@ -24,7 +24,6 @@ public class UnitService {
     private final CourseJpaRepository courseJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final EnrollService enrollService;
-    private final RecordService recordService;
 
     /**
      * 강의를 업로드합니다.
