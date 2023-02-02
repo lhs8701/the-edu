@@ -42,7 +42,7 @@ public class SignupRequestDto {
                 .password(encodedPassword)
                 .nickname(this.nickname)
                 .email(this.account)
-                .profileImage(new ImageInfo(ExampleValue.Member.PROFILE_IMAGE))
+                .profileImage(null)
                 .loginType(LoginType.BASIC)
                 .socialId(null)
                 .roles(Collections.singletonList("ROLE_USER"))
