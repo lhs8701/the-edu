@@ -25,7 +25,7 @@ public class HlsConvertor {
     @Value("${path.root}")
     String ROOT_PATH;
 
-    final static String DELIMITER = "\\";
+    final String DELIMITER = "/";
     final static String M3U8_POSTFIX = "-m3u8";
     final static String M3U8_EXTENSION = ".m3u8";
 
@@ -38,10 +38,10 @@ public class HlsConvertor {
     public String convertToM3u8(File file) {
         String fileName = file.getName();
         String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
-        String m3u8DirectoryPath = ROOT_PATH + VIDEO_PATH + DELIMITER + onlyFileName + M3U8_POSTFIX;
-        makeDirectory(m3u8DirectoryPath);
+        String m3u8FilePath = VIDEO_PATH + DELIMITER + onlyFileName + M3U8_POSTFIX + DELIMITER + onlyFileName + M3U8_EXTENSION;
+        makeDirectory(ROOT_PATH + VIDEO_PATH + DELIMITER + onlyFileName + M3U8_POSTFIX);
         String inputPath = file.getAbsolutePath();
-        String outputPath = m3u8DirectoryPath + DELIMITER + onlyFileName + M3U8_EXTENSION;
+        String outputPath = ROOT_PATH + m3u8FilePath;
 
         log.info("[input file information]");
         getMediaInfo(inputPath);
@@ -49,7 +49,7 @@ public class HlsConvertor {
         executeConvertor(inputPath, outputPath);
         log.info("[output file information]");
         getMediaInfo(outputPath);
-        return outputPath;
+        return m3u8FilePath;
     }
 
     private void executeConvertor(String inputPath, String outputPath) {

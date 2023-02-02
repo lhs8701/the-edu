@@ -1,6 +1,8 @@
 package joeuncamp.dabombackend.domain.file.image.entity;
 
 import jakarta.persistence.Embeddable;
+import joeuncamp.dabombackend.domain.file.FileUtil;
+import joeuncamp.dabombackend.global.constant.ImageSize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,9 +21,9 @@ public class ImageInfo {
     String mediumFilePath;
     String originalFilePath;
 
-    public ImageInfo(String url){
-        this.smallFilePath = url;
-        this.mediumFilePath = url;
-        this.originalFilePath = url;
+    public ImageInfo(String path){
+        this.smallFilePath = FileUtil.makeImageFileName(path, ImageSize.SMALL);
+        this.mediumFilePath = FileUtil.makeImageFileName(path, ImageSize.MEDIUM);
+        this.originalFilePath = path;
     }
 }

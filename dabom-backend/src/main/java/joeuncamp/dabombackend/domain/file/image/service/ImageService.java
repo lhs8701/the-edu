@@ -1,12 +1,11 @@
 package joeuncamp.dabombackend.domain.file.image.service;
 
+import joeuncamp.dabombackend.domain.file.FileUtil;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.global.constant.ImageSize;
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
-import joeuncamp.dabombackend.domain.file.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,9 +16,7 @@ import java.io.IOException;
 @Slf4j
 @RequiredArgsConstructor
 public class ImageService {
-    @Value("${path.images}")
-    String IMAGE_PREFIX;
-    String DELIMITER = "\\";
+
     private final ImageConvertor imageConvertor;
     private final ImageResizer imageResizer;
     private final ImageUploader imageUploader;
@@ -55,10 +52,6 @@ public class ImageService {
             log.error(e.getMessage());
             throw new CInternalServerException();
         }
-    }
-
-    private String getImageUrl(File file) {
-        return IMAGE_PREFIX + DELIMITER + file.getName();
     }
 
     /**

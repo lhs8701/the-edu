@@ -24,39 +24,16 @@ public class FileUtil {
             File convertedFile = new File(path + DELIMITER + Objects.requireNonNull(multipartFile.getOriginalFilename()));
             multipartFile.transferTo(convertedFile);
             return convertedFile;
-        }catch (IOException e) {
+        } catch (IOException e) {
             log.info(e.getMessage());
             throw new CInternalServerException();
         }
     }
 
     public static String makeImageFileName(String fileName, ImageSize imageSize) {
-        int index = fileName.indexOf(".");
+        int index = fileName.lastIndexOf(".");
         String extension = fileName.substring(index + 1);
         String nameOnly = fileName.substring(0, index);
         return String.format("%s_%s.%s", nameOnly, imageSize.getPostFix(), extension);
-    }
-
-    public static ImageInfo getImageInfo(String imageUrl){
-        File originalFile = new File(imageUrl);
-        String directory = originalFile.getParent();
-        if (!originalFile.exists()){
-            log.error("해당 파일이 존재하지 않습니다.");
-            throw new CResourceNotFoundException();
-        }
-        return ImageInfo.builder()
-                .originalFilePath(imageUrl)
-                .mediumFilePath(directory + DELIMITER + FileUtil.makeImageFileName(originalFile.getName(), ImageSize.MEDIUM))
-                .smallFilePath(directory + DELIMITER + FileUtil.makeImageFileName(originalFile.getName(), ImageSize.SMALL))
-                .build();
-    }
-
-    public static VideoInfo getVideoInfo(String videoUrl){
-        File file = new File(videoUrl);
-        if (!file.exists()){
-            log.error("해당 파일이 존재하지 않습니다.");
-            throw new CResourceNotFoundException();
-        }
-        return new VideoInfo(videoUrl);
     }
 }

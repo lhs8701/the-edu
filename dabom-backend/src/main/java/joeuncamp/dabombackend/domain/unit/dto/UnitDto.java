@@ -29,7 +29,7 @@ public class UnitDto {
             return Unit.builder()
                     .title(title)
                     .description(description)
-                    .videoInfo(FileUtil.getVideoInfo(videoUrl))
+                    .videoInfo(new VideoInfo(videoUrl))
                     .course(course)
                     .build();
         }

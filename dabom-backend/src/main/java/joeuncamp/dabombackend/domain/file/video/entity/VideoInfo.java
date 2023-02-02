@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VideoInfo {
     String filePath;
+
 }

@@ -20,7 +20,7 @@ public class ImageUploader {
     @Value("${path.images}")
     String IMAGE_PREFIX;
 
-    final String DELIMITER = "\\";
+    final String DELIMITER = "/";
 
     public String uploadImage(File source) throws IOException {
         Files.copy(Path.of(source.getAbsolutePath()), Path.of(ROOT_PATH + IMAGE_PREFIX + DELIMITER + source.getName()), StandardCopyOption.REPLACE_EXISTING);
