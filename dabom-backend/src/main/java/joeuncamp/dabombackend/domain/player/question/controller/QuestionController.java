@@ -66,7 +66,7 @@ public class QuestionController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/unit/questions/{questionId}")
-    public ResponseEntity<QuestionDto.Response> getQuestions(@PathVariable Long questionId, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<QuestionDto.Response> getQuestion(@PathVariable Long questionId, @AuthenticationPrincipal Member member) {
         QuestionDto.GetRequest requestDto = new QuestionDto.GetRequest(member.getId(), questionId);
         QuestionDto.Response responseDto = questionService.getQuestion(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -80,6 +80,16 @@ public class QuestionController {
         requestDto.setMemberId(member.getId());
         requestDto.setQuestionId(questionId);
         questionService.updateQuestion(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "질문을 삭제합니다.", description = "작성자 본인만 삭제할 수 있습니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/unit/questions/{questionId}")
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Long questionId, @AuthenticationPrincipal Member member) {
+        QuestionDto.GetRequest requestDto = new QuestionDto.GetRequest(member.getId(), questionId);
+        questionService.deleteQuestion(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

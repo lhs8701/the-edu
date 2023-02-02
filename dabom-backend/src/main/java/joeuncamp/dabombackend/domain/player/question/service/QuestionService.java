@@ -43,7 +43,7 @@ public class QuestionService {
     /**
      * 강의 내의 모든 질문을 조회합니다.
      *
-     * @param requestDto 유닛 아이디넘버, 멤버 아이디넘버
+     * @param requestDto 멤버, 조회할 강의
      * @param pageable   페이지정보
      * @return 전체 질문 목록
      */
@@ -59,7 +59,7 @@ public class QuestionService {
     /**
      * 자신이 등록한 질문 목록을 조회합니다.
      *
-     * @param requestDto 유닛 아이디넘버, 멤버 아이디넘버
+     * @param requestDto 멤버, 조회할 강의
      * @param pageable   페이지정보
      * @return 등록한 질문 목록
      */
@@ -76,7 +76,7 @@ public class QuestionService {
     /**
      * 질문을 상세 조회합니다.
      *
-     * @param requestDto 멤버 아이디넘버, 질문 아이디넘버
+     * @param requestDto 멤버, 조회할 질문
      * @return 질문 상세 정보
      */
     public QuestionDto.Response getQuestion(QuestionDto.GetRequest requestDto) {
@@ -88,7 +88,7 @@ public class QuestionService {
      * 질문을 수정합니다.
      * 작성자 본인만 수정할 수 있습니다.
      *
-     * @param requestDto 멤버 아이디넘버, 질문 아이디넘버
+     * @param requestDto 멤버, 수정할 질문, 수정 항목
      */
     public void updateQuestion(QuestionDto.UpdateRequest requestDto) {
         Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
@@ -98,6 +98,21 @@ public class QuestionService {
         }
         question.update(requestDto.getTitle(), requestDto.getContent());
         questionJpaRepository.save(question);
+    }
+
+    /**
+     * 질문을 삭제합니다.
+     * 작성자 본인만 삭제할 수 있습니다.
+     *
+     * @param requestDto 멤버, 삭제할 질문
+     */
+    public void deleteQuestion(QuestionDto.GetRequest requestDto) {
+        Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!question.getMember().equals(member)) {
+            throw new CAccessDeniedException();
+        }
+        questionJpaRepository.delete(question);
     }
 
 
