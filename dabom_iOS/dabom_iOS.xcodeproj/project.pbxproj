@@ -52,6 +52,8 @@
 		0E9D15292974F0620061D1ED /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D15282974F0620061D1ED /* SignupVC.swift */; };
 		0EA647C8298B7812009AB119 /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA647C7298B7812009AB119 /* UserProfileService.swift */; };
 		0EA647CA298B7B75009AB119 /* UserProfileDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA647C9298B7B75009AB119 /* UserProfileDataModel.swift */; };
+		0EA647CC298B94F8009AB119 /* ImageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA647CB298B94F7009AB119 /* ImageDataModel.swift */; };
+		0EA647CE298B9D22009AB119 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA647CD298B9D22009AB119 /* UIImageView+.swift */; };
 		0EAF7B312980C6CC00F65E5A /* RecentSearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAF7B302980C6CC00F65E5A /* RecentSearchTVC.swift */; };
 		0EAF7B53298256CE00F65E5A /* SampleCourseThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAF7B52298256CE00F65E5A /* SampleCourseThumbnail.swift */; };
 		0EAF7B552982646E00F65E5A /* GetWishCourseDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAF7B542982646E00F65E5A /* GetWishCourseDataService.swift */; };
@@ -166,6 +168,8 @@
 		0E9D15282974F0620061D1ED /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		0EA647C7298B7812009AB119 /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
 		0EA647C9298B7B75009AB119 /* UserProfileDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDataModel.swift; sourceTree = "<group>"; };
+		0EA647CB298B94F7009AB119 /* ImageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataModel.swift; sourceTree = "<group>"; };
+		0EA647CD298B9D22009AB119 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		0EAF7B302980C6CC00F65E5A /* RecentSearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTVC.swift; sourceTree = "<group>"; };
 		0EAF7B52298256CE00F65E5A /* SampleCourseThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCourseThumbnail.swift; sourceTree = "<group>"; };
 		0EAF7B542982646E00F65E5A /* GetWishCourseDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWishCourseDataService.swift; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				0E55013F296EA96400DD5B75 /* Layer+.swift */,
+				0EA647CD298B9D22009AB119 /* UIImageView+.swift */,
 				0E9D15242974E11E0061D1ED /* UIViewController+.swift */,
 			);
 			path = Extension;
@@ -347,6 +352,7 @@
 				0E69A040296543B600BFD12E /* UserTab.storyboard */,
 				0EC8CAFC298B3760000C41E9 /* AccountVC.swift */,
 				0EA647C9298B7B75009AB119 /* UserProfileDataModel.swift */,
+				0EA647CB298B94F7009AB119 /* ImageDataModel.swift */,
 				0EAF7B562983588500F65E5A /* SettingVC.swift */,
 				0E69A044296543D000BFD12E /* UserViewController.swift */,
 			);
@@ -805,6 +811,7 @@
 				0EB576EB296B982A001EFBE1 /* CategoryViewController.swift in Sources */,
 				0EC314E529876491004C82CF /* CourseInquiryDataModel.swift in Sources */,
 				0E1E959F2977C05B00CBE70B /* AuthenticationService.swift in Sources */,
+				0EA647CC298B94F8009AB119 /* ImageDataModel.swift in Sources */,
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
 				0ED17B29298782BD0008D3C0 /* CourseInquiryAllVC.swift in Sources */,
@@ -836,6 +843,7 @@
 				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,
 				0EC314E32987582A004C82CF /* GetReviewDataService.swift in Sources */,
 				0EC314E7298764EA004C82CF /* GetInquiryDataService.swift in Sources */,
+				0EA647CE298B9D22009AB119 /* UIImageView+.swift in Sources */,
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,
 				0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */,
 				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class UserViewController: UIViewController {
 
@@ -27,9 +28,10 @@ class UserViewController: UIViewController {
     
     
     // MARK: - let, var
-    var userProfile = UserProfileDataModel()
-    
-    
+//    var userProfile = UserProfileDataModel()
+    var userNickname: String = ""
+    var userEmail: String = ""
+    var userProfileImage: ImageDataModel = ImageDataModel()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -38,7 +40,8 @@ class UserViewController: UIViewController {
         
         
 
-        profileImageView.image = UIImage(named: "testProfile")
+//        profileImageView.image = UIImage(named: "testProfile")
+        profileImageView.layer.cornerRadius = 45
         myCouponBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
         noticeBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
         eventBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
@@ -57,7 +60,9 @@ class UserViewController: UIViewController {
     // MARK: - func
     @IBAction func accountBtnPressed(_ sender: Any) {
         guard let accountVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.account) as? AccountVC else {return}
-        accountVC.userProfile = self.userProfile
+//        accountVC.userProfile = self.userProfile
+        accountVC.userNickname = self.userNickname
+        accountVC.userEmail = self.userEmail
         
         accountVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(accountVC, animated: true)
@@ -77,8 +82,19 @@ class UserViewController: UIViewController {
             switch response {
             case .success(let userData):
                 if let profile = userData as? UserProfileDataModel {
-                    self.userProfile = profile
-                    self.userNameLabel.text = profile.nickname
+//                    self.userProfile = profile
+                    self.userEmail = profile.email ?? ""
+                    self.userNickname = profile.nickname ?? ""
+                    self.userProfileImage = profile.profileImage
+                    
+                    self.userNameLabel.text = self.userNickname
+//                    self.profileImageView.image = UIImage
+                    
+//                    self.profileImageView.kf.setImage(with: self.userProfileImage.)
+//                    let thumbnailUrl = URL(string: self.userProfileImage.mediumFilePath)
+                    self.profileImageView.kf.indicatorType = .activity
+//                    self.profileImageView.kf.setImage(with: thumbnailUrl)
+                    self.profileImageView.setImage(with: self.userProfileImage.mediumFilePath)
                     
                 }
             case .requestErr(let message):

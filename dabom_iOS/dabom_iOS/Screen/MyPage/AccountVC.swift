@@ -18,7 +18,10 @@ class AccountVC: UIViewController {
     @IBOutlet weak var loginTypeLabel: UILabel!
     
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
-    var userProfile = UserProfileDataModel()
+//    var userProfile = UserProfileDataModel()
+    
+    var userNickname: String = ""
+    var userEmail: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +40,10 @@ class AccountVC: UIViewController {
         self.profileImageView.image = UIImage(named: "testProfile")
 //        self.userNameLabel.text = "유저 닉네임"
 //        self.userEmailLabel.text = "sample@gmail.com"
-        self.userNameLabel.text = self.userProfile.nickname
-        self.userEmailLabel.text = self.userProfile.email
+//        self.userNameLabel.text = self.userProfile.nickname
+//        self.userEmailLabel.text = self.userProfile.email
+        self.userNameLabel.text = self.userNickname
+        self.userEmailLabel.text = self.userEmail
         
         self.identificationbtn.layer.cornerRadius = 10
         self.saveBtn.layer.cornerRadius = 10
@@ -102,8 +107,10 @@ class AccountVC: UIViewController {
         
         view.endEditing(true)
         
-        userProfile.email = email
-        userProfile.nickname = nickname
+//        userProfile.email = email
+//        userProfile.nickname = nickname
+        self.userEmail = email
+        self.userNickname = nickname
         
         self.patchProfile()
         
@@ -112,10 +119,11 @@ class AccountVC: UIViewController {
     
     private func patchProfile() {
         
-        UserProfileService.shared.patchProfile(nickname: userProfile.nickname!, email: userProfile.email!) { response in
+        UserProfileService.shared.patchProfile(nickname: self.userNickname, email: self.userEmail) { response in
             switch response {
             case .success:
                 print("patch Profile Success")
+                self.navigationController?.popViewController(animated: true)
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:

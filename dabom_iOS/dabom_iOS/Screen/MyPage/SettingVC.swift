@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SettingVC: UIViewController {
     
@@ -126,6 +127,7 @@ class SettingVC: UIViewController {
                 print("withdraw Success")
                 AuthenticationService.shared.goToLoginSignup()
                 AuthenticationService.shared.resetUserGrant()
+                self.removeCache()
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:
@@ -147,6 +149,7 @@ class SettingVC: UIViewController {
                 print("kakaoWithdraw Success")
                 AuthenticationService.shared.goToLoginSignup()
                 AuthenticationService.shared.resetUserGrant()
+                self.removeCache()
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:
@@ -180,6 +183,21 @@ class SettingVC: UIViewController {
                 print("resourceErr")
             }
         }
+        
     }
+    
+    
+    private func removeCache() {
+        
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache {
+            print("clearDiskCache Done")
+        }
+        
+        ImageCache.default.cleanExpiredMemoryCache()
+        ImageCache.default.cleanExpiredDiskCache()
+        
+    }
+    
     
 }
