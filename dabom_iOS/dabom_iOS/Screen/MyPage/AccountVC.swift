@@ -8,21 +8,22 @@
 import UIKit
 
 class AccountVC: UIViewController {
-    
+    // MARK: - IBOutlet
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UITextField!
     @IBOutlet weak var userEmailLabel: UITextField!
     @IBOutlet weak var identificationbtn: UIButton!
     @IBOutlet weak var saveBtn: UIButton!
-    
     @IBOutlet weak var loginTypeLabel: UILabel!
     
+    // MARK: - let, var
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
-//    var userProfile = UserProfileDataModel()
     
     var userNickname: String = ""
     var userEmail: String = ""
+    var profileImage: UIImage?
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,15 +37,13 @@ class AccountVC: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = "계정 정보"
     }
     
+    // MARK: - setProfile
     private func setProfile() {
-        self.profileImageView.image = UIImage(named: "testProfile")
-//        self.userNameLabel.text = "유저 닉네임"
-//        self.userEmailLabel.text = "sample@gmail.com"
-//        self.userNameLabel.text = self.userProfile.nickname
-//        self.userEmailLabel.text = self.userProfile.email
+        self.profileImageView.image = self.profileImage
         self.userNameLabel.text = self.userNickname
         self.userEmailLabel.text = self.userEmail
         
+        self.profileImageView.layer.cornerRadius = 45
         self.identificationbtn.layer.cornerRadius = 10
         self.saveBtn.layer.cornerRadius = 10
         
@@ -63,10 +62,7 @@ class AccountVC: UIViewController {
         
     }
     
-    
-    
-    
-    // MARK: - 유효성 검사
+    // MARK: - 이메일, 닉네임 유효성 검사
     func isValidEmail(id: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
@@ -80,10 +76,11 @@ class AccountVC: UIViewController {
             return false
         }
     }
- 
     
     
+    // MARK: - 저장하기 버튼 눌렀을 때 동작
     @IBAction func saveBtnPressed(_ sender: Any) {
+        
         guard let email = userEmailLabel.text, !email.isEmpty else {
             userEmailLabel.placeholder = "이메일 아이디를 입력해주세요"
             userEmailLabel.becomeFirstResponder()
@@ -107,8 +104,6 @@ class AccountVC: UIViewController {
         
         view.endEditing(true)
         
-//        userProfile.email = email
-//        userProfile.nickname = nickname
         self.userEmail = email
         self.userNickname = nickname
         
@@ -117,6 +112,7 @@ class AccountVC: UIViewController {
     }
     
     
+    // MARK: - 수정한 프로필 서버로 전송
     private func patchProfile() {
         
         UserProfileService.shared.patchProfile(nickname: self.userNickname, email: self.userEmail) { response in

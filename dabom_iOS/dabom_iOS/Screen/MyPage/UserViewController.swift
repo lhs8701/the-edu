@@ -12,23 +12,16 @@ class UserViewController: UIViewController {
 
     // MARK: - IBOutlet
     @IBOutlet weak var profileImageView: UIImageView!
-    
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var userNameLabel: UILabel!
-    
     @IBOutlet weak var myCouponBtn: UIButton!
-    
     @IBOutlet weak var noticeBtn: UIButton!
-    
     @IBOutlet weak var eventBtn: UIButton!
-    
     @IBOutlet weak var informationBtn: UIButton!
-    
     @IBOutlet weak var settingBtn: UIButton!
     
     
     // MARK: - let, var
-//    var userProfile = UserProfileDataModel()
     var userNickname: String = ""
     var userEmail: String = ""
     var userProfileImage: ImageDataModel = ImageDataModel()
@@ -38,9 +31,6 @@ class UserViewController: UIViewController {
         super.viewDidLoad()
 
         
-        
-
-//        profileImageView.image = UIImage(named: "testProfile")
         profileImageView.layer.cornerRadius = 45
         myCouponBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
         noticeBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
@@ -57,19 +47,20 @@ class UserViewController: UIViewController {
         self.getProfile()
     }
     
-    // MARK: - func
+    // MARK: - 계정 설정 버튼 눌렀을 때
     @IBAction func accountBtnPressed(_ sender: Any) {
         guard let accountVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.account) as? AccountVC else {return}
-//        accountVC.userProfile = self.userProfile
+
         accountVC.userNickname = self.userNickname
         accountVC.userEmail = self.userEmail
+        accountVC.profileImage = self.profileImageView.image
         
         accountVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(accountVC, animated: true)
         
     }
     
-    
+    // MARK: - 환경 설정 버튼 눌렀을 때
     @IBAction func settingBtnPressed(_ sender: Any) {
         guard let settingVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.setting) as? SettingVC else {return}
         
@@ -77,23 +68,19 @@ class UserViewController: UIViewController {
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
     
+    // MARK: - 유저 프로필 정보 가져오기 (프로필 사진, 닉네임)
     private func getProfile() {
         UserProfileService.shared.getProfile { response in
             switch response {
             case .success(let userData):
                 if let profile = userData as? UserProfileDataModel {
-//                    self.userProfile = profile
                     self.userEmail = profile.email ?? ""
                     self.userNickname = profile.nickname ?? ""
                     self.userProfileImage = profile.profileImage
                     
                     self.userNameLabel.text = self.userNickname
-//                    self.profileImageView.image = UIImage
-                    
-//                    self.profileImageView.kf.setImage(with: self.userProfileImage.)
-//                    let thumbnailUrl = URL(string: self.userProfileImage.mediumFilePath)
+
                     self.profileImageView.kf.indicatorType = .activity
-//                    self.profileImageView.kf.setImage(with: thumbnailUrl)
                     self.profileImageView.setImage(with: self.userProfileImage.mediumFilePath)
                     
                 }

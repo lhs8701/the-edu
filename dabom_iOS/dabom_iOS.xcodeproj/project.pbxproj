@@ -349,12 +349,12 @@
 		0EDEA1F4296CFD0400B4712B /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				0E69A040296543B600BFD12E /* UserTab.storyboard */,
-				0EC8CAFC298B3760000C41E9 /* AccountVC.swift */,
 				0EA647C9298B7B75009AB119 /* UserProfileDataModel.swift */,
 				0EA647CB298B94F7009AB119 /* ImageDataModel.swift */,
-				0EAF7B562983588500F65E5A /* SettingVC.swift */,
+				0E69A040296543B600BFD12E /* UserTab.storyboard */,
 				0E69A044296543D000BFD12E /* UserViewController.swift */,
+				0EC8CAFC298B3760000C41E9 /* AccountVC.swift */,
+				0EAF7B562983588500F65E5A /* SettingVC.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
