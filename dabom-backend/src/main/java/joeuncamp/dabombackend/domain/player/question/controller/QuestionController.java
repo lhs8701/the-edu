@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.question.dto.QuestionDto;
 import joeuncamp.dabombackend.domain.player.question.service.QuestionService;
+import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -69,5 +70,16 @@ public class QuestionController {
         QuestionDto.GetRequest requestDto = new QuestionDto.GetRequest(member.getId(), questionId);
         QuestionDto.Response responseDto = questionService.getQuestion(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary = "질문을 수정합니다.", description = "작성자 본인만 수정할 수 있습니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PatchMapping("/unit/questions/{questionId}")
+    public ResponseEntity<Void> updateQuestion(@PathVariable Long questionId, @RequestBody QuestionDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setMemberId(member.getId());
+        requestDto.setQuestionId(questionId);
+        questionService.updateQuestion(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

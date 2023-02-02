@@ -59,6 +59,20 @@ public class QuestionDto {
     }
 
     @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class UpdateRequest{
+        @Schema(hidden = true)
+        Long memberId;
+        @Schema(hidden = true)
+        Long questionId;
+        @Schema(description = "수정한 제목", example = ExampleValue.Question.TITLE)
+        String title;
+        @Schema(description = "수정한 내용", example = ExampleValue.Question.DESCRIPTION)
+        String content;
+    }
+
+    @Getter
     public static class ShortResponse{
         @Schema(hidden = true, description = "질문 아이디넘버", example = "1")
         Long questionId;
