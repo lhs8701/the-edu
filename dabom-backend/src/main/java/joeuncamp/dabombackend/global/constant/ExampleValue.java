@@ -20,8 +20,8 @@ public class ExampleValue {
     }
 
     public static class JWT{
-        public final static String ACCESS = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIyIiwiaWF0IjoxNjc1MjMyMzI5LCJleHAiOjE3MDY3NjgzMjksImp0aSI6ImYxOTJlMDZhLWNiMjMtNGVhOS1hYTQ1LWMwNGY1Y2NkZWFlMyIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIn0.-mgeim9fz7gLkJDo9E8soLuZ5Y1FAZ-Kvkhir00Y_Zk";
-        public final static String REFRESH = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIyIiwiaWF0IjoxNjc1MjMyMzI5LCJleHAiOjE3MDY3NjgzMjksImp0aSI6IjQ4YTUwOGFlLWViNWUtNDk0OC05ZTU1LWQxZDk2MGZhY2UwYyIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIn0.HwiXtUoqClrQptsTTISIyd5dIsKF8MuAAUvR0IjIQFQ";
+        public final static String ACCESS = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIxIiwiaWF0IjoxNjc1MzAwMTIxLCJleHAiOjE3MDY4MzYxMjEsImp0aSI6IjZlMTMwYmZiLTU3NDgtNDI0NS1iZjQ0LTYzMjk0MzVkOTQxYiIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIn0.uOgQjAj8hdt32hOUptLT8MgkJ5H9kms6Yx1WPOBL7K8";
+        public final static String REFRESH = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIxIiwiaWF0IjoxNjc1MzAwMTIxLCJleHAiOjE3MDY4MzYxMjEsImp0aSI6ImU4YTY4MzMzLWE2ZWYtNDQwOC1hYjNkLWE1MWJiNjEyZTdkOCIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIn0.Rw3hOW6ldyV8uJbIMdv2w6buulSAPoh4a9KZaJ2gexg";
     }
 
     public static class Member{
