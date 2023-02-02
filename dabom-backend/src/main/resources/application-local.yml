@@ -36,9 +36,9 @@ springdoc:
     tags-sorter: alpha # @Tag를 알파벳 순으로 정렬
 
 path:
-  temp: E:\ROOM
-  images: E:\ROOM\Github\dabom\dabom-backend\src\test\resources\images
-  videos: E:\ROOM\Github\dabom\dabom-backend\src\test\resources\videos
+  root: E:\ROOM\Github\dabom\dabom-backend\src\test\resources
+  images: \static\images
+  videos: \static\videos
 
 hls:
   ffmpeg: C://ProgramData/chocolatey/bin/ffmpeg.exe

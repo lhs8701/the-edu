@@ -1,7 +1,6 @@
 package joeuncamp.dabombackend.util.hls.service;
 
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
-import joeuncamp.dabombackend.domain.file.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.bramp.ffmpeg.FFmpeg;
@@ -11,7 +10,6 @@ import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +21,9 @@ public class HlsConvertor {
     private final FFprobe ffprobe;
     private final FFmpeg ffmpeg;
     @Value("${path.videos}")
-    String VIDEO_STORAGE_PATH;
+    String VIDEO_PATH;
+    @Value("${path.root}")
+    String ROOT_PATH;
 
     final static String DELIMITER = "\\";
     final static String M3U8_POSTFIX = "-m3u8";
@@ -38,10 +38,10 @@ public class HlsConvertor {
     public String convertToM3u8(File file) {
         String fileName = file.getName();
         String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
-
-        mkdirM3u8Directory(onlyFileName);
+        String m3u8DirectoryPath = ROOT_PATH + VIDEO_PATH + DELIMITER + onlyFileName + M3U8_POSTFIX;
+        makeDirectory(m3u8DirectoryPath);
         String inputPath = file.getAbsolutePath();
-        String outputPath = VIDEO_STORAGE_PATH + DELIMITER + onlyFileName + M3U8_POSTFIX + DELIMITER + onlyFileName + M3U8_EXTENSION;
+        String outputPath = m3u8DirectoryPath + DELIMITER + onlyFileName + M3U8_EXTENSION;
 
         log.info("[input file information]");
         getMediaInfo(inputPath);
@@ -88,10 +88,10 @@ public class HlsConvertor {
         }
     }
 
-    private void mkdirM3u8Directory(String onlyFileName) {
-        File tsPath = new File(VIDEO_STORAGE_PATH + DELIMITER + onlyFileName + M3U8_POSTFIX);
-        if (!tsPath.exists()) {
-            tsPath.mkdir();
+    private void makeDirectory(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdir();
         }
     }
 }

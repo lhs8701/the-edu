@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.file.image.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -13,8 +14,17 @@ import java.nio.file.StandardCopyOption;
 @Slf4j
 public class ImageUploader {
 
-    public void uploadFile(File file, String destination) throws IOException {
-        Files.copy(Path.of(file.getAbsolutePath()), Path.of(destination), StandardCopyOption.REPLACE_EXISTING);
+    @Value("${path.root}")
+    String ROOT_PATH;
+
+    @Value("${path.images}")
+    String IMAGE_PREFIX;
+
+    final String DELIMITER = "\\";
+
+    public String uploadImage(File source) throws IOException {
+        Files.copy(Path.of(source.getAbsolutePath()), Path.of(ROOT_PATH + IMAGE_PREFIX + DELIMITER + source.getName()), StandardCopyOption.REPLACE_EXISTING);
+        return IMAGE_PREFIX + DELIMITER + source.getName();
     }
 
     public void delete(File file) throws IOException {

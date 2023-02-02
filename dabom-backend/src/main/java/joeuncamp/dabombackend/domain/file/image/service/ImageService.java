@@ -17,9 +17,8 @@ import java.io.IOException;
 @Slf4j
 @RequiredArgsConstructor
 public class ImageService {
-
     @Value("${path.images}")
-    String IMAGE_STORAGE_PATH;
+    String IMAGE_PREFIX;
     String DELIMITER = "\\";
     private final ImageConvertor imageConvertor;
     private final ImageResizer imageResizer;
@@ -39,20 +38,17 @@ public class ImageService {
             File localFileSmall = imageResizer.createResizedFile(localFileOriginal, ImageSize.SMALL);
             File localFileMedium = imageResizer.createResizedFile(localFileOriginal, ImageSize.MEDIUM);
 
-            String remotePathSmall = getRemoteFilePath(localFileSmall);
-            String remotePathMedium = getRemoteFilePath(localFileMedium);
-            String remotePathOriginal = getRemoteFilePath(localFileOriginal);
-            imageUploader.uploadFile(localFileSmall, remotePathSmall);
-            imageUploader.uploadFile(localFileMedium, remotePathMedium);
-            imageUploader.uploadFile(localFileOriginal, remotePathOriginal);
+            String smallFilePath = imageUploader.uploadImage(localFileSmall);
+            String mediumFilePath = imageUploader.uploadImage(localFileMedium);
+            String originalFilePath = imageUploader.uploadImage(localFileOriginal);
 
             imageUploader.delete(localFileSmall);
             imageUploader.delete(localFileMedium);
             imageUploader.delete(localFileOriginal);
             return ImageInfo.builder()
-                    .smallFilePath(remotePathSmall)
-                    .mediumFilePath(remotePathMedium)
-                    .originalFilePath(remotePathOriginal)
+                    .smallFilePath(smallFilePath)
+                    .mediumFilePath(mediumFilePath)
+                    .originalFilePath(originalFilePath)
                     .build();
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,8 +57,8 @@ public class ImageService {
         }
     }
 
-    private String getRemoteFilePath(File file) {
-        return IMAGE_STORAGE_PATH + DELIMITER + file.getName();
+    private String getImageUrl(File file) {
+        return IMAGE_PREFIX + DELIMITER + file.getName();
     }
 
     /**
