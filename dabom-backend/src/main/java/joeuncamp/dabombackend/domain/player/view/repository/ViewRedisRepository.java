@@ -18,7 +18,7 @@ public class ViewRedisRepository {
      * @param memberId 회원 아이디넘버
      * @param time 시청 시간
      */
-    public void saveView(String unitId, String memberId, String time) {
+    public void saveView(String memberId, String unitId, String time) {
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
         String key = PREFIX_VIEW + unitId;
         hashOperations.put(key, memberId, time);
@@ -30,7 +30,7 @@ public class ViewRedisRepository {
      * @param memberId 회원 아이디넘버
      * @return
      */
-    public String getTimeFromView(String unitId, String memberId){
+    public String getTimeFromView( String memberId, String unitId){
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
         String key = PREFIX_VIEW + unitId;
         return hashOperations.get(key, memberId);

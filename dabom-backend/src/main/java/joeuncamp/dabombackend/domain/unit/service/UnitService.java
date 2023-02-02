@@ -53,7 +53,6 @@ public class UnitService {
         if (!enrollService.doesEnrolled(member, unit.getCourse())) {
             throw new CAccessDeniedException();
         }
-        viewService.saveView();
         return new UnitDto.Response(unit);
     }
 }
