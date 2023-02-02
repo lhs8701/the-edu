@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ViewRedisRepository {
+public class RecordRedisRepository {
     private final StringRedisTemplate redisTemplate;
-    private final static String PREFIX_VIEW = "VIEW:";
+    private final static String PREFIX_VIEW = "RECORD:";
 
     /**
      * 강의 시청시간을 저장합니다.
@@ -18,7 +18,7 @@ public class ViewRedisRepository {
      * @param memberId 회원 아이디넘버
      * @param time 시청 시간
      */
-    public void saveView(String memberId, String unitId, String time) {
+    public void saveRecord(String memberId, String unitId, String time) {
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
         String key = PREFIX_VIEW + unitId;
         hashOperations.put(key, memberId, time);
@@ -30,20 +30,9 @@ public class ViewRedisRepository {
      * @param memberId 회원 아이디넘버
      * @return
      */
-    public String getTimeFromView( String memberId, String unitId){
+    public String getTimeFromRecord(String memberId, String unitId){
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
         String key = PREFIX_VIEW + unitId;
         return hashOperations.get(key, memberId);
-    }
-
-    /**
-     * 강의 시청시간을 삭제합니다.
-     * @param unitId 강의 아이디넘버
-     * @param memberId 회원 아이디넘버
-     */
-    public void deleteView(String unitId, String memberId){
-        HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
-        String key = PREFIX_VIEW + unitId;
-        hashOperations.delete(key, memberId);
     }
 }

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class ViewDto {
+public class RecordDto {
 
     @Getter
     @Setter

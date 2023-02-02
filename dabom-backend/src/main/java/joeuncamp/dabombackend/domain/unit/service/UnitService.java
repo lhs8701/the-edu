@@ -6,7 +6,7 @@ import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
-import joeuncamp.dabombackend.domain.player.view.service.ViewService;
+import joeuncamp.dabombackend.domain.player.view.service.RecordService;
 import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
@@ -24,7 +24,7 @@ public class UnitService {
     private final CourseJpaRepository courseJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final EnrollService enrollService;
-    private final ViewService viewService;
+    private final RecordService recordService;
 
     /**
      * 강의를 업로드합니다.

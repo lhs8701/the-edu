@@ -1,8 +1,8 @@
 package joeuncamp.dabombackend.domain.player.view.service;
 
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.domain.player.view.dto.ViewDto;
-import joeuncamp.dabombackend.domain.player.view.repository.ViewRedisRepository;
+import joeuncamp.dabombackend.domain.player.view.dto.RecordDto;
+import joeuncamp.dabombackend.domain.player.view.repository.RecordRedisRepository;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ViewService {
-    private final ViewRedisRepository viewRedisRepository;
+public class RecordService {
+    private final RecordRedisRepository recordRedisRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final UnitJpaRepository unitJpaRepository;
 
@@ -21,12 +21,12 @@ public class ViewService {
      *
      * @param requestDto 회원, 강의, 시간
      */
-    public void saveView(ViewDto.SaveRequest requestDto) {
+    public void saveRecord(RecordDto.SaveRequest requestDto) {
         validateId(requestDto.getMemberId(), requestDto.getUnitId());
         String memberId = String.valueOf(requestDto.getMemberId());
         String unitId = String.valueOf(requestDto.getUnitId());
         String time = String.valueOf(requestDto.getTime());
-        viewRedisRepository.saveView(memberId, unitId, time);
+        recordRedisRepository.saveRecord(memberId, unitId, time);
     }
 
     /**
@@ -35,11 +35,11 @@ public class ViewService {
      * @param requestDto 회원, 강의
      * @return 시청 정보
      */
-    public SingleResponseDto<Double> getView(ViewDto.GetRequest requestDto) {
+    public SingleResponseDto<Double> getView(RecordDto.GetRequest requestDto) {
         validateId(requestDto.getMemberId(), requestDto.getUnitId());
         String memberId = String.valueOf(requestDto.getMemberId());
         String unitId = String.valueOf(requestDto.getUnitId());
-        String time = viewRedisRepository.getTimeFromView(memberId, unitId);
+        String time = recordRedisRepository.getTimeFromRecord(memberId, unitId);
         if (time == null) {
             time = "0";
         }
