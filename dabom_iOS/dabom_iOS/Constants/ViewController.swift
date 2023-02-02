@@ -23,6 +23,7 @@ extension Const {
             
             static let myPage = "UserViewController"
             static let setting = "SettingVC"
+            static let account = "AccountVC"
             
             
             static let myCourse = "MyCourseViewController"

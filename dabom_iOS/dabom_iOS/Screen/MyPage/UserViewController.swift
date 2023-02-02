@@ -48,10 +48,10 @@ class UserViewController: UIViewController {
     
     // MARK: - func
     @IBAction func accountBtnPressed(_ sender: Any) {
-        // 로그인 안된 상태이면
-        guard let loginSignupVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.loginSignupNavi) as? LoginSignupNC else {return}
+        guard let accountVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.account) as? AccountVC else {return}
         
-        (UIApplication.shared.delegate as! AppDelegate).changeRootVC(loginSignupVC, animated: false)
+        accountVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(accountVC, animated: true)
         
     }
     
