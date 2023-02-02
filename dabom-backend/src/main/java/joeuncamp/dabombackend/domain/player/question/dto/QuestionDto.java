@@ -97,6 +97,8 @@ public class QuestionDto {
         String title;
         @Schema(description = "질문 내용", example = ExampleValue.Question.DESCRIPTION)
         String content;
+        @Schema(description = "작성자명", example = ExampleValue.Member.NICKNAME)
+        String writer;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
         @Schema(description = "생성 시간", example = ExampleValue.Time.DATE)
         LocalDateTime createdTIme;
@@ -108,6 +110,7 @@ public class QuestionDto {
             this.questionId = question.getId();
             this.title = question.getTitle();
             this.content = question.getContent();
+            this.writer = question.getMember().getNickname();
             this.createdTIme = question.getCreatedTime();
             this.modifiedTIme = question.getModifiedTime();
         }
