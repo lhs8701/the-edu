@@ -81,6 +81,7 @@ public class kakaoAuthService implements SocialAuthService {
         kakaoApiService.unlink(requestDto.getSocialToken());
         Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
         memberJpaRepository.deleteById(member.getId());
-        logout(requestDto, accessToken);
+        tokenRedisRepository.saveBlockedToken(accessToken);
+        tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
     }
 }

@@ -4,17 +4,37 @@ import javax.swing.text.html.HTML;
 
 public class ExampleValue {
 
+    public static class Time{
+        public final static String DATE = "2023.02.02";
+    }
+
+    public static class Answer{
+        public final static String DESCRIPTION = "@RequestBody 어노테이션이 빠졌는지 한번 확인해보세요.";
+    }
+
+    public static class Question{
+        public final static String TITLE = "RequestBody에 DTO 정보가 넘어오지 않는 현상";
+        public final static String DESCRIPTION = "RequestBody를 resolve할 수 없다는 에러가 발생합니다. 이유가 뭘까요?";
+    }
+
+    public static class Unit{
+        public final static String TITLE = "스프링 빈에 대한 이해";
+        public final static String DESCRIPTION = "스프링 빈에 대해 알아봅시다.";
+        public final static String VIDEO_URL = "E:\\ROOM\\Github\\dabom\\dabom-backend\\src\\test\\resources\\videos\\sample-m3u8\\sample.m3u8";
+    }
+
     public static class Course{
         public final static String TITLE = "스프링 핵심 원리 - 기본편";
         public final static String DESCRIPTION = "스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.";
         public final static String CATEGORY = "백엔드";
         public final static long PRICE = 143000L;
+        public final static String THUMBNAIL_IMAGE_URL = "E:\\ROOM\\Github\\dabom\\dabom-backend\\src\\test\\resources\\images\\sample.jpg";
         public final static double score = 3.5;
     }
 
     public static class JWT{
-        public final static String ACCESS = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQG5hdmVyLmNvbSIsImFjY291bnQiOiJ1c2VyQG5hdmVyLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNjczMzM2MzgxLCJleHAiOjE3MDQ4NzIzODF9.6d5Ai_OEyCUzTclcyj70WWrqK6gfZOYPDFBtdJhfP8M";
-        public final static String REFRESH = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQG5hdmVyLmNvbSIsImFjY291bnQiOiJ1c2VyQG5hdmVyLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiaWF0IjoxNjczMzM2MzgxLCJleHAiOjE3MzY0MDgzODF9.F_ra_Hl7IEWIGCkb9e3DseomDeI9LDoeHLbFedD8k-M";
+        public final static String ACCESS = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIxIiwiaWF0IjoxNjc1MzAwMTIxLCJleHAiOjE3MDY4MzYxMjEsImp0aSI6IjZlMTMwYmZiLTU3NDgtNDI0NS1iZjQ0LTYzMjk0MzVkOTQxYiIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIn0.uOgQjAj8hdt32hOUptLT8MgkJ5H9kms6Yx1WPOBL7K8";
+        public final static String REFRESH = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIxIiwiaWF0IjoxNjc1MzAwMTIxLCJleHAiOjE3MDY4MzYxMjEsImp0aSI6ImU4YTY4MzMzLWE2ZWYtNDQwOC1hYjNkLWE1MWJiNjEyZTdkOCIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIn0.Rw3hOW6ldyV8uJbIMdv2w6buulSAPoh4a9KZaJ2gexg";
     }
 
     public static class Member{

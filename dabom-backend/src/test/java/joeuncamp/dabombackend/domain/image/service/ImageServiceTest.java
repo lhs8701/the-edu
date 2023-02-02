@@ -1,6 +1,8 @@
 package joeuncamp.dabombackend.domain.image.service;
 
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.file.image.service.ImageConvertor;
+import joeuncamp.dabombackend.domain.file.image.service.ImageService;
+import joeuncamp.dabombackend.domain.file.image.service.ImageUploader;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,13 +11,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class ImageServiceTest {

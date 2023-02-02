@@ -6,15 +6,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.image.service.ImageService;
-import joeuncamp.dabombackend.domain.image.service.ImageUtil;
+import joeuncamp.dabombackend.domain.file.FileUtil;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.validation.Category;
-import joeuncamp.dabombackend.util.RoundCalculator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -67,10 +65,10 @@ public class CourseDto {
                     .description(description)
                     .category(categoryType)
                     .price(price)
-                    .thumbnailImage(ImageUtil.getImageInfo(imageDto.thumbnailImage))
+                    .thumbnailImage(new ImageInfo(imageDto.thumbnailImage))
                     .descriptionImage(
-                            imageDto.getDescriptionImages().stream()
-                            .map(ImageUtil::getImageInfo)
+                            imageDto.descriptionImages.stream()
+                            .map(ImageInfo::new)
                             .toList())
                     .build();
             course.setCreatorProfile(creator);

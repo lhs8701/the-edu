@@ -43,20 +43,24 @@ public class EnrollService {
     }
 
     /**
-     * 강좌 수강 등록 여부를 조회합니다.
+     * 등록 정보가 존재하거나, 해당 강좌의 크리에이터라면 true를 반환합니다.
      *
-     * @param courseId 강좌
-     * @param memberId 회원
-     * @return true/false
+     * @param courseId 회원
+     * @param memberId 강좌
+     * @return boolean
      */
     public SingleResponseDto<Boolean> doesEnrolled(Long courseId, Long memberId) {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
-        Member member = memberJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
-        return new SingleResponseDto<>(enrollJpaRepository.findByMemberAndCourse(member, course).isPresent());
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
+        boolean doesEnrollExist = enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
+        boolean isCreator = course.getCreatorProfile().getMember().equals(member);
+        return new SingleResponseDto<>(doesEnrollExist || isCreator);
     }
 
     public boolean doesEnrolled(Member member, Course course) {
-        return enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
+        boolean doesEnrollExist = enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
+        boolean isCreator = course.getCreatorProfile().getMember().equals(member);
+        return doesEnrollExist || isCreator;
     }
 }
 

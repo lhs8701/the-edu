@@ -26,7 +26,7 @@ spring:
       port: 6379
   servlet:
     multipart:
-      max-file-size: 10MB
+      max-file-size: 100MB
       max-request-size: 100MB
 
 logging:
@@ -57,5 +57,10 @@ springdoc:
     tags-sorter: alpha # @Tag를 알파벳 순으로 정렬
 
 path:
-  temp: C:\Dabom
-  images: C:\apache-tomcat-9.0.71\webapps\ROOT\images
+  root: C:/Users/Administrator/Desktop/dabom/frontend/build
+  images: /static/images
+  videos: /static/videos
+
+hls:
+  ffmpeg: C:/ProgramData/chocolatey/bin/ffmpeg.exe
+  ffprobe: C:/ProgramData/chocolatey/bin/ffprobe.exe

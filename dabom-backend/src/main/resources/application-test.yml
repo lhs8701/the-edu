@@ -20,6 +20,10 @@ spring:
           auto: update
     show-sql: true
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
 path:
   resources: E:\ROOM\Github\dabom\dabom-backend\src\test\resources
   images: E:\ROOM\Github\dabom\dabom-backend\src\test\resources\images

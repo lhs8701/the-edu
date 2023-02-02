@@ -1,11 +1,9 @@
 package joeuncamp.dabombackend.domain.course.service;
 
-import joeuncamp.dabombackend.domain.course.dto.CategoryResponseDto;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
-import joeuncamp.dabombackend.domain.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.image.service.ImageService;
+import joeuncamp.dabombackend.domain.file.image.service.ImageService;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -13,7 +11,6 @@ import joeuncamp.dabombackend.domain.member.service.CreatorService;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
-import joeuncamp.dabombackend.global.constant.CategoryGroup;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
@@ -23,9 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
