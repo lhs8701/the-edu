@@ -30,25 +30,20 @@ public class UnitController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/units")
     public ResponseEntity<SingleResponseDto<Long>> uploadUnit(@PathVariable Long courseId, UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member) {
-        UnitDto unitDto = UnitDto.builder()
-                .memberId(member.getId())
-                .courseId(courseId)
-                .uploadRequest(requestDto)
-                .build();
-        SingleResponseDto<Long> responseDto = unitService.uploadUnit(unitDto);
+        requestDto.setMemberId(member.getId());
+        requestDto.setCourseId(courseId);
+        SingleResponseDto<Long> responseDto = unitService.uploadUnit(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "강의를 재생합니다.", description = "")
+    @Operation(summary = "강의 재생을 위한 세부정보를 조회합니다.", description = "영상의 세부 정보와 함께 URL이 반환됩니다.")
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/units/{unitId}")
-    public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
-        UnitDto unitDto = UnitDto.builder()
-                .memberId(member.getId())
-                .unitId(unitId)
-                .build();
-        UnitDto.Response responseDto = unitService.playUnit(unitDto);
+    public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId, @RequestBody UnitDto.PlayRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setMemberId(member.getId());
+        requestDto.setUnitId(unitId);
+        UnitDto.Response responseDto = unitService.playUnit(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 

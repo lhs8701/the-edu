@@ -6,6 +6,7 @@ import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.domain.player.view.service.ViewService;
 import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
@@ -23,17 +24,17 @@ public class UnitService {
     private final CourseJpaRepository courseJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final EnrollService enrollService;
+    private final ViewService viewService;
 
     /**
      * 강의를 업로드합니다.
      *
-     * @param unitDto 강의 업로드 DTO
+     * @param requestDto 강의 업로드 DTO
      * @return 생성된 강의 아이디
      */
-    public SingleResponseDto<Long> uploadUnit(UnitDto unitDto) {
-        UnitDto.UploadRequest requestDto = unitDto.getUploadRequest();
-        Course course = courseJpaRepository.findById(unitDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
-        Member member = memberJpaRepository.findById(unitDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+    public SingleResponseDto<Long> uploadUnit(UnitDto.UploadRequest requestDto) {
+        Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         creatorService.identifyCourseOwner(course, member);
 
         Unit unit = requestDto.toEntity(course);
@@ -41,17 +42,18 @@ public class UnitService {
     }
 
     /**
-     * 강의를 재생합니다.
+     * 강의 재생을 위한 세부정보를 조회합니다.
      *
-     * @param unitDto 재생할 강의 아이디넘버
+     * @param requestDto 재생할 강의 아이디넘버
      * @return 강의 세부 정보
      */
-    public UnitDto.Response playUnit(UnitDto unitDto) {
-        Unit unit = unitJpaRepository.findById(unitDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
-        Member member = memberJpaRepository.findById(unitDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+    public UnitDto.Response playUnit(UnitDto.PlayRequest requestDto) {
+        Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, unit.getCourse())) {
             throw new CAccessDeniedException();
         }
+        viewService.saveView();
         return new UnitDto.Response(unit);
     }
 }

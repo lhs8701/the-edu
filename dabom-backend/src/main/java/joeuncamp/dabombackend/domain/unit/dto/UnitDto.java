@@ -8,20 +8,16 @@ import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import lombok.*;
 
-@Getter
-@AllArgsConstructor
-@Builder
-public class UnitDto {
-    Long unitId;
-    Long memberId;
-    Long courseId;
-    UploadRequest uploadRequest;
 
+public class UnitDto {
     @Getter
+    @Setter
     @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
     public static class UploadRequest{
+        @Schema(hidden = true)
+        Long memberId;
+        @Schema(hidden = true)
+        Long courseId;
         @Schema(description = "강의 제목", example = ExampleValue.Unit.TITLE)
         String title;
         @Schema(description = "강의 설명", example = ExampleValue.Unit.DESCRIPTION)
@@ -37,6 +33,21 @@ public class UnitDto {
                     .course(course)
                     .build();
         }
+    }
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class PlayRequest{
+        @Schema(hidden = true)
+        Long memberId;
+        @Schema(hidden = true)
+        Long unitId;
+        @Schema(description = "이전에 시청중인 강의 아이디넘버", example = "1")
+        String prevUnitId;
+        @Schema(description = "마지막 시청 시간", example = "15.6")
+        Double time;
+        @Schema(description = "완강 여부", example = "true")
+        Boolean completed;
     }
 
     public static class Response{
