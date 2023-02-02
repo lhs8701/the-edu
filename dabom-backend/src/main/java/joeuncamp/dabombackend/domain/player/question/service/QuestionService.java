@@ -1,6 +1,5 @@
 package joeuncamp.dabombackend.domain.player.question.service;
 
-import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.player.question.dto.QuestionDto;
@@ -10,6 +9,7 @@ import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.common.SingleResponseDto;
+import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,7 +47,23 @@ public class QuestionService {
      */
     public PagingDto<QuestionDto.ShortResponse> getQuestions(QuestionDto.GetAllRequest requestDto, Pageable pageable) {
         Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
-        Page<Question> page = questionJpaRepository.findByUnit(unit, pageable);
+        Page<Question> page = questionJpaRepository.findByUnitOrderByCreatedTimeDesc(unit, pageable);
+        List<QuestionDto.ShortResponse> questions = page.getContent().stream()
+                .map(QuestionDto.ShortResponse::new)
+                .toList();
+        return new PagingDto<>(page.getNumber(), page.getTotalPages(), questions);
+    }
+
+    /**
+     * 자신이 등록한 질문 목록을 조회합니다.
+     * @param requestDto 유닛 아이디넘버, 멤버 아이디넘버
+     * @param pageable 페이지정보
+     * @return 등록한 질문 목록
+     */
+    public PagingDto<QuestionDto.ShortResponse> getMyQuestions(QuestionDto.GetAllRequest requestDto, Pageable pageable) {
+        Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberExistException::new);
+        Page<Question> page = questionJpaRepository.findByUnitAndMemberOrderByCreatedTimeDesc(unit, member, pageable);
         List<QuestionDto.ShortResponse> questions = page.getContent().stream()
                 .map(QuestionDto.ShortResponse::new)
                 .toList();
@@ -63,5 +79,7 @@ public class QuestionService {
         Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
         return new QuestionDto.Response(question);
     }
+
+
 
 }

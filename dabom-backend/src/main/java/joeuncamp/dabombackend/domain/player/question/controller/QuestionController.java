@@ -40,7 +40,7 @@ public class QuestionController {
     }
 
 
-    @Operation(summary = "강의 내의 질문을 모두 조회합니다.", description = "등록순으로 정렬합니다.")
+    @Operation(summary = "강의 내의 모든 질문을 조회합니다.", description = "등록순으로 정렬합니다.")
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/unit/{unitId}/questions")
@@ -49,6 +49,17 @@ public class QuestionController {
         PagingDto<QuestionDto.ShortResponse> responseDto = questionService.getQuestions(requestDto, pageable);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @Operation(summary = "자신이 등록한 질문을 조회합니다.", description = "등록순으로 정렬합니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/unit/{unitId}/questions/mine")
+    public ResponseEntity<PagingDto<QuestionDto.ShortResponse>> getMyQuestions(@PathVariable Long unitId, @ParameterObject Pageable pageable, @AuthenticationPrincipal Member member) {
+        QuestionDto.GetAllRequest requestDto = new QuestionDto.GetAllRequest(member.getId(), unitId);
+        PagingDto<QuestionDto.ShortResponse> responseDto = questionService.getMyQuestions(requestDto, pageable);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
 
     @Operation(summary = "질문을 상세 조회합니다.", description = "")
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
