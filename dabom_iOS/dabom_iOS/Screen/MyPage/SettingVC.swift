@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SettingVC: UIViewController {
     
@@ -22,7 +23,7 @@ class SettingVC: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = "환경설정"
     }
 
-    // MARK: - Logout
+    // MARK: - 로그아웃 버튼 눌렀을 때
     @IBAction func logoutBtnPressed(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: "로그아웃 하시겠습니까?", preferredStyle: .actionSheet)
         
@@ -50,6 +51,7 @@ class SettingVC: UIViewController {
         
     }
     
+    // MARK: - 이메일로 로그인한 유저 로그아웃
     private func emailLogout() {
         AuthenticationService.shared.logout { response in
             switch response {
@@ -71,6 +73,7 @@ class SettingVC: UIViewController {
         }
     }
     
+    // MARK: - 카카오로 로그인한 유저 로그아웃
     private func kakaoLogout() {
         AuthenticationService.shared.kakaoLogout { response in
             switch response {
@@ -92,7 +95,7 @@ class SettingVC: UIViewController {
         }
     }
     
-    // MARK: - Withdraw
+    // MARK: - 회원탈퇴 버튼 눌렀을 때
     @IBAction func withdrawBtnPressed(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: "정말로 탈퇴 하시겠습니까?", preferredStyle: .actionSheet)
         
@@ -119,6 +122,7 @@ class SettingVC: UIViewController {
         
     }
     
+    // MARK: - 이메일로 로그인한 유저 탈퇴
     private func emailWithdraw() {
         AuthenticationService.shared.withdraw { response in
             switch response {
@@ -126,6 +130,7 @@ class SettingVC: UIViewController {
                 print("withdraw Success")
                 AuthenticationService.shared.goToLoginSignup()
                 AuthenticationService.shared.resetUserGrant()
+                self.removeCache()
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:
@@ -140,6 +145,7 @@ class SettingVC: UIViewController {
         }
     }
     
+    // MARK: - 카카오로 로그인한 유저 탈퇴
     private func kakaoWithdraw() {
         AuthenticationService.shared.kakaoWithdraw { response in
             switch response {
@@ -147,6 +153,7 @@ class SettingVC: UIViewController {
                 print("kakaoWithdraw Success")
                 AuthenticationService.shared.goToLoginSignup()
                 AuthenticationService.shared.resetUserGrant()
+                self.removeCache()
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:
@@ -159,6 +166,19 @@ class SettingVC: UIViewController {
                 print("resourceErr")
             }
         }
+    }
+    
+    // MARK: - 회원 탈퇴 시에 메모리, 디스크에 있는 캐시 삭제
+    private func removeCache() {
+        
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache {
+            print("clearDiskCache Done")
+        }
+        
+        ImageCache.default.cleanExpiredMemoryCache()
+        ImageCache.default.cleanExpiredDiskCache()
+        
     }
     
     // MARK: - Reissue Test
@@ -180,6 +200,8 @@ class SettingVC: UIViewController {
                 print("resourceErr")
             }
         }
+        
     }
+    
     
 }
