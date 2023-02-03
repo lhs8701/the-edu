@@ -1,19 +1,18 @@
 //
-//  GetWishCourseDataService.swift
+//  UnitDataService.swift
 //  dabom_iOS
 //
-//  Created by 김태현 on 2023/01/26.
+//  Created by 김태현 on 2023/02/03.
 //
 
 import Foundation
 import Alamofire
 
-struct GetWishCourseDataService {
-    static let shared = GetWishCourseDataService()
+struct UnitDataService {
+    static let shared = UnitDataService()
     
-    // MARK: - 유저의 찜한 강좌 가져오기
-    func getWishCourse(memberId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.getMyWishCourses)/\(memberId)/courses/wish"
+    func getUnit(unitId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.getUnit)/\(unitId)"
         print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
@@ -38,12 +37,11 @@ struct GetWishCourseDataService {
                 completion(.pathErr)
             }
         }
-        
     }
+    
     
     // MARK: - Status Code 분기
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
-        
         switch statusCode {
         case 200:
             return isValidData(data: data)
@@ -63,12 +61,10 @@ struct GetWishCourseDataService {
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
-        guard let decodedData = try? decoder.decode([SampleCourseThumbnail].self, from: data) else {
+        guard let decodedData = try? decoder.decode(UnitDataModel.self, from: data) else {
             print("decode fail")
             return .pathErr }
         
         return .success(decodedData)
     }
 }
-
-

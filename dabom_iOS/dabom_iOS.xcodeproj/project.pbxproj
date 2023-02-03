@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E04989C298CD706002425D9 /* UnitDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04989B298CD706002425D9 /* UnitDataModel.swift */; };
+		0E04989E298CD7EA002425D9 /* UnitDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04989D298CD7EA002425D9 /* UnitDataService.swift */; };
 		0E1E958F297783FD00CBE70B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E958E297783FD00CBE70B /* Const.swift */; };
 		0E1E95912977841400CBE70B /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95902977841400CBE70B /* Storyboard.swift */; };
 		0E1E95932977873C00CBE70B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95922977873C00CBE70B /* ViewController.swift */; };
@@ -122,6 +124,8 @@
 
 /* Begin PBXFileReference section */
 		0A137D0BD8EC618137B8165C /* Pods_dabom_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dabom_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E04989B298CD706002425D9 /* UnitDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitDataModel.swift; sourceTree = "<group>"; };
+		0E04989D298CD7EA002425D9 /* UnitDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitDataService.swift; sourceTree = "<group>"; };
 		0E1E958E297783FD00CBE70B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		0E1E95902977841400CBE70B /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		0E1E95922977873C00CBE70B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -408,6 +412,7 @@
 				0E60282E29656FC800A25F48 /* MyCourseTabManViewController.swift */,
 				0E69A03E296543A200BFD12E /* MyCourseViewController.swift */,
 				0EA647D1298BB0B9009AB119 /* CoursePlayerVC.swift */,
+				0E04989B298CD706002425D9 /* UnitDataModel.swift */,
 				0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */,
 				0E6028282965659D00A25F48 /* InCourseViewController.swift */,
 				0E60282C29656BB500A25F48 /* WishCourseViewController.swift */,
@@ -498,6 +503,7 @@
 				0EAF7B542982646E00F65E5A /* GetWishCourseDataService.swift */,
 				0EAF7B5A298392BB00F65E5A /* GetPaginationDataService.swift */,
 				0EA647C7298B7812009AB119 /* UserProfileService.swift */,
+				0E04989D298CD7EA002425D9 /* UnitDataService.swift */,
 				0E1E959E2977C05B00CBE70B /* AuthenticationService.swift */,
 				0EC314E22987582A004C82CF /* GetReviewDataService.swift */,
 				0EC314E6298764EA004C82CF /* GetInquiryDataService.swift */,
@@ -841,6 +847,7 @@
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
 				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,
 				0EC314E32987582A004C82CF /* GetReviewDataService.swift in Sources */,
+				0E04989E298CD7EA002425D9 /* UnitDataService.swift in Sources */,
 				0EC314E7298764EA004C82CF /* GetInquiryDataService.swift in Sources */,
 				0EA647CE298B9D22009AB119 /* UIImageView+.swift in Sources */,
 				0EA647D2298BB0B9009AB119 /* CoursePlayerVC.swift in Sources */,
@@ -867,6 +874,7 @@
 				0E6028382966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift in Sources */,
 				0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */,
 				0E1E95A12978CE0700CBE70B /* UserGrantInfoDataModel.swift in Sources */,
+				0E04989C298CD706002425D9 /* UnitDataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

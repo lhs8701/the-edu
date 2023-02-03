@@ -57,6 +57,8 @@ extension Const {
         static let postReview = "http://\(serverIP)/api/courses/reviews"
         static let getReview = "http://\(serverIP)/api/courses"
         
+        // MARK: - Unit
+        static let getUnit = "\(apiBaseUrl)/courses/units"
         
     }
 }
