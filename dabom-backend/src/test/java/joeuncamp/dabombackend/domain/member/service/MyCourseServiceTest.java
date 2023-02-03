@@ -22,10 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class StudentServiceTest {
+class MyCourseServiceTest {
 
     @InjectMocks
-    StudentService studentService;
+    MyCourseService myCourseService;
 
     @Mock
     MemberJpaRepository memberJpaRepository;
@@ -59,7 +59,7 @@ class StudentServiceTest {
         given(enrollJpaRepository.findAllByMember(member)).willReturn(enrolls);
 
         // when
-        List<MyCourseDto.ShortResponse> responseDto = studentService.getMyCourses(1L);
+        List<MyCourseDto.ShortResponse> responseDto = myCourseService.getMyCourses(1L);
         // then
         assertThat(responseDto.get(0).getCourseId()).isEqualTo(1L);
     }

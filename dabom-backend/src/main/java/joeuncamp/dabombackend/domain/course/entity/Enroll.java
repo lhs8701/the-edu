@@ -18,11 +18,11 @@ public class Enroll extends BaseTimeEntity {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn
     Member member;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
+    @JoinColumn
     Course course;
 
     @Builder

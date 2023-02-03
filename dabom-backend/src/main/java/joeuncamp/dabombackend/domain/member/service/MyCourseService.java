@@ -5,26 +5,31 @@ import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
+import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
+import joeuncamp.dabombackend.domain.player.record.service.ViewChecker;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.domain.wish.repository.WishJpaRepository;
+import joeuncamp.dabombackend.global.error.exception.CRefreshTokenExpiredException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 @Service
 @RequiredArgsConstructor
-public class StudentService {
+public class MyCourseService {
     private final MemberJpaRepository memberJpaRepository;
     private final EnrollJpaRepository enrollJpaRepository;
-
+    private final ViewChecker viewChecker;
+    private final EnrollService enrollService;
     private final WishJpaRepository wishJpaRepository;
 
     /**
-     * 내가 등록한 강좌 목록을 조회합니다.
+     * 내가 등록한 전체 강좌 목록을 조회합니다.
      *
      * @param memberId 회원 아이디넘버
      * @return 등록한 강좌 목록
@@ -48,5 +53,36 @@ public class StudentService {
         List<Wish> wishes = wishJpaRepository.findAllByMember(member);
         List<Course> wishedCourses = wishes.stream().map(Wish::getCourse).toList();
         return wishedCourses.stream().map(CourseDto.ShortResponse::new).toList();
+    }
+
+    /**
+     * 시청 완료한 강좌 목록을 조회합니다.
+     *
+     * @param requestDto 회원
+     * @return 시청 완료한 강좌 목록
+     */
+    public List<MyCourseDto.Response> getCompletedCourses(MyCourseDto.Request requestDto) {
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CRefreshTokenExpiredException::new);
+        return viewChecker.getCompletedCourse(member).stream()
+                .map(course -> new MyCourseDto.Response(course, course.getUnitList().size()))
+                .toList();
+    }
+
+    /**
+     * 시청 중인 강좌 목록을 조회합니다.
+     *
+     * @param requestDto 회원
+     * @return 시청 중인 강좌 목록
+     */
+    public List<MyCourseDto.Response> getOngoingCourses(MyCourseDto.Request requestDto) {
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CRefreshTokenExpiredException::new);
+        List<Course> completedCourses = viewChecker.getCompletedCourse(member);
+        List<Course> entireCourses = enrollJpaRepository.findAllByMember(member).stream()
+                .map(Enroll::getCourse)
+                .toList();
+        return entireCourses.stream()
+                .filter(Predicate.not(completedCourses::contains))
+                .map(course -> new MyCourseDto.Response(course, viewChecker.getCompletedUnit(member, course).size()))
+                .toList();
     }
 }

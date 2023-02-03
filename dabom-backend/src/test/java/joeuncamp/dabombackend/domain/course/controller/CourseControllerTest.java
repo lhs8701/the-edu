@@ -108,46 +108,4 @@ public class CourseControllerTest {
         //then
         actions.andExpect(status().isOk());
     }
-
-    @Test
-    @WithAuthUser(role = "USER")
-    void 강좌에_수강신청한다() throws Exception {
-        //given
-
-        Long memberId = 1L;
-        Long courseId = 1L;
-        EnrollDto.Request requestDto = EnrollDto.Request.builder()
-                .memberId(memberId)
-                .courseId(courseId)
-                .build();
-
-        //when
-        final ResultActions actions = mockMvc.perform(post("/api/courses/{courseId}/enroll", 1)
-                .content(new Gson().toJson(requestDto))
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .with(csrf()));
-
-        //then
-        actions.andExpect(status().isOk());
-    }
-
-    @WithAuthUser(role = "USER")
-    @Test
-    @DisplayName("강좌에 찜을 하거나, 해제한다.")
-    void 강좌에_찜을_하거나_해제한다() throws Exception {
-        // given
-        WishDto.Request requestDto = WishDto.Request.builder()
-                .memberId(1L)
-                .courseId(1L)
-                .build();
-
-        // when
-        ResultActions actions = mockMvc.perform(post("/api/courses/{courseId}/wish", 1)
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(new Gson().toJson(requestDto)));
-
-        // then
-        actions.andExpect(status().isOk());
-    }
 }

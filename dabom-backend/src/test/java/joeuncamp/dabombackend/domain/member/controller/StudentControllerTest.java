@@ -2,7 +2,7 @@ package joeuncamp.dabombackend.domain.member.controller;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
-import joeuncamp.dabombackend.domain.member.service.StudentService;
+import joeuncamp.dabombackend.domain.member.service.MyCourseService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class StudentControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    StudentService studentService;
+    MyCourseService myCourseService;
 
     @Test
     @WithMockUser
@@ -40,7 +40,7 @@ public class StudentControllerTest {
                 .courseId(1L)
                 .build();
         List<MyCourseDto.ShortResponse> responseDto = List.of(dto);
-        given(studentService.getMyCourses(1L)).willReturn(responseDto);
+        given(myCourseService.getMyCourses(1L)).willReturn(responseDto);
 
         // when
         final ResultActions actions = mockMvc.perform(get("/api/students/{memberId}/courses", "1"));
@@ -60,7 +60,7 @@ public class StudentControllerTest {
                 .courseId(1L)
                 .build();
         List<CourseDto.ShortResponse> responseDto = List.of(dto);
-        given(studentService.getWishedCourses(1L)).willReturn(responseDto);
+        given(myCourseService.getWishedCourses(1L)).willReturn(responseDto);
 
         // when
         final ResultActions actions = mockMvc.perform(get("/api/students/{memberId}/courses/wish", "1"));
