@@ -116,8 +116,6 @@ class CourseInfoViewController: UIViewController {
     func checkEnroll() {
         CourseInfoDataService.shared.isEnrollCourse(courseId: self.courseId!) { check in
             self.isEnroll = check
-            print("asfdasdfasdfasdfisadfjosdijfosifdjoijsd")
-            print(self.isEnroll)
         }
     }
     
@@ -420,6 +418,10 @@ extension CourseInfoViewController: CourseEnrollBtnDelegate {
                     case .networkFail:
                         print("networkFail")
                     case .resourceErr:
+                        let err = UIAlertController(title: "이미 신청한 강좌입니다", message: nil, preferredStyle: .alert)
+                        let done = UIAlertAction(title: "확인", style: .default)
+                        err.addAction(done)
+                        self.present(err, animated: true)
                         print("resourceErr")
                     }
                 }
