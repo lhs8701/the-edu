@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Tag(name = "[2.Student]", description = "수강생과 관련된 API입니다.")
+@Tag(name = "[2-3.Student]", description = "수강생과 관련된 API입니다.")
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class StudentController {

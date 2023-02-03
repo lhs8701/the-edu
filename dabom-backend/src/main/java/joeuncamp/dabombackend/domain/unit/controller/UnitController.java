@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
 import joeuncamp.dabombackend.domain.unit.service.UnitService;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Tag(name = "[4.Unit]", description = "강의 관련 API입니다.")
+@Tag(name = "[4-1.Unit]", description = "강의 관련 API입니다.")
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class UnitController {
@@ -29,11 +28,11 @@ public class UnitController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/units")
-    public ResponseEntity<SingleResponseDto<Long>> uploadUnit(@PathVariable Long courseId, UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Long> uploadUnit(@PathVariable Long courseId, UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setCourseId(courseId);
-        SingleResponseDto<Long> responseDto = unitService.uploadUnit(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        Long response = unitService.uploadUnit(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @Operation(summary = "강의 재생을 위한 세부정보를 조회합니다.", description = "영상의 세부 정보와 함께 URL이 반환됩니다.")
@@ -43,7 +42,7 @@ public class UnitController {
     public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
         UnitDto.PlayRequest requestDto = new UnitDto.PlayRequest(member.getId(), unitId);
         UnitDto.Response responseDto = unitService.playUnit(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@Tag(name = "[2.Creator]", description = "크리에이터 관련 API입니다.")
+@Tag(name = "[2-2.Creator]", description = "크리에이터 관련 API입니다.")
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class CreatorController {

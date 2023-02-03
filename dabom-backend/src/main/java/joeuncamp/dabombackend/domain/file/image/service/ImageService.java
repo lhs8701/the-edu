@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.file.image.service;
 
 import joeuncamp.dabombackend.domain.file.FileUtil;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
+import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.ImageSize;
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
 import lombok.RequiredArgsConstructor;

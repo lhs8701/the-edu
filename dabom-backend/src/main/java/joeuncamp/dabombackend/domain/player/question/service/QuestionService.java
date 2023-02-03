@@ -8,7 +8,6 @@ import joeuncamp.dabombackend.domain.player.question.repository.QuestionJpaRepos
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.common.PagingDto;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -32,11 +31,11 @@ public class QuestionService {
      * @param requestDto 강의 질문 정보
      * @return 생성된 질문의 아이디넘버
      */
-    public SingleResponseDto<Long> createQuestion(QuestionDto.CreationRequest requestDto) {
+    public Long createQuestion(QuestionDto.CreationRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
         Question question = requestDto.toEntity(member, unit);
-        return new SingleResponseDto<>(questionJpaRepository.save(question).getId());
+        return questionJpaRepository.save(question).getId();
     }
 
 

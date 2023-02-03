@@ -6,11 +6,9 @@ import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
-import joeuncamp.dabombackend.domain.player.view.service.RecordService;
 import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +29,13 @@ public class UnitService {
      * @param requestDto 강의 업로드 DTO
      * @return 생성된 강의 아이디
      */
-    public SingleResponseDto<Long> uploadUnit(UnitDto.UploadRequest requestDto) {
+    public Long uploadUnit(UnitDto.UploadRequest requestDto) {
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         creatorService.identifyCourseOwner(course, member);
 
         Unit unit = requestDto.toEntity(course);
-        return new SingleResponseDto<>(unitJpaRepository.save(unit).getId());
+        return unitJpaRepository.save(unit).getId();
     }
 
     /**

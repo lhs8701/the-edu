@@ -26,7 +26,9 @@ public class Scheduler {
         rankingJpaRepository.deleteAll();
         Arrays.stream(CategoryType.values()).forEach(type -> {
             Page<Course> pages = courseJpaRepository.findByEnrolledCountFromWeek(type);
-            List<RankedCourse> rankedCourses = pages.getContent().stream().map(RankedCourse::new).toList();
+            List<RankedCourse> rankedCourses = pages.getContent().stream()
+                    .map(RankedCourse::new)
+                    .toList();
             rankingJpaRepository.saveAll(rankedCourses);
         });
         log.info("일주일 간격으로 랭킹 갱신 완료");

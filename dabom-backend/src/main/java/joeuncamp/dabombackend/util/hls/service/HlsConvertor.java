@@ -54,7 +54,7 @@ public class HlsConvertor {
 
     private void executeConvertor(String inputPath, String outputPath) {
         FFmpegBuilder builder = new FFmpegBuilder()
-                .overrideOutputFiles(true)
+//                .overrideOutputFiles(true)
                 .setInput(inputPath)
                 .addOutput(outputPath)
                 .addExtraArgs("-profile:v", "baseline")

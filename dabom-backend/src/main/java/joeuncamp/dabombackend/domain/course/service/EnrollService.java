@@ -7,7 +7,6 @@ import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CAlreadyEnrolledCourse;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class EnrollService {
      */
     public void enroll(EnrollDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
-        Course course = courseJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         if (enrollJpaRepository.findByMemberAndCourse(member, course).isPresent()) {
             throw new CAlreadyEnrolledCourse();
         }
@@ -45,16 +44,15 @@ public class EnrollService {
     /**
      * 등록 정보가 존재하거나, 해당 강좌의 크리에이터라면 true를 반환합니다.
      *
-     * @param courseId 회원
-     * @param memberId 강좌
+     * @param requestDto 회원, 강좌
      * @return boolean
      */
-    public SingleResponseDto<Boolean> doesEnrolled(Long courseId, Long memberId) {
-        Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
-        Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
+    public Boolean doesEnrolled(EnrollDto.Request requestDto) {
+        Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         boolean doesEnrollExist = enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
         boolean isCreator = course.getCreatorProfile().getMember().equals(member);
-        return new SingleResponseDto<>(doesEnrollExist || isCreator);
+        return doesEnrollExist || isCreator;
     }
 
     public boolean doesEnrolled(Member member, Course course) {

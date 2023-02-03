@@ -44,10 +44,11 @@ public class WishService {
 
     /**
      * 찜한 강의인지 확인합니다.
+     *
      * @param requestDto 회원 아이디넘버, 찜할 강좌 아이디넘버
      * @return 참/거짓
      */
-    public boolean checkWish(WishDto.Request requestDto){
+    public Boolean checkWish(WishDto.Request requestDto) {
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         return wishJpaRepository.findByMemberAndCourse(member, course).isPresent();

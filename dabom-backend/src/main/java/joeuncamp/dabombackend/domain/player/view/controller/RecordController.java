@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.view.dto.RecordDto;
 import joeuncamp.dabombackend.domain.player.view.service.RecordService;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@Tag(name = "[4.View]", description = "강의 시청 기록 관련 API입니다.")
+@Tag(name = "[4-4.Record]", description = "강의 시청 기록 관련 API입니다.")
 public class RecordController {
     private final RecordService recordService;
 
@@ -39,9 +38,9 @@ public class RecordController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/units/{unitId}/record")
-    public ResponseEntity<SingleResponseDto<Double>> getRecord(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Double> getRecord(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
         RecordDto.GetRequest requestDto = new RecordDto.GetRequest(member.getId(), unitId);
-        SingleResponseDto<Double> responseDto = recordService.getView(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        Double response = recordService.getView(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

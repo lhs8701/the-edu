@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "[1.Kakao Authentication]", description = "카카오 회원 관련 API입니다.")
+@Tag(name = "[1-2.Kakao Authentication]", description = "카카오 회원 관련 API입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")

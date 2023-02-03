@@ -57,10 +57,9 @@ public class CourseControllerTest {
     @DisplayName("강좌를 개설한다.")
     void 강좌를_개설한다() throws Exception {
         // given
-        CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder()
-                .build();
+        CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder().memberId(1L).build();
 
-        given(courseService.openCourse(requestDto, 1L)).willReturn(new IdResponseDto(1L));
+        given(courseService.openCourse(requestDto)).willReturn(new IdResponseDto(1L));
 
         // when
         final ResultActions actions = mockMvc.perform(post("/api/courses")
@@ -123,7 +122,7 @@ public class CourseControllerTest {
                 .build();
 
         //when
-        final ResultActions actions = mockMvc.perform(post("/api/courses/enroll")
+        final ResultActions actions = mockMvc.perform(post("/api/courses/{courseId}/enroll", 1)
                 .content(new Gson().toJson(requestDto))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .with(csrf()));
@@ -143,7 +142,7 @@ public class CourseControllerTest {
                 .build();
 
         // when
-        ResultActions actions = mockMvc.perform(post("/api/courses/wish")
+        ResultActions actions = mockMvc.perform(post("/api/courses/{courseId}/wish", 1)
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(new Gson().toJson(requestDto)));

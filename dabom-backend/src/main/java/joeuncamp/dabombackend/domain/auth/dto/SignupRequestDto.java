@@ -7,6 +7,7 @@ import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
+import joeuncamp.dabombackend.global.constant.StaticFilePath;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,11 +24,11 @@ public class SignupRequestDto {
     @Schema(description = "계정", example = ExampleValue.Member.ACCOUNT)
     String account;
 
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$" , message = ValidationMessage.NOT_VALID_PASSWORD)
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$", message = ValidationMessage.NOT_VALID_PASSWORD)
     @Schema(description = "비밀번호", example = ExampleValue.Member.PASSWORD)
     String password;
 
-    @Length(min=2, max = 16, message = ValidationMessage.NOT_VALID_NICKNAME)
+    @Length(min = 2, max = 16, message = ValidationMessage.NOT_VALID_NICKNAME)
     @Schema(description = "닉네임", example = ExampleValue.Member.NICKNAME)
     String nickname;
 
@@ -42,8 +43,8 @@ public class SignupRequestDto {
                 .password(encodedPassword)
                 .nickname(this.nickname)
                 .email(this.account)
-                .profileImage(null)
                 .loginType(LoginType.BASIC)
+                .profileImage(new ImageInfo(StaticFilePath.DEFAULT_PROFILE_IMAGE.getUrl()))
                 .socialId(null)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
