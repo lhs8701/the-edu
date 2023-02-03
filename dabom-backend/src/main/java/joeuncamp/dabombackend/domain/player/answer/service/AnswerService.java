@@ -30,13 +30,13 @@ public class AnswerService {
 
     /**
      * 답변을 등록합니다.
-     * @param requestDto
-     * @return
+     * @param requestDto 답변 정보
+     * @return 생성된 답변의 아이디넘버
      */
     public SingleResponseDto<Long> createAnswer(AnswerDto.CreationRequest requestDto) {
         CreatorProfile creator = creatorProfileJpaRepository.findByMember(requestDto.getMember()).orElseThrow(CResourceNotFoundException::new);
         Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
-        if (!creator.getUploadedCourses().contains(question.getUnit().getCourse())){
+        if (!question.getUnit().getCourse().getCreatorProfile().equals(creator)){
             throw new CResourceNotFoundException();
         }
         Answer answer = requestDto.toEntity(creator, question);

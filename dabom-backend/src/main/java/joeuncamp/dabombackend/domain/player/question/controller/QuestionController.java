@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@Tag(name = "[4.Question]", description = "강의 질문 관련 API입니다.")
+@Tag(name = "[4-1.Question]", description = "강의 질문 관련 API입니다.")
 public class QuestionController {
     private final QuestionService questionService;
 
