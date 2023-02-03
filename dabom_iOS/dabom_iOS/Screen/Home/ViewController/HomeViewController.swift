@@ -102,7 +102,8 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: CourseCVCellDelegate {
     func CourseSelectedCVCell(index: Int, courseName: String) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
-
+        
+        nextVC.courseId = 2
         nextVC.courseTitle = courseName
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)

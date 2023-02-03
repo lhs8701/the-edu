@@ -7,20 +7,23 @@
 
 import UIKit
 
+protocol CourseEnrollBtnDelegate {
+    func CourseEnroll()
+}
+
 class CourseInfoTVC: UITableViewCell {
-
+    
+    // MARK: - IBOutlet
     @IBOutlet weak var classTitle: UILabel!
-    
-
     @IBOutlet weak var courseDescription: UILabel!
-    
-    
     @IBOutlet weak var instructor: UILabel!
+    @IBOutlet weak var courseThumbnailImageView: UIImageView!
+    
+    // MARK: - let, var
+    var delegate: CourseEnrollBtnDelegate?
     
     
-    
-    
-    
+    // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,6 +36,7 @@ class CourseInfoTVC: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - setLabel
     private func setLabel() {
         let attrString = NSMutableAttributedString(string: courseDescription.text ?? "")
         let paragraphStyle = NSMutableParagraphStyle()
@@ -41,4 +45,13 @@ class CourseInfoTVC: UITableViewCell {
         courseDescription.attributedText = attrString
     }
     
+    
+    // MARK: - 수강 신청 버튼 눌렀을 때 delegate 패턴
+    @IBAction func courseEnrollBtnPressed(_ sender: Any) {
+        
+        if let delegate = delegate {
+            delegate.CourseEnroll()
+        }
+        
+    }
 }
