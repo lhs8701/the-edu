@@ -28,7 +28,7 @@ const CControl = styled(motion.span)`
   cursor: ${(props) => (props.mouse ? "default" : "none")}; //props 활용
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 const PlayAni = styled(motion.div)`
   position: absolute;
@@ -57,8 +57,8 @@ const LoadingPlayer = styled(motion.div)`
 
 const VideoRelativeDiv = styled.div`
   position: relative;
-  height: 100%;
-  width: 99%;
+  height: 97%;
+  width: 98%;
 `;
 
 export default function Player() {

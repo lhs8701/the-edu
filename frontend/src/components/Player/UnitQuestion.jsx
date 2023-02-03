@@ -4,7 +4,8 @@ import { faClosedCaptioning as regular } from "@fortawesome/free-regular-svg-ico
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Wrapper } from "../../style/PlayerSideBarCss";
-
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 const Overlay = styled(motion.div)`
   width: 100%;
   min-height: 100%;
@@ -32,7 +33,7 @@ const CateTab = styled(motion.div)`
 
 const Input = styled.textarea`
   height: 350px;
-  width: 80%;
+  width: 100%;
   background-color: #efefef;
   &:focus {
     background-color: white;
@@ -42,7 +43,7 @@ const Input = styled.textarea`
 `;
 
 const TitleInput = styled.input`
-  width: 60%;
+  width: 100%;
   height: 30px;
   border: none;
   border-bottom: 1px solid white;
@@ -63,7 +64,7 @@ const QuestionInfoBox = styled.div`
 `;
 
 const QuestionBox = styled(motion.div)`
-  width: 80%;
+  width: 95%;
   position: relative;
   overflow: auto;
   display: flex;
@@ -76,16 +77,17 @@ const QuestionBox = styled(motion.div)`
   } */
 `;
 
-const QuestionTab = styled(motion.div)`
+const QuestionTab = styled(Accordion)`
   box-sizing: border-box;
-  width: 80%;
+  width: 100%;
   text-align: center;
-  min-height: 50px;
-  margin-bottom: 10px;
-  margin-top: 5px;
-  cursor: pointer;
   background-color: white;
   box-shadow: 0 1px 1px rgb(0 0 0 / 16%), 0px 1px 7px rgb(0 0 0 / 16%);
+  margin: 5px 0;
+`;
+
+const QuestionInfoTab = styled(AccordionSummary)`
+  backgroundcolor: teal;
 `;
 
 const QuestionCard = styled(motion.div)`
@@ -130,7 +132,7 @@ const Form = styled.form`
 `;
 
 const TitleInputBox = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -144,6 +146,12 @@ const QuestionBtn = styled(motion.button)`
   cursor: pointer;
 `;
 
+const QuestionDiv = styled(AccordionDetails)`
+  width: 100%;
+  height: 30px;
+  background-color: teal;
+`;
+
 export default function UnitQuestion() {
   const [type, setType] = useState(false);
   const [nowQ, setNowQ] = useState([1, 2, 3]);
@@ -154,17 +162,6 @@ export default function UnitQuestion() {
   const [visible, setVisible] = useState(true);
   const [questionContent, setQuestionContent] = useState("");
   const [questionReply, setQuestionReply] = useState("");
-
-  // const questionChecker = () => {
-  //   var list = [];
-  //   setNowQ(null);
-  //   questionVal.map((e) => {
-  //     if (e.timeline <= videoTimeVal + 4 && e.timeline >= videoTimeVal - 4) {
-  //       list.push(e);
-  //     }
-  //   });
-  //   setNowQ(list);
-  // };
 
   const toggle = (n) => {
     setClicked(n);
@@ -310,8 +307,42 @@ export default function UnitQuestion() {
 
   // useEffect(questionChecker, [videoTimeVal, questionVal]);
 
-  return (
-    <Wrapper>
+  const QuestionUploadForm = () => {
+    return (
+      <Form>
+        <TitleInputBox>
+          <TitleInput
+            type="text"
+            required
+            value={qTitle}
+            onChange={(e) => {
+              setQTitle(e.target.value);
+            }}
+            id="title"
+            placeholder="제목을 입력해주세요"
+          />
+        </TitleInputBox>
+        <Input
+          required
+          value={q}
+          onChange={(e) => {
+            setQ(e.target.value);
+          }}
+          placeholder="질문을 등록해주세요"
+        />
+        <QuestionBtn
+          // onClick={questionUpload}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 1 }}
+        >
+          질문하기
+        </QuestionBtn>
+      </Form>
+    );
+  };
+
+  const QuestionPathTab = () => {
+    return (
       <CateBox>
         <CateTab
           type={!type}
@@ -334,145 +365,127 @@ export default function UnitQuestion() {
           질문 등록
         </CateTab>
       </CateBox>
-      {type ? (
-        <Form>
-          <TitleInputBox>
-            <TitleInput
-              type="text"
-              required
-              value={qTitle}
-              onChange={(e) => {
-                setQTitle(e.target.value);
-              }}
-              id="title"
-              placeholder="제목을 입력해주세요"
-            />
-          </TitleInputBox>
-          <Input
-            required
-            value={q}
-            onChange={(e) => {
-              setQ(e.target.value);
+    );
+  };
+
+  const QuestionDetailComponent = () => {
+    <QuestionDiv>ㄴㅇㄹㄴ이라ㅓ밀나ㅣ러ㅣㅏㅁㄹㄴ어ㅣㅏ</QuestionDiv>;
+  };
+
+  const QuestionListComponent = () => {
+    return nowQ?.map((question, idx) => {
+      return (
+        <QuestionTab
+          onClick={() => {
+            // getQuestionContent(e.questionId);
+            // getQuestionReply(e.questionId);
+            setQData(true);
+            toggle(idx + 1);
+          }}
+          key={idx}
+        >
+          <QuestionInfoTab
+            aria-controls="panel1a-content"
+            expandIcon={}
+            sx={{
+              mb: -1,
             }}
-            placeholder="질문을 등록해주세요"
-          />
-          <QuestionBtn
-            // onClick={questionUpload}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 1 }}
           >
-            질문하기
-          </QuestionBtn>
-        </Form>
-      ) : (
-        <>
-          <QuestionInfoBox>
-            <Tab>{nowQ?.length}개의 질문이 있어요.</Tab>
-          </QuestionInfoBox>
-          <QuestionBox click={clicked}>
-            <AnimatePresence>
-              {clicked ? (
-                <Overlay
-                  initial={{ backgroundColor: "rgba(0,0,0,0)" }}
-                  animate={{
-                    display: ["none", "default"],
-                    zIndex: "1",
-                  }}
-                  exit={{
-                    backgroundColor: "rgba(0,0,0,0)",
-                  }}
-                >
-                  <QuestionCard layoutId={clicked}>
-                    <QBox>
-                      <div>{nowQ[clicked - 1].title}</div>
-                      <Div
-                        onClick={() => {
-                          setClicked(null);
-                          setVisible(false);
-                          setTimeout(() => {
-                            setVisible(true);
-                          }, 300);
-                        }}
-                      >
-                        나가기
-                      </Div>
-                    </QBox>
-                    <CateBox>
-                      <CateTab
-                        type={qData}
-                        onClick={() => {
-                          setQData(true);
-                        }}
-                      >
-                        질문
-                      </CateTab>
-                      <CateTab
-                        type={!qData}
-                        onClick={() => {
-                          setQData(false);
-                        }}
-                      >
-                        답변
-                      </CateTab>
-                    </CateBox>
-                    {!qData ? (
-                      <ReplyBox>{questionReply}</ReplyBox>
-                    ) : (
-                      <ReplyBox>
-                        {questionContent.content}
-                        {/* <div>
-                          답변
-                          <input
-                            type="text"
-                            placeholder="답변을 해주세요"
-                            required
-                            value={isReply}
-                            onChange={(e) => {
-                              setIsReply(e.target.value);
-                            }}
-                          />
-                          <button onClick={uploadReply}>등록</button>
-                        </div> */}
-                      </ReplyBox>
-                    )}
-                  </QuestionCard>
-                </Overlay>
-              ) : null}
-            </AnimatePresence>
-            {nowQ?.map((e, idx) => {
-              return (
-                <QuestionTab
-                  whileHover={{
-                    boxShadow:
-                      "0 0px 0px rgb(0 0 0 / 16%), 0px 1px 4px rgb(0 0 0 / 16%)",
-                  }}
-                  onClick={() => {
-                    // getQuestionContent(e.questionId);
-                    // getQuestionReply(e.questionId);
-                    setQData(true);
-                    toggle(idx + 1);
-                  }}
-                  key={idx + 1}
-                  layoutId={idx + 1}
-                >
-                  <Tab
-                    animate={visible ? "open" : "closed"}
-                    variants={variants}
-                  >
-                    {e.title}
-                  </Tab>
-                  <Tab
-                    animate={visible ? "open" : "closed"}
-                    variants={variants}
-                  >
-                    {e.replyCount}개의 답변이 있어요.
-                  </Tab>
-                </QuestionTab>
-              );
-            })}
-          </QuestionBox>
-        </>
-      )}
+            {question.title} 답변:{question.replyCount}
+          </QuestionInfoTab>
+
+          <QuestionDiv>우웅</QuestionDiv>
+        </QuestionTab>
+      );
+    });
+  };
+
+  const QuestionListWrapper = () => {
+    return (
+      <>
+        <QuestionInfoBox>
+          <Tab>{nowQ?.length}개의 질문이 있어요.</Tab>
+        </QuestionInfoBox>
+        <QuestionBox click={clicked}>
+          {/* <AnimatePresence>
+            {clicked ? (
+              <Overlay
+                initial={{ backgroundColor: "rgba(0,0,0,0)" }}
+                animate={{
+                  display: ["none", "default"],
+                  zIndex: "1",
+                }}
+                exit={{
+                  backgroundColor: "rgba(0,0,0,0)",
+                }}
+              >
+                <QuestionCard layoutId={clicked}>
+                  <QBox>
+                    <div>{nowQ[clicked - 1].title}</div>
+                    <Div
+                      onClick={() => {
+                        setClicked(null);
+                        setVisible(false);
+                        setTimeout(() => {
+                          setVisible(true);
+                        }, 300);
+                      }}
+                    >
+                      나가기
+                    </Div>
+                  </QBox>
+                  <CateBox>
+                    <CateTab
+                      type={qData}
+                      onClick={() => {
+                        setQData(true);
+                      }}
+                    >
+                      질문
+                    </CateTab>
+                    <CateTab
+                      type={!qData}
+                      onClick={() => {
+                        setQData(false);
+                      }}
+                    >
+                      답변
+                    </CateTab>
+                  </CateBox>
+                  {!qData ? (
+                    <ReplyBox>{questionReply}</ReplyBox>
+                  ) : (
+                    <ReplyBox>
+                      {questionContent.content}
+                      <div>
+                    답변
+                    <input
+                      type="text"
+                      placeholder="답변을 해주세요"
+                      required
+                      value={isReply}
+                      onChange={(e) => {
+                        setIsReply(e.target.value);
+                      }}
+                    />
+                    <button onClick={uploadReply}>등록</button>
+                  </div>
+                    </ReplyBox>
+                  )}
+                </QuestionCard>
+              </Overlay>
+            ) : null}
+          </AnimatePresence> */}
+          <QuestionListComponent />
+        </QuestionBox>
+      </>
+    );
+  };
+
+  return (
+    <Wrapper>
+      <QuestionPathTab />
+      {type ? <QuestionUploadForm /> : <QuestionListWrapper />}
     </Wrapper>
   );
 }

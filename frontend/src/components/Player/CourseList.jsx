@@ -21,7 +21,7 @@ const Catalog = styled(motion.li)`
 const ListBox = styled.ul`
   width: 100%;
   height: 92%;
-  background-color: teal;
+
   overflow: auto;
 `;
 

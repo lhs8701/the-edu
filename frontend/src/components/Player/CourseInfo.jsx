@@ -22,7 +22,6 @@ const Detail = styled.div`
   width: 80%;
   margin-top: 20px;
   margin-left: 10px;
-  background-color: #efefef;
   padding: 10px 10px 10px 5px;
   border-radius: 5px;
   font-weight: lighter;
