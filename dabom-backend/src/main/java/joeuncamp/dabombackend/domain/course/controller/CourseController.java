@@ -108,7 +108,7 @@ public class CourseController {
     @Operation(summary = "찜한 강좌인지 확인합니다.", description = "찜이 되어있는 경우, true를 반환합니다.")
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/courses{courseId}/wish/check")
+    @PostMapping("/courses/{courseId}/wish/check")
     public ResponseEntity<SingleResponseDto<Boolean>> checkWish(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
         WishDto.Request requestDto = new WishDto.Request(member.getId(), courseId);
         SingleResponseDto<Boolean> responseDto = wishService.checkWish(requestDto);
