@@ -43,6 +43,7 @@ public class UnitDto {
         Long unitId;
     }
 
+
     @Getter
     public static class Response{
         @Schema(description = "강의 아이디넘버", example = "1")
