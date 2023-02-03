@@ -120,10 +120,11 @@ export default function Outline() {
     e.preventDefault();
     createCourseApi(accessToken,courseValue).then(()=>{
       alert("강좌가 등록되었습니다.")
+      navigate(CREATOR_BAR_LIST.list[2].list[0].url)
     }).catch((err)=>{console.log(err);alert("err")})
     
   };
-
+  
   const SmallListComponent = ({ value, unitIdx, setUnits, units }) => {
     const [unittitle, setUnitTitle] = useState("");
     const [clicked, setClicked] = useState(false);
