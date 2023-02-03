@@ -41,6 +41,6 @@ public class ProfileResponseDto {
         this.birthDate = member.getBirthDate();
         this.email = member.getEmail();
         this.loginType = member.getLoginType();
-        this.profileImage = new ImageInfo("https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg");
+        this.profileImage = member.getProfileImage();
     }
 }
