@@ -90,13 +90,14 @@ export default function PurchasePage() {
   const loginState = useRecoilValue(getLoginState);
 
   const enrollCourse = () => {
-    enrollApi(memberId, courseId, accessToken)
-      .then(() => {
+    enrollApi(courseId, accessToken)
+      .then((res) => {
+        console.log(res);
         alert("구매가 완료 되었습니다.");
         navigate("/");
       })
       .catch((err) => {
-        alert("결제가 완료되지 않았습니다.");
+        alert("이미 구입한 강좌입니다.");
         navigate(0);
       });
   };

@@ -208,4 +208,7 @@ export const CREATOR_BAR_LIST = {
   ],
 };
 
-export const BASE_URL = "http://218.38.127.26:8080/api";
+
+const BASE_URL = "http://218.38.127.26:8080"
+export const STATIC_URL = "http://the-edu.co.kr"
+export const API_URL = BASE_URL+"/api";

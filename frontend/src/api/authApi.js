@@ -1,8 +1,8 @@
 import axios from "axios";
 import { KAKAO_REDIRECT_URL, KAKAO_JSKEY } from "../AuthKey";
-import { BASE_URL } from "../static";
+import { API_URL } from "../static";
 
-const AUTH_URL = `${BASE_URL}/auth`;
+const AUTH_URL = `${API_URL}/auth`;
 const KAKAO_URL = "https://kauth.kakao.com/oauth/token";
 const SIGNUP_PATH = "/basic/signup";
 const SIGNIN_PATH = "/basic/login";

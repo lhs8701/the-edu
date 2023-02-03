@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { STATIC_URL } from "../static";
 
 const ClassTab = styled.div`
   width: 240px;
@@ -63,7 +64,7 @@ export default function ClassCard({ course }) {
   const [isCardOn, setIsCardOn] = useState(false);
 
   const navigate = useNavigate();
-
+  
   return (
     <ClassTab
       onClick={() => {
@@ -78,7 +79,7 @@ export default function ClassCard({ course }) {
     >
       <ClassImgBox>
         <ClassImg
-          src={course?.courseImg}
+          src={STATIC_URL+course?.thumbnailImage?.mediumFilePath}
           animate={{
             scale: isCardOn ? 1.2 : 1,
           }}

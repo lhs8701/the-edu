@@ -40,6 +40,8 @@ export default function WishClass() {
     }
   );
 
+    console.log(wishCourses?.data)
+
   return (
     <MyPageBox>
       <MyPageTitle>찜한 클래스</MyPageTitle>

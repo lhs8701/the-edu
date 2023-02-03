@@ -1,9 +1,8 @@
 import { useInView } from "framer-motion";
 import { useEffect } from "react";
 import { useRef, useState } from "react";
-import { QueryClient } from "react-query";
 import styled from "styled-components";
-import { queryClient } from "../../App";
+import { queryClient } from "../../index";
 import CourseCategory from "./CourseCategory";
 import CourseImg from "./CourseImg";
 import CourseInquire from "./CourseInquire";
@@ -32,7 +31,7 @@ export default function CourseDetail({ courseId }) {
   const cateRef = useRef(null);
   const reviewRef = useRef(null);
   const inquireRef = useRef(null);
-  // const data = queryClient.getQueryData(["courseDetailInfo", courseId]);
+  const data = queryClient.getQueryData(["courseDetailInfo", courseId]);
   const refArr = [imgRef, cateRef, reviewRef, inquireRef];
 
   const viewArr = [
@@ -68,6 +67,9 @@ export default function CourseDetail({ courseId }) {
     setIsTabStatus(currentViewFinder(viewArr));
   }, [viewArr]);
 
+
+
+
   return (
     <DetailWrapper>
       <div ref={imgRef} />
@@ -89,7 +91,7 @@ export default function CourseDetail({ courseId }) {
         </RefDiv>
       </DetailBox> */}
       <DetailBox>
-        {/* <CourseImg images={courseInfo?.courseInfoImg} /> */}
+        <CourseImg images={data?.descriptionImages} />
         <RefDiv ref={cateRef}>
           {/* <CourseCategory courseIdx={courseInfo.courseIndex} /> */}
         </RefDiv>

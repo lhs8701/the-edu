@@ -15,6 +15,7 @@ import {
   InputLabel,
   List,
   ListItem,
+  ListItemButton,
   ListItemText,
   MenuItem,
   NativeSelect,
@@ -32,10 +33,11 @@ import styled from "styled-components";
 import { CATE_VALUE, CREATOR_BAR_LIST } from "../../static";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import { useEffect } from "react";
-
-const UploadForm = styled(Box)`
-  width: 100%;
-`;
+import { Outlet, useNavigate, useParams } from "react-router";
+import { getAccessTokenSelector } from "../../atom";
+import { useRecoilValue } from "recoil";
+import CourseInfoUpload from "./CourseInfoUpload";
+import { createCourseApi } from "../../api/creatorApi";
 
 const BtnDiv = styled.div`
   display: Flex;
@@ -49,14 +51,7 @@ const CardDiv = styled(BtnDiv)`
   margin: 0;
 `;
 
-const FlexDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-`;
-
-const CssTextField = styled(TextField)({
+export const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
     color: "var(--color-primary)",
   },
@@ -75,11 +70,11 @@ const CssTextField = styled(TextField)({
 });
 
 export default function Outline() {
-  const [firstCategory, setFirstCategory] = useState("");
-  const [secCategory, setSecCategory] = useState("");
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+  const [courseValue, setCourseValue] = useState({});
   const [tabVal, setTabVal] = useState(0);
-  const [introImgVal, setIntroImgVal] = useState(1);
-
+  const [chapterCnt, setChapterCnt] = useState(1);
+  const navigate = useNavigate();
   const chapter = {
     title: "제목 없음",
     id: 0,
@@ -91,13 +86,12 @@ export default function Outline() {
       },
     ],
   };
-
   const [chapterList, setChapterList] = useState([chapter]);
 
   const plusChapter = () => {
     const chapter = {
       title: "제목 없음",
-      id: chapterList.length,
+      id: chapterCnt,
       smallList: [
         {
           title: "제목없음",
@@ -107,275 +101,200 @@ export default function Outline() {
       ],
     };
     setChapterList((prev) => [...prev, chapter]);
+    setChapterCnt((prev) => prev + 1);
   };
 
-  const removeChapter = (removeIdx) => {
+  const removeChapter = (removeKey) => {
     setChapterList((current) =>
-      current.filter((chapter, idx) => idx !== removeIdx)
+      current.filter((chapter) => {
+        return chapter.id !== removeKey;
+      })
     );
-  };
-
-  const categoryFilter = () => {
-    const value = CATE_VALUE.filter((val) => {
-      if (firstCategory === val.big) {
-        return val;
-      }
-    });
-
-    const returnVal = value[0]?.smallList.filter((val, idx) => {
-      if (idx !== 0) {
-        return val;
-      }
-    });
-    return returnVal;
   };
 
   const handleChange = (event, newValue) => {
     setTabVal(newValue);
   };
 
-  const plusIntroImg = () => {
-    setIntroImgVal((prev) => prev + 1);
-  };
-
   const uploadCourse = (e) => {
     e.preventDefault();
-    console.log(chapterList);
-    console.log("제출");
+    createCourseApi(accessToken,courseValue).then(()=>{
+      alert("강좌가 등록되었습니다.")
+      navigate(CREATOR_BAR_LIST.list[2].list[0].url)
+    }).catch((err)=>{console.log(err);alert("err")})
+    
   };
+  
+  const SmallListComponent = ({ value, unitIdx, setUnits, units }) => {
+    const [unittitle, setUnitTitle] = useState("");
+    const [clicked, setClicked] = useState(false);
+    const { unitnumber } = useParams();
+    const [file, setFile] = useState(value.url);
 
-  const CategoryComponent = () => {
+    const removeUnit = () => {
+      setUnits((current) =>
+        current.filter((unit) => {
+          return unit.id !== value.id;
+        })
+      );
+    };
+
+    const reviseUnitTitle = () => {
+      const prevList = units;
+      let keyIdx = 0;
+      const unit = units.filter((chapter, idx) => {
+        if (chapter.id === value.id) {
+          keyIdx = idx;
+          return chapter;
+        }
+      });
+      unit[0].title = unittitle;
+      prevList.splice(keyIdx, 1, unit[0]);
+      setUnits(prevList);
+    };
+
+    const reviseUnitUrl = () => {
+      const prevList = units;
+      let keyIdx = 0;
+      const unit = units.filter((chapter, idx) => {
+        if (chapter.id === value.id) {
+          keyIdx = idx;
+          return chapter;
+        }
+      });
+      unit[0].url = file;
+      prevList.splice(keyIdx, 1, unit[0]);
+      setUnits(prevList);
+    };
+
     return (
       <>
-        <Grid item xs={3}>
-          <CssTextField
-            size="small"
-            fullWidth
-            value={firstCategory}
-            select
-            onChange={(e) => {
-              setFirstCategory(e.target.value);
-            }}
-            label="카테고리1"
-            variant="outlined"
-            id="cate1"
-          >
-            {CATE_VALUE.map((e) => {
-              return (
-                <MenuItem value={e.big} key={e.id}>
-                  {e.big}
-                </MenuItem>
-              );
-            })}
-          </CssTextField>
-        </Grid>
-        <Grid item xs={3}>
-          <CssTextField
-            size="small"
-            fullWidth
-            select
-            value={secCategory}
-            onChange={(e) => {
-              setSecCategory(e.target.value);
-            }}
-            label="카테고리2"
-            variant="outlined"
-          >
-            {categoryFilter()?.map((small) => {
-              return (
-                <MenuItem value={small.title} key={small.id}>
-                  {small.title}
-                </MenuItem>
-              );
-            })}
-          </CssTextField>
-        </Grid>
+        <ListItem sx={{ width: "100%" }}>
+          {clicked ? (
+            <CssTextField
+              type="text"
+              value={unittitle}
+              id="unitTitle"
+              name="unitTitle"
+              label="유닛 제목"
+              size="small"
+              onChange={(e) => {
+                setUnitTitle(e.target.value);
+              }}
+            />
+          ) : (
+            <ListItemText primary={unitIdx + ". " + value.title} />
+          )}
+          <div>
+            {clicked ? (
+              <Button
+                sx={{ color: "black" }}
+                onClick={() => {
+                  console.log(file);
+                  setClicked(false);
+                  reviseUnitTitle();
+                }}
+              >
+                확인
+              </Button>
+            ) : (
+              <Button
+                sx={{ color: "black" }}
+                onClick={() => {
+                  console.log();
+                  setClicked(true);
+                }}
+              >
+                제목 수정
+              </Button>
+            )}
+            {Number(unitnumber) === Number(value.id) ? (
+              <Button
+                sx={{ color: "black" }}
+                onClick={() => {
+                  navigate("");
+                  reviseUnitUrl();
+                }}
+              >
+                확인
+              </Button>
+            ) : (
+              <Button
+                sx={{ color: "black" }}
+                onClick={() => {
+                  navigate(`${value.id}`);
+                }}
+              >
+                영상 추가
+              </Button>
+            )}
+
+            <Button
+              onClick={() => {
+                removeUnit();
+              }}
+              variant="text"
+              size="large"
+              sx={{ color: "black" }}
+            >
+              <RemoveIcon />
+            </Button>
+          </div>
+        </ListItem>
+        {Number(unitnumber) === Number(value.id) && (
+          <Outlet context={[file, setFile]} />
+        )}
       </>
     );
   };
 
-  const ImgUploadComponent = () => {
-    return (
-      <Grid item xs={10}>
-        <CssTextField
-          fullWidth
-          type="file"
-          id="thumImg"
-          name="thumImg1"
-          inputProps={{ accept: ".jpg, .jpeg, .png" }}
-          size="small"
-        />
-      </Grid>
-    );
-  };
-
-  const InfoComponent = () => {
-    return (
-      <FormControl component="fieldset" variant="standard">
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <CssTextField
-              autoFocus
-              fullWidth
-              type="text"
-              id="title"
-              name="title"
-              label="강좌 제목"
-              size="small"
-            />
-          </Grid>
-          <CategoryComponent />
-          <Grid item xs={12}>
-            <CssTextField
-              fullWidth
-              multiline
-              type="text"
-              id="detail"
-              name="detail"
-              rows={4}
-              label="강의 세부 내용"
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <div>썸네일 이미지 (1장)</div>
-            <br />
-            <CssTextField
-              fullWidth
-              type="file"
-              id="thumImg"
-              name="thumImg1"
-              inputProps={{ accept: ".jpg, .jpeg, .png" }}
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={11}>
-            강의 소개 이미지 (추가가능)
-          </Grid>
-          <Grid item xs={1}>
-            <Fab aria-label="add" size="small">
-              <AddIcon onClick={plusIntroImg} />
-            </Fab>
-          </Grid>
-          {[...Array(introImgVal).keys()].map((cnt) => {
-            return <ImgUploadComponent key={cnt} />;
-          })}
-        </Grid>
-      </FormControl>
-    );
-  };
-
-  const SmallListComponent = ({
-    value,
-    unitIdx,
-    setSmallChapters,
-    smallChapters,
-  }) => {
-    const [unittitle, setUnitTitle] = useState("");
-    const [clicked, setClicked] = useState(false);
-
-    const removeUnit = (removeIdx) => {
-      setSmallChapters((current) =>
-        current.filter((chapter, idx) => idx !== removeIdx)
-      );
-    };
-
-    const reviseChaterTitle = (unitIdx) => {
-      const prevList = smallChapters;
-      const unit = smallChapters[unitIdx];
-      console.log(unit);
-      unit.title = unittitle;
-      prevList.splice(unitIdx, 1, unit);
-      setSmallChapters(prevList);
-    };
-
-    return (
-      <ListItem sx={{ width: "100%" }}>
-        {clicked ? (
-          <CssTextField
-            type="text"
-            value={unittitle}
-            id="unitTitle"
-            name="unitTitle"
-            label="유닛 제목"
-            size="small"
-            onChange={(e) => {
-              setUnitTitle(e.target.value);
-            }}
-          />
-        ) : (
-          <ListItemText primary={value.title} />
-        )}
-        <div>
-          {clicked ? (
-            <Button
-              sx={{ color: "black" }}
-              onClick={() => {
-                setClicked(false);
-                reviseChaterTitle(unitIdx);
-              }}
-            >
-              확인
-            </Button>
-          ) : (
-            <Button
-              sx={{ color: "black" }}
-              onClick={() => {
-                setClicked(true);
-              }}
-            >
-              제목 수정
-            </Button>
-          )}
-
-          <Button
-            onClick={() => {
-              console.log(unitIdx);
-              removeUnit(unitIdx);
-            }}
-            variant="text"
-            size="large"
-            sx={{ color: "black" }}
-          >
-            <RemoveIcon />
-          </Button>
-        </div>
-      </ListItem>
-    );
-  };
-
-  const ChapterCard = ({ chapter, nowIdx }) => {
-    const [smallChapters, setSmallChapters] = useState([chapter.smallList]);
+  const ChapterCard = ({ chapter, nowIdx, nowKey }) => {
+    const [units, setUnits] = useState(chapter.smallList);
     const [clicked, setClicked] = useState(false);
     const [chaptertitle, setChapterTitle] = useState("");
+    const [unitCnt, setUnitCnt] = useState(1);
 
-    const reviseChaterTitle = () => {
+    const reviseChapterTitle = () => {
       const prevList = chapterList;
-      const chapter = chapterList[nowIdx];
-      chapter.title = chaptertitle;
-      prevList.splice(nowIdx, 1, chapter);
+      let keyIdx = 0;
+      const chapter = chapterList.filter((chapter, idx) => {
+        if (chapter.id === nowKey) {
+          keyIdx = idx;
+          return chapter;
+        }
+      });
+      chapter[0].title = chaptertitle; //filter의 리턴은 배열이다 주의
+      prevList.splice(keyIdx, 1, chapter[0]); //이건 그 자리 인덱스를 찾아야지
       setChapterList(prevList);
     };
 
-    const plusUnit = (changeIdx) => {
+    const plusUnit = () => {
       const smallChapter = {
         title: "제목 없음",
-        id: smallChapters.length,
+        id: unitCnt,
         url: "",
       };
-      setSmallChapters((prev) => [...prev, smallChapter]);
+      setUnitCnt((prev) => prev + 1);
+      setUnits((prev) => [...prev, smallChapter]);
+      updateSmallListInChapter();
     };
 
-    useEffect(() => {
-      console.log("fdd");
+    const updateSmallListInChapter = () => {
+      console.log(0)
       const prevList = chapterList;
-      const oneChapter = chapterList.filter((chapter) => {
-        return chapter.id === nowIdx;
+      let keyIdx = 0;
+      const chapter = chapterList.filter((chapter, idx) => {
+        if (chapter.id === nowKey) {
+          keyIdx = idx;
+          return chapter;
+        }
       });
-      oneChapter.smallList = smallChapters;
-      prevList.splice(nowIdx, 1, oneChapter);
+      chapter[0].smallList = units; //filter의 리턴은 배열이다 주의
+      prevList.splice(keyIdx, 1, chapter[0]); //이건 그 자리 인덱스를 찾아야지
       setChapterList(prevList);
-    }, [smallChapters]);
+    };
+
+    useEffect(updateSmallListInChapter, [units]);
 
     return (
       <Box mt={2}>
@@ -395,7 +314,11 @@ export default function Outline() {
                   }}
                 />
               ) : (
-                <Typography variant="h5" component="div">
+                <Typography
+                  sx={{ fontWeight: "var(--weight-point)" }}
+                  variant="h5"
+                  component="div"
+                >
                   {nowIdx + 1}.&nbsp; {chapter.title}
                 </Typography>
               )}
@@ -406,7 +329,7 @@ export default function Outline() {
                     sx={{ color: "black" }}
                     onClick={() => {
                       setClicked(false);
-                      reviseChaterTitle();
+                      reviseChapterTitle();
                     }}
                   >
                     확인
@@ -432,7 +355,7 @@ export default function Outline() {
                 </Button>
                 <Button
                   onClick={() => {
-                    removeChapter(nowIdx);
+                    removeChapter(nowKey);
                   }}
                   variant="text"
                   size="large"
@@ -442,26 +365,26 @@ export default function Outline() {
                 </Button>
               </CardActions>
             </CardDiv>
-            {/* <List dense={true}>
-              {smallChapters.map((value, unitIdx) => {
+            <List dense={true}>
+              {units.map((unit, unitIdx) => {
                 return (
                   <SmallListComponent
-                    smallChapters={smallChapters}
-                    setSmallChapters={setSmallChapters}
-                    key={value.id}
-                    unitIdx={value.id}
-                    value={value}
+                    units={units}
+                    setUnits={setUnits}
+                    key={unit.id}
+                    unitIdx={unitIdx}
+                    value={unit}
                   />
                 );
               })}
-            </List> */}
+            </List>
           </CardContent>
         </Card>
       </Box>
     );
   };
 
-  const ChapterPlushComponent = () => {
+  const ChapterPlusComponent = () => {
     return (
       <>
         <Button
@@ -482,12 +405,13 @@ export default function Outline() {
   const DetailComponent = () => {
     return (
       <>
-        <ChapterPlushComponent />
-        {chapterList.map((chapter) => {
+        <ChapterPlusComponent />
+        {chapterList.map((chapter, idx) => {
           return (
             <ChapterCard
               key={chapter.id}
-              nowIdx={chapter.id}
+              nowIdx={idx}
+              nowKey={chapter.id}
               chapter={chapter}
             />
           );
@@ -504,15 +428,19 @@ export default function Outline() {
       </Tabs>
     );
   };
-  console.log(chapterList);
+  
   return (
     <>
       <DashboardTitleTab title={CREATOR_BAR_LIST.list[2].list[2].name} />
       <Box mb={2}>
         <TabComponent />
       </Box>
-      <UploadForm component="form">
-        {tabVal === 0 ? <InfoComponent /> : <DetailComponent />}
+      <Box component="form">
+        {tabVal === 0 ? (
+          <CourseInfoUpload setCourseValue={setCourseValue} />
+        ) : (
+          <DetailComponent />
+        )}
         <BtnDiv>
           <Button
             type="submit"
@@ -523,7 +451,7 @@ export default function Outline() {
             강좌 등록
           </Button>
         </BtnDiv>
-      </UploadForm>
+      </Box>
     </>
   );
 }

@@ -1,25 +1,34 @@
 import axios from "axios";
-import { BASE_URL } from "../static";
+import { API_URL } from "../static";
+const FILE_PATH = "/file"
+const SINGLE_IMG_URL = "/image";
+const MULTI_IMG_URL = "/image/muli";
+const CREATE_URL="/courses"
+const FILE_URL = API_URL+FILE_PATH;
 
-const SINGLE_IMG_URL = "/single";
-const MuLTI_IMG_URL = "/multiple";
 export async function uploadImageApi(file, accessToken) {
   const formData = new FormData();
   formData.append("multipartFile", file);
-
-  return await axios.post(BASE_URL + SINGLE_IMG_URL, formData, {
+  return await axios.post(FILE_URL+SINGLE_IMG_URL, formData, {
     headers: {
-      "Content-Type": "application/json",
       "X-AUTH-TOKEN": accessToken,
     },
   });
 }
 
-export async function uploadImagesApi(formdata, accessToken) {
-  return await axios.post(BASE_URL + MuLTI_IMG_URL, formdata, {
+
+export async function createCourseApi(accessToken,courseValue){
+  return await axios.post(API_URL + CREATE_URL,{
+    "title": courseValue.title,
+  "description": courseValue.detail,
+  "category": courseValue.category,
+  "price": Number(courseValue.price),
+  "thumbnailImage": courseValue.thumbUrl,
+  "descriptionImageUrls": courseValue.descriptionImageUrls
+  }, {
     headers: {
-      "Content-Type": "application/json",
       "X-AUTH-TOKEN": accessToken,
+      "Content-Type": "application/json",      
     },
   });
 }
