@@ -22,17 +22,17 @@ public class AnswerDto {
     @NoArgsConstructor
     public static class CreationRequest{
         @Schema(hidden = true)
-        Member member;
+        Long memberId;
         @Schema(hidden = true)
         Long questionId;
         @Schema(description = "답변 내용", example = ExampleValue.Answer.DESCRIPTION)
         @NotEmpty
         private String content;
 
-        public Answer toEntity(CreatorProfile creator, Question question) {
+        public Answer toEntity(Member member, Question question) {
             return Answer.builder()
                     .content(this.content)
-                    .creator(creator)
+                    .member(member)
                     .question(question)
                     .build();
         }
@@ -42,7 +42,7 @@ public class AnswerDto {
     @AllArgsConstructor
     public static class GetRequest{
         @Schema(hidden = true)
-        Member member;
+        Long memberId;
         @Schema(hidden = true)
         Long questionId;
     }
@@ -60,26 +60,25 @@ public class AnswerDto {
     }
 
     @Getter
+    @NoArgsConstructor
     public static class Response{
         @Schema(hidden = true, description = "답변 아이디넘버", example = "1")
-        Long questionId;
-        @Schema(description = "답변 제목", example = ExampleValue.Question.TITLE)
-        String title;
+        Long answerId;
         @Schema(description = "답변 내용", example = ExampleValue.Question.DESCRIPTION)
         String content;
         @Schema(description = "작성자명", example = ExampleValue.Member.NICKNAME)
         String writer;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd.HH:mm", timezone = "Asia/Seoul")
         @Schema(description = "생성 시간", example = ExampleValue.Time.DATE)
         LocalDateTime createdTIme;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd.HH:mm", timezone = "Asia/Seoul")
         @Schema(description = "최근 수정 시간", example = ExampleValue.Time.DATE)
         LocalDateTime modifiedTIme;
 
         public Response(Answer answer) {
-            this.questionId = answer.getId();
+            this.answerId = answer.getId();
             this.content = answer.getContent();
-            this.writer = answer.getCreator().getMember().getNickname();
+            this.writer = answer.getMember().getNickname();
             this.createdTIme = answer.getCreatedTime();
             this.modifiedTIme = answer.getModifiedTime();
         }

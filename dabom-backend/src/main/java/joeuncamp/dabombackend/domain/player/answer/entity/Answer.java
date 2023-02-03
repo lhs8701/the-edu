@@ -28,7 +28,7 @@ public class Answer extends BaseTimeEntity{
 
     @ManyToOne
     @JoinColumn
-    private CreatorProfile creator;
+    private Member member;
 
     public void update(String content) {
         this.content = content;
