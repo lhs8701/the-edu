@@ -27,7 +27,7 @@ public class EnrollService {
      */
     public void enroll(EnrollDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
-        Course course = courseJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         if (enrollJpaRepository.findByMemberAndCourse(member, course).isPresent()) {
             throw new CAlreadyEnrolledCourse();
         }
