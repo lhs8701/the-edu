@@ -11,6 +11,7 @@ import Alamofire
 struct UnitDataService {
     static let shared = UnitDataService()
     
+    // MARK: - Unit 정보 가져오기
     func getUnit(unitId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getUnit)/\(unitId)"
         print(URL)
@@ -39,6 +40,7 @@ struct UnitDataService {
         }
     }
     
+    // MARK: - 시청 기록 가져오기
     func getRecord(unitId: Int, completion: @escaping (Double) -> Void) {
         let URL = "\(Const.Url.getRecord)/\(unitId)/record"
         print(URL)
@@ -76,7 +78,7 @@ struct UnitDataService {
         }
     }
     
-    
+    // MARK: - 시청 기록 저장하기
     func saveRecord(unitId: Int, time: Double, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.saveRecord)/\(unitId)/record"
         print(URL)

@@ -11,10 +11,13 @@ import AVKit
 
 class CoursePlayerVC: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet weak var unitThumbnailImage: UIImageView!
     
     @IBOutlet weak var playBtn: UIButton!
     
+    
+    // MARK: - let, var
     let Url = URL(string: Const.Url.m3u8Test)
     
     var unitId: Int?
@@ -23,6 +26,7 @@ class CoursePlayerVC: UIViewController {
     var avPlayer = AVPlayer()
     var avController = AVPlayerViewController()
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playBtn.isEnabled = false
@@ -43,6 +47,7 @@ class CoursePlayerVC: UIViewController {
         saveRecord(time: currentTime)
     }
     
+    // MARK: - Unit 정보 받아오기
     private func getUnit() {
         if let unitId = unitId {
             UnitDataService.shared.getUnit(unitId: unitId) { response in
@@ -71,6 +76,7 @@ class CoursePlayerVC: UIViewController {
         }
     }
     
+    // MARK: - 시청 기록 저장하기
     private func saveRecord(time: Double) {
         if let unitId = unitId {
             UnitDataService.shared.saveRecord(unitId: unitId, time: time) { response in
@@ -92,6 +98,7 @@ class CoursePlayerVC: UIViewController {
         }
     }
     
+    // MARK: - 시청 기록 가져오기
     private func getRecord() {
         if let unitId = unitId {
             
@@ -103,6 +110,7 @@ class CoursePlayerVC: UIViewController {
         }
     }
     
+    // MARK: - 동영상 플레이
     @IBAction func playBtnPressed(_ sender: Any) {
         print("playBtnPressed")
 
