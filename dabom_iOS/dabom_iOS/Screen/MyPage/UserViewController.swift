@@ -31,7 +31,7 @@ class UserViewController: UIViewController {
         super.viewDidLoad()
 
         
-        profileImageView.layer.cornerRadius = 45
+        profileImageView.layer.cornerRadius = 40
         myCouponBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
         noticeBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
         eventBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
@@ -81,7 +81,8 @@ class UserViewController: UIViewController {
                     self.userNameLabel.text = self.userNickname
 
                     self.profileImageView.kf.indicatorType = .activity
-                    self.profileImageView.setImage(with: self.userProfileImage.mediumFilePath)
+//                    self.profileImageView.setImage(with: self.userProfileImage.mediumFilePath)
+                    self.profileImageView.setImage(with: self.userProfileImage.originalFilePath)
                     
                 }
             case .requestErr(let message):

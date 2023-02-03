@@ -13,6 +13,8 @@ struct CourseInfoDataModel: Codable {
     let description: String
     let instructor: String
     let category: String
+    let thumbnailImage: ImageDataModel
+    let descriptionImages: [ImageDataModel]
     let score: Double
     let price: Int
     let wish: Int

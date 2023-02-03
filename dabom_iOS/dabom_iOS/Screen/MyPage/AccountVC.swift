@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import AVFoundation
+import Photos
+
 
 class AccountVC: UIViewController {
     // MARK: - IBOutlet
@@ -17,6 +20,9 @@ class AccountVC: UIViewController {
     @IBOutlet weak var loginTypeLabel: UILabel!
     
     // MARK: - let, var
+//    let imagePickerController = UIImagePickerController()
+    let imagePicker = UIImagePickerController()
+    
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
     
     var userNickname: String = ""
@@ -39,6 +45,10 @@ class AccountVC: UIViewController {
     
     // MARK: - setProfile
     private func setProfile() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoPressed))
+        self.profileImageView.addGestureRecognizer(tapGesture)
+        self.profileImageView.isUserInteractionEnabled = true
+        
         self.profileImageView.image = self.profileImage
         self.userNameLabel.text = self.userNickname
         self.userEmailLabel.text = self.userEmail
@@ -60,6 +70,7 @@ class AccountVC: UIViewController {
             self.userEmailLabel.isEnabled = true
         }
         
+        imagePicker.delegate = self
     }
     
     // MARK: - 이메일, 닉네임 유효성 검사
@@ -132,6 +143,77 @@ class AccountVC: UIViewController {
                 print("resourceErr")
             }
         }
+    }
+    
+    // MARK: - 프로필 사진 변경하기 위해서 사진 눌렀을 때
+    @objc func photoPressed() {
+        
+        if photoPermission() {
+//            imagePicker.sourceType = .photoLibrary
+//            present(imagePicker, animated: true)
+        } else {
+            print("false")
+            openSetting()
+        }
+        
+        
+    }
+    
+    
+    
+}
+
+extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.profileImageView.image = image
+        }
+        dismiss(animated: true)
+    }
+    
+    // MARK: - 사진 눌렀을 때 권한 확인
+    func photoPermission() -> Bool {
+        let status = PHPhotoLibrary.authorizationStatus()
+        
+        switch status {
+        case .authorized:
+            print("photo authorized")
+            imagePicker.sourceType = .photoLibrary
+            present(imagePicker, animated: true)
+            return true
+        case .denied, .limited, .restricted: return false
+        case .notDetermined:
+            print("photo notDetermined")
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { state in
+                if state == .authorized {
+                    DispatchQueue.main.async {
+                        self.imagePicker.sourceType = .photoLibrary
+                        self.present(self.imagePicker, animated: true)
+                    }
+                    
+                }
+            }
+            return true
+        default:
+            print("default")
+            return false
+        }
+        
+
+    }
+    
+    // MARK: - 권한이 거부되어 있을 때 설정 화면으로 유도
+    func openSetting() {
+        let alert = UIAlertController(title: "설정", message: "앨범 접근이 허용되어 있지 않습니다. \r\n 설정화면으로 이동하시겠습니까?", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        let confirm = UIAlertAction(title: "이동", style: .default) { _ in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(confirm)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

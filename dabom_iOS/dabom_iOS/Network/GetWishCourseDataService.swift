@@ -16,11 +16,11 @@ struct GetWishCourseDataService {
         let URL = "\(Const.Url.getMyWishCourses)/\(memberId)/courses/wish"
         print(URL)
         
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken!
+            "X-AUTH-TOKEN" : accessToken
         ]
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)

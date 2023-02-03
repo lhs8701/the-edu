@@ -29,9 +29,12 @@ class CourseInfoViewController: UIViewController {
     var courseDescription: String?
     var instructor: String?
     
+    var courseInfoData: CourseInfoDataModel?
+    
     var courseId: Int?
     
     var isWish: Bool?
+    var isEnroll: Bool?
 
     let maxUpper: CGFloat = 450.0
     let minUpper: CGFloat = 0.0
@@ -57,11 +60,12 @@ class CourseInfoViewController: UIViewController {
         setSegmentController()
             
         // courseId 기본값 설정 (임시)
-        self.courseId = 2
+//        self.courseId = 2
         getCourseInfo(id: self.courseId!)
         
         if self.loginType != nil {
             checkWish()
+            checkEnroll()
         }
     }
     
@@ -98,7 +102,7 @@ class CourseInfoViewController: UIViewController {
     
     // MARK: - 찜한 강좌인지 확인
     func checkWish() {
-        CourseInfoDataService.shared.isWishCourse(memberId: self.memberId, courseId: self.courseId!) { check in
+        CourseInfoDataService.shared.isWishCourse(courseId: self.courseId!) { check in
             switch check {
             case true:
                 self.heartButton.isSelected = true
@@ -108,10 +112,19 @@ class CourseInfoViewController: UIViewController {
         }
     }
     
+    // MARK: - 신청한 강좌인지 확인
+    func checkEnroll() {
+        CourseInfoDataService.shared.isEnrollCourse(courseId: self.courseId!) { check in
+            self.isEnroll = check
+            print("asfdasdfasdfasdfisadfjosdijfosifdjoijsd")
+            print(self.isEnroll)
+        }
+    }
+    
     // MARK: - 찜하기 버튼 눌렀을 때
     @objc func wishBtnPressed(_ sender: UIButton) {
         if self.loginType != nil {
-            CourseInfoDataService.shared.changeWishCourse(memberId: self.memberId, courseId: self.courseId!) { response in
+            CourseInfoDataService.shared.changeWishCourse(courseId: self.courseId!) { response in
                 switch (response) {
                 case .success:
                     print("change Success")
@@ -203,11 +216,12 @@ class CourseInfoViewController: UIViewController {
     private func getCourseInfo(id: Int) {
         CourseInfoDataService.shared.getCourseInfo(id: id) { response in
             switch (response) {
-            case .success(let courseInfoData):
-                if let data = courseInfoData as? CourseInfoDataModel {
-                    self.courseTitle = data.title
-                    self.courseDescription = data.description
-                    self.instructor = data.instructor
+            case .success(let data):
+                if let data = data as? CourseInfoDataModel {
+//                    self.courseTitle = data.title
+//                    self.courseDescription = data.description
+//                    self.instructor = data.instructor
+                    self.courseInfoData = data
                     
                     self.getCourseReview()
                     self.getCourseInquiry()
@@ -308,9 +322,18 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             // 메인 정보 자리
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInfoTVC, for: indexPath) as? CourseInfoTVC else { return UITableViewCell() }
-            cell.classTitle.text = self.courseTitle
-            cell.courseDescription.text = self.courseDescription
-            cell.instructor.text = self.instructor
+//            cell.courseThumbnailImageView.setImage(with: <#T##String#>)
+//            cell.classTitle.text = self.courseTitle
+//            cell.courseDescription.text = self.courseDescription
+//            cell.instructor.text = self.instructor
+            cell.delegate = self
+            
+            cell.setEnroll(self.isEnroll ?? false)
+            cell.courseThumbnailImageView.setImage(with: self.courseInfoData?.thumbnailImage.originalFilePath ?? "")
+            cell.classTitle.text = self.courseInfoData?.title
+            cell.courseDescription.text = self.courseInfoData?.description
+            cell.instructor.text = self.courseInfoData?.instructor
+            
             return cell
         case 1:
             // Sticky View 자리
@@ -373,5 +396,51 @@ extension CourseInfoViewController: allReviewBtnDelegate {
         nextVC.reviewData = self.reviewData
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+}
+
+// MARK: - CourseEnrollBtnDelegate 강좌 신청 버튼 눌렀을 때
+extension CourseInfoViewController: CourseEnrollBtnDelegate {
+    func CourseEnroll() {
+        if self.loginType != nil {
+            let alert = UIAlertController(title: "수강 신청", message: "해당 강좌에 수강 신청하시겠습니까?", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "취소", style: .cancel)
+            let confirm = UIAlertAction(title: "신청", style: .default) { _ in
+                CourseInfoDataService.shared.enrollCourse(courseId: self.courseId!) { response in
+                    switch (response) {
+                    case .success:
+                        print("enroll Success")
+                    case .requestErr(let message):
+                        print("requestErr", message)
+                    case .pathErr:
+                        print("networkResult pathErr")
+                        print("pathErr")
+                    case .serverErr:
+                        print("serverErr")
+                    case .networkFail:
+                        print("networkFail")
+                    case .resourceErr:
+                        print("resourceErr")
+                    }
+                }
+            }
+            
+            alert.addAction(cancel)
+            alert.addAction(confirm)
+            
+            present(alert, animated: true)
+        } else {
+            let alert = UIAlertController(title: "로그인이 필요한 서비스입니다", message: "로그인 하시겠습니까?", preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "취소", style: .cancel)
+            let login = UIAlertAction(title: "확인", style: .default) { _ in
+                AuthenticationService.shared.goToLoginSignup()
+            }
+            
+            alert.addAction(cancel)
+            alert.addAction(login)
+            
+            present(alert, animated: true)
+        }
+        
     }
 }

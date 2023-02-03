@@ -11,8 +11,10 @@ extension Const {
     struct Url {
         
         static let serverIP = "218.38.127.26:8080"
-        static let baseUrl = "http://\(serverIP)/api"
-        static let m3u8Test = "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
+        static let baseUrl = "http://the-edu.co.kr"
+        static let apiBaseUrl = "http://\(serverIP)/api"
+//        static let m3u8Test = "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
+        static let m3u8Test = "http://the-edu.co.kr/static/videos/test-m3u8/test.m3u8"
         
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"
@@ -37,10 +39,15 @@ extension Const {
         static let getCourseInfo = "http://\(serverIP)/api/courses"
         static let getCourseReview = "http://\(serverIP)/api/courses"
         static let getCourseInquiries = "http://\(serverIP)/api/courses"
+        
         static let getSearchResult = "http://\(serverIP)/api/courses/keyword"
         static let getCategoryCourses = "http://\(serverIP)/api/courses/category"
-        static let changeWishStatus = "http://\(serverIP)/api/courses/wish"
-        static let isWishCourse = "http://\(serverIP)/api/courses/wish/check"
+        
+        static let changeWishStatus = "http://\(serverIP)/api/courses"
+        static let isWishCourse = "http://\(serverIP)/api/courses"
+        
+        static let enrollCourse = "\(apiBaseUrl)/courses"
+        static let isEnrollCourse = "\(apiBaseUrl)/courses"
         
         // MARK: - Inquiry
         static let postInquiry = "http://\(serverIP)/api/courses/inquiries"
@@ -50,6 +57,9 @@ extension Const {
         static let postReview = "http://\(serverIP)/api/courses/reviews"
         static let getReview = "http://\(serverIP)/api/courses"
         
-        
+        // MARK: - Unit
+        static let getUnit = "\(apiBaseUrl)/courses/units"
+        static let saveRecord = "\(apiBaseUrl)/units"
+        static let getRecord = "\(apiBaseUrl)/units"
     }
 }

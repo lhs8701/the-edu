@@ -32,22 +32,16 @@ struct CourseInfoDataService {
     }
     
     // MARK: - Course가 찜한 강좌인지 확인
-    func isWishCourse(memberId: Int, courseId: Int, completion: @escaping (Bool) -> Void) {
-        let URL = "\(Const.Url.isWishCourse)"
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
+    func isWishCourse(courseId: Int, completion: @escaping (Bool) -> Void) {
+        let URL = "\(Const.Url.isWishCourse)/\(courseId)/wish/check"
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken!
+            "X-AUTH-TOKEN" : accessToken
         ]
         
-        let bodyData: Parameters = [
-//            "socialToken" : accessToken
-            "memberId" : memberId,
-            "courseId" : courseId
-        ] as Dictionary
-        
-        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData { dataResponse in
             debugPrint(dataResponse)
@@ -75,8 +69,8 @@ struct CourseInfoDataService {
     }
     
     // MARK: - 찜하기
-    func changeWishCourse(memberId: Int, courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.changeWishStatus)"
+    func changeWishCourse(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.changeWishStatus)/\(courseId)/wish"
         print(URL)
         let accessToken = UserDefaults.standard.string(forKey: "accessToken")
         
@@ -85,14 +79,10 @@ struct CourseInfoDataService {
             "X-AUTH-TOKEN" : accessToken!
         ]
         
-        let bodyData: Parameters = [
-            "memberId" : memberId,
-            "courseId" : courseId
-        ] as Dictionary
-        
-        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -102,6 +92,72 @@ struct CourseInfoDataService {
             case .failure:
                 completion(.pathErr)
             }
+        }
+    }
+    
+    // MARK: - 수강 신청하기
+    func enrollCourse(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.enrollCourse)/\(courseId)/enroll"
+        print(URL)
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "X-AUTH-TOKEN" : accessToken
+        ]
+        
+        let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                
+                let networkResult = self.judgeStatus(by: statusCode, nil)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+        
+    }
+    
+    // MARK: - Course가 이미 신청한 강좌인지 확인
+    func isEnrollCourse(courseId: Int, completion: @escaping (Bool) -> Void) {
+        let URL = "\(Const.Url.isEnrollCourse)/\(courseId)/enroll/check"
+        print(URL)
+        
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "X-AUTH-TOKEN" : accessToken
+        ]
+        
+        let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                guard let value = dataResponse.value else {return}
+                
+                let data = String(data: value, encoding: .utf8).flatMap(Bool.init) ?? false
+                
+                switch statusCode {
+                case 200:
+                    completion(data)
+                case 400, 500:
+                    completion(false)
+                default:
+                    completion(false)
+                }
+            case .failure:
+                print("err")
+            }
+            
         }
     }
     
@@ -129,6 +185,8 @@ struct CourseInfoDataService {
             case 400:
                 print("Status 400")
                 return .pathErr
+            case 404:
+                return .resourceErr
             case 500:
                 print("Status 500")
                 return .serverErr
