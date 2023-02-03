@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Wrapper } from "../../style/PlayerSideBarCss";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 const Overlay = styled(motion.div)`
   width: 100%;
   min-height: 100%;
@@ -87,7 +87,7 @@ const QuestionTab = styled(Accordion)`
 `;
 
 const QuestionInfoTab = styled(AccordionSummary)`
-  backgroundcolor: teal;
+  background-color: teal;
 `;
 
 const QuestionCard = styled(motion.div)`
@@ -149,6 +149,9 @@ const QuestionBtn = styled(motion.button)`
 const QuestionDiv = styled(AccordionDetails)`
   width: 100%;
   height: 30px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
   background-color: teal;
 `;
 
@@ -368,10 +371,6 @@ export default function UnitQuestion() {
     );
   };
 
-  const QuestionDetailComponent = () => {
-    <QuestionDiv>ㄴㅇㄹㄴ이라ㅓ밀나ㅣ러ㅣㅏㅁㄹㄴ어ㅣㅏ</QuestionDiv>;
-  };
-
   const QuestionListComponent = () => {
     return nowQ?.map((question, idx) => {
       return (
@@ -386,14 +385,13 @@ export default function UnitQuestion() {
         >
           <QuestionInfoTab
             aria-controls="panel1a-content"
-            expandIcon={}
+            expandIcon={<KeyboardArrowDownIcon />}
             sx={{
               mb: -1,
             }}
           >
             {question.title} 답변:{question.replyCount}
           </QuestionInfoTab>
-
           <QuestionDiv>우웅</QuestionDiv>
         </QuestionTab>
       );
