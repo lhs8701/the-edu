@@ -53,10 +53,20 @@ public class AnswerController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/answers/{answerId}")
-    public ResponseEntity<Void> updateQuestion(@PathVariable Long answerId, @RequestBody AnswerDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> updateAnswer(@PathVariable Long answerId, @RequestBody AnswerDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setAnswerId(answerId);
         answerService.updateAnswer(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "답변을 삭제합니다.", description = "작성자 본인만 삭제할 수 있습니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/answers/{answerId}")
+    public ResponseEntity<Void> deleteAnswer(@PathVariable Long answerId, @AuthenticationPrincipal Member member) {
+        AnswerDto.DeleteRequest requestDto = new AnswerDto.DeleteRequest(member.getId(), answerId);
+        answerService.deleteAnswer(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

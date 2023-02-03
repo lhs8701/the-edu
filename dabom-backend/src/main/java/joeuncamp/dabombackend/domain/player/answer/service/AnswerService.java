@@ -53,7 +53,7 @@ public class AnswerService {
     /**
      * 질문에 달린 답변을 모두 조회합니다.
      *
-     * @param requestDto 조회할 질문 아이디넘버
+     * @param requestDto 조회할 질문
      * @param pageable   pageable
      * @return 답변 목록
      */
@@ -84,5 +84,19 @@ public class AnswerService {
         }
         answer.update(requestDto.getContent());
         answerJpaRepository.save(answer);
+    }
+
+    /**
+     * 답변을 삭제합니다.
+     *
+     * @param requestDto 회원, 삭제할 답변
+     */
+    public void deleteAnswer(AnswerDto.DeleteRequest requestDto) {
+        Answer answer = answerJpaRepository.findById(requestDto.getAnswerId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!enrollService.doesEnrolled(member, answer.getQuestion().getUnit().getCourse())) {
+            throw new CAccessDeniedException();
+        }
+        answerJpaRepository.delete(answer);
     }
 }

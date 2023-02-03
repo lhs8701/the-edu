@@ -60,7 +60,15 @@ public class AnswerDto {
     }
 
     @Getter
-    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeleteRequest{
+        @Schema(hidden = true)
+        Long memberId;
+        @Schema(hidden = true)
+        Long answerId;
+    }
+
+    @Getter
     public static class Response{
         @Schema(hidden = true, description = "답변 아이디넘버", example = "1")
         Long answerId;
