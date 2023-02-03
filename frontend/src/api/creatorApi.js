@@ -3,6 +3,7 @@ import { BASE_URL } from "../static";
 
 const SINGLE_IMG_URL = "/single";
 const MuLTI_IMG_URL = "/multiple";
+
 export async function uploadImageApi(file, accessToken) {
   const formData = new FormData();
   formData.append("multipartFile", file);

@@ -9,11 +9,11 @@ export default function CreatorRoot() {
   const navigate = useNavigate();
   const isCreator = false;
 
-  useEffect(() => {
-    if (!isCreator) {
-      navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isCreator) {
+  //     navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
+  //   }
+  // }, []);
 
   return (
     <div>

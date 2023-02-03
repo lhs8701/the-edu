@@ -44,6 +44,7 @@ import Creators from "./components/admin/Creators";
 import Courses from "./components/admin/Courses";
 import Revisecourses from "./components/admin/Revisecourses";
 import CoursesInquires from "./components/creator/CoursesInquires";
+import UnitInfoOutline from "./components/creator/UnitInfoOutline";
 
 const router = createBrowserRouter([
   {
@@ -241,7 +242,14 @@ const router = createBrowserRouter([
       {
         path: "inputcourses",
         element: <Outline />,
+        children: [
+          {
+            path: ":unitnumber",
+            element: <UnitInfoOutline />,
+          },
+        ],
       },
+
       {
         path: "inquirecourses",
         element: <CoursesInquires />,

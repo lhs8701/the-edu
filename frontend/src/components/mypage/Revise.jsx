@@ -102,6 +102,7 @@ export default function Revise() {
     setValue("email", infos?.data?.email);
   }, [infos]);
 
+  console.log(isName);
   return (
     <MyPageBox>
       <MyPageTitle>개인정보 수정</MyPageTitle>

@@ -260,8 +260,8 @@ export default function Header() {
           window.location.replace("/");
         }}
       >
-        <Title>다</Title>
-        <PointTitle> 봄</PointTitle>
+        <Title>The</Title>
+        <PointTitle>Edu</PointTitle>
       </TitleBox>
       <NavBar>
         <NavBox>
