@@ -7,7 +7,6 @@ import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CAlreadyEnrolledCourse;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -48,12 +47,12 @@ public class EnrollService {
      * @param requestDto 회원, 강좌
      * @return boolean
      */
-    public SingleResponseDto<Boolean> doesEnrolled(EnrollDto.Request requestDto) {
+    public Boolean doesEnrolled(EnrollDto.Request requestDto) {
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         boolean doesEnrollExist = enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
         boolean isCreator = course.getCreatorProfile().getMember().equals(member);
-        return new SingleResponseDto<>(doesEnrollExist || isCreator);
+        return doesEnrollExist || isCreator;
     }
 
     public boolean doesEnrolled(Member member, Course course) {

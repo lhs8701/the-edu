@@ -4,7 +4,6 @@ import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.player.view.dto.RecordDto;
 import joeuncamp.dabombackend.domain.player.view.repository.RecordRedisRepository;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,7 @@ public class RecordService {
      * @param requestDto 회원, 강의
      * @return 시청 정보
      */
-    public SingleResponseDto<Double> getView(RecordDto.GetRequest requestDto) {
+    public Double getView(RecordDto.GetRequest requestDto) {
         validateId(requestDto.getMemberId(), requestDto.getUnitId());
         String memberId = String.valueOf(requestDto.getMemberId());
         String unitId = String.valueOf(requestDto.getUnitId());
@@ -43,7 +42,7 @@ public class RecordService {
         if (time == null) {
             time = "0";
         }
-        return new SingleResponseDto<>(Double.parseDouble(time));
+        return Double.parseDouble(time);
     }
 
     private void validateId(Long memberId, Long unitId) {

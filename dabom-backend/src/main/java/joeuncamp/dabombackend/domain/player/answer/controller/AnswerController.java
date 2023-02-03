@@ -7,9 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.answer.dto.AnswerDto;
 import joeuncamp.dabombackend.domain.player.answer.service.AnswerService;
-import joeuncamp.dabombackend.domain.player.question.dto.QuestionDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -32,11 +30,11 @@ public class AnswerController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/questions/{questionId}/answers")
-    public ResponseEntity<SingleResponseDto<Long>> createAnswer(@PathVariable Long questionId, @RequestBody AnswerDto.CreationRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Long> createAnswer(@PathVariable Long questionId, @RequestBody AnswerDto.CreationRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setQuestionId(questionId);
         requestDto.setMemberId(member.getId());
-        SingleResponseDto<Long> responseDto = answerService.createAnswer(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        Long response = answerService.createAnswer(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Operation(summary = "질문에 달린 모든 답변을 조회합니다.", description = "수강생 및 크리에이터만 등록할 수 있습니다.")

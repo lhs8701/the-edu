@@ -1,20 +1,14 @@
 package joeuncamp.dabombackend.domain.player.answer.service;
 
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
-import joeuncamp.dabombackend.domain.member.repository.CreatorProfileJpaRepository;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.domain.member.service.CreatorService;
 import joeuncamp.dabombackend.domain.player.answer.dto.AnswerDto;
 import joeuncamp.dabombackend.domain.player.answer.entity.Answer;
 import joeuncamp.dabombackend.domain.player.answer.repository.AnswerJpaRepository;
-import joeuncamp.dabombackend.domain.player.question.dto.QuestionDto;
 import joeuncamp.dabombackend.domain.player.question.entity.Question;
 import joeuncamp.dabombackend.domain.player.question.repository.QuestionJpaRepository;
-import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.common.PagingDto;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,14 +33,14 @@ public class AnswerService {
      * @param requestDto 답변 정보
      * @return 생성된 답변의 아이디넘버
      */
-    public SingleResponseDto<Long> createAnswer(AnswerDto.CreationRequest requestDto) {
+    public Long createAnswer(AnswerDto.CreationRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, question.getUnit().getCourse())) {
             throw new CAccessDeniedException();
         }
         Answer answer = requestDto.toEntity(member, question);
-        return new SingleResponseDto<>(answerJpaRepository.save(answer).getId());
+        return answerJpaRepository.save(answer).getId();
     }
 
     /**

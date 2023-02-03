@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
@@ -15,7 +14,6 @@ import joeuncamp.dabombackend.domain.wish.dto.WishDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
-import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -89,10 +87,10 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/{courseId}/enroll/check")
-    public ResponseEntity<SingleResponseDto<Boolean>> doesEnrolled(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Boolean> doesEnrolled(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
         EnrollDto.Request requestDto = new EnrollDto.Request(member.getId(), courseId);
-        SingleResponseDto<Boolean> responseDto = enrollService.doesEnrolled(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        Boolean response = enrollService.doesEnrolled(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Operation(summary = "찜을 하거나, 해제합니다.", description = "이미 찜이 되어있는 경우, 해제합니다.")
@@ -109,10 +107,10 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/wish/check")
-    public ResponseEntity<SingleResponseDto<Boolean>> checkWish(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Boolean> checkWish(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
         WishDto.Request requestDto = new WishDto.Request(member.getId(), courseId);
-        SingleResponseDto<Boolean> responseDto = wishService.checkWish(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        Boolean response = wishService.checkWish(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
