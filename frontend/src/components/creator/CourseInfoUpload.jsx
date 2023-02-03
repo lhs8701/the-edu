@@ -68,13 +68,15 @@ export default function CourseInfoUpload({ setCourseValue }) {
     return (
       <>
         <Grid item xs={3}>
-          <Select
+
+          <CssTextField
             size="small"
             fullWidth
             value={firstCategory}
             onChange={(e) => {
               setFirstCategory(e.target.value);
             }}
+            select
             label="카테고리1"
             variant="outlined"
             id="cate1"
@@ -86,27 +88,30 @@ export default function CourseInfoUpload({ setCourseValue }) {
                 </MenuItem>
               );
             })}
-          </Select>
+          </CssTextField>
         </Grid>
         <Grid item xs={3}>
-          <Select
+          <CssTextField
             size="small"
             fullWidth
+            select
             value={secCategory}
             onChange={(e) => {
               setSecCategory(e.target.value);
             }}
             label="카테고리2"
             variant="outlined"
+            
           >
-            {categoryFilter()?.map((small) => {
+            {categoryFilter() ? 
+            categoryFilter()?.map((small) => {
               return (
                 <MenuItem value={small.title} key={small.id}>
                   {small.title}
                 </MenuItem>
               );
-            })}
-          </Select>
+            }) : <div></div>}
+          </CssTextField>
         </Grid>
       </>
     );

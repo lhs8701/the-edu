@@ -64,7 +64,7 @@ export default function ClassCard({ course }) {
   const [isCardOn, setIsCardOn] = useState(false);
 
   const navigate = useNavigate();
-  console.log(course)
+  
   return (
     <ClassTab
       onClick={() => {
