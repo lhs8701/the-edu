@@ -178,6 +178,7 @@
             <connections>
                 <outlet property="classTitle" destination="MTF-L7-Evq" id="r6k-J0-vIL"/>
                 <outlet property="courseDescription" destination="H8K-Kt-NRt" id="yVY-mF-EAI"/>
+                <outlet property="courseEnrollBtn" destination="MSO-6K-zZg" id="pAt-eh-XWe"/>
                 <outlet property="courseThumbnailImageView" destination="xnC-nY-p3R" id="MRf-Yc-SDt"/>
                 <outlet property="instructor" destination="eLy-Gm-rSr" id="ZeZ-6y-lnV"/>
             </connections>

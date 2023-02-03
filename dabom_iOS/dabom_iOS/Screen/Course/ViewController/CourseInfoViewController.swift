@@ -34,6 +34,7 @@ class CourseInfoViewController: UIViewController {
     var courseId: Int?
     
     var isWish: Bool?
+    var isEnroll: Bool?
 
     let maxUpper: CGFloat = 450.0
     let minUpper: CGFloat = 0.0
@@ -64,6 +65,7 @@ class CourseInfoViewController: UIViewController {
         
         if self.loginType != nil {
             checkWish()
+            checkEnroll()
         }
     }
     
@@ -107,6 +109,15 @@ class CourseInfoViewController: UIViewController {
             case false:
                 self.heartButton.isSelected = false
             }
+        }
+    }
+    
+    // MARK: - 신청한 강좌인지 확인
+    func checkEnroll() {
+        CourseInfoDataService.shared.isEnrollCourse(courseId: self.courseId!) { check in
+            self.isEnroll = check
+            print("asfdasdfasdfasdfisadfjosdijfosifdjoijsd")
+            print(self.isEnroll)
         }
     }
     
@@ -317,6 +328,7 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
 //            cell.instructor.text = self.instructor
             cell.delegate = self
             
+            cell.setEnroll(self.isEnroll ?? false)
             cell.courseThumbnailImageView.setImage(with: self.courseInfoData?.thumbnailImage.originalFilePath ?? "")
             cell.classTitle.text = self.courseInfoData?.title
             cell.courseDescription.text = self.courseInfoData?.description

@@ -34,11 +34,11 @@ struct CourseInfoDataService {
     // MARK: - Course가 찜한 강좌인지 확인
     func isWishCourse(courseId: Int, completion: @escaping (Bool) -> Void) {
         let URL = "\(Const.Url.isWishCourse)/\(courseId)/wish/check"
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken!
+            "X-AUTH-TOKEN" : accessToken
         ]
         
         let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
@@ -99,11 +99,11 @@ struct CourseInfoDataService {
     func enrollCourse(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.enrollCourse)/\(courseId)/enroll"
         print(URL)
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken")
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken!
+            "X-AUTH-TOKEN" : accessToken
         ]
         
         let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
@@ -121,6 +121,44 @@ struct CourseInfoDataService {
             }
         }
         
+    }
+    
+    // MARK: - Course가 이미 신청한 강좌인지 확인
+    func isEnrollCourse(courseId: Int, completion: @escaping (Bool) -> Void) {
+        let URL = "\(Const.Url.isEnrollCourse)/\(courseId)/enroll/check"
+        print(URL)
+        
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "X-AUTH-TOKEN" : accessToken
+        ]
+        
+        let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                guard let value = dataResponse.value else {return}
+                
+                let data = String(data: value, encoding: .utf8).flatMap(Bool.init) ?? false
+                
+                switch statusCode {
+                case 200:
+                    completion(data)
+                case 400, 500:
+                    completion(false)
+                default:
+                    completion(false)
+                }
+            case .failure:
+                print("err")
+            }
+            
+        }
     }
     
     

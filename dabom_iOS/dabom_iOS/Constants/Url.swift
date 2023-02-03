@@ -47,7 +47,7 @@ extension Const {
         static let isWishCourse = "http://\(serverIP)/api/courses"
         
         static let enrollCourse = "\(apiBaseUrl)/courses"
-        
+        static let isEnrollCourse = "\(apiBaseUrl)/courses"
         
         // MARK: - Inquiry
         static let postInquiry = "http://\(serverIP)/api/courses/inquiries"
