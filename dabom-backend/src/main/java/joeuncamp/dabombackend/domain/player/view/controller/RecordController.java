@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@Tag(name = "[4.View]", description = "강의 시청 기록 관련 API입니다.")
+@Tag(name = "[4-4.Record]", description = "강의 시청 기록 관련 API입니다.")
 public class RecordController {
     private final RecordService recordService;
 

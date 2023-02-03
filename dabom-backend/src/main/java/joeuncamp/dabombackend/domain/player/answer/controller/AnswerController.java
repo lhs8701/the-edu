@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.answer.dto.AnswerDto;
 import joeuncamp.dabombackend.domain.player.answer.service.AnswerService;
-import joeuncamp.dabombackend.domain.player.question.dto.QuestionDto;
 import joeuncamp.dabombackend.global.common.SingleResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@Tag(name = "[4-2.Answer]", description = "답변 관련 API입니다.")
+@Tag(name = "[4-3.Answer]", description = "답변 관련 API입니다.")
 public class AnswerController {
     private final AnswerService answerService;
 

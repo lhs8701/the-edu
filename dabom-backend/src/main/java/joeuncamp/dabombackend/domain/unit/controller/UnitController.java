@@ -18,7 +18,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Tag(name = "[4.Unit]", description = "강의 관련 API입니다.")
+@Tag(name = "[4-1.Unit]", description = "강의 관련 API입니다.")
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class UnitController {

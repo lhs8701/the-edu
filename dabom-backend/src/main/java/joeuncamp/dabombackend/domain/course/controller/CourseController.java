@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "[3.Course]", description = "클래스와 관련된 API입니다.")
+@Tag(name = "[3-1.Course]", description = "클래스와 관련된 API입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
