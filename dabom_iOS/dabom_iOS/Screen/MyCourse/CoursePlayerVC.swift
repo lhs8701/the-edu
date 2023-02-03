@@ -27,10 +27,23 @@ class CoursePlayerVC: UIViewController {
         super.viewDidLoad()
         self.playBtn.isEnabled = false
     
-//        avPlayer.seek(to: CMTime(seconds: 15, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero)
-
         unitThumbnailImage.image = UIImage(named: "testThumb01")
         
+        getUnit()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print(avPlayer.currentTime().seconds)
+        let currentTime = avPlayer.currentTime().seconds
+
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+        
+        saveRecord(time: currentTime)
+    }
+    
+    private func getUnit() {
         if let unitId = unitId {
             UnitDataService.shared.getUnit(unitId: unitId) { response in
                 switch response {
@@ -41,7 +54,7 @@ class CoursePlayerVC: UIViewController {
                         self.avPlayer = AVPlayer(url: videoUrl)
                         self.avController.player = self.avPlayer
                         self.avController.view.frame = self.view.frame
-                        self.playBtn.isEnabled = true
+                        self.getRecord()
                     }
                 case .requestErr(let message):
                     print("requestErr", message)
@@ -58,17 +71,40 @@ class CoursePlayerVC: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print(avPlayer.currentTime())
-        print(avPlayer.currentTime().seconds)
-        print("viewWillAppear")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
+    private func saveRecord(time: Double) {
+        if let unitId = unitId {
+            UnitDataService.shared.saveRecord(unitId: unitId, time: time) { response in
+                switch response {
+                case .success:
+                    print("save Success")
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
+            }
+        }
     }
     
+    private func getRecord() {
+        if let unitId = unitId {
+            
+            UnitDataService.shared.getRecord(unitId: unitId) { time in
+                self.avPlayer.seek(to: CMTime(seconds: time, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero)
+                self.playBtn.isEnabled = true
+            }
+            
+        }
+    }
     
     @IBAction func playBtnPressed(_ sender: Any) {
-        print("playBtnPressed")        
+        print("playBtnPressed")
 
         self.present(avController, animated: true, completion: nil)
         avPlayer.play()

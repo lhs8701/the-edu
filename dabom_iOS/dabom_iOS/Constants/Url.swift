@@ -59,6 +59,7 @@ extension Const {
         
         // MARK: - Unit
         static let getUnit = "\(apiBaseUrl)/courses/units"
-        
+        static let saveRecord = "\(apiBaseUrl)/units"
+        static let getRecord = "\(apiBaseUrl)/units"
     }
 }
