@@ -37,6 +37,7 @@ import { Outlet, useNavigate, useParams } from "react-router";
 import { getAccessTokenSelector } from "../../atom";
 import { useRecoilValue } from "recoil";
 import CourseInfoUpload from "./CourseInfoUpload";
+import { createCourseApi } from "../../api/creatorApi";
 
 const BtnDiv = styled.div`
   display: Flex;
@@ -117,9 +118,10 @@ export default function Outline() {
 
   const uploadCourse = (e) => {
     e.preventDefault();
-    console.log(chapterList);
-    console.log(courseValue)
-    console.log("제출");
+    createCourseApi(accessToken,courseValue).then(()=>{
+      alert("강좌가 등록되었습니다.")
+    }).catch((err)=>{console.log(err);alert("err")})
+    
   };
 
   const SmallListComponent = ({ value, unitIdx, setUnits, units }) => {

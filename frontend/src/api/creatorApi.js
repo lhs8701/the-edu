@@ -17,16 +17,14 @@ export async function uploadImageApi(file, accessToken) {
 }
 
 
-export async function createCourseApi(accessToken){
+export async function createCourseApi(accessToken,courseValue){
   return await axios.post(BASE_URL + CREATE_URL,{
-    "title": "스프링 핵심 원리 - 기본편",
-  "description": "스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.",
-  "category": "백엔드",
-  "price": 143000,
-  "thumbnailImage": "string",
-  "descriptionImageUrls": [
-    "string"
-  ]
+    "title": courseValue.title,
+  "description": courseValue.detail,
+  "category": courseValue.category,
+  "price": Number(courseValue.price),
+  "thumbnailImage": courseValue.thumbUrl,
+  "descriptionImageUrls": courseValue.descriptionImageUrls
   }, {
     headers: {
       "X-AUTH-TOKEN": accessToken,
