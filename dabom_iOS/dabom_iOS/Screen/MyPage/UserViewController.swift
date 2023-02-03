@@ -81,7 +81,8 @@ class UserViewController: UIViewController {
                     self.userNameLabel.text = self.userNickname
 
                     self.profileImageView.kf.indicatorType = .activity
-                    self.profileImageView.setImage(with: self.userProfileImage.mediumFilePath)
+//                    self.profileImageView.setImage(with: self.userProfileImage.mediumFilePath)
+                    self.profileImageView.setImage(with: "http://the-edu.co.kr/static/images/hello.jpg")
                     
                 }
             case .requestErr(let message):

@@ -1,8 +1,8 @@
 //
 //  CoursePlayerVC.swift
-//  
+//  dabom_iOS
 //
-//  Created by 김태현 on 2023/01/31.
+//  Created by 김태현 on 2023/02/02.
 //
 
 import UIKit
@@ -25,7 +25,7 @@ class CoursePlayerVC: UIViewController {
 
         
         avPlayer = AVPlayer(url: Url!)
-//        avPlayer.seek(to: CMTime(seconds: 120, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero)
+//        avPlayer.seek(to: CMTime(seconds: 15, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: .zero)
         avController.player = avPlayer
         avController.view.frame = self.view.frame
         unitThumbnailImage.image = UIImage(named: "testThumb01")

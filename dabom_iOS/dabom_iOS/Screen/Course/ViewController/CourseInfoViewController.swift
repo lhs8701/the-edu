@@ -98,7 +98,7 @@ class CourseInfoViewController: UIViewController {
     
     // MARK: - 찜한 강좌인지 확인
     func checkWish() {
-        CourseInfoDataService.shared.isWishCourse(memberId: self.memberId, courseId: self.courseId!) { check in
+        CourseInfoDataService.shared.isWishCourse(courseId: self.courseId!) { check in
             switch check {
             case true:
                 self.heartButton.isSelected = true
@@ -111,7 +111,7 @@ class CourseInfoViewController: UIViewController {
     // MARK: - 찜하기 버튼 눌렀을 때
     @objc func wishBtnPressed(_ sender: UIButton) {
         if self.loginType != nil {
-            CourseInfoDataService.shared.changeWishCourse(memberId: self.memberId, courseId: self.courseId!) { response in
+            CourseInfoDataService.shared.changeWishCourse(courseId: self.courseId!) { response in
                 switch (response) {
                 case .success:
                     print("change Success")

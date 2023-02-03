@@ -12,7 +12,8 @@ extension Const {
         
         static let serverIP = "218.38.127.26:8080"
         static let baseUrl = "http://\(serverIP)/api"
-        static let m3u8Test = "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
+//        static let m3u8Test = "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
+        static let m3u8Test = "http://the-edu.co.kr/static/videos/test-m3u8/test.m3u8"
         
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"
@@ -39,8 +40,8 @@ extension Const {
         static let getCourseInquiries = "http://\(serverIP)/api/courses"
         static let getSearchResult = "http://\(serverIP)/api/courses/keyword"
         static let getCategoryCourses = "http://\(serverIP)/api/courses/category"
-        static let changeWishStatus = "http://\(serverIP)/api/courses/wish"
-        static let isWishCourse = "http://\(serverIP)/api/courses/wish/check"
+        static let changeWishStatus = "http://\(serverIP)/api/courses"
+        static let isWishCourse = "http://\(serverIP)/api/courses"
         
         // MARK: - Inquiry
         static let postInquiry = "http://\(serverIP)/api/courses/inquiries"

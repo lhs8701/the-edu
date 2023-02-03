@@ -54,6 +54,7 @@
 		0EA647CA298B7B75009AB119 /* UserProfileDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA647C9298B7B75009AB119 /* UserProfileDataModel.swift */; };
 		0EA647CC298B94F8009AB119 /* ImageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA647CB298B94F7009AB119 /* ImageDataModel.swift */; };
 		0EA647CE298B9D22009AB119 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA647CD298B9D22009AB119 /* UIImageView+.swift */; };
+		0EA647D2298BB0B9009AB119 /* CoursePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA647D1298BB0B9009AB119 /* CoursePlayerVC.swift */; };
 		0EAF7B312980C6CC00F65E5A /* RecentSearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAF7B302980C6CC00F65E5A /* RecentSearchTVC.swift */; };
 		0EAF7B53298256CE00F65E5A /* SampleCourseThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAF7B52298256CE00F65E5A /* SampleCourseThumbnail.swift */; };
 		0EAF7B552982646E00F65E5A /* GetWishCourseDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAF7B542982646E00F65E5A /* GetWishCourseDataService.swift */; };
@@ -76,7 +77,6 @@
 		0EC314E7298764EA004C82CF /* GetInquiryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E6298764EA004C82CF /* GetInquiryDataService.swift */; };
 		0EC314EA29876601004C82CF /* CourseInquiryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E829876601004C82CF /* CourseInquiryTVC.swift */; };
 		0EC314EB29876601004C82CF /* CourseInquiryTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EC314E929876601004C82CF /* CourseInquiryTVC.xib */; };
-		0EC8CAF52988948B000C41E9 /* CoursePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8CAF42988948B000C41E9 /* CoursePlayerVC.swift */; };
 		0EC8CAFD298B3760000C41E9 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8CAFC298B3760000C41E9 /* AccountVC.swift */; };
 		0ED17B29298782BD0008D3C0 /* CourseInquiryAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED17B28298782BD0008D3C0 /* CourseInquiryAllVC.swift */; };
 		0ED17B2B2987854D0008D3C0 /* CourseReviewAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED17B2A2987854D0008D3C0 /* CourseReviewAllVC.swift */; };
@@ -170,6 +170,7 @@
 		0EA647C9298B7B75009AB119 /* UserProfileDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileDataModel.swift; sourceTree = "<group>"; };
 		0EA647CB298B94F7009AB119 /* ImageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataModel.swift; sourceTree = "<group>"; };
 		0EA647CD298B9D22009AB119 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		0EA647D1298BB0B9009AB119 /* CoursePlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoursePlayerVC.swift; path = dabom_iOS/Screen/MyCourse/CoursePlayerVC.swift; sourceTree = SOURCE_ROOT; };
 		0EAF7B302980C6CC00F65E5A /* RecentSearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTVC.swift; sourceTree = "<group>"; };
 		0EAF7B52298256CE00F65E5A /* SampleCourseThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCourseThumbnail.swift; sourceTree = "<group>"; };
 		0EAF7B542982646E00F65E5A /* GetWishCourseDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWishCourseDataService.swift; sourceTree = "<group>"; };
@@ -192,7 +193,6 @@
 		0EC314E6298764EA004C82CF /* GetInquiryDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInquiryDataService.swift; sourceTree = "<group>"; };
 		0EC314E829876601004C82CF /* CourseInquiryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquiryTVC.swift; sourceTree = "<group>"; };
 		0EC314E929876601004C82CF /* CourseInquiryTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseInquiryTVC.xib; sourceTree = "<group>"; };
-		0EC8CAF42988948B000C41E9 /* CoursePlayerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoursePlayerVC.swift; path = /Users/kimtaehyun/Desktop/project/dabom/dabom_iOS/dabom_iOS/Screen/MyCourse/CoursePlayerVC.swift; sourceTree = "<absolute>"; };
 		0EC8CAFC298B3760000C41E9 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		0ED17B28298782BD0008D3C0 /* CourseInquiryAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquiryAllVC.swift; sourceTree = "<group>"; };
 		0ED17B2A2987854D0008D3C0 /* CourseReviewAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewAllVC.swift; sourceTree = "<group>"; };
@@ -407,8 +407,8 @@
 				0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */,
 				0E60282E29656FC800A25F48 /* MyCourseTabManViewController.swift */,
 				0E69A03E296543A200BFD12E /* MyCourseViewController.swift */,
+				0EA647D1298BB0B9009AB119 /* CoursePlayerVC.swift */,
 				0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */,
-				0EC8CAF42988948B000C41E9 /* CoursePlayerVC.swift */,
 				0E6028282965659D00A25F48 /* InCourseViewController.swift */,
 				0E60282C29656BB500A25F48 /* WishCourseViewController.swift */,
 			);
@@ -839,11 +839,11 @@
 				0EA647C8298B7812009AB119 /* UserProfileService.swift in Sources */,
 				0E1E95972977AB8800CBE70B /* Url.swift in Sources */,
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
-				0EC8CAF52988948B000C41E9 /* CoursePlayerVC.swift in Sources */,
 				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,
 				0EC314E32987582A004C82CF /* GetReviewDataService.swift in Sources */,
 				0EC314E7298764EA004C82CF /* GetInquiryDataService.swift in Sources */,
 				0EA647CE298B9D22009AB119 /* UIImageView+.swift in Sources */,
+				0EA647D2298BB0B9009AB119 /* CoursePlayerVC.swift in Sources */,
 				0EF17C21296518EE006DC95D /* AppDelegate.swift in Sources */,
 				0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */,
 				0E69A04B296544A500BFD12E /* TabBarViewController.swift in Sources */,
@@ -1048,6 +1048,7 @@
 				DEVELOPMENT_TEAM = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dabom_iOS/Support/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진의 저장 또는 업로드를 위해 사용자의 앨범에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1080,6 +1081,7 @@
 				DEVELOPMENT_TEAM = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dabom_iOS/Support/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진의 저장 또는 업로드를 위해 사용자의 앨범에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
