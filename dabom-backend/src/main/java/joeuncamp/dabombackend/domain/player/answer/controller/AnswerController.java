@@ -48,4 +48,15 @@ public class AnswerController {
         PagingDto<AnswerDto.Response> responseDto = answerService.getAnswers(requestDto, pageable);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @Operation(summary = "답변을 수정합니다.", description = "작성자 본인만 수정할 수 있습니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PatchMapping("/answers/{answerId}")
+    public ResponseEntity<Void> updateQuestion(@PathVariable Long answerId, @RequestBody AnswerDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setMemberId(member.getId());
+        requestDto.setAnswerId(answerId);
+        answerService.updateAnswer(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

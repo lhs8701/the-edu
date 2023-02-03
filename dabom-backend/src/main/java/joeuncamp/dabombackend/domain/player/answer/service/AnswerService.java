@@ -54,7 +54,7 @@ public class AnswerService {
      * 질문에 달린 답변을 모두 조회합니다.
      *
      * @param requestDto 조회할 질문 아이디넘버
-     * @param pageable pageable
+     * @param pageable   pageable
      * @return 답변 목록
      */
     public PagingDto<AnswerDto.Response> getAnswers(AnswerDto.GetRequest requestDto, Pageable pageable) {
@@ -68,5 +68,21 @@ public class AnswerService {
                 .map(AnswerDto.Response::new)
                 .toList();
         return new PagingDto<>(page.getNumber(), page.getTotalPages(), answers);
+    }
+
+
+    /**
+     * 답변을 수정합니다.
+     *
+     * @param requestDto 수정할 내용
+     */
+    public void updateAnswer(AnswerDto.UpdateRequest requestDto) {
+        Answer answer = answerJpaRepository.findById(requestDto.getAnswerId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!enrollService.doesEnrolled(member, answer.getQuestion().getUnit().getCourse())) {
+            throw new CAccessDeniedException();
+        }
+        answer.update(requestDto.getContent());
+        answerJpaRepository.save(answer);
     }
 }
