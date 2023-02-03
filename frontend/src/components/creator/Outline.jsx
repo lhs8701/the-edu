@@ -118,6 +118,7 @@ export default function Outline() {
   const uploadCourse = (e) => {
     e.preventDefault();
     console.log(chapterList);
+    console.log(courseValue)
     console.log("제출");
   };
 
@@ -276,6 +277,7 @@ export default function Outline() {
     };
 
     const updateSmallListInChapter = () => {
+      console.log(0)
       const prevList = chapterList;
       let keyIdx = 0;
       const chapter = chapterList.filter((chapter, idx) => {
@@ -379,7 +381,7 @@ export default function Outline() {
     );
   };
 
-  const ChapterPlushComponent = () => {
+  const ChapterPlusComponent = () => {
     return (
       <>
         <Button
@@ -400,7 +402,7 @@ export default function Outline() {
   const DetailComponent = () => {
     return (
       <>
-        <ChapterPlushComponent />
+        <ChapterPlusComponent />
         {chapterList.map((chapter, idx) => {
           return (
             <ChapterCard
@@ -423,7 +425,7 @@ export default function Outline() {
       </Tabs>
     );
   };
-  console.log(courseValue);
+  
   return (
     <>
       <DashboardTitleTab title={CREATOR_BAR_LIST.list[2].list[2].name} />

@@ -5,20 +5,34 @@ import { CssTextField } from "./Outline";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect } from "react";
 import styled from "styled-components";
-
-const PreviewImg = styled.img`
+import { uploadImageApi } from "../../api/creatorApi";
+import { getAccessTokenSelector } from "../../atom";
+import { useRecoilValue } from "recoil";
+import CourseInfoImage from "./CourseInfoImage";
+import RemoveIcon from "@mui/icons-material/Remove";
+export const PreviewImg = styled.img`
   width: 350px;
   height: 200px;
 `;
 
 export default function CourseInfoUpload({ setCourseValue }) {
+  const MIN_PRICE = 10000;
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+  const [dummyImgUrlUpdate,setDummyImgUrlUpdate] = useState(false)
   const [courseTitle, setCourseTitle] = useState("");
   const [courseDetail, setCourseDetail] = useState("");
   const [firstCategory, setFirstCategory] = useState("");
   const [secCategory, setSecCategory] = useState("");
   const [introImgCnt, setIntroImgCnt] = useState(1);
   const [coursePrice, setCoursePrice] = useState(0);
-  const [thumbImg, setThumbImg] = useState();
+  const introImg = {
+    id: 0,
+    url:""
+  };
+  const [introImgList, setIntroImgList] = useState([introImg]);
+  const [thumbImg, setThumbImg] = useState({
+    file:false,url:""
+  });
   const categoryFilter = () => {
     const value = CATE_VALUE.filter((val) => {
       if (firstCategory === val.big) {
@@ -35,12 +49,20 @@ export default function CourseInfoUpload({ setCourseValue }) {
   };
 
   const plusIntroImg = () => {
+    const introImg = {
+      id: introImgCnt,
+      url:""
+    };
+    setIntroImgList((prev)=>[...prev,introImg])
     setIntroImgCnt((prev) => prev + 1);
   };
 
+
   const uploadThumbImg = (e) => {
-    setThumbImg(e.target.files[0]);
+    uploadImageApi(e.target.files[0],accessToken).then(({data})=>{setThumbImg({file:e.target.files[0],url:data.originalFilePath});}).catch((err)=>{console.log(err)})
   };
+
+
 
   const CategoryComponent = () => {
     return (
@@ -90,29 +112,29 @@ export default function CourseInfoUpload({ setCourseValue }) {
     );
   };
 
-  const ImgUploadComponent = () => {
-    return (
-      <Grid item xs={10}>
-        <CssTextField
-          fullWidth
-          type="file"
-          id="thumImg"
-          name="thumImg1"
-          inputProps={{ accept: ".jpg, .jpeg, .png" }}
-          size="small"
-        />
-      </Grid>
-    );
-  };
+
 
   useEffect(() => {
+    console.log("updateTop")
+    const introImgUrlList = []
+    introImgList.filter((imgVal, idx) => {
+      if (String(imgVal.url) !== "") {
+        introImgUrlList.push(imgVal.url)
+        }
+      });
+      
     setCourseValue({
       title: courseTitle,
       detail: courseDetail,
       category: secCategory,
       price: coursePrice,
+      thumbUrl:thumbImg.url,
+      descriptionImageUrls:introImgUrlList
     });
-  }, [courseTitle, courseDetail, secCategory, coursePrice, thumbImg]);
+  }, [introImgList,dummyImgUrlUpdate,courseTitle, courseDetail, secCategory, coursePrice, thumbImg]);
+
+  console.log("top")
+  console.log(introImgList)
 
   return (
     <Grid container spacing={2}>
@@ -156,6 +178,7 @@ export default function CourseInfoUpload({ setCourseValue }) {
           label="강의 가격"
           size="small"
           value={coursePrice}
+          inputProps={{ min: 4, max: 10 }}
           onChange={(e) => {
             setCoursePrice(e.target.value);
           }}
@@ -165,9 +188,9 @@ export default function CourseInfoUpload({ setCourseValue }) {
       <Grid item xs={6}>
         <div>썸네일 이미지 (1장)</div>
         <br />
-        {thumbImg ? (
+        {thumbImg.file ? (
           <>
-            <PreviewImg src={URL.createObjectURL(thumbImg)} />
+            <PreviewImg src={URL.createObjectURL(thumbImg?.file)} />
             <Button
               sx={{
                 backgroundColor: "var(--color-box-gray)",
@@ -177,7 +200,10 @@ export default function CourseInfoUpload({ setCourseValue }) {
               }}
               variant="contained"
               onClick={() => {
-                setThumbImg();
+                setThumbImg({
+                  file:false,
+                  url:""
+                });
               }}
             >
               취소
@@ -217,9 +243,14 @@ export default function CourseInfoUpload({ setCourseValue }) {
         <Fab aria-label="add" size="small">
           <AddIcon onClick={plusIntroImg} />
         </Fab>
+        
       </Grid>
-      {[...Array(introImgCnt).keys()].map((cnt) => {
-        return <ImgUploadComponent key={cnt} />;
+      
+
+      
+      
+      {introImgList.map((intro) => {
+      return <CourseInfoImage setDummyImgUrlUpdate={setDummyImgUrlUpdate} accessToken={accessToken}introImgList={introImgList} setIntroImgList={setIntroImgList} key={intro.key} value={intro} />;
       })}
     </Grid>
   );

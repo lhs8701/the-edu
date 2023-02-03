@@ -74,8 +74,9 @@ export default function CoursePayment({
 
   useLayoutEffect(() => {
     if (loginState) {
-      courseWishCheckApi(memberId, courseId, accessToken)
+      courseWishCheckApi( courseId, accessToken)
         .then(({ data }) => {
+          console.log(data.data)
           if (data.code === -7001) {
             setIsWishState(false);
           } else {

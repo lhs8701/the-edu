@@ -21,13 +21,9 @@ export async function searchApi(pageParam, keyword) {
   return data.data;
 }
 
-export async function enrollApi(memberId, courseId, accessToken) {
+export async function enrollApi( courseId, accessToken) {
   return await axios.post(
-    COURSE_URL + ENROLL_URL,
-    {
-      memberId: memberId,
-      courseId: Number(courseId),
-    },
+    COURSE_URL +"/"+courseId+ ENROLL_URL,{},
     {
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +37,6 @@ export async function courseWishCheckApi( courseId, accessToken) {
   return await axios.post(
     `${COURSE_URL}/${courseId}${WISHCHECK_URL}`,
     {
-      courseId: courseId,
     },
     {
       headers: {
