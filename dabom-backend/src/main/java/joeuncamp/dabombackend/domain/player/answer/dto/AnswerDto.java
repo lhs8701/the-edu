@@ -42,7 +42,7 @@ public class AnswerDto {
     @AllArgsConstructor
     public static class GetRequest{
         @Schema(hidden = true)
-        Long memberId;
+        Member member;
         @Schema(hidden = true)
         Long questionId;
     }
