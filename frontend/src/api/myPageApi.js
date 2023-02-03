@@ -1,8 +1,8 @@
 import axios from "axios";
-import { BASE_URL } from "../static";
+import { API_URL } from "../static";
 
-const STUDNET_URL = `${BASE_URL}/students`;
-const MEMBER_URL = `${BASE_URL}/members`;
+const STUDNET_URL = `${API_URL}/students`;
+const MEMBER_URL = `${API_URL}/members`;
 const WISH_URL = "/courses/wish";
 const MYCOURSE_URL = "/courses";
 const PROFILE_URL = "/profile";

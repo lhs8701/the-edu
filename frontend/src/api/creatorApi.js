@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "../static";
+import { API_URL } from "../static";
 const FILE_PATH = "/file"
 const SINGLE_IMG_URL = "/image";
 const MULTI_IMG_URL = "/image/muli";
 const CREATE_URL="/courses"
-const FILE_URL = BASE_URL+FILE_PATH;
+const FILE_URL = API_URL+FILE_PATH;
 
 export async function uploadImageApi(file, accessToken) {
   const formData = new FormData();
@@ -18,7 +18,7 @@ export async function uploadImageApi(file, accessToken) {
 
 
 export async function createCourseApi(accessToken,courseValue){
-  return await axios.post(BASE_URL + CREATE_URL,{
+  return await axios.post(API_URL + CREATE_URL,{
     "title": courseValue.title,
   "description": courseValue.detail,
   "category": courseValue.category,
