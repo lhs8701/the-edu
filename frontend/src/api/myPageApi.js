@@ -49,6 +49,8 @@ export async function revisemyInfoApi(memberId, accessToken, info) {
     { nickname: info.nickname, email: info.email },
     {
       headers: {
+        "Access-Control-Allow-Credentials": true,
+      "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
         "X-AUTH-TOKEN": accessToken,
       },

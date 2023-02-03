@@ -37,11 +37,10 @@ export async function enrollApi(memberId, courseId, accessToken) {
   );
 }
 
-export async function courseWishCheckApi(memberId, courseId, accessToken) {
+export async function courseWishCheckApi( courseId, accessToken) {
   return await axios.post(
-    COURSE_URL + WISHCHECK_URL,
+    `${COURSE_URL}/${courseId}${WISHCHECK_URL}`,
     {
-      memberId: memberId,
       courseId: courseId,
     },
     {
@@ -55,7 +54,7 @@ export async function courseWishCheckApi(memberId, courseId, accessToken) {
 
 export async function courseWishApi(memberId, courseId, accessToken) {
   return await axios.post(
-    COURSE_URL + WISH_URL,
+    `${COURSE_URL}/${courseId}${WISH_URL}`,
     {
       memberId: memberId,
       courseId: courseId,
