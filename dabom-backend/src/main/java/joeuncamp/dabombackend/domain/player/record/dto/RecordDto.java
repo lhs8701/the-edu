@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.player.view.dto;
+package joeuncamp.dabombackend.domain.player.record.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

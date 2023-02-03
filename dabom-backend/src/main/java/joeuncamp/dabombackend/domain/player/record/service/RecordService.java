@@ -1,8 +1,8 @@
-package joeuncamp.dabombackend.domain.player.view.service;
+package joeuncamp.dabombackend.domain.player.record.service;
 
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.domain.player.view.dto.RecordDto;
-import joeuncamp.dabombackend.domain.player.view.repository.RecordRedisRepository;
+import joeuncamp.dabombackend.domain.player.record.dto.RecordDto;
+import joeuncamp.dabombackend.domain.player.record.repository.RecordRedisRepository;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;

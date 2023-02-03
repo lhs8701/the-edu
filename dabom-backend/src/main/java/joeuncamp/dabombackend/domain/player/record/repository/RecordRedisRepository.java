@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.player.view.repository;
+package joeuncamp.dabombackend.domain.player.record.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.HashOperations;
