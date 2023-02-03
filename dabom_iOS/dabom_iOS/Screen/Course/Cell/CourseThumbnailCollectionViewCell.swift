@@ -43,7 +43,8 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
     }
     
     func setTemp(_ thumbnailData: SampleCourseThumbnail) {
-        thumbnailImage.image = UIImage(named: "testThumb01")
+//        thumbnailImage.image = UIImage(named: "testThumb01")
+        thumbnailImage.setImage(with: thumbnailData.thumbnailImage.mediumFilePath)
         courseTitle.text = thumbnailData.title
         creatorName.text = thumbnailData.instructor
         

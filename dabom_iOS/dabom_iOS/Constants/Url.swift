@@ -11,7 +11,8 @@ extension Const {
     struct Url {
         
         static let serverIP = "218.38.127.26:8080"
-        static let baseUrl = "http://\(serverIP)/api"
+        static let baseUrl = "http://the-edu.co.kr"
+        static let apiBaseUrl = "http://\(serverIP)/api"
 //        static let m3u8Test = "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
         static let m3u8Test = "http://the-edu.co.kr/static/videos/test-m3u8/test.m3u8"
         

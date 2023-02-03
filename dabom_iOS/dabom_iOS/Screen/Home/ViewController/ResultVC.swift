@@ -80,11 +80,15 @@ class ResultVC: UIViewController {
                         self.page += 1
                         self.totalPage = data.totalPage
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                            self.resultData.append(contentsOf: data.list)
-                            self.resultCV.reloadData()
-                            self.isPaging = false
-                        })
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//                            self.resultData.append(contentsOf: data.list)
+//                            self.resultCV.reloadData()
+//                            self.isPaging = false
+//                        })
+                        self.resultData.append(contentsOf: data.list)
+                        self.resultCV.reloadData()
+                        self.isPaging = false
+                        
                     }
                 case .requestErr(let message):
                     print("requestErr", message)
@@ -114,7 +118,8 @@ extension ResultVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
-
+        
+        nextVC.courseId = resultData[indexPath.row].courseId
         nextVC.courseTitle = resultData[indexPath.row].title
         
         nextVC.modalPresentationStyle = .fullScreen

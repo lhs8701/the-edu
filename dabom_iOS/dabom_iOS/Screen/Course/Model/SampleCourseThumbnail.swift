@@ -8,7 +8,9 @@
 import Foundation
 
 struct SampleCourseThumbnail: Codable {
-    let courseId: Int
-    let title: String
-    let instructor: String
+    var courseId: Int
+    var title: String
+    var instructor: String
+    var category: String
+    var thumbnailImage: ImageDataModel
 }

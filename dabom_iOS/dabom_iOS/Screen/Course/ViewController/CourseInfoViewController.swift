@@ -57,7 +57,7 @@ class CourseInfoViewController: UIViewController {
         setSegmentController()
             
         // courseId 기본값 설정 (임시)
-        self.courseId = 2
+//        self.courseId = 2
         getCourseInfo(id: self.courseId!)
         
         if self.loginType != nil {

@@ -28,10 +28,10 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="170"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yEB-op-owK">
-                                                        <rect key="frame" x="25" y="40" width="90" height="90"/>
+                                                        <rect key="frame" x="25" y="45" width="80" height="80"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="90" id="391-Jv-Q4b"/>
-                                                            <constraint firstAttribute="height" constant="90" id="nTp-Ox-kDp"/>
+                                                            <constraint firstAttribute="width" constant="80" id="391-Jv-Q4b"/>
+                                                            <constraint firstAttribute="height" constant="80" id="nTp-Ox-kDp"/>
                                                         </constraints>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gru-o4-T5k">
@@ -50,7 +50,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGV-Yw-w1K">
-                                                        <rect key="frame" x="135" y="72" width="165" height="26.333333333333329"/>
+                                                        <rect key="frame" x="125" y="72" width="175" height="26.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -593,7 +593,7 @@
         <image name="user" width="25" height="25"/>
         <image name="userSelected" width="25" height="25"/>
         <namedColor name="mainColor">
-            <color red="1" green="0.85500001907348633" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="0.85490196078431369" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

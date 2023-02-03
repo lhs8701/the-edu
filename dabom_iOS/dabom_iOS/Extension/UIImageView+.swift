@@ -10,7 +10,9 @@ import Kingfisher
 
 extension UIImageView {
     func setImage(with urlString: String) {
-        ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
+        let imageUrl = "\(Const.Url.baseUrl)\(urlString)"
+        
+        ImageCache.default.retrieveImage(forKey: imageUrl, options: nil) { result in
             switch result {
             case .success(let value):
                 if let image = value.image {
@@ -20,8 +22,8 @@ extension UIImageView {
                 } else {
                     //캐시가 존재하지 않는 경우
                     print("캐시 없음")
-                    guard let url = URL(string: urlString) else { return }
-                    let resource = ImageResource(downloadURL: url, cacheKey: urlString)
+                    guard let url = URL(string: imageUrl) else { return }
+                    let resource = ImageResource(downloadURL: url, cacheKey: imageUrl)
                     self.kf.setImage(with: resource)
                 }
             case .failure(let error):
