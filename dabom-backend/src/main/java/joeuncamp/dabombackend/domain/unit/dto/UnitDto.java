@@ -22,7 +22,7 @@ public class UnitDto {
         String title;
         @Schema(description = "강의 설명", example = ExampleValue.Unit.DESCRIPTION)
         String description;
-        @Schema(description = "비디오 경로", example = ExampleValue.Unit.VIDEO_URL)
+        @Schema(description = "비디오 경로", example = ExampleValue.Video.URL)
         String videoUrl;
 
         public Unit toEntity(Course course){
@@ -43,6 +43,7 @@ public class UnitDto {
         Long unitId;
     }
 
+    @Getter
     public static class Response{
         @Schema(description = "강의 아이디넘버", example = "1")
         Long unitId;
@@ -54,7 +55,7 @@ public class UnitDto {
         String title;
         @Schema(description = "강의 설명", example = ExampleValue.Unit.DESCRIPTION)
         String description;
-        @Schema(description = "비디오 정보")
+        @Schema(description = "비디오 정보", example = ExampleValue.Video.URL)
         VideoInfo videoInfo;
 
         public Response(Unit unit){

@@ -39,7 +39,7 @@ public class Course extends BaseTimeEntity {
 
     @ElementCollection
     @CollectionTable(name="description_image", joinColumns = @JoinColumn(name= "description_image_id", referencedColumnName = "id"))
-    List<ImageInfo> descriptionImage;
+    List<ImageInfo> descriptionImages;
 
     @ManyToOne
     @JoinColumn(name = "creator_profile_id")

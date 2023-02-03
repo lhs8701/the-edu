@@ -45,13 +45,12 @@ public class EnrollService {
     /**
      * 등록 정보가 존재하거나, 해당 강좌의 크리에이터라면 true를 반환합니다.
      *
-     * @param courseId 회원
-     * @param memberId 강좌
+     * @param requestDto 회원, 강좌
      * @return boolean
      */
-    public SingleResponseDto<Boolean> doesEnrolled(Long courseId, Long memberId) {
-        Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
-        Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
+    public SingleResponseDto<Boolean> doesEnrolled(EnrollDto.Request requestDto) {
+        Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         boolean doesEnrollExist = enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
         boolean isCreator = course.getCreatorProfile().getMember().equals(member);
         return new SingleResponseDto<>(doesEnrollExist || isCreator);

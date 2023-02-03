@@ -76,7 +76,7 @@ public class CourseServiceTest {
     @DisplayName("크리에이터가 아닌 사람이 강좌를 개설할 경우 예외가 발생한다.")
     void 크리에이터가_아닌_사람이_강좌를_개설할_경우_예외가_발생한다() {
         // given
-        CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder().build();
+        CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder().memberId(1L).build();
         Member member = Member.builder().build();
         Long memberId = 1L;
         given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
@@ -85,7 +85,7 @@ public class CourseServiceTest {
         // when
 
         // then
-        Assertions.assertThatThrownBy(() -> courseService.openCourse(requestDto, memberId))
+        Assertions.assertThatThrownBy(() -> courseService.openCourse(requestDto))
                 .isInstanceOf(CCreationDeniedException.class);
     }
 

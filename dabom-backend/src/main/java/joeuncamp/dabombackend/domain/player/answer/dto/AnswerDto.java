@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.player.answer.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
+import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.answer.entity.Answer;
 import joeuncamp.dabombackend.domain.player.question.entity.Question;
@@ -28,10 +29,10 @@ public class AnswerDto {
         @NotEmpty
         private String content;
 
-        public Answer toEntity(Member member, Question question) {
+        public Answer toEntity(CreatorProfile creator, Question question) {
             return Answer.builder()
                     .content(this.content)
-                    .member(member)
+                    .creator(creator)
                     .question(question)
                     .build();
         }
@@ -78,7 +79,7 @@ public class AnswerDto {
         public Response(Answer answer) {
             this.questionId = answer.getId();
             this.content = answer.getContent();
-            this.writer = answer.getMember().getNickname();
+            this.writer = answer.getCreator().getMember().getNickname();
             this.createdTIme = answer.getCreatedTime();
             this.modifiedTIme = answer.getModifiedTime();
         }

@@ -43,7 +43,7 @@ public class UnitController {
     public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
         UnitDto.PlayRequest requestDto = new UnitDto.PlayRequest(member.getId(), unitId);
         UnitDto.Response responseDto = unitService.playUnit(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
 }

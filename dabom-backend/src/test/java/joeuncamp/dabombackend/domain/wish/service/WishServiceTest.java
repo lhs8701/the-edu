@@ -52,7 +52,7 @@ public class WishServiceTest {
         given(wishJpaRepository.findByMemberAndCourse(member, course)).willReturn(Optional.ofNullable(wish));
 
         // when
-        boolean result = wishService.checkWish(requestDto);
+        boolean result = wishService.checkWish(requestDto).getData();
 
         // then
         Assertions.assertThat(result).isEqualTo(true);

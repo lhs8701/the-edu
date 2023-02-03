@@ -19,10 +19,10 @@ public class WishDto {
     @Builder
     public static class Request{
         @NotNull
-        @Schema(description = "회원 아이디넘버", example = "1")
+        @Schema(hidden = true)
         Long memberId;
         @NotNull
-        @Schema(description = "강좌 아이디넘버", example = "1")
+        @Schema(hidden = true)
         Long courseId;
 
         public Wish toEntity(Member member, Course course) {

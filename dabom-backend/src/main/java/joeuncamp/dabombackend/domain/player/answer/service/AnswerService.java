@@ -23,6 +23,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AnswerService {
 
+    private final AnswerJpaRepository answerJpaRepository;
+    private final CreatorProfileJpaRepository creatorProfileJpaRepository;
+    private final QuestionJpaRepository questionJpaRepository;
 
 
+    /**
+     * 답변을 등록합니다.
+     * @param requestDto
+     * @return
+     */
+    public SingleResponseDto<Long> createAnswer(AnswerDto.CreationRequest requestDto) {
+        CreatorProfile creator = creatorProfileJpaRepository.findByMember(requestDto.getMember()).orElseThrow(CResourceNotFoundException::new);
+        Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
+        if (!creator.getUploadedCourses().contains(question.getUnit().getCourse())){
+            throw new CResourceNotFoundException();
+        }
+        Answer answer = requestDto.toEntity(creator, question);
+        return new SingleResponseDto<>(answerJpaRepository.save(answer).getId());
+    }
 }
