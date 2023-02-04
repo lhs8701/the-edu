@@ -6,13 +6,6 @@ import Swal from "sweetalert2";
 import { Wrapper } from "../../style/PlayerSideBarCss";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-const Overlay = styled(motion.div)`
-  width: 100%;
-  min-height: 100%;
-  position: absolute;
-  top: 0;
-  left: 25%;
-`;
 
 const CateBox = styled.div`
   display: flex;
@@ -64,7 +57,6 @@ const QuestionInfoBox = styled.div`
 `;
 
 const QuestionBox = styled(motion.div)`
-  width: 95%;
   position: relative;
   overflow: auto;
   display: flex;
@@ -90,36 +82,12 @@ const QuestionInfoTab = styled(AccordionSummary)`
   background-color: teal;
 `;
 
-const QuestionCard = styled(motion.div)`
-  width: 100%;
-  background-color: pink;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  border: 1px solid rgba(0, 0, 0, 1);
-`;
-
 const Tab = styled(motion.div)`
   overflow: hidden;
   white-space: nowrap;
   font-size: var(--font-size-question-any);
   text-overflow: ellipsis;
   /* display: ${(props) => (props.visible ? "default" : "none")}; */
-`;
-
-const QBox = styled.div`
-  margin-top: 10px;
-  width: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const ReplyBox = styled.div`
-  height: 100%;
-  width: 90%;
-  padding: 10px 0px;
 `;
 
 const Form = styled.form`
@@ -138,37 +106,25 @@ const TitleInputBox = styled.div`
   justify-content: flex-start;
 `;
 
-const Div = styled.div`
-  cursor: pointer;
-`;
-
 const QuestionBtn = styled(motion.button)`
   cursor: pointer;
 `;
 
-const QuestionDiv = styled(AccordionDetails)`
-  width: 100%;
-  height: 30px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  background-color: teal;
+const QuestionDiv = styled(AccordionDetails)``;
+
+const QuestionContextBox = styled.div`
+  text-align: start;
 `;
 
 export default function UnitQuestion() {
   const [type, setType] = useState(false);
   const [nowQ, setNowQ] = useState([1, 2, 3]);
   const [qTitle, setQTitle] = useState("");
-  const [q, setQ] = useState("");
-  const [clicked, setClicked] = useState(null);
-  const [qData, setQData] = useState(true);
+  const [questionContext, setQuestionContext] = useState("");
+
   const [visible, setVisible] = useState(true);
   const [questionContent, setQuestionContent] = useState("");
   const [questionReply, setQuestionReply] = useState("");
-
-  const toggle = (n) => {
-    setClicked(n);
-  };
 
   // async function questionDown() {
   //   try {
@@ -187,7 +143,7 @@ export default function UnitQuestion() {
 
   // const questionUpload = (e) => {
   //   e.preventDefault();
-  //   if (qTitle === "" || q === "") {
+  //   if (qTitle === "" || questionContext === "") {
   //     alert("질문을 입력하세요.");
   //   } else {
   //     if (videoVal.playing === true) {
@@ -199,7 +155,7 @@ export default function UnitQuestion() {
   //       .post(
   //         `${STATICURL}/front/unit/${queryList.unitId}/questions`,
   //         {
-  //           content: q,
+  //           content: questionContext,
   //           title: qTitle,
   //           timeline: lecTime,
   //         },
@@ -236,11 +192,6 @@ export default function UnitQuestion() {
   //       });
   //   }
   // };
-
-  const variants = {
-    open: { opacity: 1 },
-    closed: { opacity: 0.4 },
-  };
 
   // async function getQuestionContent(questionId) {
   //   try {
@@ -327,9 +278,9 @@ export default function UnitQuestion() {
         </TitleInputBox>
         <Input
           required
-          value={q}
+          value={questionContext}
           onChange={(e) => {
-            setQ(e.target.value);
+            setQuestionContext(e.target.value);
           }}
           placeholder="질문을 등록해주세요"
         />
@@ -371,6 +322,33 @@ export default function UnitQuestion() {
     );
   };
 
+  const QuestionContentComponent = () => {
+    const [qData, setQData] = useState(true);
+    return (
+      <QuestionDiv>
+        <CateBox>
+          <CateTab
+            type={qData}
+            onClick={() => {
+              setQData(true);
+            }}
+          >
+            질문
+          </CateTab>
+          <CateTab
+            type={!qData}
+            onClick={() => {
+              setQData(false);
+            }}
+          >
+            답변
+          </CateTab>
+        </CateBox>
+        <QuestionContextBox>머시기머시기</QuestionContextBox>
+      </QuestionDiv>
+    );
+  };
+
   const QuestionListComponent = () => {
     return nowQ?.map((question, idx) => {
       return (
@@ -378,8 +356,6 @@ export default function UnitQuestion() {
           onClick={() => {
             // getQuestionContent(e.questionId);
             // getQuestionReply(e.questionId);
-            setQData(true);
-            toggle(idx + 1);
           }}
           key={idx}
         >
@@ -392,7 +368,7 @@ export default function UnitQuestion() {
           >
             {question.title} 답변:{question.replyCount}
           </QuestionInfoTab>
-          <QuestionDiv>우웅</QuestionDiv>
+          <QuestionContentComponent />
         </QuestionTab>
       );
     });
@@ -404,7 +380,7 @@ export default function UnitQuestion() {
         <QuestionInfoBox>
           <Tab>{nowQ?.length}개의 질문이 있어요.</Tab>
         </QuestionInfoBox>
-        <QuestionBox click={clicked}>
+        <QuestionBox>
           {/* <AnimatePresence>
             {clicked ? (
               <Overlay
@@ -479,7 +455,6 @@ export default function UnitQuestion() {
       </>
     );
   };
-
   return (
     <Wrapper>
       <QuestionPathTab />
