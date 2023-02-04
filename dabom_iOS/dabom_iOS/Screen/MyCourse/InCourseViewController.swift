@@ -9,9 +9,13 @@ import UIKit
 
 class InCourseViewController: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet weak var inCourseCV: UICollectionView!
     
+    
+    // MARK: - let, var
     var inCourseData: Array<MyCourseDataModel>?
+    
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -43,9 +47,9 @@ extension InCourseViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
+
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.coursePlayerVC) as? CoursePlayerVC else { return }
-//        nextVC.courseTitle = inCourseData![indexPath.row].courseTitle
+
         nextVC.unitId = 6
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)

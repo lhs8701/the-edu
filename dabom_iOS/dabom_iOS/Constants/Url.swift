@@ -16,6 +16,8 @@ extension Const {
 //        static let m3u8Test = "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
         static let m3u8Test = "http://the-edu.co.kr/static/videos/test-m3u8/test.m3u8"
         
+        static let getCategory = "\(apiBaseUrl)/ref/category"
+        
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"
         static let login = "http://\(serverIP)/api/auth/basic/login"

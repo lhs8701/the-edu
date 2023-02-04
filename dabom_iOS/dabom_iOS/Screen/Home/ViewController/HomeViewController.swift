@@ -41,6 +41,13 @@ class HomeViewController: UIViewController {
         
         
     }
+    
+    @IBAction func categoryBtnPressed(_ sender: Any) {
+        guard let categoryVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: "CategorySelectVC") as? CategorySelectVC else {return}
+        
+        self.navigationController?.pushViewController(categoryVC, animated: true)
+    }
+    
 }
 
 

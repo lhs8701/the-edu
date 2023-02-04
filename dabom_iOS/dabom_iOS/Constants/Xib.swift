@@ -11,6 +11,8 @@ extension Const {
     struct Xib {
         
         struct Name {
+            static let categoryTVC = "CategoryTVC"
+            static let categoryHeaderTVC = "CategoryHeaderTVC"
             static let courseTVC = "CourseTableViewCell"
             static let courseThumbnailCVC = "CourseThumbnailCollectionViewCell"
             static let courseInfoTVC = "CourseInfoTVC"
@@ -26,6 +28,8 @@ extension Const {
         }
         
         struct Identifier {
+            static let categoryTVC = "CategoryTVC"
+            static let categoryHeaderTVC = "CategoryHeaderTVC"
             static let courseTVC = "CourseTableViewCell"
             static let courseThumbnailCVC = "CourseThumbnailCollectionViewCell"
             static let courseInfoTVC = "CourseInfoTVC"

@@ -31,7 +31,7 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" backgroundImage="category"/>
                                         <connections>
-                                            <segue destination="63t-RN-8eh" kind="show" id="7yd-e9-yHH"/>
+                                            <action selector="categoryBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="dYQ-oY-naL"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phM-7r-sEg">
@@ -110,7 +110,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWP-Bh-hb1">
-                                <rect key="frame" x="0.0" y="91" width="390" height="1326"/>
+                                <rect key="frame" x="0.0" y="47" width="390" height="1419"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="m0P-PV-Vol">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="1150"/>
@@ -706,6 +706,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VV9-4a-TAa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5867.6923076923076" y="-34.834123222748815"/>
+        </scene>
+        <!--Category SelectVC-->
+        <scene sceneID="rm6-1R-16q">
+            <objects>
+                <viewController storyboardIdentifier="CategorySelectVC" id="oD1-wh-3Xg" customClass="CategorySelectVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="F7E-Ko-uYc">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Zeg-8z-JbF">
+                                <rect key="frame" x="0.0" y="47" width="390" height="763"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CFw-2b-Yks"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Zeg-8z-JbF" firstAttribute="top" secondItem="CFw-2b-Yks" secondAttribute="top" id="6x6-8D-cTY"/>
+                            <constraint firstItem="Zeg-8z-JbF" firstAttribute="trailing" secondItem="CFw-2b-Yks" secondAttribute="trailing" id="OXI-og-lU8"/>
+                            <constraint firstItem="Zeg-8z-JbF" firstAttribute="bottom" secondItem="CFw-2b-Yks" secondAttribute="bottom" id="nfw-dA-7NK"/>
+                            <constraint firstItem="Zeg-8z-JbF" firstAttribute="leading" secondItem="CFw-2b-Yks" secondAttribute="leading" id="yqo-fK-r4S"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="categoryTV" destination="Zeg-8z-JbF" id="BAj-l8-RVm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bN1-mB-lsW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6741.538461538461" y="-97.393364928909946"/>
         </scene>
         <!--ResultVC-->
         <scene sceneID="qLR-iU-Dzc">
