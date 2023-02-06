@@ -3,11 +3,9 @@ package joeuncamp.dabombackend.domain.player.answer.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.answer.entity.Answer;
 import joeuncamp.dabombackend.domain.player.question.entity.Question;
-import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -78,17 +76,17 @@ public class AnswerDto {
         String writer;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd.HH:mm", timezone = "Asia/Seoul")
         @Schema(description = "생성 시간", example = ExampleValue.Time.DATE)
-        LocalDateTime createdTIme;
+        LocalDateTime createdTime;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd.HH:mm", timezone = "Asia/Seoul")
         @Schema(description = "최근 수정 시간", example = ExampleValue.Time.DATE)
-        LocalDateTime modifiedTIme;
+        LocalDateTime modifiedTime;
 
         public Response(Answer answer) {
             this.answerId = answer.getId();
             this.content = answer.getContent();
             this.writer = answer.getMember().getNickname();
-            this.createdTIme = answer.getCreatedTime();
-            this.modifiedTIme = answer.getModifiedTime();
+            this.createdTime = answer.getCreatedTime();
+            this.modifiedTime = answer.getModifiedTime();
         }
     }
 }

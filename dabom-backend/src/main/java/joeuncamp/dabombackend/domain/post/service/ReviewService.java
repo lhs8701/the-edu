@@ -78,6 +78,20 @@ public class ReviewService {
         return review.getId();
     }
 
+    /**
+     * 수강 후기를 삭제합니다.
+     *
+     * @param requestDto 회원, 삭제할 후기
+     */
+    public void deleteReview(ReviewDto.DeleteRequest requestDto) {
+        Review review = reviewJpaRepository.findById(requestDto.getReviewId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!member.equals(review.getMember())) {
+            throw new CAccessDeniedException();
+        }
+        reviewJpaRepository.delete(review);
+    }
+
 
     /**
      * 강좌의 평균 평점을 계산합니다.

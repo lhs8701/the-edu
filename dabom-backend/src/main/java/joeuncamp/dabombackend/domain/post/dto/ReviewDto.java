@@ -13,7 +13,7 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class Request{
+    public static class Request {
         @NotNull
         @Schema(description = "회원 아이디넘버", example = "1")
         Long memberId;
@@ -27,7 +27,7 @@ public class ReviewDto {
         @Schema(description = "평점")
         int score;
 
-        public Review toEntity(Member member, Course course){
+        public Review toEntity(Member member, Course course) {
             return Review.builder()
                     .member(member)
                     .course(course)
@@ -60,7 +60,7 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class Response{
+    public static class Response {
         @Schema(description = "아이디넘버", example = "1")
         Long reviewId;
 
@@ -79,7 +79,7 @@ public class ReviewDto {
         @Schema(description = "평점", example = "5")
         int rating;
 
-        public Response(Review review){
+        public Response(Review review) {
             this.reviewId = review.getId();
             this.writer = review.getMember().getNickname();
             this.course = review.getCourse().getTitle();
@@ -87,5 +87,16 @@ public class ReviewDto {
             this.likes = review.getLikes();
             this.rating = review.getScore();
         }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class DeleteRequest {
+        @NotNull
+        @Schema(hidden = true, description = "회원 아이디넘버")
+        Long memberId;
+        @NotNull
+        @Schema(hidden = true, description = "후기 아이디넘버")
+        Long reviewId;
     }
 }
