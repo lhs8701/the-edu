@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.course.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.dto.CurriculumDto;
 import joeuncamp.dabombackend.domain.course.entity.Chapter;
@@ -25,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.ListIterator;
 
 @Service
 @RequiredArgsConstructor
@@ -60,13 +62,22 @@ public class CourseService {
         return courseJpaRepository.save(course).getId();
     }
 
-    public void makeCurriculum(CurriculumDto.CreateRequest requestDto){
+    /**
+     * 커리큘럼을 생성합니다.
+     * 챕터를 생성하거나, 강의간 순서를 바꿀 수 있습니다.
+     *
+     * @param requestDto dto
+     */
+    @Transactional
+    public void makeCurriculum(CurriculumDto.CreateRequest requestDto) {
         int sequence = 1;
         List<CurriculumDto.ChapterRequest> chapters = requestDto.getChapterList();
+        chapterJpaRepository.deleteByCourseId(requestDto.getCourseId());
         for (CurriculumDto.ChapterRequest chapterRequest : chapters) {
             Chapter chapter = Chapter.builder()
                     .title(chapterRequest.getTitle())
                     .sequence(sequence++)
+                    .courseId(requestDto.getCourseId())
                     .build();
             chapterJpaRepository.save(chapter);
             setChapter(chapter, chapterRequest.getUnitList());
@@ -81,6 +92,33 @@ public class CourseService {
             unit.setChapter(chapter);
             unitJpaRepository.save(unit);
         }
+    }
+
+    /**
+     * @param requestDto
+     * @return
+     */
+    public CurriculumDto.Response getCurriculum(CurriculumDto.GetRequest requestDto) {
+        Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
+        List<Unit> units = unitJpaRepository.findByCourseOrderBySequence(course);
+        if (units.size() == 0) {
+            return null;
+        }
+        CurriculumDto.Response responseDto = new CurriculumDto.Response();
+        CurriculumDto.ChapterResponse chapterResponse = new CurriculumDto.ChapterResponse();
+        chapterResponse.setTitle(units.get(0).getChapter().getTitle());
+        Chapter prev = units.get(0).getChapter();
+        for (Unit unit : units) {
+            if (!unit.getChapter().equals(prev)) {
+                responseDto.getChapterList().add(chapterResponse);
+                chapterResponse = new CurriculumDto.ChapterResponse();
+                chapterResponse.setTitle(unit.getChapter().getTitle());
+                prev = unit.getChapter();
+            }
+            chapterResponse.getUnitList().add(new CurriculumDto.UnitResponse(unit));
+        }
+        responseDto.getChapterList().add(chapterResponse);
+        return responseDto;
     }
 
     /**
@@ -117,7 +155,7 @@ public class CourseService {
      * 강좌를 검색합니다.
      * 제목이나, 강사명에 키워드가 포함된 강좌를 모두 조회합니다.
      *
-     * @param keyword 검색어
+     * @param keyword  검색어
      * @param pageable pageable
      * @return 강좌 정보 리스트
      */

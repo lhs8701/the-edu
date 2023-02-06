@@ -53,11 +53,20 @@ public class CourseController {
     @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/curriculum")
-    public ResponseEntity<Void> openCourse(@PathVariable Long courseId, @RequestBody CurriculumDto.CreateRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> makeCurriculum(@PathVariable Long courseId, @RequestBody CurriculumDto.CreateRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setCourseId(courseId);
         requestDto.setMemberId(member.getId());
         courseService.makeCurriculum(requestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "강좌 커리큘럼을 조회합니다.", description = "")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/courses/{courseId}/curriculum")
+    public ResponseEntity<CurriculumDto.Response> getCurriculum(@PathVariable Long courseId) {
+        CurriculumDto.GetRequest requestDto = new CurriculumDto.GetRequest(courseId);
+        CurriculumDto.Response responseDto = courseService.getCurriculum(requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     @Operation(summary = "강좌를 단건 조회합니다.", description = "")

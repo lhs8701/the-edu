@@ -21,4 +21,5 @@ public class Chapter {
     Long id;
     String title;
     int sequence;
+    Long courseId;
 }
