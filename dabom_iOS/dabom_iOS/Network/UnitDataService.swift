@@ -61,7 +61,7 @@ struct UnitDataService {
                 guard let statusCode = dataResponse.response?.statusCode else {return}
                 guard let value = dataResponse.value else {return}
                 
-                let data = Double(String(data: value, encoding: .utf8) ?? "0.0")!
+                let data = Double(String(data: value, encoding: .utf8) ?? "0.0") ?? 0.0
                 
                 switch statusCode {
                 case 200:

@@ -37,11 +37,11 @@ class MyCourseCVC: UICollectionViewCell {
     func setData(_ myCourseData: MyCourseDataModel) {
         thumbnailImage.setImage(with: myCourseData.thumbnailImage.mediumFilePath)
         courseTitle.text = myCourseData.title
-//        unitTitle.text = myCourseData.unitTitle
-        progressUnitCount.text = String(myCourseData.completedNumber)
-        totalUnitCount.text = String(myCourseData.completedNumber)
-//        percentage.text = String((myCourseData.percentage ?? 0.0) * 100)
+        unitTitle.text = myCourseData.nextUnitInfo.title
+        progressUnitCount.text = String(myCourseData.completedUnits)
+        totalUnitCount.text = String(myCourseData.entireUnits)
+        percentage.text = String((myCourseData.completedUnits / myCourseData.entireUnits) * 100)
         
-        progressBar.progress = Float(myCourseData.completedNumber / 10)
+        progressBar.progress = Float(myCourseData.completedUnits / myCourseData.entireUnits)
     }
 }

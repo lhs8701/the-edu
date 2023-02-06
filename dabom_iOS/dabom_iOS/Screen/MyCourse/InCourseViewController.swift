@@ -82,7 +82,7 @@ extension InCourseViewController: UICollectionViewDelegate {
 
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.coursePlayerVC) as? CoursePlayerVC else { return }
 
-        nextVC.unitId = 1
+        nextVC.unitId = self.inCourseData?[indexPath.row].nextUnitInfo.unitId
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
 
