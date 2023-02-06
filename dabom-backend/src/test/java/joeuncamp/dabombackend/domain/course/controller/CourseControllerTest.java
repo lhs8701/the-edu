@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.course.controller;
 import com.google.gson.Gson;
 import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
+import joeuncamp.dabombackend.domain.course.service.CurriculumService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.course.service.RankingService;
 import joeuncamp.dabombackend.domain.wish.dto.WishDto;
@@ -42,13 +43,8 @@ public class CourseControllerTest {
 
     @MockBean
     CourseService courseService;
-
     @MockBean
-    EnrollService enrollService;
-
-    @MockBean
-    WishService wishService;
-
+    CurriculumService curriculumService;
     @MockBean
     RankingService rankingService;
 
