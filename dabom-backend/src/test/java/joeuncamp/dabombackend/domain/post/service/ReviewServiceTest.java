@@ -47,7 +47,7 @@ public class ReviewServiceTest {
         // given
         Member member = Member.builder().build();
         Course course = Course.builder().build();
-        ReviewDto.Request requestDto = ReviewDto.Request.builder()
+        ReviewDto.CreateRequest createRequestDto = ReviewDto.CreateRequest.builder()
                 .memberId(1L)
                 .courseId(1L)
                 .build();
@@ -58,7 +58,7 @@ public class ReviewServiceTest {
         // when
 
         // then
-        assertThatThrownBy(() -> reviewService.writeReview(requestDto))
+        assertThatThrownBy(() -> reviewService.writeReview(createRequestDto))
                 .isInstanceOf(CAccessDeniedException.class);
 
     }

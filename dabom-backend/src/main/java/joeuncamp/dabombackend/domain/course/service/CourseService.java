@@ -1,17 +1,24 @@
 package joeuncamp.dabombackend.domain.course.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
+import joeuncamp.dabombackend.domain.course.dto.CurriculumDto;
+import joeuncamp.dabombackend.domain.course.entity.Chapter;
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.course.repository.ChapterJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
-import joeuncamp.dabombackend.domain.file.image.service.ImageService;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.domain.player.record.service.ViewChecker;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
+import joeuncamp.dabombackend.domain.unit.entity.Unit;
+import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.CategoryType;
+import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -29,9 +36,13 @@ public class CourseService {
     private final MemberJpaRepository memberJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
     private final CreatorService creatorService;
+    private final UnitJpaRepository unitJpaRepository;
 
-    private final ImageService imageService;
     private final ReviewService reviewService;
+    private final ChapterJpaRepository chapterJpaRepository;
+
+    private final EnrollService enrollService;
+    private final ViewChecker viewChecker;
 
     /**
      * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
@@ -89,7 +100,7 @@ public class CourseService {
      * 강좌를 검색합니다.
      * 제목이나, 강사명에 키워드가 포함된 강좌를 모두 조회합니다.
      *
-     * @param keyword 검색어
+     * @param keyword  검색어
      * @param pageable pageable
      * @return 강좌 정보 리스트
      */

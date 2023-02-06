@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ActiveProfiles("test")
 @WebMvcTest(ReviewController.class)
 public class ReviewControllerTest {
     @Autowired
@@ -37,20 +39,20 @@ public class ReviewControllerTest {
     @DisplayName("후기를 작성한다.")
     void 후기를_작성한다() throws Exception {
         // given
-        ReviewDto.Request requestDto = ReviewDto.Request.builder()
+        ReviewDto.CreateRequest createRequestDto = ReviewDto.CreateRequest.builder()
                 .memberId(1L)
                 .courseId(1L)
                 .content(ExampleValue.Post.CONTENT)
                 .score(ExampleValue.Post.RATING)
                 .build();
 
-        given(reviewService.writeReview(requestDto)).willReturn(new IdResponseDto(1L));
+        given(reviewService.writeReview(createRequestDto)).willReturn(new IdResponseDto(1L));
 
         // when
-        ResultActions actions = mockMvc.perform(post("/api/courses/reviews")
+        ResultActions actions = mockMvc.perform(post("/api/courses/{courseId}/reviews", 1)
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(new Gson().toJson(requestDto)));
+                .content(new Gson().toJson(createRequestDto)));
 
 
         // then
@@ -66,7 +68,7 @@ public class ReviewControllerTest {
         given(reviewService.getReviews(1L)).willReturn(List.of(new ReviewDto.Response()));
 
         // when
-        ResultActions actions = mockMvc.perform(get("/api/courses/{courseId}/reviews",1L)
+        ResultActions actions = mockMvc.perform(get("/api/courses/{courseId}/reviews", 1L)
                 .with(csrf()));
 
         // then

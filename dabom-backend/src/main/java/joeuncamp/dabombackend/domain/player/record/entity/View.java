@@ -1,18 +1,19 @@
-package joeuncamp.dabombackend.domain.course.entity;
+package joeuncamp.dabombackend.domain.player.record.entity;
 
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.member.entity.Member;
-import joeuncamp.dabombackend.global.common.BaseTimeEntity;
+import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Entity
-public class Enroll extends BaseTimeEntity {
+@Builder
+public class View {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -23,14 +24,5 @@ public class Enroll extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn
-    Course course;
-
-    @Builder
-    public Enroll (Member member, Course course){
-        this.member = member;
-        member.getEnrollList().add(this);
-
-        this.course = course;
-        course.getEnrollList().add(this);
-    }
+    Unit unit;
 }

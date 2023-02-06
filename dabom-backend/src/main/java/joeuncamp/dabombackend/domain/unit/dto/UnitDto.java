@@ -43,14 +43,11 @@ public class UnitDto {
         Long unitId;
     }
 
+
     @Getter
     public static class Response{
         @Schema(description = "강의 아이디넘버", example = "1")
         Long unitId;
-        @Schema(description = "순서", example = "1")
-        int sequence;
-        @Schema(description = "챕터 아이디넘버", example = "1")
-        Long chapterId;
         @Schema(description = "강의 제목", example = ExampleValue.Unit.TITLE)
         String title;
         @Schema(description = "강의 설명", example = ExampleValue.Unit.DESCRIPTION)
@@ -60,8 +57,6 @@ public class UnitDto {
 
         public Response(Unit unit){
             this.unitId = unit.getId();
-            this.sequence = unit.getSequence();
-            this.chapterId = unit.getChapterId();
             this.title = unit.getTitle();
             this.description = unit.getDescription();
             this.videoInfo = unit.getVideoInfo();

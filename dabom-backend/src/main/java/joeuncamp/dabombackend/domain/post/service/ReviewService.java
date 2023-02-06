@@ -31,21 +31,21 @@ public class ReviewService {
      * 강좌 후기를 등록합니다.
      * 등록하지 않았을 경우 예외가 발생합니다.
      *
-     * @param requestDto 후기 작성 DTO
+     * @param createRequestDto 후기 작성 DTO
      * @return 작성된 후기 아이디넘버
      */
-    public IdResponseDto writeReview(ReviewDto.Request requestDto) {
-        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
-        Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
+    public IdResponseDto writeReview(ReviewDto.CreateRequest createRequestDto) {
+        Member member = memberJpaRepository.findById(createRequestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        Course course = courseJpaRepository.findById(createRequestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, course)) {
             throw new CAccessDeniedException();
         }
-        Long savedId = createAndSaveReview(requestDto, member, course);
+        Long savedId = createAndSaveReview(createRequestDto, member, course);
         return new IdResponseDto(savedId);
     }
 
-    private Long createAndSaveReview(ReviewDto.Request requestDto, Member member, Course course) {
-        Review review = requestDto.toEntity(member, course);
+    private Long createAndSaveReview(ReviewDto.CreateRequest createRequestDto, Member member, Course course) {
+        Review review = createRequestDto.toEntity(member, course);
         return reviewJpaRepository.save(review).getId();
     }
 
@@ -59,6 +59,37 @@ public class ReviewService {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
         List<Review> reviews = reviewJpaRepository.findAllByCourse(course);
         return reviews.stream().map(ReviewDto.Response::new).toList();
+    }
+
+    /**
+     * 수강 후기를 수정합니다.
+     *
+     * @param requestDto 후기, 회원, 수정내용
+     * @return 수정한 후기의 아이디넘버
+     */
+    public Long updateReview(ReviewDto.UpdateRequest requestDto) {
+        Review review = reviewJpaRepository.findById(requestDto.getReviewId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!member.equals(review.getMember())) {
+            throw new CAccessDeniedException();
+        }
+        review.update(requestDto.getContent(), requestDto.getScore());
+        reviewJpaRepository.save(review);
+        return review.getId();
+    }
+
+    /**
+     * 수강 후기를 삭제합니다.
+     *
+     * @param requestDto 회원, 삭제할 후기
+     */
+    public void deleteReview(ReviewDto.DeleteRequest requestDto) {
+        Review review = reviewJpaRepository.findById(requestDto.getReviewId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!member.equals(review.getMember())) {
+            throw new CAccessDeniedException();
+        }
+        reviewJpaRepository.delete(review);
     }
 
 
