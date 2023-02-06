@@ -407,6 +407,13 @@ extension CourseInfoViewController: CourseEnrollBtnDelegate {
                 CourseInfoDataService.shared.enrollCourse(courseId: self.courseId!) { response in
                     switch (response) {
                     case .success:
+                        let complete = UIAlertController(title: "신청 되었습니다", message: nil, preferredStyle: .alert)
+                        let done = UIAlertAction(title: "확인", style: .default)
+                        complete.addAction(done)
+                        self.present(complete, animated: true)
+                        
+                        self.isEnroll = true
+                        self.mainTV.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
                         print("enroll Success")
                     case .requestErr(let message):
                         print("requestErr", message)
