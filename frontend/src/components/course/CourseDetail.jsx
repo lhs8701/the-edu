@@ -20,7 +20,7 @@ const DetailBox = styled.div`
 `;
 
 const RefDiv = styled.div`
-  padding-top: 50px;
+  padding: 50px;
 `;
 
 export default function CourseDetail({ courseId }) {
@@ -89,12 +89,17 @@ export default function CourseDetail({ courseId }) {
       </DetailBox> */}
       <DetailBox>
         <CourseImg images={data?.descriptionImages} />
+        <br />
+        <br />
+        <br />
         <RefDiv ref={cateRef}>
           <CourseCategory courseId={courseId} />
         </RefDiv>
+        <br />
         <RefDiv ref={reviewRef}>
           <CourseReview courseId={courseId} />
         </RefDiv>
+        <br />
         <RefDiv ref={inquireRef}>
           <CourseInquire courseId={courseId} />
         </RefDiv>
