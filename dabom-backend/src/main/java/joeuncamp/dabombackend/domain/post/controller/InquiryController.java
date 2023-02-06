@@ -56,4 +56,14 @@ public class InquiryController {
         Long response = inquiryService.updateInquiry(requestDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @Operation(summary = "강좌의 문의사항을 삭제합니다.", description = "작성자 본인만 삭제할 수 있습니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/inquiries/{inquiryId}")
+    public ResponseEntity<Void> deleteReview(@PathVariable Long inquiryId, @AuthenticationPrincipal Member member) {
+        InquiryDto.DeleteRequest requestDto = new InquiryDto.DeleteRequest(member.getId(), inquiryId);
+        inquiryService.deleteInquiry(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

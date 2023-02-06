@@ -72,4 +72,18 @@ public class InquiryService {
         inquiryJpaRepository.save(inquiry);
         return inquiry.getId();
     }
+
+    /**
+     * 문의사항을 삭제합니다.
+     *
+     * @param requestDto 회원, 삭제할 문의사항
+     */
+    public void deleteInquiry(InquiryDto.DeleteRequest requestDto) {
+        Inquiry inquiry = inquiryJpaRepository.findById(requestDto.getInquiryId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!member.equals(inquiry.getMember())) {
+            throw new CAccessDeniedException();
+        }
+        inquiryJpaRepository.delete(inquiry);
+    }
 }
