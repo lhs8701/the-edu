@@ -31,6 +31,7 @@ public class ViewChecker {
 
     /**
      * 해당 강의를 시청 완료 처리합니다.
+     * 기존 완료 표시가 없던 강의에 한해서만 처리됩니다.
      *
      * @param requestDto 회원, 강의
      */
@@ -40,11 +41,13 @@ public class ViewChecker {
         if (!enrollService.doesEnrolled(member, unit.getCourse())) {
             throw new CAccessDeniedException();
         }
-        View view = View.builder()
-                .member(member)
-                .unit(unit)
-                .build();
-        viewJpaRepository.save(view);
+        if (viewJpaRepository.findByMemberAndUnit(member, unit).isEmpty()) {
+            View view = View.builder()
+                    .member(member)
+                    .unit(unit)
+                    .build();
+            viewJpaRepository.save(view);
+        }
     }
 
     public List<Unit> getCompletedUnit(Member member, Course course) {
@@ -60,7 +63,7 @@ public class ViewChecker {
         List<Course> completedCourses = new ArrayList<>();
         for (Course course : entireCourses) {
             List<Unit> units = getCompletedUnit(member, course);
-            if (units.size() == course.getUnitList().size()){
+            if (units.size() == course.getUnitList().size()) {
                 completedCourses.add(course);
             }
         }

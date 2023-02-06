@@ -10,11 +10,13 @@ import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class RecordService {
     private final MemberJpaRepository memberJpaRepository;
@@ -36,7 +38,7 @@ public class RecordService {
                 .courseId(unit.getCourse().getId())
                 .time(requestDto.getTime())
                 .build();
-
+        recordRedisRepository.deleteByMemberIdAndUnitId(member.getId(), unit.getId());
         recordRedisRepository.save(record);
     }
 

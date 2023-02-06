@@ -49,6 +49,17 @@ public class CourseController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "강좌 커리큘럼을 생성합니다.", description = "커리큘럼 생성은 크리에이터 본인만 가능합니다. \n 챕터와 강의 순서를 변경할 수 있습니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/courses/{courseId}/curriculum")
+    public ResponseEntity<Void> openCourse(@PathVariable Long courseId, @RequestBody CurriculumDto.CreateRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setCourseId(courseId);
+        requestDto.setMemberId(member.getId());
+        courseService.makeCurriculum(requestDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @Operation(summary = "강좌를 단건 조회합니다.", description = "")
     @PreAuthorize("permitAll()")
     @GetMapping("/courses/{courseId}")

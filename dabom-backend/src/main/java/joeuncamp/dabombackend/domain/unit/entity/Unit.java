@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.unit.entity;
 
 import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.course.entity.Chapter;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.file.video.entity.VideoInfo;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
@@ -19,8 +20,6 @@ public class Unit extends BaseTimeEntity {
     Long id;
 
     int sequence;
-
-    Long chapterId;
     String title;
     String description;
 
@@ -28,6 +27,9 @@ public class Unit extends BaseTimeEntity {
     @JoinColumn
     Course course;
 
+    @ManyToOne
+    @JoinColumn
+    Chapter chapter;
     VideoInfo videoInfo;
 
     @Builder
@@ -44,5 +46,13 @@ public class Unit extends BaseTimeEntity {
         }
         this.course = course;
         course.getUnitList().add(this);
+    }
+
+    public void setSequence(int sequence){
+        this.sequence = sequence;
+    }
+
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
     }
 }

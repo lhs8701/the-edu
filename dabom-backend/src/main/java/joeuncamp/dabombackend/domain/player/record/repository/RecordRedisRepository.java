@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface RecordRedisRepository extends CrudRepository<Record, Long> {
     Optional<Record> findTop1ByMemberIdAndCourseIdOrderByRecentTimeDesc(Long memberId, Long courseId);
-
+    void deleteByMemberIdAndUnitId(Long memberId, Long unitId);
     Optional<Record> findByMemberIdAndUnitId(Long memberId, Long unitId);
 
 }
