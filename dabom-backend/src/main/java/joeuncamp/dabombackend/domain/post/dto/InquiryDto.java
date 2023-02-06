@@ -61,11 +61,10 @@ public class InquiryDto {
 
         public Response(Inquiry inquiry){
             this.inquiryId = inquiry.getId();
-            this.writer = inquiry.getMember().getName();
+            this.writer = inquiry.getMember().getNickname();
             this.course = inquiry.getCourse().getTitle();
             this.content = inquiry.getContent();
             this.likes = inquiry.getLikes();
         }
     }
-
 }
