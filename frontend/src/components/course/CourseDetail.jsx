@@ -67,9 +67,6 @@ export default function CourseDetail({ courseId }) {
     setIsTabStatus(currentViewFinder(viewArr));
   }, [viewArr]);
 
-
-
-
   return (
     <DetailWrapper>
       <div ref={imgRef} />
@@ -93,7 +90,7 @@ export default function CourseDetail({ courseId }) {
       <DetailBox>
         <CourseImg images={data?.descriptionImages} />
         <RefDiv ref={cateRef}>
-          {/* <CourseCategory courseIdx={courseInfo.courseIndex} /> */}
+          <CourseCategory courseId={courseId} />
         </RefDiv>
         <RefDiv ref={reviewRef}>
           <CourseReview courseId={courseId} />
