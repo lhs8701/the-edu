@@ -9,9 +9,14 @@ import UIKit
 
 class InCourseViewController: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet weak var inCourseCV: UICollectionView!
     
+    
+    // MARK: - let, var
     var inCourseData: Array<MyCourseDataModel>?
+    let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
+    
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -21,6 +26,12 @@ class InCourseViewController: UIViewController {
         setCV()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if self.loginType != nil {
+            getOngoingCourses()
+        }
+    }
+    
     // MARK: - func
     private func setCV() {
         self.inCourseCV.register(UINib(nibName: Const.Xib.Name.myCourseCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.myCourseCVC)
@@ -28,7 +39,32 @@ class InCourseViewController: UIViewController {
         self.inCourseCV.dataSource = self
         self.inCourseCV.isScrollEnabled = true
         
-        inCourseData = MyCourseDataModel.sampleData
+    }
+    
+    private func getOngoingCourses() {
+        MyCourseDataService.shared.getOngoing { response in
+            switch response {
+            case .success(let data):
+                if let data = data as? [MyCourseDataModel] {
+//                    for d in data {
+//                        print(d)
+//                    }
+//                    self.temp = data
+                    self.inCourseData = data
+                    self.inCourseCV.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
     }
 
 }
@@ -43,10 +79,10 @@ extension InCourseViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
+
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.coursePlayerVC) as? CoursePlayerVC else { return }
-//        nextVC.courseTitle = inCourseData![indexPath.row].courseTitle
-        nextVC.unitId = 6
+
+        nextVC.unitId = self.inCourseData?[indexPath.row].nextUnitInfo.unitId
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
 

@@ -185,7 +185,7 @@ struct CourseInfoDataService {
             case 400:
                 print("Status 400")
                 return .pathErr
-            case 404:
+            case 403, 404:
                 return .resourceErr
             case 500:
                 print("Status 500")

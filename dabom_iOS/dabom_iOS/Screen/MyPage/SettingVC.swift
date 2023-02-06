@@ -7,6 +7,8 @@
 
 import UIKit
 import Kingfisher
+import KakaoSDKAuth
+import KakaoSDKUser
 
 class SettingVC: UIViewController {
     
@@ -20,8 +22,30 @@ class SettingVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.topItem?.title = "환경설정"
+//        self.navigationController?.navigationBar.topItem?.title = "환경설정"
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
+    
+    
+    @IBAction func TOSBtnPressed(_ sender: Any) {
+        guard let statementVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: "StatementVC") as? StatementVC else {return}
+        
+        statementVC.statementText = Const.Statement.TOS
+        self.navigationController?.pushViewController(statementVC, animated: true)
+    }
+    
+    @IBAction func privacyStatementBtnPressed(_ sender: Any) {
+        guard let statementVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: "StatementVC") as? StatementVC else {return}
+        
+        statementVC.statementText = Const.Statement.Privacy
+        self.navigationController?.pushViewController(statementVC, animated: true)
+    }
+    
+    
+    
+    
+    
+    
 
     // MARK: - 로그아웃 버튼 눌렀을 때
     @IBAction func logoutBtnPressed(_ sender: Any) {
@@ -34,7 +58,14 @@ class SettingVC: UIViewController {
                 self.emailLogout()
                 
             } else if self.loginType == "kakao" {
-                self.kakaoLogout()
+                AuthApi.shared.refreshToken { oauthToken, error in
+                    let kakaoToken = oauthToken?.accessToken
+                    UserDefaults.standard.setValue(kakaoToken, forKey: "kakaoToken")
+                    
+                    self.kakaoLogout()
+                }
+                
+//                self.kakaoLogout()
                 
             } else if self.loginType == "apple" {
                 
@@ -106,7 +137,12 @@ class SettingVC: UIViewController {
                 self.emailWithdraw()
                 
             } else if self.loginType == "kakao" {
-                self.kakaoWithdraw()
+                AuthApi.shared.refreshToken { oauthToken, error in
+                    let kakaoToken = oauthToken?.accessToken
+                    UserDefaults.standard.setValue(kakaoToken, forKey: "kakaoToken")
+                    
+                    self.kakaoWithdraw()
+                }
                 
             } else if self.loginType == "apple" {
                 

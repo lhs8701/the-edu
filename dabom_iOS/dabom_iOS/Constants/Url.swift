@@ -16,6 +16,8 @@ extension Const {
 //        static let m3u8Test = "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
         static let m3u8Test = "http://the-edu.co.kr/static/videos/test-m3u8/test.m3u8"
         
+        static let getCategory = "\(apiBaseUrl)/ref/category"
+        
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"
         static let login = "http://\(serverIP)/api/auth/basic/login"
@@ -31,9 +33,11 @@ extension Const {
         static let getProfile = "http://\(serverIP)/api/members"
         static let patchProfile = "http://\(serverIP)/api/members"
         
-        // MARK: - Student
+        // MARK: - MyCourse
         static let getMyCourses = "http://\(serverIP)/api/students"
         static let getMyWishCourses = "http://\(serverIP)/api/students"
+        static let getMyOngoingCourses = "\(apiBaseUrl)/courses/ongoing"
+        static let getMyCompletedCourses = "\(apiBaseUrl)/courses/completed"
         
         // MARK: - Course
         static let getCourseInfo = "http://\(serverIP)/api/courses"
@@ -59,7 +63,8 @@ extension Const {
         
         // MARK: - Unit
         static let getUnit = "\(apiBaseUrl)/courses/units"
-        static let saveRecord = "\(apiBaseUrl)/units"
-        static let getRecord = "\(apiBaseUrl)/units"
+        static let saveRecord = "\(apiBaseUrl)/record/units"
+        static let getRecord = "\(apiBaseUrl)/record/units"
+        static let completeUnit = "\(apiBaseUrl)/record/complete/units"
     }
 }

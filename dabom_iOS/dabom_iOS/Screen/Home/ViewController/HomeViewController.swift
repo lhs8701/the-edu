@@ -41,6 +41,13 @@ class HomeViewController: UIViewController {
         
         
     }
+    
+    @IBAction func categoryBtnPressed(_ sender: Any) {
+        guard let categoryVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: "CategorySelectVC") as? CategorySelectVC else {return}
+        
+        self.navigationController?.pushViewController(categoryVC, animated: true)
+    }
+    
 }
 
 
@@ -103,7 +110,7 @@ extension HomeViewController: CourseCVCellDelegate {
     func CourseSelectedCVCell(index: Int, courseName: String) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
         
-        nextVC.courseId = 2
+        nextVC.courseId = 1
         nextVC.courseTitle = courseName
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)

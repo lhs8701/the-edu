@@ -8,10 +8,15 @@
 import UIKit
 
 class CompletionCourseViewController: UIViewController {
-
+    
+    // MARK: - IBOutlet
     @IBOutlet weak var completionCourseCV: UICollectionView!
     
+    
+    // MARK: - let, var
     var completionCourseData: Array<MyCourseDataModel>?
+    let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
+    
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -21,6 +26,12 @@ class CompletionCourseViewController: UIViewController {
         setCV()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if self.loginType != nil {
+            getCompletedCourses()
+        }
+    }
+    
     // MARK: - func
     private func setCV() {
         self.completionCourseCV.register(UINib(nibName: Const.Xib.Name.myCourseCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.myCourseCVC)
@@ -28,8 +39,31 @@ class CompletionCourseViewController: UIViewController {
         self.completionCourseCV.dataSource = self
         self.completionCourseCV.isScrollEnabled = true
         
-        completionCourseData = MyCourseDataModel.sampleData
+//        completionCourseData = MyCourseDataModel.sampleData
     }
+    
+    private func getCompletedCourses() {
+        MyCourseDataService.shared.getCompleted { response in
+            switch response {
+            case .success(let data):
+                if let data = data as? [MyCourseDataModel] {
+                    self.completionCourseData = data
+                    self.completionCourseCV.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+
 }
 
 extension CompletionCourseViewController: UICollectionViewDelegate {
@@ -44,8 +78,9 @@ extension CompletionCourseViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
-        nextVC.courseTitle = completionCourseData![indexPath.row].courseTitle
-//        print(courseName)
+
+        nextVC.courseId = 1
+        //        print(courseName)
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
 //        self.present(nextVC, animated: true)
