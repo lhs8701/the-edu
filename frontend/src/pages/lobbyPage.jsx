@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { getLoginState } from "../atom";
@@ -104,9 +104,9 @@ export default function LobbyPage() {
   const data = dummyCourseProgressData;
   const loginState = useRecoilValue(getLoginState);
 
-  const playUnit = (link) => {
+  const playUnit = (unitId) => {
     window.open(
-      "http://localhost:3000/player",
+      `http://localhost:3000/player/${unitId}`,
       "the-edu 플레이어",
       "location=no,status=no,scrollbars=no"
     );
@@ -130,12 +130,6 @@ export default function LobbyPage() {
     );
   };
 
-  const Categories = ({ unitList }) => {
-    return unitList.map((category, idx) => {
-      return <Category category={category} idx={idx} />;
-    });
-  };
-
   const Category = ({ category, idx }) => {
     return (
       <CategoryBox>
@@ -147,13 +141,19 @@ export default function LobbyPage() {
     );
   };
 
+  const Categories = ({ unitList }) => {
+    return unitList.map((category, idx) => {
+      return <Category category={category} idx={idx} />;
+    });
+  };
+
   const SmallCategories = ({ smallList }) => {
     return smallList.map((small, idx) => {
       return (
         <SmallCategoryTab>
           &nbsp;&nbsp;&nbsp;{idx + 1}. &nbsp;
           {small}
-          <PlayBtn onClick={() => playUnit()}>재생</PlayBtn>
+          <PlayBtn onClick={() => playUnit(idx)}>재생</PlayBtn>
         </SmallCategoryTab>
       );
     });

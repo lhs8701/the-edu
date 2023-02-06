@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { faClosedCaptioning as regular } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
@@ -64,6 +64,7 @@ const QuestionBox = styled(motion.div)`
   justify-content: center;
   flex-direction: column;
   margin: 0 auto;
+
   /* @media screen and (max-height: 90vh) and (min-height: 617px) {
     height: 30vh;
   } */
@@ -381,75 +382,6 @@ export default function UnitQuestion() {
           <Tab>{nowQ?.length}개의 질문이 있어요.</Tab>
         </QuestionInfoBox>
         <QuestionBox>
-          {/* <AnimatePresence>
-            {clicked ? (
-              <Overlay
-                initial={{ backgroundColor: "rgba(0,0,0,0)" }}
-                animate={{
-                  display: ["none", "default"],
-                  zIndex: "1",
-                }}
-                exit={{
-                  backgroundColor: "rgba(0,0,0,0)",
-                }}
-              >
-                <QuestionCard layoutId={clicked}>
-                  <QBox>
-                    <div>{nowQ[clicked - 1].title}</div>
-                    <Div
-                      onClick={() => {
-                        setClicked(null);
-                        setVisible(false);
-                        setTimeout(() => {
-                          setVisible(true);
-                        }, 300);
-                      }}
-                    >
-                      나가기
-                    </Div>
-                  </QBox>
-                  <CateBox>
-                    <CateTab
-                      type={qData}
-                      onClick={() => {
-                        setQData(true);
-                      }}
-                    >
-                      질문
-                    </CateTab>
-                    <CateTab
-                      type={!qData}
-                      onClick={() => {
-                        setQData(false);
-                      }}
-                    >
-                      답변
-                    </CateTab>
-                  </CateBox>
-                  {!qData ? (
-                    <ReplyBox>{questionReply}</ReplyBox>
-                  ) : (
-                    <ReplyBox>
-                      {questionContent.content}
-                      <div>
-                    답변
-                    <input
-                      type="text"
-                      placeholder="답변을 해주세요"
-                      required
-                      value={isReply}
-                      onChange={(e) => {
-                        setIsReply(e.target.value);
-                      }}
-                    />
-                    <button onClick={uploadReply}>등록</button>
-                  </div>
-                    </ReplyBox>
-                  )}
-                </QuestionCard>
-              </Overlay>
-            ) : null}
-          </AnimatePresence> */}
           <QuestionListComponent />
         </QuestionBox>
       </>

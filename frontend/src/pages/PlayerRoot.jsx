@@ -6,7 +6,11 @@ import {
   useRef,
   useState,
 } from "react";
+import { useParams } from "react-router";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { getUnitVideoApi } from "../api/unitApi";
+import { getAccessTokenSelector, getLoginState } from "../atom";
 import Player from "../components/Player/Player";
 import PlayerSidebar from "../components/Player/PlayerSidebar";
 
@@ -106,11 +110,17 @@ export default function PlayerRoot() {
   const [isCapture, setCapture] = useState(false);
   const [isCollapse, setIsCollapse] = useState(true);
   const [currentWidth, setCurrentWidth] = useState(0);
+  const { unitId } = useParams();
+  const loginState = useRecoilValue(getLoginState);
+  const accessToken = useRecoilValue(getAccessTokenSelector);
   const sideBarRef = useRef(null);
   const wrapperRef = useRef(null);
+  const [unitVideoInfo, setUnitVideoInfo] = useState();
+
   window.onbeforeunload = function () {
     // exitPlayer();
   };
+
   function stopPrntScr() {
     var inpFld = document.createElement("input");
     inpFld.setAttribute("value", ".");
@@ -139,6 +149,12 @@ export default function PlayerRoot() {
   const handleButtonClick = useCallback(() => {
     setIsCollapse(!isCollapse);
   }, [isCollapse]);
+
+  useEffect(() => {
+    getUnitVideoApi(unitId, accessToken).then(({ data }) => {
+      console.log(data);
+    });
+  }, []);
 
   return (
     <Hm>
