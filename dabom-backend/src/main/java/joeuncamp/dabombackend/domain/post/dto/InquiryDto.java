@@ -7,10 +7,7 @@ import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.post.entity.Inquiry;
 import joeuncamp.dabombackend.domain.post.entity.Review;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class InquiryDto {
     @Getter
@@ -66,5 +63,27 @@ public class InquiryDto {
             this.content = inquiry.getContent();
             this.likes = inquiry.getLikes();
         }
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class UpdateRequest {
+        @Schema(hidden = true, description = "회원 아이디넘버")
+        Long memberId;
+        @Schema(hidden = true, description = "문의 아이디넘버")
+        Long inquiryId;
+        @NotNull
+        @Schema(description = "내용", example = ExampleValue.Post.CONTENT)
+        String content;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class DeleteRequest {
+        @Schema(hidden = true, description = "회원 아이디넘버")
+        Long memberId;
+        @Schema(hidden = true, description = "문의 아이디넘버")
+        Long inquiryId;
     }
 }

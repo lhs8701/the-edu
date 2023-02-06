@@ -58,7 +58,7 @@ public class ReviewController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(summary = "강좌의 수강 후기를 삭제합니다.", description = "작성자 본인만 수정할 수 있습니다.")
+    @Operation(summary = "강좌의 수강 후기를 삭제합니다.", description = "작성자 본인만 삭제할 수 있습니다.")
     @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/reviews/{reviewId}")
