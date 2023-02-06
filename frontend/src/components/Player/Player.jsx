@@ -137,7 +137,7 @@ export default function Player({ unitInfo }) {
       screenfull.toggle(fullRef.current);
     }
   }, [isFull]);
-  console.log(url);
+
   return (
     <CControl
       mouse={controlOn}

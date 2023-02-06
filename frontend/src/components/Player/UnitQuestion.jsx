@@ -9,6 +9,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useInfiniteQuery, useQuery } from "react-query";
 import {
   getDetailQuestionApi,
+  getQuestionAnswerApi,
   getQuestionListApi,
   postUnitQuestionApi,
 } from "../../api/questionApi";
@@ -37,6 +38,7 @@ const CateTab = styled(motion.div)`
 `;
 
 const SmallCateTab = styled(CateTab)`
+  font-weight: var(--weight-middle);
   font-size: 0.8rem;
   padding: 5px;
   color: ${(props) =>
@@ -102,7 +104,7 @@ const QuestionTab = styled(Accordion)`
 `;
 
 const QuestionInfoTab = styled(AccordionSummary)`
-  font-weight: var(--weight-thin);
+  font-weight: var(--weight-middle);
   text-align: start;
 `;
 
@@ -135,7 +137,7 @@ const QuestionBtn = styled(motion.button)`
 `;
 
 const QuestionDiv = styled(AccordionDetails)`
-  margin-top: -5px;
+  margin-top: -10px;
 `;
 
 const QuestionContextBox = styled.div`
@@ -144,6 +146,7 @@ const QuestionContextBox = styled.div`
   padding: 10px 5px;
   box-sizing: border-box;
   font-size: 0.9rem;
+  font-weight: var(--weight-thin);
 `;
 
 const BottomDiv = styled.div`
@@ -156,7 +159,10 @@ const QuestionContentDate = styled.div`
   font-weight: var(--weight-thin);
   font-size: 0.8rem;
   color: var(--color-gray);
-  margin-top: 3px;
+`;
+
+const QuestionReplyTab = styled.div`
+  padding: 5px 0 2px 0;
 `;
 
 export default function UnitQuestion({ unitId }) {
@@ -291,8 +297,15 @@ export default function UnitQuestion({ unitId }) {
     );
   };
 
-  const Reply = () => {
-    return <div>우웅</div>;
+  const Reply = ({ replyInfo }) => {
+    return replyInfo?.map((reply) => {
+      return (
+        <QuestionReplyTab key={reply.answerId}>
+          <QuestionContextBox>{reply.content}</QuestionContextBox>
+          <QuestionContentDate>{reply?.modifiedTIme}</QuestionContentDate>
+        </QuestionReplyTab>
+      );
+    });
   };
 
   const Content = ({ contentInfo }) => {
@@ -310,6 +323,20 @@ export default function UnitQuestion({ unitId }) {
       ["questionContent", questionId],
       () => {
         return getDetailQuestionApi(questionId, accessToken);
+      },
+      {
+        enabled: !!questionId,
+        onSuccess: (res) => {},
+        onError: (err) => {
+          console.error("에러 발생했지롱");
+        },
+      }
+    );
+
+    const questionReply = useQuery(
+      ["questionReply", questionId],
+      () => {
+        return getQuestionAnswerApi(0, questionId, accessToken);
       },
       {
         enabled: !!questionId,
@@ -343,7 +370,7 @@ export default function UnitQuestion({ unitId }) {
         {section ? (
           <Content contentInfo={questionContent?.data?.data} />
         ) : (
-          <Reply />
+          <Reply replyInfo={questionReply?.data?.list} />
         )}
       </QuestionDiv>
     );

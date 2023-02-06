@@ -3,6 +3,8 @@ import { API_URL } from "../static";
 
 const QUESTION_URL = `${API_URL}/units`;
 const QUESTION_TAIL_URL = "/questions";
+const ANSWER_URL = `${API_URL}/questions`;
+const ANSWER_TAIL_URL = "/answers";
 
 export async function getQuestionListApi(pageParam, unitId, accessToken) {
   const params = {
@@ -46,4 +48,23 @@ export async function getDetailQuestionApi(questionId, accessToken) {
       "X-AUTH-TOKEN": accessToken,
     },
   });
+}
+
+export async function getQuestionAnswerApi(pageParam, questionId, accessToken) {
+  const params = {
+    page: pageParam,
+    size: 100,
+    sort: "ASC",
+  };
+  const data = await axios.get(
+    `${ANSWER_URL}/${questionId}${ANSWER_TAIL_URL}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "X-AUTH-TOKEN": accessToken,
+      },
+    },
+    { params }
+  );
+  return data.data;
 }
