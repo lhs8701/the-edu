@@ -19,22 +19,19 @@ public class MyUnitDto {
 
     @Getter
     public static class Response{
-        @Schema(description = "강의 아이디넘버", example = "1")
+        @Schema(description = "강의 아이디넘버")
         Long unitId;
-        @Schema(description = "순서", example = "1")
+        @Schema(description = "순서")
         int sequence;
-        @Schema(description = "챕터 아이디넘버", example = "1")
-        Long chapterId;
         @Schema(description = "강의 제목", example = ExampleValue.Unit.TITLE)
         String title;
-        @Schema(description = "시청 완료 여부", example = ExampleValue.Unit.TITLE)
+        @Schema(description = "시청 완료 여부")
         boolean completed;
 
 
         public Response(Unit unit, boolean completed){
             this.unitId = unit.getId();
             this.sequence = unit.getSequence();
-            this.chapterId = unit.getChapterId();
             this.title = unit.getTitle();
             this.completed = completed;
         }

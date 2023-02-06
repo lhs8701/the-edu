@@ -28,6 +28,8 @@ public class ExampleValue {
     public static class Unit{
         public final static String TITLE = "스프링 빈에 대한 이해";
         public final static String DESCRIPTION = "스프링 빈에 대해 알아봅시다.";
+        public static final String CHAPTER = "스프링 빈";
+
     }
 
     public static class Course{

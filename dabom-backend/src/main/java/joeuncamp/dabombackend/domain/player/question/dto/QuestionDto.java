@@ -101,18 +101,18 @@ public class QuestionDto {
         String writer;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
         @Schema(description = "생성 시간", example = ExampleValue.Time.DATE)
-        LocalDateTime createdTIme;
+        LocalDateTime createdTime;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
         @Schema(description = "최근 수정 시간", example = ExampleValue.Time.DATE)
-        LocalDateTime modifiedTIme;
+        LocalDateTime modifiedTime;
 
         public Response(Question question) {
             this.questionId = question.getId();
             this.title = question.getTitle();
             this.content = question.getContent();
             this.writer = question.getMember().getNickname();
-            this.createdTIme = question.getCreatedTime();
-            this.modifiedTIme = question.getModifiedTime();
+            this.createdTime = question.getCreatedTime();
+            this.modifiedTime = question.getModifiedTime();
         }
     }
 }

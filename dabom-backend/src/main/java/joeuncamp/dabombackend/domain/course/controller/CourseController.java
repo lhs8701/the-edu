@@ -7,11 +7,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
-import joeuncamp.dabombackend.domain.course.service.EnrollService;
+import joeuncamp.dabombackend.domain.course.service.CurriculumService;
 import joeuncamp.dabombackend.domain.course.service.RankingService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
-import joeuncamp.dabombackend.domain.wish.dto.WishDto;
-import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -34,8 +32,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class CourseController {
     private final CourseService courseService;
-    private final EnrollService enrollService;
-    private final WishService wishService;
+    private final CurriculumService curriculumService;
 
     private final RankingService rankingService;
 
@@ -47,6 +44,36 @@ public class CourseController {
         requestDto.setMemberId(member.getId());
         IdResponseDto response = courseService.openCourse(requestDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "강좌 커리큘럼을 생성합니다.", description = "커리큘럼 생성은 크리에이터 본인만 가능합니다. \n 챕터와 강의 순서를 변경할 수 있습니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/courses/{courseId}/curriculum")
+    public ResponseEntity<Void> makeCurriculum(@PathVariable Long courseId, @RequestBody CurriculumDto.CreateRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setCourseId(courseId);
+        requestDto.setMemberId(member.getId());
+        curriculumService.makeCurriculum(requestDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "강좌 커리큘럼을 조회합니다.", description = "")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/courses/{courseId}/curriculum")
+    public ResponseEntity<CurriculumDto.Response> getCurriculum(@PathVariable Long courseId) {
+        CurriculumDto.GetRequest requestDto = new CurriculumDto.GetRequest(courseId);
+        CurriculumDto.Response responseDto = curriculumService.getCurriculum(requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary = "강좌 커리큘럼과 함께 수강생의 진척도를 조회합니다.", description = "완료한 강의를 표시합니다.")
+    @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/courses/{courseId}/curriculum/status")
+    public ResponseEntity<CurriculumDto.StatusResponse> getCurriculumWithStatus(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
+        CurriculumDto.StatusRequest requestDto = new CurriculumDto.StatusRequest(courseId,member.getId());
+        CurriculumDto.StatusResponse responseDto = curriculumService.getCurriculumWithStatus(requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     @Operation(summary = "강좌를 단건 조회합니다.", description = "")

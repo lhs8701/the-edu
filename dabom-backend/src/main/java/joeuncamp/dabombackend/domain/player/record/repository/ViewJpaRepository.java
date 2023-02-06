@@ -9,9 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ViewJpaRepository extends JpaRepository<View, Long> {
-    List<View> findByMemberAndUnit(Member member, Unit unit);
+    Optional<View> findByMemberAndUnit(Member member, Unit unit);
 
     @Query(" select v from View v inner join Unit u on v.unit = u inner join Course c on u.course = c ")
     List<View> findByMemberAndCourse(Member member, @Param("course")Course course);
