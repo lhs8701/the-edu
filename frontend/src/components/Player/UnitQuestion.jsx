@@ -6,6 +6,11 @@ import Swal from "sweetalert2";
 import { Wrapper } from "../../style/PlayerSideBarCss";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useInfiniteQuery } from "react-query";
+import { getQuestionListApi } from "../../api/questionApi";
+import { useRecoilValue } from "recoil";
+import { getAccessTokenSelector } from "../../atom";
+import { useMemo } from "react";
 
 const CateBox = styled.div`
   display: flex;
@@ -61,9 +66,10 @@ const QuestionBox = styled(motion.div)`
   overflow: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   margin: 0 auto;
+  height: 70vh;
 
   /* @media screen and (max-height: 90vh) and (min-height: 617px) {
     height: 30vh;
@@ -79,9 +85,7 @@ const QuestionTab = styled(Accordion)`
   margin: 5px 0;
 `;
 
-const QuestionInfoTab = styled(AccordionSummary)`
-  background-color: teal;
-`;
+const QuestionInfoTab = styled(AccordionSummary)``;
 
 const Tab = styled(motion.div)`
   overflow: hidden;
@@ -117,34 +121,50 @@ const QuestionContextBox = styled.div`
   text-align: start;
 `;
 
-export default function UnitQuestion() {
+export default function UnitQuestion({ unitId }) {
   const [type, setType] = useState(false);
-  const [nowQ, setNowQ] = useState([1, 2, 3]);
-  const [qTitle, setQTitle] = useState("");
+  const [nowQ, setNowQ] = useState([1, 2, 3, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]);
+  const [userQuestionTitle, setUserQuestionTitle] = useState("");
   const [questionContext, setQuestionContext] = useState("");
-
+  const accessToken = useRecoilValue(getAccessTokenSelector);
   const [visible, setVisible] = useState(true);
   const [questionContent, setQuestionContent] = useState("");
-  const [questionReply, setQuestionReply] = useState("");
 
-  // async function questionDown() {
-  //   try {
-  //     const res = await axios.get(
-  //       `${STATICURL}/front/unit/${queryList.unitId}/questions`
-  //     );
-  //     setQuestionVal(res.data);
-  //   } catch (error) {
-  //     if (error.response.status === 409) {
-  //       setOverlappingVal(true);
-  //     } else {
-  //       alert(error);
-  //     }
-  //   }
-  // }
+  const questionList = useInfiniteQuery(
+    ["getSearchList", unitId],
+    ({ pageParam = 0 }) => {
+      return getQuestionListApi(pageParam, unitId, accessToken);
+    },
+    {
+      retry: 1,
+      retryDelay: 5000,
+      onSuccess: (res) => {
+        if (res.pages[0].code === -7001) {
+          //query를 더이상 호출하지 않게 하자
+        }
+      },
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+      getNextPageParam: (lastPage, allPages) => {
+        if (Number(lastPage.totalPage) === 0) {
+          return undefined;
+        }
+        if (lastPage.totalPage === lastPage.page + 1) {
+          return undefined;
+        }
+        return lastPage.page + 1;
+      },
+    }
+  );
+  const questions = useMemo(
+    () => questionList?.data?.pages.flatMap((page) => page.list),
+    [questionList?.data?.pages]
+  );
 
   // const questionUpload = (e) => {
   //   e.preventDefault();
-  //   if (qTitle === "" || questionContext === "") {
+  //   if (userQuestionTitle =setUserQuestionTitlequestionContext === "") {
   //     alert("질문을 입력하세요.");
   //   } else {
   //     if (videoVal.playing === true) {
@@ -152,115 +172,7 @@ export default function UnitQuestion() {
   //     }
   //     const lecTime = Math.trunc(videoVal.playedSec / 60); // 시간을 단계로 나눠
 
-  //     axios
-  //       .post(
-  //         `${STATICURL}/front/unit/${queryList.unitId}/questions`,
-  //         {
-  //           content: questionContext,
-  //           title: qTitle,
-  //           timeline: lecTime,
-  //         },
-  //         {
-  //           headers: {
-  //             "X-AUTH-TOKEN": accessToken,
-  //             "Content-Type": "application/json",
-  //             "Access-Control-Allow-Credentials": true,
-  //             "Access-Control-Allow-Origin": "*",
-  //           },
-  //         }
-  //       )
-  //       .then((response) => {
-  //         if (response.status === 200) {
-  //           questionDown();
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "등록 완료",
-  //             text: "곧 강사님이 답변을 주실거에요!",
-  //             confirmButtonText: "확인",
-  //           }).then((result) => {
-  //             if (result.isConfirmed) {
-  //               setVideoVal({ ...videoVal, playing: true });
-  //             }
-  //           });
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         if (error.response.status === 409) {
-  //           setOverlappingVal(true);
-  //         } else {
-  //           alert(error);
-  //         }
-  //       });
-  //   }
   // };
-
-  // async function getQuestionContent(questionId) {
-  //   try {
-  //     const res = await axios.get(`${STATICURL}/front/questions/${questionId}`);
-  //     setQuestionContent(res.data);
-  //   } catch (error) {
-  //     if (error.response.status === 409) {
-  //       setOverlappingVal(true);
-  //     } else {
-  //       alert(error);
-  //     }
-  //   }
-  // }
-
-  // async function getQuestionReply(questionId) {
-  //   try {
-  //     const res = await axios.get(
-  //       `${STATICURL}/front/questions/${questionId}/answers`
-  //     );
-  //     setQuestionReply(res.data);
-  //   } catch (error) {
-  //     if (error.response.status === 409) {
-  //       setOverlappingVal(true);
-  //     } else {
-  //       alert(error);
-  //     }
-  //   }
-  // }
-
-  // const uploadReply = (e) => {
-  //   e.preventDefault();
-  //   if (isReply === "") {
-  //     alert("답변을 입력하세요.");
-  //   } else {
-  //     if (videoVal.playing === true) {
-  //       setVideoVal({ ...videoVal, playing: false });
-  //     }
-  //     const lecTime = Math.trunc(videoVal.playedSec / 60); // 시간을 단계로 나눠
-
-  //     axios
-  //       .post(
-  //         `${STATICURL}/front/questions/${queryList.unitId}/answers`,
-  //         {
-  //           content: q,
-  //           title: qTitle,
-  //           timeline: lecTime,
-  //         },
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             "X-AUTH-TOKEN": accessToken,
-  //             "Access-Control-Allow-Credentials": true,
-  //             "Access-Control-Allow-Origin": "*",
-  //           },
-  //         }
-  //       )
-  //       .then((response) => {})
-  //       .catch((error) => {
-  //         if (error.response.status === 409) {
-  //           setOverlappingVal(true);
-  //         } else {
-  //           alert(error);
-  //         }
-  //       });
-  //   }
-  // };
-
-  // useEffect(questionChecker, [videoTimeVal, questionVal]);
 
   const QuestionUploadForm = () => {
     return (
@@ -269,9 +181,9 @@ export default function UnitQuestion() {
           <TitleInput
             type="text"
             required
-            value={qTitle}
+            value={userQuestionTitle}
             onChange={(e) => {
-              setQTitle(e.target.value);
+              setUserQuestionTitle(e.target.value);
             }}
             id="title"
             placeholder="제목을 입력해주세요"
@@ -351,14 +263,14 @@ export default function UnitQuestion() {
   };
 
   const QuestionListComponent = () => {
-    return nowQ?.map((question, idx) => {
+    return questions?.map((question, idx) => {
       return (
         <QuestionTab
           onClick={() => {
             // getQuestionContent(e.questionId);
             // getQuestionReply(e.questionId);
           }}
-          key={idx}
+          key={question.questionId}
         >
           <QuestionInfoTab
             aria-controls="panel1a-content"
@@ -367,7 +279,8 @@ export default function UnitQuestion() {
               mb: -1,
             }}
           >
-            {question.title} 답변:{question.replyCount}
+            <div>{question.title}</div>
+            <div>- {question.writer}</div>
           </QuestionInfoTab>
           <QuestionContentComponent />
         </QuestionTab>
@@ -379,7 +292,7 @@ export default function UnitQuestion() {
     return (
       <>
         <QuestionInfoBox>
-          <Tab>{nowQ?.length}개의 질문이 있어요.</Tab>
+          <Tab>{questions?.length}개의 질문이 있어요.</Tab>
         </QuestionInfoBox>
         <QuestionBox>
           <QuestionListComponent />

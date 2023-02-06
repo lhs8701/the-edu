@@ -115,7 +115,7 @@ export default function PlayerRoot() {
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const sideBarRef = useRef(null);
   const wrapperRef = useRef(null);
-  const [unitVideoInfo, setUnitVideoInfo] = useState();
+  const [unitInfo, setUnitInfo] = useState();
 
   window.onbeforeunload = function () {
     // exitPlayer();
@@ -151,35 +151,47 @@ export default function PlayerRoot() {
   }, [isCollapse]);
 
   useEffect(() => {
-    getUnitVideoApi(unitId, accessToken).then(({ data }) => {
-      console.log(data);
-    });
+    getUnitVideoApi(unitId, accessToken)
+      .then(({ data }) => {
+        if (data?.code) {
+          alert("err");
+        }
+        setUnitInfo(data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }, []);
+
+  const CaptureBlocker = () => {
+    return (
+      <BlockCapBox>
+        <H1>캡쳐 금지</H1>
+      </BlockCapBox>
+    );
+  };
 
   return (
     <Hm>
       <AnimatePresence>
         <Wrapper tabIndex={0} onKeyUp={keyUpHandler} ref={wrapperRef}>
-          {!isCapture ? null : (
-            <BlockCapBox>
-              <H1>캡쳐 금지</H1>
-            </BlockCapBox>
-          )}
+          {isCapture && <CaptureBlocker />}
           <VideoTab>
-            <Title>unitInfo?.title</Title>
-            <Player />
+            <Title>
+              {unitInfo?.unitId}강. {unitInfo?.title}
+            </Title>
+            <Player unitInfo={unitInfo} />
             <ArcodianBtn
               onClick={() => {
                 handleButtonClick();
               }}
             />
           </VideoTab>
-
-          <AniBarTab ison={isCollapse}>
-            <PlayerSidebar />
-          </AniBarTab>
+          {/* <AniBarTab ison={isCollapse}>
+            <PlayerSidebar uniInfo={unitInfo} />
+          </AniBarTab> */}
           <BarTab>
-            <PlayerSidebar />
+            <PlayerSidebar uniInfo={unitInfo} unitId={unitId} />
           </BarTab>
         </Wrapper>
       </AnimatePresence>

@@ -46,18 +46,16 @@ const ListTab = styled(motion.div)`
   box-sizing: border-box;
 `;
 
-export default function PlayerSidebar() {
+export default function PlayerSidebar({ unitInfo, unitId }) {
+  const [menu, setMenu] = useState(0);
+
+  const MENU_LIST_NAME = ["강의 목록", "수업 자료", "질문", "평가"];
   const menuList = {
     0: <CourseList />,
     1: <CourseInfo />,
-    2: <UnitQuestion />,
+    2: <UnitQuestion unitId={unitId} />,
     3: <UnitReview />,
   };
-
-  const [menu, setMenu] = useState(0);
-
-  const MENU_LIST = ["강의 목록", "수업 자료", "질문", "평가"];
-
   const MenuBar = ({ idx }) => {
     return (
       <Notice
@@ -67,7 +65,7 @@ export default function PlayerSidebar() {
           setMenu(idx);
         }}
       >
-        {MENU_LIST[idx]}
+        {MENU_LIST_NAME[idx]}
       </Notice>
     );
   };

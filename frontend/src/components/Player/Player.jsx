@@ -61,7 +61,7 @@ const VideoRelativeDiv = styled.div`
   width: 98%;
 `;
 
-export default function Player() {
+export default function Player({ unitInfo }) {
   const videoRef = useRef(null); //props로 컨트롤러로 슉 넘겨
   const fullRef = useRef(null);
   const [videoVal, setVideoVal] = useState({
@@ -88,7 +88,7 @@ export default function Player() {
     gearBar: false,
   });
   let mouseX = 0;
-  const url = "s";
+  const url = unitInfo?.videoInfo?.filePath;
   const cMoveHandeler = (e) => {
     setControl(true);
     if (!isBar) {

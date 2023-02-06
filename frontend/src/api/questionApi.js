@@ -4,7 +4,7 @@ import { API_URL } from "../static";
 const QUESTION_URL = `${API_URL}/units`;
 const QUESTION_TAIL_URL = "/questions";
 
-export async function myCourseApi(unitId, pageParam, accessToken) {
+export async function getQuestionListApi(pageParam, unitId, accessToken) {
   const params = {
     page: pageParam,
     size: 10,
@@ -12,13 +12,13 @@ export async function myCourseApi(unitId, pageParam, accessToken) {
   };
   const data = await axios.get(
     `${QUESTION_URL}/${unitId}${QUESTION_TAIL_URL}`,
-    { params },
     {
       headers: {
         "Content-Type": "application/json",
         "X-AUTH-TOKEN": accessToken,
       },
-    }
+    },
+    { params }
   );
   return data.data;
 }

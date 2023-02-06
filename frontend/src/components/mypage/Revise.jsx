@@ -103,7 +103,7 @@ export default function Revise() {
         }
       });
   };
-  console.log(isId, isName);
+
   return (
     <MyPageBox>
       <MyPageTitle>개인정보 수정</MyPageTitle>

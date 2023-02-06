@@ -106,7 +106,7 @@ export default function LobbyPage() {
 
   const playUnit = (unitId) => {
     window.open(
-      `http://localhost:3000/player/${unitId}`,
+      `http://localhost:3000/player/${unitId}`, // 나중에 the edu 도메인으로 변경해야함
       "the-edu 플레이어",
       "location=no,status=no,scrollbars=no"
     );
