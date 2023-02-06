@@ -106,6 +106,7 @@ const QuestionTab = styled(Accordion)`
 const QuestionInfoTab = styled(AccordionSummary)`
   font-weight: var(--weight-middle);
   text-align: start;
+  font-size: 0.9rem;
 `;
 
 const Tab = styled(motion.div)`
@@ -143,7 +144,7 @@ const QuestionDiv = styled(AccordionDetails)`
 const QuestionContextBox = styled.div`
   /* border-top: 1px solid var(--color-box-gray); */
   text-align: start;
-  padding: 10px 5px;
+  margin: 10px 0px;
   box-sizing: border-box;
   font-size: 0.9rem;
   font-weight: var(--weight-thin);
@@ -306,9 +307,10 @@ export default function UnitQuestion({ unitId }) {
       return (
         <QuestionReplyTab key={reply.answerId}>
           <QuestionContextBox>{reply.content}</QuestionContextBox>
+
           <QuestionContentDate>
-            <div>{reply?.writer}</div>
             <div>{reply?.modifiedTIme}</div>
+            <div>by {reply?.writer}</div>
           </QuestionContentDate>
         </QuestionReplyTab>
       );
@@ -319,9 +321,10 @@ export default function UnitQuestion({ unitId }) {
     return (
       <>
         <QuestionContextBox>{contentInfo?.content}</QuestionContextBox>
+        <br />
         <QuestionContentDate>
-          <div>by {contentInfo?.writer}</div>
           <div>{contentInfo?.modifiedTIme}</div>
+          <div>by {contentInfo?.writer}</div>
         </QuestionContentDate>
       </>
     );

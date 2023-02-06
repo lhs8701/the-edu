@@ -1,14 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { getLatestRecordApi, postMyRecordApi } from "../api/playerApi";
 import { getUnitVideoApi } from "../api/unitApi";
 import { getAccessTokenSelector, getLoginState } from "../atom";
 import Player from "../components/Player/Player";
@@ -109,16 +104,29 @@ const Title = styled.div`
 export default function PlayerRoot() {
   const [isCapture, setCapture] = useState(false);
   const [isCollapse, setIsCollapse] = useState(true);
-  const [currentWidth, setCurrentWidth] = useState(0);
   const { unitId } = useParams();
   const loginState = useRecoilValue(getLoginState);
   const accessToken = useRecoilValue(getAccessTokenSelector);
-  const sideBarRef = useRef(null);
   const wrapperRef = useRef(null);
+  const [loading, setLoading] = useState(false);
   const [unitInfo, setUnitInfo] = useState();
+  const [videoVal, setVideoVal] = useState({
+    playing: false, // 재생중인지
+    muted: false, // 음소거인지
+    controls: false, // 기본으로 제공되는 컨트롤러 사용할건지
+    pip: false, //pipmode
+    volume: 0.5, // 볼륨크기
+    playbackRate: 1.0, // 배속
+    played: 0, // 재생의 정도 (value)
+    seeking: false, // 재생바를 움직이고 있는지
+    duration: 0, // 전체 시간
+    full: false, // 전체모드
+    cc: false,
+    playedSec: 0, //전체 시간 초
+  });
 
   window.onbeforeunload = function () {
-    // exitPlayer();
+    exitPlayer();
   };
 
   function stopPrntScr() {
@@ -150,7 +158,11 @@ export default function PlayerRoot() {
     setIsCollapse(!isCollapse);
   }, [isCollapse]);
 
-  useEffect(() => {
+  const exitPlayer = () => {
+    postMyRecordApi(accessToken, unitId, Number(videoVal.playedSec));
+  };
+
+  const getUnitInfo = () => {
     getUnitVideoApi(unitId, accessToken)
       .then(({ data }) => {
         if (data?.code) {
@@ -161,7 +173,7 @@ export default function PlayerRoot() {
       .catch((err) => {
         alert(err);
       });
-  }, []);
+  };
 
   const CaptureBlocker = () => {
     return (
@@ -171,22 +183,48 @@ export default function PlayerRoot() {
     );
   };
 
+  const getLatestRecord = () => {
+    getLatestRecordApi(accessToken, unitId)
+      .then(({ data }) => {
+        setVideoVal({
+          ...videoVal,
+          playedSec: data,
+        });
+        setLoading(true);
+      })
+      .catch((err) => {
+        console.log("새 강의");
+        setLoading(true);
+      });
+  };
+
+  useEffect(() => {
+    getUnitInfo();
+    getLatestRecord();
+  }, []);
+
   return (
     <Hm>
       <AnimatePresence>
         <Wrapper tabIndex={0} onKeyUp={keyUpHandler} ref={wrapperRef}>
           {isCapture && <CaptureBlocker />}
-          <VideoTab>
-            <Title>
-              {unitInfo?.unitId}강. {unitInfo?.title}
-            </Title>
-            <Player unitInfo={unitInfo} />
-            <ArcodianBtn
-              onClick={() => {
-                handleButtonClick();
-              }}
-            />
-          </VideoTab>
+          {loading && (
+            <VideoTab>
+              <Title>
+                {unitInfo?.unitId}강. {unitInfo?.title}
+              </Title>
+              <Player
+                videoVal={videoVal}
+                setVideoVal={setVideoVal}
+                unitInfo={unitInfo}
+              />
+              <ArcodianBtn
+                onClick={() => {
+                  handleButtonClick();
+                }}
+              />
+            </VideoTab>
+          )}
           {/* <AniBarTab ison={isCollapse}>
             <PlayerSidebar uniInfo={unitInfo} />
           </AniBarTab> */}

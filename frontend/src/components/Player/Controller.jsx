@@ -18,6 +18,10 @@ import rewind from "../../images/minus.png";
 import Slider from "@mui/material/Slider";
 
 import { useEffect, useState } from "react";
+import { postWatchAllApi } from "../../api/playerApi";
+import { getAccessTokenSelector } from "../../atom";
+import { useRecoilValue } from "recoil";
+import { useParams } from "react-router";
 
 const BarWarpper = styled.div`
   height: 60px;
@@ -191,8 +195,11 @@ export default function Controller({
   isBarTabs,
 }) {
   const videoRef = video;
+  const [watchAll, setWatchAll] = useState(false);
   const [videoTimeVal, setVideoTimeVal] = useState(0);
   const [barOn, setBar] = useState(false);
+  const { unitId } = useParams();
+  const accessToken = useRecoilValue(getAccessTokenSelector);
   const currentTime =
     videoRef && videoRef ? videoRef?.getCurrentTime() : "00:00";
 
@@ -339,6 +346,12 @@ export default function Controller({
     setVideoVal({ ...videoVal, duration: Math.trunc(duration) });
   }, [duration]);
 
+  useEffect(() => {
+    if (currentTime === duration) {
+      postWatchAllApi(accessToken, unitId);
+    }
+  }, [currentTime]);
+
   return (
     <BarWarpper>
       <ProgressTab>
@@ -355,10 +368,11 @@ export default function Controller({
           sx={{
             color: "#567FE8",
             height: 4,
+
             "& .MuiSlider-thumb": {
               width: 8,
               height: 8,
-
+              transition: "left 125ms",
               "&:before": {
                 boxShadow: "0 2px 12px 0 rgba(0,0,0,0.4)",
               },
@@ -373,7 +387,11 @@ export default function Controller({
             "& .MuiSlider-rail": {
               opacity: 0.28,
             },
-
+            "&.MuiSlider-dragging": {
+              "& .MuiSlider-thumb, & .MuiSlider-track": {
+                transition: "none",
+              },
+            },
             "& .MuiSlider-valueLabel": {
               lineHeight: 1.2,
               fontSize: 12,
