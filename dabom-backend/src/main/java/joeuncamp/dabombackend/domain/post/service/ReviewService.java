@@ -61,6 +61,23 @@ public class ReviewService {
         return reviews.stream().map(ReviewDto.Response::new).toList();
     }
 
+    /**
+     * 수강 후기를 수정합니다.
+     *
+     * @param requestDto 후기, 회원, 수정내용
+     * @return 수정한 후기의 아이디넘버
+     */
+    public Long updateReview(ReviewDto.UpdateRequest requestDto) {
+        Review review = reviewJpaRepository.findById(requestDto.getReviewId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!member.equals(review.getMember())) {
+            throw new CAccessDeniedException();
+        }
+        review.update(requestDto.getContent(), requestDto.getScore());
+        reviewJpaRepository.save(review);
+        return review.getId();
+    }
+
 
     /**
      * 강좌의 평균 평점을 계산합니다.

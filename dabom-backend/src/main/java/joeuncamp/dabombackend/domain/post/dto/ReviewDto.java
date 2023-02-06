@@ -6,10 +6,7 @@ import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.post.entity.Review;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class ReviewDto {
     @Getter
@@ -23,11 +20,11 @@ public class ReviewDto {
         @NotNull
         @Schema(description = "강좌 아이디넘버", example = "1")
         Long courseId;
-
         @NotNull
         @Schema(description = "내용", example = ExampleValue.Post.CONTENT)
         String content;
-
+        @NotNull
+        @Schema(description = "평점")
         int score;
 
         public Review toEntity(Member member, Course course){
@@ -38,6 +35,25 @@ public class ReviewDto {
                     .score(score)
                     .build();
         }
+    }
+
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class UpdateRequest {
+        @NotNull
+        @Schema(hidden = true, description = "회원 아이디넘버")
+        Long memberId;
+        @NotNull
+        @Schema(hidden = true, description = "후기 아이디넘버")
+        Long reviewId;
+        @NotNull
+        @Schema(description = "내용", example = ExampleValue.Post.CONTENT)
+        String content;
+        @NotNull
+        @Schema(description = "평점")
+        int score;
     }
 
     @Getter
@@ -65,12 +81,11 @@ public class ReviewDto {
 
         public Response(Review review){
             this.reviewId = review.getId();
-            this.writer = review.getMember().getName();
+            this.writer = review.getMember().getNickname();
             this.course = review.getCourse().getTitle();
             this.content = review.getContent();
             this.likes = review.getLikes();
             this.rating = review.getScore();
         }
     }
-
 }

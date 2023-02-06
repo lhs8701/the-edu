@@ -32,4 +32,9 @@ public class Review extends Post{
                 "score=" + score +
                 '}';
     }
+
+    public void update(String content, int score) {
+        this.content = content;
+        this.score = score;
+    }
 }

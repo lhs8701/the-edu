@@ -5,7 +5,9 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.post.dto.ReviewDto;
+import joeuncamp.dabombackend.domain.post.entity.Review;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,5 +45,16 @@ public class ReviewController {
     public ResponseEntity<List<ReviewDto.Response>> getReviews(@PathVariable Long courseId){
         List<ReviewDto.Response> responseDto = reviewService.getReviews(courseId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary="강좌의 수강 후기를 수정합니다.", description="작성자 본인만 수정할 수 있습니다.")
+    @Parameter(name = Header.JWT_HEADER, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PatchMapping("/reviews/{reviewId}")
+    public ResponseEntity<Long> updateReview(@PathVariable Long reviewId, @RequestBody ReviewDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member){
+        requestDto.setMemberId(member.getId());
+        requestDto.setReviewId(reviewId);
+        Long response = reviewService.updateReview(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
