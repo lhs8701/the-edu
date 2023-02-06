@@ -20,8 +20,30 @@ class SettingVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.topItem?.title = "환경설정"
+//        self.navigationController?.navigationBar.topItem?.title = "환경설정"
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
+    
+    
+    @IBAction func TOSBtnPressed(_ sender: Any) {
+        guard let statementVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: "StatementVC") as? StatementVC else {return}
+        
+        statementVC.statementText = Const.Statement.TOS
+        self.navigationController?.pushViewController(statementVC, animated: true)
+    }
+    
+    @IBAction func privacyStatementBtnPressed(_ sender: Any) {
+        guard let statementVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: "StatementVC") as? StatementVC else {return}
+        
+        statementVC.statementText = Const.Statement.Privacy
+        self.navigationController?.pushViewController(statementVC, animated: true)
+    }
+    
+    
+    
+    
+    
+    
 
     // MARK: - 로그아웃 버튼 눌렀을 때
     @IBAction func logoutBtnPressed(_ sender: Any) {
