@@ -15,6 +15,7 @@ class InCourseViewController: UIViewController {
     
     // MARK: - let, var
     var inCourseData: Array<MyCourseDataModel>?
+    let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
     
     
     // MARK: - Life Cycle
@@ -25,6 +26,12 @@ class InCourseViewController: UIViewController {
         setCV()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if self.loginType != nil {
+            getOngoingCourses()
+        }
+    }
+    
     // MARK: - func
     private func setCV() {
         self.inCourseCV.register(UINib(nibName: Const.Xib.Name.myCourseCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.myCourseCVC)
@@ -32,7 +39,32 @@ class InCourseViewController: UIViewController {
         self.inCourseCV.dataSource = self
         self.inCourseCV.isScrollEnabled = true
         
-        inCourseData = MyCourseDataModel.sampleData
+    }
+    
+    private func getOngoingCourses() {
+        MyCourseDataService.shared.getOngoing { response in
+            switch response {
+            case .success(let data):
+                if let data = data as? [MyCourseDataModel] {
+//                    for d in data {
+//                        print(d)
+//                    }
+//                    self.temp = data
+                    self.inCourseData = data
+                    self.inCourseCV.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
     }
 
 }
@@ -50,7 +82,7 @@ extension InCourseViewController: UICollectionViewDelegate {
 
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.coursePlayerVC) as? CoursePlayerVC else { return }
 
-        nextVC.unitId = 6
+        nextVC.unitId = 1
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
 

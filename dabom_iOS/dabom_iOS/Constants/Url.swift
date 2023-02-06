@@ -33,9 +33,11 @@ extension Const {
         static let getProfile = "http://\(serverIP)/api/members"
         static let patchProfile = "http://\(serverIP)/api/members"
         
-        // MARK: - Student
+        // MARK: - MyCourse
         static let getMyCourses = "http://\(serverIP)/api/students"
         static let getMyWishCourses = "http://\(serverIP)/api/students"
+        static let getMyOngoingCourses = "\(apiBaseUrl)/courses/ongoing"
+        static let getMyCompletedCourses = "\(apiBaseUrl)/courses/completed"
         
         // MARK: - Course
         static let getCourseInfo = "http://\(serverIP)/api/courses"

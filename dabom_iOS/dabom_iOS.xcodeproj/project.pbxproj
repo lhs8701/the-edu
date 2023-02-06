@@ -16,6 +16,7 @@
 		0E0498AE298EACD8002425D9 /* CategoryTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E0498AC298EACD8002425D9 /* CategoryTVC.xib */; };
 		0E0498B1298EAD4F002425D9 /* CategoryHeaderTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0498AF298EAD4F002425D9 /* CategoryHeaderTVC.swift */; };
 		0E0498B2298EAD4F002425D9 /* CategoryHeaderTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E0498B0298EAD4F002425D9 /* CategoryHeaderTVC.xib */; };
+		0E0498B629908245002425D9 /* MyCourseDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0498B529908245002425D9 /* MyCourseDataService.swift */; };
 		0E1E958F297783FD00CBE70B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E958E297783FD00CBE70B /* Const.swift */; };
 		0E1E95912977841400CBE70B /* Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95902977841400CBE70B /* Storyboard.swift */; };
 		0E1E95932977873C00CBE70B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95922977873C00CBE70B /* ViewController.swift */; };
@@ -140,6 +141,7 @@
 		0E0498AC298EACD8002425D9 /* CategoryTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryTVC.xib; sourceTree = "<group>"; };
 		0E0498AF298EAD4F002425D9 /* CategoryHeaderTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeaderTVC.swift; sourceTree = "<group>"; };
 		0E0498B0298EAD4F002425D9 /* CategoryHeaderTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryHeaderTVC.xib; sourceTree = "<group>"; };
+		0E0498B529908245002425D9 /* MyCourseDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseDataService.swift; sourceTree = "<group>"; };
 		0E1E958E297783FD00CBE70B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		0E1E95902977841400CBE70B /* Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboard.swift; sourceTree = "<group>"; };
 		0E1E95922977873C00CBE70B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				0EFB743E2970DEE600C58E87 /* NetworkResult.swift */,
 				0E1E959A2977AC8200CBE70B /* CourseInfoDataService.swift */,
 				0EAF7B542982646E00F65E5A /* GetWishCourseDataService.swift */,
+				0E0498B529908245002425D9 /* MyCourseDataService.swift */,
 				0EAF7B5A298392BB00F65E5A /* GetPaginationDataService.swift */,
 				0EA647C7298B7812009AB119 /* UserProfileService.swift */,
 				0E04989D298CD7EA002425D9 /* UnitDataService.swift */,
@@ -835,6 +838,7 @@
 				0EAF7B312980C6CC00F65E5A /* RecentSearchTVC.swift in Sources */,
 				0EAF7B552982646E00F65E5A /* GetWishCourseDataService.swift in Sources */,
 				0EFB744629710F8600C58E87 /* LoginSignupVC.swift in Sources */,
+				0E0498B629908245002425D9 /* MyCourseDataService.swift in Sources */,
 				0E9D15252974E11E0061D1ED /* UIViewController+.swift in Sources */,
 				0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */,
 				0E9D151E29744E910061D1ED /* InfoImageTVC.swift in Sources */,
