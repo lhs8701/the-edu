@@ -19,23 +19,33 @@ export default function CourseCategory({ courseIdx, courseId }) {
     courseId,
   ]);
 
-  const Category = ({ cate, num }) => {
-    console.log(cate);
+  const SmallCategories = ({ unit, chapterIdx, unitIdx }) => {
+    return (
+      <SmallCategory>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{chapterIdx}
+        -{unitIdx + 1}
+        .&nbsp;&nbsp;
+        {unit?.title}
+      </SmallCategory>
+    );
+  };
+
+  const Category = ({ curri, chapterIdx }) => {
     return (
       <div>
         <br />
         <BigCategory>
-          &nbsp;&nbsp;&nbsp;&nbsp;{num}.&nbsp;{cate.title}
+          &nbsp;&nbsp;&nbsp;&nbsp;{chapterIdx}.&nbsp;{curri.title}
         </BigCategory>
         <br />
-        {cate?.unitList?.map((small, idx) => {
+        {curri?.unitList?.map((unit, idx) => {
           return (
-            <SmallCategory key={small?.unitId}>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{num}-
-              {idx + 1}
-              .&nbsp;&nbsp;
-              {small?.title}
-            </SmallCategory>
+            <SmallCategories
+              key={unit?.unitId}
+              unit={unit}
+              chapterIdx={chapterIdx}
+              unitIdx={idx}
+            />
           );
         })}
       </div>
@@ -44,7 +54,7 @@ export default function CourseCategory({ courseIdx, courseId }) {
 
   const Categories = ({ courseCurriculum }) => {
     return courseCurriculum.map((curri, idx) => {
-      return <Category key={idx} cate={curri} num={idx + 1} />;
+      return <Category key={idx} curri={curri} chapterIdx={idx + 1} />;
     });
   };
 
