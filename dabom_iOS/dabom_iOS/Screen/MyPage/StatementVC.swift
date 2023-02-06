@@ -19,6 +19,8 @@ class StatementVC: UIViewController {
         self.statement.text = statementText
         self.statement.isEditable = false
     }
+    
+
 
 
 }

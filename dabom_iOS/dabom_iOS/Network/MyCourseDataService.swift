@@ -11,6 +11,7 @@ import Alamofire
 struct MyCourseDataService {
     static let shared = MyCourseDataService()
     
+    // MARK: - 덜 본 강좌 불러오기
     func getOngoing(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getMyOngoingCourses)"
         
@@ -38,6 +39,7 @@ struct MyCourseDataService {
         }
     }
     
+    // MARK: - 다 본 강좌 불러오기
     func getCompleted(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getMyCompletedCourses)"
         

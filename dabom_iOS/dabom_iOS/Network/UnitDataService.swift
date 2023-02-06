@@ -42,7 +42,7 @@ struct UnitDataService {
     
     // MARK: - 시청 기록 가져오기
     func getRecord(unitId: Int, completion: @escaping (Double) -> Void) {
-        let URL = "\(Const.Url.getRecord)/\(unitId)/record"
+        let URL = "\(Const.Url.getRecord)/\(unitId)"
         print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
@@ -80,7 +80,7 @@ struct UnitDataService {
     
     // MARK: - 시청 기록 저장하기
     func saveRecord(unitId: Int, time: Double, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.saveRecord)/\(unitId)/record"
+        let URL = "\(Const.Url.saveRecord)/\(unitId)"
         print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
@@ -110,6 +110,40 @@ struct UnitDataService {
             }
         }
     }
+    
+    // MARK: - 강의 시청 완료 처리
+    func completeUnit(unitId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.saveRecord)/\(unitId)"
+        print(URL)
+        
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "X-AUTH-TOKEN" : accessToken
+        ]
+        
+        let bodyData: Parameters = [
+            "time" : time
+        ] as Dictionary
+
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+
+                let networkResult = self.judgeStatus(by: statusCode, nil)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+    
     
     
     // MARK: - Status Code 분기

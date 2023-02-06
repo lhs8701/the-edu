@@ -21,5 +21,5 @@ struct MyCourseDataModel: Codable {
 struct NextUnitInfo: Codable {
     let unitId: Int
     let title: String
-    let time: Int
+    let time: Double
 }

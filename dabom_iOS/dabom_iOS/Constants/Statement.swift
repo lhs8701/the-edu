@@ -10,6 +10,8 @@ import Foundation
 extension Const {
     struct Statement {
         static let TOS = """
+        이용 약관
+        
         ◈제1장 총 칙◈
         
         제1조 (목적)
@@ -246,6 +248,8 @@ extension Const {
         """
         
         static let Privacy = """
+        개인정보 취급방침
+        
         ◈수집하는 개인정보 항목◈
         회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
         ο 수집항목 : 이름, 생년월일, 성별, 로그인ID, 비밀번호, 자택 전화번호, 자택 주소, 휴대전화번호, 이메일, 주민등록번호,

@@ -7,6 +7,8 @@
 
 import UIKit
 import Kingfisher
+import KakaoSDKAuth
+import KakaoSDKUser
 
 class SettingVC: UIViewController {
     
@@ -56,7 +58,14 @@ class SettingVC: UIViewController {
                 self.emailLogout()
                 
             } else if self.loginType == "kakao" {
-                self.kakaoLogout()
+                AuthApi.shared.refreshToken { oauthToken, error in
+                    let kakaoToken = oauthToken?.accessToken
+                    UserDefaults.standard.setValue(kakaoToken, forKey: "kakaoToken")
+                    
+                    self.kakaoLogout()
+                }
+                
+//                self.kakaoLogout()
                 
             } else if self.loginType == "apple" {
                 
@@ -128,7 +137,12 @@ class SettingVC: UIViewController {
                 self.emailWithdraw()
                 
             } else if self.loginType == "kakao" {
-                self.kakaoWithdraw()
+                AuthApi.shared.refreshToken { oauthToken, error in
+                    let kakaoToken = oauthToken?.accessToken
+                    UserDefaults.standard.setValue(kakaoToken, forKey: "kakaoToken")
+                    
+                    self.kakaoWithdraw()
+                }
                 
             } else if self.loginType == "apple" {
                 
