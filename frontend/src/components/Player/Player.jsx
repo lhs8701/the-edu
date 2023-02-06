@@ -7,6 +7,7 @@ import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { faCirclePause } from "@fortawesome/free-solid-svg-icons";
 import screenfull from "screenfull";
 import Controller from "./Controller";
+import { STATIC_URL } from "../../static";
 
 const Splayer = styled(ReactPlayer)`
   background-color: black;
@@ -88,7 +89,7 @@ export default function Player({ unitInfo }) {
     gearBar: false,
   });
   let mouseX = 0;
-  const url = unitInfo?.videoInfo?.filePath;
+  const url = STATIC_URL + unitInfo?.videoInfo?.filePath;
   const cMoveHandeler = (e) => {
     setControl(true);
     if (!isBar) {
@@ -136,7 +137,7 @@ export default function Player({ unitInfo }) {
       screenfull.toggle(fullRef.current);
     }
   }, [isFull]);
-
+  console.log(url);
   return (
     <CControl
       mouse={controlOn}

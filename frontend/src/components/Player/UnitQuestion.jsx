@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import styled from "styled-components";
 import { faClosedCaptioning as regular } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
@@ -6,11 +6,16 @@ import Swal from "sweetalert2";
 import { Wrapper } from "../../style/PlayerSideBarCss";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useInfiniteQuery } from "react-query";
-import { getQuestionListApi } from "../../api/questionApi";
+import { useInfiniteQuery, useQuery } from "react-query";
+import {
+  getDetailQuestionApi,
+  getQuestionListApi,
+  postUnitQuestionApi,
+} from "../../api/questionApi";
 import { useRecoilValue } from "recoil";
 import { getAccessTokenSelector } from "../../atom";
 import { useMemo } from "react";
+import { useRef } from "react";
 
 const CateBox = styled.div`
   display: flex;
@@ -25,8 +30,19 @@ const CateTab = styled(motion.div)`
   padding: 10px;
   text-align: center;
   cursor: pointer;
-  color: ${(props) => (props.type ? " #a8a7a7" : "black")}; //props 활용
-  border-bottom: 1px solid ${(props) => (props.type ? " #a8a7a7" : "none")}; ;
+  color: ${(props) =>
+    props.type ? " var(--color-gray)" : "black"}; //props 활용
+  border-bottom: 1px solid
+    ${(props) => (props.type ? " var(--color-gray)" : "none")}; ;
+`;
+
+const SmallCateTab = styled(CateTab)`
+  font-size: 0.8rem;
+  padding: 5px;
+  color: ${(props) =>
+    props.type ? " var(--color-gray)" : "black"}; //props 활용
+  border-bottom: 1px solid
+    ${(props) => (props.type ? " var(--color-gray)" : "none")}; ;
 `;
 
 const Input = styled.textarea`
@@ -81,11 +97,14 @@ const QuestionTab = styled(Accordion)`
   width: 100%;
   text-align: center;
   background-color: white;
-  box-shadow: 0 1px 1px rgb(0 0 0 / 16%), 0px 1px 7px rgb(0 0 0 / 16%);
+  box-shadow: 1px 1px 1px rgb(0 0 0 / 16%), 1px 1px 7px rgb(0 0 0 / 16%);
   margin: 5px 0;
 `;
 
-const QuestionInfoTab = styled(AccordionSummary)``;
+const QuestionInfoTab = styled(AccordionSummary)`
+  font-weight: var(--weight-thin);
+  text-align: start;
+`;
 
 const Tab = styled(motion.div)`
   overflow: hidden;
@@ -115,20 +134,36 @@ const QuestionBtn = styled(motion.button)`
   cursor: pointer;
 `;
 
-const QuestionDiv = styled(AccordionDetails)``;
+const QuestionDiv = styled(AccordionDetails)`
+  margin-top: -5px;
+`;
 
 const QuestionContextBox = styled.div`
+  /* border-top: 1px solid var(--color-box-gray); */
   text-align: start;
+  padding: 10px 5px;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+`;
+
+const BottomDiv = styled.div`
+  width: 100%;
+  height: 1px;
+`;
+
+const QuestionContentDate = styled.div`
+  text-align: end;
+  font-weight: var(--weight-thin);
+  font-size: 0.8rem;
+  color: var(--color-gray);
+  margin-top: 3px;
 `;
 
 export default function UnitQuestion({ unitId }) {
   const [type, setType] = useState(false);
-  const [nowQ, setNowQ] = useState([1, 2, 3, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]);
-  const [userQuestionTitle, setUserQuestionTitle] = useState("");
-  const [questionContext, setQuestionContext] = useState("");
+  const bottomRef = useRef(null);
+  const isInView = useInView(bottomRef);
   const accessToken = useRecoilValue(getAccessTokenSelector);
-  const [visible, setVisible] = useState(true);
-  const [questionContent, setQuestionContent] = useState("");
 
   const questionList = useInfiniteQuery(
     ["getSearchList", unitId],
@@ -162,19 +197,40 @@ export default function UnitQuestion({ unitId }) {
     [questionList?.data?.pages]
   );
 
-  // const questionUpload = (e) => {
-  //   e.preventDefault();
-  //   if (userQuestionTitle =setUserQuestionTitlequestionContext === "") {
-  //     alert("질문을 입력하세요.");
-  //   } else {
-  //     if (videoVal.playing === true) {
-  //       setVideoVal({ ...videoVal, playing: false });
-  //     }
-  //     const lecTime = Math.trunc(videoVal.playedSec / 60); // 시간을 단계로 나눠
-
-  // };
+  useEffect(() => {
+    if (isInView && questionList.hasNextPage && questionList.isSuccess) {
+      questionList.fetchNextPage();
+    }
+  }, [isInView, questionList.data]);
 
   const QuestionUploadForm = () => {
+    const [userQuestionTitle, setUserQuestionTitle] = useState("");
+    const [userQuestionContext, setQuestionContext] = useState("");
+    const questionUpload = (e) => {
+      e.preventDefault();
+      if (userQuestionTitle === "") {
+        alert("제목을 입력하세요.");
+        return;
+      }
+      if (userQuestionContext === "") {
+        alert("질문을 입력하세요.");
+        return;
+      }
+      postUnitQuestionApi(
+        accessToken,
+        userQuestionTitle,
+        userQuestionContext,
+        unitId
+      )
+        .then(({ data }) => {
+          console.log(data);
+          alert("질문이 등록 되었습니다.");
+          setType(false);
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    };
     return (
       <Form>
         <TitleInputBox>
@@ -191,14 +247,14 @@ export default function UnitQuestion({ unitId }) {
         </TitleInputBox>
         <Input
           required
-          value={questionContext}
+          value={userQuestionContext}
           onChange={(e) => {
             setQuestionContext(e.target.value);
           }}
           placeholder="질문을 등록해주세요"
         />
         <QuestionBtn
-          // onClick={questionUpload}
+          onClick={questionUpload}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 1 }}
         >
@@ -235,56 +291,89 @@ export default function UnitQuestion({ unitId }) {
     );
   };
 
-  const QuestionContentComponent = () => {
-    const [qData, setQData] = useState(true);
+  const Reply = () => {
+    return <div>우웅</div>;
+  };
+
+  const Content = ({ contentInfo }) => {
+    return (
+      <>
+        <QuestionContextBox>{contentInfo?.content}</QuestionContextBox>
+        <QuestionContentDate>{contentInfo?.modifiedTIme}</QuestionContentDate>
+      </>
+    );
+  };
+
+  const QuestionContentComponent = ({ questionId }) => {
+    const [section, setSection] = useState(true);
+    const questionContent = useQuery(
+      ["questionContent", questionId],
+      () => {
+        return getDetailQuestionApi(questionId, accessToken);
+      },
+      {
+        enabled: !!questionId,
+        onSuccess: (res) => {},
+        onError: (err) => {
+          console.error("에러 발생했지롱");
+        },
+      }
+    );
+
     return (
       <QuestionDiv>
         <CateBox>
-          <CateTab
-            type={qData}
+          <SmallCateTab
+            type={section}
             onClick={() => {
-              setQData(true);
+              setSection(true);
             }}
           >
             질문
-          </CateTab>
-          <CateTab
-            type={!qData}
+          </SmallCateTab>
+          <SmallCateTab
+            type={!section}
             onClick={() => {
-              setQData(false);
+              setSection(false);
             }}
           >
             답변
-          </CateTab>
+          </SmallCateTab>
         </CateBox>
-        <QuestionContextBox>머시기머시기</QuestionContextBox>
+        {section ? (
+          <Content contentInfo={questionContent?.data?.data} />
+        ) : (
+          <Reply />
+        )}
       </QuestionDiv>
+    );
+  };
+
+  const QuestionComponent = ({ question }) => {
+    return (
+      <QuestionTab
+        TransitionProps={{ unmountOnExit: true }}
+        onClick={() => {
+          // getQuestionContent(e.questionId);
+          // getQuestionReply(e.questionId);
+        }}
+        key={question.questionId}
+      >
+        <QuestionInfoTab
+          aria-controls="panel1a-content"
+          expandIcon={<KeyboardArrowDownIcon />}
+          sx={{}}
+        >
+          {question.title}
+        </QuestionInfoTab>
+        <QuestionContentComponent questionId={question.questionId} />
+      </QuestionTab>
     );
   };
 
   const QuestionListComponent = () => {
     return questions?.map((question, idx) => {
-      return (
-        <QuestionTab
-          onClick={() => {
-            // getQuestionContent(e.questionId);
-            // getQuestionReply(e.questionId);
-          }}
-          key={question.questionId}
-        >
-          <QuestionInfoTab
-            aria-controls="panel1a-content"
-            expandIcon={<KeyboardArrowDownIcon />}
-            sx={{
-              mb: -1,
-            }}
-          >
-            <div>{question.title}</div>
-            <div>- {question.writer}</div>
-          </QuestionInfoTab>
-          <QuestionContentComponent />
-        </QuestionTab>
-      );
+      return <QuestionComponent question={question} />;
     });
   };
 
@@ -296,10 +385,12 @@ export default function UnitQuestion({ unitId }) {
         </QuestionInfoBox>
         <QuestionBox>
           <QuestionListComponent />
+          <BottomDiv ref={bottomRef} />
         </QuestionBox>
       </>
     );
   };
+
   return (
     <Wrapper>
       <QuestionPathTab />

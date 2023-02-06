@@ -40,14 +40,10 @@ export async function postUnitQuestionApi(accessToken, title, content, unitId) {
 }
 
 export async function getDetailQuestionApi(questionId, accessToken) {
-  return await axios.get(
-    `${QUESTION_URL}${QUESTION_TAIL_URL}/${questionId}`,
-    {},
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
-      },
-    }
-  );
+  return await axios.get(`${QUESTION_URL}${QUESTION_TAIL_URL}/${questionId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "X-AUTH-TOKEN": accessToken,
+    },
+  });
 }
