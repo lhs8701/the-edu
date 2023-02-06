@@ -157,8 +157,11 @@ const BottomDiv = styled.div`
 const QuestionContentDate = styled.div`
   text-align: end;
   font-weight: var(--weight-thin);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: var(--color-gray);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const QuestionReplyTab = styled.div`
@@ -299,10 +302,14 @@ export default function UnitQuestion({ unitId }) {
 
   const Reply = ({ replyInfo }) => {
     return replyInfo?.map((reply) => {
+      console.log(reply);
       return (
         <QuestionReplyTab key={reply.answerId}>
           <QuestionContextBox>{reply.content}</QuestionContextBox>
-          <QuestionContentDate>{reply?.modifiedTIme}</QuestionContentDate>
+          <QuestionContentDate>
+            <div>{reply?.writer}</div>
+            <div>{reply?.modifiedTIme}</div>
+          </QuestionContentDate>
         </QuestionReplyTab>
       );
     });
@@ -312,7 +319,10 @@ export default function UnitQuestion({ unitId }) {
     return (
       <>
         <QuestionContextBox>{contentInfo?.content}</QuestionContextBox>
-        <QuestionContentDate>{contentInfo?.modifiedTIme}</QuestionContentDate>
+        <QuestionContentDate>
+          <div>by {contentInfo?.writer}</div>
+          <div>{contentInfo?.modifiedTIme}</div>
+        </QuestionContentDate>
       </>
     );
   };
