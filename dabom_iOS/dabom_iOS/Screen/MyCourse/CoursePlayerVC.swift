@@ -44,6 +44,53 @@ class CoursePlayerVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
         
+        if unitId == nil { return }
+        guard let unitId = unitId else { return }
+        guard let endTime = avPlayer.currentItem?.duration.seconds else { return }
+        
+        if currentTime + 10 >= endTime {
+            UnitDataService.shared.completeUnit(unitId: unitId) { response in
+                switch response {
+                case .success:
+                    print("complete Success")
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
+            }
+        }
+        
+        
+//        if let unitData = unitData {
+//            if currentTime + 10 >= avPlayer.currentItem?.duration.seconds ?? 0.0 {
+//                if let unitId = unitId {
+//                    UnitDataService.shared.completeUnit(unitId: self.unitId) { response in
+//                        switch response {
+//                        case .success:
+//                            print("complete Success")
+//                        case .requestErr(let message):
+//                            print("requestErr", message)
+//                        case .pathErr:
+//                            print("pathErr")
+//                        case .serverErr:
+//                            print("serverErr")
+//                        case .networkFail:
+//                            print("networkFail")
+//                        case .resourceErr:
+//                            print("resourceErr")
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
         saveRecord(time: currentTime)
     }
     

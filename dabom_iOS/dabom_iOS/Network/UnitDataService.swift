@@ -113,7 +113,7 @@ struct UnitDataService {
     
     // MARK: - 강의 시청 완료 처리
     func completeUnit(unitId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.saveRecord)/\(unitId)"
+        let URL = "\(Const.Url.completeUnit)/\(unitId)"
         print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
@@ -122,13 +122,9 @@ struct UnitDataService {
             "Content-Type" : "application/json",
             "X-AUTH-TOKEN" : accessToken
         ]
-        
-        let bodyData: Parameters = [
-            "time" : time
-        ] as Dictionary
 
         
-        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
             debugPrint(dataResponse)
