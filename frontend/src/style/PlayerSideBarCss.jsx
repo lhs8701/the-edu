@@ -12,5 +12,4 @@ export const SideTitle = styled.div`
 export const TitleBox = styled.div`
   width: 100%;
   height: 8%;
-  background-color: pink;
 `;

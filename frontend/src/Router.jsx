@@ -153,7 +153,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorComponent />,
   },
   {
-    path: "/player",
+    path: "/player/:unitId",
     element: <PlayerRoot />,
     errorElement: <ErrorComponent />,
   },
@@ -249,7 +249,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       {
         path: "inquirecourses",
         element: <CoursesInquires />,

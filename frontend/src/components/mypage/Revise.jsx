@@ -49,13 +49,13 @@ export default function Revise() {
     },
     {
       enabled: !!memberId,
-      onSuccess: ({email,id,nickname,mobile}) => {
-        setIsName(nickname)
-        setIsTele(mobile)
-        setIsId(email)
-      setValue("tele", mobile);
-      setValue("name", nickname);
-      setValue("email", email);
+      onSuccess: ({ email, id, nickname, mobile }) => {
+        setIsName(nickname);
+        setIsTele(mobile);
+        setIsId(email);
+        setValue("tele", mobile);
+        setValue("name", nickname);
+        setValue("email", email);
       },
       onError: () => {
         console.error("에러 발생했지롱");
@@ -84,7 +84,7 @@ export default function Revise() {
   });
 
   const submit = () => {
-    console.log("fdd")
+    console.log("fdd");
     const info = {
       nickname: isName,
       email: isId,
@@ -95,14 +95,15 @@ export default function Revise() {
         queryClient.refetchQueries({ queryKey: ["myInfo", memberId] });
       })
       .catch((err) => {
-        alert("에러")
+        alert("에러");
+        console.log(err);
         console.log(err.response.status);
         if (err.response.status === 401) {
         } else {
         }
       });
   };
-  console.log(isId,isName)
+
   return (
     <MyPageBox>
       <MyPageTitle>개인정보 수정</MyPageTitle>

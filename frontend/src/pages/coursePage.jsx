@@ -6,6 +6,7 @@ import {
   courseApi,
   getcourseInquiriessApi,
   getcourseReviewsApi,
+  getCurriculumApi,
 } from "../api/courseApi";
 import CourseDetail from "../components/course/CourseDetail";
 import CourseIntro from "../components/course/CourseIntro";
@@ -53,6 +54,20 @@ export default function CoursePage() {
     ["courseInquiries", courseId],
     () => {
       return getcourseInquiriessApi(courseId);
+    },
+    {
+      enabled: !!courseId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
+  useQuery(
+    ["courseCurriculum", courseId],
+    () => {
+      return getCurriculumApi(courseId);
     },
     {
       enabled: !!courseId,

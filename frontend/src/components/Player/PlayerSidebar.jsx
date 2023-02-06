@@ -46,55 +46,36 @@ const ListTab = styled(motion.div)`
   box-sizing: border-box;
 `;
 
-export default function PlayerSidebar() {
+export default function PlayerSidebar({ unitInfo, unitId }) {
+  const [menu, setMenu] = useState(0);
+
+  const MENU_LIST_NAME = ["강의 목록", "수업 자료", "질문", "평가"];
   const menuList = {
     0: <CourseList />,
     1: <CourseInfo />,
-    2: <UnitQuestion />,
+    2: <UnitQuestion unitId={unitId} />,
     3: <UnitReview />,
   };
-
-  const [menu, setMenu] = useState(0);
+  const MenuBar = ({ idx }) => {
+    return (
+      <Notice
+        now={idx}
+        men={menu}
+        onClick={() => {
+          setMenu(idx);
+        }}
+      >
+        {MENU_LIST_NAME[idx]}
+      </Notice>
+    );
+  };
 
   return (
     <BarWrapper>
       <NoticeTab>
-        <Notice
-          now={0}
-          men={menu}
-          onClick={() => {
-            setMenu(0);
-          }}
-        >
-          강의 목록
-        </Notice>
-        <Notice
-          now={1}
-          men={menu}
-          onClick={() => {
-            setMenu(1);
-          }}
-        >
-          수업 자료
-        </Notice>
-        <Notice
-          now={2}
-          men={menu}
-          onClick={() => {
-            setMenu(2);
-          }}
-        >
-          수업 질문
-        </Notice>
-        <Notice
-          now={3}
-          men={menu}
-          onClick={() => {
-            setMenu(3);
-          }}
-        >
-          강의 평가
-        </Notice>
+        {[0, 1, 2, 3].map((idx) => {
+          return <MenuBar idx={idx} />;
+        })}
       </NoticeTab>
       <ListTab>{menuList[menu]}</ListTab>
     </BarWrapper>

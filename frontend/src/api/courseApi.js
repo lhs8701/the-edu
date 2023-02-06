@@ -8,6 +8,8 @@ const WISHCHECK_URL = "/wish/check";
 const WISH_URL = "/wish";
 const ENROLL_URL = "/enroll";
 const SEARCH_URL = "/keyword";
+const CURRICULUM_URL = "/curriculum";
+const STATUS_URL = "/status";
 
 export async function searchApi(pageParam, keyword) {
   const params = {
@@ -21,9 +23,10 @@ export async function searchApi(pageParam, keyword) {
   return data.data;
 }
 
-export async function enrollApi( courseId, accessToken) {
+export async function enrollApi(courseId, accessToken) {
   return await axios.post(
-    COURSE_URL +"/"+courseId+ ENROLL_URL,{},
+    COURSE_URL + "/" + courseId + ENROLL_URL,
+    {},
     {
       headers: {
         "Content-Type": "application/json",
@@ -33,11 +36,10 @@ export async function enrollApi( courseId, accessToken) {
   );
 }
 
-export async function courseWishCheckApi( courseId, accessToken) {
+export async function courseWishCheckApi(courseId, accessToken) {
   return await axios.post(
     `${COURSE_URL}/${courseId}${WISHCHECK_URL}`,
-    {
-    },
+    {},
     {
       headers: {
         "Content-Type": "application/json",
@@ -111,4 +113,24 @@ export async function postcourseInquiriessApi(
       },
     }
   );
+}
+
+export async function getCurriculumStatusApi(accessToken, courseId) {
+  return await axios.get(
+    `${COURSE_URL}/${courseId}${CURRICULUM_URL}${STATUS_URL}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "X-AUTH-TOKEN": accessToken,
+      },
+    }
+  );
+}
+
+export async function getCurriculumApi(courseId) {
+  return await axios.get(`${COURSE_URL}/${courseId}${CURRICULUM_URL}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }
