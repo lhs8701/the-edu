@@ -38,7 +38,8 @@ public class RecordService {
                 .courseId(unit.getCourse().getId())
                 .time(requestDto.getTime())
                 .build();
-        recordRedisRepository.deleteByMemberIdAndUnitId(member.getId(), unit.getId());
+        Optional<Record> found = recordRedisRepository.findByMemberIdAndUnitId(member.getId(), unit.getId());
+        found.ifPresent(recordRedisRepository::delete);
         recordRedisRepository.save(record);
     }
 
