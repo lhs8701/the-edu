@@ -43,7 +43,7 @@ public class RecordController {
     @GetMapping("/record/units/{unitId}")
     public ResponseEntity<Double> getRecord(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
         RecordDto.GetRequest requestDto = new RecordDto.GetRequest(member.getId(), unitId);
-        Double response = recordService.getView(requestDto);
+        Double response = recordService.getTime(requestDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

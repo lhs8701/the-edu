@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.course.dto;
+package joeuncamp.dabombackend.domain._etc;
 
 import joeuncamp.dabombackend.global.constant.CategoryGroup;
 import joeuncamp.dabombackend.global.constant.CategoryType;

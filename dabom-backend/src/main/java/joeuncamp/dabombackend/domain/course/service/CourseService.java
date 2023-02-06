@@ -30,7 +30,6 @@ public class CourseService {
     private final CourseJpaRepository courseJpaRepository;
     private final CreatorService creatorService;
 
-    private final ImageService imageService;
     private final ReviewService reviewService;
 
     /**

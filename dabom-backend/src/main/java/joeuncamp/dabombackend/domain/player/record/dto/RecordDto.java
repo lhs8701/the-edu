@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.player.record.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import joeuncamp.dabombackend.domain.player.record.entity.Record;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,17 @@ public class RecordDto {
         Long memberId;
         @Schema(hidden = true)
         Long unitId;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class Response {
+        Long unitId;
+        double time;
+
+        public Response(Record record){
+            this.unitId = record.getUnitId();
+            this.time = record.getTime();
+        }
     }
 }
