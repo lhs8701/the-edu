@@ -181,7 +181,6 @@ const TimeTab = styled.div`
 const IconDiv = styled(motion.div)`
   height: 100%;
   margin: 0 10px;
-  font-size: 0.8rem;
 `;
 
 export default function Controller({

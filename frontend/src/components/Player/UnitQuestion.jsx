@@ -309,7 +309,7 @@ export default function UnitQuestion({ unitId }) {
           <QuestionContextBox>{reply.content}</QuestionContextBox>
 
           <QuestionContentDate>
-            <div>{reply?.modifiedTIme}</div>
+            <div>{reply?.modifiedTime}</div>
             <div>by {reply?.writer}</div>
           </QuestionContentDate>
         </QuestionReplyTab>
@@ -323,7 +323,7 @@ export default function UnitQuestion({ unitId }) {
         <QuestionContextBox>{contentInfo?.content}</QuestionContextBox>
         <br />
         <QuestionContentDate>
-          <div>{contentInfo?.modifiedTIme}</div>
+          <div>{contentInfo?.modifiedTime}</div>
           <div>by {contentInfo?.writer}</div>
         </QuestionContentDate>
       </>
