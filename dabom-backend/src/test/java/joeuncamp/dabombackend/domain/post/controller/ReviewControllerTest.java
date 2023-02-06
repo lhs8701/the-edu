@@ -37,20 +37,20 @@ public class ReviewControllerTest {
     @DisplayName("후기를 작성한다.")
     void 후기를_작성한다() throws Exception {
         // given
-        ReviewDto.Request requestDto = ReviewDto.Request.builder()
+        ReviewDto.CreateRequest createRequestDto = ReviewDto.CreateRequest.builder()
                 .memberId(1L)
                 .courseId(1L)
                 .content(ExampleValue.Post.CONTENT)
                 .score(ExampleValue.Post.RATING)
                 .build();
 
-        given(reviewService.writeReview(requestDto)).willReturn(new IdResponseDto(1L));
+        given(reviewService.writeReview(createRequestDto)).willReturn(new IdResponseDto(1L));
 
         // when
         ResultActions actions = mockMvc.perform(post("/api/courses/reviews")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(new Gson().toJson(requestDto)));
+                .content(new Gson().toJson(createRequestDto)));
 
 
         // then
