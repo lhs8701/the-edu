@@ -15,12 +15,14 @@ import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ViewChecker {
     private final ViewJpaRepository viewJpaRepository;
@@ -51,10 +53,13 @@ public class ViewChecker {
     }
 
     public List<Unit> getCompletedUnit(Member member, Course course) {
-        return viewJpaRepository.findByMemberAndCourse(member, course).stream()
+        List<Unit> units = viewJpaRepository.findByMemberAndCourse(member, course).stream()
                 .map(View::getUnit)
                 .toList();
+        log.info(">>>>{}",units);
+        return units;
     }
+
 
     public List<Course> getCompletedCourse(Member member) {
         List<Course> entireCourses = enrollJpaRepository.findAllByMember(member).stream()

@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.feedback.dto.FeedbackDto;
-import joeuncamp.dabombackend.domain.player.feedback.entity.Feedback;
 import joeuncamp.dabombackend.domain.player.feedback.service.FeedbackService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
