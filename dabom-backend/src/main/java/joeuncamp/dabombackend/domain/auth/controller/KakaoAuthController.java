@@ -32,19 +32,19 @@ public class KakaoAuthController {
     }
 
     @Operation(summary = "로그아웃합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/kakao/logout")
-    public ResponseEntity<Void> logout(@RequestBody SocialUnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken) {
+    public ResponseEntity<Void> logout(@RequestBody SocialUnlinkRequestDto requestDto, @RequestHeader(Header.ACCESS_TOKEN) String accessToken) {
         kakaoAuthService.logout(requestDto, accessToken);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Operation(summary = "회원 탈퇴합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/kakao/withdraw")
-    public ResponseEntity<Void> withdraw(@RequestBody SocialUnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken) {
+    public ResponseEntity<Void> withdraw(@RequestBody SocialUnlinkRequestDto requestDto, @RequestHeader(Header.ACCESS_TOKEN) String accessToken) {
         kakaoAuthService.withdraw(requestDto, accessToken);
         return new ResponseEntity<>(HttpStatus.OK);
     }

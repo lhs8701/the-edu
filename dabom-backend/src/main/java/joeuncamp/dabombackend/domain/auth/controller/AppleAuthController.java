@@ -5,14 +5,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.auth.dto.AppleAuthDto;
-import joeuncamp.dabombackend.domain.auth.dto.KakaoLoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.SocialUnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.service.AppleAuthService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.RequiredArgsConstructor;
-import org.apache.el.parser.Token;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,13 +40,24 @@ public class AppleAuthController {
     }
 
     @Operation(summary = "애플로 로그아웃합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @Parameter(name = Header.JWT_HEADER, description = "리프레시토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.REFRESH)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.REFRESH_TOKEN, description = "리프레시토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.REFRESH)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/apple/logout")
-    public ResponseEntity<TokenForm> logout(@RequestBody AppleAuthDto.LogoutRequest requestDto) {
+    public ResponseEntity<TokenForm> logout(@RequestHeader(Header.ACCESS_TOKEN) String accessToken, @RequestHeader(Header.REFRESH_TOKEN) String refreshToken) {
+        AppleAuthDto.UnlinkRequest requestDto = new AppleAuthDto.UnlinkRequest(accessToken, refreshToken);
         appleAuthService.logout(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(summary = "애플로 회원탈퇴합니다.", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.REFRESH_TOKEN, description = "리프레시토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.REFRESH)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/auth/apple/withdraw")
+    public ResponseEntity<Void> withdraw(@RequestHeader(Header.ACCESS_TOKEN) String accessToken, @RequestHeader(Header.REFRESH_TOKEN) String refreshToken) {
+        AppleAuthDto.UnlinkRequest requestDto = new AppleAuthDto.UnlinkRequest(accessToken, refreshToken);
+        appleAuthService.withdraw(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

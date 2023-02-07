@@ -30,7 +30,7 @@ public class UnitController {
     private final MyUnitService myUnitService;
 
     @Operation(summary = "강의를 업로드합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/units")
     public ResponseEntity<Long> uploadUnit(@PathVariable Long courseId, UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member) {
@@ -41,7 +41,7 @@ public class UnitController {
     }
 
     @Operation(summary = "등록한 강좌의 수강 현황을 조회합니다.", description = "각 강의 마다 시청 완료 여부를 확인할 수 있습니다.")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/{courseId}/units")
     public ResponseEntity<List<MyUnitDto.Response>> getUnitStatus(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
@@ -51,7 +51,7 @@ public class UnitController {
     }
 
     @Operation(summary = "강의 재생을 위한 세부정보를 조회합니다.", description = "영상의 세부 정보와 함께 URL이 반환됩니다.")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/units/{unitId}")
     public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {

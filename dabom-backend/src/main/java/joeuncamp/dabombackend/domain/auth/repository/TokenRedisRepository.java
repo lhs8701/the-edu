@@ -21,15 +21,15 @@ public class TokenRedisRepository {
     /**
      * 리프레시토큰을 저장합니다.
      * 'PREFIX:[리프레시토큰]'을 key로 사용합니다.
-     * 회원의 계정을 value로 설정합니다.
+     * 회원의 아이디넘버를 value로 설정합니다.
      *
      * @param refreshToken 리프레시토큰
-     * @param account      회원의 계정
+     * @param memberId      회원 아이디넘버
      */
-    public void saveRefreshToken(String refreshToken, String account) {
+    public void saveRefreshToken(String refreshToken, String memberId) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         String key = PREFIX_REFRESH + refreshToken;
-        valueOperations.set(key, account);
+        valueOperations.set(key, memberId);
         redisTemplate.expire(key, JwtExpiration.REFRESH_TOKEN.getTime(), TimeUnit.SECONDS);
     }
 
@@ -48,10 +48,10 @@ public class TokenRedisRepository {
     }
 
     /**
-     * 리프레시토큰에 저장된 회원의 계정을 찾습니다.
+     * 리프레시토큰에 저장된 회원의 아이디넘버를 찾습니다.
      *
      * @param refreshToken 리프레시토큰
-     * @return 회원의 계정
+     * @return 회원의 아이디넘버
      */
     public Optional<String> findByRefreshToken(String refreshToken) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();

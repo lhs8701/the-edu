@@ -27,7 +27,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @Operation(summary = "회원 정보를 조회합니다.")
-    @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{memberId}/profile")
     public ResponseEntity<ProfileResponseDto> getMyProfile(@PathVariable Long memberId) {
@@ -35,7 +35,7 @@ public class MemberController {
     }
 
     @Operation(summary = "자신의 회원 정보를 수정합니다.", description = "수정하지 않을 항목은 비워두면 됩니다.")
-    @Parameter(name = Header.JWT_HEADER, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{memberId}/profile")
     public ResponseEntity<IdResponseDto> updateMyProfile(@AuthenticationPrincipal Member member, @RequestBody ProfileUpdateParam updateParam, @PathVariable Long memberId) {

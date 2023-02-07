@@ -45,19 +45,19 @@ public class BasicAuthController {
 
 
     @Operation(summary = "로그아웃합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/basic/logout")
-    public ResponseEntity<Void> logout(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken) {
+    public ResponseEntity<Void> logout(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.ACCESS_TOKEN) String accessToken) {
         basicAuthService.logout(requestDto, accessToken);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Operation(summary = "회원 탈퇴합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/basic/withdraw")
-    public ResponseEntity<Void> withdraw(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.JWT_HEADER) String accessToken) {
+    public ResponseEntity<Void> withdraw(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.ACCESS_TOKEN) String accessToken) {
         basicAuthService.withdraw(requestDto, accessToken);
         return new ResponseEntity<>(HttpStatus.OK);
     }

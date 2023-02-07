@@ -1,9 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
 import joeuncamp.dabombackend.domain.auth.dto.AppleAuthDto;
-import joeuncamp.dabombackend.domain.auth.dto.KakaoLoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.SocialUnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -12,7 +9,6 @@ import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
-import joeuncamp.dabombackend.util.kakaoapi.dto.KakaoProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +47,7 @@ public class AppleAuthService {
     public TokenForm login(AppleAuthDto.LoginRequest requestDto) {
         Member member = memberJpaRepository.findByLoginTypeAndSocialId(LoginType.APPLE, requestDto.getSocialToken()).orElseThrow(CMemberNotFoundException::new);
         TokenForm tokenForm = jwtProvider.generateToken(member);
-        tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), member.getAccount());
+        tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), String.valueOf(member.getId()));
         return tokenForm;
     }
 
@@ -61,8 +57,20 @@ public class AppleAuthService {
      *
      * @param requestDto 리프레시토큰, 어세스토큰
      */
-    public void logout(AppleAuthDto.LogoutRequest requestDto) {
+    public void logout(AppleAuthDto.UnlinkRequest requestDto) {
         tokenRedisRepository.saveBlockedToken(requestDto.getAccessToken());
         tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
+    }
+
+    /**
+     * 계정을 탈퇴합니다. 회원을 DB에서 삭제합니다.
+     * 어세스토큰을 Block처리하고, 리프레시토큰을 레디스에서 제거합니다.
+     *
+     * @param requestDto 리프레시토큰, 어세스토큰
+     */
+    public void withdraw(AppleAuthDto.UnlinkRequest requestDto) {
+        Member member = (Member) jwtProvider.getAuthentication(requestDto.getAccessToken()).getPrincipal();
+        memberJpaRepository.deleteById(member.getId());
+        logout(requestDto);
     }
 }

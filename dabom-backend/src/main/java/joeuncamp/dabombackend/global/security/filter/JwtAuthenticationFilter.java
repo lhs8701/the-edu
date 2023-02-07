@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -33,6 +32,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader(Header.JWT_HEADER);
+        return request.getHeader(Header.ACCESS_TOKEN);
     }
 }

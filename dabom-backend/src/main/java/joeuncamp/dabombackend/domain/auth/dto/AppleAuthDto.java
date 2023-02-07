@@ -2,14 +2,13 @@ package joeuncamp.dabombackend.domain.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.constant.StaticFilePath;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -52,8 +51,8 @@ public class AppleAuthDto {
     }
 
     @Getter
-    @NoArgsConstructor
-    public static class LogoutRequest {
+    @AllArgsConstructor
+    public static class UnlinkRequest {
         @Schema(hidden = true)
         String accessToken;
         @Schema(hidden = true)

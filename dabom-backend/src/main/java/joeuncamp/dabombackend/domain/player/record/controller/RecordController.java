@@ -27,7 +27,7 @@ public class RecordController {
     private final ViewChecker viewChecker;
 
     @Operation(summary = "마지막으로 강의를 시청한 지점을 저장합니다.", description = "시간은 초단위로 저장됩니다. ")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/record/units/{unitId}")
     public ResponseEntity<Void> saveRecord(@PathVariable Long unitId, @RequestBody RecordDto.SaveRequest requestDto, @AuthenticationPrincipal Member member) {
@@ -38,7 +38,7 @@ public class RecordController {
     }
 
     @Operation(summary = "강의 시청 기록을 불러옵니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/record/units/{unitId}")
     public ResponseEntity<Double> getRecord(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
@@ -48,7 +48,7 @@ public class RecordController {
     }
 
     @Operation(summary = "강의를 시청 완료 처리합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/record/complete/units/{unitId}")
     public ResponseEntity<Void> completeUnit(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
