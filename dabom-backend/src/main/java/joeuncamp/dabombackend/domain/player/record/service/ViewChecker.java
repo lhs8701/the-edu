@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -53,13 +54,14 @@ public class ViewChecker {
     }
 
     public List<Unit> getCompletedUnit(Member member, Course course) {
-        List<Unit> units = viewJpaRepository.findByMemberAndCourse(member, course).stream()
+        List<Unit> units = unitJpaRepository.findByCourse(course);
+        return units.stream()
+                .map(unit -> viewJpaRepository.findByMemberAndUnit(member, unit))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .map(View::getUnit)
                 .toList();
-        log.info(">>>>{}",units);
-        return units;
     }
-
 
     public List<Course> getCompletedCourse(Member member) {
         List<Course> entireCourses = enrollJpaRepository.findAllByMember(member).stream()
