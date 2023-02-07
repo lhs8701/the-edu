@@ -5,7 +5,11 @@ import { useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { getCurriculumStatusApi } from "../api/courseApi";
-import { getLatestRecordApi, postMyRecordApi } from "../api/playerApi";
+import {
+  getLatestRecordApi,
+  postMyRecordApi,
+  postWatchAllApi,
+} from "../api/playerApi";
 import { getUnitVideoApi } from "../api/unitApi";
 import { getAccessTokenSelector, getLoginState } from "../atom";
 import Player from "../components/Player/Player";
@@ -106,6 +110,7 @@ const Title = styled.div`
 export default function PlayerRoot() {
   const [isCapture, setCapture] = useState(false);
   const [isCollapse, setIsCollapse] = useState(true);
+  const [menu, setMenu] = useState(0);
   const { unitId, courseId } = useParams();
   const loginState = useRecoilValue(getLoginState);
   const accessToken = useRecoilValue(getAccessTokenSelector);
@@ -125,9 +130,10 @@ export default function PlayerRoot() {
     full: false, // 전체모드
     cc: false,
     playedSec: 0, //전체 시간 초
+    done: false,
   });
 
-  const { data } = useQuery(
+  useQuery(
     ["userCurriStatus", courseId],
     () => {
       return getCurriculumStatusApi(accessToken, courseId);
@@ -219,6 +225,18 @@ export default function PlayerRoot() {
     getLatestRecord();
   }, []);
 
+  useEffect(() => {
+    if (videoVal.done) {
+      setMenu(3);
+    }
+    if (videoVal.played >= 0.95 && !videoVal.done) {
+      console.log("FDDDDDD");
+      setVideoVal({ ...videoVal, done: true });
+      postWatchAllApi(accessToken, unitId);
+      setMenu(3);
+    }
+  }, [videoVal.played]);
+
   return (
     <Hm>
       <AnimatePresence>
@@ -226,9 +244,7 @@ export default function PlayerRoot() {
           {isCapture && <CaptureBlocker />}
           {loading && (
             <VideoTab>
-              <Title>
-                {unitInfo?.title}-{unitInfo?.unitId}
-              </Title>
+              <Title>{unitInfo?.title}</Title>
               {unitInfo && (
                 <Player
                   videoVal={videoVal}
@@ -250,6 +266,8 @@ export default function PlayerRoot() {
           <BarTab>
             {unitInfo && (
               <PlayerSidebar
+                menu={menu}
+                setMenu={setMenu}
                 exitUnit={exitUnit}
                 unitInfo={unitInfo}
                 unitId={unitId}

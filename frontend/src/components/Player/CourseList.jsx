@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { queryClient } from "../..";
-import { postMyRecordApi } from "../../api/playerApi";
 import { PROCESS_MAIN_URL } from "../../static";
 import { Wrapper } from "../../style/CommonCss";
 import { SideTitle, TitleBox } from "../../style/PlayerSideBarCss";
@@ -26,21 +25,11 @@ const ListBox = styled.ul`
   overflow: auto;
 `;
 
-const SubInfoBox = styled.div`
-  margin: 15px 0;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-end;
-  font-weight: var(--weight-thin);
-`;
-
 export default function CourseList({ courseId, unitId, exitUnit }) {
   const curriculum = queryClient.getQueryData(["userCurriStatus", courseId]);
   const navigate = useNavigate();
 
   const Unit = ({ unit, idx }) => {
-    console.log(unit);
     return (
       <Catalog
         onClick={() => {
@@ -55,7 +44,9 @@ export default function CourseList({ courseId, unitId, exitUnit }) {
         key={idx}
         whileHover={{ backgroundColor: "#dfdede", color: "var(--color-text)" }}
         animate={{
-          backgroundColor: unit.completed ? "#a8a7a7" : "transparent",
+          backgroundColor: unit.completed
+            ? "#a8a7a7"
+            : "var(--color-background)",
         }}
       >
         {idx + 1}. {unit.title}

@@ -294,6 +294,7 @@ export default function Controller({
 
   const onChangeBitrate = (level) => {
     const internalPlayer = videoRef?.getInternalPlayer("hls");
+    console.log(internalPlayer);
     if (internalPlayer) {
       // currentLevel expect to receive an index of the levels array
       internalPlayer.currentLevel = level;
@@ -342,12 +343,6 @@ export default function Controller({
     setVideoVal({ ...videoVal, duration: Math.trunc(duration) });
   }, [duration]);
 
-  useEffect(() => {
-    if (videoVal.played === 1) {
-      postWatchAllApi(accessToken, unitId);
-    }
-  }, [currentTime]);
-
   return (
     <BarWarpper>
       <ProgressTab>
@@ -364,7 +359,6 @@ export default function Controller({
           sx={{
             color: "#567FE8",
             height: 4,
-
             "& .MuiSlider-thumb": {
               width: 8,
               height: 8,

@@ -3,6 +3,7 @@ import { API_URL } from "../static";
 const FILE_PATH = "/file";
 const SINGLE_IMG_URL = "/image";
 const MULTI_IMG_URL = "/image/muli";
+const VIDEO_URL = "/video";
 const CREATE_URL = "/courses";
 const FILE_URL = API_URL + FILE_PATH;
 
@@ -34,4 +35,14 @@ export async function createCourseApi(accessToken, courseValue) {
       },
     }
   );
+}
+
+export async function uploadVideoApi(accessToken, file) {
+  const formData = new FormData();
+  formData.append("multipartFile", file);
+  return await axios.post(FILE_URL + VIDEO_URL, formData, {
+    headers: {
+      ACCESS: accessToken,
+    },
+  });
 }
