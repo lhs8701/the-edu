@@ -1,6 +1,12 @@
+import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getLoginState } from "../atom";
+import { myCourseApi } from "../api/myPageApi";
+import {
+  getAccessTokenSelector,
+  getLoginState,
+  getMemberIdSelector,
+} from "../atom";
 import ClassRankList from "../components/ClassRankList";
 import MyClassCard from "../components/MyClassCard";
 import { SlideNotice } from "../components/SlideNotice";
@@ -30,6 +36,8 @@ const ListTitle = styled.h1`
 export default function MainPage() {
   const weekRankList = dummyCourseRank;
   const loginState = useRecoilValue(getLoginState);
+  const memberId = useRecoilValue(getMemberIdSelector);
+  const accessToken = useRecoilValue(getAccessTokenSelector);
 
   const MyClassList = () => {
     return dummyMyClassList.map((course, index) => {

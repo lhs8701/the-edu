@@ -11,6 +11,7 @@ import {
   MyPageContentBox,
   MyPageTitle,
 } from "../../style/MypageComponentsCss";
+import Courses from "../admin/Courses";
 import MyClassCard from "../MyClassCard";
 import MyClassNavBar from "./MyClassNavBar";
 
@@ -30,19 +31,19 @@ export default function MyClass() {
   const memberId = useRecoilValue(getMemberIdSelector);
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
-  const myCourses = useQuery(
-    ["myCourseList", memberId],
-    () => {
-      return myCourseApi(memberId, accessToken);
-    },
-    {
-      enabled: !!memberId,
-      onSuccess: (res) => {},
-      onError: (err) => {
-        console.error("에러 발생했지롱");
-      },
-    }
-  );
+  // const myCourses = useQuery(
+  //   ["myCourseList", memberId],
+  //   () => {
+  //     return myCourseApi(memberId, accessToken);
+  //   },
+  //   {
+  //     enabled: !!memberId,
+  //     onSuccess: (res) => {},
+  //     onError: (err) => {
+  //       console.error("에러 발생했지롱");
+  //     },
+  //   }
+  // );
 
   const myOngoingCourses = useQuery(
     ["myOngoingCourseList", memberId],
@@ -93,6 +94,7 @@ export default function MyClass() {
   };
 
   const MyClassList = ({ courses }) => {
+    console.log(courses);
     return courses?.map((course) => {
       return <Course key={course?.courseId} courseInfo={course} />;
     });
@@ -101,25 +103,26 @@ export default function MyClass() {
     <MyPageBox>
       <MyPageTitle>나의 클래스</MyPageTitle>
       <MyPageContentBox>
-        {myCourses?.data?.length === 0 ? (
-          <h1>나의 강의가 없어요</h1>
-        ) : (
-          <>
-            <MyClassNavBar
-              isTabStatus={isTabStatus}
-              setIsTabStatus={setIsTabStatus}
+        <MyClassNavBar
+          isTabStatus={isTabStatus}
+          setIsTabStatus={setIsTabStatus}
+        />
+        <MyClassListBox>
+          {isTabStatus === 0 && (
+            <MyClassList
+              courses={[
+                ...myOngoingCourses?.data?.data,
+                ...myCompletedCourses?.data?.data,
+              ]}
             />
-            <MyClassListBox>
-              {isTabStatus === 0 && <MyClassList courses={myCourses?.data} />}
-              {isTabStatus === 1 && (
-                <MyClassList courses={myOngoingCourses?.data?.data} />
-              )}
-              {isTabStatus === 2 && (
-                <MyClassList courses={myCompletedCourses?.data?.data} />
-              )}
-            </MyClassListBox>
-          </>
-        )}
+          )}
+          {isTabStatus === 1 && (
+            <MyClassList courses={myOngoingCourses?.data?.data} />
+          )}
+          {isTabStatus === 2 && (
+            <MyClassList courses={myCompletedCourses?.data?.data} />
+          )}
+        </MyClassListBox>
       </MyPageContentBox>
     </MyPageBox>
   );
