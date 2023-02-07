@@ -83,7 +83,7 @@ export async function basicLogout(accessToken, refreshToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );
@@ -113,7 +113,7 @@ export async function kakaoLogout(accessToken, socialToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );

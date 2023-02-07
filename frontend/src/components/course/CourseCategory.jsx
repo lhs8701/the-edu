@@ -53,7 +53,8 @@ export default function CourseCategory({ courseIdx, courseId }) {
   };
 
   const Categories = ({ courseCurriculum }) => {
-    return courseCurriculum.map((curri, idx) => {
+    console.log(courseCurriculum);
+    return courseCurriculum?.map((curri, idx) => {
       return <Category key={idx} curri={curri} chapterIdx={idx + 1} />;
     });
   };
@@ -63,7 +64,9 @@ export default function CourseCategory({ courseIdx, courseId }) {
       <Title>강의 커리큘럼</Title>
       <br />
       <br />
-      <Categories courseCurriculum={courseCurriculum.data.chapterList} />
+      {courseCurriculum && (
+        <Categories courseCurriculum={courseCurriculum?.data.chapterList} />
+      )}
     </Wrapper>
   );
 }

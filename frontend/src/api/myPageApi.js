@@ -13,7 +13,7 @@ export async function myCourseApi(memberId, accessToken) {
       "Content-Type": "application/json",
       "Access-Control-Allow-Credentials": true,
       "Access-Control-Allow-Origin": "*",
-      "X-AUTH-TOKEN": accessToken,
+      ACCESS: accessToken,
     },
   });
   return data.data;
@@ -25,7 +25,7 @@ export async function wishCourseApi(memberId, accessToken) {
       "Content-Type": "application/json",
       "Access-Control-Allow-Credentials": true,
       "Access-Control-Allow-Origin": "*",
-      "X-AUTH-TOKEN": accessToken,
+      ACCESS: accessToken,
     },
   });
   return data.data;
@@ -37,7 +37,7 @@ export async function myInfoApi(memberId, accessToken) {
       "Content-Type": "application/json",
       "Access-Control-Allow-Credentials": true,
       "Access-Control-Allow-Origin": "*",
-      "X-AUTH-TOKEN": accessToken,
+      ACCESS: accessToken,
     },
   });
   return data.data;
@@ -50,9 +50,9 @@ export async function revisemyInfoApi(memberId, accessToken, info) {
     {
       headers: {
         "Access-Control-Allow-Credentials": true,
-      "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );

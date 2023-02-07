@@ -8,7 +8,7 @@ export async function getUnitVideoApi(unitId, accessToken) {
   return await axios.get(`${UNIT_URL}${UNIT_TAIL_URL}/${unitId}`, {
     headers: {
       "Content-Type": "application/json",
-      "X-AUTH-TOKEN": accessToken,
+      ACCESS: accessToken,
     },
   });
 }
