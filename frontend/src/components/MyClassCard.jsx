@@ -2,10 +2,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  PieChart,
-  Pie,
   ResponsiveContainer,
-  Cell,
   RadialBarChart,
   PolarAngleAxis,
   RadialBar,
@@ -42,7 +39,7 @@ const ChartTitle = styled.p`
 const UnitTitle = styled.p`
   font-weight: var(--weight-thin);
   font-size: var(--size-card-any);
-  margin-top: 5px;
+  margin-bottom: 5px;
 `;
 
 const UnitRate = styled.p`
@@ -91,10 +88,7 @@ const GoTo = styled(Link)`
     font-weight: var(--weight-middle);
   }
   cursor: pointer;
-`;
-
-const LinkDiv = styled.div`
-  cursor: pointer;
+  text-align: end;
 `;
 
 function easeOutExpo(t) {
@@ -128,7 +122,6 @@ export default function MyClassCard({ info, data, progressRatio }) {
       >
         <div>
           <ChartTitle>{info?.title}</ChartTitle>
-          <UnitTitle>&nbsp;{info?.nextUnitInfo?.title}</UnitTitle>
         </div>
       </TitleTab>
     );
@@ -144,6 +137,7 @@ export default function MyClassCard({ info, data, progressRatio }) {
           </RateNum>
         </div>
         <GoTo to={PROCESS_MAIN_URL.COURSES + "/" + info?.courseId + "/lobby"}>
+          <UnitTitle>{info?.nextUnitInfo?.title}</UnitTitle>
           학습 하기
         </GoTo>
       </BottomTab>
@@ -154,7 +148,7 @@ export default function MyClassCard({ info, data, progressRatio }) {
     <ClassCard>
       <UnitTitleTab />
       <UnitProgressTab />
-      <ChartContainer width="100%" height="100%">
+      <ChartContainer width="100%" height="95%">
         <RadialBarChart
           width={100}
           height={100}
