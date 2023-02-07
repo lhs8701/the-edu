@@ -101,11 +101,11 @@ public class CourseController {
     }
 
 
-    @Operation(summary = "강좌 랭킹을 조회합니다.", description = "일주일 간격으로 갱신됩니다.")
+    @Operation(summary = "강좌별 랭킹을 조회합니다.", description = "일주일 간격으로 갱신됩니다.")
     @PreAuthorize("permitAll()")
-    @GetMapping("/courses/category/{category}/ranking")
-    public ResponseEntity<List<CourseDto.ShortResponse>> getRanking(@PathVariable @Schema(example = "백엔드") String category) {
-        List<CourseDto.ShortResponse> responseDto = rankingService.findTop4FromCategory(category);
+    @GetMapping("/courses/category/ranking")
+    public ResponseEntity<List<RankingDto>> getCourseRanking() {
+        List<RankingDto> responseDto = rankingService.getCourseRanking();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
