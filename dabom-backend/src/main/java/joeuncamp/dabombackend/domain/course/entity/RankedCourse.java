@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.course.entity;
 
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
+import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RankedCourse {
+public class RankedCourse extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -33,5 +34,15 @@ public class RankedCourse {
         this.instructor = course.getInstructorName();
         this.category = course.getCategory();
         this.thumbnailImage = course.getThumbnailImage();
+    }
+
+    @Override
+    public String toString() {
+        return "RankedCourse{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", instructor='" + instructor + '\'' +
+                ", category=" + category +
+                '}';
     }
 }

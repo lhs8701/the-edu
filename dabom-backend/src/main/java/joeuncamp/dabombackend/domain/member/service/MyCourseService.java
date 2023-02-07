@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.member.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
 import joeuncamp.dabombackend.domain.course.dto.NextUnitInfo;
@@ -26,6 +27,7 @@ import java.util.function.Predicate;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class MyCourseService {
     private final MemberJpaRepository memberJpaRepository;

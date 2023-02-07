@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.global.security;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
 

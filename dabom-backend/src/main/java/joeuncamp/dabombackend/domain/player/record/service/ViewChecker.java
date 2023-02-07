@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.player.record.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
@@ -15,12 +16,16 @@ import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class ViewChecker {
     private final ViewJpaRepository viewJpaRepository;
@@ -49,13 +54,15 @@ public class ViewChecker {
             viewJpaRepository.save(view);
         }
     }
-
     public List<Unit> getCompletedUnit(Member member, Course course) {
-        return viewJpaRepository.findByMemberAndCourse(member, course).stream()
+        List<Unit> units = unitJpaRepository.findByCourse(course);
+        return units.stream()
+                .map(unit -> viewJpaRepository.findByMemberAndUnit(member, unit))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .map(View::getUnit)
                 .toList();
     }
-
     public List<Course> getCompletedCourse(Member member) {
         List<Course> entireCourses = enrollJpaRepository.findAllByMember(member).stream()
                 .map(Enroll::getCourse)

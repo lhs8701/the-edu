@@ -20,4 +20,8 @@ public class Inquiry extends Post{
         this.likes = 0;
         this.content = content;
     }
+
+    public void update(String content) {
+        this.content = content;
+    }
 }

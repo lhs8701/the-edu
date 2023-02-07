@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.course.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.EnrollDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class EnrollService {
     private final MemberJpaRepository memberJpaRepository;

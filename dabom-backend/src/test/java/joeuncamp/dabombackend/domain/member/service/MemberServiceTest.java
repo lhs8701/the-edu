@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.member.service;
 
+import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -37,7 +38,7 @@ public class MemberServiceTest {
         given(memberJpaRepository.findById(any())).willReturn(Optional.of(member));
 
         // when
-        ProfileResponseDto profile = memberService.getMyProfile(1L);
+        ProfileDto.Response profile = memberService.getMyProfile(1L);
 
         // then
         Assertions.assertThat(profile.getAccount()).isEqualTo(member.getAccount());
@@ -54,11 +55,12 @@ public class MemberServiceTest {
         given(memberJpaRepository.findById(any())).willReturn(Optional.of(member));
 
         // when
-        ProfileUpdateParam updateParam = ProfileUpdateParam.builder()
+        ProfileDto.UpdateRequest updateParam = ProfileDto.UpdateRequest.builder()
+                .memberId(1L)
                 .nickname("updated")
                 .email("updated")
                 .build();
-        memberService.updateMyProfile(updateParam, 1L);
+        memberService.updateMyProfile(updateParam);
 
         // then
         Assertions.assertThat(member.getNickname()).isEqualTo("updated");
@@ -76,11 +78,11 @@ public class MemberServiceTest {
         given(memberJpaRepository.findById(any())).willReturn(Optional.of(member));
 
         // when
-        ProfileUpdateParam updateParam = ProfileUpdateParam.builder()
+        ProfileDto.UpdateRequest updateParam = ProfileDto.UpdateRequest.builder()
                 .nickname("updated")
                 .build();
 
-        memberService.updateMyProfile(updateParam, 1L);
+        memberService.updateMyProfile(updateParam);
 
         // then
         Assertions.assertThat(member.getNickname()).isEqualTo("updated");

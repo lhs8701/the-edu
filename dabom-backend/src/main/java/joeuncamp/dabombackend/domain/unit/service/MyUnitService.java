@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.unit.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MyUnitService {
     private final ViewChecker viewChecker;

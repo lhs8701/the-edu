@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class SocialLoginRequestDto {
+public class KakaoLoginRequestDto {
     @Schema(description = "각 소셜 사이트에서 발급받은 토큰", example = "sdkjfxkjlsdjfkekjfls")
     String socialToken;
 }

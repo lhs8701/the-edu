@@ -1,5 +1,7 @@
 package joeuncamp.dabombackend.domain.player.record.service;
 
+import jakarta.transaction.Transactional;
+import joeuncamp.dabombackend.domain.course.dto.NextUnitInfo;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -17,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class RecordService {
     private final MemberJpaRepository memberJpaRepository;
@@ -68,5 +71,11 @@ public class RecordService {
             return new RecordDto.Response(course.getUnitList().get(0).getId(), 0);
         }
         return new RecordDto.Response(record.get());
+    }
+
+    public NextUnitInfo getNextUnitInfo(Member member, Course course) {
+        RecordDto.Response recordResponse = getRecentPlayedUnit(member, course);
+        Unit unit = unitJpaRepository.findById(recordResponse.getUnitId()).orElseThrow(CResourceNotFoundException::new);
+        return new NextUnitInfo(unit, recordResponse.getTime());
     }
 }

@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
 import io.jsonwebtoken.Claims;
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.ReissueRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.UnlinkRequestDto;
@@ -25,6 +26,7 @@ import java.util.Date;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class BasicAuthService {
 
@@ -116,8 +118,8 @@ public class BasicAuthService {
     private void isReissueAvailable(String accessToken, String refreshToken) {
         String subject = jwtValidator.validateAccessTokenForReissue(accessToken).getSubject();
         jwtValidator.validateRefreshTokenForReissue(refreshToken);
-        String account = tokenRedisRepository.findByRefreshToken(refreshToken).orElseThrow(CReissueFailedException::new);
-        if (!subject.equals(account)) {
+        String memberId = tokenRedisRepository.findByRefreshToken(refreshToken).orElseThrow(CReissueFailedException::new);
+        if (!subject.equals(memberId)) {
             throw new CReissueFailedException();
         }
     }

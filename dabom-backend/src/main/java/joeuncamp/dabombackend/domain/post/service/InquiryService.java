@@ -1,13 +1,17 @@
 package joeuncamp.dabombackend.domain.post.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.post.dto.InquiryDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.entity.Member;
+import joeuncamp.dabombackend.domain.post.dto.ReviewDto;
 import joeuncamp.dabombackend.domain.post.entity.Inquiry;
+import joeuncamp.dabombackend.domain.post.entity.Review;
 import joeuncamp.dabombackend.domain.post.repository.InquiryJpaRepository;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
+import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class InquiryService {
     private final InquiryJpaRepository inquiryJpaRepository;
@@ -52,4 +57,35 @@ public class InquiryService {
         return inquiries.stream().map(InquiryDto.Response::new).toList();
     }
 
+
+    /**
+     * 문의 사항을 수정합니다.
+     *
+     * @param requestDto 회원, 수정할 문의사항, 수정사항
+     * @return 수정한 문의사항의 아이디넘버
+     */
+    public Long updateInquiry(InquiryDto.UpdateRequest requestDto) {
+        Inquiry inquiry = inquiryJpaRepository.findById(requestDto.getInquiryId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!member.equals(inquiry.getMember())) {
+            throw new CAccessDeniedException();
+        }
+        inquiry.update(requestDto.getContent());
+        inquiryJpaRepository.save(inquiry);
+        return inquiry.getId();
+    }
+
+    /**
+     * 문의사항을 삭제합니다.
+     *
+     * @param requestDto 회원, 삭제할 문의사항
+     */
+    public void deleteInquiry(InquiryDto.DeleteRequest requestDto) {
+        Inquiry inquiry = inquiryJpaRepository.findById(requestDto.getInquiryId()).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        if (!member.equals(inquiry.getMember())) {
+            throw new CAccessDeniedException();
+        }
+        inquiryJpaRepository.delete(inquiry);
+    }
 }

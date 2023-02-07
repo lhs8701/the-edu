@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @Import(JpaAuditingConfig.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class UnitRepositoryTest {
+public class UnitResponseRepositoryTest {
     @Autowired
     UnitJpaRepository unitJpaRepository;
 

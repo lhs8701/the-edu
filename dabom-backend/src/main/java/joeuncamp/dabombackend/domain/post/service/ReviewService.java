@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.post.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.post.dto.ReviewDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
@@ -11,6 +12,7 @@ import joeuncamp.dabombackend.domain.post.repository.ReviewJpaRepository;
 import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
+import joeuncamp.dabombackend.global.error.exception.CReviewExistException;
 import joeuncamp.dabombackend.util.RoundCalculator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,18 +20,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ReviewService {
 
     private final ReviewJpaRepository reviewJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
-
     private final EnrollService enrollService;
 
     /**
      * 강좌 후기를 등록합니다.
      * 등록하지 않았을 경우 예외가 발생합니다.
+     * 이미 후기를 남겼을 경우 예외가 발생합니다.
      *
      * @param createRequestDto 후기 작성 DTO
      * @return 작성된 후기 아이디넘버
@@ -39,6 +42,9 @@ public class ReviewService {
         Course course = courseJpaRepository.findById(createRequestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, course)) {
             throw new CAccessDeniedException();
+        }
+        if (reviewJpaRepository.findByMemberAndCourse(member, course).isPresent()) {
+            throw new CReviewExistException();
         }
         Long savedId = createAndSaveReview(createRequestDto, member, course);
         return new IdResponseDto(savedId);

@@ -1,7 +1,6 @@
 package joeuncamp.dabombackend.domain.course.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +17,7 @@ public class CurriculumDto {
         Long courseId;
         @Schema(hidden = true)
         Long memberId;
-        List<ChapterRequest> chapterList;
+        List<ChapterRequest> chapters;
     }
 
     @Getter
@@ -38,72 +37,73 @@ public class CurriculumDto {
     }
 
     @Getter
-    public static class Response{
-        List<ChapterResponse> chapterList;
-        public Response(){
-            this.chapterList = new ArrayList<>();
-        }
-    }
-    @Getter
-    public static class StatusResponse {
-        List<MyChapterResponse> chapterList;
-        public StatusResponse(){
-            this.chapterList = new ArrayList<>();
-        }
-    }
-
-    @Getter
     public static class ChapterRequest {
         @Schema(description = "챕터명", example = ExampleValue.Unit.CHAPTER)
         String title;
-        List<UnitRequest> unitList;
+        List<UnitRequest> units;
     }
 
     @Getter
     public static class UnitRequest {
         Long unitId;
     }
+
+    @Getter
+    @AllArgsConstructor
+    public static class Response{
+        List<ChapterResponse> chapters;
+        public Response(){
+            this.chapters = new ArrayList<>();
+        }
+    }
+    @Getter
+    @AllArgsConstructor
+    public static class StatusResponse {
+        MyCourseDto.Response courseStatus;
+        List<ChapterStatusResponse> chapters;
+    }
+
     @Getter
     @Setter
-    public static class ChapterResponse{
+    public static class ChapterResponse {
         @Schema(description = "챕터명", example = ExampleValue.Unit.CHAPTER)
         String title;
-        List<UnitResponse> unitList;
+        List<UnitResponse> units;
 
         public ChapterResponse(){
-            this.unitList = new ArrayList<>();
+            this.units = new ArrayList<>();
         }
     }
     @Getter
     @Setter
-    public static class MyChapterResponse{
+    public static class ChapterStatusResponse {
         @Schema(description = "챕터명", example = ExampleValue.Unit.CHAPTER)
         String title;
-        List<MyUnitResponse> unitList;
+        List<UnitStatusResponse> units;
 
-        public MyChapterResponse(){
-            this.unitList = new ArrayList<>();
+        public ChapterStatusResponse(){
+            this.units = new ArrayList<>();
         }
     }
     @Getter
-    public static class UnitResponse{
+    public static class UnitResponse {
         Long unitId;
         @Schema(description = "강의 제목", example = ExampleValue.Unit.TITLE)
         String title;
-        public UnitResponse(Unit unit){
+        public UnitResponse(joeuncamp.dabombackend.domain.unit.entity.Unit unit){
             this.unitId = unit.getId();
             this.title = unit.getTitle();
         }
     }
 
     @Getter
-    public static class MyUnitResponse{
+    public static class UnitStatusResponse {
         Long unitId;
         @Schema(description = "강의 제목", example = ExampleValue.Unit.TITLE)
         String title;
         @Schema(description = "시청 완료 여부")
         boolean completed;
-        public MyUnitResponse(Unit unit, boolean completed){
+        public UnitStatusResponse(joeuncamp.dabombackend.domain.unit.entity.Unit unit, boolean completed){
             this.unitId = unit.getId();
             this.title = unit.getTitle();
             this.completed = completed;
