@@ -31,6 +31,7 @@ export async function postMyRecordApi(accessToken, unitId, time) {
 export async function postWatchAllApi(accessToken, unitId) {
   return await axios.post(
     `${RECORD_URL}${COMPLETE_URL}${UNITS_URL}/${unitId}`,
+    {},
     {
       headers: {
         "Content-Type": "application/json",

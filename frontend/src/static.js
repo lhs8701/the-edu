@@ -50,6 +50,7 @@ export const PROCESS_MAIN_URL = {
   ROADMAP: "/roadmap",
   EVENT: "/event",
   SEARCH: "/search",
+  PLAYER: "/player",
 };
 
 export const BAR_LIST = {
@@ -208,7 +209,6 @@ export const CREATOR_BAR_LIST = {
   ],
 };
 
-
-const BASE_URL = "http://218.38.127.26:8080"
-export const STATIC_URL = "http://the-edu.co.kr"
-export const API_URL = BASE_URL+"/api";
+const BASE_URL = "http://218.38.127.26:8080";
+export const STATIC_URL = "http://the-edu.co.kr";
+export const API_URL = BASE_URL + "/api";

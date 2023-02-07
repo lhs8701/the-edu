@@ -194,14 +194,12 @@ export default function Controller({
   isBarTabs,
 }) {
   const videoRef = video;
-  const [watchAll, setWatchAll] = useState(false);
   const [videoTimeVal, setVideoTimeVal] = useState(0);
   const [barOn, setBar] = useState(false);
   const { unitId } = useParams();
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const currentTime =
     videoRef && videoRef ? videoRef?.getCurrentTime() : "00:00";
-
   const duration = videoRef && videoRef ? videoRef?.getDuration() : "00:00";
 
   // 남은시간
@@ -296,7 +294,6 @@ export default function Controller({
 
   const onChangeBitrate = (level) => {
     const internalPlayer = videoRef?.getInternalPlayer("hls");
-
     if (internalPlayer) {
       // currentLevel expect to receive an index of the levels array
       internalPlayer.currentLevel = level;
@@ -346,7 +343,7 @@ export default function Controller({
   }, [duration]);
 
   useEffect(() => {
-    if (currentTime === duration) {
+    if (videoVal.played === 1) {
       postWatchAllApi(accessToken, unitId);
     }
   }, [currentTime]);

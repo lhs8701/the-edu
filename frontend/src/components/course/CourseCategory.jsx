@@ -38,7 +38,7 @@ export default function CourseCategory({ courseIdx, courseId }) {
           &nbsp;&nbsp;&nbsp;&nbsp;{chapterIdx}.&nbsp;{curri.title}
         </BigCategory>
         <br />
-        {curri?.unitList?.map((unit, idx) => {
+        {curri?.units?.map((unit, idx) => {
           return (
             <SmallCategories
               key={unit?.unitId}
@@ -65,7 +65,7 @@ export default function CourseCategory({ courseIdx, courseId }) {
       <br />
       <br />
       {courseCurriculum && (
-        <Categories courseCurriculum={courseCurriculum?.data.chapterList} />
+        <Categories courseCurriculum={courseCurriculum?.data.chapters} />
       )}
     </Wrapper>
   );

@@ -153,7 +153,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorComponent />,
   },
   {
-    path: "/player/:unitId",
+    path: "/player/:courseId/:unitId",
     element: <PlayerRoot />,
     errorElement: <ErrorComponent />,
   },

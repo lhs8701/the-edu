@@ -6,7 +6,7 @@ const MEMBER_URL = `${API_URL}/members`;
 const WISH_URL = "/courses/wish";
 const MYCOURSE_URL = "/courses";
 const PROFILE_URL = "/profile";
-
+const ME_URL = "/me";
 export async function myCourseApi(memberId, accessToken) {
   const data = await axios.get(`${STUDNET_URL}/${memberId}${MYCOURSE_URL}`, {
     headers: {
@@ -32,7 +32,7 @@ export async function wishCourseApi(memberId, accessToken) {
 }
 
 export async function myInfoApi(memberId, accessToken) {
-  const data = await axios.get(`${MEMBER_URL}/${memberId}${PROFILE_URL}`, {
+  const data = await axios.get(`${MEMBER_URL}${ME_URL}${PROFILE_URL}`, {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Credentials": true,
@@ -45,7 +45,7 @@ export async function myInfoApi(memberId, accessToken) {
 
 export async function revisemyInfoApi(memberId, accessToken, info) {
   const data = await axios.patch(
-    `${MEMBER_URL}/${memberId}${PROFILE_URL}`,
+    `${MEMBER_URL}${ME_URL}${PROFILE_URL}`,
     { nickname: info.nickname, email: info.email },
     {
       headers: {

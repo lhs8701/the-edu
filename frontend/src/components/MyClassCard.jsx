@@ -121,7 +121,10 @@ export default function MyClassCard({ info, data, progressRatio }) {
         }}
       >
         <div>
-          <ChartTitle>{info?.title}</ChartTitle>
+          <ChartTitle>
+            {info?.title}
+            {info?.courseId}
+          </ChartTitle>
         </div>
       </TitleTab>
     );

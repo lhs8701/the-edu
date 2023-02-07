@@ -5,6 +5,7 @@ import CourseList from "./CourseList";
 import CourseInfo from "./CourseInfo";
 import UnitQuestion from "./UnitQuestion";
 import UnitReview from "./UnitReview";
+import { useQueries, useQuery } from "react-query";
 
 const BarWrapper = styled.div`
   height: 100%;
@@ -46,16 +47,22 @@ const ListTab = styled(motion.div)`
   box-sizing: border-box;
 `;
 
-export default function PlayerSidebar({ unitInfo, unitId }) {
+export default function PlayerSidebar({
+  unitInfo,
+  unitId,
+  courseId,
+  exitUnit,
+}) {
   const [menu, setMenu] = useState(0);
 
   const MENU_LIST_NAME = ["강의 목록", "수업 자료", "질문", "평가"];
   const menuList = {
-    0: <CourseList />,
+    0: <CourseList exitUnit={exitUnit} courseId={courseId} unitId={unitId} />,
     1: <CourseInfo />,
     2: <UnitQuestion unitId={unitId} />,
     3: <UnitReview />,
   };
+
   const MenuBar = ({ idx }) => {
     return (
       <Notice

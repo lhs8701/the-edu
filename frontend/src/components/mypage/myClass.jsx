@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { getCompletedApi, getOngingApi } from "../../api/courseApi";
+import { myCourseApi } from "../../api/myPageApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import {
   MyPageBox,
@@ -27,6 +28,22 @@ export default function MyClass() {
   const [isTabStatus, setIsTabStatus] = useState(1);
   const memberId = useRecoilValue(getMemberIdSelector);
   const accessToken = useRecoilValue(getAccessTokenSelector);
+
+  const myCourses = useQuery(
+    ["myCourseList", memberId],
+    () => {
+      return myCourseApi(memberId, accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: (res) => {
+        console.log(res);
+      },
+      onError: (err) => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
   const myOngoingCourses = useQuery(
     ["myOngoingCourseList", memberId],
