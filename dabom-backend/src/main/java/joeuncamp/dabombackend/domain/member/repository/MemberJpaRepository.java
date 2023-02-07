@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.member.repository;
 
 
 import joeuncamp.dabombackend.domain.member.entity.Member;
+import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import org.springframework.data.jpa.repository.JpaRepository;
 

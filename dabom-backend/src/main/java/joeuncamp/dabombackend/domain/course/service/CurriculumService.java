@@ -101,6 +101,7 @@ public class CurriculumService {
 
     /**
      * 강좌의 커리큘럼과 함께 완강 여부를 조회합니다.
+     * 강좌 수강정보도 함께 조회합니다.
      *
      * @param requestDto 강좌, 회원
      * @return 강좌의 커리큘럼
