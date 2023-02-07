@@ -44,7 +44,7 @@ public class AppleAuthController {
     @Parameter(name = Header.REFRESH_TOKEN, description = "리프레시토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.REFRESH)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/apple/logout")
-    public ResponseEntity<TokenForm> logout(@RequestHeader(Header.ACCESS_TOKEN) String accessToken, @RequestHeader(Header.REFRESH_TOKEN) String refreshToken) {
+    public ResponseEntity<Void> logout(@RequestHeader(Header.ACCESS_TOKEN) String accessToken, @RequestHeader(Header.REFRESH_TOKEN) String refreshToken) {
         AppleAuthDto.UnlinkRequest requestDto = new AppleAuthDto.UnlinkRequest(accessToken, refreshToken);
         appleAuthService.logout(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
