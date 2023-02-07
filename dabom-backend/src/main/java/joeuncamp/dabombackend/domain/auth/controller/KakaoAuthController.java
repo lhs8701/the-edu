@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.auth.dto.SocialUnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.service.SocialAuthService;
-import joeuncamp.dabombackend.domain.auth.dto.SocialLoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.KakaoLoginRequestDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
@@ -26,7 +26,7 @@ public class KakaoAuthController {
     @Operation(summary = "카카오로 로그인합니다.", description = "계정이 없을경우, 계정 생성 후 로그인합니다.")
     @PreAuthorize("permitAll()")
     @PostMapping("/auth/kakao/login")
-    public ResponseEntity<TokenForm> login(@RequestBody SocialLoginRequestDto requestDto) {
+    public ResponseEntity<TokenForm> login(@RequestBody KakaoLoginRequestDto requestDto) {
         TokenForm tokenForm = kakaoAuthService.login(requestDto);
         return new ResponseEntity<>(tokenForm, HttpStatus.OK);
     }

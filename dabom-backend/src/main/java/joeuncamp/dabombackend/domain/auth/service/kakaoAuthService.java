@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
-import joeuncamp.dabombackend.domain.auth.dto.SocialLoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.KakaoLoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.SocialUnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -22,7 +22,6 @@ public class kakaoAuthService implements SocialAuthService {
     private final JwtProvider jwtProvider;
     private final KakaoService kakaoApiService;
     private final MemberJpaRepository memberJpaRepository;
-
     private final TokenRedisRepository tokenRedisRepository;
 
     /**
@@ -34,7 +33,7 @@ public class kakaoAuthService implements SocialAuthService {
      * @return 어세스토큰, 리프레시 토큰
      */
     @Override
-    public TokenForm login(SocialLoginRequestDto requestDto) {
+    public TokenForm login(KakaoLoginRequestDto requestDto) {
         KakaoProfile profile = kakaoApiService.getKakaoProfile(requestDto.getSocialToken());
         String kakaoId = String.valueOf(profile.getId());
         Member member = findMemberOrCreate(profile, kakaoId);
