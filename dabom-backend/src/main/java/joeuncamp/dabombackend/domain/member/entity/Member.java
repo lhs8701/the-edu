@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
@@ -70,12 +71,15 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-    public void updateProfile(ProfileUpdateParam updateParam) {
-        if (updateParam.getNickname() != null) {
-            this.nickname = updateParam.getNickname();
+    public void updateProfile(String nickname, String email, String imageUrl) {
+        if (nickname != null) {
+            this.nickname = nickname;
         }
-        if (updateParam.getEmail() != null) {
-            this.email = updateParam.getEmail();
+        if (email != null) {
+            this.email = email;
+        }
+        if (imageUrl != null){
+            this.profileImage = new ImageInfo(imageUrl);
         }
     }
 

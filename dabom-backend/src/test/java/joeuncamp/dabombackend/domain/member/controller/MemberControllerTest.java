@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.member.controller;
 
 import com.google.gson.Gson;
+import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
@@ -34,18 +35,18 @@ public class MemberControllerTest {
     MemberService memberService;
 
     @Test
-    @WithMockUser
+    @WithAuthUser(role = "USER")
     @DisplayName("나의 프로필을 조회한다.")
     void 나의_프로필을_조회한다() throws Exception {
         // given
-        ProfileResponseDto profileResponseDto = ProfileResponseDto.builder()
+        ProfileDto.Response profileResponseDto = ProfileDto.Response.builder()
                 .id(1L)
                 .account(ExampleValue.Member.ACCOUNT)
                 .build();
         given(memberService.getMyProfile(1L)).willReturn(profileResponseDto);
 
         // when
-        final ResultActions actions = mockMvc.perform(get("/api/members/{memberId}/profile", "1"));
+        final ResultActions actions = mockMvc.perform(get("/api/members/me/profile"));
 
         // then
         actions.andExpect(status().isOk());
@@ -56,15 +57,14 @@ public class MemberControllerTest {
     @DisplayName("나의 프로필을 수정한다.")
     void 나의_프로필을_수정한다() throws Exception {
         // given
-        ProfileUpdateParam updateParam = ProfileUpdateParam.builder()
+        ProfileDto.UpdateRequest requestDto = ProfileDto.UpdateRequest.builder()
                 .nickname("updated")
                 .email("updated")
                 .build();
-        given(memberService.updateMyProfile(updateParam, 1L)).willReturn(new IdResponseDto(1L));
 
         // when
-        final ResultActions actions = mockMvc.perform(patch("/api/members/{memberId}/profile", "1").with(csrf())
-                .content(new Gson().toJson(updateParam))
+        final ResultActions actions = mockMvc.perform(patch("/api/members/me/profile" ).with(csrf())
+                .content(new Gson().toJson(requestDto))
                 .contentType(MediaType.APPLICATION_JSON_VALUE));
 
         // then
