@@ -124,7 +124,9 @@ extension SignupSelectVC: ASAuthorizationControllerDelegate {
     // MARK: - Apple 인증 성공 시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            print(appleIDCredential)
             let userIdentifier = appleIDCredential.user
+            print(userIdentifier)
             let userName = (appleIDCredential.fullName?.familyName ?? "") + (appleIDCredential.fullName?.givenName ?? "")
             if let email = appleIDCredential.email {
                 print(email)
