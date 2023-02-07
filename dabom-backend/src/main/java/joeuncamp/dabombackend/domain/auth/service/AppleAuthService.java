@@ -54,4 +54,15 @@ public class AppleAuthService {
         tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), member.getAccount());
         return tokenForm;
     }
+
+    /**
+     * 애플 로그아웃합니다.
+     * 어세스토큰을 Block처리하고, 리프레시토큰을 레디스에서 제거합니다.
+     *
+     * @param requestDto 리프레시토큰, 어세스토큰
+     */
+    public void logout(AppleAuthDto.LogoutRequest requestDto) {
+        tokenRedisRepository.saveBlockedToken(requestDto.getAccessToken());
+        tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
+    }
 }

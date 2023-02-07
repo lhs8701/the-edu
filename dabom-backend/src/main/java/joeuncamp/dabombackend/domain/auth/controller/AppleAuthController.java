@@ -41,4 +41,15 @@ public class AppleAuthController {
         TokenForm responseDto = appleAuthService.login(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @Operation(summary = "애플로 로그아웃합니다.", description = "")
+    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.JWT_HEADER, description = "리프레시토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.REFRESH)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/auth/apple/logout")
+    public ResponseEntity<TokenForm> logout(@RequestBody AppleAuthDto.LogoutRequest requestDto) {
+        appleAuthService.logout(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

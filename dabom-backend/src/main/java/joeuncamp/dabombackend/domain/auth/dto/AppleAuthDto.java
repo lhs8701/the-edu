@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -48,5 +49,14 @@ public class AppleAuthDto {
                     .roles(Collections.singletonList("ROLE_USER"))
                     .build();
         }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    public static class LogoutRequest {
+        @Schema(hidden = true)
+        String accessToken;
+        @Schema(hidden = true)
+        String refreshToken;
     }
 }
