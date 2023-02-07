@@ -24,6 +24,8 @@ class SignupVC: UIViewController {
         
     @IBOutlet weak var signupBtn: UIButton!
     
+    
+    
     // MARK: - let, var
     let datePicker = UIDatePicker()
     

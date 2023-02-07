@@ -320,10 +320,7 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             // 메인 정보 자리
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInfoTVC, for: indexPath) as? CourseInfoTVC else { return UITableViewCell() }
-//            cell.courseThumbnailImageView.setImage(with: <#T##String#>)
-//            cell.classTitle.text = self.courseTitle
-//            cell.courseDescription.text = self.courseDescription
-//            cell.instructor.text = self.instructor
+
             cell.delegate = self
             
             cell.setEnroll(self.isEnroll ?? false)

@@ -13,15 +13,14 @@ struct UserProfileService {
     
     
     func getProfile(completion: @escaping (NetworkResult<Any>) -> Void) {
-        let memberId = UserDefaults.standard.integer(forKey: "memberId")
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
-        let URL = "\(Const.Url.getProfile)/\(memberId)/profile"
+        let URL = "\(Const.Url.getProfile)/me/profile"
         print(URL)
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
@@ -43,14 +42,13 @@ struct UserProfileService {
     }
     
     func patchProfile(nickname: String, email: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let memberId = UserDefaults.standard.integer(forKey: "memberId")
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
-        let URL = "\(Const.Url.patchProfile)/\(memberId)/profile"
+        let URL = "\(Const.Url.patchProfile)/me/profile"
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
         
         let bodyData: Parameters = [

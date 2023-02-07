@@ -24,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // MARK: - 로그인 분기
         window = UIWindow()
+        
+//        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+//            UserDefaults.standard.removeObject(forKey: key.description)
+//        }
+        
 //        if isLogin {
 //            guard let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as? TabBarViewController else {return false}
 //            window?.rootViewController = mainVC

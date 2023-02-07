@@ -29,6 +29,11 @@ extension Const {
         static let kakaoLogout = "http://\(serverIP)/api/auth/kakao/logout"
         static let kakaoWithdraw = "http://\(serverIP)/api/auth/kakao/withdraw"
         
+        static let appleSignup = "\(apiBaseUrl)/auth/apple/signup"
+        static let appleLogin = "\(apiBaseUrl)/auth/apple/login"
+        static let appleLogout = "\(apiBaseUrl)/auth/apple/logout"
+        static let appleWithdraw = "\(apiBaseUrl)/auth/apple/withdraw"
+        
         // MARK: - Member
         static let getProfile = "http://\(serverIP)/api/members"
         static let patchProfile = "http://\(serverIP)/api/members"
@@ -66,5 +71,6 @@ extension Const {
         static let saveRecord = "\(apiBaseUrl)/record/units"
         static let getRecord = "\(apiBaseUrl)/record/units"
         static let completeUnit = "\(apiBaseUrl)/record/complete/units"
+        static let getUserCurriculum = "\(apiBaseUrl)/courses"
     }
 }

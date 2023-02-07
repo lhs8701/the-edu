@@ -54,17 +54,22 @@ class HomeViewController: UIViewController {
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//
+//        switch indexPath.row {
+//        case 0:
+//            return 200
+//        case 1, 2, 3, 4:
+//            return 430
+//        default:
+//            return 430
+//        }
+        return UITableView.automaticDimension
         
-        switch indexPath.row {
-        case 0:
-            return 200
-        case 1, 2, 3, 4:
-            return 430
-        default:
-            return 430
-        }
         
-        
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     }
 }
 

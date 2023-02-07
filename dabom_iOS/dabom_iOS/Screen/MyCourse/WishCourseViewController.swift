@@ -88,6 +88,7 @@ extension WishCourseViewController: UICollectionViewDelegate {
         nextVC.courseTitle = wishCourseData![indexPath.row].courseTitle
         nextVC.courseId = temp[indexPath.row].courseId
         
+        
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

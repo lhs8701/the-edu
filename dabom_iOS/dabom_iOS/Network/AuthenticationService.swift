@@ -84,7 +84,7 @@ struct AuthenticationService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
         
         let bodyData: Parameters = [
@@ -118,7 +118,7 @@ struct AuthenticationService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
         
         let bodyData: Parameters = [
@@ -181,7 +181,7 @@ struct AuthenticationService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
         
         let bodyData: Parameters = [
@@ -215,7 +215,7 @@ struct AuthenticationService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
         
         let bodyData: Parameters = [
@@ -238,6 +238,118 @@ struct AuthenticationService {
             }
         }
     }
+    
+    // MARK: - apple signup
+    func appleSignup(socialToken: String, email: String, nickname: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.appleSignup)"
+        print(URL)
+        
+        let bodyData: Parameters = [
+            "socialToken" : socialToken,
+            "email" : email,
+            "nickname" : nickname
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default)
+        
+        request.responseData(emptyResponseCodes: [200, 201, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+
+                let networkResult = self.judgeStatus(by: statusCode, nil)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+        
+    }
+    
+    func appleLogin(socialToken: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.appleLogin)"
+        print(URL)
+        
+        let bodyData : Parameters = [
+            "socialToken" : socialToken
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default)
+        
+        request.responseData { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                guard let value = dataResponse.value else {return}
+                
+                let networkResult = self.judgeStatus(by: statusCode, value)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+    
+    func appleLogout(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.appleLogout)"
+        print(URL)
+        
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "ACCESS" : accessToken,
+            "REFRESH" : refreshToken
+        ]
+        
+        let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+
+                let networkResult = self.judgeStatus(by: statusCode, nil)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+    
+    func appleWithdraw(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.appleWithdraw)"
+        print(URL)
+        
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "ACCESS" : accessToken,
+            "REFRESH" : refreshToken
+        ]
+        
+        let request = AF.request(URL, method: .post,encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+
+                let networkResult = self.judgeStatus(by: statusCode, nil)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+    
     
     // MARK: - Reissue
     func reissue(completion: @escaping (NetworkResult<Any>) -> Void) {
@@ -280,7 +392,7 @@ struct AuthenticationService {
         if let data = data {
             // response 데이터가 있을 때 -> 로그인, reissue 시
             switch statusCode {
-            case 200:
+            case 200, 201:
                 return setUserGrant(data: data)
             case 400:
                 print("statusCode 400")
@@ -296,7 +408,7 @@ struct AuthenticationService {
         } else {
             // response 데이터가 없을 때 -> 회원가입, 로그아웃, 회원탈퇴 시
             switch statusCode {
-            case 200:
+            case 200, 201:
                 return .success(true)
             case 400:
                 print("statusCode 400")

@@ -1,19 +1,19 @@
 //
-//  GetWishCourseDataService.swift
+//  CurriculumDataService.swift
 //  dabom_iOS
 //
-//  Created by 김태현 on 2023/01/26.
+//  Created by 김태현 on 2023/02/07.
 //
 
 import Foundation
 import Alamofire
 
-struct GetWishCourseDataService {
-    static let shared = GetWishCourseDataService()
+struct CurriculumDataService {
+    static let shared = CurriculumDataService()
     
-    // MARK: - 유저의 찜한 강좌 가져오기
-    func getWishCourse(memberId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.getMyWishCourses)/\(memberId)/courses/wish"
+    // MARK: - Curriculum 정보 가져오기
+    func getUserCurriculum(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.getUserCurriculum)/\(courseId)/curriculum/status"
         print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
@@ -38,20 +38,20 @@ struct GetWishCourseDataService {
                 completion(.pathErr)
             }
         }
-        
     }
     
     // MARK: - Status Code 분기
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
-        
         switch statusCode {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("Status 400")
+            print("statusCode 400")
             return .pathErr
+        case 401, 404:
+            print("잘못된 리소스")
+            return .resourceErr
         case 500:
-            print("Status 500")
             return .serverErr
         default:
             return .networkFail
@@ -63,12 +63,10 @@ struct GetWishCourseDataService {
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
-        guard let decodedData = try? decoder.decode([SampleCourseThumbnail].self, from: data) else {
+        guard let decodedData = try? decoder.decode(CurriculumDataModel.self, from: data) else {
             print("decode fail")
             return .pathErr }
         
         return .success(decodedData)
     }
 }
-
-
