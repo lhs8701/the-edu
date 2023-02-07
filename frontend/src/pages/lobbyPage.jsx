@@ -8,8 +8,8 @@ import {
   getUserEnrollStatusApi,
 } from "../api/courseApi";
 import { getAccessTokenSelector, getLoginState } from "../atom";
-
-import { PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL } from "../static";
+import Slider from "@mui/material/Slider";
+import { PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL, STATIC_URL } from "../static";
 
 const LobbyWrapper = styled.div`
   width: 100%;
@@ -136,19 +136,58 @@ export default function LobbyPage() {
     );
   };
 
-  const InFo = () => {
+  const checkUserEnroll = () => {
+    getUserEnrollStatusApi(accessToken, courseId)
+      .then(({ data }) => {
+        if (!data) {
+          alert("부적절한 접근입니다!");
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Error");
+        navigate("/");
+      });
+  };
+
+  useEffect(checkUserEnroll, []);
+
+  const InFo = ({ courseInfo }) => {
     return (
       <>
         <ImgBox>
-          <Img src={data?.img} />
+          <Img src={STATIC_URL + courseInfo?.thumbnailImage?.smallFilePath} />
         </ImgBox>
         <InfoBox>
           <InfoTab>
-            <CourseTitle>{data?.title}</CourseTitle>
-            <CourseRate>{data?.rate}</CourseRate>
+            <CourseTitle>{courseInfo?.title}</CourseTitle>
+            <CourseRate>- {courseInfo?.instructor}</CourseRate>
           </InfoTab>
-          <Tab>프로그래스바</Tab>
-          <Tab>{data?.Percent}%</Tab>
+          <Tab>
+            <Slider
+              valueLabelDisplay="off"
+              disabledSwap
+              min={0}
+              max={100}
+              value={
+                (courseInfo?.completedUnits / courseInfo?.entireUnits) * 100
+              }
+              sx={{
+                height: 8,
+                color: "var(--color-red)",
+                "& .MuiSlider-thumb": {
+                  display: "none",
+                },
+                "& .MuiSlider-rail": {
+                  color: "var(--color-box-gray)",
+                },
+              }}
+            ></Slider>
+          </Tab>
+          <Tab>
+            {(courseInfo?.completedUnits / courseInfo?.entireUnits) * 100}%
+          </Tab>
         </InfoBox>
       </>
     );
@@ -176,12 +215,13 @@ export default function LobbyPage() {
         <BigCategoryTab>
           {idx + 1}. &nbsp;{bigCurri?.title}
         </BigCategoryTab>
-        <SmallCategories smallCurri={bigCurri?.unitList} />
+        <SmallCategories smallCurri={bigCurri?.units} />
       </CategoryBox>
     );
   };
 
   const Categories = ({ curriculum }) => {
+    console.log(curriculum);
     return curriculum?.map((bigCurri, idx) => {
       return <Category key={idx} bigCurri={bigCurri} idx={idx} />;
     });
@@ -192,23 +232,6 @@ export default function LobbyPage() {
     window.location.replace(PROCESS_ACCOUNT_URL.LOGIN);
   }
 
-  const checkUserEnroll = () => {
-    getUserEnrollStatusApi(accessToken, courseId)
-      .then(({ data }) => {
-        if (!data) {
-          alert("부적절한 접근입니다!");
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Error");
-        navigate("/");
-      });
-  };
-
-  useEffect(checkUserEnroll, []);
-
   return (
     <LobbyWrapper>
       <InfoSection
@@ -216,7 +239,7 @@ export default function LobbyPage() {
           navigate(PROCESS_MAIN_URL.COURSES + "/" + courseId);
         }}
       >
-        <InFo />
+        <InFo courseInfo={data?.data?.courseStatus} />
       </InfoSection>
       <CategorySection>
         <br />
@@ -224,7 +247,7 @@ export default function LobbyPage() {
         <br />
         <br />
         <br />
-        <Categories curriculum={data?.data?.chapterList} />
+        <Categories curriculum={data?.data?.chapters} />
       </CategorySection>
     </LobbyWrapper>
   );

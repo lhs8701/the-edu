@@ -356,7 +356,7 @@ export default function Controller({
       <ProgressTab>
         <Slider
           valueLabelDisplay="auto"
-          track="false"
+          track={true}
           min={0}
           max={100}
           value={videoVal.played * 100}

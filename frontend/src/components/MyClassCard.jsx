@@ -167,7 +167,12 @@ export default function MyClassCard({ info, data, progressRatio }) {
             angleAxisId={0}
             tick={false}
           />
-          <RadialBar background clockWise dataKey="value" fill="#FF5454" />
+          <RadialBar
+            background
+            clockWise
+            dataKey="value"
+            fill="var(--color-red)"
+          />
           <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
             {count}%
           </text>

@@ -319,14 +319,13 @@ export default function UnitQuestion({ unitId }) {
 
   const Content = ({ contentInfo }) => {
     return (
-      <>
+      <QuestionReplyTab>
         <QuestionContextBox>{contentInfo?.content}</QuestionContextBox>
-        <br />
         <QuestionContentDate>
           <div>{contentInfo?.modifiedTime}</div>
           <div>by {contentInfo?.writer}</div>
         </QuestionContentDate>
-      </>
+      </QuestionReplyTab>
     );
   };
 
