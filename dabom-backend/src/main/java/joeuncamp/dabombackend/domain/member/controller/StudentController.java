@@ -25,7 +25,7 @@ public class StudentController {
     private final MyCourseService myCourseService;
 
     @Operation(summary = "회원이 등록한 모든 강좌를 조회합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/students/{memberId}/courses")
     public ResponseEntity<List<MyCourseDto.ShortResponse>> getMyCourses(@PathVariable Long memberId) {
@@ -34,7 +34,7 @@ public class StudentController {
     }
 
     @Operation(summary = "회원이 찜한 모든 강좌를 조회합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/students/{memberId}/courses/wish")
     public ResponseEntity<List<CourseDto.ShortResponse>> getWishedCourses(@PathVariable Long memberId) {

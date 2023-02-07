@@ -116,8 +116,8 @@ public class BasicAuthService {
     private void isReissueAvailable(String accessToken, String refreshToken) {
         String subject = jwtValidator.validateAccessTokenForReissue(accessToken).getSubject();
         jwtValidator.validateRefreshTokenForReissue(refreshToken);
-        String account = tokenRedisRepository.findByRefreshToken(refreshToken).orElseThrow(CReissueFailedException::new);
-        if (!subject.equals(account)) {
+        String memberId = tokenRedisRepository.findByRefreshToken(refreshToken).orElseThrow(CReissueFailedException::new);
+        if (!subject.equals(memberId)) {
             throw new CReissueFailedException();
         }
     }

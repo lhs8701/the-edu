@@ -25,7 +25,6 @@ public class ReviewService {
     private final ReviewJpaRepository reviewJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
-
     private final EnrollService enrollService;
 
     /**

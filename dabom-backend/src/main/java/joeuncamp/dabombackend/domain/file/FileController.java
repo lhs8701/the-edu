@@ -32,7 +32,7 @@ public class FileController {
     private final VideoService videoService;
 
     @Operation(summary = "이미지 하나를 업로드합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/file/image")
     public ResponseEntity<ImageInfo> uploadImage(@RequestPart MultipartFile multipartFile) {
@@ -41,7 +41,7 @@ public class FileController {
     }
 
     @Operation(summary = "이미지 여러장을 업로드합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/file/image/muli")
     public ResponseEntity<List<ImageInfo>> uploadImages(@RequestPart List<MultipartFile> multipartFiles) {
@@ -53,7 +53,7 @@ public class FileController {
     }
 
     @Operation(summary = "동영상을 업로드합니다.", description = "")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/file/video")
     public ResponseEntity<VideoInfo> uploadVideo(@RequestPart MultipartFile multipartFile) {

@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
-import joeuncamp.dabombackend.domain.auth.dto.SocialLoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.KakaoLoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.SocialUnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -22,7 +22,6 @@ public class kakaoAuthService implements SocialAuthService {
     private final JwtProvider jwtProvider;
     private final KakaoService kakaoApiService;
     private final MemberJpaRepository memberJpaRepository;
-
     private final TokenRedisRepository tokenRedisRepository;
 
     /**
@@ -30,11 +29,11 @@ public class kakaoAuthService implements SocialAuthService {
      * 카카오 계정의 아이디와 '카카오'로그인 타입을 파라미터로 DB에서 회원을 조회한 후, 없으면 회원을 생성합니다.
      * 어세스토큰과 리프레시토큰을 반환합니다.
      *
-     * @param requestDto 카카오에서 발급한 토큰, 리프레시토큰
+     * @param requestDto 소셜 아이디
      * @return 어세스토큰, 리프레시 토큰
      */
     @Override
-    public TokenForm login(SocialLoginRequestDto requestDto) {
+    public TokenForm login(KakaoLoginRequestDto requestDto) {
         KakaoProfile profile = kakaoApiService.getKakaoProfile(requestDto.getSocialToken());
         String kakaoId = String.valueOf(profile.getId());
         Member member = findMemberOrCreate(profile, kakaoId);

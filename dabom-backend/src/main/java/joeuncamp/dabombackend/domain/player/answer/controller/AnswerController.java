@@ -27,7 +27,7 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @Operation(summary = "질문에 대한 답변을 등록합니다.", description = "수강생 및 크리에이터만 등록할 수 있습니다.")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/questions/{questionId}/answers")
     public ResponseEntity<Long> createAnswer(@PathVariable Long questionId, @RequestBody AnswerDto.CreationRequest requestDto, @AuthenticationPrincipal Member member) {
@@ -38,7 +38,7 @@ public class AnswerController {
     }
 
     @Operation(summary = "질문에 달린 모든 답변을 조회합니다.", description = "수강생 및 크리에이터만 등록할 수 있습니다.")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/questions/{questionId}/answers")
     public ResponseEntity<PagingDto<AnswerDto.Response>> getAnswers(@PathVariable Long questionId, @ParameterObject Pageable pageable, @AuthenticationPrincipal Member member) {
@@ -48,7 +48,7 @@ public class AnswerController {
     }
 
     @Operation(summary = "답변을 수정합니다.", description = "작성자 본인만 수정할 수 있습니다.")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/answers/{answerId}")
     public ResponseEntity<Void> updateAnswer(@PathVariable Long answerId, @RequestBody AnswerDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
@@ -59,7 +59,7 @@ public class AnswerController {
     }
 
     @Operation(summary = "답변을 삭제합니다.", description = "작성자 본인만 삭제할 수 있습니다.")
-    @Parameter(name = Header.JWT_HEADER, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/answers/{answerId}")
     public ResponseEntity<Void> deleteAnswer(@PathVariable Long answerId, @AuthenticationPrincipal Member member) {
