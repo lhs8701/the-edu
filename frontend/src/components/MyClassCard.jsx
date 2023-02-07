@@ -2,10 +2,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  PieChart,
-  Pie,
   ResponsiveContainer,
-  Cell,
   RadialBarChart,
   PolarAngleAxis,
   RadialBar,
@@ -42,7 +39,7 @@ const ChartTitle = styled.p`
 const UnitTitle = styled.p`
   font-weight: var(--weight-thin);
   font-size: var(--size-card-any);
-  margin-top: 5px;
+  margin-bottom: 5px;
 `;
 
 const UnitRate = styled.p`
@@ -91,10 +88,7 @@ const GoTo = styled(Link)`
     font-weight: var(--weight-middle);
   }
   cursor: pointer;
-`;
-
-const LinkDiv = styled.div`
-  cursor: pointer;
+  text-align: end;
 `;
 
 function easeOutExpo(t) {
@@ -112,15 +106,14 @@ export default function MyClassCard({ info, data, progressRatio }) {
     const counter = setInterval(() => {
       const progress = easeOutExpo(++currentNumber / totalFrame);
       setCount(Math.round(progressRatio * progress));
-
       if (progress === 1) {
         clearInterval(counter);
       }
     }, frameRate);
   }, []);
 
-  return (
-    <ClassCard>
+  const UnitTitleTab = () => {
+    return (
       <TitleTab
         whileHover={{ x: 10 }}
         onClick={() => {
@@ -132,41 +125,33 @@ export default function MyClassCard({ info, data, progressRatio }) {
             {info?.title}
             {info?.courseId}
           </ChartTitle>
-          <UnitTitle>&nbsp;{info?.nowUnitTitle}</UnitTitle>
         </div>
       </TitleTab>
+    );
+  };
+
+  const UnitProgressTab = () => {
+    return (
       <BottomTab>
         <div>
           <ProgressRate>학습 상황</ProgressRate>
           <RateNum>
-            {info?.nowUnitCnt}/{info?.totalUnitCnt}
+            {info?.completedUnits} / {info?.entireUnits}
           </RateNum>
         </div>
-        <GoTo
-          to={PROCESS_MAIN_URL.COURSES + "/" + info?.courseId + "/lobby"}
-          preventScrollReset={false}
-        >
+        <GoTo to={PROCESS_MAIN_URL.COURSES + "/" + info?.courseId + "/lobby"}>
+          <UnitTitle>{info?.nextUnitInfo?.title}</UnitTitle>
           학습 하기
         </GoTo>
       </BottomTab>
+    );
+  };
 
-      <ChartContainer width="100%" height="100%">
-        {/* <PieChart width={100} height={100}>
-          <Pie
-            data={data}
-            dataKey="value"
-            cx="50%"
-            cy="50%"
-            innerRadius={40}
-            outerRadius={60}
-            fill="#FF5454"
-            isAnimationActive={true}
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={colors[index]} />
-            ))}
-          </Pie>
-        </PieChart> */}
+  return (
+    <ClassCard>
+      <UnitTitleTab />
+      <UnitProgressTab />
+      <ChartContainer width="100%" height="95%">
         <RadialBarChart
           width={100}
           height={100}
@@ -185,7 +170,12 @@ export default function MyClassCard({ info, data, progressRatio }) {
             angleAxisId={0}
             tick={false}
           />
-          <RadialBar background clockWise dataKey="value" fill="#FF5454" />
+          <RadialBar
+            background
+            clockWise
+            dataKey="value"
+            fill="var(--color-red)"
+          />
           <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
             {count}%
           </text>

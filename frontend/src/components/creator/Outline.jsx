@@ -87,7 +87,7 @@ export default function Outline() {
     ],
   };
   const [chapterList, setChapterList] = useState([chapter]);
-
+  console.log(chapterList);
   const plusChapter = () => {
     const chapter = {
       title: "제목 없음",
@@ -118,13 +118,17 @@ export default function Outline() {
 
   const uploadCourse = (e) => {
     e.preventDefault();
-    createCourseApi(accessToken,courseValue).then(()=>{
-      alert("강좌가 등록되었습니다.")
-      navigate(CREATOR_BAR_LIST.list[2].list[0].url)
-    }).catch((err)=>{console.log(err);alert("err")})
-    
+    createCourseApi(accessToken, courseValue)
+      .then(() => {
+        alert("강좌가 등록되었습니다.");
+        navigate(CREATOR_BAR_LIST.list[2].list[0].url);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("err");
+      });
   };
-  
+
   const SmallListComponent = ({ value, unitIdx, setUnits, units }) => {
     const [unittitle, setUnitTitle] = useState("");
     const [clicked, setClicked] = useState(false);
@@ -280,7 +284,6 @@ export default function Outline() {
     };
 
     const updateSmallListInChapter = () => {
-      console.log(0)
       const prevList = chapterList;
       let keyIdx = 0;
       const chapter = chapterList.filter((chapter, idx) => {
@@ -428,7 +431,7 @@ export default function Outline() {
       </Tabs>
     );
   };
-  
+
   return (
     <>
       <DashboardTitleTab title={CREATOR_BAR_LIST.list[2].list[2].name} />

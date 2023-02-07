@@ -1,9 +1,15 @@
+import { useEffect } from "react";
+import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getLoginState } from "../atom";
-import { dummyCourseProgressData } from "../dummy";
-import { PROCESS_ACCOUNT_URL } from "../static";
+import {
+  getCurriculumStatusApi,
+  getUserEnrollStatusApi,
+} from "../api/courseApi";
+import { getAccessTokenSelector, getLoginState } from "../atom";
+import Slider from "@mui/material/Slider";
+import { PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL, STATIC_URL } from "../static";
 
 const LobbyWrapper = styled.div`
   width: 100%;
@@ -12,6 +18,7 @@ const LobbyWrapper = styled.div`
 `;
 
 const InfoSection = styled.div`
+  cursor: pointer;
   position: relative;
   width: 31%;
   height: 100%;
@@ -85,7 +92,8 @@ const BigCategoryTab = styled.div`
 
 const SmallCategoryTab = styled.div`
   width: 100%;
-  background-color: var(--color-course-background);
+  background-color: ${({ completed }) =>
+    completed ? "var(--color-box-gray)" : "var(--color-background)"};
   font-weight: var(--weight-middle);
   font-size: 1.1rem;
   padding: 10px 20px;
@@ -101,61 +109,120 @@ const SmallCategoryTab = styled.div`
 const PlayBtn = styled.button``;
 
 export default function LobbyPage() {
-  const data = dummyCourseProgressData;
   const loginState = useRecoilValue(getLoginState);
+  const { courseId } = useParams();
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+  const navigate = useNavigate();
+
+  const { data } = useQuery(
+    ["userCurriStatus", courseId],
+    () => {
+      return getCurriculumStatusApi(accessToken, courseId);
+    },
+    {
+      enabled: !!courseId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
   const playUnit = (unitId) => {
     window.open(
-      `http://localhost:3000/player/${unitId}`, // 나중에 the edu 도메인으로 변경해야함
+      `http://localhost:3000/player/${courseId}/${unitId}`, // 나중에 the edu 도메인으로 변경해야함
       "the-edu 플레이어",
       "location=no,status=no,scrollbars=no"
     );
   };
 
-  const InFo = () => {
+  const checkUserEnroll = () => {
+    getUserEnrollStatusApi(accessToken, courseId)
+      .then(({ data }) => {
+        if (!data) {
+          alert("부적절한 접근입니다!");
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Error");
+        navigate("/");
+      });
+  };
+
+  useEffect(checkUserEnroll, []);
+
+  const InFo = ({ courseInfo }) => {
     return (
       <>
         <ImgBox>
-          <Img src={data?.img} />
+          <Img src={STATIC_URL + courseInfo?.thumbnailImage?.smallFilePath} />
         </ImgBox>
         <InfoBox>
           <InfoTab>
-            <CourseTitle>{data?.title}</CourseTitle>
-            <CourseRate>{data?.rate}</CourseRate>
+            <CourseTitle>{courseInfo?.title}</CourseTitle>
+            <CourseRate>- {courseInfo?.instructor}</CourseRate>
           </InfoTab>
-          <Tab>프로그래스바</Tab>
-          <Tab>{data?.Percent}%</Tab>
+          <Tab>
+            <Slider
+              valueLabelDisplay="off"
+              disabledSwap
+              min={0}
+              max={100}
+              value={
+                (courseInfo?.completedUnits / courseInfo?.entireUnits) * 100
+              }
+              sx={{
+                height: 8,
+                color: "var(--color-red)",
+                "& .MuiSlider-thumb": {
+                  display: "none",
+                },
+                "& .MuiSlider-rail": {
+                  color: "var(--color-box-gray)",
+                },
+              }}
+            ></Slider>
+          </Tab>
+          <Tab>
+            {(courseInfo?.completedUnits / courseInfo?.entireUnits) * 100}%
+          </Tab>
         </InfoBox>
       </>
     );
   };
 
-  const Category = ({ category, idx }) => {
+  const Unit = ({ unitInfo, idx }) => {
+    return (
+      <SmallCategoryTab completed={unitInfo.completed}>
+        &nbsp;&nbsp;&nbsp;{idx + 1}. &nbsp;
+        {unitInfo.title}
+        <PlayBtn onClick={() => playUnit(unitInfo.unitId)}>재생</PlayBtn>
+      </SmallCategoryTab>
+    );
+  };
+
+  const SmallCategories = ({ smallCurri }) => {
+    return smallCurri.map((unit, idx) => {
+      return <Unit unitInfo={unit} idx={idx} key={unit.unitId} />;
+    });
+  };
+
+  const Category = ({ bigCurri, idx }) => {
     return (
       <CategoryBox>
         <BigCategoryTab>
-          {idx + 1}. &nbsp;{category?.big}
+          {idx + 1}. &nbsp;{bigCurri?.title}
         </BigCategoryTab>
-        <SmallCategories smallList={category?.small} />
+        <SmallCategories smallCurri={bigCurri?.units} />
       </CategoryBox>
     );
   };
 
-  const Categories = ({ unitList }) => {
-    return unitList.map((category, idx) => {
-      return <Category category={category} idx={idx} />;
-    });
-  };
-
-  const SmallCategories = ({ smallList }) => {
-    return smallList.map((small, idx) => {
-      return (
-        <SmallCategoryTab>
-          &nbsp;&nbsp;&nbsp;{idx + 1}. &nbsp;
-          {small}
-          <PlayBtn onClick={() => playUnit(idx)}>재생</PlayBtn>
-        </SmallCategoryTab>
-      );
+  const Categories = ({ curriculum }) => {
+    return curriculum?.map((bigCurri, idx) => {
+      return <Category key={idx} bigCurri={bigCurri} idx={idx} />;
     });
   };
 
@@ -166,8 +233,12 @@ export default function LobbyPage() {
 
   return (
     <LobbyWrapper>
-      <InfoSection>
-        <InFo />
+      <InfoSection
+        onClick={() => {
+          navigate(PROCESS_MAIN_URL.COURSES + "/" + courseId);
+        }}
+      >
+        <InFo courseInfo={data?.data?.courseStatus} />
       </InfoSection>
       <CategorySection>
         <br />
@@ -175,7 +246,7 @@ export default function LobbyPage() {
         <br />
         <br />
         <br />
-        <Categories unitList={data?.list} />
+        <Categories curriculum={data?.data?.chapters} />
       </CategorySection>
     </LobbyWrapper>
   );

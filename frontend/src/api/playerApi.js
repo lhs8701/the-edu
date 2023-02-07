@@ -9,7 +9,7 @@ export async function getLatestRecordApi(accessToken, unitId) {
   return await axios.get(`${RECORD_URL}${UNITS_URL}/${unitId}`, {
     headers: {
       "Content-Type": "application/json",
-      "X-AUTH-TOKEN": accessToken,
+      ACCESS: accessToken,
     },
   });
 }
@@ -18,7 +18,7 @@ export async function postMyRecordApi(accessToken, unitId, time) {
   return await fetch(`${RECORD_URL}${UNITS_URL}/${unitId}`, {
     method: "post",
     headers: {
-      "X-AUTH-TOKEN": accessToken,
+      ACCESS: accessToken,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -31,10 +31,11 @@ export async function postMyRecordApi(accessToken, unitId, time) {
 export async function postWatchAllApi(accessToken, unitId) {
   return await axios.post(
     `${RECORD_URL}${COMPLETE_URL}${UNITS_URL}/${unitId}`,
+    {},
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );

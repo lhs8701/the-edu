@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-import styled from "styled-components";
 import {
   StatusDisplayUnderBar,
   StatusNavBar,
@@ -27,20 +25,18 @@ export default function MyClassNavBar({ isTabStatus, setIsTabStatus }) {
       <StatusNavBox>
         {TAB_STATUS.map((tab) => {
           return (
-            <>
-              <StatusNavTab
-                key={tab.id}
-                onClick={() => {
-                  setIsTabStatus(tab.id);
-                }}
-                ison={[isTabStatus, tab.id]}
-              >
-                {tab.title}
-                {isTabStatus === tab?.id && (
-                  <StatusDisplayUnderBar layoutId="myClass" />
-                )}
-              </StatusNavTab>
-            </>
+            <StatusNavTab
+              key={tab.id}
+              onClick={() => {
+                setIsTabStatus(tab.id);
+              }}
+              ison={[isTabStatus, tab.id]}
+            >
+              {tab.title}
+              {isTabStatus === tab?.id && (
+                <StatusDisplayUnderBar layoutId="myClass" />
+              )}
+            </StatusNavTab>
           );
         })}
       </StatusNavBox>

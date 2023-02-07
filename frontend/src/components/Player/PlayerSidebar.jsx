@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import CourseList from "./CourseList";
 import CourseInfo from "./CourseInfo";
 import UnitQuestion from "./UnitQuestion";
@@ -46,16 +45,21 @@ const ListTab = styled(motion.div)`
   box-sizing: border-box;
 `;
 
-export default function PlayerSidebar({ unitInfo, unitId }) {
-  const [menu, setMenu] = useState(0);
-
+export default function PlayerSidebar({
+  unitId,
+  courseId,
+  exitUnit,
+  menu,
+  setMenu,
+}) {
   const MENU_LIST_NAME = ["강의 목록", "수업 자료", "질문", "평가"];
   const menuList = {
-    0: <CourseList />,
+    0: <CourseList exitUnit={exitUnit} courseId={courseId} unitId={unitId} />,
     1: <CourseInfo />,
     2: <UnitQuestion unitId={unitId} />,
-    3: <UnitReview />,
+    3: <UnitReview unitId={unitId} />,
   };
+
   const MenuBar = ({ idx }) => {
     return (
       <Notice

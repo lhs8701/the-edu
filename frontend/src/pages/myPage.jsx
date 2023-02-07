@@ -48,7 +48,7 @@ export default function MyPage() {
         <NavBox>
           {barList.list.map((target, idx) => {
             return (
-              <NavTab>
+              <NavTab key={idx}>
                 <MyLink preventScrollReset={true} to={target.url}>
                   {target.name}
                 </MyLink>

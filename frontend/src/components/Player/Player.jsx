@@ -128,7 +128,6 @@ export default function Player({ unitInfo, videoVal, setVideoVal }) {
   useEffect(() => {
     setTimeout(() => {
       goToRecord().then((video) => {
-        console.log(videoVal.playedSec);
         video.seekTo(videoVal.playedSec);
       });
     }, 100);

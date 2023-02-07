@@ -1,7 +1,10 @@
 import { Box, Button, Grid, TextField } from "@mui/material";
 import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { uploadVideoApi } from "../../api/creatorApi";
+import { getAccessTokenSelector } from "../../atom";
 
 const UploadTab = styled(Box)`
   display: flex;
@@ -15,17 +18,23 @@ const Video = styled.video`
 `;
 
 export default function UnitInfoOutline() {
-  const file = useOutletContext()[0];
-  const setFile = useOutletContext()[1];
+  const fileUrl = useOutletContext()[0];
+  const setFileUrl = useOutletContext()[1];
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+  const [video, setVideo] = useState();
   const upload = (e) => {
-    setFile(e.target.files[0]);
+    console.log("Fdd");
+    setVideo(e.target.files[0]);
+    uploadVideoApi(accessToken, e.target.files[0]).then(({ data }) => {
+      setFileUrl(data.filePath);
+    });
   };
-
+  console.log(fileUrl);
   return (
     <UploadTab>
-      {file ? (
+      {fileUrl ? (
         <div>
-          <Video src={URL.createObjectURL(file)} controls />
+          <Video src={URL.createObjectURL(video)} controls />
           <br />
           <Button
             sx={{
@@ -36,7 +45,8 @@ export default function UnitInfoOutline() {
             }}
             variant="contained"
             onClick={() => {
-              setFile();
+              setFileUrl("");
+              setVideo();
             }}
           >
             취소

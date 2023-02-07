@@ -1,9 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getLatestRecordApi, postMyRecordApi } from "../api/playerApi";
+import { getCurriculumStatusApi } from "../api/courseApi";
+import {
+  getLatestRecordApi,
+  postMyRecordApi,
+  postWatchAllApi,
+} from "../api/playerApi";
 import { getUnitVideoApi } from "../api/unitApi";
 import { getAccessTokenSelector, getLoginState } from "../atom";
 import Player from "../components/Player/Player";
@@ -104,7 +110,8 @@ const Title = styled.div`
 export default function PlayerRoot() {
   const [isCapture, setCapture] = useState(false);
   const [isCollapse, setIsCollapse] = useState(true);
-  const { unitId } = useParams();
+  const [menu, setMenu] = useState(0);
+  const { unitId, courseId } = useParams();
   const loginState = useRecoilValue(getLoginState);
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const wrapperRef = useRef(null);
@@ -123,10 +130,29 @@ export default function PlayerRoot() {
     full: false, // 전체모드
     cc: false,
     playedSec: 0, //전체 시간 초
+    done: false,
   });
 
+  useQuery(
+    ["userCurriStatus", courseId],
+    () => {
+      return getCurriculumStatusApi(accessToken, courseId);
+    },
+    {
+      enabled: !!courseId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
   window.onbeforeunload = function () {
-    exitPlayer();
+    exitUnit();
+  };
+
+  const exitUnit = () => {
+    postMyRecordApi(accessToken, unitId, Number(videoVal.playedSec));
   };
 
   function stopPrntScr() {
@@ -157,10 +183,6 @@ export default function PlayerRoot() {
   const handleButtonClick = useCallback(() => {
     setIsCollapse(!isCollapse);
   }, [isCollapse]);
-
-  const exitPlayer = () => {
-    postMyRecordApi(accessToken, unitId, Number(videoVal.playedSec));
-  };
 
   const getUnitInfo = () => {
     getUnitVideoApi(unitId, accessToken)
@@ -203,6 +225,18 @@ export default function PlayerRoot() {
     getLatestRecord();
   }, []);
 
+  useEffect(() => {
+    if (videoVal.done) {
+      setMenu(3);
+    }
+    if (videoVal.played >= 0.95 && !videoVal.done) {
+      console.log("FDDDDDD");
+      setVideoVal({ ...videoVal, done: true });
+      postWatchAllApi(accessToken, unitId);
+      setMenu(3);
+    }
+  }, [videoVal.played]);
+
   return (
     <Hm>
       <AnimatePresence>
@@ -210,14 +244,15 @@ export default function PlayerRoot() {
           {isCapture && <CaptureBlocker />}
           {loading && (
             <VideoTab>
-              <Title>
-                {unitInfo?.unitId}강. {unitInfo?.title}
-              </Title>
-              <Player
-                videoVal={videoVal}
-                setVideoVal={setVideoVal}
-                unitInfo={unitInfo}
-              />
+              <Title>{unitInfo?.title}</Title>
+              {unitInfo && (
+                <Player
+                  videoVal={videoVal}
+                  setVideoVal={setVideoVal}
+                  unitInfo={unitInfo}
+                />
+              )}
+
               <ArcodianBtn
                 onClick={() => {
                   handleButtonClick();
@@ -229,7 +264,16 @@ export default function PlayerRoot() {
             <PlayerSidebar uniInfo={unitInfo} />
           </AniBarTab> */}
           <BarTab>
-            <PlayerSidebar uniInfo={unitInfo} unitId={unitId} />
+            {unitInfo && (
+              <PlayerSidebar
+                menu={menu}
+                setMenu={setMenu}
+                exitUnit={exitUnit}
+                unitInfo={unitInfo}
+                unitId={unitId}
+                courseId={courseId}
+              />
+            )}
           </BarTab>
         </Wrapper>
       </AnimatePresence>

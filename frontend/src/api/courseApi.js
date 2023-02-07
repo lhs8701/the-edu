@@ -4,12 +4,33 @@ import { API_URL } from "../static";
 const COURSE_URL = `${API_URL}/courses`;
 const INQUIRE_URL = "/inquiries";
 const CATEGORY_URL = "/category";
-const WISHCHECK_URL = "/wish/check";
 const WISH_URL = "/wish";
 const ENROLL_URL = "/enroll";
 const SEARCH_URL = "/keyword";
 const CURRICULUM_URL = "/curriculum";
 const STATUS_URL = "/status";
+const CHECK_URL = "/check";
+const WISHCHECK_URL = WISH_URL + CHECK_URL;
+const ONGOING_URL = "/ongoing";
+const COMPELETE_URL = "/completed";
+
+export async function getCompletedApi(accessToken) {
+  return await axios.get(`${COURSE_URL}${COMPELETE_URL}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
+    },
+  });
+}
+
+export async function getOngingApi(accessToken) {
+  return await axios.get(`${COURSE_URL}${ONGOING_URL}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
+    },
+  });
+}
 
 export async function searchApi(pageParam, keyword) {
   const params = {
@@ -30,7 +51,7 @@ export async function enrollApi(courseId, accessToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );
@@ -43,7 +64,7 @@ export async function courseWishCheckApi(courseId, accessToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );
@@ -59,7 +80,7 @@ export async function courseWishApi(memberId, courseId, accessToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );
@@ -109,7 +130,7 @@ export async function postcourseInquiriessApi(
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );
@@ -121,7 +142,7 @@ export async function getCurriculumStatusApi(accessToken, courseId) {
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );
@@ -131,6 +152,15 @@ export async function getCurriculumApi(courseId) {
   return await axios.get(`${COURSE_URL}/${courseId}${CURRICULUM_URL}`, {
     headers: {
       "Content-Type": "application/json",
+    },
+  });
+}
+
+export async function getUserEnrollStatusApi(accessToken, courseId) {
+  return await axios.get(`${COURSE_URL}/${courseId}${ENROLL_URL}${CHECK_URL}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
     },
   });
 }

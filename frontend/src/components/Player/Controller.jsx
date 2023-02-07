@@ -194,14 +194,12 @@ export default function Controller({
   isBarTabs,
 }) {
   const videoRef = video;
-  const [watchAll, setWatchAll] = useState(false);
   const [videoTimeVal, setVideoTimeVal] = useState(0);
   const [barOn, setBar] = useState(false);
   const { unitId } = useParams();
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const currentTime =
     videoRef && videoRef ? videoRef?.getCurrentTime() : "00:00";
-
   const duration = videoRef && videoRef ? videoRef?.getDuration() : "00:00";
 
   // 남은시간
@@ -296,7 +294,7 @@ export default function Controller({
 
   const onChangeBitrate = (level) => {
     const internalPlayer = videoRef?.getInternalPlayer("hls");
-
+    console.log(internalPlayer);
     if (internalPlayer) {
       // currentLevel expect to receive an index of the levels array
       internalPlayer.currentLevel = level;
@@ -345,18 +343,12 @@ export default function Controller({
     setVideoVal({ ...videoVal, duration: Math.trunc(duration) });
   }, [duration]);
 
-  useEffect(() => {
-    if (currentTime === duration) {
-      postWatchAllApi(accessToken, unitId);
-    }
-  }, [currentTime]);
-
   return (
     <BarWarpper>
       <ProgressTab>
         <Slider
           valueLabelDisplay="auto"
-          track="false"
+          track={true}
           min={0}
           max={100}
           value={videoVal.played * 100}
@@ -367,7 +359,6 @@ export default function Controller({
           sx={{
             color: "#567FE8",
             height: 4,
-
             "& .MuiSlider-thumb": {
               width: 8,
               height: 8,

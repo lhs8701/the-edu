@@ -17,7 +17,7 @@ export async function getQuestionListApi(pageParam, unitId, accessToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     },
     { params }
@@ -35,7 +35,7 @@ export async function postUnitQuestionApi(accessToken, title, content, unitId) {
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     }
   );
@@ -45,7 +45,7 @@ export async function getDetailQuestionApi(questionId, accessToken) {
   return await axios.get(`${QUESTION_URL}${QUESTION_TAIL_URL}/${questionId}`, {
     headers: {
       "Content-Type": "application/json",
-      "X-AUTH-TOKEN": accessToken,
+      ACCESS: accessToken,
     },
   });
 }
@@ -61,7 +61,7 @@ export async function getQuestionAnswerApi(pageParam, questionId, accessToken) {
     {
       headers: {
         "Content-Type": "application/json",
-        "X-AUTH-TOKEN": accessToken,
+        ACCESS: accessToken,
       },
     },
     { params }

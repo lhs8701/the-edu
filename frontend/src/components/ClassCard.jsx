@@ -62,9 +62,8 @@ const ClassInfoTeacherP = styled(ClassInfoP)`
 `;
 export default function ClassCard({ course }) {
   const [isCardOn, setIsCardOn] = useState(false);
-
   const navigate = useNavigate();
-  
+
   return (
     <ClassTab
       onClick={() => {
@@ -79,7 +78,7 @@ export default function ClassCard({ course }) {
     >
       <ClassImgBox>
         <ClassImg
-          src={STATIC_URL+course?.thumbnailImage?.mediumFilePath}
+          src={STATIC_URL + course?.thumbnailImage?.mediumFilePath}
           animate={{
             scale: isCardOn ? 1.2 : 1,
           }}
@@ -99,7 +98,6 @@ export default function ClassCard({ course }) {
         // }}
         >
           {course?.title}
-          {course?.courseId}
         </ClassTitle>
       </ClassTitleBox>
 
