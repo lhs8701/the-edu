@@ -12,6 +12,7 @@ import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.RequiredArgsConstructor;
+import org.apache.el.parser.Token;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,11 +26,19 @@ public class AppleAuthController {
 
     private final AppleAuthService appleAuthService;
 
-    @Operation(summary = "애플로 가입합니다.", description = "계정이 없을경우, 계정 생성 후 로그인합니다.")
+    @Operation(summary = "애플로 가입합니다.", description = "")
     @PreAuthorize("permitAll()")
     @PostMapping("/auth/apple/signup")
     public ResponseEntity<Void> signup(@RequestBody AppleAuthDto.SignupRequest requestDto) {
         appleAuthService.signup(requestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "애플로 로그인합니다.", description = "")
+    @PreAuthorize("permitAll()")
+    @PostMapping("/auth/apple/login")
+    public ResponseEntity<TokenForm> login(@RequestBody AppleAuthDto.LoginRequest requestDto) {
+        TokenForm responseDto = appleAuthService.login(requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

@@ -29,7 +29,7 @@ public class kakaoAuthService implements SocialAuthService {
      * 카카오 계정의 아이디와 '카카오'로그인 타입을 파라미터로 DB에서 회원을 조회한 후, 없으면 회원을 생성합니다.
      * 어세스토큰과 리프레시토큰을 반환합니다.
      *
-     * @param requestDto 카카오에서 발급한 토큰, 리프레시토큰
+     * @param requestDto 소셜 아이디
      * @return 어세스토큰, 리프레시 토큰
      */
     @Override
