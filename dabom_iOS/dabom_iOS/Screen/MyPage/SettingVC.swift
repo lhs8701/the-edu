@@ -68,7 +68,7 @@ class SettingVC: UIViewController {
 //                self.kakaoLogout()
                 
             } else if self.loginType == "apple" {
-                
+                self.appleLogout()
             } else {
                 
             }
@@ -126,6 +126,28 @@ class SettingVC: UIViewController {
         }
     }
     
+    // MARK: - apple로 로그인한 유저 로그아웃
+    private func appleLogout() {
+        AuthenticationService.shared.appleLogout { response in
+            switch response {
+            case .success:
+                print("appleLogout Success")
+                AuthenticationService.shared.goToLoginSignup()
+                AuthenticationService.shared.resetUserGrant()
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("networkResult pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
     // MARK: - 회원탈퇴 버튼 눌렀을 때
     @IBAction func withdrawBtnPressed(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: "정말로 탈퇴 하시겠습니까?", preferredStyle: .actionSheet)
@@ -145,7 +167,7 @@ class SettingVC: UIViewController {
                 }
                 
             } else if self.loginType == "apple" {
-                
+                self.appleWithdraw()
             } else {
                 
             }
@@ -187,6 +209,29 @@ class SettingVC: UIViewController {
             switch response {
             case .success:
                 print("kakaoWithdraw Success")
+                AuthenticationService.shared.goToLoginSignup()
+                AuthenticationService.shared.resetUserGrant()
+                self.removeCache()
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("networkResult pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
+    // MARK: - apple로 로그인한 유저 탈퇴
+    private func appleWithdraw() {
+        AuthenticationService.shared.appleWithdraw { response in
+            switch response {
+            case .success:
+                print("appleWithdraw Success")
                 AuthenticationService.shared.goToLoginSignup()
                 AuthenticationService.shared.resetUserGrant()
                 self.removeCache()

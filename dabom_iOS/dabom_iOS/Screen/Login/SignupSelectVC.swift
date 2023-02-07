@@ -50,6 +50,7 @@ class SignupSelectVC: UIViewController {
                         case .success:
                             print("kakaoLogin Success")
                             UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
+                            UserDefaults.standard.setValue("kakao", forKey: "loginType")
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)
@@ -79,6 +80,7 @@ class SignupSelectVC: UIViewController {
                         switch (response) {
                         case .success:
                             print("kakaoLogin Success")
+                            UserDefaults.standard.setValue("kakao", forKey: "loginType")
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)
@@ -128,11 +130,28 @@ extension SignupSelectVC: ASAuthorizationControllerDelegate {
             let userIdentifier = appleIDCredential.user
             print(userIdentifier)
             let userName = (appleIDCredential.fullName?.familyName ?? "") + (appleIDCredential.fullName?.givenName ?? "")
-            if let email = appleIDCredential.email {
-                print(email)
-            }
+            let email = appleIDCredential.email ?? ""
+            print(email)
             print(userIdentifier)
             print(userName)
+            
+            AuthenticationService.shared.appleSignup(socialToken: userIdentifier, email: email, nickname: userName) { response in
+                switch (response) {
+                case .success:
+                    print("appleSignup Success")
+                    AuthenticationService.shared.goToLoginSignup()
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
+            }
             
             
         }

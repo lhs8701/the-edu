@@ -20,7 +20,7 @@ struct UnitDataService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
@@ -49,7 +49,7 @@ struct UnitDataService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
@@ -87,7 +87,7 @@ struct UnitDataService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
         
         let bodyData: Parameters = [
@@ -120,7 +120,7 @@ struct UnitDataService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "X-AUTH-TOKEN" : accessToken
+            "ACCESS" : accessToken
         ]
 
         

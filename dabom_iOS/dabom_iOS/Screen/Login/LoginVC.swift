@@ -266,13 +266,33 @@ extension LoginVC: ASAuthorizationControllerDelegate {
     // MARK: - Apple 인증 성공 시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            print(appleIDCredential)
             let userIdentifier = appleIDCredential.user
+            print(userIdentifier)
             let userName = (appleIDCredential.fullName?.familyName ?? "") + (appleIDCredential.fullName?.givenName ?? "")
-            if let email = appleIDCredential.email {
-                print(email)
-            }
+            let email = appleIDCredential.email ?? ""
+            print(email)
             print(userIdentifier)
             print(userName)
+            
+            AuthenticationService.shared.appleLogin(socialToken: userIdentifier) { response in
+                switch (response) {
+                case .success:
+                    print("appleLogin Success")
+                    UserDefaults.standard.setValue("apple", forKey: "loginType")
+                    AuthenticationService.shared.goToMain()
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
+            }
             
             
         }
