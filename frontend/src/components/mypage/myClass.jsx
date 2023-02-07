@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { getCompletedApi, getOngingApi } from "../../api/courseApi";
 import { myCourseApi } from "../../api/myPageApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
-import { dummyMyClassList } from "../../dummy";
 import {
   MyPageBox,
   MyPageContentBox,
@@ -26,7 +26,7 @@ const MyClassListBox = styled.div`
 `;
 
 export default function MyClass() {
-  const [isTabStatus, setIsTabStatus] = useState(0);
+  const [isTabStatus, setIsTabStatus] = useState(1);
   const memberId = useRecoilValue(getMemberIdSelector);
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
@@ -37,32 +37,66 @@ export default function MyClass() {
     },
     {
       enabled: !!memberId,
-      onSuccess: (res) => {
-        console.log(res);
-      },
+      onSuccess: (res) => {},
       onError: (err) => {
         console.error("에러 발생했지롱");
       },
     }
   );
 
-  const MyClassList = ({ myCourses }) => {
-    return myCourses?.map((course, index) => {
-      const progressRatio = Math.round(
-        (course?.nowUnitCnt / course?.totalUnitCnt) * 100
-      );
-      const data = [
-        {
-          name: "Complete",
-          value: progressRatio,
-        },
-      ];
-      return (
-        <MyClassCard info={course} data={data} progressRatio={progressRatio} />
-      );
-    });
+  const myOngoingCourses = useQuery(
+    ["myOngoingCourseList", memberId],
+    () => {
+      return getOngingApi(accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: (res) => {},
+      onError: (err) => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
+  const myCompletedCourses = useQuery(
+    ["myCompletedCourseList", memberId],
+    () => {
+      return getCompletedApi(accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: (res) => {},
+      onError: (err) => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
+  const Course = ({ courseInfo }) => {
+    const progressRatio = Math.round(
+      (courseInfo?.completedUnits / courseInfo?.entireUnits) * 100
+    );
+    const data = [
+      {
+        name: "Complete",
+        value: progressRatio,
+      },
+    ];
+
+    return (
+      <MyClassCard
+        info={courseInfo}
+        data={data}
+        progressRatio={progressRatio}
+      />
+    );
   };
 
+  const MyClassList = ({ courses }) => {
+    return courses?.map((course) => {
+      return <Course key={course?.courseId} courseInfo={course} />;
+    });
+  };
   return (
     <MyPageBox>
       <MyPageTitle>나의 클래스</MyPageTitle>
@@ -76,7 +110,13 @@ export default function MyClass() {
               setIsTabStatus={setIsTabStatus}
             />
             <MyClassListBox>
-              <MyClassList myCourses={myCourses.data} />
+              {isTabStatus === 0 && <MyClassList courses={myCourses?.data} />}
+              {isTabStatus === 1 && (
+                <MyClassList courses={myOngoingCourses?.data?.data} />
+              )}
+              {isTabStatus === 2 && (
+                <MyClassList courses={myCompletedCourses?.data?.data} />
+              )}
             </MyClassListBox>
           </>
         )}

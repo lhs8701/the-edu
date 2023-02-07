@@ -12,6 +12,16 @@ const STATUS_URL = "/status";
 const CHECK_URL = "/check";
 const WISHCHECK_URL = WISH_URL + CHECK_URL;
 const ONGOING_URL = "/ongoing";
+const COMPELETE_URL = "/completed";
+
+export async function getCompletedApi(accessToken) {
+  return await axios.get(`${COURSE_URL}${COMPELETE_URL}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
+    },
+  });
+}
 
 export async function getOngingApi(accessToken) {
   return await axios.get(`${COURSE_URL}${ONGOING_URL}`, {
