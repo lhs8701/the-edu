@@ -82,8 +82,14 @@ extension InCourseViewController: UICollectionViewDelegate {
 
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.coursePlayerVC) as? CoursePlayerVC else { return }
         
-        nextVC.courseId = self.inCourseData?[indexPath.row].courseId
-        nextVC.unitId = self.inCourseData?[indexPath.row].nextUnitInfo.unitId
+        if let inCourseData = inCourseData {
+            nextVC.courseId = inCourseData[indexPath.row].courseId
+            nextVC.unitId = inCourseData[indexPath.row].nextUnitInfo.unitId
+            nextVC.unitTitle = inCourseData[indexPath.row].nextUnitInfo.title
+            nextVC.thumbnailImage = inCourseData[indexPath.row].thumbnailImage.mediumFilePath
+        }
+        
+//        nextVC.unitThumbnailImage.image = self.inCourseData[indexPath.row].thumbㅌ
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
 

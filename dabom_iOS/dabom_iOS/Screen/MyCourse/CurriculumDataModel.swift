@@ -8,15 +8,16 @@
 import Foundation
 
 struct CurriculumDataModel: Codable {
-    let chapterList: [chapterData]
+    let chapters: [chapterData]
 }
 
 struct chapterData: Codable {
     let title: String
-    let unitList: [unitData]
+    let units: [unitData]
 }
 
 struct unitData: Codable {
     let unitId: Int
     let title: String
+    let completed: Bool
 }

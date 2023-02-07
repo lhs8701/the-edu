@@ -71,6 +71,6 @@ extension Const {
         static let saveRecord = "\(apiBaseUrl)/record/units"
         static let getRecord = "\(apiBaseUrl)/record/units"
         static let completeUnit = "\(apiBaseUrl)/record/complete/units"
-        static let getCurriculum = "\(apiBaseUrl)/courses"
+        static let getUserCurriculum = "\(apiBaseUrl)/courses"
     }
 }

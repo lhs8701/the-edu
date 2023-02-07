@@ -16,15 +16,19 @@ class CoursePlayerVC: UIViewController {
     
     @IBOutlet weak var playBtn: UIButton!
     
+    @IBOutlet weak var unitTitleLabel: UILabel!
     
     @IBOutlet weak var curriculumTV: UITableView!
     
+    @IBOutlet weak var courseCurriculum: UILabel!
     
     // MARK: - let, var
     let Url = URL(string: Const.Url.m3u8Test)
     
     var courseId: Int?
     var unitId: Int?
+    var unitTitle: String?
+    var thumbnailImage: String = ""
     var unitData: UnitDataModel?
     var curriculum: CurriculumDataModel?
     
@@ -36,8 +40,11 @@ class CoursePlayerVC: UIViewController {
         super.viewDidLoad()
         self.playBtn.isEnabled = false
     
-        unitThumbnailImage.image = UIImage(named: "testThumb01")
+//        unitThumbnailImage.image = UIImage(named: "testThumb01")
         
+        
+        
+        configure()
         setTV()
         getUnit()
         setCurriculum()
@@ -76,6 +83,12 @@ class CoursePlayerVC: UIViewController {
         saveRecord(time: currentTime)
     }
     
+    private func configure() {
+        self.courseCurriculum.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 4.0)
+        self.unitThumbnailImage.setImage(with: self.thumbnailImage)
+        self.unitTitleLabel.text = self.unitTitle
+    }
+    
     private func setTV() {
         self.curriculumTV.delegate = self
         self.curriculumTV.dataSource = self
@@ -85,7 +98,7 @@ class CoursePlayerVC: UIViewController {
     
     private func setCurriculum() {
         if let courseId = courseId {
-            CurriculumDataService.shared.getCurriculum(courseId: courseId) { response in
+            CurriculumDataService.shared.getUserCurriculum(courseId: courseId) { response in
                 switch response {
                 case .success(let data):
                     if let data = data as? CurriculumDataModel {
@@ -186,18 +199,24 @@ class CoursePlayerVC: UIViewController {
 
 extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        self.curriculum?.chapterList.count ?? 0
+        self.curriculum?.chapters.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.curriculum?.chapterList[section].unitList.count ?? 0
+        self.curriculum?.chapters[section].units.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.curriculumTVC) as! CurriculumTVC
         
         if let curriculum = curriculum {
-            cell.curriculumTitle.text = curriculum.chapterList[indexPath.section].unitList[indexPath.row].title
+            cell.curriculumTitle.text = curriculum.chapters[indexPath.section].units[indexPath.row].title
+            
+            if curriculum.chapters[indexPath.section].units[indexPath.row].completed {
+                print("\(indexPath) Completed!!!!!!!!!!!!!!!!!")
+                cell.contentView.backgroundColor = UIColor(named: "unSelectedColor")
+            }
+            
         }
         
         return cell
@@ -207,7 +226,7 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Const.Xib.Identifier.curriculumHeaderTVC) as! CurriculumHeaderTVC
         
         if let curriculum = curriculum {
-            header.chapterTitle.text = curriculum.chapterList[section].title
+            header.chapterTitle.text = curriculum.chapters[section].title
         }
         
         return header
@@ -218,8 +237,19 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        50
+        45
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let curriculum = curriculum {
+            self.unitId = curriculum.chapters[indexPath.section].units[indexPath.row].unitId
+            self.unitTitleLabel.text = curriculum.chapters[indexPath.section].units[indexPath.row].title
+            self.playBtn.isEnabled = false
+//            configure()
+            getUnit()
+            setCurriculum()
+        }
+    }
     
 }

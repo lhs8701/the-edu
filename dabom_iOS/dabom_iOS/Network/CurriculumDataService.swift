@@ -12,11 +12,18 @@ struct CurriculumDataService {
     static let shared = CurriculumDataService()
     
     // MARK: - Curriculum 정보 가져오기
-    func getCurriculum(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.getCurriculum)/\(courseId)/curriculum"
+    func getUserCurriculum(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.getUserCurriculum)/\(courseId)/curriculum/status"
         print(URL)
         
-        let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "ACCESS" : accessToken
+        ]
+        
+        let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
         
         request.responseData { dataResponse in
             debugPrint(dataResponse)
