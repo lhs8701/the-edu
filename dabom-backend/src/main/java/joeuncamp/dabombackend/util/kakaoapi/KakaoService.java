@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.util.kakaoapi;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.global.error.exception.CCommunicationFailedException;
 import joeuncamp.dabombackend.util.kakaoapi.dto.KakaoProfile;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @Slf4j
+@Transactional
 public class KakaoService {
 
     @Value("${api.kakao.profile}")

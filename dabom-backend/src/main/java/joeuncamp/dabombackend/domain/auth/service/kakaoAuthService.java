@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.dto.KakaoLoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.SocialUnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class kakaoAuthService implements SocialAuthService {
 

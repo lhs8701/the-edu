@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.unit.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UnitService {
     private final UnitJpaRepository unitJpaRepository;

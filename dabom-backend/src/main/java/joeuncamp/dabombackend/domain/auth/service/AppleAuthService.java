@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.dto.AppleAuthDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AppleAuthService {
     private final MemberJpaRepository memberJpaRepository;

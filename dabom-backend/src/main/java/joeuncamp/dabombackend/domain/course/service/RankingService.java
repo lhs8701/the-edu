@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.course.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.dto.RankingDto;
 import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class RankingService {
     private final RankingJpaRepository rankingJpaRepository;

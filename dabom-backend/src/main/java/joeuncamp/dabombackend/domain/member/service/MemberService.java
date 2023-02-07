@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.member.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberJpaRepository memberRepository;

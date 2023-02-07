@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.post.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.post.dto.InquiryDto;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class InquiryService {
     private final InquiryJpaRepository inquiryJpaRepository;

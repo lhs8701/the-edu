@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.player.feedback.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class FeedbackService {
     private final FeedbackJpaRepository feedbackJpaRepository;

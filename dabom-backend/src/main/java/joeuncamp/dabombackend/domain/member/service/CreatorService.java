@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.member.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.member.dto.CreatorRequestDto;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CreatorService {
     private final MemberJpaRepository memberJpaRepository;

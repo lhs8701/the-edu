@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.post.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.post.dto.ReviewDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ReviewService {
 
