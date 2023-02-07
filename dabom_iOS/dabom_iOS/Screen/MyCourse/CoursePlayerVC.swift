@@ -17,11 +17,16 @@ class CoursePlayerVC: UIViewController {
     @IBOutlet weak var playBtn: UIButton!
     
     
+    @IBOutlet weak var curriculumTV: UITableView!
+    
+    
     // MARK: - let, var
     let Url = URL(string: Const.Url.m3u8Test)
     
+    var courseId: Int?
     var unitId: Int?
     var unitData: UnitDataModel?
+    var curriculum: CurriculumDataModel?
     
     var avPlayer = AVPlayer()
     var avController = AVPlayerViewController()
@@ -33,8 +38,9 @@ class CoursePlayerVC: UIViewController {
     
         unitThumbnailImage.image = UIImage(named: "testThumb01")
         
+        setTV()
         getUnit()
-        
+        setCurriculum()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,31 +73,39 @@ class CoursePlayerVC: UIViewController {
             }
         }
         
-        
-//        if let unitData = unitData {
-//            if currentTime + 10 >= avPlayer.currentItem?.duration.seconds ?? 0.0 {
-//                if let unitId = unitId {
-//                    UnitDataService.shared.completeUnit(unitId: self.unitId) { response in
-//                        switch response {
-//                        case .success:
-//                            print("complete Success")
-//                        case .requestErr(let message):
-//                            print("requestErr", message)
-//                        case .pathErr:
-//                            print("pathErr")
-//                        case .serverErr:
-//                            print("serverErr")
-//                        case .networkFail:
-//                            print("networkFail")
-//                        case .resourceErr:
-//                            print("resourceErr")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
         saveRecord(time: currentTime)
+    }
+    
+    private func setTV() {
+        self.curriculumTV.delegate = self
+        self.curriculumTV.dataSource = self
+        self.curriculumTV.register(UINib(nibName: Const.Xib.Name.curriculumTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.curriculumTVC)
+        self.curriculumTV.register(UINib(nibName: Const.Xib.Name.curriculumHeaderTVC, bundle: nil), forHeaderFooterViewReuseIdentifier: Const.Xib.Identifier.curriculumHeaderTVC)
+    }
+    
+    private func setCurriculum() {
+        if let courseId = courseId {
+            CurriculumDataService.shared.getCurriculum(courseId: courseId) { response in
+                switch response {
+                case .success(let data):
+                    if let data = data as? CurriculumDataModel {
+                        self.curriculum = data
+                        self.curriculumTV.reloadData()
+                    }
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
+            }
+        }
+        
     }
     
     // MARK: - Unit 정보 받아오기
@@ -168,4 +182,44 @@ class CoursePlayerVC: UIViewController {
     
     
 
+}
+
+extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        self.curriculum?.chapterList.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.curriculum?.chapterList[section].unitList.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.curriculumTVC) as! CurriculumTVC
+        
+        if let curriculum = curriculum {
+            cell.curriculumTitle.text = curriculum.chapterList[indexPath.section].unitList[indexPath.row].title
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Const.Xib.Identifier.curriculumHeaderTVC) as! CurriculumHeaderTVC
+        
+        if let curriculum = curriculum {
+            header.chapterTitle.text = curriculum.chapterList[section].title
+        }
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        50
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        50
+    }
+    
+    
 }

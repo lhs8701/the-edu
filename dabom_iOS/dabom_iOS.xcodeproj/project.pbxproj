@@ -39,6 +39,12 @@
 		0E6028382966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028362966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift */; };
 		0E6028392966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E6028372966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib */; };
 		0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E60283C2966777A00A25F48 /* CourseTableDataModel.swift */; };
+		0E685E582991E8380094D10A /* CurriculumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E562991E8380094D10A /* CurriculumTVC.swift */; };
+		0E685E592991E8380094D10A /* CurriculumTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E685E572991E8380094D10A /* CurriculumTVC.xib */; };
+		0E685E5B2991E9A50094D10A /* CurriculumDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E5A2991E9A50094D10A /* CurriculumDataModel.swift */; };
+		0E685E5D2991EA7A0094D10A /* CurriculumDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E5C2991EA7A0094D10A /* CurriculumDataService.swift */; };
+		0E685E602991EDEC0094D10A /* CurriculumHeaderTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E5E2991EDEC0094D10A /* CurriculumHeaderTVC.swift */; };
+		0E685E612991EDEC0094D10A /* CurriculumHeaderTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E685E5F2991EDEC0094D10A /* CurriculumHeaderTVC.xib */; };
 		0E69A039296542CB00BFD12E /* HomeTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A038296542CB00BFD12E /* HomeTab.storyboard */; };
 		0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A03A2965430D00BFD12E /* HomeViewController.swift */; };
 		0E69A03D2965439300BFD12E /* MyCourseTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */; };
@@ -167,6 +173,12 @@
 		0E6028362966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
 		0E6028372966672C00A25F48 /* CourseThumbnailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseThumbnailCollectionViewCell.xib; sourceTree = "<group>"; };
 		0E60283C2966777A00A25F48 /* CourseTableDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableDataModel.swift; sourceTree = "<group>"; };
+		0E685E562991E8380094D10A /* CurriculumTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumTVC.swift; sourceTree = "<group>"; };
+		0E685E572991E8380094D10A /* CurriculumTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurriculumTVC.xib; sourceTree = "<group>"; };
+		0E685E5A2991E9A50094D10A /* CurriculumDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumDataModel.swift; sourceTree = "<group>"; };
+		0E685E5C2991EA7A0094D10A /* CurriculumDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumDataService.swift; sourceTree = "<group>"; };
+		0E685E5E2991EDEC0094D10A /* CurriculumHeaderTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumHeaderTVC.swift; sourceTree = "<group>"; };
+		0E685E5F2991EDEC0094D10A /* CurriculumHeaderTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurriculumHeaderTVC.xib; sourceTree = "<group>"; };
 		0E69A038296542CB00BFD12E /* HomeTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeTab.storyboard; sourceTree = "<group>"; };
 		0E69A03A2965430D00BFD12E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyCourseTab.storyboard; sourceTree = "<group>"; };
@@ -440,6 +452,11 @@
 				0E60282E29656FC800A25F48 /* MyCourseTabManViewController.swift */,
 				0E69A03E296543A200BFD12E /* MyCourseViewController.swift */,
 				0EA647D1298BB0B9009AB119 /* CoursePlayerVC.swift */,
+				0E685E5A2991E9A50094D10A /* CurriculumDataModel.swift */,
+				0E685E562991E8380094D10A /* CurriculumTVC.swift */,
+				0E685E572991E8380094D10A /* CurriculumTVC.xib */,
+				0E685E5E2991EDEC0094D10A /* CurriculumHeaderTVC.swift */,
+				0E685E5F2991EDEC0094D10A /* CurriculumHeaderTVC.xib */,
 				0E04989B298CD706002425D9 /* UnitDataModel.swift */,
 				0E60282A296565C600A25F48 /* CompletionCourseViewController.swift */,
 				0E6028282965659D00A25F48 /* InCourseViewController.swift */,
@@ -529,6 +546,7 @@
 				0EFB743E2970DEE600C58E87 /* NetworkResult.swift */,
 				0E1E959A2977AC8200CBE70B /* CourseInfoDataService.swift */,
 				0EAF7B542982646E00F65E5A /* GetWishCourseDataService.swift */,
+				0E685E5C2991EA7A0094D10A /* CurriculumDataService.swift */,
 				0E0498B529908245002425D9 /* MyCourseDataService.swift */,
 				0EAF7B5A298392BB00F65E5A /* GetPaginationDataService.swift */,
 				0EA647C7298B7812009AB119 /* UserProfileService.swift */,
@@ -702,9 +720,11 @@
 				0EFB74442970FB2500C58E87 /* LoginSignup.storyboard in Resources */,
 				0EBEA84F2966B020006102F3 /* CourseTableViewCell.xib in Resources */,
 				0EF17C2A296518EF006DC95D /* Assets.xcassets in Resources */,
+				0E685E612991EDEC0094D10A /* CurriculumHeaderTVC.xib in Resources */,
 				0EC314EB29876601004C82CF /* CourseInquiryTVC.xib in Resources */,
 				0E9D151F29744E910061D1ED /* InfoImageTVC.xib in Resources */,
 				0EC314DF29875529004C82CF /* ReviewInquiryTVC.xib in Resources */,
+				0E685E592991E8380094D10A /* CurriculumTVC.xib in Resources */,
 				0E0498B2298EAD4F002425D9 /* CategoryHeaderTVC.xib in Resources */,
 				0EF17C28296518EE006DC95D /* Main.storyboard in Resources */,
 				0E9D1523297452AB0061D1ED /* SegmentTVC.xib in Resources */,
@@ -857,6 +877,7 @@
 				0E0498AD298EACD8002425D9 /* CategoryTVC.swift in Sources */,
 				0ED17B29298782BD0008D3C0 /* CourseInquiryAllVC.swift in Sources */,
 				0E1E959529778C1300CBE70B /* Xib.swift in Sources */,
+				0E685E5B2991E9A50094D10A /* CurriculumDataModel.swift in Sources */,
 				0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */,
 				0EFB74762971325600C58E87 /* HomeNC.swift in Sources */,
 				0E1E95912977841400CBE70B /* Storyboard.swift in Sources */,
@@ -877,11 +898,13 @@
 				0EAF7B572983588500F65E5A /* SettingVC.swift in Sources */,
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
 				0E0498A4298EA752002425D9 /* GetCategoryDataService.swift in Sources */,
+				0E685E582991E8380094D10A /* CurriculumTVC.swift in Sources */,
 				0E1E95E0297BBD9300CBE70B /* OnOffDescriptionVC.swift in Sources */,
 				0E550140296EA96400DD5B75 /* Layer+.swift in Sources */,
 				0EA647C8298B7812009AB119 /* UserProfileService.swift in Sources */,
 				0E1E95972977AB8800CBE70B /* Url.swift in Sources */,
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
+				0E685E5D2991EA7A0094D10A /* CurriculumDataService.swift in Sources */,
 				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,
 				0EC314E32987582A004C82CF /* GetReviewDataService.swift in Sources */,
 				0E04989E298CD7EA002425D9 /* UnitDataService.swift in Sources */,
@@ -900,6 +923,7 @@
 				0EFB743F2970DEE600C58E87 /* NetworkResult.swift in Sources */,
 				0E9D15272974EECD0061D1ED /* SignupSelectVC.swift in Sources */,
 				0E1E95DE297BB90600CBE70B /* Image.swift in Sources */,
+				0E685E602991EDEC0094D10A /* CurriculumHeaderTVC.swift in Sources */,
 				0EAF7B53298256CE00F65E5A /* SampleCourseThumbnail.swift in Sources */,
 				0E9D1522297452AB0061D1ED /* SegmentTVC.swift in Sources */,
 				0EAF7B5B298392BB00F65E5A /* GetPaginationDataService.swift in Sources */,
