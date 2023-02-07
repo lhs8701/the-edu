@@ -56,7 +56,7 @@ public class CourseCreationDtoTest {
                 .title(ExampleValue.Course.TITLE)
                 .description(ExampleValue.Course.DESCRIPTION)
                 .category("테스트")
-                .price(ExampleValue.Course.PRICE)
+                .price(159000)
                 .build();
 
         // when
