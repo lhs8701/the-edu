@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CurriculumService {
     private final ChapterJpaRepository chapterJpaRepository;
@@ -39,7 +40,6 @@ public class CurriculumService {
      *
      * @param requestDto dto
      */
-    @Transactional
     public void makeCurriculum(CurriculumDto.CreateRequest requestDto) {
         int sequence = 1;
         List<CurriculumDto.ChapterRequest> chapters = requestDto.getChapters();

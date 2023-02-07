@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.player.record.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
@@ -24,6 +25,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class ViewChecker {
     private final ViewJpaRepository viewJpaRepository;
@@ -52,7 +54,6 @@ public class ViewChecker {
             viewJpaRepository.save(view);
         }
     }
-
     public List<Unit> getCompletedUnit(Member member, Course course) {
         List<Unit> units = unitJpaRepository.findByCourse(course);
         return units.stream()
@@ -62,7 +63,6 @@ public class ViewChecker {
                 .map(View::getUnit)
                 .toList();
     }
-
     public List<Course> getCompletedCourse(Member member) {
         List<Course> entireCourses = enrollJpaRepository.findAllByMember(member).stream()
                 .map(Enroll::getCourse)

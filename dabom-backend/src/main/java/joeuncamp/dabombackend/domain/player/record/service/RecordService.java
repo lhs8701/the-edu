@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.player.record.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.NextUnitInfo;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class RecordService {
     private final MemberJpaRepository memberJpaRepository;

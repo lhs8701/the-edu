@@ -21,7 +21,6 @@ public class VideoService {
      */
     public VideoInfo saveVideo(MultipartFile multipartFile){
         File originalFile = FileUtil.createFromMultipart(multipartFile);
-        String videoUrl = hlsConvertor.convertToM3u8(originalFile);
-        return new VideoInfo(videoUrl);
+        return hlsConvertor.convertToM3u8(originalFile);
     }
 }

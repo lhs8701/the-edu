@@ -1,5 +1,7 @@
 package joeuncamp.dabombackend.util.hls.service;
 
+import joeuncamp.dabombackend.domain.file.video.entity.MediaInfo;
+import joeuncamp.dabombackend.domain.file.video.entity.VideoInfo;
 import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +37,7 @@ public class HlsConvertor {
      * @param file 변환할 파일
      * @return 변환된 파일의 절대경로
      */
-    public String convertToM3u8(File file) {
+    public VideoInfo convertToM3u8(File file) {
         String fileName = file.getName();
         String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
         String m3u8FilePath = VIDEO_PATH + DELIMITER + onlyFileName + M3U8_POSTFIX + DELIMITER + onlyFileName + M3U8_EXTENSION;
@@ -49,12 +51,12 @@ public class HlsConvertor {
         executeConvertor(inputPath, outputPath);
         log.info("[output file information]");
         getMediaInfo(outputPath);
-        return m3u8FilePath;
+        return new VideoInfo(m3u8FilePath);
     }
 
     private void executeConvertor(String inputPath, String outputPath) {
         FFmpegBuilder builder = new FFmpegBuilder()
-//                .overrideOutputFiles(true)
+                .overrideOutputFiles(true)
                 .setInput(inputPath)
                 .addOutput(outputPath)
                 .addExtraArgs("-profile:v", "baseline")
@@ -71,17 +73,8 @@ public class HlsConvertor {
     private void getMediaInfo(String filePath) {
         try {
             FFmpegProbeResult probeResult = ffprobe.probe(filePath);
-            log.info("--Media Info--");
-            log.info("파일명: {}", probeResult.getFormat().filename); //파일명
-            log.info("포맷명: {}", probeResult.getFormat().format_name);//포맷명
-            log.info("영상 길이(초): {}", probeResult.getFormat().duration);//길이
-            log.info("영상 크기: {}", probeResult.getFormat().size);//크기
-            log.info("비트레이트: {}", probeResult.getStreams().get(0).bit_rate); //비트레이트
-            log.info("가로해상도: {}", probeResult.getStreams().get(0).width);//가로해상도
-            log.info("세로해상도: {}", probeResult.getStreams().get(0).height);//세로해상도
-            log.info("코덱 이름: {}", probeResult.getStreams().get(0).codec_name); //코덱 이름
-            log.info("코덱 타입: {}", probeResult.getStreams().get(0).codec_type.name()); //코덱 타입(비디오/오디오)
-            log.info("--");
+            MediaInfo mediaInfo = new MediaInfo(probeResult);
+            log.info(mediaInfo.toString());
         } catch (IOException e) {
             log.info(e.getMessage());
             throw new CInternalServerException();

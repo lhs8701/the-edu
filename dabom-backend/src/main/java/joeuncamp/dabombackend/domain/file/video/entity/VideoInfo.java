@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.awt.*;
+
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,5 +15,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VideoInfo {
     String filePath;
-
 }
