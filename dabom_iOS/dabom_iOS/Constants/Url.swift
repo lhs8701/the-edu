@@ -58,6 +58,8 @@ extension Const {
         static let enrollCourse = "\(apiBaseUrl)/courses"
         static let isEnrollCourse = "\(apiBaseUrl)/courses"
         
+        static let getCourseRanking = "\(apiBaseUrl)/courses/category/ranking"
+        
         // MARK: - Inquiry
         static let postInquiry = "http://\(serverIP)/api/courses/inquiries"
         static let getInquiry = "http://\(serverIP)/api/courses"

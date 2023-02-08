@@ -11,7 +11,8 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var homeTableView: UITableView!
     
-    private var courseTableList: Array<CourseTableDataModel> = []
+    private var courseTableList: [CourseTableDataModel] = []
+    private var courseRankingList: [CourseRankingDataModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +22,12 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = .black
         
         setTV()
+        setRanking()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-//    override func viewDidAppear(_ animated: Bool) {
-////        self.navigationController?.isNavigationBarHidden = true
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-//    }
 
     private func setTV() {
         homeTableView.register(UINib(nibName: Const.Xib.Name.courseTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseTVC)
@@ -39,8 +37,30 @@ class HomeViewController: UIViewController {
         homeTableView.dataSource = self
         homeTableView.separatorStyle = .none
         
-        
     }
+    
+    private func setRanking() {
+        CourseRankingDataService.shared.getCourseRanking { response in
+            switch response {
+            case .success(let data):
+                if let data = data as? [CourseRankingDataModel] {
+                    self.courseRankingList = data
+                    self.homeTableView.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
     
     @IBAction func categoryBtnPressed(_ sender: Any) {
         guard let categoryVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: "CategorySelectVC") as? CategorySelectVC else {return}
@@ -54,18 +74,7 @@ class HomeViewController: UIViewController {
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-//        switch indexPath.row {
-//        case 0:
-//            return 200
-//        case 1, 2, 3, 4:
-//            return 430
-//        default:
-//            return 430
-//        }
         return UITableView.automaticDimension
-        
-        
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -78,7 +87,7 @@ extension HomeViewController: UITableViewDelegate {
 extension HomeViewController: UITableViewDataSource {
     // 행 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 1 + courseRankingList.count
     }
     
     // 행 번호마다 셀 설정
@@ -87,24 +96,43 @@ extension HomeViewController: UITableViewDataSource {
     // 마지막 -> 로드맵 (아직 구현 안됨)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
-        case 0:
+//        switch indexPath.row {
+//        case 0:
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: BannerTableViewCell.identifier, for: indexPath) as? BannerTableViewCell else { return UITableViewCell() }
+//            cell.setData(BannerDataModel.sampleData)
+//            cell.delegate = self
+//
+//            return cell
+//        case 1, 2, 3, 4, 5:
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: CourseTableViewCell.identifier, for: indexPath) as? CourseTableViewCell else { return UITableViewCell() }
+//
+//    //        cell.setData(courseTableList[indexPath.row])
+//            cell.setData(CourseTableDataModel.sampleData[indexPath.row - 1])
+//            cell.delegate = self
+//
+//            return cell
+//        default:
+//            return UITableViewCell()
+//        }
+        
+        if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BannerTableViewCell.identifier, for: indexPath) as? BannerTableViewCell else { return UITableViewCell() }
             cell.setData(BannerDataModel.sampleData)
             cell.delegate = self
             
             return cell
-        case 1, 2, 3, 4, 5:
+        } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CourseTableViewCell.identifier, for: indexPath) as? CourseTableViewCell else { return UITableViewCell() }
 
     //        cell.setData(courseTableList[indexPath.row])
-            cell.setData(CourseTableDataModel.sampleData[indexPath.row - 1])
+//            cell.setData(CourseTableDataModel.sampleData[indexPath.row - 1])
+            cell.setData(courseRankingData: self.courseRankingList[indexPath.row - 1])
+            
             cell.delegate = self
             
             return cell
-        default:
-            return UITableViewCell()
         }
+        
         
     }
     

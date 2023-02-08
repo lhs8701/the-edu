@@ -45,6 +45,8 @@
 		0E685E5D2991EA7A0094D10A /* CurriculumDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E5C2991EA7A0094D10A /* CurriculumDataService.swift */; };
 		0E685E602991EDEC0094D10A /* CurriculumHeaderTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E5E2991EDEC0094D10A /* CurriculumHeaderTVC.swift */; };
 		0E685E612991EDEC0094D10A /* CurriculumHeaderTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E685E5F2991EDEC0094D10A /* CurriculumHeaderTVC.xib */; };
+		0E685E6329931ED40094D10A /* CourseRankingDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E6229931ED40094D10A /* CourseRankingDataModel.swift */; };
+		0E685E6529931F1F0094D10A /* CourseRankingDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E6429931F1F0094D10A /* CourseRankingDataService.swift */; };
 		0E69A039296542CB00BFD12E /* HomeTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A038296542CB00BFD12E /* HomeTab.storyboard */; };
 		0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A03A2965430D00BFD12E /* HomeViewController.swift */; };
 		0E69A03D2965439300BFD12E /* MyCourseTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */; };
@@ -179,6 +181,8 @@
 		0E685E5C2991EA7A0094D10A /* CurriculumDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumDataService.swift; sourceTree = "<group>"; };
 		0E685E5E2991EDEC0094D10A /* CurriculumHeaderTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurriculumHeaderTVC.swift; sourceTree = "<group>"; };
 		0E685E5F2991EDEC0094D10A /* CurriculumHeaderTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurriculumHeaderTVC.xib; sourceTree = "<group>"; };
+		0E685E6229931ED40094D10A /* CourseRankingDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRankingDataModel.swift; sourceTree = "<group>"; };
+		0E685E6429931F1F0094D10A /* CourseRankingDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRankingDataService.swift; sourceTree = "<group>"; };
 		0E69A038296542CB00BFD12E /* HomeTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeTab.storyboard; sourceTree = "<group>"; };
 		0E69A03A2965430D00BFD12E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyCourseTab.storyboard; sourceTree = "<group>"; };
@@ -425,6 +429,7 @@
 				0EC314E029875753004C82CF /* CourseReviewDataModel.swift */,
 				0EC314E429876491004C82CF /* CourseInquiryDataModel.swift */,
 				0EAF7B52298256CE00F65E5A /* SampleCourseThumbnail.swift */,
+				0E685E6229931ED40094D10A /* CourseRankingDataModel.swift */,
 				0E1E95982977ABEA00CBE70B /* CourseInfoDataModel.swift */,
 				0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */,
 				0E60283C2966777A00A25F48 /* CourseTableDataModel.swift */,
@@ -548,6 +553,7 @@
 				0EAF7B542982646E00F65E5A /* GetWishCourseDataService.swift */,
 				0E685E5C2991EA7A0094D10A /* CurriculumDataService.swift */,
 				0E0498B529908245002425D9 /* MyCourseDataService.swift */,
+				0E685E6429931F1F0094D10A /* CourseRankingDataService.swift */,
 				0EAF7B5A298392BB00F65E5A /* GetPaginationDataService.swift */,
 				0EA647C7298B7812009AB119 /* UserProfileService.swift */,
 				0E04989D298CD7EA002425D9 /* UnitDataService.swift */,
@@ -927,6 +933,7 @@
 				0EAF7B53298256CE00F65E5A /* SampleCourseThumbnail.swift in Sources */,
 				0E9D1522297452AB0061D1ED /* SegmentTVC.swift in Sources */,
 				0EAF7B5B298392BB00F65E5A /* GetPaginationDataService.swift in Sources */,
+				0E685E6529931F1F0094D10A /* CourseRankingDataService.swift in Sources */,
 				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
 				0E9B0F4C2990962B004DA0F1 /* StatementVC.swift in Sources */,
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,
@@ -937,6 +944,7 @@
 				0EFB7474297131BC00C58E87 /* LoginSignupNC.swift in Sources */,
 				0E6028382966672C00A25F48 /* CourseThumbnailCollectionViewCell.swift in Sources */,
 				0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */,
+				0E685E6329931ED40094D10A /* CourseRankingDataModel.swift in Sources */,
 				0E1E95A12978CE0700CBE70B /* UserGrantInfoDataModel.swift in Sources */,
 				0E04989C298CD706002425D9 /* UnitDataModel.swift in Sources */,
 			);
