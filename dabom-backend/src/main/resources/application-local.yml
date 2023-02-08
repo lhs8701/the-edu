@@ -17,7 +17,8 @@ spring:
         enable_lazy_load_no_trans: true
         format_sql: true
         hbm2ddl:
-          auto: update
+          auto: create
+    defer-datasource-initialization: true #더미데이터 용
     show-sql: true
   data:
     redis:
@@ -27,6 +28,10 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  sql: #더미데이터 용
+    init:
+      mode: always
+      data-locations: classpath:data.sql
 springdoc:
   use-fqn: true # 정규화된 스키마명 사용 설정
   api-docs:
