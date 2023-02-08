@@ -32,6 +32,11 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
         contentView.layer.masksToBounds = true
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+    }
+    
     
     func setData(_ thumbnailData: CourseThumbnailDataModel) {
         thumbnailImage.image = thumbnailData.thumbnailImage

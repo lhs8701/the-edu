@@ -1,15 +1,17 @@
 //
-//  BannerDataModel.swift
+//  EventDataModel.swift
 //  dabom_iOS
 //
-//  Created by 김태현 on 2023/01/06.
+//  Created by 김태현 on 2023/02/08.
 //
 
-import UIKit
+import Foundation
 
-struct BannerDataModel: Codable {
+struct EventDataModel: Codable {
     let id: Int
     let title: String
+    let content: String
+    let writer: String
     let startDate: String
     let endDate: String
     let bannerImage: ImageDataModel

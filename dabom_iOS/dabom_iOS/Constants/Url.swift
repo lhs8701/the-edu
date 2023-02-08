@@ -17,6 +17,8 @@ extension Const {
         static let m3u8Test = "http://the-edu.co.kr/static/videos/test-m3u8/test.m3u8"
         
         static let getCategory = "\(apiBaseUrl)/ref/category"
+        static let getOngoingBanner = "\(apiBaseUrl)/events/ongoing"
+        static let getEvent = "\(apiBaseUrl)/events"
         
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"
@@ -57,6 +59,8 @@ extension Const {
         
         static let enrollCourse = "\(apiBaseUrl)/courses"
         static let isEnrollCourse = "\(apiBaseUrl)/courses"
+        
+        static let getCourseRanking = "\(apiBaseUrl)/courses/category/ranking"
         
         // MARK: - Inquiry
         static let postInquiry = "http://\(serverIP)/api/courses/inquiries"

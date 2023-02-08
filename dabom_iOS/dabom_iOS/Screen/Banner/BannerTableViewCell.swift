@@ -8,23 +8,27 @@
 import UIKit
 
 protocol BannerCVCellDelegate {
-    func BannerSelectedCVCell(index: Int, bannerName: String)
+    func BannerSelectedCVCell(eventId: Int, bannerName: String)
 }
 
 class BannerTableViewCell: UITableViewCell {
-
-    static let identifier = "BannerTableViewCell"
-    
+    // MARK: - IBOutlet
     @IBOutlet weak var bannerCollectionView: UICollectionView!
+    
+    
+    // MARK: - let, var
+    static let identifier = "BannerTableViewCell"
         
-    var bannerData: Array<BannerDataModel>?
+    var bannerData: [BannerDataModel] = []
     
     var delegate: BannerCVCellDelegate?
     
     var currentPage: Int = 0
     
+    var autoStart: Bool = false
     
     
+    // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -35,9 +39,6 @@ class BannerTableViewCell: UITableViewCell {
         
         bannerCollectionView.decelerationRate = .fast
         bannerCollectionView.isPagingEnabled = true
-//        bannerCollectionView.scroll
-        
-        startAutoScroll()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -46,15 +47,25 @@ class BannerTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(_ bannerTableData: [BannerDataModel]) {
+    // MARK: - banner Data set
+    func setData(bannerTableData: [BannerDataModel]) {
         bannerData = bannerTableData
+        bannerCollectionView.reloadData()
+        
+        if autoStart {
+            startAutoScroll()
+        }
     }
     
+    // MARK: - banner AutoScroll
     func startAutoScroll() {
-        let totalCellCount = bannerCollectionView.numberOfItems(inSection: 0)
+        print("startAutoScroll()")
+        autoStart = false
+        let totalCellCount = bannerData.count
         
         DispatchQueue.global(qos: .default).async {
             while true {
+                print("current: \(self.currentPage)  total: \(totalCellCount)")
                 sleep(3)
                 DispatchQueue.main.async {
                     self.bannerCollectionView.scrollToItem(at: IndexPath(item: self.currentPage, section: 0), at: .right, animated: true)
@@ -79,23 +90,24 @@ class BannerTableViewCell: UITableViewCell {
 extension BannerTableViewCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return self.bannerData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate {
-            delegate.BannerSelectedCVCell(index: indexPath.item, bannerName: bannerData![indexPath.row].bannerImageName)
+            delegate.BannerSelectedCVCell(eventId: bannerData[indexPath.row].id, bannerName: bannerData[indexPath.row].title)
         }
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension BannerTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BannerCollectionViewCell", for: indexPath) as? BannerCollectionViewCell else { return UICollectionViewCell() }
+
+        cell.setData(bannerData: self.bannerData[indexPath.row])
         
-//        cell.bannerImageView.image =
-        cell.setData(bannerData![indexPath.row])
         
         return cell
     }
@@ -103,6 +115,7 @@ extension BannerTableViewCell: UICollectionViewDataSource {
     
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension BannerTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize.init(width: bannerCollectionView.bounds.width, height: bannerCollectionView.bounds.height)
@@ -117,6 +130,7 @@ extension BannerTableViewCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension BannerTableViewCell: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let x = scrollView.contentOffset.x

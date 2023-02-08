@@ -8,11 +8,20 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
+    
+    // MARK: - IBOutlet
     @IBOutlet weak var homeTableView: UITableView!
     
-    private var courseTableList: Array<CourseTableDataModel> = []
     
+    // MARK: - let, var
+    private var courseTableList: [CourseTableDataModel] = []
+    private var courseRankingList: [CourseRankingDataModel] = []
+    private var bannerList: [BannerDataModel] = []
+    
+    var autoStart: Bool = false
+    
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,16 +30,16 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = .black
         
         setTV()
+        setRanking()
+        setBanner()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-//    override func viewDidAppear(_ animated: Bool) {
-////        self.navigationController?.isNavigationBarHidden = true
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-//    }
 
+    
+    // MARK: - TableView Setting
     private func setTV() {
         homeTableView.register(UINib(nibName: Const.Xib.Name.courseTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseTVC)
         homeTableView.register(UINib(nibName: Const.Xib.Name.bannerTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.bannerTVC)
@@ -39,9 +48,55 @@ class HomeViewController: UIViewController {
         homeTableView.dataSource = self
         homeTableView.separatorStyle = .none
         
-        
     }
     
+    // MARK: - 강좌 랭킹 정보 가져오기
+    private func setRanking() {
+        CourseRankingDataService.shared.getCourseRanking { response in
+            switch response {
+            case .success(let data):
+                if let data = data as? [CourseRankingDataModel] {
+                    self.courseRankingList = data
+                    self.homeTableView.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
+    private func setBanner() {
+        BannerDataService.shared.getOngoingBanner { response in
+            switch response {
+            case .success(let data):
+                if let data = data as? [BannerDataModel] {
+                    self.bannerList = data
+                    self.homeTableView.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
+    
+    // MARK: - 카테고리 햄버거 버튼 눌렀을 때
     @IBAction func categoryBtnPressed(_ sender: Any) {
         guard let categoryVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: "CategorySelectVC") as? CategorySelectVC else {return}
         
@@ -54,18 +109,7 @@ class HomeViewController: UIViewController {
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-//        switch indexPath.row {
-//        case 0:
-//            return 200
-//        case 1, 2, 3, 4:
-//            return 430
-//        default:
-//            return 430
-//        }
         return UITableView.automaticDimension
-        
-        
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -78,7 +122,7 @@ extension HomeViewController: UITableViewDelegate {
 extension HomeViewController: UITableViewDataSource {
     // 행 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 1 + courseRankingList.count
     }
     
     // 행 번호마다 셀 설정
@@ -87,47 +131,58 @@ extension HomeViewController: UITableViewDataSource {
     // 마지막 -> 로드맵 (아직 구현 안됨)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
-        case 0:
+        // 0 -> 배너 셀
+        if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BannerTableViewCell.identifier, for: indexPath) as? BannerTableViewCell else { return UITableViewCell() }
-            cell.setData(BannerDataModel.sampleData)
+//            cell.setData(BannerDataModel.sampleData)
+            if self.bannerList.count != 0 {
+                if !autoStart {
+                    cell.autoStart = true
+                    self.autoStart = true
+                }
+                
+                cell.setData(bannerTableData: self.bannerList)
+            }
+            
             cell.delegate = self
             
             return cell
-        case 1, 2, 3, 4, 5:
+        } else {
+            // 배너 셀 이후로 강좌 랭킹 셀
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CourseTableViewCell.identifier, for: indexPath) as? CourseTableViewCell else { return UITableViewCell() }
 
-    //        cell.setData(courseTableList[indexPath.row])
-            cell.setData(CourseTableDataModel.sampleData[indexPath.row - 1])
+            cell.setData(courseRankingData: self.courseRankingList[indexPath.row - 1])
             cell.delegate = self
             
             return cell
-        default:
-            return UITableViewCell()
         }
         
     }
     
-    
 }
 
+// MARK: - 클래스 랭킹에 표시된 강좌 썸네일 클릭 시 강좌 상세보기로 이동
 extension HomeViewController: CourseCVCellDelegate {
-    func CourseSelectedCVCell(index: Int, courseName: String) {
+    func CourseSelectedCVCell(courseId: Int, courseName: String) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
-        
-        nextVC.courseId = 1
+
+        nextVC.courseId = courseId
         nextVC.courseTitle = courseName
+        
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
 }
 
+// MARK: - 배너 셀 클릭 시 이벤트 페이지로 이동
 extension HomeViewController: BannerCVCellDelegate {
-    func BannerSelectedCVCell(index: Int, bannerName: String) {
+    func BannerSelectedCVCell(eventId: Int, bannerName: String) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.bannerInfo) as? BannerInfoViewController else { return }
         
-        nextVC.bannerImageName = bannerName
+        nextVC.eventId = eventId
+        nextVC.bannerTitle = bannerName
+        
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

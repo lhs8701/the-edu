@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BannerCollectionViewCell: UICollectionViewCell {
 
@@ -16,8 +17,9 @@ class BannerCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func setData(_ bannerData: BannerDataModel) {
-        bannerImageView.image = bannerData.bannerImage
+    func setData(bannerData: BannerDataModel) {
+        bannerImageView.kf.indicatorType = .activity
+        bannerImageView.setImage(with: bannerData.bannerImage.mediumFilePath)
     }
 
 }
