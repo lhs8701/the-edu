@@ -68,4 +68,13 @@ public class EventController {
         eventService.updateEvent(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @Operation(summary="이벤트를 삭제합니다.", description="")
+    @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/events/{eventId}")
+    public ResponseEntity<Void> deleteEvent(@PathVariable Long eventId){
+        eventService.deleteEvent(eventId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

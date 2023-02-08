@@ -78,4 +78,14 @@ public class EventService {
         event.update(requestDto);
         eventJpaRepository.save(event);
     }
+
+    /**
+     * 이벤트를 삭제합니다.
+     *
+     * @param eventId 삭제할 이벤트
+     */
+    public void deleteEvent(Long eventId) {
+        Event event = eventJpaRepository.findById(eventId).orElseThrow(CResourceNotFoundException::new);
+        eventJpaRepository.delete(event);
+    }
 }
