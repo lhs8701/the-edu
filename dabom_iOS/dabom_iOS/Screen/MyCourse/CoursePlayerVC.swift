@@ -22,6 +22,8 @@ class CoursePlayerVC: UIViewController {
     
     @IBOutlet weak var courseCurriculum: UILabel!
     
+    @IBOutlet weak var courseCurriclumView: UIView!
+    
     // MARK: - let, var
     let Url = URL(string: Const.Url.m3u8Test)
     
@@ -39,11 +41,7 @@ class CoursePlayerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playBtn.isEnabled = false
-    
-//        unitThumbnailImage.image = UIImage(named: "testThumb01")
-        
-        
-        
+       
         configure()
         setTV()
         getUnit()
@@ -83,12 +81,15 @@ class CoursePlayerVC: UIViewController {
         saveRecord(time: currentTime)
     }
     
+    // MARK: - View configure
     private func configure() {
         self.courseCurriculum.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 4.0)
         self.unitThumbnailImage.setImage(with: self.thumbnailImage)
         self.unitTitleLabel.text = self.unitTitle
+        self.courseCurriclumView.layer.drawLineAt(edges: [.bottom], color: .lightGray, width: 5.0)
     }
     
+    // MARK: - TableView Setting
     private func setTV() {
         self.curriculumTV.delegate = self
         self.curriculumTV.dataSource = self
@@ -96,6 +97,7 @@ class CoursePlayerVC: UIViewController {
         self.curriculumTV.register(UINib(nibName: Const.Xib.Name.curriculumHeaderTVC, bundle: nil), forHeaderFooterViewReuseIdentifier: Const.Xib.Identifier.curriculumHeaderTVC)
     }
     
+    // MARK: - 커리큘럼 정보 가져오기
     private func setCurriculum() {
         if let courseId = courseId {
             CurriculumDataService.shared.getUserCurriculum(courseId: courseId) { response in

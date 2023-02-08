@@ -84,9 +84,9 @@
                             <constraint firstItem="fVW-ih-IGd" firstAttribute="trailing" secondItem="ula-L6-eJ8" secondAttribute="trailing" id="3Ba-0v-nCG"/>
                             <constraint firstItem="ATi-Nb-i3B" firstAttribute="leading" secondItem="Ypm-r9-p9y" secondAttribute="leading" id="9VC-i8-Wj2"/>
                             <constraint firstItem="ATi-Nb-i3B" firstAttribute="trailing" secondItem="Ypm-r9-p9y" secondAttribute="trailing" id="Fv7-zI-GkT"/>
-                            <constraint firstItem="ezm-Ah-vak" firstAttribute="top" secondItem="bby-eo-5Z9" secondAttribute="bottom" id="IyG-9Y-I1y"/>
                             <constraint firstItem="fVW-ih-IGd" firstAttribute="leading" secondItem="ula-L6-eJ8" secondAttribute="leading" id="LrX-c3-dqD"/>
                             <constraint firstItem="Ypm-r9-p9y" firstAttribute="trailing" secondItem="ula-L6-eJ8" secondAttribute="trailing" id="N2p-23-65M"/>
+                            <constraint firstItem="ezm-Ah-vak" firstAttribute="top" secondItem="bby-eo-5Z9" secondAttribute="bottom" id="OVa-js-BlZ"/>
                             <constraint firstItem="ula-L6-eJ8" firstAttribute="top" secondItem="ATi-Nb-i3B" secondAttribute="bottom" id="OoN-wL-XCh"/>
                             <constraint firstItem="Ypm-r9-p9y" firstAttribute="bottom" secondItem="ezm-Ah-vak" secondAttribute="bottom" id="QbJ-oP-klT"/>
                             <constraint firstItem="bby-eo-5Z9" firstAttribute="leading" secondItem="Ypm-r9-p9y" secondAttribute="leading" id="WvT-XX-VOV"/>
@@ -100,6 +100,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="courseCurriclumView" destination="bby-eo-5Z9" id="MdG-lB-EQJ"/>
                         <outlet property="courseCurriculum" destination="9Kc-qV-brT" id="cDM-ve-gxG"/>
                         <outlet property="curriculumTV" destination="ezm-Ah-vak" id="CfW-EH-R6i"/>
                         <outlet property="playBtn" destination="fVW-ih-IGd" id="sK5-kz-doJ"/>
