@@ -47,6 +47,7 @@
 		0E685E612991EDEC0094D10A /* CurriculumHeaderTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E685E5F2991EDEC0094D10A /* CurriculumHeaderTVC.xib */; };
 		0E685E6329931ED40094D10A /* CourseRankingDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E6229931ED40094D10A /* CourseRankingDataModel.swift */; };
 		0E685E6529931F1F0094D10A /* CourseRankingDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E6429931F1F0094D10A /* CourseRankingDataService.swift */; };
+		0E685E67299336C20094D10A /* BannerDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E66299336C20094D10A /* BannerDataService.swift */; };
 		0E69A039296542CB00BFD12E /* HomeTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A038296542CB00BFD12E /* HomeTab.storyboard */; };
 		0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A03A2965430D00BFD12E /* HomeViewController.swift */; };
 		0E69A03D2965439300BFD12E /* MyCourseTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */; };
@@ -183,6 +184,7 @@
 		0E685E5F2991EDEC0094D10A /* CurriculumHeaderTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurriculumHeaderTVC.xib; sourceTree = "<group>"; };
 		0E685E6229931ED40094D10A /* CourseRankingDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRankingDataModel.swift; sourceTree = "<group>"; };
 		0E685E6429931F1F0094D10A /* CourseRankingDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRankingDataService.swift; sourceTree = "<group>"; };
+		0E685E66299336C20094D10A /* BannerDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDataService.swift; sourceTree = "<group>"; };
 		0E69A038296542CB00BFD12E /* HomeTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeTab.storyboard; sourceTree = "<group>"; };
 		0E69A03A2965430D00BFD12E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyCourseTab.storyboard; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 				0E685E6429931F1F0094D10A /* CourseRankingDataService.swift */,
 				0EAF7B5A298392BB00F65E5A /* GetPaginationDataService.swift */,
 				0EA647C7298B7812009AB119 /* UserProfileService.swift */,
+				0E685E66299336C20094D10A /* BannerDataService.swift */,
 				0E04989D298CD7EA002425D9 /* UnitDataService.swift */,
 				0E1E959E2977C05B00CBE70B /* AuthenticationService.swift */,
 				0E0498A3298EA752002425D9 /* GetCategoryDataService.swift */,
@@ -909,6 +912,7 @@
 				0E550140296EA96400DD5B75 /* Layer+.swift in Sources */,
 				0EA647C8298B7812009AB119 /* UserProfileService.swift in Sources */,
 				0E1E95972977AB8800CBE70B /* Url.swift in Sources */,
+				0E685E67299336C20094D10A /* BannerDataService.swift in Sources */,
 				0E69A03F296543A200BFD12E /* MyCourseViewController.swift in Sources */,
 				0E685E5D2991EA7A0094D10A /* CurriculumDataService.swift in Sources */,
 				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol BannerCVCellDelegate {
-    func BannerSelectedCVCell(index: Int, bannerName: String)
+    func BannerSelectedCVCell(eventId: Int, bannerName: String)
 }
 
 class BannerTableViewCell: UITableViewCell {
@@ -17,11 +17,13 @@ class BannerTableViewCell: UITableViewCell {
     
     @IBOutlet weak var bannerCollectionView: UICollectionView!
         
-    var bannerData: Array<BannerDataModel>?
+    var bannerData: [BannerDataModel] = []
     
     var delegate: BannerCVCellDelegate?
     
     var currentPage: Int = 0
+    
+    var autoStart: Bool = false
     
     
     
@@ -35,9 +37,6 @@ class BannerTableViewCell: UITableViewCell {
         
         bannerCollectionView.decelerationRate = .fast
         bannerCollectionView.isPagingEnabled = true
-//        bannerCollectionView.scroll
-        
-        startAutoScroll()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -46,15 +45,23 @@ class BannerTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(_ bannerTableData: [BannerDataModel]) {
+    func setData(bannerTableData: [BannerDataModel]) {
         bannerData = bannerTableData
+        bannerCollectionView.reloadData()
+        
+        if autoStart {
+            startAutoScroll()
+        }
     }
     
     func startAutoScroll() {
-        let totalCellCount = bannerCollectionView.numberOfItems(inSection: 0)
+        print("startAutoScroll()")
+        autoStart = false
+        let totalCellCount = bannerData.count
         
         DispatchQueue.global(qos: .default).async {
             while true {
+                print("current: \(self.currentPage)  total: \(totalCellCount)")
                 sleep(3)
                 DispatchQueue.main.async {
                     self.bannerCollectionView.scrollToItem(at: IndexPath(item: self.currentPage, section: 0), at: .right, animated: true)
@@ -79,12 +86,12 @@ class BannerTableViewCell: UITableViewCell {
 extension BannerTableViewCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return self.bannerData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let delegate = delegate {
-            delegate.BannerSelectedCVCell(index: indexPath.item, bannerName: bannerData![indexPath.row].bannerImageName)
+            delegate.BannerSelectedCVCell(eventId: bannerData[indexPath.row].id, bannerName: bannerData[indexPath.row].title)
         }
     }
 }
@@ -95,7 +102,9 @@ extension BannerTableViewCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BannerCollectionViewCell", for: indexPath) as? BannerCollectionViewCell else { return UICollectionViewCell() }
         
 //        cell.bannerImageView.image =
-        cell.setData(bannerData![indexPath.row])
+//        cell.setData(bannerData![indexPath.row])
+        cell.setData(bannerData: self.bannerData[indexPath.row])
+        
         
         return cell
     }

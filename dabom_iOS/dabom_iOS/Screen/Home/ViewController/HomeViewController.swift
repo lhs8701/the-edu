@@ -16,6 +16,9 @@ class HomeViewController: UIViewController {
     // MARK: - let, var
     private var courseTableList: [CourseTableDataModel] = []
     private var courseRankingList: [CourseRankingDataModel] = []
+    private var bannerList: [BannerDataModel] = []
+    
+    var autoStart: Bool = false
     
     
     // MARK: - Life Cycle
@@ -28,6 +31,7 @@ class HomeViewController: UIViewController {
         
         setTV()
         setRanking()
+        setBanner()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +57,28 @@ class HomeViewController: UIViewController {
             case .success(let data):
                 if let data = data as? [CourseRankingDataModel] {
                     self.courseRankingList = data
+                    self.homeTableView.reloadData()
+                }
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
+    private func setBanner() {
+        BannerDataService.shared.getOngoingBanner { response in
+            switch response {
+            case .success(let data):
+                if let data = data as? [BannerDataModel] {
+                    self.bannerList = data
                     self.homeTableView.reloadData()
                 }
             case .requestErr(let message):
@@ -108,7 +134,16 @@ extension HomeViewController: UITableViewDataSource {
         // 0 -> 배너 셀
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BannerTableViewCell.identifier, for: indexPath) as? BannerTableViewCell else { return UITableViewCell() }
-            cell.setData(BannerDataModel.sampleData)
+//            cell.setData(BannerDataModel.sampleData)
+            if self.bannerList.count != 0 {
+                cell.setData(bannerTableData: self.bannerList)
+                
+                if !autoStart {
+                    cell.autoStart = true
+                    self.autoStart = true
+                }
+            }
+            
             cell.delegate = self
             
             return cell
@@ -142,8 +177,9 @@ extension HomeViewController: CourseCVCellDelegate {
 
 // MARK: - 배너 셀 클릭 시 이벤트 페이지로 이동
 extension HomeViewController: BannerCVCellDelegate {
-    func BannerSelectedCVCell(index: Int, bannerName: String) {
+    func BannerSelectedCVCell(eventId: Int, bannerName: String) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.bannerInfo) as? BannerInfoViewController else { return }
+        
         
         nextVC.bannerImageName = bannerName
         nextVC.modalPresentationStyle = .fullScreen

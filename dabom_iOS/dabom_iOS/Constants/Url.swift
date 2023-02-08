@@ -17,6 +17,7 @@ extension Const {
         static let m3u8Test = "http://the-edu.co.kr/static/videos/test-m3u8/test.m3u8"
         
         static let getCategory = "\(apiBaseUrl)/ref/category"
+        static let getOngoingBanner = "\(apiBaseUrl)/events/ongoing"
         
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"

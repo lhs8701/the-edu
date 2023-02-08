@@ -269,21 +269,8 @@
                                     <action selector="kakaoSignup:" destination="fsC-fl-o0Y" eventType="touchUpInside" id="4Dn-RF-1Gg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zct-a6-Qb8">
-                                <rect key="frame" x="50" y="253" width="275" height="50"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="dzd-LC-6cX"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="hy2-FC-msk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="네이버로 시작하기">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deG-Fs-MkM">
-                                <rect key="frame" x="50" y="323" width="275" height="43"/>
+                                <rect key="frame" x="50" y="253" width="275" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="deG-Fs-MkM" secondAttribute="height" multiplier="32:5" id="oAo-iP-66O"/>
                                 </constraints>
@@ -303,13 +290,10 @@
                             <constraint firstItem="deG-Fs-MkM" firstAttribute="leading" secondItem="ZCB-AU-lPs" secondAttribute="leading" constant="50" id="2Rb-Pc-0S4"/>
                             <constraint firstItem="ZCB-AU-lPs" firstAttribute="trailing" secondItem="deG-Fs-MkM" secondAttribute="trailing" constant="50" id="2UP-GW-Ei2"/>
                             <constraint firstItem="KW6-nv-tVd" firstAttribute="leading" secondItem="ZCB-AU-lPs" secondAttribute="leading" constant="50" id="2cq-US-b8W"/>
-                            <constraint firstItem="deG-Fs-MkM" firstAttribute="top" secondItem="zct-a6-Qb8" secondAttribute="bottom" constant="20" id="2uC-YL-9ij"/>
-                            <constraint firstItem="zct-a6-Qb8" firstAttribute="top" secondItem="NgP-S0-KcT" secondAttribute="bottom" constant="20" id="73p-l0-CBs"/>
                             <constraint firstItem="NgP-S0-KcT" firstAttribute="leading" secondItem="ZCB-AU-lPs" secondAttribute="leading" constant="50" id="8Um-GC-Mdy"/>
                             <constraint firstItem="ZCB-AU-lPs" firstAttribute="trailing" secondItem="NgP-S0-KcT" secondAttribute="trailing" constant="50" id="Buc-98-SSw"/>
                             <constraint firstItem="ZCB-AU-lPs" firstAttribute="trailing" secondItem="KW6-nv-tVd" secondAttribute="trailing" constant="50" id="CDS-6F-7HF"/>
-                            <constraint firstItem="ZCB-AU-lPs" firstAttribute="trailing" secondItem="zct-a6-Qb8" secondAttribute="trailing" constant="50" id="Ok2-2B-cQW"/>
-                            <constraint firstItem="zct-a6-Qb8" firstAttribute="leading" secondItem="ZCB-AU-lPs" secondAttribute="leading" constant="50" id="TuJ-cK-3sk"/>
+                            <constraint firstItem="deG-Fs-MkM" firstAttribute="top" secondItem="NgP-S0-KcT" secondAttribute="bottom" constant="20" id="KRh-8j-YSa"/>
                             <constraint firstItem="KW6-nv-tVd" firstAttribute="top" secondItem="ZCB-AU-lPs" secondAttribute="top" constant="80" id="pzt-Wu-CHu"/>
                             <constraint firstItem="NgP-S0-KcT" firstAttribute="top" secondItem="KW6-nv-tVd" secondAttribute="bottom" constant="20" id="vNU-AS-asF"/>
                         </constraints>
@@ -576,9 +560,6 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

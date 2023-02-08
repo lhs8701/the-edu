@@ -16,8 +16,8 @@ class BannerCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func setData(_ bannerData: BannerDataModel) {
-        bannerImageView.image = bannerData.bannerImage
+    func setData(bannerData: BannerDataModel) {
+        bannerImageView.setImage(with: bannerData.bannerImage.mediumFilePath)
     }
 
 }
