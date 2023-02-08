@@ -23,7 +23,6 @@ export default function UnitInfoOutline() {
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const [video, setVideo] = useState();
   const upload = (e) => {
-    console.log("Fdd");
     setVideo(e.target.files[0]);
     uploadVideoApi(accessToken, e.target.files[0]).then(({ data }) => {
       setFileUrl(data.filePath);

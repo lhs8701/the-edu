@@ -244,7 +244,7 @@ const router = createBrowserRouter([
         element: <Outline />,
         children: [
           {
-            path: ":unitnumber",
+            path: ":chapternumner/:unitnumber",
             element: <UnitInfoOutline />,
           },
         ],
