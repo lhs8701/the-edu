@@ -51,6 +51,9 @@ public class CourseServiceTest {
     CourseJpaRepository courseJpaRepository;
 
     @Mock
+    CurriculumService curriculumService;
+
+    @Mock
     ReviewService reviewService;
 
     static Member instructor;
@@ -96,6 +99,7 @@ public class CourseServiceTest {
         Long courseId = 1L;
         given(courseJpaRepository.findById(courseId)).willReturn(Optional.of(course));
         given(reviewService.calculateAverageScore(course)).willReturn(3.5);
+        given(curriculumService.getSampleUnit(course)).willReturn(null);
 
         // when
         CourseDto.Response responseDto = courseService.getCourse(courseId);

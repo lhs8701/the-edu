@@ -59,6 +59,4 @@ public class UnitController {
         UnitDto.Response responseDto = unitService.playUnit(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
-
-
 }
