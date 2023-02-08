@@ -16,12 +16,14 @@ import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 @Transactional
 @RequiredArgsConstructor
 public class CurriculumService {
@@ -63,6 +65,21 @@ public class CurriculumService {
             unit.setChapter(chapter);
             unitJpaRepository.save(unit);
         }
+    }
+
+    /**
+     * 커리큘럼 상의 첫번째 강의를 샘플 강의로 반환합니다.
+     *
+     * @param course 강좌
+     * @return 샘플 강의
+     */
+    public Unit getSampleUnit(Course course) {
+        List<Unit> units = unitJpaRepository.findByCourseOrderBySequence(course);
+        log.info("{}",units);
+        if (units.size() == 0) {
+            return null;
+        }
+        return units.get(0);
     }
 
     /**

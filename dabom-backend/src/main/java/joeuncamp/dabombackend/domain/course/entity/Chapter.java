@@ -19,7 +19,17 @@ public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     String title;
     int sequence;
     Long courseId;
+
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", sequence=" + sequence +
+                '}';
+    }
 }

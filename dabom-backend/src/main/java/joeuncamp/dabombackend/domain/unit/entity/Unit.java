@@ -33,11 +33,12 @@ public class Unit extends BaseTimeEntity {
     VideoInfo videoInfo;
 
     @Builder
-    public Unit(int sequence, String title, String description, Course course, VideoInfo videoInfo){
+    public Unit(int sequence, String title, String description, Course course, VideoInfo videoInfo, Chapter chapter){
         this.sequence = sequence;
         this.title = title;
         this.description = description;
         this.videoInfo = videoInfo;
+        this.chapter = chapter;
         setCourse(course);
     }
     private void setCourse(Course course){
@@ -54,5 +55,16 @@ public class Unit extends BaseTimeEntity {
 
     public void setChapter(Chapter chapter) {
         this.chapter = chapter;
+    }
+
+    @Override
+    public String toString() {
+        return "Unit{" +
+                "id=" + id +
+                ", sequence=" + sequence +
+                ", title='" + title + '\'' +
+                ", course=" + course +
+                ", chapter=" + chapter +
+                '}';
     }
 }
