@@ -11,6 +11,15 @@ const SmallCategory = styled.h2`
   font-weight: var(--weight-thin);
   font-size: var(--size-category-small);
   line-height: 33px;
+  margin: 5px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+`;
+
+const TitleTab = styled.div`
+  width: 80%;
 `;
 
 export default function CourseCategory({ courseIdx, courseId }) {
@@ -22,10 +31,9 @@ export default function CourseCategory({ courseIdx, courseId }) {
   const SmallCategories = ({ unit, chapterIdx, unitIdx }) => {
     return (
       <SmallCategory>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{chapterIdx}
-        -{unitIdx + 1}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{chapterIdx}-{unitIdx + 1}
         .&nbsp;&nbsp;
-        {unit?.title}
+        <TitleTab>{unit?.title}</TitleTab>
       </SmallCategory>
     );
   };
@@ -34,8 +42,10 @@ export default function CourseCategory({ courseIdx, courseId }) {
     return (
       <div>
         <br />
+        <br />
+        <br />
         <BigCategory>
-          &nbsp;&nbsp;&nbsp;&nbsp;{chapterIdx}.&nbsp;{curri.title}
+          &nbsp;{chapterIdx}.&nbsp;{curri.title}
         </BigCategory>
         <br />
         {curri?.units?.map((unit, idx) => {
