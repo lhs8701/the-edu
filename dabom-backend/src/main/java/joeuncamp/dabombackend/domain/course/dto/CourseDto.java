@@ -8,6 +8,7 @@ import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
@@ -116,6 +117,8 @@ public class CourseDto {
         String instructor;
         @Schema(description = "카테고리", example = ExampleValue.Course.CATEGORY)
         String category;
+        @Schema(description = "샘플 강의")
+        SampleDto sample;
         @Schema(description = "썸네일 이미지")
         ImageInfo thumbnailImage;
 
@@ -129,12 +132,15 @@ public class CourseDto {
         @Schema(description = "찜", example = "1500")
         long wish;
 
-        public Response(Course course, double averageScore) {
+        public Response(Course course, Unit sampleUnit, double averageScore) {
             this.id = course.getId();
             this.title = course.getTitle();
             this.description = course.getDescription();
             this.instructor = course.getInstructorName();
             this.category = course.getCategory().getTitle();
+            if (sampleUnit != null){
+                this.sample = new SampleDto(sampleUnit);
+            }
             this.thumbnailImage = course.getThumbnailImage();
             this.descriptionImages = course.getDescriptionImages();
             this.score = averageScore;

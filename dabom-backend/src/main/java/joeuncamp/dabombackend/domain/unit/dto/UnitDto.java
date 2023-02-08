@@ -13,7 +13,7 @@ public class UnitDto {
     @Getter
     @Setter
     @NoArgsConstructor
-    public static class UploadRequest{
+    public static class UploadRequest {
         @Schema(hidden = true)
         Long memberId;
         @Schema(hidden = true)
@@ -25,18 +25,20 @@ public class UnitDto {
         @Schema(description = "비디오 경로", example = ExampleValue.Video.URL)
         String videoUrl;
 
-        public Unit toEntity(Course course){
+        public Unit toEntity(Course course) {
             return Unit.builder()
                     .title(title)
                     .description(description)
                     .videoInfo(new VideoInfo(videoUrl))
                     .course(course)
+                    .sequence(course.getUnitList().size() + 1)
                     .build();
         }
     }
+
     @Getter
     @AllArgsConstructor
-    public static class PlayRequest{
+    public static class PlayRequest {
         @Schema(hidden = true)
         Long memberId;
         @Schema(hidden = true)
@@ -45,7 +47,7 @@ public class UnitDto {
 
 
     @Getter
-    public static class Response{
+    public static class Response {
         @Schema(description = "강의 아이디넘버", example = "1")
         Long unitId;
         @Schema(description = "강의 제목", example = ExampleValue.Unit.TITLE)
@@ -55,7 +57,7 @@ public class UnitDto {
         @Schema(description = "비디오 정보", example = ExampleValue.Video.URL)
         VideoInfo videoInfo;
 
-        public Response(Unit unit){
+        public Response(Unit unit) {
             this.unitId = unit.getId();
             this.title = unit.getTitle();
             this.description = unit.getDescription();

@@ -37,13 +37,8 @@ public class CourseService {
     private final MemberJpaRepository memberJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
     private final CreatorService creatorService;
-    private final UnitJpaRepository unitJpaRepository;
-
+    private final CurriculumService curriculumService;
     private final ReviewService reviewService;
-    private final ChapterJpaRepository chapterJpaRepository;
-
-    private final EnrollService enrollService;
-    private final ViewChecker viewChecker;
 
     /**
      * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
@@ -76,7 +71,8 @@ public class CourseService {
     public CourseDto.Response getCourse(Long courseId) {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
         double averageScore = reviewService.calculateAverageScore(course);
-        return new CourseDto.Response(course, averageScore);
+        Unit sample = curriculumService.getSampleUnit(course);
+        return new CourseDto.Response(course, sample, averageScore);
     }
 
     /**

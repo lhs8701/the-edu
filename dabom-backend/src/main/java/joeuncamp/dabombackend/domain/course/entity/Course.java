@@ -33,8 +33,6 @@ public class Course extends BaseTimeEntity {
     CategoryType category;
     long price;
 
-    double averageScore;
-
     ImageInfo thumbnailImage;
 
     @ElementCollection

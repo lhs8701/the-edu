@@ -17,9 +17,15 @@ spring:
         enable_lazy_load_no_trans: true
         format_sql: true
         hbm2ddl:
-          auto: update
+          auto: create
     show-sql: true
+    defer-datasource-initialization: true #더미데이터 용
 
+  sql: #더미데이터 용
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+      encoding: UTF-8
   data:
     redis:
       host: localhost
