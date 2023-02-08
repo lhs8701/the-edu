@@ -12,10 +12,12 @@ protocol BannerCVCellDelegate {
 }
 
 class BannerTableViewCell: UITableViewCell {
-
-    static let identifier = "BannerTableViewCell"
-    
+    // MARK: - IBOutlet
     @IBOutlet weak var bannerCollectionView: UICollectionView!
+    
+    
+    // MARK: - let, var
+    static let identifier = "BannerTableViewCell"
         
     var bannerData: [BannerDataModel] = []
     
@@ -26,7 +28,7 @@ class BannerTableViewCell: UITableViewCell {
     var autoStart: Bool = false
     
     
-    
+    // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -45,6 +47,7 @@ class BannerTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - banner Data set
     func setData(bannerTableData: [BannerDataModel]) {
         bannerData = bannerTableData
         bannerCollectionView.reloadData()
@@ -54,6 +57,7 @@ class BannerTableViewCell: UITableViewCell {
         }
     }
     
+    // MARK: - banner AutoScroll
     func startAutoScroll() {
         print("startAutoScroll()")
         autoStart = false
@@ -96,13 +100,12 @@ extension BannerTableViewCell: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension BannerTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BannerCollectionViewCell", for: indexPath) as? BannerCollectionViewCell else { return UICollectionViewCell() }
-        
-//        cell.bannerImageView.image =
-//        cell.setData(bannerData![indexPath.row])
+
         cell.setData(bannerData: self.bannerData[indexPath.row])
         
         
@@ -112,6 +115,7 @@ extension BannerTableViewCell: UICollectionViewDataSource {
     
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension BannerTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize.init(width: bannerCollectionView.bounds.width, height: bannerCollectionView.bounds.height)
@@ -126,6 +130,7 @@ extension BannerTableViewCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension BannerTableViewCell: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let x = scrollView.contentOffset.x

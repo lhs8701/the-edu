@@ -136,12 +136,12 @@ extension HomeViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BannerTableViewCell.identifier, for: indexPath) as? BannerTableViewCell else { return UITableViewCell() }
 //            cell.setData(BannerDataModel.sampleData)
             if self.bannerList.count != 0 {
-                cell.setData(bannerTableData: self.bannerList)
-                
                 if !autoStart {
                     cell.autoStart = true
                     self.autoStart = true
                 }
+                
+                cell.setData(bannerTableData: self.bannerList)
             }
             
             cell.delegate = self
