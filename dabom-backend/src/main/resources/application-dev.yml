@@ -25,6 +25,7 @@ spring:
     init:
       mode: always
       data-locations: classpath:data.sql
+      encoding: UTF-8
   data:
     redis:
       host: localhost
