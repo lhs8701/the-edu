@@ -54,4 +54,16 @@ public class EventService {
                 .map(EventDto.ShortResponse::new)
                 .toList();
     }
+
+    /**
+     * 종료된 이벤트 목록을 조회합니다.
+     *
+     * @return 종료된 이벤트 목록
+     */
+    public List<EventDto.ShortResponse> getClosedEvent() {
+        List<Event> events = eventJpaRepository.findByEndDateBefore(LocalDate.now());
+        return events.stream()
+                .map(EventDto.ShortResponse::new)
+                .toList();
+    }
 }

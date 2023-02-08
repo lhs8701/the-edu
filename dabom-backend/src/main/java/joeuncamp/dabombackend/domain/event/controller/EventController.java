@@ -43,11 +43,19 @@ public class EventController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @Operation(summary="진행 중인 이벤트를 조회합니다.", description="")
+    @Operation(summary="진행 중인 이벤트 목록을 조회합니다.", description="")
     @PreAuthorize("permitAll()")
     @GetMapping("/events/ongoing")
     public ResponseEntity<List<EventDto.ShortResponse>> getOngoingEvent(){
         List<EventDto.ShortResponse> responseDto = eventService.getOngoingEvents();
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary="종료된 이벤트 목록을 조회합니다.", description="")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/events/closed")
+    public ResponseEntity<List<EventDto.ShortResponse>> getClosedEvent(){
+        List<EventDto.ShortResponse> responseDto = eventService.getClosedEvent();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

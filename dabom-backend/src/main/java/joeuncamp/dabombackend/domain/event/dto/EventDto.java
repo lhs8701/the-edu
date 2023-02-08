@@ -12,7 +12,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class EventDto {
 
@@ -53,6 +53,8 @@ public class EventDto {
         Long id;
         @Schema(description = "제목", example = ExampleValue.Event.TITLE)
         String title;
+        @Schema(description = "디데이")
+        long dDay;
         @Schema(description = "시작 일자")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         LocalDate startDate;
@@ -65,6 +67,7 @@ public class EventDto {
         public ShortResponse(Event event){
             this.id = event.getId();
             this.title = event.getTitle();
+            this.dDay = ChronoUnit.DAYS.between(LocalDate.now(), event.getEndDate());
             this.startDate = event.getStartDate();
             this.endDate = event.getEndDate();
             this.bannerImage = event.getBannerImage();
@@ -81,6 +84,8 @@ public class EventDto {
         String content;
         @Schema(description = "작성자", example = ExampleValue.Member.NICKNAME)
         String writer;
+        @Schema(description = "디데이")
+        long dDay;
         @Schema(description = "시작 일자")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         LocalDate startDate;
@@ -95,6 +100,7 @@ public class EventDto {
             this.title = event.getTitle();
             this.content = event.getContent();
             this.writer = event.getWriter().getNickname();
+            this.dDay = ChronoUnit.DAYS.between(LocalDate.now(), event.getEndDate());
             this.startDate = event.getStartDate();
             this.endDate = event.getEndDate();
             this.bannerImage = event.getBannerImage();
