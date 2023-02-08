@@ -25,7 +25,6 @@ export default function Unit({
   const [fileUrl, setFileUrl] = useState(unit.url);
   const [unitId, setUnitId] = useState(unit.unitId);
   const [video, setVideo] = useState(unit.file);
-  courseId = 2;
 
   const removeUnit = () => {
     setUnits((current) =>

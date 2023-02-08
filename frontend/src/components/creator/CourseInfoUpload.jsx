@@ -9,7 +9,7 @@ import { uploadImageApi } from "../../api/creatorApi";
 import { getAccessTokenSelector } from "../../atom";
 import { useRecoilValue } from "recoil";
 import CourseInfoImage from "./CourseInfoImage";
-import RemoveIcon from "@mui/icons-material/Remove";
+
 export const PreviewImg = styled.img`
   width: 350px;
   height: 200px;
@@ -129,7 +129,6 @@ export default function CourseInfoUpload({ setCourseValue }) {
         introImgUrlList.push(imgVal.url);
       }
     });
-
     setCourseValue({
       title: courseTitle,
       detail: courseDetail,
@@ -263,7 +262,7 @@ export default function CourseInfoUpload({ setCourseValue }) {
             accessToken={accessToken}
             introImgList={introImgList}
             setIntroImgList={setIntroImgList}
-            key={intro.key}
+            key={intro.id}
             value={intro}
           />
         );

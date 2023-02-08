@@ -1,25 +1,13 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  List,
-  ListItem,
-  ListItemText,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Tab, Tabs, TextField } from "@mui/material";
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+
 import styled from "styled-components";
 import { CREATOR_BAR_LIST } from "../../static";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import { useEffect } from "react";
-import { Outlet, useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
+
 import { getAccessTokenSelector } from "../../atom";
 import { useRecoilValue } from "recoil";
 import CourseInfoUpload from "./CourseInfoUpload";
@@ -62,7 +50,7 @@ export default function Outline() {
   const [chapterCnt, setChapterCnt] = useState(1);
   const navigate = useNavigate();
   const chapter = {
-    title: "제목 없음",
+    title: "",
     id: 0,
     units: [
       {
@@ -78,9 +66,17 @@ export default function Outline() {
   const [chapterList, setChapterList] = useState([chapter]);
   const [courseId, setCourseId] = useState();
 
+  // window.addEventListener("beforeunload", (event) => {
+  //   // 표준에 따라 기본 동작 방지
+  //   event.preventDefault();
+  //   // Chrome에서는 returnValue 설정이 필요함
+  //   event.returnValue = "";
+  //   alert("fdddd");
+  // });
+
   const plusChapter = () => {
     const chapter = {
-      title: "제목 없음",
+      title: "",
       id: chapterCnt,
       units: [
         {
@@ -115,9 +111,13 @@ export default function Outline() {
     chapterList.map((chapter) => {
       const uploadUnits = [];
       chapter.units.filter((unit) => {
-        uploadUnits.push({ unitId: unit.unitId });
+        if (String(unit.title) !== "") {
+          uploadUnits.push({ unitId: unit.unitId });
+        }
       });
-      uploadCurriList.push({ title: chapter.title, units: uploadUnits });
+      if (String(chapter.title) !== "") {
+        uploadCurriList.push({ title: chapter.title, units: uploadUnits });
+      }
     });
     return uploadCurriList;
   };
@@ -187,13 +187,20 @@ export default function Outline() {
     );
   };
 
-  const UploadContentComponent = () => {
-    return tabVal === 0 ? (
-      <CourseInfoUpload setCourseValue={setCourseValue} />
-    ) : (
-      <CurriculumComponent />
-    );
-  };
+  // useEffect(() => {
+  //   const preventUnload = (event) => {
+  //     // NOTE: This message isn't used in modern browsers, but is required
+  //     const message = "Sure you want to leave?";
+  //     event.preventDefault();
+  //     event.returnValue = message;
+  //   };
+
+  //   window.addEventListener("beforeunload", preventUnload);
+
+  //   return () => {
+  //     window.removeEventListener("beforeunload", preventUnload);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -202,7 +209,11 @@ export default function Outline() {
         <TabComponent />
       </Box>
       <Box component="form">
-        <UploadContentComponent />
+        {tabVal === 0 ? (
+          <CourseInfoUpload setCourseValue={setCourseValue} />
+        ) : (
+          <CurriculumComponent />
+        )}
         <BtnDiv>
           <Button
             type="submit"
