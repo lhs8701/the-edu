@@ -1,20 +1,16 @@
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { myCourseApi } from "../api/myPageApi";
+import { getRankingApi } from "../api/courseApi";
 import {
   getAccessTokenSelector,
   getLoginState,
   getMemberIdSelector,
 } from "../atom";
-import ClassRankList from "../components/ClassRankList";
+import ClassCard from "../components/ClassCard";
 import MyClassCard from "../components/MyClassCard";
 import { SlideNotice } from "../components/SlideNotice";
-import {
-  dummyCourseRank,
-  dummyMyClassList,
-  dummyProgrammingCourseRank,
-} from "../dummy";
+import { dummyCourseRank, dummyMyClassList } from "../dummy";
 import { Wrapper } from "../style/CommonCss";
 
 const MyClassListBox = styled.div`
@@ -33,11 +29,36 @@ const ListTitle = styled.h1`
   margin-bottom: 30px;
 `;
 
+const ListWrapper = styled.div`
+  margin-top: 25px;
+  margin-bottom: 60px;
+`;
+
+const ClassListBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 200px;
+`;
+
 export default function MainPage() {
   const weekRankList = dummyCourseRank;
   const loginState = useRecoilValue(getLoginState);
   const memberId = useRecoilValue(getMemberIdSelector);
   const accessToken = useRecoilValue(getAccessTokenSelector);
+
+  const { data } = useQuery(
+    ["rankList"],
+    () => {
+      return getRankingApi();
+    },
+    {
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
   const MyClassList = () => {
     return dummyMyClassList.map((course, index) => {
@@ -55,20 +76,46 @@ export default function MainPage() {
       );
     });
   };
+
+  const ClassRankList = ({ rankList }) => {
+    return (
+      <ListWrapper>
+        <ListTitle>{rankList.category} 클래스 랭킹</ListTitle>
+        <ClassListBox>
+          {rankList.courseList.map((course) => {
+            return <ClassCard key={course.courseId} course={course} />;
+          })}
+        </ClassListBox>
+      </ListWrapper>
+    );
+  };
+
+  const CategoryRankComponent = ({ rankList }) => {
+    return <ClassRankList rankList={rankList} />;
+  };
+
+  const CategoriesRankComponent = () => {
+    return data?.data?.map((rankList, idx) => {
+      return <CategoryRankComponent rankList={rankList} key={idx} />;
+    });
+  };
+
+  const MyClassComponent = () => {
+    return (
+      <>
+        <ListTitle>나의 클래스</ListTitle>{" "}
+        <MyClassListBox>
+          <MyClassList />
+        </MyClassListBox>
+      </>
+    );
+  };
+
   return (
     <Wrapper>
       <SlideNotice />
-      {loginState ? (
-        <>
-          <ListTitle>나의 클래스</ListTitle>{" "}
-          <MyClassListBox>
-            <MyClassList />
-          </MyClassListBox>
-        </>
-      ) : null}
-
-      <ClassRankList ranklist={weekRankList} />
-      <ClassRankList ranklist={dummyProgrammingCourseRank} />
+      {loginState && <MyClassComponent />}
+      {data && <CategoriesRankComponent />}
     </Wrapper>
   );
 }
