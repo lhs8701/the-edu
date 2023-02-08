@@ -13,7 +13,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { CssTextField } from "./Outline";
-import Units from "./Units";
+
+import Unit from "./Unit";
 
 const BtnDiv = styled.div`
   display: Flex;
@@ -33,9 +34,11 @@ export default function Chapter({
   setChapterList,
   currentIdx,
   currentKey,
+  courseId,
 }) {
   const [units, setUnits] = useState(chapter.units);
   const [clicked, setClicked] = useState(false);
+  const [chapterUpdate, setChapterUpdate] = useState(false);
   const [chaptertitle, setChapterTitle] = useState("");
   const [unitCnt, setUnitCnt] = useState(1);
 
@@ -57,6 +60,8 @@ export default function Chapter({
     const unit = {
       id: unitCnt,
       unitId: 0,
+      title: "",
+      url: "",
     };
     setUnitCnt((prev) => prev + 1);
     setUnits((prev) => [...prev, unit]);
@@ -71,6 +76,7 @@ export default function Chapter({
   };
 
   const updateSmallListInChapter = () => {
+    console.log("chapter update");
     const prevList = chapterList;
     let keyIdx = 0;
     const chapter = chapterList.filter((chapter, idx) => {
@@ -79,12 +85,19 @@ export default function Chapter({
         return chapter;
       }
     });
+
     chapter[0].units = units; //filter의 리턴은 배열이다 주의
     prevList.splice(keyIdx, 1, chapter[0]); //이건 그 자리 인덱스를 찾아야지
     setChapterList(prevList);
   };
 
-  useEffect(updateSmallListInChapter, [units]);
+  useEffect(() => {
+    if (chapterUpdate) {
+      updateSmallListInChapter();
+      setChapterUpdate(false);
+      console.log(chapterList);
+    }
+  }, [units, chapterUpdate]);
 
   return (
     <Box mt={2}>
@@ -154,9 +167,19 @@ export default function Chapter({
             </CardActions>
           </CardDiv>
           <List dense={true}>
-            {/* {units.map((unit, unitIdx) => {
-                  return <Units />;
-                })} */}
+            {units.map((unit, unitIdx) => {
+              return (
+                <Unit
+                  key={unit.id}
+                  courseId={courseId}
+                  unit={unit}
+                  unitIdx={unitIdx}
+                  units={units}
+                  setUnits={setUnits}
+                  setChapterUpdate={setChapterUpdate}
+                />
+              );
+            })}
           </List>
         </CardContent>
       </Card>

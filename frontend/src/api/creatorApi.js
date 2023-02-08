@@ -39,12 +39,19 @@ export async function createCourseApi(accessToken, courseValue) {
   );
 }
 
-export async function createUnitsApi(accessToken, courseId, unitsValue) {
+export async function createUnitsApi(
+  accessToken,
+  courseId,
+  title,
+  description,
+  url
+) {
   const params = {
-    title: "스프링 빈에 대한 이해",
-    description: "스프링 빈에 대해 알아봅시다.",
-    videoUrl: "/static/videos/sample-m3u8/sample.m3u8",
+    title: title,
+    description: description,
+    videoUrl: url,
   };
+
   return await axios.post(
     `${API_URL}${CREATE_URL}/${courseId}${UNIT_URL}`,
     {},

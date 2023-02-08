@@ -26,7 +26,6 @@ import CourseInfoUpload from "./CourseInfoUpload";
 import {
   createCourseApi,
   createCourseCurriculumApi,
-  createUnitsApi,
 } from "../../api/creatorApi";
 import Chapter from "./Chapter";
 
@@ -36,10 +35,6 @@ const BtnDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 25px;
-`;
-
-const CardDiv = styled(BtnDiv)`
-  margin: 0;
 `;
 
 export const CssTextField = styled(TextField)({
@@ -63,7 +58,7 @@ export const CssTextField = styled(TextField)({
 export default function Outline() {
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const [courseValue, setCourseValue] = useState({});
-  const [tabVal, setTabVal] = useState(1);
+  const [tabVal, setTabVal] = useState(0);
   const [chapterCnt, setChapterCnt] = useState(1);
   const navigate = useNavigate();
   const chapter = {
@@ -73,6 +68,10 @@ export default function Outline() {
       {
         id: 0,
         unitId: 0,
+        title: "",
+        url: "",
+        description: "",
+        file: "",
       },
     ],
   };
@@ -87,6 +86,9 @@ export default function Outline() {
         {
           id: 0,
           unitId: 0,
+          title: "",
+          url: "",
+          description: "",
         },
       ],
     };
@@ -108,9 +110,22 @@ export default function Outline() {
       });
   };
 
+  const curriUploadFilter = (chapterList) => {
+    const uploadCurriList = [];
+    chapterList.map((chapter) => {
+      const uploadUnits = [];
+      chapter.units.filter((unit) => {
+        uploadUnits.push({ unitId: unit.unitId });
+      });
+      uploadCurriList.push({ title: chapter.title, units: uploadUnits });
+    });
+    return uploadCurriList;
+  };
+
   const uploadCurriculum = (e) => {
     e.preventDefault();
-    createCourseCurriculumApi(accessToken, courseId, courseValue)
+    const uploadCurriList = curriUploadFilter(chapterList);
+    createCourseCurriculumApi(accessToken, courseId, uploadCurriList)
       .then(() => {
         alert("강좌가 등록되었습니다.");
         navigate(CREATOR_BAR_LIST.list[2].list[0].url);
@@ -142,7 +157,7 @@ export default function Outline() {
     );
   };
 
-  const DetailComponent = () => {
+  const CurriculumComponent = () => {
     return (
       <>
         <ChapterPlusComponent />
@@ -155,6 +170,7 @@ export default function Outline() {
               currentIdx={idx}
               currentKey={chapter.id}
               chapter={chapter}
+              courseId={courseId}
             />
           );
         })}
@@ -175,7 +191,7 @@ export default function Outline() {
     return tabVal === 0 ? (
       <CourseInfoUpload setCourseValue={setCourseValue} />
     ) : (
-      <DetailComponent />
+      <CurriculumComponent />
     );
   };
 
