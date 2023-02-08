@@ -48,6 +48,9 @@
 		0E685E6329931ED40094D10A /* CourseRankingDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E6229931ED40094D10A /* CourseRankingDataModel.swift */; };
 		0E685E6529931F1F0094D10A /* CourseRankingDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E6429931F1F0094D10A /* CourseRankingDataService.swift */; };
 		0E685E67299336C20094D10A /* BannerDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E66299336C20094D10A /* BannerDataService.swift */; };
+		0E685E69299362C80094D10A /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E68299362C80094D10A /* BasePaddingLabel.swift */; };
+		0E685E6B299364300094D10A /* EventDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E6A299364300094D10A /* EventDataModel.swift */; };
+		0E685E6D299364970094D10A /* EventDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E685E6C299364960094D10A /* EventDataService.swift */; };
 		0E69A039296542CB00BFD12E /* HomeTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A038296542CB00BFD12E /* HomeTab.storyboard */; };
 		0E69A03B2965430D00BFD12E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69A03A2965430D00BFD12E /* HomeViewController.swift */; };
 		0E69A03D2965439300BFD12E /* MyCourseTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */; };
@@ -185,6 +188,9 @@
 		0E685E6229931ED40094D10A /* CourseRankingDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRankingDataModel.swift; sourceTree = "<group>"; };
 		0E685E6429931F1F0094D10A /* CourseRankingDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRankingDataService.swift; sourceTree = "<group>"; };
 		0E685E66299336C20094D10A /* BannerDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDataService.swift; sourceTree = "<group>"; };
+		0E685E68299362C80094D10A /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
+		0E685E6A299364300094D10A /* EventDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataModel.swift; sourceTree = "<group>"; };
+		0E685E6C299364960094D10A /* EventDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataService.swift; sourceTree = "<group>"; };
 		0E69A038296542CB00BFD12E /* HomeTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeTab.storyboard; sourceTree = "<group>"; };
 		0E69A03A2965430D00BFD12E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0E69A03C2965439300BFD12E /* MyCourseTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyCourseTab.storyboard; sourceTree = "<group>"; };
@@ -318,6 +324,7 @@
 				0E55013F296EA96400DD5B75 /* Layer+.swift */,
 				0EA647CD298B9D22009AB119 /* UIImageView+.swift */,
 				0E9D15242974E11E0061D1ED /* UIViewController+.swift */,
+				0E685E68299362C80094D10A /* BasePaddingLabel.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -481,6 +488,7 @@
 				0E78ED802967A740001424A7 /* BannerCollectionViewCell.swift */,
 				0E78ED812967A740001424A7 /* BannerCollectionViewCell.xib */,
 				0EB576F0296BB6E1001EFBE1 /* BannerInfoViewController.swift */,
+				0E685E6A299364300094D10A /* EventDataModel.swift */,
 			);
 			path = Banner;
 			sourceTree = "<group>";
@@ -559,6 +567,7 @@
 				0EAF7B5A298392BB00F65E5A /* GetPaginationDataService.swift */,
 				0EA647C7298B7812009AB119 /* UserProfileService.swift */,
 				0E685E66299336C20094D10A /* BannerDataService.swift */,
+				0E685E6C299364960094D10A /* EventDataService.swift */,
 				0E04989D298CD7EA002425D9 /* UnitDataService.swift */,
 				0E1E959E2977C05B00CBE70B /* AuthenticationService.swift */,
 				0E0498A3298EA752002425D9 /* GetCategoryDataService.swift */,
@@ -885,6 +894,7 @@
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
 				0E0498AD298EACD8002425D9 /* CategoryTVC.swift in Sources */,
 				0ED17B29298782BD0008D3C0 /* CourseInquiryAllVC.swift in Sources */,
+				0E685E6B299364300094D10A /* EventDataModel.swift in Sources */,
 				0E1E959529778C1300CBE70B /* Xib.swift in Sources */,
 				0E685E5B2991E9A50094D10A /* CurriculumDataModel.swift in Sources */,
 				0E78ED7E2967A66B001424A7 /* BannerTableViewCell.swift in Sources */,
@@ -900,6 +910,7 @@
 				0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */,
 				0EFB7478297132F500C58E87 /* LoginVC.swift in Sources */,
 				0EC314E129875753004C82CF /* CourseReviewDataModel.swift in Sources */,
+				0E685E69299362C80094D10A /* BasePaddingLabel.swift in Sources */,
 				0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */,
 				0E1E959D2977BDE800CBE70B /* UserDataModel.swift in Sources */,
 				0ED17B2B2987854D0008D3C0 /* CourseReviewAllVC.swift in Sources */,
@@ -943,6 +954,7 @@
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,
 				0E9B0F4A2990956F004DA0F1 /* Statement.swift in Sources */,
 				0E9D15292974F0620061D1ED /* SignupVC.swift in Sources */,
+				0E685E6D299364970094D10A /* EventDataService.swift in Sources */,
 				0EBEA84E2966B020006102F3 /* CourseTableViewCell.swift in Sources */,
 				0E1E95992977ABEA00CBE70B /* CourseInfoDataModel.swift in Sources */,
 				0EFB7474297131BC00C58E87 /* LoginSignupNC.swift in Sources */,

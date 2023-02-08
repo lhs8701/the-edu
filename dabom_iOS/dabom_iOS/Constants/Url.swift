@@ -18,6 +18,7 @@ extension Const {
         
         static let getCategory = "\(apiBaseUrl)/ref/category"
         static let getOngoingBanner = "\(apiBaseUrl)/events/ongoing"
+        static let getEvent = "\(apiBaseUrl)/events"
         
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"

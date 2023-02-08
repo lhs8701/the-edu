@@ -180,8 +180,9 @@ extension HomeViewController: BannerCVCellDelegate {
     func BannerSelectedCVCell(eventId: Int, bannerName: String) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.bannerInfo) as? BannerInfoViewController else { return }
         
+        nextVC.eventId = eventId
+        nextVC.bannerTitle = bannerName
         
-        nextVC.bannerImageName = bannerName
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
