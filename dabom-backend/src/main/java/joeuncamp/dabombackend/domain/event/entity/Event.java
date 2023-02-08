@@ -20,7 +20,7 @@ public class Event {
     private Long id;
     private String title;
     private String content;
-    private ImageInfo imageInfo;
+    private ImageInfo bannerImage;
 
     @ManyToOne
     @JoinColumn
