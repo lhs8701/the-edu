@@ -26,10 +26,18 @@ public class EventController {
     @Operation(summary="이벤트를 생성합니다.", description="")
     @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/event")
+    @PostMapping("/events")
     public ResponseEntity<Long> createEvent(@RequestBody EventDto.CreateRequest requestDto, @AuthenticationPrincipal Member member){
         requestDto.setMemberId(member.getId());
         Long response = eventService.createEvent(requestDto);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @Operation(summary="이벤트를 조회합니다.", description="")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/events/{eventId}")
+    public ResponseEntity<EventDto.Response> getEvent(@PathVariable Long eventId){
+        EventDto.Response responseDto = eventService.getEvent(eventId);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

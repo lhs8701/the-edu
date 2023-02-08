@@ -28,4 +28,15 @@ public class EventService {
         Event event = requestDto.toEntity(member);
         return eventJpaRepository.save(event).getId();
     }
+
+    /**
+     * 이벤트를 조회합니다.
+     *
+     * @param eventId 조회할 이벤트
+     * @return 이벤트 정보
+     */
+    public EventDto.Response getEvent(Long eventId) {
+        Event event = eventJpaRepository.findById(eventId).orElseThrow(CResourceNotFoundException::new);
+        return new EventDto.Response(event);
+    }
 }

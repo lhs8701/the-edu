@@ -99,10 +99,10 @@ public class QuestionDto {
         String content;
         @Schema(description = "작성자명", example = ExampleValue.Member.NICKNAME)
         String writer;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         @Schema(description = "생성 시간", example = ExampleValue.Time.DATE)
         LocalDateTime createdTime;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         @Schema(description = "최근 수정 시간", example = ExampleValue.Time.DATE)
         LocalDateTime modifiedTime;
 
