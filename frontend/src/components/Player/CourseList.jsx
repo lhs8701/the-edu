@@ -16,7 +16,8 @@ const Catalog = styled(motion.li)`
       ? "var(--color-text)"
       : "var(--color-box-gray)"}; //props 활용
   padding-left: 15px;
-  height: 30px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 `;
 
 const ListBox = styled.ul`

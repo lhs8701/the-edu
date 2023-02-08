@@ -63,7 +63,7 @@ export default function CreatorListItems({ isCreator }) {
             {list.name}
           </AccordionSummary>
           {list.list.map((smallList, idx) => {
-            return <ArcodianDetails smallList={smallList} />;
+            return <ArcodianDetails key={idx} smallList={smallList} />;
           })}
         </Accordion>
       </div>
@@ -73,16 +73,24 @@ export default function CreatorListItems({ isCreator }) {
   const listFilter = (list, idx) => {
     if (idx === 0) {
       if (isCreator) {
-        return <ListComponent list={CREATOR_BAR_LIST.list[idx].creator[idx]} />;
+        return (
+          <ListComponent
+            key={idx}
+            list={CREATOR_BAR_LIST.list[idx].creator[idx]}
+          />
+        );
       } else {
         return (
-          <ListComponent list={CREATOR_BAR_LIST.list[idx].creator[idx + 1]} />
+          <ListComponent
+            key={idx}
+            list={CREATOR_BAR_LIST.list[idx].creator[idx + 1]}
+          />
         );
       }
     } else if (idx === 2) {
-      return <Arcodian list={list} />;
+      return <Arcodian key={idx} list={list} />;
     } else {
-      return <ListComponent list={list} />;
+      return <ListComponent key={idx} list={list} />;
     }
   };
 

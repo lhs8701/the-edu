@@ -8,6 +8,7 @@ import { faCirclePause } from "@fortawesome/free-solid-svg-icons";
 import screenfull from "screenfull";
 import Controller from "./Controller";
 import { STATIC_URL } from "../../static";
+import { useNavigate } from "react-router";
 
 const Splayer = styled(ReactPlayer)`
   background-color: black;
@@ -76,6 +77,7 @@ export default function Player({ unitInfo, videoVal, setVideoVal }) {
   });
   let mouseX = 0;
   const url = STATIC_URL + unitInfo?.videoInfo?.filePath;
+  const navigate = useNavigate();
 
   const cMoveHandeler = (e) => {
     setControl(true);
@@ -176,6 +178,9 @@ export default function Player({ unitInfo, videoVal, setVideoVal }) {
             volume={videoVal.volume} // 소리조절 기능
             playbackRate={videoVal.playbackRate} // 배속기능
             onProgress={progressHandler} // 재생 및 로드된 시점을 반환
+            onEnded={() => {
+              alert("다음 강의로");
+            }}
             light={false}
             width="100%"
             height="100%"

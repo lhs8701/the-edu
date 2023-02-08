@@ -6,7 +6,7 @@ const DaboomFooter = styled.footer`
   font-weight: var(--weight-thin);
   color: var(--color-gray);
   font-size: var(--size-footer);
-  margin-top: 2vh;
+  margin-top: 15vh;
 `;
 
 const FooterBox = styled.div`

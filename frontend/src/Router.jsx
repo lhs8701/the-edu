@@ -242,12 +242,6 @@ const router = createBrowserRouter([
       {
         path: "inputcourses",
         element: <Outline />,
-        children: [
-          {
-            path: ":unitnumber",
-            element: <UnitInfoOutline />,
-          },
-        ],
       },
       {
         path: "inquirecourses",

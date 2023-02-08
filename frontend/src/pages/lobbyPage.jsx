@@ -186,7 +186,11 @@ export default function LobbyPage() {
             ></Slider>
           </Tab>
           <Tab>
-            {(courseInfo?.completedUnits / courseInfo?.entireUnits) * 100}%
+            {(
+              (courseInfo?.completedUnits / courseInfo?.entireUnits) *
+              100
+            ).toFixed()}
+            %
           </Tab>
         </InfoBox>
       </>

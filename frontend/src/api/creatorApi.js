@@ -3,8 +3,10 @@ import { API_URL } from "../static";
 const FILE_PATH = "/file";
 const SINGLE_IMG_URL = "/image";
 const MULTI_IMG_URL = "/image/muli";
+const UNIT_URL = "/units";
 const VIDEO_URL = "/video";
 const CREATE_URL = "/courses";
+const CURRICULUM_URL = "/curriculum";
 const FILE_URL = API_URL + FILE_PATH;
 
 export async function uploadImageApi(file, accessToken) {
@@ -37,6 +39,32 @@ export async function createCourseApi(accessToken, courseValue) {
   );
 }
 
+export async function createUnitsApi(
+  accessToken,
+  courseId,
+  title,
+  description,
+  url
+) {
+  const params = {
+    title: title,
+    description: description,
+    videoUrl: url,
+  };
+
+  return await axios.post(
+    `${API_URL}${CREATE_URL}/${courseId}${UNIT_URL}`,
+    {},
+    {
+      headers: {
+        ACCESS: accessToken,
+        "Content-Type": "application/json",
+      },
+    },
+    { params }
+  );
+}
+
 export async function uploadVideoApi(accessToken, file) {
   const formData = new FormData();
   formData.append("multipartFile", file);
@@ -45,4 +73,23 @@ export async function uploadVideoApi(accessToken, file) {
       ACCESS: accessToken,
     },
   });
+}
+
+export async function createCourseCurriculumApi(
+  accessToken,
+  courseId,
+  curriValue
+) {
+  return await axios.post(
+    `${API_URL}${CREATE_URL}/${courseId}${CURRICULUM_URL}`,
+    {
+      chapters: curriValue,
+    },
+    {
+      headers: {
+        ACCESS: accessToken,
+        "Content-Type": "application/json",
+      },
+    }
+  );
 }

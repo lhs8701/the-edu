@@ -9,7 +9,7 @@ import { uploadImageApi } from "../../api/creatorApi";
 import { getAccessTokenSelector } from "../../atom";
 import { useRecoilValue } from "recoil";
 import CourseInfoImage from "./CourseInfoImage";
-import RemoveIcon from "@mui/icons-material/Remove";
+
 export const PreviewImg = styled.img`
   width: 350px;
   height: 200px;
@@ -18,7 +18,7 @@ export const PreviewImg = styled.img`
 export default function CourseInfoUpload({ setCourseValue }) {
   const MIN_PRICE = 10000;
   const accessToken = useRecoilValue(getAccessTokenSelector);
-  const [dummyImgUrlUpdate,setDummyImgUrlUpdate] = useState(false)
+  const [dummyImgUrlUpdate, setDummyImgUrlUpdate] = useState(false);
   const [courseTitle, setCourseTitle] = useState("");
   const [courseDetail, setCourseDetail] = useState("");
   const [firstCategory, setFirstCategory] = useState("");
@@ -27,11 +27,12 @@ export default function CourseInfoUpload({ setCourseValue }) {
   const [coursePrice, setCoursePrice] = useState(0);
   const introImg = {
     id: 0,
-    url:""
+    url: "",
   };
   const [introImgList, setIntroImgList] = useState([introImg]);
   const [thumbImg, setThumbImg] = useState({
-    file:false,url:""
+    file: false,
+    url: "",
   });
   const categoryFilter = () => {
     const value = CATE_VALUE.filter((val) => {
@@ -51,24 +52,26 @@ export default function CourseInfoUpload({ setCourseValue }) {
   const plusIntroImg = () => {
     const introImg = {
       id: introImgCnt,
-      url:""
+      url: "",
     };
-    setIntroImgList((prev)=>[...prev,introImg])
+    setIntroImgList((prev) => [...prev, introImg]);
     setIntroImgCnt((prev) => prev + 1);
   };
 
-
   const uploadThumbImg = (e) => {
-    uploadImageApi(e.target.files[0],accessToken).then(({data})=>{setThumbImg({file:e.target.files[0],url:data.originalFilePath});}).catch((err)=>{console.log(err)})
+    uploadImageApi(e.target.files[0], accessToken)
+      .then(({ data }) => {
+        setThumbImg({ file: e.target.files[0], url: data.originalFilePath });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
-
 
   const CategoryComponent = () => {
     return (
       <>
         <Grid item xs={3}>
-
           <CssTextField
             size="small"
             fullWidth
@@ -101,45 +104,48 @@ export default function CourseInfoUpload({ setCourseValue }) {
             }}
             label="카테고리2"
             variant="outlined"
-            
           >
-            {categoryFilter() ? 
-            categoryFilter()?.map((small) => {
-              return (
-                <MenuItem value={small.title} key={small.id}>
-                  {small.title}
-                </MenuItem>
-              );
-            }) : <div></div>}
+            {categoryFilter() ? (
+              categoryFilter()?.map((small) => {
+                return (
+                  <MenuItem value={small.title} key={small.id}>
+                    {small.title}
+                  </MenuItem>
+                );
+              })
+            ) : (
+              <div></div>
+            )}
           </CssTextField>
         </Grid>
       </>
     );
   };
 
-
-
   useEffect(() => {
-    console.log("updateTop")
-    const introImgUrlList = []
+    const introImgUrlList = [];
     introImgList.filter((imgVal, idx) => {
       if (String(imgVal.url) !== "") {
-        introImgUrlList.push(imgVal.url)
-        }
-      });
-      
+        introImgUrlList.push(imgVal.url);
+      }
+    });
     setCourseValue({
       title: courseTitle,
       detail: courseDetail,
       category: secCategory,
       price: coursePrice,
-      thumbUrl:thumbImg.url,
-      descriptionImageUrls:introImgUrlList
+      thumbUrl: thumbImg.url,
+      descriptionImageUrls: introImgUrlList,
     });
-  }, [introImgList,dummyImgUrlUpdate,courseTitle, courseDetail, secCategory, coursePrice, thumbImg]);
-
-  console.log("top")
-  console.log(introImgList)
+  }, [
+    introImgList,
+    dummyImgUrlUpdate,
+    courseTitle,
+    courseDetail,
+    secCategory,
+    coursePrice,
+    thumbImg,
+  ]);
 
   return (
     <Grid container spacing={2}>
@@ -206,8 +212,8 @@ export default function CourseInfoUpload({ setCourseValue }) {
               variant="contained"
               onClick={() => {
                 setThumbImg({
-                  file:false,
-                  url:""
+                  file: false,
+                  url: "",
                 });
               }}
             >
@@ -248,14 +254,18 @@ export default function CourseInfoUpload({ setCourseValue }) {
         <Fab aria-label="add" size="small">
           <AddIcon onClick={plusIntroImg} />
         </Fab>
-        
       </Grid>
-      
-
-      
-      
       {introImgList.map((intro) => {
-      return <CourseInfoImage setDummyImgUrlUpdate={setDummyImgUrlUpdate} accessToken={accessToken}introImgList={introImgList} setIntroImgList={setIntroImgList} key={intro.key} value={intro} />;
+        return (
+          <CourseInfoImage
+            setDummyImgUrlUpdate={setDummyImgUrlUpdate}
+            accessToken={accessToken}
+            introImgList={introImgList}
+            setIntroImgList={setIntroImgList}
+            key={intro.id}
+            value={intro}
+          />
+        );
       })}
     </Grid>
   );

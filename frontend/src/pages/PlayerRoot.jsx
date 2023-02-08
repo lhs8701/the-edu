@@ -48,7 +48,7 @@ const Wrapper = styled.div`
 
 const VideoTab = styled.div`
   height: 100%;
-  width: 79%;
+  width: 75%;
   position: relative;
   @media screen and (max-width: 1180px) {
     width: 100%;
@@ -56,7 +56,7 @@ const VideoTab = styled.div`
 `;
 const BarTab = styled.div`
   height: 100%;
-  width: 21%;
+  width: 25%;
   @media screen and (max-width: 1180px) {
     display: none;
   }
@@ -229,8 +229,7 @@ export default function PlayerRoot() {
     if (videoVal.done) {
       setMenu(3);
     }
-    if (videoVal.played >= 0.95 && !videoVal.done) {
-      console.log("FDDDDDD");
+    if (videoVal.played >= 0.9 && !videoVal.done) {
       setVideoVal({ ...videoVal, done: true });
       postWatchAllApi(accessToken, unitId);
       setMenu(3);
@@ -260,9 +259,9 @@ export default function PlayerRoot() {
               />
             </VideoTab>
           )}
-          {/* <AniBarTab ison={isCollapse}>
+          <AniBarTab ison={isCollapse}>
             <PlayerSidebar uniInfo={unitInfo} />
-          </AniBarTab> */}
+          </AniBarTab>
           <BarTab>
             {unitInfo && (
               <PlayerSidebar

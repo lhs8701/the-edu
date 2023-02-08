@@ -1,7 +1,9 @@
 import ReactPlayer from "react-player";
+import FilePlayer from "react-player/file";
 import YouTubePlayer from "react-player/youtube";
 import styled from "styled-components";
 import { queryClient } from "../../index";
+import { STATIC_URL } from "../../static";
 
 const IntroduceWrapper = styled.div`
   width: 100%;
@@ -53,11 +55,6 @@ const DescriptionTab = styled.div`
   color: var(--color-gray);
 `;
 
-const RateTab = styled.div`
-  width: 100%;
-  font-size: var(--size-mypage-title);
-  font-weight: var(--weight-middle);
-`;
 export default function CourseIntro({ courseId }) {
   const courseInfo = queryClient.getQueryData(["courseDetailInfo", courseId]);
 
@@ -67,10 +64,10 @@ export default function CourseIntro({ courseId }) {
       <MoreInfoBox>
         <IntroPlayerTab>
           {courseInfo && (
-            <YouTubePlayer
+            <FilePlayer
               width="100%"
               height="100%"
-              url="https://www.youtube.com/watch?v=_q3uE_cStGM"
+              url={STATIC_URL + courseInfo.sample.videoInfo.filePath}
               controls
             />
           )}
@@ -78,7 +75,6 @@ export default function CourseIntro({ courseId }) {
         <DetailInfoBox>
           <TeacherTab>강사: {courseInfo?.instructor}</TeacherTab>
           <DescriptionTab>{courseInfo?.description}</DescriptionTab>
-          <RateTab>{courseInfo?.score}점</RateTab>
         </DetailInfoBox>
       </MoreInfoBox>
     </IntroduceWrapper>

@@ -17,19 +17,23 @@ const Video = styled.video`
   height: 200px;
 `;
 
-export default function UnitInfoOutline() {
-  const fileUrl = useOutletContext()[0];
-  const setFileUrl = useOutletContext()[1];
+export default function UnitInfoOutline({
+  fileUrl,
+  setFileUrl,
+  video,
+  setVideo,
+  reviseUnitVideo,
+}) {
   const accessToken = useRecoilValue(getAccessTokenSelector);
-  const [video, setVideo] = useState();
+
   const upload = (e) => {
-    console.log("Fdd");
     setVideo(e.target.files[0]);
     uploadVideoApi(accessToken, e.target.files[0]).then(({ data }) => {
       setFileUrl(data.filePath);
+      reviseUnitVideo(data.filePath, e.target.files[0]);
     });
   };
-  console.log(fileUrl);
+
   return (
     <UploadTab>
       {fileUrl ? (

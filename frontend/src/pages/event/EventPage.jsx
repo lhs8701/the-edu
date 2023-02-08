@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { PROCESS_MAIN_URL } from "../../static";
+import { getOngoingEventApi } from "../../api/eventApi";
+import { PROCESS_MAIN_URL, STATIC_URL } from "../../static";
 import { TabTitle, Wrapper } from "../../style/CommonCss";
-import { Card } from "../../style/MypageComponentsCss";
 
 const EventCardBox = styled(motion.div)`
   width: 100%;
@@ -27,56 +28,71 @@ const EventBox = styled.div`
   grid-row-gap: 60px;
 `;
 
-const EventDescripton = styled.text``;
+const EventDescripton = styled.div``;
 
-const EventPeriod = styled.text`
+const EventPeriod = styled.div`
   color: red;
+  margin-bottom: 4px;
 `;
 
 export default function EventPage() {
   const navigate = useNavigate();
-  const EventList = () => {
-    return [1, 2, 3, 4].map((e, idx) => {
-      return (
-        <div
-          onClick={() => {
-            navigate(`${PROCESS_MAIN_URL.EVENT}/${idx}`);
-          }}
-        >
-          <EventCardBox
-            initial={{ opacity: 0, y: 30 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{ duration: 0.3 }}
-            whileHover={{
-              y: -10,
-              transition: { duration: 0.2 },
-              boxShadow:
-                "0 0px 0px rgb(0 0 0 / 16%), 0 10px 5px rgb(0 0 0 / 16%)",
-            }}
-            whileTap={{ y: 0, transition: { duration: 0.01 } }}
-          >
-            <EventCard src="https://d33wubrfki0l68.cloudfront.net/594de66469079c21fc54c14db0591305a1198dd6/3f4b1/static/images/wallpapers/bridge-01@2x.png" />
-          </EventCardBox>
-          <div>
-            <EventPeriod>D-13</EventPeriod>
+  const { data } = useQuery(
+    ["eventList"],
+    () => {
+      return getOngoingEventApi();
+    },
+    {
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
-            <br />
-            <EventDescripton>이벤트 설명</EventDescripton>
-          </div>
+  const EventComponent = ({ eventInfo }) => {
+    return (
+      <div
+        onClick={() => {
+          navigate(`${PROCESS_MAIN_URL.EVENT}/${eventInfo.id}`);
+        }}
+      >
+        <EventCardBox
+          initial={{ opacity: 0, y: 30 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{ duration: 0.3 }}
+          whileHover={{
+            y: -10,
+            transition: { duration: 0.2 },
+            boxShadow:
+              "0 0px 0px rgb(0 0 0 / 16%), 0 10px 5px rgb(0 0 0 / 16%)",
+          }}
+          whileTap={{ y: 0, transition: { duration: 0.01 } }}
+        >
+          <EventCard src={STATIC_URL + eventInfo.bannerImage.smallFilePath} />
+        </EventCardBox>
+        <div>
+          <EventPeriod>D - {eventInfo.dday}</EventPeriod>
+          <EventDescripton>{eventInfo.title}</EventDescripton>
         </div>
-      );
+      </div>
+    );
+  };
+
+  const EventList = ({ eventList }) => {
+    console.log(eventList);
+    return eventList.map((event) => {
+      return <EventComponent eventInfo={event} key={event.id} />;
     });
   };
 
   return (
     <Wrapper>
       <TabTitle>이벤트</TabTitle>
-      <EventBox>
-        <EventList />
-      </EventBox>
+      <EventBox>{data && <EventList eventList={data?.data} />}</EventBox>
     </Wrapper>
   );
 }

@@ -13,6 +13,7 @@ const CHECK_URL = "/check";
 const WISHCHECK_URL = WISH_URL + CHECK_URL;
 const ONGOING_URL = "/ongoing";
 const COMPELETE_URL = "/completed";
+const RANK_URL = "/ranking";
 
 export async function getCompletedApi(accessToken) {
   return await axios.get(`${COURSE_URL}${COMPELETE_URL}`, {
@@ -163,4 +164,7 @@ export async function getUserEnrollStatusApi(accessToken, courseId) {
       ACCESS: accessToken,
     },
   });
+}
+export async function getRankingApi() {
+  return await axios.get(`${COURSE_URL}${CATEGORY_URL}${RANK_URL}`);
 }
