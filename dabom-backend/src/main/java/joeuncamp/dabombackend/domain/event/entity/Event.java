@@ -25,6 +25,7 @@ public class Event extends BaseTimeEntity {
     String title;
     String content;
     ImageInfo bannerImage;
+    LocalDate startDate;
     LocalDate endDate;
 
     @ManyToOne

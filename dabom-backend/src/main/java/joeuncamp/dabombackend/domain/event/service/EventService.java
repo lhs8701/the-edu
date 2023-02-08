@@ -10,6 +10,9 @@ import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Transactional
 @Service
 @RequiredArgsConstructor
@@ -38,5 +41,17 @@ public class EventService {
     public EventDto.Response getEvent(Long eventId) {
         Event event = eventJpaRepository.findById(eventId).orElseThrow(CResourceNotFoundException::new);
         return new EventDto.Response(event);
+    }
+
+    /**
+     * 진행 중인 이벤트 목록을 조회합니다.
+     *
+     * @return 진행 중인 이벤트 목록
+     */
+    public List<EventDto.ShortResponse> getOngoingEvents() {
+        List<Event> events = eventJpaRepository.findByEndDateAfter(LocalDate.now());
+        return events.stream()
+                .map(EventDto.ShortResponse::new)
+                .toList();
     }
 }

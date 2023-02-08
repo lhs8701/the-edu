@@ -16,6 +16,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "[5.Event]", description = "이벤트 관련 API입니다.")
 @RestController
 @RequiredArgsConstructor
@@ -38,6 +40,14 @@ public class EventController {
     @GetMapping("/events/{eventId}")
     public ResponseEntity<EventDto.Response> getEvent(@PathVariable Long eventId){
         EventDto.Response responseDto = eventService.getEvent(eventId);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary="진행 중인 이벤트를 조회합니다.", description="")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/events/ongoing")
+    public ResponseEntity<List<EventDto.ShortResponse>> getOngoingEvent(){
+        List<EventDto.ShortResponse> responseDto = eventService.getOngoingEvents();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

@@ -28,6 +28,9 @@ public class EventDto {
         String content;
         @Schema(description = "배너 이미지", example = ExampleValue.Image.URL)
         String bannerImage;
+        @Schema(description = "시작 일자")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        LocalDate startDate;
         @Schema(description = "종료 일자")
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate endDate;
@@ -38,38 +41,62 @@ public class EventDto {
                     .content(content)
                     .bannerImage(new ImageInfo(bannerImage))
                     .writer(member)
+                    .startDate(startDate)
                     .endDate(endDate)
                     .build();
         }
     }
 
     @Getter
+    public static class ShortResponse {
+        @Schema(description = "아이디넘버")
+        Long id;
+        @Schema(description = "제목", example = ExampleValue.Event.TITLE)
+        String title;
+        @Schema(description = "시작 일자")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        LocalDate startDate;
+        @Schema(description = "종료 일자")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        LocalDate endDate;
+        @Schema(description = "배너 이미지", example = ExampleValue.Image.URL)
+        ImageInfo bannerImage;
+
+        public ShortResponse(Event event){
+            this.id = event.getId();
+            this.title = event.getTitle();
+            this.startDate = event.getStartDate();
+            this.endDate = event.getEndDate();
+            this.bannerImage = event.getBannerImage();
+        }
+    }
+
+    @Getter
     public static class Response {
+        @Schema(description = "아이디넘버")
+        Long id;
         @Schema(description = "제목", example = ExampleValue.Event.TITLE)
         String title;
         @Schema(description = "내용", example = ExampleValue.Event.CONTENT)
         String content;
         @Schema(description = "작성자", example = ExampleValue.Member.NICKNAME)
         String writer;
+        @Schema(description = "시작 일자")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        LocalDate startDate;
         @Schema(description = "종료 일자")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         LocalDate endDate;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-        @Schema(description = "생성 시간", example = ExampleValue.Time.DATE)
-        LocalDateTime createdTime;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-        @Schema(description = "최근 수정 시간", example = ExampleValue.Time.DATE)
-        LocalDateTime modifiedTime;
         @Schema(description = "배너 이미지", example = ExampleValue.Image.URL)
         ImageInfo bannerImage;
 
         public Response(Event event){
+            this.id = event.getId();
             this.title = event.getTitle();
             this.content = event.getContent();
             this.writer = event.getWriter().getNickname();
+            this.startDate = event.getStartDate();
             this.endDate = event.getEndDate();
-            this.createdTime = event.getCreatedTime();
-            this.modifiedTime = event.getModifiedTime();
             this.bannerImage = event.getBannerImage();
         }
     }
