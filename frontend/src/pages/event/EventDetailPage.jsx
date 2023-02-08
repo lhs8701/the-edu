@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { PROCESS_MAIN_URL } from "../../static";
+import { PROCESS_MAIN_URL, STATIC_URL } from "../../static";
 import { Wrapper } from "../../style/CommonCss";
 import { images } from "../../dummy";
+import { useQuery } from "react-query";
+import { getDetailEventApi } from "../../api/eventApi";
 
 const EventWrapper = styled(Wrapper)`
   width: 80%;
@@ -15,6 +17,7 @@ const EventCardBox = styled(motion.div)`
   width: 100%;
   min-height: 500px;
   margin-bottom: 5px;
+  margin-top: 50px;
 `;
 
 const EventCard = styled.img`
@@ -22,9 +25,10 @@ const EventCard = styled.img`
   height: 100%;
 `;
 
-const EventUploadDate = styled.span`
+const EventUploadDate = styled.div`
   color: var(--color-gray);
   font-size: 0.8rem;
+  margin-top: 20px;
 `;
 
 const EventPeriod = styled(EventUploadDate)`
@@ -63,27 +67,43 @@ const BackLink = styled(Link)`
 
 export default function EventDetailPage() {
   const { eventId } = useParams();
+  const { data } = useQuery(
+    ["eventInfo", eventId],
+    () => {
+      return getDetailEventApi(eventId);
+    },
+    {
+      enabled: !!eventId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
-  const EventList = () => {
-    return images.map((img) => {
-      return (
+  const EventDetailComponent = ({ eventInfo }) => {
+    console.log(eventInfo);
+    return (
+      <>
+        <EventInfoTab>
+          <EventPeriod>D - {eventInfo.dday}</EventPeriod>
+          <EventTitle>{eventInfo.title}</EventTitle>
+          <EventUploadDate>
+            {eventInfo.startDate} ~ {eventInfo.endDate}
+          </EventUploadDate>
+          <BackLink to={PROCESS_MAIN_URL.EVENT}>목록으로</BackLink>
+        </EventInfoTab>
+        <BottomLine />
         <EventCardBox>
-          <EventCard src={img} />
+          <EventCard src={STATIC_URL + eventInfo.bannerImage.mediumFilePath} />
         </EventCardBox>
-      );
-    });
+      </>
+    );
   };
-  console.log(images);
+
   return (
     <EventWrapper>
-      <EventInfoTab>
-        <EventPeriod>남은 날짜</EventPeriod>
-        <EventTitle>이벤트 제목{eventId}</EventTitle>
-        <EventUploadDate>2022.01.13</EventUploadDate>
-        <BackLink to={PROCESS_MAIN_URL.EVENT}>목록으로</BackLink>
-      </EventInfoTab>
-      <BottomLine />
-      <EventList />
+      {data && <EventDetailComponent eventInfo={data?.data} />}
     </EventWrapper>
   );
 }

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { getOngoingEventApi } from "../../api/eventApi";
 import { PROCESS_MAIN_URL, STATIC_URL } from "../../static";
 import { TabTitle, Wrapper } from "../../style/CommonCss";
-import { Card } from "../../style/MypageComponentsCss";
 
 const EventCardBox = styled(motion.div)`
   width: 100%;
