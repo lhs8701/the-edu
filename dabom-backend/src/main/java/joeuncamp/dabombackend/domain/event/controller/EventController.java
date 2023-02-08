@@ -58,4 +58,14 @@ public class EventController {
         List<EventDto.ShortResponse> responseDto = eventService.getClosedEvent();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @Operation(summary="이벤트를 수정합니다.", description="")
+    @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PatchMapping("/events/{eventId}")
+    public ResponseEntity<Void> updateEvent(@PathVariable Long eventId, EventDto.UpdateRequest requestDto){
+        requestDto.setEventId(eventId);
+        eventService.updateEvent(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

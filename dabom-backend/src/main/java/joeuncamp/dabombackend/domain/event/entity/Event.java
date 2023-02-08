@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.event.entity;
 
 import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.event.dto.EventDto;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
@@ -31,4 +32,12 @@ public class Event extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn
     private Member writer;
+
+    public void update(EventDto.UpdateRequest updateParam){
+        this.title = updateParam.getTitle();
+        this.content = updateParam.getContent();
+        this.bannerImage = new ImageInfo(updateParam.getBannerImage());
+        this.startDate = updateParam.getStartDate();
+        this.endDate = updateParam.getEndDate();
+    }
 }

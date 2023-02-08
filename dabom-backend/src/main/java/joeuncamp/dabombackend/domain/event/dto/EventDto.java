@@ -2,12 +2,14 @@ package joeuncamp.dabombackend.domain.event.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.event.entity.Event;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -105,5 +107,25 @@ public class EventDto {
             this.endDate = event.getEndDate();
             this.bannerImage = event.getBannerImage();
         }
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class UpdateRequest {
+        @Schema(hidden = true)
+        Long eventId;
+        @Schema(description = "제목", example = ExampleValue.Event.TITLE)
+        String title;
+        @Schema(description = "내용", example = ExampleValue.Event.CONTENT)
+        String content;
+        @Schema(description = "배너 이미지", example = ExampleValue.Image.URL)
+        String bannerImage;
+        @Schema(description = "시작 일자")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        LocalDate startDate;
+        @Schema(description = "종료 일자")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        LocalDate endDate;
     }
 }

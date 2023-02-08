@@ -45,11 +45,12 @@ public class EventService {
 
     /**
      * 진행 중인 이벤트 목록을 조회합니다.
+     * 종료 날짜가 금일인 것도 진행 중인 이벤트에 속합니다.
      *
      * @return 진행 중인 이벤트 목록
      */
     public List<EventDto.ShortResponse> getOngoingEvents() {
-        List<Event> events = eventJpaRepository.findByEndDateAfter(LocalDate.now());
+        List<Event> events = eventJpaRepository.findByEndDateAfter(LocalDate.now().minusDays(1));
         return events.stream()
                 .map(EventDto.ShortResponse::new)
                 .toList();
@@ -65,5 +66,16 @@ public class EventService {
         return events.stream()
                 .map(EventDto.ShortResponse::new)
                 .toList();
+    }
+
+    /**
+     * 이벤트를 수정합니다.
+     *
+     * @param requestDto 수정할 이벤트, 수정 내용
+     */
+    public void updateEvent(EventDto.UpdateRequest requestDto) {
+        Event event = eventJpaRepository.findById(requestDto.getEventId()).orElseThrow(CResourceNotFoundException::new);
+        event.update(requestDto);
+        eventJpaRepository.save(event);
     }
 }
