@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PROCESS_MAIN_URL, STATIC_URL } from "../../static";
 import { Wrapper } from "../../style/CommonCss";
-import { images } from "../../dummy";
 import { useQuery } from "react-query";
 import { getDetailEventApi } from "../../api/eventApi";
 

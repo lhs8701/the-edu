@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, wrap } from "framer-motion";
-import { images } from "../dummy";
 import styled from "styled-components";
+import { PROCESS_MAIN_URL, STATIC_URL } from "../static";
+import { useNavigate } from "react-router";
 
 const NoticeWrapper = styled(motion.div)`
   width: 100%;
@@ -11,7 +12,6 @@ const NoticeWrapper = styled(motion.div)`
   border-radius: var(--size-border-radius);
   overflow: hidden;
   margin-bottom: 50px;
-  background-image: images[imageIndex];
 `;
 
 const Ad = styled(motion.img)`
@@ -61,13 +61,13 @@ const swipePower = (offset, velocity) => {
   return Math.abs(offset) * velocity;
 };
 
-export const SlideNotice = () => {
+export const SlideNotice = ({ eventList }) => {
   const [[page, direction], setPage] = useState([0, 0]);
   const [isUserHover, setisUserHover] = useState(false);
-  const imageIndex = wrap(0, images.length, page);
-
+  const imageIndex = wrap(0, eventList.length, page);
+  const navigate = useNavigate();
   const resetSec = () => {
-    if (page === images.length) {
+    if (page === eventList.length) {
       setPage([0, 0]);
     }
   };
@@ -89,7 +89,7 @@ export const SlideNotice = () => {
       <AnimatePresence initial={false} custom={direction}>
         <Ad
           onClick={() => {
-            alert("광고보기");
+            navigate(`${PROCESS_MAIN_URL.EVENT}/${eventList[imageIndex].id}`);
           }}
           onMouseEnter={() => {
             setisUserHover(true);
@@ -98,7 +98,7 @@ export const SlideNotice = () => {
             setisUserHover(false);
           }}
           key={page}
-          src={images[imageIndex]}
+          src={STATIC_URL + eventList[imageIndex].bannerImage.mediumFilePath}
           custom={direction}
           variants={variants}
           initial="enter"
@@ -121,7 +121,6 @@ export const SlideNotice = () => {
           }}
         />
       </AnimatePresence>
-
       <LeftPagnigation onClick={() => paginate(-1)} whileTap={{ scale: 0.9 }}>
         좌
       </LeftPagnigation>

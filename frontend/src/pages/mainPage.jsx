@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { getRankingApi } from "../api/courseApi";
+import { getOngoingEventApi } from "../api/eventApi";
 import {
   getAccessTokenSelector,
   getLoginState,
@@ -51,6 +52,19 @@ export default function MainPage() {
     ["rankList"],
     () => {
       return getRankingApi();
+    },
+    {
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
+  const eventList = useQuery(
+    ["eventList"],
+    () => {
+      return getOngoingEventApi();
     },
     {
       onSuccess: (res) => {},
@@ -113,7 +127,9 @@ export default function MainPage() {
 
   return (
     <Wrapper>
-      <SlideNotice />
+      {eventList?.data?.data && (
+        <SlideNotice eventList={eventList?.data?.data} />
+      )}
       {loginState && <MyClassComponent />}
       {data && <CategoriesRankComponent />}
     </Wrapper>
