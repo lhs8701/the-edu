@@ -15,11 +15,8 @@ public class UnitStatusResponse implements UnitResponse{
     boolean completed;
 
     public UnitStatusResponse(Unit unit, boolean completed){
-        this.unitId = unit.getUnitId();
+        this.unitId = unit.getId();
         this.title = unit.getTitle();
-        this.completed = completed;
-    }
-    public void setCompleted(boolean completed){
         this.completed = completed;
     }
 }

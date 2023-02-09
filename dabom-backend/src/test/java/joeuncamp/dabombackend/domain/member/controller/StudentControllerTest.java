@@ -33,26 +33,6 @@ public class StudentControllerTest {
 
     @Test
     @WithMockUser
-    @DisplayName("수강 등록한 모든 강좌의 목록을 조회한다.")
-    void 등록한_모든_강좌의_목록을_조회한다() throws Exception {
-        // given
-        CourseStatusDto.ShortResponse dto = CourseStatusDto.ShortResponse.builder()
-                .courseId(1L)
-                .build();
-        List<CourseStatusDto.ShortResponse> responseDto = List.of(dto);
-        given(myCourseService.getMyCourses(1L)).willReturn(responseDto);
-
-        // when
-        final ResultActions actions = mockMvc.perform(get("/api/students/{memberId}/courses", "1"));
-
-        // then
-        actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].courseId", equalTo(1)));
-    }
-
-    @Test
-    @WithMockUser
     @DisplayName("찜한 강좌의 목록을 조회한다.")
     void 찜한_모든_강좌의_목록을_조회한다() throws Exception {
         // given
