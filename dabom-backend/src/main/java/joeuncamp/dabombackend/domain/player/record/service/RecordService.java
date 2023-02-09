@@ -86,12 +86,24 @@ public class RecordService {
         return new RecordDto.Response(record.get());
     }
 
+    /**
+     * 다음에 시청할 강의에 대한 정보를 반환합니다.
+     * @param member 회원
+     * @param course 강좌
+     * @return 강의 아이디넘버, 강의 제목, 재생할 시간
+     */
     public NextUnitInfo getNextUnitInfo(Member member, Course course) {
         RecordDto.Response recordResponse = getRecentPlayedUnit(member, course);
         Unit unit = unitJpaRepository.findById(recordResponse.getUnitId()).orElseThrow(CResourceNotFoundException::new);
         return new NextUnitInfo(unit, recordResponse.getTime());
     }
 
+    /**
+     * 시청 기록 순으로 가장 최근에 시청한 강좌 3개를 반환합니다.
+     *
+     * @param member 회원
+     * @return 최근에 시청한 강좌 세개
+     */
     public List<Course> findThreeRecentCourses(Member member) {
         List<Course> recentCourses = recordRedisRepository.findByMemberIdOrderByRecentTimeDesc(member.getId()).stream()
                 .map(Record::getCourseId).distinct()
