@@ -129,4 +129,11 @@ public class ExceptionAdvice {
         e.printStackTrace();
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
     }
+    @ExceptionHandler(CBadRequestException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CBadRequestException e){
+        ErrorCode errorCode = e.getErrorCode();
+        String message = e.getMessage();
+        e.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode, message), errorCode.getStatusCode());
+    }
 }

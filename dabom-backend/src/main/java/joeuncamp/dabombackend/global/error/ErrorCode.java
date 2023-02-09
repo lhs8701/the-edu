@@ -12,6 +12,7 @@ import java.util.Arrays;
 public enum ErrorCode {
     RESOURCE_NOT_FOUND(-1000, "해당 리소스를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
     REVIEW_EXIST(-1001, "이미 후기를 등록하였습니다.", HttpStatus.FORBIDDEN),
+    BAD_REQUEST(-1002, "잘못된 접근입니다.", HttpStatus.BAD_REQUEST),
 
     // 6000 ~ : 권한, 인증 에러
     CREATION_DENIED(-6000, "크리에이터만 강좌 개설을 할 수 있습니다.", HttpStatus.FORBIDDEN),
@@ -26,8 +27,8 @@ public enum ErrorCode {
     MEMBER_NOT_FOUND(-6008, "회원을 조회할 수 없습니다.", HttpStatus.UNAUTHORIZED),
 
     // 7000 ~ : 시큐리티 에러
-    NOT_AUTHORIZED(-7000, "해당 리소스에 접근하기 위한 권한이 없습니다.", HttpStatus.FORBIDDEN),
-    AUTHENTICATION_ERROR(-7001, "인증 과정에서 문제가 발생했습니다.", HttpStatus.UNAUTHORIZED),
+    NOT_AUTHORIZED(-7000, "해당 리소스에 접근하기 위한 권한이 없습니다. 시큐리티 권한 인증에 실패했습니다.", HttpStatus.FORBIDDEN),
+    AUTHENTICATION_ERROR(-7001, "시큐리티 인증 과정에서 문제가 발생했습니다.", HttpStatus.UNAUTHORIZED),
 
     JWT_INVALID(-7002, "유효하지 않은 토큰 형식입니다.", HttpStatus.UNAUTHORIZED),
     JWT_EXPIRED(-7003, "토큰이 만료되었습니다.", HttpStatus.UNAUTHORIZED),

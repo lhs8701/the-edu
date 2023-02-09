@@ -40,9 +40,9 @@ public class CourseController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses")
-    public ResponseEntity<IdResponseDto> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
+    public ResponseEntity<Long> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
         requestDto.setMemberId(member.getId());
-        IdResponseDto response = courseService.openCourse(requestDto);
+        Long response = courseService.openCourse(requestDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

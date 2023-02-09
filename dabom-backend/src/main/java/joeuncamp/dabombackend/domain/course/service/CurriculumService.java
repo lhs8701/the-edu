@@ -75,7 +75,6 @@ public class CurriculumService {
      */
     public Unit getSampleUnit(Course course) {
         List<Unit> units = unitJpaRepository.findByCourseOrderBySequence(course);
-        log.info("{}",units);
         if (units.size() == 0) {
             return null;
         }

@@ -20,8 +20,8 @@ values
 
 
 -- <CreatorProfile> --
-insert into creator_profile (id, member_id)
-values ('1', '1');
+insert into creator_profile (id, member_id, activated)
+values ('1', '1', true);
 
 -- <Event> --
 insert into event (id, created_time, modified_time, medium_file_path, original_file_path, small_file_path, content, end_date, start_date, title, writer_id)

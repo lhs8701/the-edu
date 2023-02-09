@@ -21,40 +21,19 @@ import java.util.Map;
 @Transactional
 @RequiredArgsConstructor
 public class CreatorService {
-    private final MemberJpaRepository memberJpaRepository;
-    private final CreatorProfileJpaRepository creatorProfileJpaRepository;
-    private final CourseJpaRepository courseJpaRepository;
-
-    /**
-     * 회원의 크리에이터 프로필을 활성화합니다.
-     *
-     * @param requestDto 회원 아이디넘버
-     */
-    public void activateCreatorProfile(CreatorRequestDto requestDto) {
-        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
-        if (hasCreatorProfile(member)) {
-            throw new CAlreadyCreatorException();
-        }
-        saveCreatorProfile(requestDto, member);
-    }
-
     public boolean hasCreatorProfile(Member member) {
         return member.getCreatorProfile() != null;
     }
 
-    private void saveCreatorProfile(CreatorRequestDto dto, Member member) {
-        CreatorProfile creatorProfile = dto.toEntity(member);
-        creatorProfileJpaRepository.save(creatorProfile);
-    }
 
     /**
      * 해당 회원이 주어진 강좌의 주인인지 확인합니다.
      *
      * @param course 강좌
-     * @param member 회원
+     * @param creatorProfile 크리에이터
      */
-    public void identifyCourseOwner(Course course, Member member) {
-        if (!course.getCreatorProfile().getMember().equals(member) || !hasCreatorProfile(member)) {
+    public void identifyCourseOwner(Course course, CreatorProfile creatorProfile) {
+        if (!course.getCreatorProfile().equals(creatorProfile) || !creatorProfile.isActivated()) {
             throw new CAccessDeniedException();
         }
     }

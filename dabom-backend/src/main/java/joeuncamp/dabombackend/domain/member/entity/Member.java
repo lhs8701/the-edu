@@ -78,9 +78,13 @@ public class Member extends BaseTimeEntity implements UserDetails {
         if (email != null) {
             this.email = email;
         }
-        if (imageUrl != null){
+        if (imageUrl != null) {
             this.profileImage = new ImageInfo(imageUrl);
         }
+    }
+
+    public boolean isCreator() {
+        return this.getCreatorProfile() != null && this.getCreatorProfile().activated;
     }
 
     @Override

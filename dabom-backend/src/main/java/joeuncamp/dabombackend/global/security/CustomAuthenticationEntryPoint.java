@@ -25,8 +25,10 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         final ObjectMapper mapper = new ObjectMapper();
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        body.put(ResponseField.CODE, ErrorCode.AUTHENTICATION_ERROR.getCode());
-        body.put(ResponseField.MESSAGE, ErrorCode.AUTHENTICATION_ERROR.getMessage());
+        body.put("status", ErrorCode.AUTHENTICATION_ERROR.getStatusCode().value());
+        body.put("code", ErrorCode.AUTHENTICATION_ERROR.getCode());
+        body.put("name", ErrorCode.AUTHENTICATION_ERROR.name());
+        body.put("message", ErrorCode.AUTHENTICATION_ERROR.getMessage());
         mapper.writeValue(response.getOutputStream(), body);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }

@@ -41,29 +41,24 @@ public class CourseService {
     private final CreatorService creatorService;
     private final CurriculumService curriculumService;
     private final ReviewService reviewService;
-    private final RecordService recordService;
     private final EnrollJpaRepository enrollJpaRepository;
 
     /**
      * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
-     *
+     * 개설 후, 크리에이터에게 강좌 등록 정보를 부여합니다.
      * @param requestDto 강좌 개설 정보
      * @return 개설된 강좌의 아이디넘버
      */
-    public IdResponseDto openCourse(CourseDto.CreationRequest requestDto) {
+    public Long openCourse(CourseDto.CreationRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!creatorService.hasCreatorProfile(member)) {
             throw new CCreationDeniedException();
         }
-
         CreatorProfile creator = member.getCreatorProfile();
-        Long savedId = createAndSaveCourse(requestDto, creator);
-        return new IdResponseDto(savedId);
-    }
-
-    private Long createAndSaveCourse(CourseDto.CreationRequest dto, CreatorProfile creator) {
-        Course course = dto.toEntity(creator);
-        return courseJpaRepository.save(course).getId();
+        Course course = requestDto.toEntity(creator);
+        courseJpaRepository.save(course);
+        enrollJpaRepository.save(Enroll.builder().member(member).course(course).build());
+        return course.getId();
     }
 
     /**

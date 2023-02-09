@@ -24,7 +24,13 @@ public class CreatorProfile {
     @JoinColumn(name = "member_id")
     Member member;
 
+    boolean activated;
+
     @OneToMany(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Builder.Default
     List<Course> uploadedCourses = new ArrayList<>();
+
+    public void activate(){
+        this.activated = true;
+    }
 }

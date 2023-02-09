@@ -26,8 +26,10 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         final ObjectMapper mapper = new ObjectMapper();
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        body.put(ResponseField.CODE, ErrorCode.NOT_AUTHORIZED.getCode());
-        body.put(ResponseField.MESSAGE, ErrorCode.NOT_AUTHORIZED.getMessage());
+        body.put("status", ErrorCode.NOT_AUTHORIZED.getStatusCode().value());
+        body.put("code", ErrorCode.NOT_AUTHORIZED.getCode());
+        body.put("name", ErrorCode.NOT_AUTHORIZED.name());
+        body.put("message", ErrorCode.NOT_AUTHORIZED.getMessage());
         mapper.writeValue(response.getOutputStream(), body);
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }

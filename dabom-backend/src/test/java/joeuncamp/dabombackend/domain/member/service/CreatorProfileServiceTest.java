@@ -61,25 +61,4 @@ public class CreatorProfileServiceTest {
         // then
         assertThat(result).isEqualTo(false);
     }
-
-    @Test
-    @DisplayName("이미 크리에이터인 경우 예외를 반환한다.")
-    void 이미_크리에이터인_경우_예외를_반환한다() {
-        // given
-        CreatorRequestDto dto = CreatorRequestDto.builder()
-                .memberId(1L)
-                .build();
-        CreatorProfile creatorProfile = CreatorProfile.builder().build();
-        Member member = Member.builder()
-                .id(1L)
-                .creatorProfile(creatorProfile)
-                .build();
-        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
-
-        // when
-
-        // then
-        assertThatThrownBy(() -> creatorService.activateCreatorProfile(dto))
-                .isInstanceOf(CAlreadyCreatorException.class);
-    }
 }

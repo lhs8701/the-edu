@@ -34,7 +34,7 @@ public class UnitService {
     public Long uploadUnit(UnitDto.UploadRequest requestDto) {
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
-        creatorService.identifyCourseOwner(course, member);
+        creatorService.identifyCourseOwner(course, member.getCreatorProfile());
 
         Unit unit = requestDto.toEntity(course);
         return unitJpaRepository.save(unit).getId();
