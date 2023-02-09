@@ -46,10 +46,6 @@ class InCourseViewController: UIViewController {
             switch response {
             case .success(let data):
                 if let data = data as? [MyCourseDataModel] {
-//                    for d in data {
-//                        print(d)
-//                    }
-//                    self.temp = data
                     self.inCourseData = data
                     self.inCourseCV.reloadData()
                 }

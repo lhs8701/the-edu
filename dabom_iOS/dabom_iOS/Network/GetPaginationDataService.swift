@@ -26,7 +26,6 @@ struct GetPaginationDataService {
         let request = AF.request(URL!, method: .get, encoding: JSONEncoding.default)
         
         request.responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}

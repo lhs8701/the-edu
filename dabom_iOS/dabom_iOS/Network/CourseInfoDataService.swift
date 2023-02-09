@@ -44,7 +44,6 @@ struct CourseInfoDataService {
         let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -82,7 +81,6 @@ struct CourseInfoDataService {
         let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -109,7 +107,6 @@ struct CourseInfoDataService {
         let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -138,7 +135,6 @@ struct CourseInfoDataService {
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
         
         request.responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}

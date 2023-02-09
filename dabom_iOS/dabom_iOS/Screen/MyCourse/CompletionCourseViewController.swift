@@ -38,8 +38,6 @@ class CompletionCourseViewController: UIViewController {
         self.completionCourseCV.delegate = self
         self.completionCourseCV.dataSource = self
         self.completionCourseCV.isScrollEnabled = true
-        
-//        completionCourseData = MyCourseDataModel.sampleData
     }
     
     private func getCompletedCourses() {
@@ -76,14 +74,27 @@ extension CompletionCourseViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
+//        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
+        
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.coursePlayerVC) as? CoursePlayerVC else { return }
+        
+        if let completionCourseData = completionCourseData {
+            nextVC.courseId = completionCourseData[indexPath.row].courseId
+            nextVC.unitId = completionCourseData[indexPath.row].nextUnitInfo.unitId
+            nextVC.unitTitle = completionCourseData[indexPath.row].nextUnitInfo.title
+            nextVC.thumbnailImage = completionCourseData[indexPath.row].thumbnailImage.mediumFilePath
+        }
 
 
-        nextVC.courseId = 1
-        //        print(courseName)
+//        nextVC.courseId = 1
+//        if let completionCourseData = completionCourseData {
+//            nextVC.courseId = completionCourseData[indexPath.row].courseId
+//            nextVC.u
+//        }
+
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
-//        self.present(nextVC, animated: true)
+
     }
 }
 

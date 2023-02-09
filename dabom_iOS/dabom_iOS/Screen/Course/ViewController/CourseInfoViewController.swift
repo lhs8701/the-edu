@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class CourseInfoViewController: UIViewController {
         
@@ -216,11 +217,9 @@ class CourseInfoViewController: UIViewController {
             switch (response) {
             case .success(let data):
                 if let data = data as? CourseInfoDataModel {
-//                    self.courseTitle = data.title
-//                    self.courseDescription = data.description
-//                    self.instructor = data.instructor
+
                     self.courseInfoData = data
-                    
+                    print(data)
                     self.getCourseReview()
                     self.getCourseInquiry()
                     self.mainTV.reloadData()
@@ -296,26 +295,53 @@ class CourseInfoViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
-            return 450
-        case 1:
-            return 50
-        case 2, 3:
-            return 800
-        case 4, 5:
-            return 575
-        default:
-            return 0
-        }
-//        return UITableView.automaticDimension
+//        switch indexPath.row {
+//        case 0:
+////            return 450
+//            return UITableView.automaticDimension
+//        case 1:
+//            return 50
+//        case 2, 3:
+////            return UITableView.automaticDimension
+//            return 100
+//        case 4, 5:
+////            return 575
+//            return UITableView.automaticDimension
+//        default:
+//            return 0
+////        default:
+////            return UITableView.automaticDimension
+//        }
+////        return UITableView.automaticDimension
+        
+//        if indexPath.row == 2 || indexPath.row == 3{
+//            return 100
+//        } else {
+//            return UITableView.automaticDimension
+//        }
+        
+        return UITableView.automaticDimension
+        
+        
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        if let courseInfoData = courseInfoData {
+            return 5 + courseInfoData.descriptionImages.count
+        } else {
+            return 5
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var descriptionCnt = self.courseInfoData?.descriptionImages.count ?? 0
+        if descriptionCnt < 1 {
+            descriptionCnt = 1
+        }
+        
         switch indexPath.row {
         case 0:
             // 메인 정보 자리
@@ -334,22 +360,28 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             // Sticky View 자리
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.segmentTVC, for: indexPath) as? SegmentTVC else { return UITableViewCell() }
             return cell
-        case 2:
+        case 2...descriptionCnt+1:
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
-            cell.infoImageView.image = UIImage(named: "testIntro01")
+            
+            cell.contentView.snp.makeConstraints {
+                $0.height.equalTo(self.view.frame.width * 2)
+            }
+            
+            if let courseInfoData = courseInfoData {
+                if courseInfoData.descriptionImages.count != 0 {
+                    cell.infoImageView.setImage(with: courseInfoData.descriptionImages[indexPath.row-2].mediumFilePath)
+                }
+            }
+            
             return cell
-        case 3:
-            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
-            cell.infoImageView.image = UIImage(named: "testIntro02")
-            return cell
-        case 4:
+        case descriptionCnt+2:
             // Review
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseReviewTVC, for: indexPath) as? CourseReviewTVC else { return UITableViewCell() }
             cell.setData(self.reviewData)
             cell.delegate = self
             
             return cell
-        case 5:
+        case descriptionCnt+3:
             // Inquiry
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInquiryTVC, for: indexPath) as? CourseInquiryTVC else { return UITableViewCell() }
             cell.setData(self.inquiryData)

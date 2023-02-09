@@ -15,7 +15,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourseInquiryTVC" rowHeight="562" id="KGk-i7-Jjw" customClass="CourseInquiryTVC" customModule="dabom_iOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="468" height="562"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="468" height="562"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -66,6 +66,7 @@
                     <constraint firstItem="K90-Gk-16u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="JCt-a5-8RK"/>
                     <constraint firstItem="K90-Gk-16u" firstAttribute="top" secondItem="bcq-oX-KXa" secondAttribute="bottom" id="RPi-b6-4cA"/>
                     <constraint firstAttribute="trailing" secondItem="Pxk-eS-ac2" secondAttribute="trailing" constant="30" id="VzV-2m-06O"/>
+                    <constraint firstAttribute="bottom" secondItem="Pxk-eS-ac2" secondAttribute="bottom" constant="10" id="e8N-wB-P0n"/>
                     <constraint firstItem="bcq-oX-KXa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ewq-U9-cpm"/>
                     <constraint firstAttribute="trailing" secondItem="K90-Gk-16u" secondAttribute="trailing" id="hfa-jF-jTO"/>
                     <constraint firstAttribute="trailing" secondItem="bcq-oX-KXa" secondAttribute="trailing" id="x7R-EN-rWZ"/>

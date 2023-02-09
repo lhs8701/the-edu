@@ -171,6 +171,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="MSO-6K-zZg" secondAttribute="trailing" id="uBZ-Fg-siy"/>
                     <constraint firstItem="jSO-Fa-s6N" firstAttribute="centerY" secondItem="Ipl-eG-5wh" secondAttribute="centerY" id="utS-KR-DyS"/>
                     <constraint firstItem="H8K-Kt-NRt" firstAttribute="top" secondItem="MTF-L7-Evq" secondAttribute="bottom" constant="10" id="uvB-ra-1Mi"/>
+                    <constraint firstItem="MSO-6K-zZg" firstAttribute="top" secondItem="jSO-Fa-s6N" secondAttribute="bottom" constant="15" id="wDE-1p-K3K"/>
                     <constraint firstItem="KF2-UJ-EWO" firstAttribute="centerY" secondItem="t58-uy-sR4" secondAttribute="centerY" id="wet-Ry-c98"/>
                 </constraints>
             </tableViewCellContentView>

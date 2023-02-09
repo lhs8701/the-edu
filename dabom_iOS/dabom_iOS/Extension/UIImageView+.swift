@@ -24,11 +24,29 @@ extension UIImageView {
                     print("캐시 없음")
                     guard let url = URL(string: imageUrl) else { return }
                     let resource = ImageResource(downloadURL: url, cacheKey: imageUrl)
-                    self.kf.setImage(with: resource)
+                    self.kf.indicatorType = .activity
+                    self.kf.setImage(with: resource, options: [.transition(.fade(0.5))])
                 }
             case .failure(let error):
                 print(error)
             }
         }
+    }
+    
+    func getImage(with urlString: String) {
+        let imageUrl = "\(Const.Url.baseUrl)\(urlString)"
+        guard let url = URL(string: imageUrl) else { return }
+        let resource = ImageResource(downloadURL: url)
+//        let URL = URL(string: imageUrl)
+        
+        KingfisherManager.shared.retrieveImage(with: resource) { result in
+            switch result {
+            case .success(let value):
+                print(value.image)
+            case .failure:
+                print("error")
+            }
+        }
+        
     }
 }

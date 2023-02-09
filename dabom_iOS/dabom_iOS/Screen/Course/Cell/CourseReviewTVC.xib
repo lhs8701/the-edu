@@ -15,7 +15,7 @@
         <tableViewCell contentMode="scaleToFill" restorationIdentifier="CourseReviewTVC" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourseReviewTVC" id="KGk-i7-Jjw" customClass="CourseReviewTVC" customModule="dabom_iOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="468" height="562"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="468" height="562"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -55,7 +55,7 @@
                         <rect key="frame" x="0.0" y="50" width="468" height="450"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="450" id="Prw-Ix-3gi"/>
+                            <constraint firstAttribute="height" constant="450" id="fBV-Ti-Obo"/>
                         </constraints>
                     </tableView>
                 </subviews>
@@ -65,6 +65,7 @@
                     <constraint firstItem="AKz-ei-m8x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Hmg-9v-lQk"/>
                     <constraint firstItem="1SR-cS-uJ5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Qhb-0z-OFV"/>
                     <constraint firstAttribute="trailing" secondItem="NPQ-LQ-T5S" secondAttribute="trailing" constant="30" id="SG3-08-F7Q"/>
+                    <constraint firstAttribute="bottom" secondItem="NPQ-LQ-T5S" secondAttribute="bottom" constant="10" id="UaM-Id-VzM"/>
                     <constraint firstItem="NPQ-LQ-T5S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="VhV-bt-57R"/>
                     <constraint firstAttribute="trailing" secondItem="1SR-cS-uJ5" secondAttribute="trailing" id="Yjo-Wh-JYp"/>
                     <constraint firstItem="AKz-ei-m8x" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="gUZ-8Z-2xY"/>
