@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import AVFoundation
+import AVKit
+import SnapKit
 
 class CourseInfoViewController: UIViewController {
         
@@ -49,6 +52,9 @@ class CourseInfoViewController: UIViewController {
     var onOffButton: UIButton!
     var heartButton: UIButton!
     
+    var avPlayer = AVPlayer()
+    var avController = AVPlayerViewController()
+    
     
     // MARK: - Life Cycle
     
@@ -88,6 +94,7 @@ class CourseInfoViewController: UIViewController {
         self.onOffButton.setImage(onOffImage, for: .normal)
         self.onOffButton.addTarget(self, action: #selector(onOffBtnPressed(_:)), for: .touchUpInside)
         let onOff = UIBarButtonItem(customView: onOffButton)
+        onOffButton.layer.isHidden = true
         
         let unselectedHeart = UIImage(named: Const.Image.unselectedHeart)
         let selectedHeart = UIImage(named: Const.Image.selectedHeart)
@@ -176,6 +183,7 @@ class CourseInfoViewController: UIViewController {
         self.mainTV.register(UINib(nibName: Const.Xib.Name.segmentTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.segmentTVC)
         self.mainTV.register(UINib(nibName: Const.Xib.Name.courseReviewTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseReviewTVC)
         self.mainTV.register(UINib(nibName: Const.Xib.Name.courseInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseInquiryTVC)
+        self.mainTV.register(UINib(nibName: Const.Xib.Name.courseCurriculumTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseCurriculumTVC)
     }
 
     
@@ -196,15 +204,18 @@ class CourseInfoViewController: UIViewController {
     }
     
     @objc func segCtrlValChanged(_ sender: UISegmentedControl) {
+        let descriptionCnt = self.getDescriptionCnt()
+        print(descriptionCnt)
+        
         switch sender.selectedSegmentIndex {
         case 0:
             self.mainTV.scrollToRow(at: NSIndexPath(row: 2, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
         case 1:
-            self.mainTV.scrollToRow(at: NSIndexPath(row: 3, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
+            self.mainTV.scrollToRow(at: NSIndexPath(row: descriptionCnt + 2, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
         case 2:
-            self.mainTV.scrollToRow(at: NSIndexPath(row: 4, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
+            self.mainTV.scrollToRow(at: NSIndexPath(row: descriptionCnt + 3, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
         case 3:
-            self.mainTV.scrollToRow(at: NSIndexPath(row: 5, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
+            self.mainTV.scrollToRow(at: NSIndexPath(row: descriptionCnt + 4, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
         default:
             break
         }
@@ -216,11 +227,9 @@ class CourseInfoViewController: UIViewController {
             switch (response) {
             case .success(let data):
                 if let data = data as? CourseInfoDataModel {
-//                    self.courseTitle = data.title
-//                    self.courseDescription = data.description
-//                    self.instructor = data.instructor
+
                     self.courseInfoData = data
-                    
+                    print(data)
                     self.getCourseReview()
                     self.getCourseInquiry()
                     self.mainTV.reloadData()
@@ -288,6 +297,17 @@ class CourseInfoViewController: UIViewController {
         }
     }
     
+    // MARK: - Description Image 갯수 반환
+    private func getDescriptionCnt() -> Int {
+        var descriptionCnt = self.courseInfoData?.descriptionImages.count ?? 0
+        
+        // 이미지 갯수는 최소 1개로 설정 (default 이미지 존재)
+        if descriptionCnt < 1 {
+            descriptionCnt = 1
+        }
+        
+        return descriptionCnt
+    }
     
     
 }
@@ -296,26 +316,29 @@ class CourseInfoViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
+        if indexPath.row == 0 {
             return 450
-        case 1:
-            return 50
-        case 2, 3:
-            return 800
-        case 4, 5:
-            return 575
-        default:
-            return 0
+        } else {
+            return UITableView.automaticDimension
         }
-//        return UITableView.automaticDimension
+        
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        if let courseInfoData = courseInfoData {
+            return 6 + courseInfoData.descriptionImages.count
+        } else {
+            return 6
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let descriptionCnt = self.getDescriptionCnt()
+        
         switch indexPath.row {
         case 0:
             // 메인 정보 자리
@@ -334,22 +357,35 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             // Sticky View 자리
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.segmentTVC, for: indexPath) as? SegmentTVC else { return UITableViewCell() }
             return cell
-        case 2:
+        case 2...descriptionCnt+1:
+            // description Image
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
-            cell.infoImageView.image = UIImage(named: "testIntro01")
+            
+            cell.contentView.snp.makeConstraints {
+                $0.height.equalTo(self.view.frame.width * 2)
+                $0.width.equalTo(self.view.frame.width)
+            }
+            
+            if let courseInfoData = courseInfoData {
+                if courseInfoData.descriptionImages.count != 0 {
+                    cell.infoImageView.setImage(with: courseInfoData.descriptionImages[indexPath.row-2].originalFilePath)
+                }
+            }
+            
             return cell
-        case 3:
-            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
-            cell.infoImageView.image = UIImage(named: "testIntro02")
+        case descriptionCnt + 2:
+            guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseCurriculumTVC, for: indexPath) as? CourseCurriculumTVC else { return UITableViewCell() }
+            cell.delegate = self
+            
             return cell
-        case 4:
+        case descriptionCnt+3:
             // Review
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseReviewTVC, for: indexPath) as? CourseReviewTVC else { return UITableViewCell() }
             cell.setData(self.reviewData)
             cell.delegate = self
             
             return cell
-        case 5:
+        case descriptionCnt+4:
             // Inquiry
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInquiryTVC, for: indexPath) as? CourseInquiryTVC else { return UITableViewCell() }
             cell.setData(self.inquiryData)
@@ -447,6 +483,28 @@ extension CourseInfoViewController: CourseEnrollBtnDelegate {
             
             present(alert, animated: true)
         }
+    }
+    
+    func CourseSamplePlay() {
+        guard let courseInfoData = courseInfoData else {return}
+        guard let videoUrl = URL(string: "\(Const.Url.baseUrl)\(courseInfoData.sample.videoInfo.filePath)") else {return}
+        self.avPlayer = AVPlayer(url: videoUrl)
+        self.avController.player = self.avPlayer
+        self.avController.view.frame = self.view.frame
+        self.present(avController, animated: true, completion: nil)
+        avPlayer.play()
+    }
+}
+
+// MARK: - 강좌 커리큘럼 보기 버튼 눌렀을 때
+extension CourseInfoViewController: allCurriculumBtnDelegate {
+    func allCurriculumBtnPressed() {
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseCurriculumAllVC) as? CourseCurriculumAllVC else {return}
+        if let courseInfoData = courseInfoData {
+            nextVC.courseId = courseInfoData.id
+        }
         
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

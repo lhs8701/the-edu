@@ -17,10 +17,21 @@ class WishCourseViewController: UIViewController {
     
     var temp: [SampleCourseThumbnail] = []
     
+    var defaultImageView: UIImageView = UIImageView(image: UIImage(named: "default_wish"))
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.addSubview(defaultImageView)
+        defaultImageView.contentMode = .scaleAspectFit
+        defaultImageView.snp.makeConstraints {
+            $0.center.equalTo(wishCourseCollectionView.snp.center)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+        defaultImageView.isHidden = true
+        
         setCV()
     }
     
@@ -52,6 +63,12 @@ class WishCourseViewController: UIViewController {
 //                    }
                     self.temp = data
                     self.wishCourseCollectionView.reloadData()
+                    
+                    if data.isEmpty {
+                        self.defaultImageView.isHidden = false
+                    } else {
+                        self.defaultImageView.isHidden = true
+                    }
                 }
             case .requestErr(let message):
                 print("requestErr", message)

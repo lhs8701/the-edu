@@ -14,7 +14,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
     }
     
     func setData(bannerData: BannerDataModel) {

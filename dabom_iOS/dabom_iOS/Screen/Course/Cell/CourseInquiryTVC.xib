@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,18 +12,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourseInquiryTVC" rowHeight="562" id="KGk-i7-Jjw" customClass="CourseInquiryTVC" customModule="dabom_iOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="468" height="562"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourseInquiryTVC" rowHeight="628" id="KGk-i7-Jjw" customClass="CourseInquiryTVC" customModule="dabom_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="468" height="628"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="468" height="562"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="468" height="628"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcq-oX-KXa">
-                        <rect key="frame" x="0.0" y="0.0" width="468" height="50"/>
+                        <rect key="frame" x="0.0" y="50" width="468" height="40"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="문의사항" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvE-vf-AlT">
-                                <rect key="frame" x="15" y="10.666666666666666" width="83.333333333333329" height="28.666666666666671"/>
+                                <rect key="frame" x="15" y="5.6666666666666661" width="83.333333333333329" height="28.666666666666671"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -33,18 +33,18 @@
                         <constraints>
                             <constraint firstItem="UvE-vf-AlT" firstAttribute="centerY" secondItem="bcq-oX-KXa" secondAttribute="centerY" id="bAW-8S-c0n"/>
                             <constraint firstItem="UvE-vf-AlT" firstAttribute="leading" secondItem="bcq-oX-KXa" secondAttribute="leading" constant="15" id="cyk-MV-pdj"/>
-                            <constraint firstAttribute="height" constant="50" id="rHf-6x-4pf"/>
+                            <constraint firstAttribute="height" constant="40" id="rHf-6x-4pf"/>
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="K90-Gk-16u">
-                        <rect key="frame" x="0.0" y="50" width="468" height="450"/>
+                        <rect key="frame" x="0.0" y="90" width="468" height="450"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="450" id="7iV-3L-KYs"/>
                         </constraints>
                     </tableView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pxk-eS-ac2">
-                        <rect key="frame" x="30" y="510" width="408" height="40"/>
+                        <rect key="frame" x="30" y="550" width="408" height="40"/>
                         <color key="backgroundColor" name="mainColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="bTo-Pj-znq"/>
@@ -58,17 +58,28 @@
                             <action selector="allBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="n9i-s6-jqP"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hds-3s-Um9">
+                        <rect key="frame" x="0.0" y="0.0" width="468" height="50"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="mqK-9m-72Q"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Hds-3s-Um9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="57f-Yf-Bl0"/>
+                    <constraint firstAttribute="trailing" secondItem="Hds-3s-Um9" secondAttribute="trailing" id="6Wd-zm-pZM"/>
                     <constraint firstItem="Pxk-eS-ac2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="7Ye-Fq-6V8"/>
                     <constraint firstItem="bcq-oX-KXa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9Ih-qp-Xsv"/>
                     <constraint firstItem="Pxk-eS-ac2" firstAttribute="top" secondItem="K90-Gk-16u" secondAttribute="bottom" constant="10" id="CMg-Qj-AKY"/>
+                    <constraint firstItem="bcq-oX-KXa" firstAttribute="top" secondItem="Hds-3s-Um9" secondAttribute="bottom" id="HvO-Es-1XS"/>
                     <constraint firstItem="K90-Gk-16u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="JCt-a5-8RK"/>
                     <constraint firstItem="K90-Gk-16u" firstAttribute="top" secondItem="bcq-oX-KXa" secondAttribute="bottom" id="RPi-b6-4cA"/>
                     <constraint firstAttribute="trailing" secondItem="Pxk-eS-ac2" secondAttribute="trailing" constant="30" id="VzV-2m-06O"/>
-                    <constraint firstItem="bcq-oX-KXa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ewq-U9-cpm"/>
+                    <constraint firstAttribute="bottom" secondItem="Pxk-eS-ac2" secondAttribute="bottom" constant="10" id="e8N-wB-P0n"/>
                     <constraint firstAttribute="trailing" secondItem="K90-Gk-16u" secondAttribute="trailing" id="hfa-jF-jTO"/>
                     <constraint firstAttribute="trailing" secondItem="bcq-oX-KXa" secondAttribute="trailing" id="x7R-EN-rWZ"/>
+                    <constraint firstItem="Hds-3s-Um9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zYh-av-DbR"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -77,7 +88,7 @@
                 <outlet property="inquiryTV" destination="K90-Gk-16u" id="1zR-Jb-ERe"/>
                 <outlet property="inquiryTitle" destination="UvE-vf-AlT" id="S7i-Ai-epU"/>
             </connections>
-            <point key="canvasLocation" x="-55" y="134"/>
+            <point key="canvasLocation" x="-18.46153846153846" y="17.061611374407583"/>
         </tableViewCell>
     </objects>
     <resources>

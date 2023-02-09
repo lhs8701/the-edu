@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,21 +26,21 @@
                                     <constraint firstAttribute="width" secondItem="83H-Xb-wTG" secondAttribute="height" multiplier="17:10" id="OfK-Fn-Ivr"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-Py-jwQ">
-                                <rect key="frame" x="4.9999999999999964" y="105" width="55.666666666666657" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-Py-jwQ">
+                                <rect key="frame" x="5" y="105" width="160" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강사 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dds-sK-DGk">
-                                <rect key="frame" x="5" y="151.66666666666666" width="41" height="13.333333333333343"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <rect key="frame" x="5" y="151.66666666666666" width="44.666666666666664" height="13.333333333333343"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02s-em-lse">
-                                <rect key="frame" x="54" y="153" width="55" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <rect key="frame" x="57.666666666666657" y="151.66666666666666" width="60.333333333333343" height="13.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -71,6 +71,7 @@
                             <constraint firstItem="kfV-Py-jwQ" firstAttribute="leading" secondItem="Ahs-Ih-XRF" secondAttribute="leading" constant="5" id="gO5-xH-bSI"/>
                             <constraint firstItem="83H-Xb-wTG" firstAttribute="leading" secondItem="Ahs-Ih-XRF" secondAttribute="leading" id="lC0-Ea-zqD"/>
                             <constraint firstAttribute="bottom" secondItem="dds-sK-DGk" secondAttribute="bottom" constant="5" id="lct-Kd-ije"/>
+                            <constraint firstAttribute="trailing" secondItem="kfV-Py-jwQ" secondAttribute="trailing" constant="5" id="tUs-FR-3G4"/>
                             <constraint firstAttribute="trailing" secondItem="83H-Xb-wTG" secondAttribute="trailing" id="xvG-v1-zlb"/>
                             <constraint firstItem="kfV-Py-jwQ" firstAttribute="top" secondItem="83H-Xb-wTG" secondAttribute="bottom" constant="5" id="yXC-0b-XCu"/>
                         </constraints>
@@ -87,8 +88,10 @@
             <connections>
                 <outlet property="categoryName" destination="02s-em-lse" id="hjP-24-DhR"/>
                 <outlet property="courseTitle" destination="kfV-Py-jwQ" id="lLA-OF-DsO"/>
-                <outlet property="creatorName" destination="02s-em-lse" id="dfp-Hi-Pv1"/>
+                <outlet property="creatorName" destination="dds-sK-DGk" id="zSc-dJ-LN3"/>
+                <outlet property="starImageView" destination="dXw-ia-6OL" id="GWB-Tv-4m8"/>
                 <outlet property="thumbnailImage" destination="83H-Xb-wTG" id="f5U-DE-CCj"/>
+                <outletCollection property="hiddenLabel" destination="gyK-uY-wfE" collectionClass="NSMutableArray" id="R9r-M9-zRt"/>
             </connections>
             <point key="canvasLocation" x="130.76923076923077" y="-11.374407582938389"/>
         </collectionViewCell>

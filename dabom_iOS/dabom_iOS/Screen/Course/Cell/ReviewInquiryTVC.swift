@@ -10,6 +10,9 @@ import UIKit
 class ReviewInquiryTVC: UITableViewCell {
     
     // MARK: - IBOutlet
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    
     @IBOutlet weak var writerLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     
@@ -20,6 +23,8 @@ class ReviewInquiryTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,12 +35,15 @@ class ReviewInquiryTVC: UITableViewCell {
     
     // MARK: - setData
     func setReviewData(_ data: CourseReviewDataModel) {
-        self.writerLabel.text = data.writer
+        self.profileImageView.setImage(with: data.writer.profileImage.smallFilePath)
+        print(data.writer.profileImage.smallFilePath)
+        self.writerLabel.text = data.writer.nickname
         self.contentLabel.text = data.content
     }
     
     func setInquiryData(_ data: CourseInquiryDataModel) {
-        self.writerLabel.text = data.writer
+        self.profileImageView.setImage(with: data.writer.profileImage.smallFilePath)
+        self.writerLabel.text = data.writer.nickname
         self.contentLabel.text = data.content
     }
     

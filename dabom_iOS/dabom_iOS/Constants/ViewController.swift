@@ -20,6 +20,7 @@ extension Const {
             static let onOffDescription = "OnOffDescriptionVC"
             static let courseInquiryAllVC = "CourseInquiryAllVC"
             static let courseReviewAllVC = "CourseReviewAllVC"
+            static let courseCurriculumAllVC = "CourseCurriculumAllVC"
             
             static let myPage = "UserViewController"
             static let setting = "SettingVC"

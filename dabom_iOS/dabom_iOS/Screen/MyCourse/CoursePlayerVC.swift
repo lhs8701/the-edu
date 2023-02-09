@@ -22,6 +22,8 @@ class CoursePlayerVC: UIViewController {
     
     @IBOutlet weak var courseCurriculum: UILabel!
     
+    @IBOutlet weak var courseCurriclumView: UIView!
+    
     // MARK: - let, var
     let Url = URL(string: Const.Url.m3u8Test)
     
@@ -30,7 +32,7 @@ class CoursePlayerVC: UIViewController {
     var unitTitle: String?
     var thumbnailImage: String = ""
     var unitData: UnitDataModel?
-    var curriculum: CurriculumDataModel?
+    var curriculum: UserCurriculumDataModel?
     
     var avPlayer = AVPlayer()
     var avController = AVPlayerViewController()
@@ -39,11 +41,7 @@ class CoursePlayerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playBtn.isEnabled = false
-    
-//        unitThumbnailImage.image = UIImage(named: "testThumb01")
-        
-        
-        
+       
         configure()
         setTV()
         getUnit()
@@ -83,12 +81,16 @@ class CoursePlayerVC: UIViewController {
         saveRecord(time: currentTime)
     }
     
+    // MARK: - View configure
     private func configure() {
         self.courseCurriculum.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 4.0)
         self.unitThumbnailImage.setImage(with: self.thumbnailImage)
         self.unitTitleLabel.text = self.unitTitle
+        self.unitTitleLabel.adjustsFontSizeToFitWidth = true
+        self.courseCurriclumView.layer.drawLineAt(edges: [.bottom], color: .lightGray, width: 5.0)
     }
     
+    // MARK: - TableView Setting
     private func setTV() {
         self.curriculumTV.delegate = self
         self.curriculumTV.dataSource = self
@@ -96,12 +98,13 @@ class CoursePlayerVC: UIViewController {
         self.curriculumTV.register(UINib(nibName: Const.Xib.Name.curriculumHeaderTVC, bundle: nil), forHeaderFooterViewReuseIdentifier: Const.Xib.Identifier.curriculumHeaderTVC)
     }
     
+    // MARK: - 커리큘럼 정보 가져오기
     private func setCurriculum() {
         if let courseId = courseId {
-            CurriculumDataService.shared.getUserCurriculum(courseId: courseId) { response in
+            UserCurriculumDataService.shared.getUserCurriculum(courseId: courseId) { response in
                 switch response {
                 case .success(let data):
-                    if let data = data as? CurriculumDataModel {
+                    if let data = data as? UserCurriculumDataModel {
                         self.curriculum = data
                         self.curriculumTV.reloadData()
                     }
@@ -213,7 +216,6 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
             cell.curriculumTitle.text = curriculum.chapters[indexPath.section].units[indexPath.row].title
             
             if curriculum.chapters[indexPath.section].units[indexPath.row].completed {
-                print("\(indexPath) Completed!!!!!!!!!!!!!!!!!")
                 cell.contentView.backgroundColor = UIColor(named: "unSelectedColor")
             }
             
@@ -233,11 +235,11 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        50
+        40
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        45
+        40
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

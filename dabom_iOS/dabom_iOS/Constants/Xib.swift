@@ -27,6 +27,7 @@ extension Const {
             static let reviewInquiryTVC = "ReviewInquiryTVC"
             static let curriculumHeaderTVC = "CurriculumHeaderTVC"
             static let curriculumTVC = "CurriculumTVC"
+            static let courseCurriculumTVC = "CourseCurriculumTVC"
         }
         
         struct Identifier {
@@ -46,6 +47,7 @@ extension Const {
             static let reviewInquiryTVC = "ReviewInquiryTVC"
             static let curriculumHeaderTVC = "CurriculumHeaderTVC"
             static let curriculumTVC = "CurriculumTVC"
+            static let courseCurriculumTVC = "CourseCurriculumTVC"
         }
         
     }

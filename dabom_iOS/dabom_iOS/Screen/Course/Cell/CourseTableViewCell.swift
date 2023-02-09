@@ -23,9 +23,19 @@ class CourseTableViewCell: UITableViewCell {
     var thumbnailData: [SampleCourseThumbnail] = []
     var delegate: CourseCVCellDelegate?
     
+    var defaultImageView: UIImageView = UIImageView(image: UIImage(named: "default_course"))
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        contentView.addSubview(defaultImageView)
+        defaultImageView.contentMode = .scaleAspectFit
+        defaultImageView.snp.makeConstraints {
+            $0.center.equalTo(courseThumbnailCollectionView.snp.center)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+        defaultImageView.isHidden = true
         
         setCV()
     }
@@ -38,7 +48,11 @@ class CourseTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        rankingCategoryTitle.layer.sublayers?.remove(at: 0)
         rankingCategoryTitle.text = nil
+        rankingCategoryTitle.sizeToFit()
+//        rankingCategoryTitle.sizeToFit()
+//        rankingCategoryTitle.layer.drawLineAt(edges: [.bottom], color: .white, width: 4.0)
         thumbnailData = [SampleCourseThumbnail]()
         courseThumbnailCollectionView.reloadData()
     }
@@ -54,7 +68,16 @@ class CourseTableViewCell: UITableViewCell {
     // MARK: - 랭킹별 강좌 Setting
     func setData(courseRankingData: CourseRankingDataModel) {
         rankingCategoryTitle.text = "\(courseRankingData.category) 클래스 랭킹"
+        rankingCategoryTitle.sizeToFit()
+        rankingCategoryTitle.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 4.0)
+        
         thumbnailData = courseRankingData.courseList
+        
+        if thumbnailData.isEmpty {
+            self.defaultImageView.isHidden = false
+        } else {
+            self.defaultImageView.isHidden = true
+        }
     }
 }
 

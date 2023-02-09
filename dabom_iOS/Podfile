@@ -15,7 +15,7 @@ target 'dabom_iOS' do
   pod 'KakaoSDKUser'
   pod 'Alamofire'
   pod 'Kingfisher'
-  
+  pod 'SnapKit'
 
   target 'dabom_iOSTests' do
     inherit! :search_paths

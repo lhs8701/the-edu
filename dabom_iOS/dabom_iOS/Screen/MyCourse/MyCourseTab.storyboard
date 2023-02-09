@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="87C-d4-Gg2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="87C-d4-Gg2">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -24,16 +24,18 @@
                                     <constraint firstAttribute="width" secondItem="ula-L6-eJ8" secondAttribute="height" multiplier="15:8" id="ftS-mz-bNH"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVW-ih-IGd">
+                            <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVW-ih-IGd">
                                 <rect key="frame" x="0.0" y="87" width="390" height="208"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fVW-ih-IGd" secondAttribute="height" multiplier="15:8" id="oBh-ju-JOL"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="play.circle.fill" catalog="system"/>
+                                <state key="normal" image="play.circle.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40"/>
+                                </state>
                                 <connections>
                                     <action selector="playBtnPressed:" destination="ki6-OI-GES" eventType="touchUpInside" id="qkG-Ky-vMd"/>
                                 </connections>
@@ -62,9 +64,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATi-Nb-i3B">
                                 <rect key="frame" x="0.0" y="47" width="390" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95l-aY-lML">
-                                        <rect key="frame" x="285.33333333333331" y="6.3333333333333375" width="84.666666666666686" height="27.666666666666671"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95l-aY-lML">
+                                        <rect key="frame" x="20" y="8.6666666666666643" width="350" height="23"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -73,6 +75,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="95l-aY-lML" secondAttribute="trailing" constant="20" id="6uK-Y4-BUg"/>
                                     <constraint firstAttribute="height" constant="40" id="L9u-ag-01f"/>
+                                    <constraint firstItem="95l-aY-lML" firstAttribute="leading" secondItem="ATi-Nb-i3B" secondAttribute="leading" constant="20" id="aX8-bY-A9e"/>
                                     <constraint firstItem="95l-aY-lML" firstAttribute="centerY" secondItem="ATi-Nb-i3B" secondAttribute="centerY" id="dBJ-bE-qft"/>
                                 </constraints>
                             </view>
@@ -84,9 +87,9 @@
                             <constraint firstItem="fVW-ih-IGd" firstAttribute="trailing" secondItem="ula-L6-eJ8" secondAttribute="trailing" id="3Ba-0v-nCG"/>
                             <constraint firstItem="ATi-Nb-i3B" firstAttribute="leading" secondItem="Ypm-r9-p9y" secondAttribute="leading" id="9VC-i8-Wj2"/>
                             <constraint firstItem="ATi-Nb-i3B" firstAttribute="trailing" secondItem="Ypm-r9-p9y" secondAttribute="trailing" id="Fv7-zI-GkT"/>
-                            <constraint firstItem="ezm-Ah-vak" firstAttribute="top" secondItem="bby-eo-5Z9" secondAttribute="bottom" id="IyG-9Y-I1y"/>
                             <constraint firstItem="fVW-ih-IGd" firstAttribute="leading" secondItem="ula-L6-eJ8" secondAttribute="leading" id="LrX-c3-dqD"/>
                             <constraint firstItem="Ypm-r9-p9y" firstAttribute="trailing" secondItem="ula-L6-eJ8" secondAttribute="trailing" id="N2p-23-65M"/>
+                            <constraint firstItem="ezm-Ah-vak" firstAttribute="top" secondItem="bby-eo-5Z9" secondAttribute="bottom" id="OVa-js-BlZ"/>
                             <constraint firstItem="ula-L6-eJ8" firstAttribute="top" secondItem="ATi-Nb-i3B" secondAttribute="bottom" id="OoN-wL-XCh"/>
                             <constraint firstItem="Ypm-r9-p9y" firstAttribute="bottom" secondItem="ezm-Ah-vak" secondAttribute="bottom" id="QbJ-oP-klT"/>
                             <constraint firstItem="bby-eo-5Z9" firstAttribute="leading" secondItem="Ypm-r9-p9y" secondAttribute="leading" id="WvT-XX-VOV"/>
@@ -100,6 +103,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="courseCurriclumView" destination="bby-eo-5Z9" id="MdG-lB-EQJ"/>
                         <outlet property="courseCurriculum" destination="9Kc-qV-brT" id="cDM-ve-gxG"/>
                         <outlet property="curriculumTV" destination="ezm-Ah-vak" id="CfW-EH-R6i"/>
                         <outlet property="playBtn" destination="fVW-ih-IGd" id="sK5-kz-doJ"/>

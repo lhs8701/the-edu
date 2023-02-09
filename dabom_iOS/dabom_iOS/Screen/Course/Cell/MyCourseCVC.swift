@@ -43,7 +43,7 @@ class MyCourseCVC: UICollectionViewCell {
         progressUnitCount.text = String(myCourseData.completedUnits)
         totalUnitCount.text = String(myCourseData.entireUnits)
     
-        percentage.text = String(rate * 100)
+        percentage.text = String(format: "%.1f", rate * 100)
         progressBar.progress = rate
     }
 }

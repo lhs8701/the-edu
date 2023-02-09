@@ -2,7 +2,7 @@
 //  CurriculumDataService.swift
 //  dabom_iOS
 //
-//  Created by 김태현 on 2023/02/07.
+//  Created by 김태현 on 2023/02/09.
 //
 
 import Foundation
@@ -12,21 +12,13 @@ struct CurriculumDataService {
     static let shared = CurriculumDataService()
     
     // MARK: - Curriculum 정보 가져오기
-    func getUserCurriculum(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.getUserCurriculum)/\(courseId)/curriculum/status"
+    func getCurriculum(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.getUserCurriculum)/\(courseId)/curriculum"
         print(URL)
         
-        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
-        
-        let header: HTTPHeaders = [
-            "Content-Type" : "application/json",
-            "ACCESS" : accessToken
-        ]
-        
-        let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
+        let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
         request.responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -66,7 +58,8 @@ struct CurriculumDataService {
         guard let decodedData = try? decoder.decode(CurriculumDataModel.self, from: data) else {
             print("decode fail")
             return .pathErr }
-        
         return .success(decodedData)
     }
+    
+    
 }

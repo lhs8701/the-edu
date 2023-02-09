@@ -17,11 +17,22 @@ class CompletionCourseViewController: UIViewController {
     var completionCourseData: Array<MyCourseDataModel>?
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
     
+    var defaultImageView: UIImageView = UIImageView(image: UIImage(named: "default_completion"))
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        view.addSubview(defaultImageView)
+        defaultImageView.contentMode = .scaleAspectFit
+        defaultImageView.snp.makeConstraints {
+            $0.center.equalTo(completionCourseCV.snp.center)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+        defaultImageView.isHidden = true
+        
         // Do any additional setup after loading the view.
         setCV()
     }
@@ -38,8 +49,6 @@ class CompletionCourseViewController: UIViewController {
         self.completionCourseCV.delegate = self
         self.completionCourseCV.dataSource = self
         self.completionCourseCV.isScrollEnabled = true
-        
-//        completionCourseData = MyCourseDataModel.sampleData
     }
     
     private func getCompletedCourses() {
@@ -49,6 +58,12 @@ class CompletionCourseViewController: UIViewController {
                 if let data = data as? [MyCourseDataModel] {
                     self.completionCourseData = data
                     self.completionCourseCV.reloadData()
+                    
+                    if data.isEmpty {
+                        self.defaultImageView.isHidden = false
+                    } else {
+                        self.defaultImageView.isHidden = true
+                    }
                 }
             case .requestErr(let message):
                 print("requestErr", message)
@@ -76,14 +91,27 @@ extension CompletionCourseViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
+//        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
+        
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.coursePlayerVC) as? CoursePlayerVC else { return }
+        
+        if let completionCourseData = completionCourseData {
+            nextVC.courseId = completionCourseData[indexPath.row].courseId
+            nextVC.unitId = completionCourseData[indexPath.row].nextUnitInfo.unitId
+            nextVC.unitTitle = completionCourseData[indexPath.row].nextUnitInfo.title
+            nextVC.thumbnailImage = completionCourseData[indexPath.row].thumbnailImage.mediumFilePath
+        }
 
 
-        nextVC.courseId = 1
-        //        print(courseName)
+//        nextVC.courseId = 1
+//        if let completionCourseData = completionCourseData {
+//            nextVC.courseId = completionCourseData[indexPath.row].courseId
+//            nextVC.u
+//        }
+
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
-//        self.present(nextVC, animated: true)
+
     }
 }
 

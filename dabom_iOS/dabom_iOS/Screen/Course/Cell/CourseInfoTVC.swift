@@ -6,14 +6,18 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol CourseEnrollBtnDelegate {
     func CourseEnroll()
+    func CourseSamplePlay()
 }
 
 class CourseInfoTVC: UITableViewCell {
     
     // MARK: - IBOutlet
+    @IBOutlet var costHidden: [UILabel]!
+    
     @IBOutlet weak var classTitle: UILabel!
     @IBOutlet weak var courseDescription: UILabel!
     @IBOutlet weak var instructor: UILabel!
@@ -29,6 +33,16 @@ class CourseInfoTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        // 결제 구현 전까지 가격에 대한 정보 Hidden
+        for label in costHidden {
+            label.isHidden = true
+        }
+        
+        courseDescription.snp.updateConstraints {
+            $0.trailing.equalToSuperview().inset(30)
+        }
+        
         setLabel()
         
     }
@@ -71,4 +85,13 @@ class CourseInfoTVC: UITableViewCell {
         }
         
     }
+    
+    @IBAction func samplePlayBtnPressed(_ sender: Any) {
+        
+        if let delegate = delegate {
+            delegate.CourseSamplePlay()
+        }
+        
+    }
+    
 }

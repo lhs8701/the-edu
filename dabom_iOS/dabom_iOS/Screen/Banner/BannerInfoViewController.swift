@@ -9,20 +9,20 @@ import UIKit
 
 class BannerInfoViewController: UIViewController {
     
+    // MARK: - IBOutlet
     @IBOutlet weak var bannerImageView: UIImageView!
-    
     @IBOutlet weak var contentTitleLabel: UILabel!
-    
     @IBOutlet weak var contentLabel: UILabel!
-    
     @IBOutlet weak var endDateLabel: UILabel!
-    
     @IBOutlet weak var writerLabel: UILabel!
     
     
+    // MARK: - let, var
     var bannerTitle: String?
     var eventId: Int?
 
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,15 +34,18 @@ class BannerInfoViewController: UIViewController {
         getEvent()
     }
     
+    // MARK: - Content 설정
     private func setContent() {
         self.contentTitleLabel.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 4.0)
     }
     
+    // MARK: - 내용 들어가는 Label 높이 설정
     private func setLabel() {
         let newSize = self.contentLabel.sizeThatFits(CGSize(width: view.frame.width, height: CGFloat.greatestFiniteMagnitude))
         self.contentLabel.frame.size = newSize
     }
     
+    // MARK: - Event 정보 가져오기
     private func getEvent() {
         if let eventId = eventId {
             EventDataService.shared.getEvent(eventId: eventId) { response in
@@ -69,9 +72,5 @@ class BannerInfoViewController: UIViewController {
             }
         }
     }
-
-
-    
-    
 
 }

@@ -20,31 +20,31 @@ class BannerTableViewCell: UITableViewCell {
     static let identifier = "BannerTableViewCell"
         
     var bannerData: [BannerDataModel] = []
-    
     var delegate: BannerCVCellDelegate?
-    
     var currentPage: Int = 0
-    
     var autoStart: Bool = false
     
     
     // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
+        setCV()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+    }
+    
+    // MARK: - CollectionView Setting
+    func setCV() {
         bannerCollectionView.register(UINib(nibName: Const.Xib.Name.bannerCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.bannerCVC)
         bannerCollectionView.delegate = self
         bannerCollectionView.dataSource = self
         
         bannerCollectionView.decelerationRate = .fast
         bannerCollectionView.isPagingEnabled = true
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     // MARK: - banner Data set
@@ -59,13 +59,11 @@ class BannerTableViewCell: UITableViewCell {
     
     // MARK: - banner AutoScroll
     func startAutoScroll() {
-        print("startAutoScroll()")
         autoStart = false
         let totalCellCount = bannerData.count
         
         DispatchQueue.global(qos: .default).async {
             while true {
-                print("current: \(self.currentPage)  total: \(totalCellCount)")
                 sleep(3)
                 DispatchQueue.main.async {
                     self.bannerCollectionView.scrollToItem(at: IndexPath(item: self.currentPage, section: 0), at: .right, animated: true)
@@ -77,8 +75,6 @@ class BannerTableViewCell: UITableViewCell {
                 }
             }
         }
-        
-        
     }
     
 }
@@ -104,14 +100,13 @@ extension BannerTableViewCell: UICollectionViewDelegate {
 extension BannerTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BannerCollectionViewCell", for: indexPath) as? BannerCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Const.Xib.Identifier.bannerCVC, for: indexPath) as? BannerCollectionViewCell else { return UICollectionViewCell() }
 
         cell.setData(bannerData: self.bannerData[indexPath.row])
         
         
         return cell
     }
-    
     
 }
 

@@ -13,6 +13,7 @@ PODS:
     - KakaoSDKAuth (= 2.13.1)
   - Kingfisher (7.5.0)
   - Pageboy (3.7.0)
+  - SnapKit (5.6.0)
   - Tabman (2.13.0):
     - Pageboy (~> 3.7.0)
 
@@ -22,6 +23,7 @@ DEPENDENCIES:
   - KakaoSDKCommon
   - KakaoSDKUser
   - Kingfisher
+  - SnapKit
   - Tabman (~> 2.9)
 
 SPEC REPOS:
@@ -32,6 +34,7 @@ SPEC REPOS:
     - KakaoSDKUser
     - Kingfisher
     - Pageboy
+    - SnapKit
     - Tabman
 
 SPEC CHECKSUMS:
@@ -41,8 +44,9 @@ SPEC CHECKSUMS:
   KakaoSDKUser: 92d34cf6af7b123c22a7ee44424332123e356901
   Kingfisher: b9c2a4a4af2990a768445c277359b27bde287d71
   Pageboy: fe646118f7168960058bea7a96038386aa7c0da8
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Tabman: 66ea44c44488327ec20f3c8dc5554a5d22f5908c
 
-PODFILE CHECKSUM: 858799171919ae046943247ab02d10ed3c363ca9
+PODFILE CHECKSUM: 1d1d18b580f9d408783dd94ea09301eade99aeb6
 
 COCOAPODS: 1.11.3
