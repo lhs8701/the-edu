@@ -8,7 +8,7 @@ import joeuncamp.dabombackend.domain.course.dto.EnrollDto;
 import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
-import joeuncamp.dabombackend.domain.member.service.MyCourseService;
+import joeuncamp.dabombackend.domain.course.service.MyCourseService;
 import joeuncamp.dabombackend.domain.wish.dto.WishDto;
 import joeuncamp.dabombackend.domain.wish.service.WishService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -88,6 +88,16 @@ public class MyCourseController {
     public ResponseEntity<List<MyCourseDto.Response>> getOngoingCourses(@AuthenticationPrincipal Member member) {
         MyCourseDto.Request requestDto = new MyCourseDto.Request(member.getId());
         List<MyCourseDto.Response> responseDto = myCourseService.getOngoingCourses(requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary = "최근 시청한 강좌 조회", description = "최근에 시청했던 강좌 3개를 조회합니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/courses/recent")
+    public ResponseEntity<List<MyCourseDto.Response>> getRecentPlayedCourses(@AuthenticationPrincipal Member member) {
+        MyCourseDto.Request requestDto = new MyCourseDto.Request(member.getId());
+        List<MyCourseDto.Response> responseDto = myCourseService.getRecentPlayedCourses(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

@@ -5,8 +5,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.file.FileUtil;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.file.image.service.ImageService;
+import joeuncamp.dabombackend.domain.player.record.repository.RecordRedisRepository;
 import joeuncamp.dabombackend.util.hls.service.HlsConvertor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,22 +24,24 @@ import java.util.List;
 @Tag(name = "[99.Test]")
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Slf4j
 public class TestController {
     private final ImageService imageService;
     private final HlsConvertor hlsConvertor;
+    private final RecordRedisRepository recordRedisRepository;
 
-    @Operation(summary="개발 서버 사진 업로드 테스트", description="")
+    @Operation(summary = "개발 서버 사진 업로드 테스트", description = "")
     @PreAuthorize("permitAll()")
     @PostMapping("/test/image")
-    public ResponseEntity<ImageInfo> uploadImage(@RequestPart MultipartFile multipartFile){
+    public ResponseEntity<ImageInfo> uploadImage(@RequestPart MultipartFile multipartFile) {
         ImageInfo imageInfo = imageService.saveImage(multipartFile);
         return new ResponseEntity<>(imageInfo, HttpStatus.OK);
     }
 
-    @Operation(summary="사진 여러 장 업로드 테스트", description="")
+    @Operation(summary = "사진 여러 장 업로드 테스트", description = "")
     @PreAuthorize("permitAll()")
     @PostMapping("/test/image/multiple")
-    public ResponseEntity<List<ImageInfo>> uploadImage(@RequestPart List<MultipartFile> multipartFiles){
+    public ResponseEntity<List<ImageInfo>> uploadImage(@RequestPart List<MultipartFile> multipartFiles) {
         List<ImageInfo> list = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             list.add(imageService.saveImage(multipartFile));
@@ -45,10 +50,10 @@ public class TestController {
     }
 
 
-    @Operation(summary="동영상을 m3u8 포맷으로 변환", description="")
+    @Operation(summary = "동영상을 m3u8 포맷으로 변환", description = "")
     @PreAuthorize("permitAll()")
     @PostMapping("/test/media")
-    public ResponseEntity<?> convertToM3u8(@RequestPart MultipartFile multipartFile){
+    public ResponseEntity<?> convertToM3u8(@RequestPart MultipartFile multipartFile) {
         File file = FileUtil.createFromMultipart(multipartFile);
         hlsConvertor.convertToM3u8(file);
         return new ResponseEntity<>(HttpStatus.OK);

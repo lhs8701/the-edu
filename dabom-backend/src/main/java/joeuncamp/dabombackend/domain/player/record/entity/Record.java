@@ -36,4 +36,16 @@ public class Record {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime recentTime;
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", memberId=" + memberId +
+                ", courseId=" + courseId +
+                ", unitId=" + unitId +
+                ", time=" + time +
+                ", recentTime=" + recentTime +
+                '}';
+    }
 }

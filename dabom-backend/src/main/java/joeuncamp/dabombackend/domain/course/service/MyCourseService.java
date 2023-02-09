@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.member.service;
+package joeuncamp.dabombackend.domain.course.service;
 
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
@@ -16,10 +16,12 @@ import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.domain.wish.repository.WishJpaRepository;
+import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CRefreshTokenExpiredException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -92,18 +94,30 @@ public class MyCourseService {
     public List<MyCourseDto.Response> getOngoingCourses(MyCourseDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CRefreshTokenExpiredException::new);
         List<Course> completedCourses = viewChecker.getCompletedCourse(member);
-        List<Course> entireCourses = enrollJpaRepository.findAllByMember(member).stream()
+        List<Course> ongoingCourses = enrollJpaRepository.findAllByMember(member).stream()
                 .map(Enroll::getCourse)
-                .toList();
-        return entireCourses.stream()
                 .filter(Predicate.not(completedCourses::contains))
-                .map(course -> new MyCourseDto.Response(course, viewChecker.getCompletedUnit(member, course).size(), makeNextUnitInfo(member, course)))
                 .toList();
+        return mapToResponse(ongoingCourses, member);
     }
 
     private NextUnitInfo makeNextUnitInfo(Member member, Course course) {
         RecordDto.Response recordResponse = recordService.getRecentPlayedUnit(member, course);
         Unit unit = unitJpaRepository.findById(recordResponse.getUnitId()).orElseThrow(CResourceNotFoundException::new);
         return new NextUnitInfo(unit, recordResponse.getTime());
+    }
+
+    public List<MyCourseDto.Response> getRecentPlayedCourses(MyCourseDto.Request requestDto){
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberExistException::new);
+        List<Course> recentCourses = recordService.findThreeRecentCourses(member);
+        if (recentCourses == null){
+            return null;
+        }
+        return mapToResponse(recentCourses, member);
+    }
+    private List<MyCourseDto.Response> mapToResponse(List<Course> courses, Member member){
+        return courses.stream()
+                .map(course -> new MyCourseDto.Response(course, viewChecker.getCompletedUnit(member, course).size(), makeNextUnitInfo(member, course)))
+                .toList();
     }
 }
