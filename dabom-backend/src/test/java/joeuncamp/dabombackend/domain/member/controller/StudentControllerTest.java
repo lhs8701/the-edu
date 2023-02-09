@@ -1,7 +1,7 @@
 package joeuncamp.dabombackend.domain.member.controller;
 
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
-import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseStatusDto;
 import joeuncamp.dabombackend.domain.course.service.MyCourseService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,10 +36,10 @@ public class StudentControllerTest {
     @DisplayName("수강 등록한 모든 강좌의 목록을 조회한다.")
     void 등록한_모든_강좌의_목록을_조회한다() throws Exception {
         // given
-        MyCourseDto.ShortResponse dto = MyCourseDto.ShortResponse.builder()
+        CourseStatusDto.ShortResponse dto = CourseStatusDto.ShortResponse.builder()
                 .courseId(1L)
                 .build();
-        List<MyCourseDto.ShortResponse> responseDto = List.of(dto);
+        List<CourseStatusDto.ShortResponse> responseDto = List.of(dto);
         given(myCourseService.getMyCourses(1L)).willReturn(responseDto);
 
         // when

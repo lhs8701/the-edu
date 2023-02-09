@@ -13,4 +13,5 @@ import java.util.Optional;
 
 public interface ViewJpaRepository extends JpaRepository<View, Long> {
     Optional<View> findByMemberAndUnit(Member member, Unit unit);
+    Optional<View> findByUnit(Unit unit);
 }

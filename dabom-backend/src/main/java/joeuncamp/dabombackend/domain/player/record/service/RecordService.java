@@ -82,7 +82,6 @@ public class RecordService {
         if (record.isEmpty()) {
             return new RecordDto.Response(course.getUnitList().get(0).getId(), 0);
         }
-        log.info("recent record - unitId:{}", record.get().getUnitId());
         return new RecordDto.Response(record.get());
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
 public class CurriculumDto {
     @Getter
     @Setter
-    public static class CreateRequest{
+    public static class CreateRequest {
         @Schema(hidden = true)
         Long courseId;
         @Schema(hidden = true)
@@ -49,64 +49,18 @@ public class CurriculumDto {
     }
 
     @Getter
-    @AllArgsConstructor
-    public static class Response{
+    public static class Response {
         List<ChapterResponse> chapters;
-        public Response(){
-            this.chapters = new ArrayList<>();
-        }
-    }
-    @Getter
-    @AllArgsConstructor
-    public static class StatusResponse {
-        MyCourseDto.Response courseStatus;
-        List<ChapterStatusResponse> chapters;
-    }
+        CourseDto.StatusResponse courseStatus;
 
-    @Getter
-    @Setter
-    public static class ChapterResponse {
-        @Schema(description = "챕터명", example = ExampleValue.Unit.CHAPTER)
-        String title;
-        List<UnitResponse> units;
-
-        public ChapterResponse(){
-            this.units = new ArrayList<>();
+        public Response(List<ChapterResponse> chapters) {
+            this.chapters = chapters;
+            this.courseStatus = null;
         }
-    }
-    @Getter
-    @Setter
-    public static class ChapterStatusResponse {
-        @Schema(description = "챕터명", example = ExampleValue.Unit.CHAPTER)
-        String title;
-        List<UnitStatusResponse> units;
 
-        public ChapterStatusResponse(){
-            this.units = new ArrayList<>();
-        }
-    }
-    @Getter
-    public static class UnitResponse {
-        Long unitId;
-        @Schema(description = "강의 제목", example = ExampleValue.Unit.TITLE)
-        String title;
-        public UnitResponse(joeuncamp.dabombackend.domain.unit.entity.Unit unit){
-            this.unitId = unit.getId();
-            this.title = unit.getTitle();
-        }
-    }
-
-    @Getter
-    public static class UnitStatusResponse {
-        Long unitId;
-        @Schema(description = "강의 제목", example = ExampleValue.Unit.TITLE)
-        String title;
-        @Schema(description = "시청 완료 여부")
-        boolean completed;
-        public UnitStatusResponse(joeuncamp.dabombackend.domain.unit.entity.Unit unit, boolean completed){
-            this.unitId = unit.getId();
-            this.title = unit.getTitle();
-            this.completed = completed;
+        public Response(List<ChapterResponse> chapters, CourseDto.StatusResponse courseStatus) {
+            this.chapters = chapters;
+            this.courseStatus = courseStatus;
         }
     }
 }

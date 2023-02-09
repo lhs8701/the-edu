@@ -1,6 +1,6 @@
 package joeuncamp.dabombackend.domain.member.service;
 
-import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseStatusDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
@@ -60,7 +60,7 @@ class MyCourseServiceTest {
         given(enrollJpaRepository.findAllByMember(member)).willReturn(enrolls);
 
         // when
-        List<MyCourseDto.ShortResponse> responseDto = myCourseService.getMyCourses(1L);
+        List<CourseStatusDto.ShortResponse> responseDto = myCourseService.getMyCourses(1L);
         // then
         assertThat(responseDto.get(0).getCourseId()).isEqualTo(1L);
     }

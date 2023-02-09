@@ -1,14 +1,14 @@
 package joeuncamp.dabombackend.domain.course.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,10 +19,12 @@ public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     String title;
     int sequence;
     Long courseId;
+    boolean isDefault;
+    @OneToMany(mappedBy = "chapter", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    List<Unit> units;
 
     @Override
     public String toString() {

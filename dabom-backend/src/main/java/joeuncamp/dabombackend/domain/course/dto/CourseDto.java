@@ -148,4 +148,36 @@ public class CourseDto {
             this.wish = course.getWishList().size();
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    public static class StatusResponse {
+        @Schema(description = "아이디넘버")
+        Long courseId;
+        @Schema(description = "제목", example = ExampleValue.Course.TITLE)
+        String title;
+        @Schema(description = "강사", example = ExampleValue.Member.NAME)
+        String instructor;
+        @Schema(description = "카테고리", example = ExampleValue.Course.CATEGORY)
+        String category;
+        @Schema(description = "완료한 강의 수")
+        int completedUnits;
+        @Schema(description = "전체 강의 수")
+        int entireUnits;
+        @Schema(description = "다음에 시청할 강의 정보")
+        NextUnitInfo nextUnitInfo;
+        @Schema(description = "썸네일 이미지")
+        ImageInfo thumbnailImage;
+
+        public StatusResponse(Course course, int completedUnits, NextUnitInfo nextUnitInfo){
+            this.courseId = course.getId();
+            this.title = course.getTitle();
+            this.instructor = course.getInstructorName();
+            this.category = course.getCategory().getTitle();
+            this.thumbnailImage = course.getThumbnailImage();
+            this.entireUnits = course.getUnitList().size();
+            this.completedUnits = completedUnits;
+            this.nextUnitInfo = nextUnitInfo;
+        }
+    }
 }

@@ -1,8 +1,10 @@
 package joeuncamp.dabombackend.domain.unit.service;
 
 import jakarta.transaction.Transactional;
+import joeuncamp.dabombackend.domain.course.entity.Chapter;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
+import joeuncamp.dabombackend.domain.course.service.ChapterService;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -24,6 +26,7 @@ public class UnitService {
     private final CourseJpaRepository courseJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final EnrollService enrollService;
+    private final ChapterService chapterService;
 
     /**
      * 강의를 업로드합니다.
@@ -35,8 +38,8 @@ public class UnitService {
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         creatorService.identifyCourseOwner(course, member.getCreatorProfile());
-
         Unit unit = requestDto.toEntity(course);
+        chapterService.setUnitToLastChapter(unit, course.getId());
         return unitJpaRepository.save(unit).getId();
     }
 

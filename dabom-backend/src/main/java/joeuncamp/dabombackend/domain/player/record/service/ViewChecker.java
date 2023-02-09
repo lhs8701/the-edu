@@ -54,15 +54,13 @@ public class ViewChecker {
             viewJpaRepository.save(view);
         }
     }
-    public List<Unit> getCompletedUnit(Member member, Course course) {
-        List<Unit> units = unitJpaRepository.findByCourse(course);
-        return units.stream()
-                .map(unit -> viewJpaRepository.findByMemberAndUnit(member, unit))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .map(View::getUnit)
-                .toList();
-    }
+
+    /**
+     * 다 시청한 강좌 목록을 반환합니다.
+     *
+     * @param member 회원
+     * @return 다 시청한 강좌 목록
+     */
     public List<Course> getCompletedCourse(Member member) {
         List<Course> entireCourses = enrollJpaRepository.findAllByMember(member).stream()
                 .map(Enroll::getCourse)
@@ -75,5 +73,22 @@ public class ViewChecker {
             }
         }
         return completedCourses;
+    }
+
+    /**
+     * 강좌 내에서 다 본 강의 목록을 조회합니다.
+     *
+     * @param member 회원
+     * @param course 강좌
+     * @return 다 본 강의 목록
+     */
+    public List<Unit> getCompletedUnit(Member member, Course course) {
+        List<Unit> units = unitJpaRepository.findByCourse(course);
+        return units.stream()
+                .map(unit -> viewJpaRepository.findByMemberAndUnit(member, unit))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(View::getUnit)
+                .toList();
     }
 }
