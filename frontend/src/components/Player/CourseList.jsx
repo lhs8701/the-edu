@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import React from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { queryClient } from "../..";
@@ -15,9 +16,13 @@ const Catalog = styled(motion.li)`
     props.men === props.now
       ? "var(--color-text)"
       : "var(--color-box-gray)"}; //props 활용
-  padding-left: 10px;
+  padding-left: 8px;
   padding-top: 8px;
   padding-bottom: 8px;
+  background: ${(props) =>
+    props.men === props.now
+      ? "var(--color-box-gray)"
+      : "var(--color-background)"}; //props 활용
 `;
 
 const ListBox = styled.ul`
@@ -25,11 +30,16 @@ const ListBox = styled.ul`
   height: 100%;
   overflow: auto;
 `;
+
 const UnitTitle = styled.div`
   margin-left: 5px;
 `;
 
-export default function CourseList({ courseId, unitId, exitUnit }) {
+const CourseList = React.memo(function CourseList({
+  courseId,
+  unitId,
+  exitUnit,
+}) {
   const curriculum = queryClient.getQueryData(["userCurriStatus", courseId]);
   const navigate = useNavigate();
 
@@ -47,11 +57,6 @@ export default function CourseList({ courseId, unitId, exitUnit }) {
         now={Number(unitId)}
         key={idx}
         whileHover={{ backgroundColor: "#dfdede", color: "var(--color-text)" }}
-        animate={{
-          backgroundColor: unit.completed
-            ? "#a8a7a7"
-            : "var(--color-background)",
-        }}
       >
         {idx + 1}.<UnitTitle>{unit.title}</UnitTitle>
       </Catalog>
@@ -92,4 +97,6 @@ export default function CourseList({ courseId, unitId, exitUnit }) {
       </ListBox>
     </Wrapper>
   );
-}
+});
+
+export default React.memo(CourseList);

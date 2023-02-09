@@ -226,13 +226,9 @@ export default function PlayerRoot() {
   }, []);
 
   useEffect(() => {
-    if (videoVal.done) {
-      setMenu(3);
-    }
     if (videoVal.played >= 0.9 && !videoVal.done) {
       setVideoVal({ ...videoVal, done: true });
       postWatchAllApi(accessToken, unitId);
-      setMenu(3);
     }
   }, [videoVal.played]);
 
@@ -246,6 +242,7 @@ export default function PlayerRoot() {
               <Title>{unitInfo?.title}</Title>
               {unitInfo && (
                 <Player
+                  setMenu={setMenu}
                   videoVal={videoVal}
                   setVideoVal={setVideoVal}
                   unitInfo={unitInfo}

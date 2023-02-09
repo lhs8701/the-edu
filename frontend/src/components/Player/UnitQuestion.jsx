@@ -272,13 +272,7 @@ export default function UnitQuestion({ unitId }) {
           }}
           placeholder="질문을 등록해주세요"
         />
-        <QuestionBtn
-          onClick={questionUpload}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 1 }}
-        >
-          질문하기
-        </QuestionBtn>
+        <QuestionBtn onClick={questionUpload}>질문하기</QuestionBtn>
       </Form>
     );
   };
