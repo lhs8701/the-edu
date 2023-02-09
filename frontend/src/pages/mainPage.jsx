@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getRankingApi } from "../api/courseApi";
+import { getLatestApi, getRankingApi } from "../api/courseApi";
 import { getOngoingEventApi } from "../api/eventApi";
 import {
   getAccessTokenSelector,
@@ -74,22 +74,19 @@ export default function MainPage() {
     }
   );
 
-  const MyClassList = () => {
-    return dummyMyClassList.map((course, index) => {
-      const progressRatio = Math.round(
-        (course?.nowUnitCnt / course?.totalUnitCnt) * 100
-      );
-      const data = [
-        {
-          name: "Complete",
-          value: progressRatio,
-        },
-      ];
-      return (
-        <MyClassCard info={course} data={data} progressRatio={progressRatio} />
-      );
-    });
-  };
+  const recentList = useQuery(
+    ["recentList", memberId],
+    () => {
+      return getLatestApi(accessToken);
+    },
+    {
+      enabled: !!loginState,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
   const ClassRankList = ({ rankList }) => {
     return (
@@ -114,12 +111,34 @@ export default function MainPage() {
     });
   };
 
-  const MyClassComponent = () => {
+  const MyClassList = ({ recentList }) => {
+    return recentList.map((course) => {
+      const progressRatio = Math.round(
+        (course?.completedUnits / course?.entireUnits) * 100
+      );
+      const data = [
+        {
+          name: "Complete",
+          value: progressRatio,
+        },
+      ];
+      return (
+        <MyClassCard
+          key={course.courseId}
+          info={course}
+          data={data}
+          progressRatio={progressRatio}
+        />
+      );
+    });
+  };
+
+  const MyClassComponent = ({ recentList }) => {
     return (
       <>
         <ListTitle>나의 클래스</ListTitle>{" "}
         <MyClassListBox>
-          <MyClassList />
+          <MyClassList recentList={recentList} />
         </MyClassListBox>
       </>
     );
@@ -130,7 +149,9 @@ export default function MainPage() {
       {eventList?.data?.data && (
         <SlideNotice eventList={eventList?.data?.data} />
       )}
-      {loginState && <MyClassComponent />}
+      {recentList?.data?.data && (
+        <MyClassComponent recentList={recentList?.data?.data} />
+      )}
       {data && <CategoriesRankComponent />}
     </Wrapper>
   );

@@ -8,6 +8,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useInfiniteQuery, useQuery } from "react-query";
 import {
+  getAllMyQuestionsApi,
   getDetailQuestionApi,
   getQuestionAnswerApi,
   getQuestionListApi,
@@ -48,7 +49,7 @@ const SmallCateTab = styled(CateTab)`
 `;
 
 const Input = styled.textarea`
-  height: 350px;
+  height: 100px;
   width: 100%;
   background-color: #efefef;
   &:focus {
@@ -60,7 +61,7 @@ const Input = styled.textarea`
 
 const TitleInput = styled.input`
   width: 100%;
-  height: 30px;
+  height: 20px;
   border: none;
   border-bottom: 1px solid white;
   background-color: #efefef;
@@ -87,7 +88,7 @@ const QuestionBox = styled(motion.div)`
   justify-content: flex-start;
   flex-direction: column;
   margin: 0 auto;
-  height: 70vh;
+  height: 50vh;
 
   /* @media screen and (max-height: 90vh) and (min-height: 617px) {
     height: 30vh;
@@ -120,10 +121,9 @@ const Tab = styled(motion.div)`
 const Form = styled.form`
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   flex-direction: column;
-  justify-content: center;
-  height: 40%;
+  justify-content: flex-start;
 `;
 
 const TitleInputBox = styled.div`
@@ -176,7 +176,7 @@ export default function UnitQuestion({ unitId }) {
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
   const questionList = useInfiniteQuery(
-    ["getSearchList", unitId],
+    ["questionList", unitId],
     ({ pageParam = 0 }) => {
       return getQuestionListApi(pageParam, unitId, accessToken);
     },
@@ -202,6 +202,7 @@ export default function UnitQuestion({ unitId }) {
       },
     }
   );
+
   const questions = useMemo(
     () => questionList?.data?.pages.flatMap((page) => page.list),
     [questionList?.data?.pages]
@@ -295,7 +296,7 @@ export default function UnitQuestion({ unitId }) {
           whileHover={{ y: -5 }}
           whileTap={{ y: 0 }}
         >
-          질문 등록
+          나의 질문
         </CateTab>
       </CateBox>
     );
@@ -303,11 +304,9 @@ export default function UnitQuestion({ unitId }) {
 
   const Reply = ({ replyInfo }) => {
     return replyInfo?.map((reply) => {
-      console.log(reply);
       return (
         <QuestionReplyTab key={reply.answerId}>
           <QuestionContextBox>{reply.content}</QuestionContextBox>
-
           <QuestionContentDate>
             <div>{reply?.modifiedTime}</div>
             <div>by {reply?.writer}</div>
@@ -419,6 +418,9 @@ export default function UnitQuestion({ unitId }) {
   const QuestionListWrapper = () => {
     return (
       <>
+        <QuestionUploadForm />
+
+        <br />
         <QuestionInfoBox>
           <Tab>{questions?.length}개의 질문이 있어요.</Tab>
         </QuestionInfoBox>
@@ -430,10 +432,64 @@ export default function UnitQuestion({ unitId }) {
     );
   };
 
+  const MyQuestionListWrapper = () => {
+    const myBottomRef = useRef(null);
+    const myIsInView = useInView(myBottomRef);
+    const myQuestionList = useInfiniteQuery(
+      ["myQuestionList", unitId],
+      ({ pageParam = 0 }) => {
+        return getAllMyQuestionsApi(pageParam, unitId, accessToken);
+      },
+      {
+        retry: 1,
+        retryDelay: 5000,
+        onSuccess: (res) => {
+          if (res.pages[0].code === -7001) {
+            //query를 더이상 호출하지 않게 하자
+          }
+        },
+        onError: () => {
+          console.error("에러 발생했지롱");
+        },
+        getNextPageParam: (lastPage, allPages) => {
+          if (Number(lastPage.totalPage) === 0) {
+            return undefined;
+          }
+          if (lastPage.totalPage === lastPage.page + 1) {
+            return undefined;
+          }
+          return lastPage.page + 1;
+        },
+      }
+    );
+
+    const questions = useMemo(
+      () => myQuestionList?.data?.pages.flatMap((page) => page.list),
+      [myQuestionList?.data?.pages]
+    );
+
+    useEffect(() => {
+      if (isInView && myQuestionList.hasNextPage && myQuestionList.isSuccess) {
+        myQuestionList.fetchNextPage();
+      }
+    }, [myIsInView, myQuestionList.data]);
+    return (
+      <>
+        <QuestionInfoBox>
+          <Tab>{questions?.length}개의 질문이 있어요.</Tab>
+        </QuestionInfoBox>
+        <QuestionBox>
+          <QuestionListComponent />
+          <BottomDiv ref={myBottomRef} />
+        </QuestionBox>
+      </>
+    );
+  };
+
   return (
     <Wrapper>
       <QuestionPathTab />
-      {type ? <QuestionUploadForm /> : <QuestionListWrapper />}
+      {type ? <MyQuestionListWrapper /> : <QuestionListWrapper />}
     </Wrapper>
   );
 }

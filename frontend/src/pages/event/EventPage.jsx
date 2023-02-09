@@ -67,8 +67,6 @@ export default function EventPage() {
           whileHover={{
             y: -10,
             transition: { duration: 0.2 },
-            boxShadow:
-              "0 0px 0px rgb(0 0 0 / 16%), 0 10px 5px rgb(0 0 0 / 16%)",
           }}
           whileTap={{ y: 0, transition: { duration: 0.01 } }}
         >
