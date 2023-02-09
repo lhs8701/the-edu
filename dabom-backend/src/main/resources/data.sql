@@ -26,9 +26,12 @@ values ('1', '1');
 -- <Event> --
 insert into event (id, created_time, modified_time, medium_file_path, original_file_path, small_file_path, content, end_date, start_date, title, writer_id)
 values
-    ('1', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '재입대 바람', '2023-02-08', '2023-02-08', '연초 지정대상자 지휘서신(직책자용)', '1'),
-    ('2', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '지금 무료 온라인 컨퍼런스에 등록해보세요!', '2023-02-08', '2023-02-08', 'AWS 클라우드 기초 200% 활용하는 방법은?', '1'),
-    ('3', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', ' 2021 코리아세일페스타 국내선 최대 88% 할인 및 부산항공마켓까지!', '2023-02-08', '2023-02-08', '★떠나요! 괌으로★ 인천-괌 편도총액 380,500원~', '1');
+    ('1', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '재입대 바람', '2024-02-08', '2023-02-08', '연초 지정대상자 지휘서신(직책자용)', '1'),
+    ('2', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '지금 무료 온라인 컨퍼런스에 등록해보세요!', '2024-02-08', '2023-02-08', 'AWS 클라우드 기초 200% 활용하는 방법은?', '1'),
+    ('3', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', ' 2021 코리아세일페스타 국내선 최대 88% 할인 및 부산항공마켓까지!', '2024-02-08', '2023-02-08', '★떠나요! 괌으로★ 인천-괌 편도총액 380,500원~', '1'),
+    ('4', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '종료된 이벤트1', '2023-01-08', '2023-01-07', '종료된 이벤트1', '1'),
+    ('5', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '종료된 이벤트2', '2023-01-08', '2023-01-07', '종료된 이벤트2', '1'),
+    ('6', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '종료된 이벤트3', '2023-01-08', '2023-01-07', '종료된 이벤트3', '1');
 
 -- <Course> --
 insert into course (id, created_time, modified_time, category, description, price, medium_file_path, original_file_path, small_file_path, title, creator_profile_id)
