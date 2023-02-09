@@ -83,11 +83,11 @@ const CategoryBox = styled.div`
 const BigCategoryTab = styled.div`
   width: 100%;
   background-color: var(--color-box-primary);
-  font-weight: var(--weight-point);
+  font-weight: var(--weight-middle);
   font-size: 1.5rem;
   padding: 10px 20px;
   box-sizing: border-box;
-  box-shadow: 0 0 3px rgb(0 0 0 / 16%), 0 0px 1px rgb(0 0 0 / 16%);
+  /* box-shadow: 0 0 3px rgb(0 0 0 / 16%), 0 0px 1px rgb(0 0 0 / 16%); */
 `;
 
 const SmallCategoryTab = styled.div`
@@ -106,7 +106,14 @@ const SmallCategoryTab = styled.div`
   }
 `;
 
-const PlayBtn = styled.button``;
+const PlayBtn = styled.button`
+  border: none;
+  border-radius: 10px;
+  padding: 3px 10px;
+  &:hover {
+    scale: 1.1;
+  }
+`;
 
 export default function LobbyPage() {
   const loginState = useRecoilValue(getLoginState);

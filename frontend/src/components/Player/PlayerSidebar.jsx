@@ -78,7 +78,7 @@ export default function PlayerSidebar({
     <BarWrapper>
       <NoticeTab>
         {[0, 1, 2, 3].map((idx) => {
-          return <MenuBar idx={idx} />;
+          return <MenuBar key={idx} idx={idx} />;
         })}
       </NoticeTab>
       <ListTab>{menuList[menu]}</ListTab>

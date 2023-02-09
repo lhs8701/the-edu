@@ -98,7 +98,7 @@ export default function Outline() {
       createCourseApi(accessToken, courseValue)
         .then(({ data }) => {
           alert("강좌가 등록되었습니다.");
-          setCourseId(data.id);
+          setCourseId(data);
           setTabVal(1);
         })
         .catch((err) => {

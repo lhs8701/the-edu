@@ -175,6 +175,9 @@ const DeleteQuestionTab = styled.div`
   color: var(--color-red);
   font-size: 0.8rem;
   text-align: end;
+  &:hover {
+    color: var(--color-gray);
+  }
 `;
 
 export default function UnitQuestion({ unitId }) {
@@ -311,7 +314,7 @@ export default function UnitQuestion({ unitId }) {
           <QuestionContextBox>{reply.content}</QuestionContextBox>
           <QuestionContentDate>
             <div>{reply?.modifiedTime}</div>
-            <div>by {reply?.writer}</div>
+            <div>by {reply?.writer?.nickname}</div>
           </QuestionContentDate>
         </QuestionReplyTab>
       );
@@ -324,7 +327,7 @@ export default function UnitQuestion({ unitId }) {
         <QuestionContextBox>{contentInfo?.content}</QuestionContextBox>
         <QuestionContentDate>
           <div>{contentInfo?.modifiedTime}</div>
-          <div>by {contentInfo?.writer}</div>
+          <div>by {contentInfo?.writer?.nickname}</div>
         </QuestionContentDate>
       </QuestionReplyTab>
     );

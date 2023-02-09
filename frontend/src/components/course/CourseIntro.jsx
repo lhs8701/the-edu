@@ -67,7 +67,7 @@ export default function CourseIntro({ courseId }) {
             <FilePlayer
               width="100%"
               height="100%"
-              url={STATIC_URL + courseInfo.sample.videoInfo.filePath}
+              url={STATIC_URL + courseInfo?.sample?.videoInfo?.filePath}
               controls
             />
           )}

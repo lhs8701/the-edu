@@ -94,7 +94,9 @@ export default function EventDetailPage() {
         </EventInfoTab>
         <BottomLine />
         <EventCardBox>
-          <EventCard src={STATIC_URL + eventInfo.bannerImage.mediumFilePath} />
+          <EventCard
+            src={STATIC_URL + eventInfo.bannerImage.originalFilePath}
+          />
         </EventCardBox>
       </>
     );
