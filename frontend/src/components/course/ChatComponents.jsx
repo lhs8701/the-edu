@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { STATIC_URL } from "../../static";
 
 const UserImg = styled.img`
   width: 100%;
@@ -98,13 +99,9 @@ export const ChatUserInfo = ({ writer, rate }) => {
     <UserInfoBox>
       <InfoTab>
         <ImgBox>
-          <UserImg
-            src={
-              "https://d33wubrfki0l68.cloudfront.net/594de66469079c21fc54c14db0591305a1198dd6/3f4b1/static/images/wallpapers/bridge-01@2x.png"
-            }
-          />
+          <UserImg src={STATIC_URL + writer?.profileImage?.smallFilePath} />
         </ImgBox>
-        <UserName>{writer}</UserName>
+        <UserName>{writer?.nickname}</UserName>
 
         <UserRateTab>
           {rate === "" ? (

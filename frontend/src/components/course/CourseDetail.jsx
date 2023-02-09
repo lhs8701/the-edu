@@ -96,13 +96,13 @@ export default function CourseDetail({ courseId }) {
           <CourseCategory courseId={courseId} />
         </RefDiv>
         <br />
-        {/* <RefDiv ref={reviewRef}>
+        <RefDiv ref={reviewRef}>
           <CourseReview courseId={courseId} />
-        </RefDiv> */}
+        </RefDiv>
         <br />
-        {/* <RefDiv ref={inquireRef}>
+        <RefDiv ref={inquireRef}>
           <CourseInquire courseId={courseId} />
-        </RefDiv> */}
+        </RefDiv>
       </DetailBox>
     </DetailWrapper>
   );
