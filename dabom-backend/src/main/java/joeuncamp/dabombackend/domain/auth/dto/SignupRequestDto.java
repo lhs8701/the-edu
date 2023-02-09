@@ -24,7 +24,7 @@ public class SignupRequestDto {
     @Schema(description = "계정", example = ExampleValue.Member.ACCOUNT)
     String account;
 
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$", message = ValidationMessage.NOT_VALID_PASSWORD)
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@!%*#?&]{8,16}$", message = ValidationMessage.NOT_VALID_PASSWORD)
     @Schema(description = "비밀번호", example = ExampleValue.Member.PASSWORD)
     String password;
 

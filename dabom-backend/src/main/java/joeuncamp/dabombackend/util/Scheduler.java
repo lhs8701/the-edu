@@ -5,6 +5,8 @@ import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.RankingJpaRepository;
 import joeuncamp.dabombackend.global.constant.CategoryType;
+import joeuncamp.dabombackend.util.email.Email;
+import joeuncamp.dabombackend.util.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import java.util.List;
 public class Scheduler {
     private final CourseJpaRepository courseJpaRepository;
     private final RankingJpaRepository rankingJpaRepository;
+    private final EmailService emailService;
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 24 * 7)
     private void renewWeeklyRanking() {

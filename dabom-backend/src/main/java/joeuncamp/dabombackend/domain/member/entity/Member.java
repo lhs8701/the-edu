@@ -117,4 +117,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
+    }
 }
