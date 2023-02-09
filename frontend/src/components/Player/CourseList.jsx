@@ -9,13 +9,13 @@ import { SideTitle, TitleBox } from "../../style/PlayerSideBarCss";
 const Catalog = styled(motion.li)`
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   color: ${(props) =>
     props.men === props.now
       ? "var(--color-text)"
       : "var(--color-box-gray)"}; //props 활용
-  padding-left: 15px;
+  padding-left: 10px;
   padding-top: 8px;
   padding-bottom: 8px;
 `;
@@ -24,6 +24,9 @@ const ListBox = styled.ul`
   width: 100%;
   height: 100%;
   overflow: auto;
+`;
+const UnitTitle = styled.div`
+  margin-left: 5px;
 `;
 
 export default function CourseList({ courseId, unitId, exitUnit }) {
@@ -50,7 +53,7 @@ export default function CourseList({ courseId, unitId, exitUnit }) {
             : "var(--color-background)",
         }}
       >
-        {idx + 1}. {unit.title}
+        {idx + 1}.<UnitTitle>{unit.title}</UnitTitle>
       </Catalog>
     );
   };
