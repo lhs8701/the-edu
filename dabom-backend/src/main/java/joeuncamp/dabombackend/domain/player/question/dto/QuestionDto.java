@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.player.question.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
+import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.question.entity.Question;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
@@ -78,14 +79,10 @@ public class QuestionDto {
         Long questionId;
         @Schema(description = "질문 제목", example = ExampleValue.Question.TITLE)
         String title;
-        @Schema(description = "작성자명", example = ExampleValue.Member.NICKNAME)
-        String writer;
-
 
         public ShortResponse(Question question) {
             this.questionId = question.getId();
             this.title = question.getTitle();
-            this.writer = question.getMember().getNickname();
         }
     }
 
@@ -97,22 +94,22 @@ public class QuestionDto {
         String title;
         @Schema(description = "질문 내용", example = ExampleValue.Question.DESCRIPTION)
         String content;
-        @Schema(description = "작성자명", example = ExampleValue.Member.NICKNAME)
-        String writer;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         @Schema(description = "생성 시간", example = ExampleValue.Time.DATE)
         LocalDateTime createdTime;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         @Schema(description = "최근 수정 시간", example = ExampleValue.Time.DATE)
         LocalDateTime modifiedTime;
+        @Schema(description = "작성자")
+        ProfileDto.ShortResponse writer;
 
         public Response(Question question) {
             this.questionId = question.getId();
             this.title = question.getTitle();
             this.content = question.getContent();
-            this.writer = question.getMember().getNickname();
             this.createdTime = question.getCreatedTime();
             this.modifiedTime = question.getModifiedTime();
+            this.writer = new ProfileDto.ShortResponse(question.getMember());
         }
     }
 }
