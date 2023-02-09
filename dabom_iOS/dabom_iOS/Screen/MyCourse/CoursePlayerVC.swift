@@ -32,7 +32,7 @@ class CoursePlayerVC: UIViewController {
     var unitTitle: String?
     var thumbnailImage: String = ""
     var unitData: UnitDataModel?
-    var curriculum: CurriculumDataModel?
+    var curriculum: UserCurriculumDataModel?
     
     var avPlayer = AVPlayer()
     var avController = AVPlayerViewController()
@@ -86,6 +86,7 @@ class CoursePlayerVC: UIViewController {
         self.courseCurriculum.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 4.0)
         self.unitThumbnailImage.setImage(with: self.thumbnailImage)
         self.unitTitleLabel.text = self.unitTitle
+        self.unitTitleLabel.adjustsFontSizeToFitWidth = true
         self.courseCurriclumView.layer.drawLineAt(edges: [.bottom], color: .lightGray, width: 5.0)
     }
     
@@ -100,10 +101,10 @@ class CoursePlayerVC: UIViewController {
     // MARK: - 커리큘럼 정보 가져오기
     private func setCurriculum() {
         if let courseId = courseId {
-            CurriculumDataService.shared.getUserCurriculum(courseId: courseId) { response in
+            UserCurriculumDataService.shared.getUserCurriculum(courseId: courseId) { response in
                 switch response {
                 case .success(let data):
-                    if let data = data as? CurriculumDataModel {
+                    if let data = data as? UserCurriculumDataModel {
                         self.curriculum = data
                         self.curriculumTV.reloadData()
                     }

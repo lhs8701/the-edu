@@ -14,6 +14,7 @@ struct UserProfileDataModel: Codable {
     var mobile: String?
     var birthDate: String?
     var email: String?
+    var socialId: String
     var profileImage: ImageDataModel
     var loginType: String?
 }

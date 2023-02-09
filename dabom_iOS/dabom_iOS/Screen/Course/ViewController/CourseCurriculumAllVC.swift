@@ -37,7 +37,7 @@ class CourseCurriculumAllVC: UIViewController {
     
     private func setCurriculum() {
         if let courseId = courseId {
-            CurriculumDataService.shared.getUserCurriculum(courseId: courseId) { response in
+            CurriculumDataService.shared.getCurriculum(courseId: courseId) { response in
                 switch response {
                 case .success(let data):
                     if let data = data as? CurriculumDataModel {

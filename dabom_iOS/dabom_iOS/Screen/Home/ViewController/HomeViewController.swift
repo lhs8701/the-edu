@@ -20,7 +20,6 @@ class HomeViewController: UIViewController {
     
     var autoStart: Bool = false
     
-    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,8 +149,8 @@ extension HomeViewController: UITableViewDataSource {
         } else {
             // 배너 셀 이후로 강좌 랭킹 셀
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CourseTableViewCell.identifier, for: indexPath) as? CourseTableViewCell else { return UITableViewCell() }
-
             cell.setData(courseRankingData: self.courseRankingList[indexPath.row - 1])
+            
             cell.delegate = self
             
             return cell

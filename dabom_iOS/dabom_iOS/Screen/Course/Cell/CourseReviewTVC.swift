@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol allReviewBtnDelegate {
     func allReviewBtnPressed()
@@ -25,6 +26,9 @@ class CourseReviewTVC: UITableViewCell {
     
     var reviewData: [CourseReviewDataModel] = []
     
+    var defaultImageView: UIImageView = UIImageView()
+    var defaultImage = UIImage(named: "default_review")
+    
     // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +41,14 @@ class CourseReviewTVC: UITableViewCell {
         reviewTV.delegate = self
         reviewTV.dataSource = self
         reviewTV.register(UINib(nibName: Const.Xib.Name.reviewInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.reviewInquiryTVC)
-
+        
+        contentView.addSubview(defaultImageView)
+        
+        defaultImageView.image = defaultImage
+        defaultImageView.contentMode = .scaleAspectFit
+        defaultImageView.snp.makeConstraints {
+            $0.edges.equalTo(self.reviewTV.snp.edges)
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -51,6 +62,12 @@ class CourseReviewTVC: UITableViewCell {
         
         if let data = data {
             self.reviewData = data
+            
+            if reviewData.count == 0 {
+                defaultImageView.isHidden = false
+            } else {
+                defaultImageView.isHidden = true
+            }
         }
     }
     

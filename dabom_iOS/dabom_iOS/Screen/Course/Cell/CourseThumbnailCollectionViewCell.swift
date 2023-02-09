@@ -11,6 +11,9 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "CourseThumbnailCollectionViewCell"
     
+    @IBOutlet var hiddenLabel: [UILabel]!
+    @IBOutlet weak var starImageView: UIImageView!
+    
     @IBOutlet weak var thumbnailImage: UIImageView!
     @IBOutlet weak var courseTitle: UILabel!
     @IBOutlet weak var creatorName: UILabel!
@@ -27,7 +30,13 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
         layer.shadowOpacity = 0.5
         layer.shadowRadius = 2
         layer.shadowOffset = CGSize(width: 0, height: 0)
-
+        
+        for label in hiddenLabel {
+            label.isHidden = true
+        }
+        starImageView.isHidden = true
+        courseTitle.adjustsFontSizeToFitWidth = true
+        
         contentView.layer.cornerRadius = 7
         contentView.layer.masksToBounds = true
     }
@@ -52,6 +61,7 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
         thumbnailImage.setImage(with: thumbnailData.thumbnailImage.mediumFilePath)
         courseTitle.text = thumbnailData.title
         creatorName.text = thumbnailData.instructor
+        categoryName.text = thumbnailData.category
         
     }
 }

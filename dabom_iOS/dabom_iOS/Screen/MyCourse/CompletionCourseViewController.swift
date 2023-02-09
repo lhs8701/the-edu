@@ -17,11 +17,22 @@ class CompletionCourseViewController: UIViewController {
     var completionCourseData: Array<MyCourseDataModel>?
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
     
+    var defaultImageView: UIImageView = UIImageView(image: UIImage(named: "default_completion"))
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        view.addSubview(defaultImageView)
+        defaultImageView.contentMode = .scaleAspectFit
+        defaultImageView.snp.makeConstraints {
+            $0.center.equalTo(completionCourseCV.snp.center)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+        defaultImageView.isHidden = true
+        
         // Do any additional setup after loading the view.
         setCV()
     }
@@ -47,6 +58,12 @@ class CompletionCourseViewController: UIViewController {
                 if let data = data as? [MyCourseDataModel] {
                     self.completionCourseData = data
                     self.completionCourseCV.reloadData()
+                    
+                    if data.isEmpty {
+                        self.defaultImageView.isHidden = false
+                    } else {
+                        self.defaultImageView.isHidden = true
+                    }
                 }
             case .requestErr(let message):
                 print("requestErr", message)

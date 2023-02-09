@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol allInquiryBtnDelegate {
     func allInquiryBtnPressed()
@@ -25,6 +26,9 @@ class CourseInquiryTVC: UITableViewCell {
     
     var inquiryData: [CourseInquiryDataModel] = []
     
+    var defaultImageView: UIImageView = UIImageView()
+    var defaultImage = UIImage(named: "default_inquiry")
+    
     // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,6 +42,14 @@ class CourseInquiryTVC: UITableViewCell {
         inquiryTV.dataSource = self
         inquiryTV.register(UINib(nibName: "ReviewInquiryTVC", bundle: nil), forCellReuseIdentifier: "ReviewInquiryTVC")
 
+        contentView.addSubview(defaultImageView)
+        
+        defaultImageView.image = defaultImage
+        defaultImageView.contentMode = .scaleAspectFit
+        defaultImageView.snp.makeConstraints {
+            $0.edges.equalTo(self.inquiryTV.snp.edges)
+        }
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -51,6 +63,12 @@ class CourseInquiryTVC: UITableViewCell {
         
         if let data = data {
             self.inquiryData = data
+            
+            if inquiryData.count == 0 {
+                defaultImageView.isHidden = false
+            } else {
+                defaultImageView.isHidden = true
+            }
         }
     }
     

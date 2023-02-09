@@ -10,8 +10,8 @@ import Alamofire
 
 struct CourseInquiryDataModel: Codable {
     let inquiryId: Int
-    let writer: String
     let course: String
     let content: String
     let likes: Int
+    let writer: writerDataModel
 }

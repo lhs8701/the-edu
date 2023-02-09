@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CurriculumDataModel: Codable {
+struct UserCurriculumDataModel: Codable {
     let chapters: [chapterData]
 }
 

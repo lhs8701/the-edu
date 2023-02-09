@@ -368,7 +368,7 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let courseInfoData = courseInfoData {
                 if courseInfoData.descriptionImages.count != 0 {
-                    cell.infoImageView.setImage(with: courseInfoData.descriptionImages[indexPath.row-2].mediumFilePath)
+                    cell.infoImageView.setImage(with: courseInfoData.descriptionImages[indexPath.row-2].originalFilePath)
                 }
             }
             

@@ -58,7 +58,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="클래스 짧은 소개" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8K-Kt-NRt">
-                        <rect key="frame" x="30" y="270.33333333333331" width="180" height="17"/>
+                        <rect key="frame" x="30" y="275.33333333333331" width="180" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="180" id="XW9-dh-aqF"/>
                         </constraints>
@@ -190,7 +190,7 @@
                     <constraint firstItem="xcF-Sk-aOh" firstAttribute="leading" secondItem="uMz-4n-wDK" secondAttribute="trailing" constant="4" id="rbI-yI-AEY"/>
                     <constraint firstAttribute="trailingMargin" secondItem="MSO-6K-zZg" secondAttribute="trailing" id="uBZ-Fg-siy"/>
                     <constraint firstItem="jSO-Fa-s6N" firstAttribute="centerY" secondItem="Ipl-eG-5wh" secondAttribute="centerY" id="utS-KR-DyS"/>
-                    <constraint firstItem="H8K-Kt-NRt" firstAttribute="top" secondItem="MTF-L7-Evq" secondAttribute="bottom" constant="10" id="uvB-ra-1Mi"/>
+                    <constraint firstItem="H8K-Kt-NRt" firstAttribute="top" secondItem="MTF-L7-Evq" secondAttribute="bottom" constant="15" id="uvB-ra-1Mi"/>
                     <constraint firstItem="KF2-UJ-EWO" firstAttribute="centerY" secondItem="t58-uy-sR4" secondAttribute="centerY" id="wet-Ry-c98"/>
                 </constraints>
             </tableViewCellContentView>
@@ -201,6 +201,16 @@
                 <outlet property="courseEnrollBtn" destination="MSO-6K-zZg" id="pAt-eh-XWe"/>
                 <outlet property="courseThumbnailImageView" destination="xnC-nY-p3R" id="MRf-Yc-SDt"/>
                 <outlet property="instructor" destination="eLy-Gm-rSr" id="ZeZ-6y-lnV"/>
+                <outletCollection property="costHidden" destination="KF2-UJ-EWO" collectionClass="NSMutableArray" id="hfv-In-gH7"/>
+                <outletCollection property="costHidden" destination="t58-uy-sR4" collectionClass="NSMutableArray" id="Sfc-Qd-YbY"/>
+                <outletCollection property="costHidden" destination="v8S-BX-YHi" collectionClass="NSMutableArray" id="19x-RY-Tol"/>
+                <outletCollection property="costHidden" destination="r7g-Va-XP5" collectionClass="NSMutableArray" id="SDv-jn-svw"/>
+                <outletCollection property="costHidden" destination="xcF-Sk-aOh" collectionClass="NSMutableArray" id="cnh-YV-l6R"/>
+                <outletCollection property="costHidden" destination="qdv-id-spz" collectionClass="NSMutableArray" id="Kod-WN-j8J"/>
+                <outletCollection property="costHidden" destination="NcX-1d-zAk" collectionClass="NSMutableArray" id="STO-iz-96z"/>
+                <outletCollection property="costHidden" destination="jSO-Fa-s6N" collectionClass="NSMutableArray" id="4Is-sa-Qtl"/>
+                <outletCollection property="costHidden" destination="Ipl-eG-5wh" collectionClass="NSMutableArray" id="g5b-xD-6fJ"/>
+                <outletCollection property="costHidden" destination="uMz-4n-wDK" collectionClass="NSMutableArray" id="tyg-oh-LQr"/>
             </connections>
             <point key="canvasLocation" x="232.30769230769229" y="0.0"/>
         </tableViewCell>
