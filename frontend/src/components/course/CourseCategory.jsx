@@ -5,11 +5,11 @@ import { Title } from "../../style/CourseCss";
 
 const BigCategory = styled.h1`
   font-weight: var(--weight-middle);
-  font-size: var(--size-category-big);
+  font-size: 1.5rem;
 `;
 const SmallCategory = styled.h2`
   font-weight: var(--weight-thin);
-  font-size: var(--size-category-small);
+  font-size: 1.3rem;
   line-height: 33px;
   margin: 5px 0;
   display: flex;

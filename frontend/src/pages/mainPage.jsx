@@ -1,7 +1,8 @@
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getRankingApi } from "../api/courseApi";
+import { getLatestApi, getRankingApi } from "../api/courseApi";
+import { getOngoingEventApi } from "../api/eventApi";
 import {
   getAccessTokenSelector,
   getLoginState,
@@ -10,7 +11,6 @@ import {
 import ClassCard from "../components/ClassCard";
 import MyClassCard from "../components/MyClassCard";
 import { SlideNotice } from "../components/SlideNotice";
-import { dummyCourseRank, dummyMyClassList } from "../dummy";
 import { Wrapper } from "../style/CommonCss";
 
 const MyClassListBox = styled.div`
@@ -40,9 +40,13 @@ const ClassListBox = styled.div`
   width: 100%;
   height: 200px;
 `;
+const NoneTitle = styled.h1`
+  font-size: 1.5rem;
+  font-weight: var(--weight-middle);
+  text-align: center;
+`;
 
 export default function MainPage() {
-  const weekRankList = dummyCourseRank;
   const loginState = useRecoilValue(getLoginState);
   const memberId = useRecoilValue(getMemberIdSelector);
   const accessToken = useRecoilValue(getAccessTokenSelector);
@@ -60,22 +64,32 @@ export default function MainPage() {
     }
   );
 
-  const MyClassList = () => {
-    return dummyMyClassList.map((course, index) => {
-      const progressRatio = Math.round(
-        (course?.nowUnitCnt / course?.totalUnitCnt) * 100
-      );
-      const data = [
-        {
-          name: "Complete",
-          value: progressRatio,
-        },
-      ];
-      return (
-        <MyClassCard info={course} data={data} progressRatio={progressRatio} />
-      );
-    });
-  };
+  const eventList = useQuery(
+    ["eventList"],
+    () => {
+      return getOngoingEventApi();
+    },
+    {
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
+  const recentList = useQuery(
+    ["recentList", memberId],
+    () => {
+      return getLatestApi(accessToken);
+    },
+    {
+      enabled: !!loginState,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
   const ClassRankList = ({ rankList }) => {
     return (
@@ -100,21 +114,65 @@ export default function MainPage() {
     });
   };
 
-  const MyClassComponent = () => {
+  const MyClassList = ({ recentList }) => {
+    return recentList.map((course) => {
+      const progressRatio = Math.round(
+        (course?.completedUnits / course?.entireUnits) * 100
+      );
+      const data = [
+        {
+          name: "Complete",
+          value: progressRatio,
+        },
+      ];
+      return (
+        <MyClassCard
+          key={course.courseId}
+          info={course}
+          data={data}
+          progressRatio={progressRatio}
+        />
+      );
+    });
+  };
+
+  const NoneTitleComponent = () => {
+    return (
+      <NoneTitle>
+        <br />
+        최근 들은 강의가 없어요!
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+      </NoneTitle>
+    );
+  };
+
+  const MyClassComponent = ({ recentList }) => {
     return (
       <>
-        <ListTitle>나의 클래스</ListTitle>{" "}
-        <MyClassListBox>
-          <MyClassList />
-        </MyClassListBox>
+        <ListTitle>최근 들은 클래스</ListTitle>{" "}
+        {recentList.length === 0 ? (
+          <NoneTitleComponent />
+        ) : (
+          <MyClassListBox>
+            <MyClassList recentList={recentList} />
+          </MyClassListBox>
+        )}
       </>
     );
   };
 
   return (
     <Wrapper>
-      <SlideNotice />
-      {loginState && <MyClassComponent />}
+      {eventList?.data?.data && (
+        <SlideNotice eventList={eventList?.data?.data} />
+      )}
+      {recentList?.data?.data && (
+        <MyClassComponent recentList={recentList?.data?.data} />
+      )}
       {data && <CategoriesRankComponent />}
     </Wrapper>
   );

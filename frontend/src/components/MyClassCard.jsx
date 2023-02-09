@@ -36,10 +36,12 @@ const ChartTitle = styled.p`
   font-size: var(--size-card-title);
 `;
 
-const UnitTitle = styled.p`
+const UnitTitle = styled.div`
   font-weight: var(--weight-thin);
   font-size: var(--size-card-any);
-  margin-bottom: 5px;
+  margin-top: 5px;
+  text-overflow: ellipsis;
+  text-align: start;
 `;
 
 const UnitRate = styled.p`
@@ -79,6 +81,7 @@ const RateNum = styled.p`
 const GoTo = styled(Link)`
   font-size: 18px;
   text-decoration: none;
+
   z-index: 10;
   font-weight: var(--weight-point);
   color: ${(props) =>
@@ -125,6 +128,7 @@ export default function MyClassCard({ info, data, progressRatio }) {
             {info?.title}
             {info?.courseId}
           </ChartTitle>
+          <UnitTitle>{info?.nextUnitInfo?.title}</UnitTitle>
         </div>
       </TitleTab>
     );
@@ -136,11 +140,11 @@ export default function MyClassCard({ info, data, progressRatio }) {
         <div>
           <ProgressRate>학습 상황</ProgressRate>
           <RateNum>
-            {info?.completedUnits} / {info?.entireUnits}
+            &nbsp;{info?.completedUnits} / {info?.entireUnits}
           </RateNum>
         </div>
+
         <GoTo to={PROCESS_MAIN_URL.COURSES + "/" + info?.courseId + "/lobby"}>
-          <UnitTitle>{info?.nextUnitInfo?.title}</UnitTitle>
           학습 하기
         </GoTo>
       </BottomTab>

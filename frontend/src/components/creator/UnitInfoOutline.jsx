@@ -1,5 +1,5 @@
 import { Box, Button, Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -17,7 +17,7 @@ const Video = styled.video`
   height: 200px;
 `;
 
-export default function UnitInfoOutline({
+const UnitInfoOutline = React.memo(function UnitInfoOutline({
   fileUrl,
   setFileUrl,
   video,
@@ -33,7 +33,7 @@ export default function UnitInfoOutline({
       reviseUnitVideo(data.filePath, e.target.files[0]);
     });
   };
-
+  console.log("render");
   return (
     <UploadTab>
       {fileUrl ? (
@@ -83,4 +83,6 @@ export default function UnitInfoOutline({
       )}
     </UploadTab>
   );
-}
+});
+
+export default React.memo(UnitInfoOutline);

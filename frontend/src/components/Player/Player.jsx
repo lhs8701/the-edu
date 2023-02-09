@@ -63,7 +63,7 @@ const VideoRelativeDiv = styled.div`
   width: 98%;
 `;
 
-export default function Player({ unitInfo, videoVal, setVideoVal }) {
+export default function Player({ unitInfo, videoVal, setVideoVal, setMenu }) {
   const videoRef = useRef(null); //props로 컨트롤러로 슉 넘겨
   const fullRef = useRef(null);
   const [controlOn, setControl] = useState(false);
@@ -179,7 +179,7 @@ export default function Player({ unitInfo, videoVal, setVideoVal }) {
             playbackRate={videoVal.playbackRate} // 배속기능
             onProgress={progressHandler} // 재생 및 로드된 시점을 반환
             onEnded={() => {
-              alert("다음 강의로");
+              setMenu(3);
             }}
             light={false}
             width="100%"

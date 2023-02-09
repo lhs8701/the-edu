@@ -81,12 +81,12 @@ export default function CategoryPage() {
   const courseList = useInfiniteQuery(
     [
       "getCategoryList",
-      CATE_VALUE[categoryId - 1].smallList[smallCategoryId].title,
+      CATE_VALUE[categoryId - 1].smallList[smallCategoryId - 1].title, // 전체보기가 스몰리스트에서 빠졌기때문에 -1을 추가
     ],
     ({ pageParam = 0 }) => {
       return getCategoryListApi(
         pageParam,
-        CATE_VALUE[categoryId - 1].smallList[smallCategoryId].title
+        CATE_VALUE[categoryId - 1].smallList[smallCategoryId - 1].title
       );
     },
     {
@@ -139,17 +139,20 @@ export default function CategoryPage() {
   };
 
   const Classes = () => {
+    console.log(CATE_VALUE[categoryId - 1].smallList[smallCategoryId - 1]);
     return (
       <MyPageBox>
         <MyPageTitle>
-          {Number(categoryId) === 0 && Number(smallCategoryId) === 0 ? (
+          {/* {Number(categoryId) === 0 && Number(smallCategoryId) === 0 ? (
             <>전체보기</>
           ) : (
             <>
               {CATE_VALUE[categoryId - 1].big}&nbsp;&nbsp;/ &nbsp;
               {CATE_VALUE[categoryId - 1].smallList[smallCategoryId].title}
-            </>
-          )}
+            </> 전체보기를 뺀다면 스몰리스트 인덱스 -1필요
+          )} */}
+          {CATE_VALUE[categoryId - 1].big}&nbsp;&nbsp;/ &nbsp;
+          {CATE_VALUE[categoryId - 1].smallList[smallCategoryId - 1]?.title}
         </MyPageTitle>
         <MyPageContentBox>
           {courseList.error ? (

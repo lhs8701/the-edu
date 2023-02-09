@@ -46,22 +46,15 @@ export async function createUnitsApi(
   description,
   url
 ) {
-  const params = {
-    title: title,
-    description: description,
-    videoUrl: url,
-  };
-
   return await axios.post(
     `${API_URL}${CREATE_URL}/${courseId}${UNIT_URL}`,
-    {},
+    { title: title, description: description, videoUrl: url },
     {
       headers: {
         ACCESS: accessToken,
         "Content-Type": "application/json",
       },
-    },
-    { params }
+    }
   );
 }
 

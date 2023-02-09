@@ -97,7 +97,7 @@ export default function CourseInfoImage({
             type="file"
           />
         </Button>
-      )}{" "}
+      )}
       <Fab aria-label="remove" size="small">
         <RemoveIcon onClick={removeCnt} />
       </Fab>

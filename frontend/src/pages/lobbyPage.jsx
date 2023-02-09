@@ -9,7 +9,12 @@ import {
 } from "../api/courseApi";
 import { getAccessTokenSelector, getLoginState } from "../atom";
 import Slider from "@mui/material/Slider";
-import { PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL, STATIC_URL } from "../static";
+import {
+  PLAYER_URL,
+  PROCESS_ACCOUNT_URL,
+  PROCESS_MAIN_URL,
+  STATIC_URL,
+} from "../static";
 
 const LobbyWrapper = styled.div`
   width: 100%;
@@ -83,11 +88,11 @@ const CategoryBox = styled.div`
 const BigCategoryTab = styled.div`
   width: 100%;
   background-color: var(--color-box-primary);
-  font-weight: var(--weight-point);
+  font-weight: var(--weight-middle);
   font-size: 1.5rem;
   padding: 10px 20px;
   box-sizing: border-box;
-  box-shadow: 0 0 3px rgb(0 0 0 / 16%), 0 0px 1px rgb(0 0 0 / 16%);
+  /* box-shadow: 0 0 3px rgb(0 0 0 / 16%), 0 0px 1px rgb(0 0 0 / 16%); */
 `;
 
 const SmallCategoryTab = styled.div`
@@ -106,7 +111,14 @@ const SmallCategoryTab = styled.div`
   }
 `;
 
-const PlayBtn = styled.button``;
+const PlayBtn = styled.button`
+  border: none;
+  border-radius: 10px;
+  padding: 3px 10px;
+  &:hover {
+    scale: 1.1;
+  }
+`;
 
 export default function LobbyPage() {
   const loginState = useRecoilValue(getLoginState);
@@ -130,7 +142,7 @@ export default function LobbyPage() {
 
   const playUnit = (unitId) => {
     window.open(
-      `http://localhost:3000/player/${courseId}/${unitId}`, // 나중에 the edu 도메인으로 변경해야함
+      `${PLAYER_URL}/${courseId}/${unitId}`, // 나중에 the edu 도메인으로 변경해야함
       "the-edu 플레이어",
       "location=no,status=no,scrollbars=no"
     );

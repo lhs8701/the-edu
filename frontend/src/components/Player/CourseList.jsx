@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import React from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { queryClient } from "../..";
@@ -9,15 +10,19 @@ import { SideTitle, TitleBox } from "../../style/PlayerSideBarCss";
 const Catalog = styled(motion.li)`
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   color: ${(props) =>
     props.men === props.now
       ? "var(--color-text)"
       : "var(--color-box-gray)"}; //props 활용
-  padding-left: 15px;
+  padding-left: 8px;
   padding-top: 8px;
   padding-bottom: 8px;
+  background: ${(props) =>
+    props.men === props.now
+      ? "var(--color-box-gray)"
+      : "var(--color-background)"}; //props 활용
 `;
 
 const ListBox = styled.ul`
@@ -26,7 +31,15 @@ const ListBox = styled.ul`
   overflow: auto;
 `;
 
-export default function CourseList({ courseId, unitId, exitUnit }) {
+const UnitTitle = styled.div`
+  margin-left: 5px;
+`;
+
+const CourseList = React.memo(function CourseList({
+  courseId,
+  unitId,
+  exitUnit,
+}) {
   const curriculum = queryClient.getQueryData(["userCurriStatus", courseId]);
   const navigate = useNavigate();
 
@@ -44,13 +57,8 @@ export default function CourseList({ courseId, unitId, exitUnit }) {
         now={Number(unitId)}
         key={idx}
         whileHover={{ backgroundColor: "#dfdede", color: "var(--color-text)" }}
-        animate={{
-          backgroundColor: unit.completed
-            ? "#a8a7a7"
-            : "var(--color-background)",
-        }}
       >
-        {idx + 1}. {unit.title}
+        {idx + 1}.<UnitTitle>{unit.title}</UnitTitle>
       </Catalog>
     );
   };
@@ -89,4 +97,6 @@ export default function CourseList({ courseId, unitId, exitUnit }) {
       </ListBox>
     </Wrapper>
   );
-}
+});
+
+export default React.memo(CourseList);

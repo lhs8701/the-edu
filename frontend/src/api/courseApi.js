@@ -14,9 +14,19 @@ const WISHCHECK_URL = WISH_URL + CHECK_URL;
 const ONGOING_URL = "/ongoing";
 const COMPELETE_URL = "/completed";
 const RANK_URL = "/ranking";
+const RECENT_URL = "/recent";
 
 export async function getCompletedApi(accessToken) {
   return await axios.get(`${COURSE_URL}${COMPELETE_URL}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
+    },
+  });
+}
+
+export async function getLatestApi(accessToken) {
+  return await axios.get(`${COURSE_URL}${RECENT_URL}`, {
     headers: {
       "Content-Type": "application/json",
       ACCESS: accessToken,

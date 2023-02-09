@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { isAxiosError } from "axios";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -5,8 +6,10 @@ import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { queryClient } from "../..";
+import { uploadImageApi } from "../../api/creatorApi";
 import { myInfoApi, revisemyInfoApi } from "../../api/myPageApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
+import { STATIC_URL } from "../../static";
 import {
   AccountBtn,
   AccountForm,
@@ -28,16 +31,38 @@ const MAX_PWD_LENGTH = 16;
 const MIN_TELE_LENGTH = 10;
 const MAX_TELE_LENGTH = 11;
 
+const ImgUploadBtn = styled.div`
+  &:hover {
+    color: red;
+  }
+  cursor: pointer;
+`;
+
 const TeleInput = styled(AccountInput)`
   width: 83%;
 `;
-
+const ImgBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const AuthBtn = styled(AccountSmallBtn)``;
 
 const ReviseForm = styled(AccountForm)`
   width: var(--size-revise-coupon-window);
   margin: 0 auto;
 `;
+const ImgNameTab = styled.div`
+  display: flex;
+`;
+
+const ProfileImg = styled.img`
+  width: 110%;
+  border-radius: 50%;
+  height: 110%;
+  border: 1px solid var(--color-box-gray);
+`;
+
+const NameInputBox = styled(InputBox)``;
 
 export default function Revise() {
   const memberId = useRecoilValue(getMemberIdSelector);
@@ -49,10 +74,11 @@ export default function Revise() {
     },
     {
       enabled: !!memberId,
-      onSuccess: ({ email, id, nickname, mobile }) => {
+      onSuccess: ({ email, id, nickname, mobile, profileImage }) => {
         setIsName(nickname);
         setIsTele(mobile);
         setIsId(email);
+        setIsProfileImg(profileImage.mediumFilePath);
         setValue("tele", mobile);
         setValue("name", nickname);
         setValue("email", email);
@@ -66,6 +92,9 @@ export default function Revise() {
   const [isId, setIsId] = useState(infos?.data?.email);
   const [isName, setIsName] = useState(infos?.data?.nickname);
   const [isTele, setIsTele] = useState(infos?.data?.mobile);
+  const [isProfileImg, setIsProfileImg] = useState(
+    infos?.data?.profileImage.mediumFilePath
+  );
   const {
     register,
     handleSubmit,
@@ -84,12 +113,12 @@ export default function Revise() {
   });
 
   const submit = () => {
-    console.log("fdd");
     const info = {
       nickname: isName,
       email: isId,
+      profileImage: isProfileImg,
     };
-    revisemyInfoApi(memberId, accessToken, info)
+    revisemyInfoApi(accessToken, info)
       .then(() => {
         alert("완료");
         queryClient.refetchQueries({ queryKey: ["myInfo", memberId] });
@@ -103,6 +132,15 @@ export default function Revise() {
         }
       });
   };
+  const uploadImg = (e) => {
+    uploadImageApi(e.target.files[0], accessToken)
+      .then(({ data }) => {
+        setIsProfileImg(data.originalFilePath);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <MyPageBox>
@@ -110,6 +148,40 @@ export default function Revise() {
       <MyPageContentBox>
         <ReviseForm onSubmit={handleSubmit(submit)}>
           <InputBox>
+            <InputLabel>프로필 사진</InputLabel>
+            <br />
+            <br />
+            <br />
+            <ImgBox>
+              <Button
+                sx={{
+                  width: 120,
+                  height: 100,
+                  backgroundColor: "var(--color-background)",
+                  border: "none",
+                  boxShadow: "none",
+                  "&:hover": {
+                    backgroundColor: "#eeeeee",
+                  },
+                }}
+                variant="contained"
+                component="label"
+              >
+                <input
+                  hidden
+                  accept=".jpg, .jpeg, .png"
+                  onChange={uploadImg}
+                  multiple
+                  type="file"
+                />
+                <ProfileImg src={STATIC_URL + isProfileImg} />
+              </Button>
+            </ImgBox>
+          </InputBox>
+          <br />
+          <br />
+          <br />
+          <NameInputBox>
             <InputLabel>성명</InputLabel>
             <AccountInput
               {...register("name", {
@@ -134,7 +206,8 @@ export default function Revise() {
               })}
               type="text"
             />
-          </InputBox>
+          </NameInputBox>
+
           <InputBox>
             <InputLabel>이메일 주소</InputLabel>
             <AccountInput

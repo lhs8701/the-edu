@@ -1,21 +1,17 @@
 const PROGRAMMING_DETAIL_CATEGORIES = [
-  { title: "전체보기", id: 0 },
   { title: "백엔드", id: 1 },
   { title: "프론트엔드", id: 2 },
 ];
 const FOREIGN_LANGUAGE_DETAIL_CATEGORIES = [
-  { title: "전체보기", id: 0 },
   { title: "토익", id: 1 },
   { title: "토플", id: 2 },
   { title: "일본어", id: 3 },
 ];
 const LICENSE_DETAIL_CATEGORIES = [
-  { title: "전체보기", id: 0 },
   { title: "정보처리", id: 1 },
   { title: "전기", id: 2 },
 ];
 const MONEY_MANAGEMENT_DETAIL_CATEGORIES = [
-  { title: "전체보기", id: 0 },
   { title: "주식", id: 1 },
   { title: "펀드", id: 2 },
 ];
@@ -212,3 +208,5 @@ export const CREATOR_BAR_LIST = {
 const BASE_URL = "http://218.38.127.26:8080";
 export const STATIC_URL = "http://the-edu.co.kr";
 export const API_URL = BASE_URL + "/api";
+// export const PLAYER_URL = STATIC_URL + "/player";
+export const PLAYER_URL = "http://localhost:3000/player";

@@ -67,12 +67,10 @@ export default function EventPage() {
           whileHover={{
             y: -10,
             transition: { duration: 0.2 },
-            boxShadow:
-              "0 0px 0px rgb(0 0 0 / 16%), 0 10px 5px rgb(0 0 0 / 16%)",
           }}
           whileTap={{ y: 0, transition: { duration: 0.01 } }}
         >
-          <EventCard src={STATIC_URL + eventInfo.bannerImage.smallFilePath} />
+          <EventCard src={STATIC_URL + eventInfo.bannerImage.mediumFilePath} />
         </EventCardBox>
         <div>
           <EventPeriod>D - {eventInfo.dday}</EventPeriod>
@@ -91,7 +89,7 @@ export default function EventPage() {
 
   return (
     <Wrapper>
-      <TabTitle>이벤트</TabTitle>
+      <TabTitle>진행 중인 이벤트</TabTitle>
       <EventBox>{data && <EventList eventList={data?.data} />}</EventBox>
     </Wrapper>
   );

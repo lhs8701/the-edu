@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import { getFormResponse } from "../../api/adminApi";
 import Table from "@mui/material/Table";
@@ -20,6 +20,7 @@ export default function CreatorRequest() {
   useEffect(() => {
     getFormResponse()
       .then(({ data }) => {
+        console.log(data);
         const list = [];
 
         data?.items?.map((e) => {

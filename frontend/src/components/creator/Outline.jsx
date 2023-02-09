@@ -94,16 +94,18 @@ export default function Outline() {
 
   const uploadCourse = (e) => {
     e.preventDefault();
-    createCourseApi(accessToken, courseValue)
-      .then(({ data }) => {
-        alert("강좌가 등록되었습니다.");
-        setCourseId(data.id);
-        setTabVal(1);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("err");
-      });
+    if (window.confirm("강좌 정보를 입력하시겠습니까?")) {
+      createCourseApi(accessToken, courseValue)
+        .then(({ data }) => {
+          alert("강좌가 등록되었습니다.");
+          setCourseId(data);
+          setTabVal(1);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("err");
+        });
+    }
   };
 
   const curriUploadFilter = (chapterList) => {
@@ -124,16 +126,18 @@ export default function Outline() {
 
   const uploadCurriculum = (e) => {
     e.preventDefault();
-    const uploadCurriList = curriUploadFilter(chapterList);
-    createCourseCurriculumApi(accessToken, courseId, uploadCurriList)
-      .then(() => {
-        alert("강좌가 등록되었습니다.");
-        navigate(CREATOR_BAR_LIST.list[2].list[0].url);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("err");
-      });
+    if (window.confirm("강좌 커리큘럼 입력하시겠습니까?")) {
+      const uploadCurriList = curriUploadFilter(chapterList);
+      createCourseCurriculumApi(accessToken, courseId, uploadCurriList)
+        .then(() => {
+          alert("강좌가 등록되었습니다.");
+          navigate(CREATOR_BAR_LIST.list[2].list[0].url);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("err");
+        });
+    }
   };
 
   const UPLOAD_VALUE = [

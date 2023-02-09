@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { STATIC_URL } from "../../static";
 
 const UserImg = styled.img`
   width: 100%;
@@ -10,6 +11,7 @@ const ImgBox = styled.div`
   height: 50px;
   overflow: hidden;
   border-radius: 50%;
+  margin-right: 20px;
 `;
 
 const UserInfoBox = styled.div`
@@ -22,7 +24,6 @@ const UserInfoBox = styled.div`
 const InfoTab = styled.div`
   display: flex;
   align-items: center;
-  width: 25%;
   justify-content: space-between;
 `;
 
@@ -98,20 +99,15 @@ export const ChatUserInfo = ({ writer, rate }) => {
     <UserInfoBox>
       <InfoTab>
         <ImgBox>
-          <UserImg
-            src={
-              "https://d33wubrfki0l68.cloudfront.net/594de66469079c21fc54c14db0591305a1198dd6/3f4b1/static/images/wallpapers/bridge-01@2x.png"
-            }
-          />
+          <UserImg src={STATIC_URL + writer?.profileImage?.smallFilePath} />
         </ImgBox>
-        <UserName>{writer}</UserName>
-
+        <UserName>{writer?.nickname}</UserName>
         <UserRateTab>
           {rate === "" ? (
             <Rate>&nbsp;</Rate>
           ) : (
             <>
-              별 <Rate>&nbsp;5.0</Rate>
+              &nbsp; 별 <Rate>&nbsp;5.0</Rate>
             </>
           )}
         </UserRateTab>

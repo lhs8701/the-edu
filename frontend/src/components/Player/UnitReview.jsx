@@ -37,38 +37,74 @@ const Input = styled.textarea`
   width: 90%;
   height: 10vh;
 `;
-
+const ThumbBox = styled.div`
+  background-color: pink;
+`;
 export default function UnitReview({ unitId }) {
   const [comment, setComment] = useState("");
-
-  const [thumb, setThumb] = useState();
+  const [thumbUp, setThumbUp] = useState(false);
+  const [thumbDown, setThumbDown] = useState(false);
+  const [clicked, setClicked] = useState(false);
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
   const getFeedback = () => {
+    console.log("재 갱신");
     getFeedbackApi(accessToken, unitId)
       .then(({ data }) => {
         console.log(data);
+        if (data.thumbsUp) {
+          setThumbUp(true);
+          setThumbDown(false);
+        } else {
+          setThumbDown(true);
+          setThumbUp(false);
+        }
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status !== 404) {
+          alert("서버 오류입니다.");
+        }
       });
   };
 
-  const postFeedback = () => {
+  const postFeedback = (upAndDown) => {
+    let thumb;
+    if (upAndDown) {
+      thumb = true;
+    } else {
+      thumb = false;
+    }
     postFeedbackApi(accessToken, unitId, thumb, comment)
-      .then(({}) => {
-        console.log("fd");
-      })
+      .then(({}) => {})
       .catch((err) => {
         console.log(err);
       });
   };
 
-  useEffect(getFeedback, []);
+  useEffect(getFeedback, [clicked]);
 
-  const alreadyThumbComponent = ({ status }) => {
+  const ThumbUpComponent = () => {
     let icon;
-    if (status) {
+    if (thumbUp) {
+      icon = ThumbUpIcon;
+    } else {
+      icon = ThumbUpOffAltIcon;
+    }
+    return (
+      <Icon
+        sx={{ height: "3rem", width: "3rem", cursor: "pointer" }}
+        onClick={() => {
+          setClicked((prev) => !prev);
+          postFeedback(true);
+        }}
+        component={icon}
+      />
+    );
+  };
+
+  const ThumbDownComponent = () => {
+    let icon;
+    if (thumbDown) {
       icon = ThumbDownAltIcon;
     } else {
       icon = ThumbDownOffAltIcon;
@@ -76,31 +112,15 @@ export default function UnitReview({ unitId }) {
     return (
       <Icon
         sx={{ height: "3rem", width: "3rem", cursor: "pointer" }}
-        onClick={postFeedback}
+        onClick={() => {
+          setClicked((prev) => !prev);
+          postFeedback(false);
+        }}
         component={icon}
       />
     );
   };
-  const noneThumbComponent = () => {
-    return (
-      <IconTab>
-        <Icon
-          sx={{ height: "3rem", width: "3rem", cursor: "pointer" }}
-          onClick={() => {
-            setThumb(true);
-          }}
-          component={ThumbUpOffAltIcon}
-        />
-        <Icon
-          sx={{ height: "3rem", width: "3rem", cursor: "pointer" }}
-          onClick={() => {
-            setThumb(false);
-          }}
-          component={ThumbDownOffAltIcon}
-        />
-      </IconTab>
-    );
-  };
+
   const IconTab = styled.div`
     display: flex;
     align-items: center;
@@ -111,9 +131,10 @@ export default function UnitReview({ unitId }) {
   return (
     <Wrapper>
       <SideTitleAlignCenter>강의가 어떠셨나요?</SideTitleAlignCenter>
-
-      {thumb ? <alreadyThumbComponent /> : <noneThumbComponent />}
-
+      <IconTab>
+        <ThumbUpComponent />
+        <ThumbDownComponent />
+      </IconTab>
       <Form>
         <Input
           value={comment}
