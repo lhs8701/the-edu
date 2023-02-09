@@ -7,7 +7,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -146,6 +146,38 @@ public class CourseDto {
             this.score = averageScore;
             this.price = course.getPrice();
             this.wish = course.getWishList().size();
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    public static class StatusResponse {
+        @Schema(description = "아이디넘버")
+        Long courseId;
+        @Schema(description = "제목", example = ExampleValue.Course.TITLE)
+        String title;
+        @Schema(description = "강사", example = ExampleValue.Member.NAME)
+        String instructor;
+        @Schema(description = "카테고리", example = ExampleValue.Course.CATEGORY)
+        String category;
+        @Schema(description = "완료한 강의 수")
+        int completedUnits;
+        @Schema(description = "전체 강의 수")
+        int entireUnits;
+        @Schema(description = "다음에 시청할 강의 정보")
+        NextUnitInfo nextUnitInfo;
+        @Schema(description = "썸네일 이미지")
+        ImageInfo thumbnailImage;
+
+        public StatusResponse(Course course, int completedUnits, NextUnitInfo nextUnitInfo){
+            this.courseId = course.getId();
+            this.title = course.getTitle();
+            this.instructor = course.getInstructorName();
+            this.category = course.getCategory().getTitle();
+            this.thumbnailImage = course.getThumbnailImage();
+            this.entireUnits = course.getUnitList().size();
+            this.completedUnits = completedUnits;
+            this.nextUnitInfo = nextUnitInfo;
         }
     }
 }

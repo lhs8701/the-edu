@@ -1,7 +1,6 @@
 package joeuncamp.dabombackend.domain.player.answer.entity;
 
 import jakarta.persistence.*;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.question.entity.Question;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;

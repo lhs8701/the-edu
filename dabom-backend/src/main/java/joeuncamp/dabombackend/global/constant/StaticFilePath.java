@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum StaticFilePath {
-    DEFAULT_PROFILE_IMAGE("/static/images/default_profile_image.jpg");
+    DEFAULT_PROFILE_IMAGE("/static/images/default/profile_image.jpg");
     final String url;
 }

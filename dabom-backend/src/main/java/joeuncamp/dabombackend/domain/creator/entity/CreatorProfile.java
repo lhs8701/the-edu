@@ -1,7 +1,8 @@
-package joeuncamp.dabombackend.domain.member.entity;
+package joeuncamp.dabombackend.domain.creator.entity;
 
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

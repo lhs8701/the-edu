@@ -4,8 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.dto.EnrollDto;
-import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
+import joeuncamp.dabombackend.domain.course.dto.CourseStatusDto;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.course.service.MyCourseService;
@@ -75,9 +76,8 @@ public class MyCourseController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/completed")
-    public ResponseEntity<List<MyCourseDto.Response>> getCompletedCourses(@AuthenticationPrincipal Member member) {
-        MyCourseDto.Request requestDto = new MyCourseDto.Request(member.getId());
-        List<MyCourseDto.Response> responseDto = myCourseService.getCompletedCourses(requestDto);
+    public ResponseEntity<List<CourseDto.StatusResponse>> getCompletedCourses(@AuthenticationPrincipal Member member) {
+        List<CourseDto.StatusResponse> responseDto = myCourseService.getCompletedCourses(member.getId());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
@@ -85,9 +85,8 @@ public class MyCourseController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/ongoing")
-    public ResponseEntity<List<MyCourseDto.Response>> getOngoingCourses(@AuthenticationPrincipal Member member) {
-        MyCourseDto.Request requestDto = new MyCourseDto.Request(member.getId());
-        List<MyCourseDto.Response> responseDto = myCourseService.getOngoingCourses(requestDto);
+    public ResponseEntity<List<CourseDto.StatusResponse>> getOngoingCourses(@AuthenticationPrincipal Member member) {
+        List<CourseDto.StatusResponse> responseDto = myCourseService.getOngoingCourses(member.getId());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
@@ -95,9 +94,8 @@ public class MyCourseController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/recent")
-    public ResponseEntity<List<MyCourseDto.Response>> getRecentPlayedCourses(@AuthenticationPrincipal Member member) {
-        MyCourseDto.Request requestDto = new MyCourseDto.Request(member.getId());
-        List<MyCourseDto.Response> responseDto = myCourseService.getRecentPlayedCourses(requestDto);
+    public ResponseEntity<List<CourseDto.StatusResponse>> getRecentPlayedCourses(@AuthenticationPrincipal Member member) {
+        List<CourseDto.StatusResponse> responseDto = myCourseService.getRecentPlayedCourses(member.getId());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

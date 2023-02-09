@@ -44,7 +44,7 @@ public class RecordService {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, unit.getCourse())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("등록하지 않은 강좌입니다.");
         }
         Optional<Record> found = recordRedisRepository.findByMemberIdAndUnitId(member.getId(), unit.getId());
         found.ifPresent(recordRedisRepository::delete);
@@ -82,7 +82,6 @@ public class RecordService {
         if (record.isEmpty()) {
             return new RecordDto.Response(course.getUnitList().get(0).getId(), 0);
         }
-        log.info("recent record - unitId:{}", record.get().getUnitId());
         return new RecordDto.Response(record.get());
     }
 

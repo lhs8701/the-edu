@@ -1,6 +1,6 @@
-package joeuncamp.dabombackend.domain.member.repository;
+package joeuncamp.dabombackend.domain.creator.repository;
 
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 

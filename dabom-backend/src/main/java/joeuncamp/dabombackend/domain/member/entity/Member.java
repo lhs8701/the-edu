@@ -3,9 +3,8 @@ package joeuncamp.dabombackend.domain.member.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
@@ -84,7 +83,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     }
 
     public boolean isCreator() {
-        return this.getCreatorProfile() != null && this.getCreatorProfile().activated;
+        return this.getCreatorProfile() != null && this.getCreatorProfile().isActivated();
     }
 
     @Override

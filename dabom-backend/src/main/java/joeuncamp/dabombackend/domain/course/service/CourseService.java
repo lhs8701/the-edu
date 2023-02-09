@@ -2,30 +2,24 @@ package joeuncamp.dabombackend.domain.course.service;
 
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
-import joeuncamp.dabombackend.domain.course.dto.CurriculumDto;
-import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Chapter;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.ChapterJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.domain.member.service.CreatorService;
-import joeuncamp.dabombackend.domain.player.record.service.RecordService;
-import joeuncamp.dabombackend.domain.player.record.service.ViewChecker;
+import joeuncamp.dabombackend.domain.creator.service.CreatorService;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
-import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
-import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.*;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +36,7 @@ public class CourseService {
     private final CurriculumService curriculumService;
     private final ReviewService reviewService;
     private final EnrollJpaRepository enrollJpaRepository;
+    private final ChapterJpaRepository chapterJpaRepository;
 
     /**
      * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
@@ -58,6 +53,13 @@ public class CourseService {
         Course course = requestDto.toEntity(creator);
         courseJpaRepository.save(course);
         enrollJpaRepository.save(Enroll.builder().member(member).course(course).build());
+        Chapter chapter = Chapter.builder()
+                .courseId(course.getId())
+                .sequence(1)
+                .title("챕터")
+                .isDefault(true)
+                .build();
+        chapterJpaRepository.save(chapter);
         return course.getId();
     }
 

@@ -31,7 +31,6 @@ public class UnitDto {
                     .description(description)
                     .videoInfo(new VideoInfo(videoUrl))
                     .course(course)
-                    .sequence(course.getUnitList().size() + 1)
                     .build();
         }
     }
