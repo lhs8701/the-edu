@@ -8,6 +8,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useInfiniteQuery, useQuery } from "react-query";
 import {
+  deleteMyQuestionApi,
   getAllMyQuestionsApi,
   getDetailQuestionApi,
   getQuestionAnswerApi,
@@ -169,6 +170,13 @@ const QuestionReplyTab = styled.div`
   padding: 5px 0 2px 0;
 `;
 
+const DeleteQuestionTab = styled.div`
+  cursor: pointer;
+  color: var(--color-red);
+  font-size: 0.8rem;
+  text-align: end;
+`;
+
 export default function UnitQuestion({ unitId }) {
   const [type, setType] = useState(false);
   const bottomRef = useRef(null);
@@ -328,7 +336,7 @@ export default function UnitQuestion({ unitId }) {
     );
   };
 
-  const QuestionContentComponent = ({ questionId }) => {
+  const QuestionContentComponent = ({ questionId, isMine }) => {
     const [section, setSection] = useState(true);
     const questionContent = useQuery(
       ["questionContent", questionId],
@@ -358,8 +366,21 @@ export default function UnitQuestion({ unitId }) {
       }
     );
 
+    const deleteQuestion = () => {
+      if (window.confirm("질문을 삭제하시겠어요?")) {
+        deleteMyQuestionApi(questionId, accessToken)
+          .then(() => {})
+          .catch((err) => {
+            alert("삭제 불가");
+          });
+      }
+    };
+
     return (
       <QuestionDiv>
+        {isMine && (
+          <DeleteQuestionTab onClick={deleteQuestion}>삭제</DeleteQuestionTab>
+        )}
         <CateBox>
           <SmallCateTab
             type={section}
@@ -387,14 +408,10 @@ export default function UnitQuestion({ unitId }) {
     );
   };
 
-  const QuestionComponent = ({ question }) => {
+  const QuestionComponent = ({ question, isMine }) => {
     return (
       <QuestionTab
         TransitionProps={{ unmountOnExit: true }}
-        onClick={() => {
-          // getQuestionContent(e.questionId);
-          // getQuestionReply(e.questionId);
-        }}
         key={question.questionId}
       >
         <QuestionInfoTab
@@ -404,14 +421,17 @@ export default function UnitQuestion({ unitId }) {
         >
           {question.title}
         </QuestionInfoTab>
-        <QuestionContentComponent questionId={question.questionId} />
+        <QuestionContentComponent
+          questionId={question.questionId}
+          isMine={isMine}
+        />
       </QuestionTab>
     );
   };
 
-  const QuestionListComponent = () => {
+  const QuestionListComponent = ({ questions, isMine }) => {
     return questions?.map((question, idx) => {
-      return <QuestionComponent question={question} />;
+      return <QuestionComponent question={question} isMine={isMine} />;
     });
   };
 
@@ -419,13 +439,12 @@ export default function UnitQuestion({ unitId }) {
     return (
       <>
         <QuestionUploadForm />
-
         <br />
         <QuestionInfoBox>
           <Tab>{questions?.length}개의 질문이 있어요.</Tab>
         </QuestionInfoBox>
         <QuestionBox>
-          <QuestionListComponent />
+          <QuestionListComponent questions={questions} isMine={false} />
           <BottomDiv ref={bottomRef} />
         </QuestionBox>
       </>
@@ -473,13 +492,14 @@ export default function UnitQuestion({ unitId }) {
         myQuestionList.fetchNextPage();
       }
     }, [myIsInView, myQuestionList.data]);
+
     return (
       <>
         <QuestionInfoBox>
           <Tab>{questions?.length}개의 질문이 있어요.</Tab>
         </QuestionInfoBox>
         <QuestionBox>
-          <QuestionListComponent />
+          <QuestionListComponent questions={questions} isMine={true} />
           <BottomDiv ref={myBottomRef} />
         </QuestionBox>
       </>
