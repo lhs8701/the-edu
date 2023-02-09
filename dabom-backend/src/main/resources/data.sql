@@ -49,12 +49,20 @@ values
 insert into description_image (description_image_id, medium_file_path, original_file_path, small_file_path)
 values
     ('1', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('1', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('2', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
     ('2', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
     ('3', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('3', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('4', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
     ('4', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
     ('5', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('5', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('6', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
     ('6', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
     ('7', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('7', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('8', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
     ('8', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg');
 
 -- <Enroll> --
