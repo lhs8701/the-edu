@@ -42,9 +42,10 @@ export default function CourseInfoUpload({ setCourseValue }) {
     });
 
     const returnVal = value[0]?.smallList.filter((val, idx) => {
-      if (idx !== 0) {
-        return val;
-      }
+      // if (idx !== 0) {
+      //   return val;
+      // } 전체보기가 필요하다면 해당 코드 사용 후 아래 코드 제거
+      return val;
     });
     return returnVal;
   };

@@ -123,7 +123,7 @@ export default function Unit({
           reviseUnit();
         }}
       >
-        제목 입력
+        제목 입력
       </Button>
     ) : (
       <Button

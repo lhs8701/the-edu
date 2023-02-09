@@ -89,7 +89,7 @@ export default function EventPage() {
 
   return (
     <Wrapper>
-      <TabTitle>이벤트</TabTitle>
+      <TabTitle>진행 중인 이벤트</TabTitle>
       <EventBox>{data && <EventList eventList={data?.data} />}</EventBox>
     </Wrapper>
   );

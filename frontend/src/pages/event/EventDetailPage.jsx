@@ -16,7 +16,7 @@ const EventCardBox = styled(motion.div)`
   width: 100%;
   min-height: 500px;
   margin-bottom: 5px;
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
 const EventCard = styled.img`
@@ -26,7 +26,7 @@ const EventCard = styled.img`
 
 const EventUploadDate = styled.div`
   color: var(--color-gray);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   margin-top: 20px;
 `;
 
@@ -37,7 +37,6 @@ const EventPeriod = styled(EventUploadDate)`
 const EventInfoTab = styled.div`
   margin-top: 4rem;
   margin-bottom: 20px;
-  position: relative;
 `;
 
 const EventTitle = styled.h1`
@@ -50,20 +49,24 @@ const BottomLine = styled.div`
   width: 100%;
   height: 1px;
   background-color: var(--color-box-gray);
-  margin-bottom: 30px;
 `;
 
 const BackLink = styled(Link)`
   text-decoration: none;
   color: var(--color-gray);
-  right: 0;
-  position: absolute;
-  top: 0;
   background-color: transparent;
   padding: 7px;
   border: 1px solid var(--color-box-gray);
 `;
-
+const EventDescription = styled.div`
+  margin-top: 30px;
+  text-align: center;
+`;
+const ContentTab = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 export default function EventDetailPage() {
   const { eventId } = useParams();
   const { data } = useQuery(
@@ -85,12 +88,18 @@ export default function EventDetailPage() {
     return (
       <>
         <EventInfoTab>
-          <EventPeriod>D - {eventInfo.dday}</EventPeriod>
-          <EventTitle>{eventInfo.title}</EventTitle>
-          <EventUploadDate>
-            {eventInfo.startDate} ~ {eventInfo.endDate}
-          </EventUploadDate>
-          <BackLink to={PROCESS_MAIN_URL.EVENT}>목록으로</BackLink>
+          <ContentTab>
+            <div />
+            <EventTitle>{eventInfo.title}</EventTitle>
+            <BackLink to={PROCESS_MAIN_URL.EVENT}>목록으로</BackLink>
+          </ContentTab>
+          <br />
+          <ContentTab>
+            <EventUploadDate>
+              {eventInfo.startDate} ~ {eventInfo.endDate}
+            </EventUploadDate>
+            <EventPeriod>D - {eventInfo.dday}</EventPeriod>
+          </ContentTab>
         </EventInfoTab>
         <BottomLine />
         <EventCardBox>
@@ -98,6 +107,7 @@ export default function EventDetailPage() {
             src={STATIC_URL + eventInfo.bannerImage.originalFilePath}
           />
         </EventCardBox>
+        <EventDescription>{eventInfo.content}</EventDescription>
       </>
     );
   };

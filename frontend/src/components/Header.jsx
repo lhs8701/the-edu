@@ -309,7 +309,7 @@ export default function Header() {
                       <span key={index}>
                         <CateLink
                           iscategoryon={isCategoryOn}
-                          to={PROCESS_MAIN_URL.CATEGORIES + "/" + e.id + "/0"}
+                          to={PROCESS_MAIN_URL.CATEGORIES + "/" + e.id + "/1"} //전체보기가 없으므로 1로 이동
                           preventScrollReset={true}
                         >
                           {e.big}
@@ -355,7 +355,9 @@ export default function Header() {
         <LoginTab>
           <LogoutBtn onClick={logOut}>로그아웃</LogoutBtn>
           <UserTab>
-            <UserLink to={"creator"}>크리에이터</UserLink>
+            <UserLink to={CREATOR_BAR_LIST.list[0].creator[1].url}>
+              크리에이터
+            </UserLink>
             <UserLink to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}>마이페이지</UserLink>
           </UserTab>
         </LoginTab>

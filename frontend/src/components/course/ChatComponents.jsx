@@ -11,6 +11,7 @@ const ImgBox = styled.div`
   height: 50px;
   overflow: hidden;
   border-radius: 50%;
+  margin-right: 20px;
 `;
 
 const UserInfoBox = styled.div`
@@ -23,7 +24,6 @@ const UserInfoBox = styled.div`
 const InfoTab = styled.div`
   display: flex;
   align-items: center;
-  width: 25%;
   justify-content: space-between;
 `;
 
@@ -102,13 +102,12 @@ export const ChatUserInfo = ({ writer, rate }) => {
           <UserImg src={STATIC_URL + writer?.profileImage?.smallFilePath} />
         </ImgBox>
         <UserName>{writer?.nickname}</UserName>
-
         <UserRateTab>
           {rate === "" ? (
             <Rate>&nbsp;</Rate>
           ) : (
             <>
-              별 <Rate>&nbsp;5.0</Rate>
+              &nbsp; 별 <Rate>&nbsp;5.0</Rate>
             </>
           )}
         </UserRateTab>

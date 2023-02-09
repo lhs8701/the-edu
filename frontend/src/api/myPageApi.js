@@ -43,10 +43,14 @@ export async function myInfoApi(memberId, accessToken) {
   return data.data;
 }
 
-export async function revisemyInfoApi(memberId, accessToken, info) {
+export async function revisemyInfoApi(accessToken, info) {
   const data = await axios.patch(
     `${MEMBER_URL}${ME_URL}${PROFILE_URL}`,
-    { nickname: info.nickname, email: info.email },
+    {
+      nickname: info.nickname,
+      email: info.email,
+      profileImage: info.profileImage,
+    },
     {
       headers: {
         "Access-Control-Allow-Credentials": true,

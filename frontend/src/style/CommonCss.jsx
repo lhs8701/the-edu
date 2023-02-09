@@ -13,3 +13,8 @@ export const TabTitle = styled.h1`
   width: 100%;
   text-align: center;
 `;
+
+export const NoneTitle = styled.h1`
+  font-weight: var(--weight-middle);
+  text-align: center;
+`;

@@ -11,7 +11,6 @@ import {
 import ClassCard from "../components/ClassCard";
 import MyClassCard from "../components/MyClassCard";
 import { SlideNotice } from "../components/SlideNotice";
-import { dummyCourseRank, dummyMyClassList } from "../dummy";
 import { Wrapper } from "../style/CommonCss";
 
 const MyClassListBox = styled.div`
@@ -41,9 +40,13 @@ const ClassListBox = styled.div`
   width: 100%;
   height: 200px;
 `;
+const NoneTitle = styled.h1`
+  font-size: 1.5rem;
+  font-weight: var(--weight-middle);
+  text-align: center;
+`;
 
 export default function MainPage() {
-  const weekRankList = dummyCourseRank;
   const loginState = useRecoilValue(getLoginState);
   const memberId = useRecoilValue(getMemberIdSelector);
   const accessToken = useRecoilValue(getAccessTokenSelector);
@@ -133,13 +136,31 @@ export default function MainPage() {
     });
   };
 
+  const NoneTitleComponent = () => {
+    return (
+      <NoneTitle>
+        <br />
+        최근 들은 강의가 없어요!
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+      </NoneTitle>
+    );
+  };
+
   const MyClassComponent = ({ recentList }) => {
     return (
       <>
-        <ListTitle>나의 클래스</ListTitle>{" "}
-        <MyClassListBox>
-          <MyClassList recentList={recentList} />
-        </MyClassListBox>
+        <ListTitle>최근 들은 클래스</ListTitle>{" "}
+        {recentList.length === 0 ? (
+          <NoneTitleComponent />
+        ) : (
+          <MyClassListBox>
+            <MyClassList recentList={recentList} />
+          </MyClassListBox>
+        )}
       </>
     );
   };
