@@ -106,6 +106,9 @@
 		0ED17B2B2987854D0008D3C0 /* CourseReviewAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED17B2A2987854D0008D3C0 /* CourseReviewAllVC.swift */; };
 		0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7037D296D3EFD0095DD14 /* SearchVC.swift */; };
 		0ED7038C296E76540095DD14 /* CoursePurchaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */; };
+		0EDD522529947C7F008731CD /* CourseCurriculumTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD522329947C7F008731CD /* CourseCurriculumTVC.swift */; };
+		0EDD522629947C7F008731CD /* CourseCurriculumTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDD522429947C7F008731CD /* CourseCurriculumTVC.xib */; };
+		0EDD522829948502008731CD /* CourseCurriculumAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD522729948502008731CD /* CourseCurriculumAllVC.swift */; };
 		0EDEA202296D04FF00B4712B /* MyCourseCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */; };
 		0EDEA203296D04FF00B4712B /* MyCourseCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */; };
 		0EDEA205296D07BC00B4712B /* MyCourseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDEA204296D07BC00B4712B /* MyCourseDataModel.swift */; };
@@ -246,6 +249,9 @@
 		0ED17B2A2987854D0008D3C0 /* CourseReviewAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewAllVC.swift; sourceTree = "<group>"; };
 		0ED7037D296D3EFD0095DD14 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePurchaseVC.swift; sourceTree = "<group>"; };
+		0EDD522329947C7F008731CD /* CourseCurriculumTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCurriculumTVC.swift; sourceTree = "<group>"; };
+		0EDD522429947C7F008731CD /* CourseCurriculumTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCurriculumTVC.xib; sourceTree = "<group>"; };
+		0EDD522729948502008731CD /* CourseCurriculumAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCurriculumAllVC.swift; sourceTree = "<group>"; };
 		0EDEA1FE296CFFFC00B4712B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EDEA200296D04FF00B4712B /* MyCourseCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCourseCVC.swift; sourceTree = "<group>"; };
 		0EDEA201296D04FF00B4712B /* MyCourseCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCourseCVC.xib; sourceTree = "<group>"; };
@@ -346,6 +352,8 @@
 				0E9D1521297452AB0061D1ED /* SegmentTVC.xib */,
 				0EC314D8298748C1004C82CF /* CourseReviewTVC.swift */,
 				0EC314D9298748C1004C82CF /* CourseReviewTVC.xib */,
+				0EDD522329947C7F008731CD /* CourseCurriculumTVC.swift */,
+				0EDD522429947C7F008731CD /* CourseCurriculumTVC.xib */,
 				0EC314E829876601004C82CF /* CourseInquiryTVC.swift */,
 				0EC314E929876601004C82CF /* CourseInquiryTVC.xib */,
 				0EC314DC29875529004C82CF /* ReviewInquiryTVC.swift */,
@@ -452,6 +460,7 @@
 				0EB576F2296BC9EF001EFBE1 /* CourseInfoView.storyboard */,
 				0ED17B28298782BD0008D3C0 /* CourseInquiryAllVC.swift */,
 				0EB576EE296BAB75001EFBE1 /* CourseInfoViewController.swift */,
+				0EDD522729948502008731CD /* CourseCurriculumAllVC.swift */,
 				0ED17B2A2987854D0008D3C0 /* CourseReviewAllVC.swift */,
 				0E1E95DF297BBD9300CBE70B /* OnOffDescriptionVC.swift */,
 				0ED7038B296E76540095DD14 /* CoursePurchaseVC.swift */,
@@ -741,6 +750,7 @@
 				0E685E612991EDEC0094D10A /* CurriculumHeaderTVC.xib in Resources */,
 				0EC314EB29876601004C82CF /* CourseInquiryTVC.xib in Resources */,
 				0E9D151F29744E910061D1ED /* InfoImageTVC.xib in Resources */,
+				0EDD522629947C7F008731CD /* CourseCurriculumTVC.xib in Resources */,
 				0EC314DF29875529004C82CF /* ReviewInquiryTVC.xib in Resources */,
 				0E685E592991E8380094D10A /* CurriculumTVC.xib in Resources */,
 				0E0498B2298EAD4F002425D9 /* CategoryHeaderTVC.xib in Resources */,
@@ -949,6 +959,8 @@
 				0E9D1522297452AB0061D1ED /* SegmentTVC.swift in Sources */,
 				0EAF7B5B298392BB00F65E5A /* GetPaginationDataService.swift in Sources */,
 				0E685E6529931F1F0094D10A /* CourseRankingDataService.swift in Sources */,
+				0EDD522529947C7F008731CD /* CourseCurriculumTVC.swift in Sources */,
+				0EDD522829948502008731CD /* CourseCurriculumAllVC.swift in Sources */,
 				0E78ED852967AAD8001424A7 /* BannerDataModel.swift in Sources */,
 				0E9B0F4C2990962B004DA0F1 /* StatementVC.swift in Sources */,
 				0E602835296665C600A25F48 /* CourseThumbnailDataModel.swift in Sources */,

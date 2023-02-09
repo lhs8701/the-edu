@@ -9,6 +9,7 @@ import UIKit
 
 protocol CourseEnrollBtnDelegate {
     func CourseEnroll()
+    func CourseSamplePlay()
 }
 
 class CourseInfoTVC: UITableViewCell {
@@ -71,4 +72,13 @@ class CourseInfoTVC: UITableViewCell {
         }
         
     }
+    
+    @IBAction func samplePlayBtnPressed(_ sender: Any) {
+        
+        if let delegate = delegate {
+            delegate.CourseSamplePlay()
+        }
+        
+    }
+    
 }

@@ -39,6 +39,26 @@ struct CurriculumDataService {
         }
     }
     
+    func getCurriculum(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.getUserCurriculum)/\(courseId)/curriculum"
+        print(URL)
+
+        let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
+        
+        request.responseData { dataResponse in
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                guard let value = dataResponse.value else {return}
+                
+                let networkResult = self.judgeStatus(by: statusCode, value)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+    }
+    
     // MARK: - Status Code 분기
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode {

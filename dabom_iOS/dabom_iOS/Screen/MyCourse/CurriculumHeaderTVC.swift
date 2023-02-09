@@ -14,6 +14,8 @@ class CurriculumHeaderTVC: UITableViewHeaderFooterView {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        chapterTitle.adjustsFontSizeToFitWidth = true
     }
 
     override func prepareForReuse() {

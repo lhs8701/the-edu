@@ -215,7 +215,6 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
             cell.curriculumTitle.text = curriculum.chapters[indexPath.section].units[indexPath.row].title
             
             if curriculum.chapters[indexPath.section].units[indexPath.row].completed {
-                print("\(indexPath) Completed!!!!!!!!!!!!!!!!!")
                 cell.contentView.backgroundColor = UIColor(named: "unSelectedColor")
             }
             
@@ -235,11 +234,11 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        50
+        40
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        45
+        40
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
