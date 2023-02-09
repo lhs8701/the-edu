@@ -9,7 +9,12 @@ import {
 } from "../api/courseApi";
 import { getAccessTokenSelector, getLoginState } from "../atom";
 import Slider from "@mui/material/Slider";
-import { PROCESS_ACCOUNT_URL, PROCESS_MAIN_URL, STATIC_URL } from "../static";
+import {
+  PLAYER_URL,
+  PROCESS_ACCOUNT_URL,
+  PROCESS_MAIN_URL,
+  STATIC_URL,
+} from "../static";
 
 const LobbyWrapper = styled.div`
   width: 100%;
@@ -137,7 +142,7 @@ export default function LobbyPage() {
 
   const playUnit = (unitId) => {
     window.open(
-      `http://localhost:3000/player/${courseId}/${unitId}`, // 나중에 the edu 도메인으로 변경해야함
+      `${PLAYER_URL}/${courseId}/${unitId}`, // 나중에 the edu 도메인으로 변경해야함
       "the-edu 플레이어",
       "location=no,status=no,scrollbars=no"
     );
