@@ -18,7 +18,10 @@ public class ExampleValue {
     }
 
     public static class Image{
-        public final static String URL = "/static/images/sample.jpg";
+        public final static String SAMPLE = "/static/images/default/sample.jpg";
+        public final static String THUMBNAIL = "/static/images/default/thumbnail.jpg";
+        public final static String PROFILE_IMAGE = "/static/images/default/profile_image.jpg";
+        public final static String DESCRIPTION_IMAGE = "/static/images/default/description.jpg";
     }
 
     public static class Time{

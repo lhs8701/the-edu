@@ -44,7 +44,7 @@ public class CourseDto {
         long price;
 
         @NotBlank
-        @Schema(description = "썸네일 이미지 URL", example = ExampleValue.Image.URL)
+        @Schema(description = "썸네일 이미지 URL", example = ExampleValue.Image.THUMBNAIL)
         String thumbnailImage;
 
         @Schema(description = "소개 이미지 URL")

@@ -28,7 +28,7 @@ public class ProfileDto {
         String nickname;
         @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
         String email;
-        @Schema(description = "프로필 이미지 경로", example = ExampleValue.Image.URL)
+        @Schema(description = "프로필 이미지 경로", example = ExampleValue.Image.PROFILE_IMAGE)
         String profileImage;
     }
     @Getter

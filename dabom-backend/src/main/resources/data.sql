@@ -1,12 +1,12 @@
 -- <Member> --
 insert into member (id, created_time, modified_time, account, birth_date, email, login_type, mobile, name, nickname, password, medium_file_path, original_file_path, small_file_path, social_id)
 values
-    (1, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'admin@naver.com', NULL, 'admin@naver.com','BASIC', NULL, NULL, 'admin', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default_profile_image_m.jpg', '/static/images/default_profile_image.jpg','/static/images/default_profile_image_s.jpg', NULL),
-    (2, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student1@naver.com', NULL, 'student1@naver.com','BASIC', NULL, NULL, 'student1', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default_profile_image_m.jpg', '/static/images/default_profile_image.jpg','/static/images/default_profile_image_s.jpg', NULL),
-    (3, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student2@naver.com', NULL, 'student2@naver.com','BASIC', NULL, NULL, 'student2', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default_profile_image_m.jpg', '/static/images/default_profile_image.jpg','/static/images/default_profile_image_s.jpg', NULL),
-    (4, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student3@naver.com', NULL, 'student3@naver.com','BASIC', NULL, NULL, 'student3', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default_profile_image_m.jpg', '/static/images/default_profile_image.jpg','/static/images/default_profile_image_s.jpg', NULL),
-    (5, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student4@naver.com', NULL, 'student4@naver.com','BASIC', NULL, NULL, 'student4', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default_profile_image_m.jpg', '/static/images/default_profile_image.jpg','/static/images/default_profile_image_s.jpg', NULL),
-    (6, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student5@naver.com', NULL, 'student5@naver.com','BASIC', NULL, NULL, 'student5', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default_profile_image_m.jpg', '/static/images/default_profile_image.jpg','/static/images/default_profile_image_s.jpg', NULL);
+    (1, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'admin@naver.com', NULL, 'admin@naver.com','BASIC', NULL, NULL, 'admin', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg','/static/images/default/profile_image_s.jpg', NULL),
+    (2, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student1@naver.com', NULL, 'student1@naver.com','BASIC', NULL, NULL, 'student1', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg','/static/images/default/profile_image_s.jpg', NULL),
+    (3, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student2@naver.com', NULL, 'student2@naver.com','BASIC', NULL, NULL, 'student2', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg','/static/images/default/profile_image_s.jpg', NULL),
+    (4, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student3@naver.com', NULL, 'student3@naver.com','BASIC', NULL, NULL, 'student3', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg','/static/images/default/profile_image_s.jpg', NULL),
+    (5, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student4@naver.com', NULL, 'student4@naver.com','BASIC', NULL, NULL, 'student4', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg','/static/images/default/profile_image_s.jpg', NULL),
+    (6, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student5@naver.com', NULL, 'student5@naver.com','BASIC', NULL, NULL, 'student5', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK','/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg','/static/images/default/profile_image_s.jpg', NULL);
 
 insert into member_roles (member_id, roles)
 values
@@ -26,25 +26,36 @@ values ('1', '1', true);
 -- <Event> --
 insert into event (id, created_time, modified_time, medium_file_path, original_file_path, small_file_path, content, end_date, start_date, title, writer_id)
 values
-    ('1', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '재입대 바람', '2024-02-08', '2023-02-08', '연초 지정대상자 지휘서신(직책자용)', '1'),
-    ('2', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '지금 무료 온라인 컨퍼런스에 등록해보세요!', '2024-02-08', '2023-02-08', 'AWS 클라우드 기초 200% 활용하는 방법은?', '1'),
-    ('3', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', ' 2021 코리아세일페스타 국내선 최대 88% 할인 및 부산항공마켓까지!', '2024-02-08', '2023-02-08', '★떠나요! 괌으로★ 인천-괌 편도총액 380,500원~', '1'),
-    ('4', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '종료된 이벤트1', '2023-01-08', '2023-01-07', '종료된 이벤트1', '1'),
-    ('5', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '종료된 이벤트2', '2023-01-08', '2023-01-07', '종료된 이벤트2', '1'),
-    ('6', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/sample_m.jpg', '/static/images/sample.jpg', '/static/images/sample_s.jpg', '종료된 이벤트3', '2023-01-08', '2023-01-07', '종료된 이벤트3', '1');
+    ('1', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '재입대 바람', '2024-02-08', '2023-02-08', '연초 지정대상자 지휘서신(직책자용)', '1'),
+    ('2', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '지금 무료 온라인 컨퍼런스에 등록해보세요!', '2024-02-08', '2023-02-08', 'AWS 클라우드 기초 200% 활용하는 방법은?', '1'),
+    ('3', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg', ' 2021 코리아세일페스타 국내선 최대 88% 할인 및 부산항공마켓까지!', '2024-02-08', '2023-02-08', '★떠나요! 괌으로★ 인천-괌 편도총액 380,500원~', '1'),
+    ('4', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '종료된 이벤트1', '2023-01-08', '2023-01-07', '종료된 이벤트1', '1'),
+    ('5', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '종료된 이벤트2', '2023-01-08', '2023-01-07', '종료된 이벤트2', '1'),
+    ('6', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '종료된 이벤트3', '2023-01-08', '2023-01-07', '종료된 이벤트3', '1');
 
 -- <Course> --
 insert into course (id, created_time, modified_time, category, description, price, medium_file_path, original_file_path, small_file_path, title, creator_profile_id)
 values
-    ('1', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/sample_m.jpg','/static/images/sample.jpg', '/static/images/sample_s.jpg', '스프링 핵심 원리 - 기본편', '1'),
-    ('2', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 중급자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/sample_m.jpg','/static/images/sample.jpg', '/static/images/sample_s.jpg', '스프링 핵심 원리 - 중급편', '1'),
-    ('3', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 고수가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/sample_m.jpg','/static/images/sample.jpg', '/static/images/sample_s.jpg', '스프링 핵심 원리 - 심화편', '1'),
-    ('4', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 마스터가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/sample_m.jpg','/static/images/sample.jpg', '/static/images/sample_s.jpg', '스프링 핵심 원리 - 극악편', '1'),
+    ('1', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/description_m.jpg','/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '스프링 핵심 원리 - 기본편', '1'),
+    ('2', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 중급자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/description_m.jpg','/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '스프링 핵심 원리 - 중급편', '1'),
+    ('3', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 고수가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/description_m.jpg','/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '스프링 핵심 원리 - 심화편', '1'),
+    ('4', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 마스터가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/description_m.jpg','/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '스프링 핵심 원리 - 극악편', '1'),
 
-    ('5', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 입문자가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/sample_m.jpg','/static/images/sample.jpg', '/static/images/sample_s.jpg', '리액트 핵심 원리 - 기본편', '1'),
-    ('6', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 중급자가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/sample_m.jpg','/static/images/sample.jpg', '/static/images/sample_s.jpg', '리액트 핵심 원리 - 중급편', '1'),
-    ('7', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 고수가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/sample_m.jpg','/static/images/sample.jpg', '/static/images/sample_s.jpg', '리액트 핵심 원리 - 심화편', '1'),
-    ('8', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 마스터가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/sample_m.jpg','/static/images/sample.jpg', '/static/images/sample_s.jpg', '리액트 핵심 원리 - 극악편', '1');
+    ('5', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 입문자가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/description_m.jpg','/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '리액트 핵심 원리 - 기본편', '1'),
+    ('6', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 중급자가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/description_m.jpg','/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '리액트 핵심 원리 - 중급편', '1'),
+    ('7', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 고수가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/description_m.jpg','/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '리액트 핵심 원리 - 심화편', '1'),
+    ('8', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 마스터가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/description_m.jpg','/static/images/default/description.jpg', '/static/images/default/description_s.jpg', '리액트 핵심 원리 - 극악편', '1');
+
+insert into description_image (description_image_id, medium_file_path, original_file_path, small_file_path)
+values
+    ('1', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('2', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('3', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('4', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('5', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('6', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('7', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
+    ('8', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg');
 
 -- <Enroll> --
 insert into enroll (id, created_time, modified_time, course_id, member_id)
