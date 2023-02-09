@@ -1,21 +1,12 @@
-package joeuncamp.dabombackend.domain.member.service;
+package joeuncamp.dabombackend.domain.creator.service;
 
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.entity.Course;
-import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
-import joeuncamp.dabombackend.domain.member.dto.CreatorRequestDto;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
-import joeuncamp.dabombackend.domain.member.repository.CreatorProfileJpaRepository;
-import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
-import joeuncamp.dabombackend.global.error.exception.CAlreadyCreatorException;
-import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
-import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 @Transactional
@@ -25,7 +16,6 @@ public class CreatorService {
         return member.getCreatorProfile() != null;
     }
 
-
     /**
      * 해당 회원이 주어진 강좌의 주인인지 확인합니다.
      *
@@ -34,7 +24,7 @@ public class CreatorService {
      */
     public void identifyCourseOwner(Course course, CreatorProfile creatorProfile) {
         if (!course.getCreatorProfile().equals(creatorProfile) || !creatorProfile.isActivated()) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("강좌의 소유자가 아닙니다.");
         }
     }
 }

@@ -130,7 +130,7 @@ public class CurriculumService {
             return null;
         }
         if (!enrollService.doesEnrolled(member, course)) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("수강 등록한 회원만 커리큘럼(강좌 진척도)을 조회할 수 있습니다.");
         }
         List<Unit> completedUnits = viewChecker.getCompletedUnit(member, course);
         MyCourseDto.Response courseStatus = new MyCourseDto.Response(course, completedUnits.size(), recordService.getNextUnitInfo(member, course));

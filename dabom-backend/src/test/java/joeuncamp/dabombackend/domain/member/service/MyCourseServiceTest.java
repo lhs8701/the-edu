@@ -5,7 +5,7 @@ import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.course.service.MyCourseService;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;

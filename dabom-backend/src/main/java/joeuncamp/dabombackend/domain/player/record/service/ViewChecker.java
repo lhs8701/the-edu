@@ -44,7 +44,7 @@ public class ViewChecker {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, unit.getCourse())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("등록하지 않은 강좌입니다.");
         }
         if (viewJpaRepository.findByMemberAndUnit(member, unit).isEmpty()) {
             View view = View.builder()

@@ -5,10 +5,12 @@ import lombok.Getter;
 
 @Getter
 public class CAccessDeniedException extends RuntimeException{
-    private final ErrorCode errorCode;
+    ErrorCode errorCode;
+    String message;
 
-    public CAccessDeniedException(){
+    public CAccessDeniedException(String message){
         super();
-        errorCode = ErrorCode.ACCESS_DENIED;
+        this.errorCode = ErrorCode.ACCESS_DENIED;
+        this.message = message;
     }
 }

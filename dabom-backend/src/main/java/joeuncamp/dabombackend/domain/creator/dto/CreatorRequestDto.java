@@ -1,9 +1,8 @@
-package joeuncamp.dabombackend.domain.member.dto;
+package joeuncamp.dabombackend.domain.creator.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

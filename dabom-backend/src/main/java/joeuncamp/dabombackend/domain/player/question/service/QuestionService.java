@@ -95,7 +95,7 @@ public class QuestionService {
         Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!question.getMember().equals(member)) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("작성자 본인만 수정할 수 있습니다.");
         }
         question.update(requestDto.getTitle(), requestDto.getContent());
         questionJpaRepository.save(question);
@@ -111,7 +111,7 @@ public class QuestionService {
         Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!question.getMember().equals(member)) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("작성자 본인만 삭제할 수 있습니다.");
         }
         questionJpaRepository.delete(question);
     }

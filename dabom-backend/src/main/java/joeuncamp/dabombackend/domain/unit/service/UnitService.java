@@ -6,7 +6,7 @@ import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.domain.creator.service.CreatorService;
 import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
@@ -50,7 +50,7 @@ public class UnitService {
         Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, unit.getCourse())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("등록하지 않은 강좌입니다.");
         }
         return new UnitDto.Response(unit);
     }

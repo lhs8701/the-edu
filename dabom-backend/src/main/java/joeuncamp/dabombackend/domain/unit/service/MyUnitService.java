@@ -35,7 +35,7 @@ public class MyUnitService {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, course)){
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("등록하지 않은 강좌입니다.");
         }
         List<Unit> completedUnits = viewChecker.getCompletedUnit(member, course);
         return course.getUnitList().stream()

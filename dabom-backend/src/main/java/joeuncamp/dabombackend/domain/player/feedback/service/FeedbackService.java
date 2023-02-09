@@ -35,7 +35,7 @@ public class FeedbackService {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
         Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, unit.getCourse())){
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("등록하지 않은 강좌입니다.");
         }
         Feedback feedback = feedbackJpaRepository.findByMemberAndUnit(member, unit)
                 .orElseGet(() -> new Feedback(member, unit));

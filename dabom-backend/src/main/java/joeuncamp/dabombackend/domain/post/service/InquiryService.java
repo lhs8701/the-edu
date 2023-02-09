@@ -68,7 +68,7 @@ public class InquiryService {
         Inquiry inquiry = inquiryJpaRepository.findById(requestDto.getInquiryId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!member.equals(inquiry.getMember())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("작성자 본인만 수정할 수 있습니다.");
         }
         inquiry.update(requestDto.getContent());
         inquiryJpaRepository.save(inquiry);
@@ -84,7 +84,7 @@ public class InquiryService {
         Inquiry inquiry = inquiryJpaRepository.findById(requestDto.getInquiryId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!member.equals(inquiry.getMember())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("작성자 본인만 삭제할 수 있습니다.");
         }
         inquiryJpaRepository.delete(inquiry);
     }

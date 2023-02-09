@@ -39,7 +39,7 @@ public class AnswerService {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, question.getUnit().getCourse())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("등록하지 않은 강좌입니다.");
         }
         Answer answer = requestDto.toEntity(member, question);
         return answerJpaRepository.save(answer).getId();
@@ -56,7 +56,7 @@ public class AnswerService {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Question question = questionJpaRepository.findById(requestDto.getQuestionId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, question.getUnit().getCourse())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("등록하지 않은 강좌입니다.");
         }
         Page<Answer> page = answerJpaRepository.findByQuestion(question, pageable);
         List<AnswerDto.Response> answers = page.getContent().stream()
@@ -75,7 +75,7 @@ public class AnswerService {
         Answer answer = answerJpaRepository.findById(requestDto.getAnswerId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, answer.getQuestion().getUnit().getCourse())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("작성자 본인만 수정할 수 있습니다.");
         }
         answer.update(requestDto.getContent());
         answerJpaRepository.save(answer);
@@ -90,7 +90,7 @@ public class AnswerService {
         Answer answer = answerJpaRepository.findById(requestDto.getAnswerId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, answer.getQuestion().getUnit().getCourse())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("작성자 본인만 삭제할 수 있습니다.");
         }
         answerJpaRepository.delete(answer);
     }

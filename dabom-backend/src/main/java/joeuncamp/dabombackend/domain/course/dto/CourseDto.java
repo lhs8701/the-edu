@@ -7,7 +7,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;

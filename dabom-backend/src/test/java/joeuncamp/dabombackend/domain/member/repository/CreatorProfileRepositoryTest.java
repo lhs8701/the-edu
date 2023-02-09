@@ -1,9 +1,9 @@
 package joeuncamp.dabombackend.domain.member.repository;
 
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.repository.CreatorProfileJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.config.JpaAuditingConfig;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
