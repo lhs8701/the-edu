@@ -9,6 +9,7 @@ import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
 import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
+import joeuncamp.dabombackend.global.error.exception.CWrongPasswordException;
 import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -85,7 +86,7 @@ public class BasicAuthServiceTest {
 
         // then
         assertThatThrownBy(() -> basicAuthService.login(dto))
-                .isInstanceOf(CLoginFailedException.class);
+                .isInstanceOf(CWrongPasswordException.class);
     }
 
 }
