@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,8 +33,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강의 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLt-c3-IiP">
-                                <rect key="frame" x="8" y="134" width="53" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강의 제목" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLt-c3-IiP">
+                                <rect key="frame" x="10" y="134" width="150" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -83,7 +83,7 @@
                             <constraint firstItem="nfn-kX-PXC" firstAttribute="leading" secondItem="ejr-Zd-hhN" secondAttribute="trailing" constant="3" id="8Um-QY-slC"/>
                             <constraint firstItem="Vo4-c2-Nwp" firstAttribute="leading" secondItem="Nnm-VR-RCW" secondAttribute="leading" id="EGp-RB-2He"/>
                             <constraint firstItem="kEO-iV-eMw" firstAttribute="top" secondItem="2P0-p4-GSJ" secondAttribute="bottom" constant="8" symbolic="YES" id="FJe-D1-qj2"/>
-                            <constraint firstItem="oLt-c3-IiP" firstAttribute="leading" secondItem="Nnm-VR-RCW" secondAttribute="leading" constant="8" id="FRG-zS-PGd"/>
+                            <constraint firstItem="oLt-c3-IiP" firstAttribute="leading" secondItem="Nnm-VR-RCW" secondAttribute="leading" constant="10" id="FRG-zS-PGd"/>
                             <constraint firstAttribute="trailing" secondItem="kEO-iV-eMw" secondAttribute="trailing" constant="10" id="FbO-UB-LmB"/>
                             <constraint firstItem="kEO-iV-eMw" firstAttribute="top" secondItem="UOR-WC-TGZ" secondAttribute="bottom" constant="8" id="Iji-ET-bIN"/>
                             <constraint firstAttribute="bottom" secondItem="kEO-iV-eMw" secondAttribute="bottom" constant="20" id="P7J-2o-vsw"/>
@@ -97,6 +97,7 @@
                             <constraint firstAttribute="trailing" secondItem="Ccb-05-Aph" secondAttribute="trailing" constant="10" id="qWB-oA-HXu"/>
                             <constraint firstItem="2P0-p4-GSJ" firstAttribute="leading" secondItem="Nnm-VR-RCW" secondAttribute="leading" constant="10" id="rAA-Hb-igv"/>
                             <constraint firstItem="Vo4-c2-Nwp" firstAttribute="top" secondItem="Nnm-VR-RCW" secondAttribute="top" id="sgF-9p-z0P"/>
+                            <constraint firstAttribute="trailing" secondItem="oLt-c3-IiP" secondAttribute="trailing" constant="10" id="tD2-hH-o2N"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -27,6 +27,8 @@ class AccountVC: UIViewController {
     
     var userNickname: String = ""
     var userEmail: String = ""
+    var userProfile: String = ""
+    
     var profileImage: UIImage?
     
     // MARK: - Life Cycle
@@ -71,6 +73,8 @@ class AccountVC: UIViewController {
         }
         
         imagePicker.delegate = self
+        
+        identificationbtn.layer.isHidden = true
     }
     
     // MARK: - 이메일, 닉네임 유효성 검사
@@ -126,7 +130,7 @@ class AccountVC: UIViewController {
     // MARK: - 수정한 프로필 서버로 전송
     private func patchProfile() {
         
-        UserProfileService.shared.patchProfile(nickname: self.userNickname, email: self.userEmail) { response in
+        UserProfileService.shared.patchProfile(nickname: self.userNickname, email: self.userEmail, profileImage: self.userProfile) { response in
             switch response {
             case .success:
                 print("patch Profile Success")
@@ -159,14 +163,50 @@ class AccountVC: UIViewController {
         
     }
     
-    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / image.size.width // 새 이미지 확대/축소 비율
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+        image.draw(in: CGRectMake(0, 0, newWidth, newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage ?? image
+    }
     
 }
 
 extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.profileImageView.image = image
+            let resizeImage = self.resizeImage(image: image, newWidth: 300)
+            self.profileImageView.image = resizeImage
+            
+            self.saveBtn.isEnabled = false
+            
+            UploadImageDataService.shared.uploadImage(nickname: self.userNickname, image: resizeImage) { response in
+                switch response {
+                case .success(let data):
+                    
+                    print("upload Image Success")
+                    
+                    if let data = data as? ImageDataModel {
+                        self.userProfile = data.originalFilePath
+                    }
+//                    self.userProfile =
+                    self.saveBtn.isEnabled = true
+                    
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
+            }
         }
         dismiss(animated: true)
     }

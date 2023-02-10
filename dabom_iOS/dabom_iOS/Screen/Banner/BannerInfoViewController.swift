@@ -27,11 +27,16 @@ class BannerInfoViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.topItem?.title = bannerTitle
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        self.navigationController?.navigationBar.topItem?.title = bannerTitle
         
         setContent()
         getEvent()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        self.navigationController?.navigationBar.topItem?.title = bannerTitle
     }
     
     // MARK: - Content 설정
@@ -56,6 +61,7 @@ class BannerInfoViewController: UIViewController {
                         self.endDateLabel.text = data.endDate
                         self.writerLabel.text = data.writer
                         self.bannerImageView.setImage(with: data.bannerImage.mediumFilePath)
+                        self.navigationController?.navigationBar.topItem?.title = self.bannerTitle
                         self.setLabel()
                     }
                 case .requestErr(let message):

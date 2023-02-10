@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MARK: - 카카오톡 로그인 설정
         KakaoSDK.initSDK(appKey: "9d5a7db9c37d4b17c44b843e6c4fa727")
         
+        NetworkMonitor.shared.startMonitoring()
+        
         // MARK: - 로그인 분기
         window = UIWindow()
         
@@ -60,13 +62,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func changeRootVC(_ vc: UIViewController, animated: Bool) {
-        print("here")
-        
         guard let window = self.window else { return }
         window.rootViewController = vc
         
         UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve], animations: nil, completion: nil)
     }
 
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+            
+            // 세로방향 고정
+            return UIInterfaceOrientationMask.portrait
+    }
 }
 

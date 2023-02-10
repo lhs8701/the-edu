@@ -87,7 +87,6 @@ class CoursePlayerVC: UIViewController {
         self.unitThumbnailImage.setImage(with: self.thumbnailImage)
         self.unitTitleLabel.text = self.unitTitle
         self.unitTitleLabel.adjustsFontSizeToFitWidth = true
-        self.courseCurriclumView.layer.drawLineAt(edges: [.bottom], color: .lightGray, width: 5.0)
     }
     
     // MARK: - TableView Setting
