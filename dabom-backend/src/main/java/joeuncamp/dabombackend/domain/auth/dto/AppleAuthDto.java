@@ -8,6 +8,7 @@ import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.constant.StaticFilePath;
 import joeuncamp.dabombackend.global.constant.ValidationMessage;
+import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,5 +58,20 @@ public class AppleAuthDto {
         String accessToken;
         @Schema(hidden = true)
         String refreshToken;
+    }
+
+    @Getter
+    public static class LoginResponse {
+        Long memberId;
+        Long creatorId;
+        TokenForm tokenForm;
+        public LoginResponse(Member member, TokenForm tokenForm){
+            this.memberId = member.getId();
+            this.creatorId = -1L;
+            this.tokenForm = tokenForm;
+            if (member.isCreator()){
+                this.creatorId = member.getCreatorProfile().getId();
+            }
+        }
     }
 }

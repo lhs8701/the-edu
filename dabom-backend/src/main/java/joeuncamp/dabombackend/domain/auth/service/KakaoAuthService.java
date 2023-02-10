@@ -1,7 +1,7 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
 import jakarta.transaction.Transactional;
-import joeuncamp.dabombackend.domain.auth.dto.KakaoLoginRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.KakaoAuthDto;
 import joeuncamp.dabombackend.domain.auth.dto.SocialUnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class kakaoAuthService implements SocialAuthService {
+public class KakaoAuthService {
 
     private final JwtProvider jwtProvider;
     private final KakaoService kakaoApiService;
@@ -34,14 +34,13 @@ public class kakaoAuthService implements SocialAuthService {
      * @param requestDto 소셜 아이디
      * @return 어세스토큰, 리프레시 토큰
      */
-    @Override
-    public TokenForm login(KakaoLoginRequestDto requestDto) {
+    public KakaoAuthDto.LoginResponse login(KakaoAuthDto.LoginRequest requestDto) {
         KakaoProfile profile = kakaoApiService.getKakaoProfile(requestDto.getSocialToken());
         String kakaoId = String.valueOf(profile.getId());
         Member member = findMemberOrCreate(profile, kakaoId);
         TokenForm tokenForm = jwtProvider.generateToken(member);
         tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), member.getAccount());
-        return tokenForm;
+        return new KakaoAuthDto.LoginResponse(member, tokenForm);
     }
 
     private Member findMemberOrCreate(KakaoProfile profile, String kakaoId) {
@@ -62,8 +61,7 @@ public class kakaoAuthService implements SocialAuthService {
      * @param requestDto  카카오에서 발급한 토큰, 리프레시토큰, 어세스토큰
      * @param accessToken 어세스토큰
      */
-    @Override
-    public void logout(SocialUnlinkRequestDto requestDto, String accessToken) {
+    public void logout(KakaoAuthDto.UnlinkRequest requestDto, String accessToken) {
         kakaoApiService.logout(requestDto.getSocialToken());
         tokenRedisRepository.saveBlockedToken(accessToken);
         tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
@@ -77,8 +75,7 @@ public class kakaoAuthService implements SocialAuthService {
      * @param requestDto  카카오에서 발급한 토큰, 리프레시토큰
      * @param accessToken 어세스토큰
      */
-    @Override
-    public void withdraw(SocialUnlinkRequestDto requestDto, String accessToken) {
+    public void withdraw(KakaoAuthDto.UnlinkRequest requestDto, String accessToken) {
         kakaoApiService.unlink(requestDto.getSocialToken());
         Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
         memberJpaRepository.deleteById(member.getId());
