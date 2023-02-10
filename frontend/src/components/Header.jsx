@@ -321,11 +321,17 @@ export default function Header() {
               )}
             </CateBox>
           </NavTab>
+
           <NavTab>
-            <NavLink isValid={[0, 1]} to={""} preventScrollReset={true}>
-              정보 공유
+            <NavLink
+              isValid={[0, 1]}
+              to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}
+              preventScrollReset={true}
+            >
+              나의 클래스
             </NavLink>
           </NavTab>
+
           <NavTab>
             <NavLink to={PROCESS_MAIN_URL.ROADMAP} preventScrollReset={true}>
               로드맵

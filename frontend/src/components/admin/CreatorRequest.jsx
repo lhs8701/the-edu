@@ -48,12 +48,11 @@ export default function CreatorRequest() {
         <Table sx={{}} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>이메일</TableCell>
               <TableCell align="right">날짜</TableCell>
+              <TableCell align="right">이메일</TableCell>
               <TableCell align="right">성함</TableCell>
               <TableCell align="right">전화번호</TableCell>
-              <TableCell align="right">개설 과목</TableCell>
-              <TableCell align="right">기초 목차</TableCell>
+              <TableCell align="right">등록하기</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,8 +67,6 @@ export default function CreatorRequest() {
                 <TableCell align="right">{row.calories}</TableCell>
                 <TableCell align="right">{row.fat}</TableCell>
                 <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-                <TableCell align="right">{row.categories}</TableCell>
                 <TableCell align="right">
                   <button>등록</button>
                 </TableCell>

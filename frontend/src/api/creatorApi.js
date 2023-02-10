@@ -1,6 +1,8 @@
 import axios from "axios";
 import { API_URL } from "../static";
 const FILE_PATH = "/file";
+const CREATOR_PATH = "/creator";
+const CREATOR_URL = API_URL + CREATOR_PATH;
 const SINGLE_IMG_URL = "/image";
 const MULTI_IMG_URL = "/image/muli";
 const UNIT_URL = "/units";
@@ -8,6 +10,31 @@ const VIDEO_URL = "/video";
 const CREATE_URL = "/courses";
 const CURRICULUM_URL = "/curriculum";
 const FILE_URL = API_URL + FILE_PATH;
+const STANBY_URL = "/standby";
+const ACTIVE_URL = "/activate/members";
+export async function requestCreatorApi(accessToken) {
+  return await axios.post(
+    CREATOR_URL + STANBY_URL,
+    {},
+    {
+      headers: {
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
+export async function activeCreatorApi(accessToken, memberId) {
+  return await axios.post(
+    `${CREATOR_URL}${ACTIVE_URL}/${memberId}`,
+    {},
+    {
+      headers: {
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
 
 export async function uploadImageApi(file, accessToken) {
   const formData = new FormData();

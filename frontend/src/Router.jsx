@@ -44,7 +44,8 @@ import Creators from "./components/admin/Creators";
 import Courses from "./components/admin/Courses";
 import Revisecourses from "./components/admin/Revisecourses";
 import CoursesInquires from "./components/creator/CoursesInquires";
-import UnitInfoOutline from "./components/creator/UnitInfoOutline";
+import CreatorRegistAuth from "./components/creator/CreatorRegistAuth";
+import EventList from "./components/admin/EventList";
 
 const router = createBrowserRouter([
   {
@@ -199,7 +200,7 @@ const router = createBrowserRouter([
       },
       {
         path: "eventnotice",
-        element: <Courses />,
+        element: <EventList />,
       },
       {
         path: "uploadevent",
@@ -218,7 +219,9 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <ResearchBox />,
+        children: [{ path: "auth", element: <CreatorRegistAuth /> }],
       },
+
       {
         path: "info",
         element: <CreatorInfo />,
