@@ -29,22 +29,6 @@ export default function MyClass() {
   const memberId = useRecoilValue(getMemberIdSelector);
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
-  const myCourses = useQuery(
-    ["myCourseList", memberId],
-    () => {
-      return myCourseApi(memberId, accessToken);
-    },
-    {
-      enabled: !!memberId,
-      onSuccess: (res) => {
-        console.log(res);
-      },
-      onError: (err) => {
-        console.error("에러 발생했지롱");
-      },
-    }
-  );
-
   const myOngoingCourses = useQuery(
     ["myOngoingCourseList", memberId],
     () => {

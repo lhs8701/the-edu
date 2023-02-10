@@ -36,9 +36,10 @@ export default function KaKaoAuth() {
               state: true,
               isKakao: true,
               isBasic: false,
-              accessToken: data.accessToken,
-              refreshToken: data.refreshToken,
+              accessToken: data.tokenForm.accessToken,
+              refreshToken: data.tokenForm.refreshToken,
               memberId: data.memberId,
+              creatorId: data.creatorId,
             });
             navigate("/");
           })

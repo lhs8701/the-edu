@@ -43,6 +43,8 @@ export const PROCESS_MAIN_URL = {
   COURSES: "/course",
   LOBBY: "/lobby",
   PURCHASE: "/purchase",
+  PURCHASE_SUCCESS: "/purchasesuccess",
+  PURCHASE_FAIL: "/purchasefail",
   ROADMAP: "/roadmap",
   EVENT: "/event",
   SEARCH: "/search",
@@ -147,7 +149,10 @@ export const ADMIN_BAR_LIST = {
           name: "조회 및 관리",
           url: "/admin/eventnotice",
         },
-
+        {
+          name: "세부 이벤트 내용",
+          url: "/admin/eventnotice/detailEvent",
+        },
         {
           name: "이벤트 업로드",
           url: "/admin/uploadevent",
@@ -204,6 +209,14 @@ export const CREATOR_BAR_LIST = {
     },
   ],
 };
+
+export const PURCHASE_METHOD = [
+  "카드",
+  "가상계좌",
+  "계좌이체",
+  "휴대폰",
+  "상품권",
+];
 
 const BASE_URL = "http://218.38.127.26:8080";
 export const STATIC_URL = "http://the-edu.co.kr";

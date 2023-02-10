@@ -44,7 +44,8 @@ import Creators from "./components/admin/Creators";
 import Courses from "./components/admin/Courses";
 import Revisecourses from "./components/admin/Revisecourses";
 import CoursesInquires from "./components/creator/CoursesInquires";
-import UnitInfoOutline from "./components/creator/UnitInfoOutline";
+import EventList from "./components/admin/event/EventList";
+import DetailEvent from "./components/admin/event/DetailEvent";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,14 @@ const router = createBrowserRouter([
       },
       {
         path: "purchase/:courseId",
+        element: <PurchasePage />,
+      },
+      {
+        path: "purchase/success/:courseId",
+        element: <PurchasePage />,
+      },
+      {
+        path: "purchase/fail/:courseId",
         element: <PurchasePage />,
       },
       {
@@ -199,7 +208,11 @@ const router = createBrowserRouter([
       },
       {
         path: "eventnotice",
-        element: <Courses />,
+        element: <EventList />,
+      },
+      {
+        path: "eventnotice/detailEvent/:eventId",
+        element: <DetailEvent />,
       },
       {
         path: "uploadevent",
@@ -219,6 +232,7 @@ const router = createBrowserRouter([
         path: "register",
         element: <ResearchBox />,
       },
+
       {
         path: "info",
         element: <CreatorInfo />,

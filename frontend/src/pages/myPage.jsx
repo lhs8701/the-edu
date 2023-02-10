@@ -37,7 +37,7 @@ export default function MyPage() {
 
   useLayoutEffect(() => {
     if (!loginState) {
-      window.location.replace(PROCESS_ACCOUNT_URL.LOGIN);
+      window.location.replace("/" + PROCESS_ACCOUNT_URL.LOGIN);
       alert("확인되지 않은 접근입니다.");
     }
   }, []);

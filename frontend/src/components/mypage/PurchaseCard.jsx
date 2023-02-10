@@ -33,9 +33,15 @@ const Money = styled(PurchaseId)`
   color: var(--color-text);
 `;
 
+const Img = styled.img`
+  width: 150px;
+  height: 100%;
+`;
+
 export default function PurchaseCard({ purchase }) {
   return (
     <Card>
+      <Img src="https://influencer-phinf.pstatic.net/MjAyMTAzMDhfMTcg/MDAxNjE1MTc5Mzc1MDIw.pX2vbhOo0R7oMThLzoyfasywzZCH8tLiOt_0xZ81rAAg.ZCGj0dvLR-Td_tkuRdWCf4mVQLTWe9p98DiXboFjM_0g.JPEG/%EC%9D%B8%ED%94%84%EB%9F%B0_%ED%95%9C%EA%B8%80_%EB%A1%9C%EA%B3%A0.jpg" />
       <CardInfoBox>
         <CourseInfoTab>
           <CourseInfo>

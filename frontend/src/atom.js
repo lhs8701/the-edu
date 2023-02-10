@@ -7,12 +7,47 @@ const { persistAtom } = recoilPersist({
   // storage: localStorage,
 });
 
+export const AdminLoginState = atom({
+  key: "AdminLoginState",
+  default: {
+    state: false,
+    accessToken: "",
+    refreshToken: "",
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const getAdminLoginState = selector({
+  key: "getAdminLoginState",
+  get: ({ get }) => {
+    const data = get(AdminLoginState);
+    return data.state;
+  },
+});
+
+export const getAdminAccessTokenSelector = selector({
+  key: "getAdminAccessToken",
+  get: ({ get }) => {
+    const data = get(AdminLoginState);
+    return data.accessToken;
+  },
+});
+
+export const getAdminRefreshTokenSelector = selector({
+  key: "getAdminRefreshToken",
+  get: ({ get }) => {
+    const data = get(AdminLoginState);
+    return data.refreshToken;
+  },
+});
+
 export const LoginState = atom({
   key: "LoginState",
   default: {
     state: false,
     isKakao: false,
     isBasic: false,
+    creatorId: -1,
     memberId: 0,
     accessToken: "",
     refreshToken: "",
@@ -38,6 +73,13 @@ export const getMemberIdSelector = selector({
   get: ({ get }) => {
     const data = get(LoginState);
     return data.memberId;
+  },
+});
+export const getCreatorIdSelector = selector({
+  key: "getCreatorId",
+  get: ({ get }) => {
+    const data = get(LoginState);
+    return data.creatorId;
   },
 });
 export const getIsBasicSelector = selector({

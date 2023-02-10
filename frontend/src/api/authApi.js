@@ -77,13 +77,12 @@ export async function getKakaoAuthToken(code) {
 export async function basicLogout(accessToken, refreshToken) {
   return await axios.post(
     AUTH_URL + BASIC_LOGOUT_PATH,
-    {
-      refreshToken: refreshToken,
-    },
+    {},
     {
       headers: {
         "Content-Type": "application/json",
         ACCESS: accessToken,
+        REFRESH: refreshToken,
       },
     }
   );
@@ -104,7 +103,7 @@ export async function reIssue(accessToken, refreshToken) {
   );
 }
 
-export async function kakaoLogout(accessToken, socialToken) {
+export async function kakaoLogout(accessToken, socialToken, refreshToken) {
   return await axios.post(
     AUTH_URL + KAKAO_LOGOUT_PATH,
     {
@@ -114,6 +113,7 @@ export async function kakaoLogout(accessToken, socialToken) {
       headers: {
         "Content-Type": "application/json",
         ACCESS: accessToken,
+        REFRESH: refreshToken,
       },
     }
   );

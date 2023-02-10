@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import { useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
-import { getFormResponse } from "../../api/adminApi";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -18,28 +17,27 @@ export default function CreatorRequest() {
   }
 
   useEffect(() => {
-    getFormResponse()
-      .then(({ data }) => {
-        console.log(data);
-        const list = [];
-
-        data?.items?.map((e) => {
-          list.push(
-            createData(
-              e.answers[2].email,
-              e.landed_at,
-              e.answers[0].text,
-              e.answers[1].phone_number,
-              e.answers[3].text,
-              e.answers[4].text
-            )
-          );
-        });
-        setRows(list);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // getFormResponse()
+    //   .then(({ data }) => {
+    //     console.log(data);
+    //     const list = [];
+    //     data?.items?.map((e) => {
+    //       list.push(
+    //         createData(
+    //           e.answers[2].email,
+    //           e.landed_at,
+    //           e.answers[0].text,
+    //           e.answers[1].phone_number,
+    //           e.answers[3].text,
+    //           e.answers[4].text
+    //         )
+    //       );
+    //     });
+    //     setRows(list);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, []);
 
   const BasicTable = () => {
@@ -48,12 +46,11 @@ export default function CreatorRequest() {
         <Table sx={{}} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>이메일</TableCell>
               <TableCell align="right">날짜</TableCell>
+              <TableCell align="right">이메일</TableCell>
               <TableCell align="right">성함</TableCell>
               <TableCell align="right">전화번호</TableCell>
-              <TableCell align="right">개설 과목</TableCell>
-              <TableCell align="right">기초 목차</TableCell>
+              <TableCell align="right">등록하기</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,8 +65,6 @@ export default function CreatorRequest() {
                 <TableCell align="right">{row.calories}</TableCell>
                 <TableCell align="right">{row.fat}</TableCell>
                 <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-                <TableCell align="right">{row.categories}</TableCell>
                 <TableCell align="right">
                   <button>등록</button>
                 </TableCell>
