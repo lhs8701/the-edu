@@ -82,14 +82,11 @@ struct AuthenticationService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "ACCESS" : accessToken
+            "ACCESS" : accessToken,
+            "REFRESH" : refreshToken
         ]
         
-        let bodyData: Parameters = [
-            "refreshToken" : refreshToken
-        ] as Dictionary
-        
-        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
             switch dataResponse.result {
@@ -115,14 +112,11 @@ struct AuthenticationService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "ACCESS" : accessToken
+            "ACCESS" : accessToken,
+            "REFRESH" : refreshToken
         ]
         
-        let bodyData: Parameters = [
-            "refreshToken" : refreshToken
-        ] as Dictionary
-        
-        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
             switch dataResponse.result {
@@ -176,12 +170,12 @@ struct AuthenticationService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "ACCESS" : accessToken
+            "ACCESS" : accessToken,
+            "REFRESH" : refreshToken
         ]
         
         let bodyData: Parameters = [
             "socialToken" : socialToken,
-            "refreshToken" : refreshToken
         ] as Dictionary
         
         let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
@@ -209,12 +203,12 @@ struct AuthenticationService {
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
-            "ACCESS" : accessToken
+            "ACCESS" : accessToken,
+            "REFRESH" : refreshToken
         ]
         
         let bodyData: Parameters = [
             "socialToken" : socialToken,
-            "refreshToken" : refreshToken
         ] as Dictionary
         
         let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
@@ -421,28 +415,19 @@ struct AuthenticationService {
             print("userGrant Data decode fail")
             return .pathErr
         }
-        print(decodedData.memberId)
-        print(decodedData.grantType)
-        print(decodedData.accessToken)
-        print(decodedData.refreshToken)
+        print(decodedData.tokenForm.accessToken)
+        print(decodedData.tokenForm.refreshToken)
         
-//        UserDefaults.standard.setValue(true, forKey: "isLogin")
-        UserDefaults.standard.setValue(decodedData.memberId, forKey: "memberId")
-        UserDefaults.standard.setValue(decodedData.grantType, forKey: "grantType")
-        UserDefaults.standard.setValue(decodedData.accessToken, forKey: "accessToken")
-        UserDefaults.standard.setValue(decodedData.refreshToken, forKey: "refreshToken")
+        UserDefaults.standard.setValue(decodedData.tokenForm.accessToken, forKey: "accessToken")
+        UserDefaults.standard.setValue(decodedData.tokenForm.refreshToken, forKey: "refreshToken")
         
         return .success(true)
     }
     
     // MARK: - 로그아웃, 회원탈퇴 시에 회원 권한, 토큰, 최근 검색어 Reset
     func resetUserGrant() {
-//        UserDefaults.standard.setValue(false, forKey: "isLogin")
-//        UserDefaults.standard.removeObject(forKey: "isLogin")
-        
         UserDefaults.standard.removeObject(forKey: "loginType")
         UserDefaults.standard.removeObject(forKey: "memberId")
-        UserDefaults.standard.removeObject(forKey: "grantType")
         UserDefaults.standard.removeObject(forKey: "accessToken")
         UserDefaults.standard.removeObject(forKey: "refreshToken")
         UserDefaults.standard.removeObject(forKey: "recentSearch")

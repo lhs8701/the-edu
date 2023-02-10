@@ -39,6 +39,7 @@
 		0E376A1F2995D6AC00C42180 /* EventTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E376A1D2995D6AC00C42180 /* EventTVC.swift */; };
 		0E376A202995D6AC00C42180 /* EventTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E376A1E2995D6AC00C42180 /* EventTVC.xib */; };
 		0E376A222995E3C600C42180 /* UploadImageDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E376A212995E3C600C42180 /* UploadImageDataService.swift */; };
+		0E376A262996113400C42180 /* TokenDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E376A252996113400C42180 /* TokenDataModel.swift */; };
 		0E550140296EA96400DD5B75 /* Layer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E55013F296EA96400DD5B75 /* Layer+.swift */; };
 		0E550142296F8BC200DD5B75 /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E550141296F8BC200DD5B75 /* ResultVC.swift */; };
 		0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028282965659D00A25F48 /* InCourseViewController.swift */; };
@@ -194,6 +195,7 @@
 		0E376A1D2995D6AC00C42180 /* EventTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTVC.swift; sourceTree = "<group>"; };
 		0E376A1E2995D6AC00C42180 /* EventTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTVC.xib; sourceTree = "<group>"; };
 		0E376A212995E3C600C42180 /* UploadImageDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageDataService.swift; sourceTree = "<group>"; };
+		0E376A252996113400C42180 /* TokenDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDataModel.swift; sourceTree = "<group>"; };
 		0E55013F296EA96400DD5B75 /* Layer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Layer+.swift"; sourceTree = "<group>"; };
 		0E550141296F8BC200DD5B75 /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		0E6028282965659D00A25F48 /* InCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InCourseViewController.swift; sourceTree = "<group>"; };
@@ -630,6 +632,7 @@
 				0E9D15282974F0620061D1ED /* SignupVC.swift */,
 				0E1E959C2977BDE800CBE70B /* UserDataModel.swift */,
 				0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */,
+				0E376A252996113400C42180 /* TokenDataModel.swift */,
 				0E9D15262974EECD0061D1ED /* SignupSelectVC.swift */,
 				0EFB7477297132F500C58E87 /* LoginVC.swift */,
 				0EFB744529710F8600C58E87 /* LoginSignupVC.swift */,
@@ -941,6 +944,7 @@
 				0E69A045296543D000BFD12E /* UserViewController.swift in Sources */,
 				0E60283D2966777A00A25F48 /* CourseTableDataModel.swift in Sources */,
 				0EDD522A2994BB11008731CD /* CurriculumDataModel.swift in Sources */,
+				0E376A262996113400C42180 /* TokenDataModel.swift in Sources */,
 				0E0498AD298EACD8002425D9 /* CategoryTVC.swift in Sources */,
 				0ED17B29298782BD0008D3C0 /* CourseInquiryAllVC.swift in Sources */,
 				0E685E6B299364300094D10A /* EventDataModel.swift in Sources */,

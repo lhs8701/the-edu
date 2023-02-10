@@ -9,7 +9,6 @@ import Foundation
 
 struct UserGrantInfoDataModel: Codable {
     let memberId: Int
-    let grantType: String
-    let accessToken: String
-    let refreshToken: String
+    let creatorId: Int
+    let tokenForm: TokenDataModel
 }
