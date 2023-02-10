@@ -20,9 +20,7 @@ const Catalog = styled(motion.li)`
   padding-top: 8px;
   padding-bottom: 8px;
   background: ${(props) =>
-    props.men === props.now
-      ? "var(--color-box-gray)"
-      : "var(--color-background)"}; //props 활용
+    props.complete ? "#000000" : "var(--color-background)"}; //props 활용
 `;
 
 const ListBox = styled.ul`
@@ -55,6 +53,7 @@ const CourseList = React.memo(function CourseList({
         }}
         men={unit.unitId}
         now={Number(unitId)}
+        complete={unit.completed}
         key={idx}
         whileHover={{ backgroundColor: "#dfdede", color: "var(--color-text)" }}
       >

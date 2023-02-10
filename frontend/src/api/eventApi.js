@@ -18,3 +18,12 @@ export async function createEventApi(accessToken) {
 export async function getDetailEventApi(eventId) {
   return await axios.get(`${EVENT_URL}/${eventId}`);
 }
+
+export async function deleteEventApi(eventId, accessToken) {
+  return await axios.delete(`${EVENT_URL}/${eventId}`, {
+    headers: {
+      ACCESS: accessToken,
+      "Content-Type": "application/json",
+    },
+  });
+}

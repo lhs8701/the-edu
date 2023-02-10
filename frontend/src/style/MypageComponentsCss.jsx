@@ -31,6 +31,9 @@ export const Card = styled(motion.div)`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  position: relative;
+  padding: 0px 10px;
+  box-sizing: border-box;
 `;
 
 export const CardInfoBox = styled.div`

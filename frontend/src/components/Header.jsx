@@ -221,7 +221,7 @@ export default function Header() {
 
   const logOut = () => {
     if (isKakaoState) {
-      kakaoLogout(accessToken, socialToken);
+      kakaoLogout(accessToken, socialToken, refreshToken);
     } else if (isBasicState) {
       basicLogout(accessToken, refreshToken);
     }

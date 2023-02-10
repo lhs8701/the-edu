@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form";
 import { login } from "../../api/authApi";
 import { useNavigate } from "react-router";
 import { PROCESS_ADMIN_URL } from "../../static";
+import { useRecoilState } from "recoil";
+import { AdminLoginState } from "../../atom";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -30,7 +32,8 @@ const BtnSignUpBox = styled(LoginLinkBox)`
   align-items: center;
 `;
 
-export default function SignIn({ setLoginState }) {
+export default function SignIn() {
+  const [adminLogin, setAdminLogin] = useRecoilState(AdminLoginState);
   const [isID, setIsId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -52,10 +55,10 @@ export default function SignIn({ setLoginState }) {
         account: isID,
         password: password,
       });
-      setLoginState({
+      setAdminLogin({
         state: true,
-        accessToken: data.accessToken,
-        refreshToken: data.refreshToken,
+        accessToken: data.tokenForm.accessToken,
+        refreshToken: data.tokenForm.refreshToken,
       });
       navigate("/admin");
     } catch (err) {

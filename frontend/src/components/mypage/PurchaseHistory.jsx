@@ -8,7 +8,8 @@ import {
 import PurchaseCard from "./PurchaseCard";
 
 const PurchaseWrapper = styled.div`
-  width: var(--size-revise-coupon-window);
+  /* width: var(--size-revise-coupon-window); */
+  width: 90%;
   height: 100%;
   margin: 0 auto;
 `;

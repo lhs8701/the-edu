@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import { useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
-import { getFormResponse } from "../../api/adminApi";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -18,28 +17,27 @@ export default function CreatorRequest() {
   }
 
   useEffect(() => {
-    getFormResponse()
-      .then(({ data }) => {
-        console.log(data);
-        const list = [];
-
-        data?.items?.map((e) => {
-          list.push(
-            createData(
-              e.answers[2].email,
-              e.landed_at,
-              e.answers[0].text,
-              e.answers[1].phone_number,
-              e.answers[3].text,
-              e.answers[4].text
-            )
-          );
-        });
-        setRows(list);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // getFormResponse()
+    //   .then(({ data }) => {
+    //     console.log(data);
+    //     const list = [];
+    //     data?.items?.map((e) => {
+    //       list.push(
+    //         createData(
+    //           e.answers[2].email,
+    //           e.landed_at,
+    //           e.answers[0].text,
+    //           e.answers[1].phone_number,
+    //           e.answers[3].text,
+    //           e.answers[4].text
+    //         )
+    //       );
+    //     });
+    //     setRows(list);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, []);
 
   const BasicTable = () => {

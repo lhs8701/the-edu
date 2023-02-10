@@ -73,14 +73,15 @@ export default function SignIn() {
         account: isID,
         password: password,
       });
-
+      console.log(data);
       setIsLoggedIn({
         state: true,
         isKakao: false,
         isBasic: true,
-        accessToken: data.accessToken,
-        refreshToken: data.refreshToken,
+        accessToken: data.tokenForm.accessToken,
+        refreshToken: data.tokenForm.refreshToken,
         memberId: data.memberId,
+        creatorId: data.creatorId,
       });
     } catch (err) {
       console.log(err.response.status);

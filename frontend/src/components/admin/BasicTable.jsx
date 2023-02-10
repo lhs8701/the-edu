@@ -7,8 +7,9 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { ADMIN_BAR_LIST } from "../../static";
 
-export function BasicTable({ rows, cells }) {
+export function EventTable({ rows, cells, deleteFun, navigate }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">
@@ -16,7 +17,7 @@ export function BasicTable({ rows, cells }) {
           <TableRow>
             {cells?.map((cell) => {
               return (
-                <TableCell key={cell?.id} align="right">
+                <TableCell key={cell.id} align="left">
                   {cell?.name}
                 </TableCell>
               );
@@ -24,17 +25,26 @@ export function BasicTable({ rows, cells }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows?.map((row) => (
+          {rows?.map((row, idx) => (
             <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              key={row.id}
+              onClick={() => {
+                navigate(ADMIN_BAR_LIST.list[4].list[1].url + "/" + row.id);
+              }}
             >
-              <TableCell component="th" scope="row">
-                {row.name}
+              <TableCell align="left">{row.id}</TableCell>
+              <TableCell align="left">{row.title}</TableCell>
+              <TableCell align="left">{row.startDate}</TableCell>
+              <TableCell align="left">{row.endDate}</TableCell>
+              <TableCell align="left">
+                <button
+                  onClick={() => {
+                    deleteFun(row.id);
+                  }}
+                >
+                  삭제
+                </button>
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
             </TableRow>
           ))}
         </TableBody>

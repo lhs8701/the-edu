@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { getFormResponse } from "../../api/adminApi";
 
 import CreatorDashboard from "../../components/creator/CreatorDashboard";
 import { CREATOR_BAR_LIST } from "../../static";
