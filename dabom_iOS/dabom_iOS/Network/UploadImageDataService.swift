@@ -22,7 +22,9 @@ struct UploadImageDataService {
             "ACCESS" : accessToken
         ]
         
-        let imageData = image.jpegData(compressionQuality: 0.5)
+        
+        let imageData = image.jpegData(compressionQuality: 1.0)
+//        let imageData = image.jpegData(compressionQuality: 1.0)
         
         AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(imageData!, withName: "multipartFile", fileName: "profile.jpeg", mimeType: "image/jpeg")

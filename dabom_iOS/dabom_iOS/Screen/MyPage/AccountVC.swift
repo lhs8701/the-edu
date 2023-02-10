@@ -163,16 +163,27 @@ class AccountVC: UIViewController {
         
     }
     
-    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / image.size.width // 새 이미지 확대/축소 비율
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+        image.draw(in: CGRectMake(0, 0, newWidth, newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage ?? image
+    }
     
 }
 
 extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.profileImageView.image = image
+            let resizeImage = self.resizeImage(image: image, newWidth: 300)
+            self.profileImageView.image = resizeImage
             
-            UploadImageDataService.shared.uploadImage(nickname: self.userNickname, image: image) { response in
+            self.saveBtn.isEnabled = false
+            
+            UploadImageDataService.shared.uploadImage(nickname: self.userNickname, image: resizeImage) { response in
                 switch response {
                 case .success(let data):
                     
@@ -182,6 +193,8 @@ extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDele
                         self.userProfile = data.originalFilePath
                     }
 //                    self.userProfile =
+                    self.saveBtn.isEnabled = true
+                    
                 case .requestErr(let message):
                     print("requestErr", message)
                 case .pathErr:
