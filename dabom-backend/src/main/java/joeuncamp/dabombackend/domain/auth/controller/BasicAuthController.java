@@ -54,6 +54,7 @@ public class BasicAuthController {
 
     @Operation(summary = "회원 탈퇴합니다.", description = "")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.REFRESH_TOKEN, description = "리프레시토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.REFRESH)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/basic/withdraw")
     public ResponseEntity<Void> withdraw(@RequestHeader(Header.ACCESS_TOKEN) String accessToken, @RequestHeader(Header.REFRESH_TOKEN) String refreshToken) {

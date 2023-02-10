@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Builder
@@ -20,9 +22,11 @@ public class Feedback extends BaseTimeEntity {
     Long id;
     @ManyToOne
     @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Member member;
     @ManyToOne
     @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Unit unit;
     boolean thumbsUp;
     boolean thumbsDown;
