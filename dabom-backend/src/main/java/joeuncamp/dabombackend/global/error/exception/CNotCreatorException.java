@@ -4,11 +4,11 @@ import joeuncamp.dabombackend.global.error.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class CCreationDeniedException extends RuntimeException{
+public class CNotCreatorException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public CCreationDeniedException(){
+    public CNotCreatorException(){
         super();
-        errorCode = ErrorCode.CREATION_DENIED;
+        errorCode = ErrorCode.NOT_CREATOR;
     }
 }

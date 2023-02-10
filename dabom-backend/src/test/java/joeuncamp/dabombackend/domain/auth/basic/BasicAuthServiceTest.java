@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.basic;
 
+import joeuncamp.dabombackend.domain.auth.dto.BasicAuthDto;
 import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.domain.auth.service.BasicAuthService;
@@ -51,7 +52,7 @@ public class BasicAuthServiceTest {
                 .password(ExampleValue.Member.PASSWORD)
                 .build();
 
-        SignupRequestDto dto = SignupRequestDto.builder()
+        BasicAuthDto.SignupRequest dto = BasicAuthDto.SignupRequest.builder()
                 .account(ExampleValue.Member.ACCOUNT)
                 .password(ExampleValue.Member.PASSWORD)
                 .build();
@@ -74,7 +75,7 @@ public class BasicAuthServiceTest {
                 .password(ExampleValue.Member.PASSWORD)
                 .build();
 
-        LoginRequestDto dto = LoginRequestDto.builder()
+        BasicAuthDto.LoginRequest dto = BasicAuthDto.LoginRequest.builder()
                 .account(ExampleValue.Member.ACCOUNT)
                 .password("invalid_password")
                 .build();

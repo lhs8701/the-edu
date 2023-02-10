@@ -11,7 +11,7 @@ import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
+import joeuncamp.dabombackend.global.error.exception.CNotCreatorException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -86,7 +86,7 @@ public class CourseServiceTest {
 
         // then
         Assertions.assertThatThrownBy(() -> courseService.openCourse(requestDto))
-                .isInstanceOf(CCreationDeniedException.class);
+                .isInstanceOf(CNotCreatorException.class);
     }
 
     @Test

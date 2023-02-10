@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.member.dto;
+package joeuncamp.dabombackend.domain.admin.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;

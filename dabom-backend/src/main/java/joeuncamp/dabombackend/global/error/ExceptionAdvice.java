@@ -33,8 +33,8 @@ public class ExceptionAdvice {
 
     // Custom Exception
 
-    @ExceptionHandler(CCreationDeniedException.class)
-    protected ResponseEntity<ErrorResponseDto> handle(CCreationDeniedException e){
+    @ExceptionHandler(CNotCreatorException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CNotCreatorException e){
         ErrorCode errorCode = e.getErrorCode();
         e.printStackTrace();
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());

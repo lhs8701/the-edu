@@ -1,11 +1,11 @@
-package joeuncamp.dabombackend.domain.member.controller;
+package joeuncamp.dabombackend.domain.admin.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import joeuncamp.dabombackend.domain.member.dto.MemberAdminDto;
-import joeuncamp.dabombackend.domain.member.service.MemberAdminService;
+import joeuncamp.dabombackend.domain.admin.dto.MemberAdminDto;
+import joeuncamp.dabombackend.domain.admin.service.MemberAdminService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -13,15 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@Tag(name = "[7-1.Admin-Member]", description = "회원 관리 API입니다.")
-@RequestMapping("/api/admin")
+@Tag(name = "[0-1.Admin-Member]", description = "회원 관리 API입니다.")
+@RequestMapping("/admin-api")
 @RequiredArgsConstructor
 public class MemberAdminController {
 

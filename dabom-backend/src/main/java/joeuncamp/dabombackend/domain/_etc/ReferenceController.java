@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Tag(name = "[0.Reference]", description = "참고용 API입니다.")
+@Tag(name = "[9.Reference]", description = "참고용 API입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")

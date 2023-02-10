@@ -1,10 +1,9 @@
-package joeuncamp.dabombackend.domain.member.service;
+package joeuncamp.dabombackend.domain.admin.service;
 
-import joeuncamp.dabombackend.domain.member.dto.MemberAdminDto;
+import joeuncamp.dabombackend.domain.admin.dto.MemberAdminDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

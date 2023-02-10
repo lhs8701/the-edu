@@ -2,10 +2,7 @@ package joeuncamp.dabombackend.domain.auth.service;
 
 import io.jsonwebtoken.Claims;
 import jakarta.transaction.Transactional;
-import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.ReissueRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.UnlinkRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.*;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -38,18 +35,18 @@ public class BasicAuthService {
      * 회원가입합니다.
      * DB에 회원을 저장합니다.
      *
-     * @param signUpRequestDto 개인정보
+     * @param requestDto 개인정보
      */
-    public void signup(SignupRequestDto signUpRequestDto) {
-        if (memberJpaRepository.findByAccount(signUpRequestDto.getAccount()).isPresent()) {
+    public void signup(BasicAuthDto.SignupRequest requestDto) {
+        if (memberJpaRepository.findByAccount(requestDto.getAccount()).isPresent()) {
             throw new CMemberExistException();
         }
-        String encodedPassword = passwordEncoder.encode(signUpRequestDto.getPassword());
-        createAndSaveMember(signUpRequestDto, encodedPassword);
+        String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
+        createAndSaveMember(requestDto, encodedPassword);
     }
 
-    private void createAndSaveMember(SignupRequestDto signUpRequestDto, String encodedPassword) {
-        Member member = signUpRequestDto.toEntity(encodedPassword);
+    private void createAndSaveMember(BasicAuthDto.SignupRequest requestDto, String encodedPassword) {
+        Member member = requestDto.toEntity(encodedPassword);
         memberJpaRepository.save(member);
     }
 
@@ -57,28 +54,27 @@ public class BasicAuthService {
      * 로그인합니다.
      * 어세스토큰과 리프레시토큰을 반환합니다.
      *
-     * @param loginRequestDto 계정, 비밀번호
+     * @param requestDto 계정, 비밀번호
      * @return 어세스토큰, 리프레시토큰
      */
-    public TokenForm login(LoginRequestDto loginRequestDto) {
-        Member member = memberJpaRepository.findByAccountAndLoginType(loginRequestDto.getAccount(), LoginType.BASIC).orElseThrow(CResourceNotFoundException::new);
-        if (!passwordEncoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
+    public BasicAuthDto.LoginResponse login(BasicAuthDto.LoginRequest requestDto) {
+        Member member = memberJpaRepository.findByAccountAndLoginType(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberNotFoundException::new);
+        if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
             throw new CWrongPasswordException();
         }
         TokenForm tokenForm = jwtProvider.generateToken(member);
         tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), member.getAccount());
-        return tokenForm;
+        return new BasicAuthDto.LoginResponse(member, tokenForm);
     }
 
     /**
      * 로그아웃합니다.
      * 어세스토큰을 Block처리하고, 리프레시토큰을 레디스에서 제거합니다.
      *
-     * @param accessToken 어세스토큰
-     * @param requestDto  리프레시토큰
+     * @param requestDto  어세스토큰, 리프레시토큰
      */
-    public void logout(UnlinkRequestDto requestDto, String accessToken) {
-        tokenRedisRepository.saveBlockedToken(accessToken);
+    public void logout(BasicAuthDto.UnlinkRequestDto requestDto) {
+        tokenRedisRepository.saveBlockedToken(requestDto.getAccessToken());
         tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
     }
 
@@ -86,13 +82,12 @@ public class BasicAuthService {
      * 회원을 탈퇴합니다.
      * DB에서 회원을 삭제하고, 로그아웃 로직을 실행합니다.
      *
-     * @param accessToken 어세스토큰
-     * @param requestDto  리프레시토큰
+     * @param requestDto  어세스토큰, 리프레시토큰
      */
-    public void withdraw(UnlinkRequestDto requestDto, String accessToken) {
-        Member member = (Member) jwtProvider.getAuthentication(accessToken).getPrincipal();
+    public void withdraw(BasicAuthDto.UnlinkRequestDto requestDto) {
+        Member member = (Member) jwtProvider.getAuthentication(requestDto.getAccessToken()).getPrincipal();
         memberJpaRepository.deleteById(member.getId());
-        logout(requestDto, accessToken);
+        logout(requestDto);
     }
 
 
@@ -103,7 +98,7 @@ public class BasicAuthService {
      * @param requestDto 어세스토큰, 리프레시토큰
      * @return 재발급한 어세스토큰, 리프레시토큰
      */
-    public TokenForm reissue(ReissueRequestDto requestDto) {
+    public TokenForm reissue(BasicAuthDto.ReissueRequest requestDto) {
         isReissueAvailable(requestDto.getAccessToken(), requestDto.getRefreshToken());
         Member member = (Member) jwtProvider.getAuthentication(requestDto.getRefreshToken()).getPrincipal();
         TokenForm tokenForm = jwtProvider.generateToken(member);

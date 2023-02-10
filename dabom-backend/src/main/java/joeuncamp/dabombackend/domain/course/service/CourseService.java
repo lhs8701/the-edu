@@ -18,7 +18,6 @@ import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.*;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -47,7 +46,7 @@ public class CourseService {
     public Long openCourse(CourseDto.CreationRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!creatorService.hasCreatorProfile(member)) {
-            throw new CCreationDeniedException();
+            throw new CNotCreatorException();
         }
         CreatorProfile creator = member.getCreatorProfile();
         Course course = requestDto.toEntity(creator);

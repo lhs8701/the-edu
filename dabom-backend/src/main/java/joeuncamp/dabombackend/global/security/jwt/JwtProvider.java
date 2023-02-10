@@ -47,7 +47,6 @@ public class JwtProvider {
 
         return TokenForm.builder()
                 .memberId(member.getId())
-                .grantType("Bearer")
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();

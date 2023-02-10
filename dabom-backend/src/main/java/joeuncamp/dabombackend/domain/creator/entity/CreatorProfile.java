@@ -24,7 +24,6 @@ public class CreatorProfile {
     @OneToOne
     @JoinColumn(name = "member_id")
     Member member;
-
     boolean activated;
 
     @OneToMany(mappedBy = "creatorProfile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

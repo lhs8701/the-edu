@@ -32,32 +32,23 @@ public class CreatorController {
     private final CreatorActivator creatorActivator;
     private final CreatorCourseService creatorCourseService;
 
+    @Operation(summary = "업로드한 강좌 조회", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/creators/me/courses")
+    public ResponseEntity<List< CourseDto.ShortResponse>> getUploadedCourses(@AuthenticationPrincipal Member member, @ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
+        List< CourseDto.ShortResponse> responseDto =  creatorCourseService.getUploadedCourses(member.getId(), pageable);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
     @Operation(summary = "크리에이터 대기", description = "회원을 크리에이터 대기 상태로 만듭니다. 이후 관리자의 승인을 통해 최종적으로 크리에이터 권한을 획득할 수 있습니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/creator/standby")
+    @PostMapping("/creators/me/standby")
     public ResponseEntity<Void> standByCreator(@AuthenticationPrincipal Member member) {
         CreatorDto.StandByRequest requestDto = new CreatorDto.StandByRequest(member.getId());
         creatorActivator.standByMember(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @Operation(summary = "크리에이터 활성화", description = "회원의 크리에이터 기능을 활성화합니다.")
-    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/admin/creator/activate/members/{memberId}")
-    public ResponseEntity<Void> activateCreator(@PathVariable Long memberId) {
-        creatorActivator.activateCreator(memberId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @Operation(summary = "업로드한 강좌 조회", description = "")
-    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/creator/courses")
-    public ResponseEntity<List< CourseDto.ShortResponse>> getUploadedCourses(@AuthenticationPrincipal Member member, @ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
-        List< CourseDto.ShortResponse> responseDto =  creatorCourseService.getUploadedCourses(member.getId(), pageable);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
 }
