@@ -46,7 +46,6 @@ public class JwtProvider {
         String refreshToken = createToken(member, 1000 * JwtExpiration.REFRESH_TOKEN.getTime());
 
         return TokenForm.builder()
-                .memberId(member.getId())
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
