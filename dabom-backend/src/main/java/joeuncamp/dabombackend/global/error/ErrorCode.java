@@ -25,6 +25,8 @@ public enum ErrorCode {
     REFRESH_TOKEN_EXPIRED(-6006, "리프레시 토큰이 만료되었습니다. 다시 로그인해주세요.", HttpStatus.FORBIDDEN),
     REISSUE_FAILED(-6007, "토큰 재발급에 실패했습니다.", HttpStatus.BAD_REQUEST),
     MEMBER_NOT_FOUND(-6008, "회원을 조회할 수 없습니다.", HttpStatus.UNAUTHORIZED),
+    WRONG_PASSWORD(-6009, "잘못된 비밀번호입니다.", HttpStatus.UNAUTHORIZED),
+
 
     // 7000 ~ : 시큐리티 에러
     NOT_AUTHORIZED(-7000, "해당 리소스에 접근하기 위한 권한이 없습니다. 시큐리티 권한 인증에 실패했습니다.", HttpStatus.FORBIDDEN),

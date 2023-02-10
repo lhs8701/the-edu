@@ -10,10 +10,7 @@ import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.LoginType;
-import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
-import joeuncamp.dabombackend.global.error.exception.CReissueFailedException;
-import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
-import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
+import joeuncamp.dabombackend.global.error.exception.*;
 import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
 import joeuncamp.dabombackend.global.security.jwt.JwtValidator;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
@@ -66,7 +63,7 @@ public class BasicAuthService {
     public TokenForm login(LoginRequestDto loginRequestDto) {
         Member member = memberJpaRepository.findByAccountAndLoginType(loginRequestDto.getAccount(), LoginType.BASIC).orElseThrow(CResourceNotFoundException::new);
         if (!passwordEncoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
-            throw new CLoginFailedException();
+            throw new CWrongPasswordException();
         }
         TokenForm tokenForm = jwtProvider.generateToken(member);
         tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), member.getAccount());

@@ -46,11 +46,21 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary = "비밀번호 재설정", description = "회원의 이메일로 임시 비밀번호를 전송합니다.")
+    @Operation(summary = "임시 비밀번호 발급", description = "회원의 이메일로 임시 비밀번호를 전송합니다.")
     @PreAuthorize("permitAll()")
     @PostMapping("/members/me/password/reset")
-    public ResponseEntity<Void> sendResetCode(@RequestBody PasswordDto.ResetRequest requestDto) {
-        passwordService.resetPassword(requestDto);
+    public ResponseEntity<PasswordDto.Response> resetPassword(@RequestBody PasswordDto.ResetRequest requestDto) {
+        PasswordDto.Response response = passwordService.resetPassword(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Operation(summary = "비밀번호 변경", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/members/me/password/change")
+    public ResponseEntity<Void> changePassword(@RequestBody PasswordDto.ChangeRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setMemberId(member.getId());
+        passwordService.changePassword(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

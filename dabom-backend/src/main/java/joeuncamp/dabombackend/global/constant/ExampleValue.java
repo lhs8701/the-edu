@@ -56,13 +56,13 @@ public class ExampleValue {
     }
 
     public static class Member{
-        public final static String ACCOUNT = "user@naver.com";
+        public final static String ACCOUNT = "admin@naver.com";
         public final static String PASSWORD = "Abc1234!";
         public static final String NAME = "심재헌";
         public final static String NICKNAME = "hello";
         public final static String MOBILE = "010-1234-5678";
         public final static String BIRTH_DATE = "1999.01.01";
-        public final static String EMAIL = "user@naver.com";
+        public final static String EMAIL = "admin@naver.com";
     }
 
     public static class Post{
