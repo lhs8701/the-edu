@@ -74,7 +74,7 @@ const CourseList = React.memo(function CourseList({
       <>
         <TitleBox>
           <SideTitle>
-            {idx + 1}. {chapter.title}
+            {idx + 1}.&nbsp;<div>{chapter.title}</div>
           </SideTitle>
         </TitleBox>
         <br />

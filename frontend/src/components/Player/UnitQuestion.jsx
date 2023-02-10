@@ -245,9 +245,7 @@ export default function UnitQuestion({ unitId }) {
         unitId
       )
         .then(({ data }) => {
-          console.log(data);
-          alert("질문이 등록 되었습니다.");
-          setType(false);
+          questionList.refetch();
         })
         .catch((err) => {
           alert(err);
@@ -366,7 +364,9 @@ export default function UnitQuestion({ unitId }) {
     const deleteQuestion = () => {
       if (window.confirm("질문을 삭제하시겠어요?")) {
         deleteMyQuestionApi(questionId, accessToken)
-          .then(() => {})
+          .then(() => {
+            questionList.refetch();
+          })
           .catch((err) => {
             alert("삭제 불가");
           });

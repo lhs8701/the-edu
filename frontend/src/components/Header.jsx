@@ -8,7 +8,6 @@ import {
   CATE_VALUE,
   CREATOR_BAR_LIST,
   PROCESS_ACCOUNT_URL,
-  PROCESS_CREATOR_URL,
   PROCESS_MAIN_URL,
 } from "../static";
 import {
