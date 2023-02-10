@@ -28,6 +28,7 @@ extension Const {
             static let curriculumHeaderTVC = "CurriculumHeaderTVC"
             static let curriculumTVC = "CurriculumTVC"
             static let courseCurriculumTVC = "CourseCurriculumTVC"
+            static let eventTVC = "EventTVC"
         }
         
         struct Identifier {
@@ -48,6 +49,7 @@ extension Const {
             static let curriculumHeaderTVC = "CurriculumHeaderTVC"
             static let curriculumTVC = "CurriculumTVC"
             static let courseCurriculumTVC = "CourseCurriculumTVC"
+            static let eventTVC = "EventTVC"
         }
         
     }

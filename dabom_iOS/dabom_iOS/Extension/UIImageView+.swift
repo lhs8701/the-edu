@@ -17,11 +17,9 @@ extension UIImageView {
             case .success(let value):
                 if let image = value.image {
                     //캐시가 존재하는 경우
-                    print("캐시 존재")
                     self.image = image
                 } else {
                     //캐시가 존재하지 않는 경우
-                    print("캐시 없음")
                     guard let url = URL(string: imageUrl) else { return }
                     let resource = ImageResource(downloadURL: url, cacheKey: imageUrl)
                     self.kf.indicatorType = .activity
@@ -37,7 +35,6 @@ extension UIImageView {
         let imageUrl = "\(Const.Url.baseUrl)\(urlString)"
         guard let url = URL(string: imageUrl) else { return }
         let resource = ImageResource(downloadURL: url)
-//        let URL = URL(string: imageUrl)
         
         KingfisherManager.shared.retrieveImage(with: resource) { result in
             switch result {

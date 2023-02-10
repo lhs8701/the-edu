@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MARK: - 카카오톡 로그인 설정
         KakaoSDK.initSDK(appKey: "9d5a7db9c37d4b17c44b843e6c4fa727")
         
+        NetworkMonitor.shared.startMonitoring()
+        
         // MARK: - 로그인 분기
         window = UIWindow()
         

@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -20,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IAh-ce-8lo">
-                                <rect key="frame" x="0.0" y="45" width="390" height="45"/>
+                                <rect key="frame" x="0.0" y="91" width="390" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6fc-nK-T5b">
                                         <rect key="frame" x="15" y="7" width="30" height="30"/>
@@ -34,16 +33,10 @@
                                             <action selector="categoryBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="dYQ-oY-naL"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phM-7r-sEg">
-                                        <rect key="frame" x="65" y="8" width="20" height="27"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="THE EDU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phM-7r-sEg">
+                                        <rect key="frame" x="65" y="8" width="92" height="27"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="봄" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYd-HJ-8Tt">
-                                        <rect key="frame" x="92" y="8" width="20" height="27"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                        <color key="textColor" name="mainColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46x-hh-53r" userLabel="searchBtn">
@@ -62,7 +55,6 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="JYd-HJ-8Tt" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" constant="8" id="1hH-AP-Zro"/>
                                     <constraint firstAttribute="height" constant="45" id="5VY-fT-3Gh"/>
                                     <constraint firstItem="46x-hh-53r" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" constant="7" id="6uo-j9-AJe"/>
                                     <constraint firstItem="phM-7r-sEg" firstAttribute="leading" secondItem="6fc-nK-T5b" secondAttribute="trailing" constant="20" id="AE6-YA-fQO"/>
@@ -70,11 +62,10 @@
                                     <constraint firstItem="6fc-nK-T5b" firstAttribute="leading" secondItem="IAh-ce-8lo" secondAttribute="leading" constant="15" id="Zte-TX-2yx"/>
                                     <constraint firstItem="6fc-nK-T5b" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" constant="7" id="dzZ-jd-SBu"/>
                                     <constraint firstItem="phM-7r-sEg" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" constant="8" id="jJ7-U6-xdq"/>
-                                    <constraint firstItem="JYd-HJ-8Tt" firstAttribute="leading" secondItem="phM-7r-sEg" secondAttribute="trailing" constant="7" id="wFd-oF-pYT"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9Rg-YI-XpS">
-                                <rect key="frame" x="0.0" y="90" width="390" height="671"/>
+                                <rect key="frame" x="0.0" y="136" width="390" height="625"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -83,10 +74,10 @@
                         <constraints>
                             <constraint firstItem="IAh-ce-8lo" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="0pP-GS-8hK"/>
                             <constraint firstItem="9Rg-YI-XpS" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="bottom" id="48K-YU-Rmk"/>
-                            <constraint firstItem="IAh-ce-8lo" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="45" id="JlE-5Y-Btd"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="9Rg-YI-XpS" secondAttribute="trailing" id="QS3-12-HPh"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="9Rg-YI-XpS" secondAttribute="bottom" id="Y9z-fq-Zgl"/>
                             <constraint firstItem="IAh-ce-8lo" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="iqD-N1-M9v"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="top" secondItem="IAh-ce-8lo" secondAttribute="top" id="wFg-6L-XhU"/>
                             <constraint firstItem="9Rg-YI-XpS" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="wlR-1T-Fqo"/>
                         </constraints>
                     </view>
@@ -814,7 +805,7 @@
             </objects>
             <point key="canvasLocation" x="5868" y="988"/>
         </scene>
-        <!--bannerName-->
+        <!--Banner Info View Controller-->
         <scene sceneID="bsu-bg-V0N">
             <objects>
                 <viewController storyboardIdentifier="BannerInfoViewController" id="wqp-h7-QCe" customClass="BannerInfoViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -934,7 +925,7 @@
                             <constraint firstItem="1Sn-1r-hFi" firstAttribute="top" secondItem="EUn-V9-9n8" secondAttribute="top" id="q0x-U1-WnG"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="bannerName" id="Snv-Lt-Gzt">
+                    <navigationItem key="navigationItem" id="Snv-Lt-Gzt">
                         <barButtonItem key="backBarButtonItem" title="back" id="yvu-cv-kJi"/>
                     </navigationItem>
                     <connections>
@@ -1087,9 +1078,6 @@
         <image name="home" width="25" height="25"/>
         <image name="homeSelected" width="25" height="25"/>
         <image name="search" width="25" height="25"/>
-        <namedColor name="mainColor">
-            <color red="1" green="0.85500001907348633" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -25,6 +25,9 @@ extension Const {
             static let myPage = "UserViewController"
             static let setting = "SettingVC"
             static let account = "AccountVC"
+            static let myCoupon = "MyCouponVC"
+            static let contact = "ContactVC"
+            static let event = "EventVC"
             
             
             static let myCourse = "MyCourseViewController"

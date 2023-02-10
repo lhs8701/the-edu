@@ -71,6 +71,8 @@ class AccountVC: UIViewController {
         }
         
         imagePicker.delegate = self
+        
+        identificationbtn.layer.isHidden = true
     }
     
     // MARK: - 이메일, 닉네임 유효성 검사
