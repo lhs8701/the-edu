@@ -1,9 +1,9 @@
 package joeuncamp.dabombackend.domain.member.service;
 
+import joeuncamp.dabombackend.domain.member.dto.AccountDto;
 import joeuncamp.dabombackend.domain.member.dto.PasswordDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.domain.member.repository.TempPasswordRedisRepository;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CWrongPasswordException;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PasswordService {
+public class AccountManager {
 
     private final MemberJpaRepository memberJpaRepository;
     private final PasswordEncoder passwordEncoder;

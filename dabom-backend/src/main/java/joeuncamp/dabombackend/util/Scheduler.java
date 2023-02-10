@@ -22,7 +22,6 @@ import java.util.List;
 public class Scheduler {
     private final CourseJpaRepository courseJpaRepository;
     private final RankingJpaRepository rankingJpaRepository;
-    private final EmailService emailService;
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 24 * 7)
     private void renewWeeklyRanking() {

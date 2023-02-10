@@ -27,11 +27,11 @@ public class FeedbackController {
     @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/feedback/unit/{unitId}")
-    public ResponseEntity<Long> doFeedback(@PathVariable Long unitId, @RequestBody FeedbackDto.CreateRequest requestDto, @AuthenticationPrincipal Member member){
+    public ResponseEntity<Void> doFeedback(@PathVariable Long unitId, @RequestBody FeedbackDto.CreateRequest requestDto, @AuthenticationPrincipal Member member){
         requestDto.setMemberId(member.getId());
         requestDto.setUnitId(unitId);
-        Long response = feedbackService.doFeedback(requestDto);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        feedbackService.doFeedback(requestDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Operation(summary="강의 피드백 조회", description="피드백을 조회합니다.")

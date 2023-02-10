@@ -53,9 +53,6 @@ public class CourseDto {
 
         public Course toEntity(CreatorProfile creator) {
             CategoryType categoryType = CategoryType.findByTitle(category);
-            if (categoryType == CategoryType.EMPTY) {
-                throw new CIllegalArgumentException();
-            }
             Course course = Course.builder()
                     .title(title)
                     .description(description)

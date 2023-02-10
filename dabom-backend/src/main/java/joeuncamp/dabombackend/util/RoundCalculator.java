@@ -16,7 +16,7 @@ public class RoundCalculator {
      */
     public static double round(double number, int digit) {
         if (digit < 0) {
-            throw new CIllegalArgumentException();
+            throw new CIllegalArgumentException("자릿수는 0 이상이어야 합니다.");
         }
         double factor = pow(10, digit);
         return Math.round(number * factor) / factor;

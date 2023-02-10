@@ -10,6 +10,7 @@ import joeuncamp.dabombackend.domain.player.feedback.repository.FeedbackJpaRepos
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
+import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,18 +30,17 @@ public class FeedbackService {
      * 가장 최근에 남긴 피드백 하나만 기록됩니다.
      *
      * @param requestDto 회원, 강의, 코멘트, 좋아요
-     * @return 생성된 피드백 아이디넘버
      */
-    public Long doFeedback(FeedbackDto.CreateRequest requestDto) {
+    public void doFeedback(FeedbackDto.CreateRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
         Unit unit = unitJpaRepository.findById(requestDto.getUnitId()).orElseThrow(CResourceNotFoundException::new);
-        if (!enrollService.doesEnrolled(member, unit.getCourse())){
+        if (!enrollService.doesEnrolled(member, unit.getCourse())) {
             throw new CAccessDeniedException("등록하지 않은 강좌입니다.");
         }
         Feedback feedback = feedbackJpaRepository.findByMemberAndUnit(member, unit)
                 .orElseGet(() -> new Feedback(member, unit));
-        feedback.update(requestDto.getComment(), requestDto.getThumbsUp());
-        return feedbackJpaRepository.save(feedback).getId();
+        feedback.update(requestDto.getThumbsUp(), requestDto.getThumbsDown());
+        feedbackJpaRepository.save(feedback);
     }
 
     /**

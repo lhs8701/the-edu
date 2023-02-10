@@ -84,9 +84,6 @@ public class CourseService {
      */
     public PagingDto<CourseDto.ShortResponse> getCoursesByCategory(String category, Pageable pageable) {
         CategoryType type = CategoryType.findByTitle(category);
-        if (type.equals(CategoryType.EMPTY)) {
-            throw new CIllegalArgumentException();
-        }
         Page<Course> page = courseJpaRepository.findCourseByCategory(type, pageable);
         List<CourseDto.ShortResponse> courses = page.getContent().stream()
                 .map(CourseDto.ShortResponse::new)

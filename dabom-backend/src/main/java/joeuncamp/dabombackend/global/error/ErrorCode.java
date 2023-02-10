@@ -13,6 +13,8 @@ public enum ErrorCode {
     RESOURCE_NOT_FOUND(-1000, "해당 리소스를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
     REVIEW_EXIST(-1001, "이미 후기를 등록하였습니다.", HttpStatus.FORBIDDEN),
     BAD_REQUEST(-1002, "잘못된 접근입니다.", HttpStatus.BAD_REQUEST),
+    CATEGORY_NOT_FOUND(-1003, "존재하지 않는 카테고리입니다.", HttpStatus.NOT_FOUND),
+
 
     // 6000 ~ : 권한, 인증 에러
     CREATION_DENIED(-6000, "크리에이터만 강좌 개설을 할 수 있습니다.", HttpStatus.FORBIDDEN),

@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.global.constant;
 
+import joeuncamp.dabombackend.global.error.exception.CCategoryNotFoundException;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,9 +17,7 @@ public enum CategoryType {
     TOEIC("토익"),
     TOEFL("토플"),
     STOCK("주식"),
-    FUND("펀드"),
-    EMPTY("없음");
-
+    FUND("펀드");
 
     private final String title;
 
@@ -26,6 +25,6 @@ public enum CategoryType {
         return Arrays.stream(values())
                 .filter(type -> type.getTitle().equals(title))
                 .findAny()
-                .orElseThrow(CIllegalArgumentException::new);
+                .orElseThrow(CCategoryNotFoundException::new);
     }
 }

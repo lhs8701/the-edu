@@ -8,7 +8,7 @@ import joeuncamp.dabombackend.domain.member.dto.PasswordDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
-import joeuncamp.dabombackend.domain.member.service.PasswordService;
+import joeuncamp.dabombackend.domain.member.service.AccountManager;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
-    private final PasswordService passwordService;
+    private final AccountManager accountManager;
 
     @Operation(summary = "자신의 프로필 정보를 조회합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
@@ -50,7 +50,7 @@ public class MemberController {
     @PreAuthorize("permitAll()")
     @PostMapping("/members/me/password/reset")
     public ResponseEntity<PasswordDto.Response> resetPassword(@RequestBody PasswordDto.ResetRequest requestDto) {
-        PasswordDto.Response response = passwordService.resetPassword(requestDto);
+        PasswordDto.Response response = accountManager.resetPassword(requestDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -60,7 +60,7 @@ public class MemberController {
     @PostMapping("/members/me/password/change")
     public ResponseEntity<Void> changePassword(@RequestBody PasswordDto.ChangeRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
-        passwordService.changePassword(requestDto);
+        accountManager.changePassword(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

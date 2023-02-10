@@ -1,14 +1,9 @@
 package joeuncamp.dabombackend.domain.member.service;
 
 import jakarta.transaction.Transactional;
-import joeuncamp.dabombackend.domain.member.dto.PasswordDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.global.common.IdResponseDto;
-import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
