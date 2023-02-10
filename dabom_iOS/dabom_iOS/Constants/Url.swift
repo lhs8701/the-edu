@@ -20,6 +20,8 @@ extension Const {
         static let getOngoingBanner = "\(apiBaseUrl)/events/ongoing"
         static let getEvent = "\(apiBaseUrl)/events"
         
+        static let uploadImage = "\(apiBaseUrl)/file/image"
+        
         // MARK: - Authentication
         static let signup = "http://\(serverIP)/api/auth/basic/signup"
         static let login = "http://\(serverIP)/api/auth/basic/login"

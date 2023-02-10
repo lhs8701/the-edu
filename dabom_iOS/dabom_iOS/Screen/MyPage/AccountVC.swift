@@ -27,6 +27,8 @@ class AccountVC: UIViewController {
     
     var userNickname: String = ""
     var userEmail: String = ""
+    var userProfile: String = ""
+    
     var profileImage: UIImage?
     
     // MARK: - Life Cycle
@@ -128,7 +130,7 @@ class AccountVC: UIViewController {
     // MARK: - 수정한 프로필 서버로 전송
     private func patchProfile() {
         
-        UserProfileService.shared.patchProfile(nickname: self.userNickname, email: self.userEmail) { response in
+        UserProfileService.shared.patchProfile(nickname: self.userNickname, email: self.userEmail, profileImage: self.userProfile) { response in
             switch response {
             case .success:
                 print("patch Profile Success")
@@ -169,6 +171,29 @@ extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDele
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.profileImageView.image = image
+            
+            UploadImageDataService.shared.uploadImage(nickname: self.userNickname, image: image) { response in
+                switch response {
+                case .success(let data):
+                    
+                    print("upload Image Success")
+                    
+                    if let data = data as? ImageDataModel {
+                        self.userProfile = data.originalFilePath
+                    }
+//                    self.userProfile =
+                case .requestErr(let message):
+                    print("requestErr", message)
+                case .pathErr:
+                    print("pathErr")
+                case .serverErr:
+                    print("serverErr")
+                case .networkFail:
+                    print("networkFail")
+                case .resourceErr:
+                    print("resourceErr")
+                }
+            }
         }
         dismiss(animated: true)
     }

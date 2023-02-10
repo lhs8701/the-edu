@@ -23,6 +23,7 @@ class UserViewController: UIViewController {
     // MARK: - let, var
     var userNickname: String = ""
     var userEmail: String = ""
+    var userProfile: String = ""
     var userProfileImage: ImageDataModel = ImageDataModel()
     
     // MARK: - Life Cycle
@@ -60,6 +61,7 @@ class UserViewController: UIViewController {
 
         accountVC.userNickname = self.userNickname
         accountVC.userEmail = self.userEmail
+        accountVC.userProfile = self.userProfile
         accountVC.profileImage = self.profileImageView.image
         
         accountVC.modalPresentationStyle = .fullScreen
@@ -102,12 +104,12 @@ class UserViewController: UIViewController {
                     self.userEmail = profile.email ?? ""
                     self.userNickname = profile.nickname ?? ""
                     self.userProfileImage = profile.profileImage
+                    self.userProfile = profile.profileImage.originalFilePath
                     
                     self.userNameLabel.text = self.userNickname
 
                     self.profileImageView.kf.indicatorType = .activity
-//                    self.profileImageView.setImage(with: self.userProfileImage.mediumFilePath)
-                    self.profileImageView.setImage(with: self.userProfileImage.originalFilePath)
+                    self.profileImageView.noCacheImage(with: self.userProfileImage.originalFilePath)
                 }
             case .requestErr(let message):
                 print("requestErr", message)

@@ -26,6 +26,7 @@ struct UserProfileService {
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
         
         request.responseData { dataResponse in
+            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -40,7 +41,7 @@ struct UserProfileService {
         }
     }
     
-    func patchProfile(nickname: String, email: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+    func patchProfile(nickname: String, email: String, profileImage: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         let URL = "\(Const.Url.patchProfile)/me/profile"
@@ -52,13 +53,15 @@ struct UserProfileService {
         
         let bodyData: Parameters = [
             "nickname" : nickname,
-            "email" : email
+            "email" : email,
+            "profileImage" : profileImage
         ] as Dictionary
 
         
         let request = AF.request(URL, method: .patch, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
         
-        request.responseData { dataResponse in
+        request.responseData(emptyResponseCodes: [200, 201, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}

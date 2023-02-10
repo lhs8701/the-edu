@@ -62,13 +62,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func changeRootVC(_ vc: UIViewController, animated: Bool) {
-        print("here")
-        
         guard let window = self.window else { return }
         window.rootViewController = vc
         
         UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve], animations: nil, completion: nil)
     }
 
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+            
+            // 세로방향 고정
+            return UIInterfaceOrientationMask.portrait
+    }
 }
 
