@@ -34,4 +34,18 @@ public class ChapterService {
         }
         return lastUnit.get().getSequence();
     }
+
+    /**
+     * 강좌의 기본 커리큘럼을 생성합니다.
+     * @param course 강좌
+     */
+    public void saveDefaultChapter(Course course) {
+        Chapter chapter = Chapter.builder()
+                .courseId(course.getId())
+                .sequence(1)
+                .title("챕터")
+                .isDefault(true)
+                .build();
+        chapterJpaRepository.save(chapter);
+    }
 }

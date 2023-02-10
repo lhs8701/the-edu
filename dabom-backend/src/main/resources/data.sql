@@ -34,17 +34,17 @@ values
     ('6', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/thumbnail_m.jpg', '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '종료된 이벤트3', '2023-01-08', '2023-01-07', '종료된 이벤트3', '1');
 
 -- <Course> --
-insert into course (id, created_time, modified_time, category, description, price, medium_file_path, original_file_path, small_file_path, title, creator_profile_id)
+insert into course (id, created_time, modified_time, category, description, medium_file_path, original_file_path, small_file_path, title, creator_profile_id)
 values
-    ('1', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 기본편', '1'),
-    ('2', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 중급자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 중급편', '1'),
-    ('3', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 고수가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 심화편', '1'),
-    ('4', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 마스터가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 극악편', '1'),
+    ('1', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.',  '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 기본편', '1'),
+    ('2', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 중급자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.',  '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 중급편', '1'),
+    ('3', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 고수가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.',  '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 심화편', '1'),
+    ('4', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END','스프링 마스터가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.',  '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 극악편', '1'),
 
-    ('5', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 입문자가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '리액트 핵심 원리 - 기본편', '1'),
-    ('6', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 중급자가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '리액트 핵심 원리 - 중급편', '1'),
-    ('7', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 고수가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '리액트 핵심 원리 - 심화편', '1'),
-    ('8', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 마스터가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.', '143000', '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '리액트 핵심 원리 - 극악편', '1');
+    ('5', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 입문자가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.',  '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '리액트 핵심 원리 - 기본편', '1'),
+    ('6', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 중급자가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.',  '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '리액트 핵심 원리 - 중급편', '1'),
+    ('7', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 고수가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.',  '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '리액트 핵심 원리 - 심화편', '1'),
+    ('8', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'FRONT_END','리액트 마스터가 예제를 만들어가면서 리액트의 핵심 원리를 이해할 수 있습니다.',  '/static/images/default/thumbnail_m.jpg','/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '리액트 핵심 원리 - 극악편', '1');
 
 insert into description_image (description_image_id, medium_file_path, original_file_path, small_file_path)
 values
@@ -65,7 +65,14 @@ values
     ('8', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
     ('8', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg');
 
--- <Enroll> --
+-- -- <Ticket> --
+-- insert into ticket (id, price, course_period, course_id)
+-- values
+    ('1', '30000', 'THREE_MONTH', '1'),
+    ('2', '60000', 'SIX_MONTH', '1'),
+    ('3', '100000', 'UNLIMITED', '1');
+
+    -- <Enroll> --
 insert into enroll (id, created_time, modified_time, course_id, member_id)
 values
     ('1', '2023-02-08 13:45:24.036603', '2023-02-08 13:45:24.036603', '1', '1'),

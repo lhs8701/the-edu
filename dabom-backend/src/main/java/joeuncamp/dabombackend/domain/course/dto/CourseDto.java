@@ -57,7 +57,6 @@ public class CourseDto {
                     .title(title)
                     .description(description)
                     .category(categoryType)
-                    .price(price)
                     .thumbnailImage(new ImageInfo(thumbnailImage))
                     .descriptionImages(descriptionImageUrls.stream()
                             .map(ImageInfo::new)
@@ -141,7 +140,6 @@ public class CourseDto {
             this.thumbnailImage = course.getThumbnailImage();
             this.descriptionImages = course.getDescriptionImages();
             this.score = averageScore;
-            this.price = course.getPrice();
             this.wish = course.getWishList().size();
         }
     }

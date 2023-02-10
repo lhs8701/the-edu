@@ -35,7 +35,8 @@ public class CourseService {
     private final CurriculumService curriculumService;
     private final ReviewService reviewService;
     private final EnrollJpaRepository enrollJpaRepository;
-    private final ChapterJpaRepository chapterJpaRepository;
+    private final ChapterService chapterService;
+    private final CourseTicketService courseTicketService;
 
     /**
      * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
@@ -52,13 +53,8 @@ public class CourseService {
         Course course = requestDto.toEntity(creator);
         courseJpaRepository.save(course);
         enrollJpaRepository.save(Enroll.builder().member(member).course(course).build());
-        Chapter chapter = Chapter.builder()
-                .courseId(course.getId())
-                .sequence(1)
-                .title("챕터")
-                .isDefault(true)
-                .build();
-        chapterJpaRepository.save(chapter);
+        chapterService.saveDefaultChapter(course);
+        courseTicketService.saveDefaultTickets(course);
         return course.getId();
     }
 
