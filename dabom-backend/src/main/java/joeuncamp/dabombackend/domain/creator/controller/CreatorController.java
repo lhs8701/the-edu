@@ -45,10 +45,9 @@ public class CreatorController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/creators/me/standby")
-    public ResponseEntity<Void> standByCreator(@AuthenticationPrincipal Member member) {
-        CreatorDto.StandByRequest requestDto = new CreatorDto.StandByRequest(member.getId());
+    public ResponseEntity<Void> standByCreator(@RequestBody CreatorDto.StandByRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setMemberId(member.getId());
         creatorActivator.standByMember(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

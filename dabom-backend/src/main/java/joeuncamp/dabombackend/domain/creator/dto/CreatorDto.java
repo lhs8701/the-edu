@@ -5,6 +5,8 @@ import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.checkerframework.checker.units.qual.A;
 
 public class CreatorDto {
@@ -17,10 +19,15 @@ public class CreatorDto {
     }
 
     @Getter
-    @AllArgsConstructor
+    @NoArgsConstructor
+    @Setter
     public static class StandByRequest {
         @Schema(hidden = true)
         Long memberId;
+        @Schema(description = "강좌 주제")
+        String subject;
+        @Schema(description = "경력")
+        String career;
 
         public CreatorProfile toEntity(Member member) {
             return CreatorProfile.builder()
