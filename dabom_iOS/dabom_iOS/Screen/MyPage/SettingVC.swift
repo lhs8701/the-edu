@@ -12,21 +12,32 @@ import KakaoSDKUser
 
 class SettingVC: UIViewController {
     
+    // MARK: - IBOutlet
+    @IBOutlet weak var reissueTestView: UIView!
+    
+    
+    // MARK: - let, var
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
 
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        reissueTestView.layer.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setNavi()
+    }
+    
+    // MARK: - NavigationBar Setting
+    private func setNavi() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.navigationController?.navigationBar.topItem?.title = "환경설정"
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
-    
+    // MARK: - 이용 약관 버튼 눌렀을 때
     @IBAction func TOSBtnPressed(_ sender: Any) {
         guard let statementVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: "StatementVC") as? StatementVC else {return}
         
@@ -34,18 +45,15 @@ class SettingVC: UIViewController {
         self.navigationController?.pushViewController(statementVC, animated: true)
     }
     
+    
+    // MARK: - 개인정보 취급방침 버튼 눌렀을 때
     @IBAction func privacyStatementBtnPressed(_ sender: Any) {
         guard let statementVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: "StatementVC") as? StatementVC else {return}
         
         statementVC.statementText = Const.Statement.Privacy
         self.navigationController?.pushViewController(statementVC, animated: true)
     }
-    
-    
-    
-    
-    
-    
+
 
     // MARK: - 로그아웃 버튼 눌렀을 때
     @IBAction func logoutBtnPressed(_ sender: Any) {
@@ -64,9 +72,7 @@ class SettingVC: UIViewController {
                     
                     self.kakaoLogout()
                 }
-                
-//                self.kakaoLogout()
-                
+                            
             } else if self.loginType == "apple" {
                 self.appleLogout()
             } else {

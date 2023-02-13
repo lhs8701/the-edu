@@ -9,7 +9,11 @@ import UIKit
 
 class EventTVC: UITableViewCell {
     
+    // MARK: - IBOutlet
     @IBOutlet weak var eventThumbnail: UIImageView!
+    
+    
+    // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +25,7 @@ class EventTVC: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - Data Set
     func setData(eventData: BannerDataModel) {
         eventThumbnail.setImage(with: eventData.bannerImage.mediumFilePath)
     }

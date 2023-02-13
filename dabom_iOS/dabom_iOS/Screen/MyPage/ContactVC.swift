@@ -8,7 +8,9 @@
 import UIKit
 
 class ContactVC: UIViewController {
-
+    
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -16,12 +18,16 @@ class ContactVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setNavi()
+    }
+
+    
+    // MARK: - NavigationBar Setting
+    private func setNavi() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.topItem?.title = "서비스 문의"
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
-
-
     
     
 

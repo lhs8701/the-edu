@@ -11,8 +11,12 @@ import Pageboy
 
 class MyCourseTabManViewController: TabmanViewController {
 
+    
+    // MARK: - let, var
     private var viewControllers: Array<UIViewController> = []
 
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +33,6 @@ class MyCourseTabManViewController: TabmanViewController {
         let bar = TMBar.ButtonBar()
         bar.layout.transitionStyle = .snap
         bar.layout.alignment = .centerDistributed
-//        bar.layout.interButtonSpacing = view.bounds.width / 4
         bar.layout.contentMode = .fit
         
         bar.backgroundView.style = .clear
@@ -65,10 +68,6 @@ extension MyCourseTabManViewController: PageboyViewControllerDataSource, TMBarDa
     }
 
     func barItem(for bar: Tabman.TMBar, at index: Int) -> Tabman.TMBarItemable {
-//        let item = TMBarItem(title: "")
-//        item.title = "Page \(index)"
-//
-//        return item
         switch index {
         case 0:
             return TMBarItem(title: "덜 봄")

@@ -33,7 +33,7 @@ struct CourseInfoDataService {
     
     // MARK: - Course가 찜한 강좌인지 확인
     func isWishCourse(courseId: Int, completion: @escaping (Bool) -> Void) {
-        let URL = "\(Const.Url.isWishCourse)/\(courseId)/wish/check"
+        let URL = "\(Const.Url.isWishCourse)/\(courseId)"
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         let header: HTTPHeaders = [
@@ -41,9 +41,10 @@ struct CourseInfoDataService {
             "ACCESS" : accessToken
         ]
         
-        let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
+        let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
         
         request.responseData { dataResponse in
+            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -69,7 +70,7 @@ struct CourseInfoDataService {
     
     // MARK: - 찜하기
     func changeWishCourse(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.changeWishStatus)/\(courseId)/wish"
+        let URL = "\(Const.Url.changeWishStatus)/\(courseId)"
         print(URL)
         let accessToken = UserDefaults.standard.string(forKey: "accessToken")
         
@@ -81,6 +82,7 @@ struct CourseInfoDataService {
         let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
+            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}

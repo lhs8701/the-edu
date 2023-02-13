@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import Photos
+import SnapKit
 
 
 class AccountVC: UIViewController {
@@ -17,10 +18,10 @@ class AccountVC: UIViewController {
     @IBOutlet weak var userEmailLabel: UITextField!
     @IBOutlet weak var identificationbtn: UIButton!
     @IBOutlet weak var saveBtn: UIButton!
+    @IBOutlet weak var changePasswordBtn: UIButton!
     @IBOutlet weak var loginTypeLabel: UILabel!
     
     // MARK: - let, var
-//    let imagePickerController = UIImagePickerController()
     let imagePicker = UIImagePickerController()
     
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
@@ -41,8 +42,14 @@ class AccountVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setNavi()
+    }
+    
+    
+    // MARK: - NavigationBar Setting
+    private func setNavi() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.topItem?.title = "계정 정보"
+//        self.navigationController?.navigationBar.topItem?.title = "계정 정보"
     }
     
     // MARK: - setProfile
@@ -58,23 +65,33 @@ class AccountVC: UIViewController {
         self.profileImageView.layer.cornerRadius = 45
         self.identificationbtn.layer.cornerRadius = 10
         self.saveBtn.layer.cornerRadius = 10
+        self.changePasswordBtn.layer.cornerRadius = 10
         
         if loginType == "kakao" {
             self.loginTypeLabel.isHidden = false
             self.loginTypeLabel.text = "카카오 로그인 회원입니다"
             self.userEmailLabel.isEnabled = false
+            self.changePasswordBtn.isEnabled = false
         } else if loginType == "apple" {
             self.loginTypeLabel.isHidden = false
             self.loginTypeLabel.text = "애플 로그인 회원입니다"
             self.userEmailLabel.isEnabled = false
+            self.changePasswordBtn.isEnabled = false
         } else {
             self.loginTypeLabel.isHidden = true
             self.userEmailLabel.isEnabled = true
+            self.changePasswordBtn.isEnabled = true
         }
         
         imagePicker.delegate = self
         
         identificationbtn.layer.isHidden = true
+        identificationbtn.snp.makeConstraints {
+            $0.height.equalTo(0)
+        }
+        saveBtn.snp.makeConstraints {
+            $0.top.equalTo(self.changePasswordBtn.snp.bottom).offset(20)
+        }
     }
     
     // MARK: - 이메일, 닉네임 유효성 검사
@@ -163,6 +180,17 @@ class AccountVC: UIViewController {
         
     }
     
+    
+    @IBAction func changePasswordBtnPressed(_ sender: Any) {
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.changePasswordVC) as? ChangePasswordVC else {return}
+        
+        nextVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    
+    
+    // MARK: - 이미지 리사이징
     func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
         let scale = newWidth / image.size.width // 새 이미지 확대/축소 비율
         let newHeight = image.size.height * scale

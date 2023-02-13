@@ -12,8 +12,8 @@ struct GetWishCourseDataService {
     static let shared = GetWishCourseDataService()
     
     // MARK: - 유저의 찜한 강좌 가져오기
-    func getWishCourse(memberId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.getMyWishCourses)/\(memberId)/courses/wish"
+    func getWishCourse(completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.getMyWishCourses)"
         print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""

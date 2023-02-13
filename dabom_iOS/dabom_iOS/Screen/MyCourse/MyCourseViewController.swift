@@ -20,11 +20,5 @@ class MyCourseViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-////        self.navigationController?.isNavigationBarHidden = true
-//        print("PlayViewDidAppear")
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-//    }
-    
 
 }

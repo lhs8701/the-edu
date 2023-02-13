@@ -9,10 +9,15 @@ import UIKit
 
 class StatementVC: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet weak var statement: UITextView!
     
+    
+    // MARK: - let, var
     var statementText: String?
     
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 

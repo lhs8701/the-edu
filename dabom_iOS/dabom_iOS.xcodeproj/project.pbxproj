@@ -40,6 +40,7 @@
 		0E376A202995D6AC00C42180 /* EventTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E376A1E2995D6AC00C42180 /* EventTVC.xib */; };
 		0E376A222995E3C600C42180 /* UploadImageDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E376A212995E3C600C42180 /* UploadImageDataService.swift */; };
 		0E376A262996113400C42180 /* TokenDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E376A252996113400C42180 /* TokenDataModel.swift */; };
+		0E486E8B2999F51600484BA8 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E486E8A2999F51600484BA8 /* ChangePasswordVC.swift */; };
 		0E550140296EA96400DD5B75 /* Layer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E55013F296EA96400DD5B75 /* Layer+.swift */; };
 		0E550142296F8BC200DD5B75 /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E550141296F8BC200DD5B75 /* ResultVC.swift */; };
 		0E6028292965659D00A25F48 /* InCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6028282965659D00A25F48 /* InCourseViewController.swift */; };
@@ -196,6 +197,7 @@
 		0E376A1E2995D6AC00C42180 /* EventTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTVC.xib; sourceTree = "<group>"; };
 		0E376A212995E3C600C42180 /* UploadImageDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageDataService.swift; sourceTree = "<group>"; };
 		0E376A252996113400C42180 /* TokenDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDataModel.swift; sourceTree = "<group>"; };
+		0E486E8A2999F51600484BA8 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		0E55013F296EA96400DD5B75 /* Layer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Layer+.swift"; sourceTree = "<group>"; };
 		0E550141296F8BC200DD5B75 /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		0E6028282965659D00A25F48 /* InCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InCourseViewController.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				0EA647CB298B94F7009AB119 /* ImageDataModel.swift */,
 				0E69A040296543B600BFD12E /* UserTab.storyboard */,
 				0E376A152995CC8A00C42180 /* MyCouponVC.swift */,
+				0E486E8A2999F51600484BA8 /* ChangePasswordVC.swift */,
 				0E9B0F4B2990962B004DA0F1 /* StatementVC.swift */,
 				0E376A172995D07000C42180 /* ContactVC.swift */,
 				0E376A192995D48900C42180 /* EventVC.swift */,
@@ -966,6 +969,7 @@
 				0EFB7478297132F500C58E87 /* LoginVC.swift in Sources */,
 				0EC314E129875753004C82CF /* CourseReviewDataModel.swift in Sources */,
 				0E685E69299362C80094D10A /* BasePaddingLabel.swift in Sources */,
+				0E486E8B2999F51600484BA8 /* ChangePasswordVC.swift in Sources */,
 				0EB576F1296BB6E1001EFBE1 /* BannerInfoViewController.swift in Sources */,
 				0E1E959D2977BDE800CBE70B /* UserDataModel.swift in Sources */,
 				0ED17B2B2987854D0008D3C0 /* CourseReviewAllVC.swift in Sources */,
@@ -1132,6 +1136,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "the-edu";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1186,6 +1191,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "the-edu";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1205,9 +1211,10 @@
 				CODE_SIGN_ENTITLEMENTS = dabom_iOS/dabom_iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C9U8778A7W;
+				DEVELOPMENT_TEAM = MKYWGCRMF3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dabom_iOS/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "the-edu";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진의 저장 또는 업로드를 위해 사용자의 앨범에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1221,7 +1228,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joeuncamp.dabom-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jouncamp.the-edu";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1238,9 +1245,10 @@
 				CODE_SIGN_ENTITLEMENTS = dabom_iOS/dabom_iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C9U8778A7W;
+				DEVELOPMENT_TEAM = MKYWGCRMF3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dabom_iOS/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "the-edu";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진의 저장 또는 업로드를 위해 사용자의 앨범에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1254,7 +1262,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joeuncamp.dabom-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jouncamp.the-edu";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

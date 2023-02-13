@@ -54,7 +54,7 @@ class WishCourseViewController: UIViewController {
     
     private func getWishCourse() {
         print("call getWishCourse!")
-        GetWishCourseDataService.shared.getWishCourse(memberId: self.memberId) { response in
+        GetWishCourseDataService.shared.getWishCourse { response in
             switch response {
             case .success(let wishCourseData):
                 if let data = wishCourseData as? [SampleCourseThumbnail] {
