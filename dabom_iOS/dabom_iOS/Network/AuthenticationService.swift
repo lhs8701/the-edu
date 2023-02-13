@@ -131,6 +131,38 @@ struct AuthenticationService {
         }
     }
     
+    func changePassword(currentPW: String, changePW: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.changePassword)"
+        print(URL)
+        
+        let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
+        
+        let header: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "ACCESS" : accessToken
+        ]
+        
+        let bodyData: Parameters = [
+            "currentPassword": currentPW,
+            "newPassword" : changePW
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
+        
+        request.responseData(emptyResponseCodes: [200, 201, 204, 205]) { dataResponse in
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+
+                let networkResult = self.judgeStatus(by: statusCode, nil)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+        
+    }
+    
     // MARK: - kakao Login
     func kakaoLogin(accessToken: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.kakaoLogin)"

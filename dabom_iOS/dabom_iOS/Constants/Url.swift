@@ -41,6 +41,8 @@ extension Const {
         // MARK: - Member
         static let getProfile = "http://\(serverIP)/api/members"
         static let patchProfile = "http://\(serverIP)/api/members"
+        static let changePassword = "\(apiBaseUrl)/members/me/password/change"
+        static let resetPassword = "\(apiBaseUrl)/members/me/password/reset"
         
         // MARK: - MyCourse
         static let getMyCourses = "http://\(serverIP)/api/students"

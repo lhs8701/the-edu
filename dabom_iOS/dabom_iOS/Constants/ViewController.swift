@@ -28,6 +28,7 @@ extension Const {
             static let myCoupon = "MyCouponVC"
             static let contact = "ContactVC"
             static let event = "EventVC"
+            static let changePasswordVC = "ChangePasswordVC"
             
             
             static let myCourse = "MyCourseViewController"
