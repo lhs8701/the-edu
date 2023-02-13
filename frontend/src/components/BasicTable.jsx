@@ -16,7 +16,7 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
           <TableRow>
             {cells?.map((cell) => {
               return (
-                <TableCell key={cell.id} align="left">
+                <TableCell key={cell.id} align="center">
                   {cell?.name}
                 </TableCell>
               );
@@ -34,11 +34,11 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
                 navigate(`detailEvent/${row.id}`);
               }}
             >
-              <TableCell align="left">{row.id}</TableCell>
-              <TableCell align="left">{row.title}</TableCell>
-              <TableCell align="left">{row.startDate}</TableCell>
-              <TableCell align="left">{row.endDate}</TableCell>
-              <TableCell align="left">
+              <TableCell align="center">{row.id}</TableCell>
+              <TableCell align="center">{row.title}</TableCell>
+              <TableCell align="center">{row.startDate}</TableCell>
+              <TableCell align="center">{row.endDate}</TableCell>
+              <TableCell align="center">
                 <button
                   onClick={() => {
                     deleteFun(row.id);
@@ -65,7 +65,7 @@ export function AdminUserTable({ rows, cells, deleteFun }) {
           <TableRow>
             {cells?.map((cell) => {
               return (
-                <TableCell key={cell.id} align="left">
+                <TableCell key={cell.id} align="center">
                   {cell?.name}
                 </TableCell>
               );
@@ -75,13 +75,17 @@ export function AdminUserTable({ rows, cells, deleteFun }) {
         <TableBody>
           {rows?.map((row, idx) => (
             <TableRow key={row.id}>
-              <TableCell align="left">{row.id}</TableCell>
-              <TableCell align="left">{row.account}</TableCell>
-              <TableCell align="left">{row.nickname}</TableCell>
-              <TableCell align="left">{row.mobile}</TableCell>
-              <TableCell align="left">{row.loginType}</TableCell>
-              <TableCell align="left">{row.creator}</TableCell>
-              <TableCell align="left">{row.joinedDate.slice(0, 10)}</TableCell>
+              <TableCell align="center">{row.id}</TableCell>
+              <TableCell align="center">{row.account}</TableCell>
+              <TableCell align="center">{row.nickname}</TableCell>
+              <TableCell align="center">{row.mobile}</TableCell>
+              <TableCell align="center">{row.loginType}</TableCell>
+              <TableCell align="center">
+                {row.creator ? "맞음" : "아님"}
+              </TableCell>
+              <TableCell align="center">
+                {row.joinedDate.slice(0, 10)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -98,7 +102,7 @@ export function AdminCreatorStanbyTable({ rows, cells, activeFun }) {
           <TableRow>
             {cells?.map((cell) => {
               return (
-                <TableCell key={cell.id} align="left">
+                <TableCell key={cell.id} align="center">
                   {cell?.name}
                 </TableCell>
               );
@@ -108,15 +112,15 @@ export function AdminCreatorStanbyTable({ rows, cells, activeFun }) {
         <TableBody>
           {rows?.map((row, idx) => (
             <TableRow key={row.id}>
-              <TableCell align="left">
+              <TableCell align="center">
                 {row.activated ? "승인" : "미승인"}
               </TableCell>
-              <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="left">{row.email}</TableCell>
-              <TableCell align="left">{row.mobile}</TableCell>
-              <TableCell align="left">{row.subject}</TableCell>
-              <TableCell align="left">{row.creator}</TableCell>
-              <TableCell align="left">
+              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">{row.email}</TableCell>
+              <TableCell align="center">{row.mobile}</TableCell>
+              <TableCell align="center">{row.subject}</TableCell>
+              <TableCell align="center">{row.creator}</TableCell>
+              <TableCell align="center">
                 <button
                   onClick={() => {
                     activeFun(row.creatorId);
@@ -141,7 +145,7 @@ export function AdminCreatorsTable({ rows, cells, activeFun }) {
           <TableRow>
             {cells?.map((cell) => {
               return (
-                <TableCell key={cell.id} align="left">
+                <TableCell key={cell.id} align="center">
                   {cell?.name}
                 </TableCell>
               );
@@ -151,10 +155,10 @@ export function AdminCreatorsTable({ rows, cells, activeFun }) {
         <TableBody>
           {rows?.map((row, idx) => (
             <TableRow key={row.id}>
-              <TableCell align="left">{row.creatorId}</TableCell>
-              <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="left">{row.email}</TableCell>
-              <TableCell align="left">{row.mobile}</TableCell>
+              <TableCell align="center">{row.creatorId}</TableCell>
+              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">{row.email}</TableCell>
+              <TableCell align="center">{row.mobile}</TableCell>
             </TableRow>
           ))}
         </TableBody>

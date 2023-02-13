@@ -24,34 +24,9 @@ const EventUploadDate = styled.div`
   margin-top: 20px;
 `;
 
-const EventPeriod = styled(EventUploadDate)`
-  color: red;
-`;
-
 const EventInfoTab = styled.div`
   margin-top: 4rem;
   margin-bottom: 20px;
-`;
-
-const EventTitle = styled.h1`
-  font-weight: var(--weight-middle);
-  font-size: var(--size-mypage-title);
-  text-align: center;
-`;
-
-const BottomLine = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: var(--color-box-gray);
-`;
-
-const EventDescription = styled.div`
-  margin-top: 30px;
-  text-align: center;
-`;
-const ContentTab = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 export default function DetailEvent() {

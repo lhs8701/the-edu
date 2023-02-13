@@ -47,6 +47,7 @@ import CoursesInquires from "./components/creator/CoursesInquires";
 import EventList from "./components/admin/event/EventList";
 import DetailEvent from "./components/admin/event/DetailEvent";
 import SuccessPurchase from "./components/purchase/SuccessPurchase";
+import UploadEvent from "./components/admin/event/UploadEvent";
 
 const router = createBrowserRouter([
   {
@@ -220,7 +221,7 @@ const router = createBrowserRouter([
       },
       {
         path: "uploadevent",
-        element: <Courses />,
+        element: <UploadEvent />,
       },
       {
         path: "uploadnotice",
