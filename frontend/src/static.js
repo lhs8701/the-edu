@@ -89,7 +89,7 @@ export const ADMIN_BAR_LIST = {
       name: "회원관리",
       list: [
         {
-          name: "전체 조회",
+          name: "전체 회원 조회",
           url: "/admin/users",
         },
         {
@@ -102,11 +102,11 @@ export const ADMIN_BAR_LIST = {
       name: "크리에이터 관리",
       list: [
         {
-          name: "목록 조회",
+          name: "크리에이터 목록 조회",
           url: "/admin/creators",
         },
         {
-          name: "신청 목록 조회",
+          name: "크리에이터 신청 목록 조회",
           url: "/admin/creatorsrequest",
         },
       ],

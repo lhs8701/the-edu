@@ -23,6 +23,7 @@ import Deposits from "../dashboard/Deposits";
 import Orders from "../dashboard/Orders";
 import AdminListItems from "./AdminListItems";
 import { Outlet } from "react-router";
+import { STATIC_URL } from "../../static";
 
 function Copyright(props) {
   return (
@@ -32,12 +33,9 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
+      <Link color="inherit" href={STATIC_URL}>
+        The-Edu 바로가기
+      </Link>
     </Typography>
   );
 }
@@ -203,6 +201,7 @@ function DashboardContent() {
               </Grid>
             </Grid> */}
             <Outlet />
+
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
