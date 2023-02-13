@@ -3,10 +3,11 @@ import { API_URL } from "../static";
 
 const STUDNET_URL = `${API_URL}/students`;
 const MEMBER_URL = `${API_URL}/members`;
-const WISH_URL = "/courses/wish";
+const WISH_URL = "/wish/courses";
 const MYCOURSE_URL = "/courses";
 const PROFILE_URL = "/profile";
 const ME_URL = "/me";
+
 export async function myCourseApi(memberId, accessToken) {
   const data = await axios.get(`${STUDNET_URL}/${memberId}${MYCOURSE_URL}`, {
     headers: {
@@ -19,8 +20,8 @@ export async function myCourseApi(memberId, accessToken) {
   return data.data;
 }
 
-export async function wishCourseApi(memberId, accessToken) {
-  const data = await axios.get(`${STUDNET_URL}/${memberId}${WISH_URL}`, {
+export async function wishCourseApi(accessToken) {
+  const data = await axios.get(`${API_URL}${WISH_URL}`, {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Credentials": true,

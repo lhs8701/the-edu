@@ -1,3 +1,10 @@
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
@@ -69,7 +76,26 @@ const PaymentCard = styled(PaymentBox)`
   padding: 10px 20px;
   box-sizing: border-box;
 `;
-const PaymentP = styled.p`
+const PurchaseMethodCheckLabel = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 2px solid lightgrey;
+  transition: all 0.3s ease;
+  /* height: 20px;
+  width: 20px; */
+  background: #d9d9d9;
+  border-radius: 50%;
+  position: relative;
+`;
+
+const MethodInput = styled.input`
+  display: none;
+`;
+
+const SmallTitle = styled(FormLabel)`
   font-size: 1.3rem;
   font-weight: var(--weight-middle);
 `;
@@ -90,14 +116,6 @@ const CourseInfoBox = styled.div`
   height: 150px;
 `;
 
-const MethodInputBox = styled.div`
-  width: 150px;
-  height: 50px;
-  border: 1px solid var(--color-box-gray);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const MethodsBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -127,26 +145,32 @@ export default function PurchasePage() {
 
   const PurchaseMethods = () => {
     return (
-      <MethodsBox>
-        {PURCHASE_METHOD.map((method, idx) => {
-          return (
-            <label htmlFor={idx}>
-              <MethodInputBox>
-                <input
-                  type="radio"
-                  name="methods"
-                  value={method}
-                  id={idx}
-                  onClick={(e) => {
-                    setPurchaseMethod(e.target.value);
-                  }}
-                />{" "}
-                {method}
-              </MethodInputBox>
-            </label>
-          );
-        })}
-      </MethodsBox>
+      <>
+        <FormControl>
+          <SmallTitle>결제 방식</SmallTitle>
+          <RadioGroup
+            defaultValue={purchaseMethod}
+            name="radio-buttons-group"
+            onChange={(e) => {
+              setPurchaseMethod(e.target.value);
+              console.log(e.target.value);
+            }}
+          >
+            <MethodsBox>
+              {PURCHASE_METHOD.map((method, idx) => {
+                return (
+                  <FormControlLabel
+                    key={idx}
+                    value={method}
+                    label={method}
+                    control={<Radio />}
+                  />
+                );
+              })}
+            </MethodsBox>
+          </RadioGroup>
+        </FormControl>
+      </>
     );
   };
 
@@ -177,7 +201,7 @@ export default function PurchasePage() {
   const PurchaseInfo = () => {
     return (
       <div>
-        <PaymentP>쿠폰 할인</PaymentP>
+        <SmallTitle>쿠폰 할인</SmallTitle>
         <br />
         <Select name="purchaseOption">
           {/* {purchaseOption.purchaseOptionInfo.map((opt, idx) => (
@@ -185,7 +209,7 @@ export default function PurchasePage() {
           ))} */}
         </Select>
         <br />
-        <PaymentP>포인트 할인</PaymentP>
+        <SmallTitle>포인트 할인</SmallTitle>
         <PriceBox>
           <PrimaryCostTab>쿠폰 할인</PrimaryCostTab>
           <PrimaryCostTab></PrimaryCostTab>

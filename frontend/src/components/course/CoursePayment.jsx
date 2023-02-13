@@ -74,9 +74,9 @@ export default function CoursePayment({
 
   useLayoutEffect(() => {
     if (loginState) {
-      courseWishCheckApi( courseId, accessToken)
+      courseWishCheckApi(courseId, accessToken)
         .then(({ data }) => {
-          console.log(data.data)
+          console.log(data.data);
           if (data.code === -7001) {
             setIsWishState(false);
           } else {
@@ -104,7 +104,7 @@ export default function CoursePayment({
   const pushWish = () => {
     if (loginState) {
       setIsWishPushState((prev) => !prev);
-      courseWishApi(memberId, courseId, accessToken);
+      courseWishApi(courseId, accessToken);
       if (
         queryClient?.getQueryData({ queryKey: ["wishCourseList", memberId] })
       ) {

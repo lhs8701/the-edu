@@ -60,11 +60,11 @@ const NavBar = styled.nav`
 const NavBox = styled.ul`
   display: flex;
   height: 100%;
-  &:first-child {
+  /* &:first-child {
     li:first-child {
       padding-right: 27px;
     }
-  }
+  } */
 `;
 const NavTab = styled.li`
   height: 100%;
