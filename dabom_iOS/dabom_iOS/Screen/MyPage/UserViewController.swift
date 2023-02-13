@@ -46,6 +46,8 @@ class UserViewController: UIViewController {
         self.getProfile()
     }
     
+    
+    // MARK: - 내 쿠폰함 버튼 눌렀을 때
     @IBAction func myCouponBtnPressed(_ sender: Any) {
         guard let couponVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.myCoupon) as? MyCouponVC else {return}
         
@@ -69,6 +71,8 @@ class UserViewController: UIViewController {
         
     }
     
+    
+    // MARK: - 이벤트 버튼 눌렀을 때
     @IBAction func eventBtnPressed(_ sender: Any) {
         guard let eventVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.event) as? EventVC else {return}
         
@@ -78,6 +82,7 @@ class UserViewController: UIViewController {
     }
     
     
+    // MARK: - 서비스 문의 버튼 눌렀을 때
     @IBAction func contactBtnPressed(_ sender: Any) {
         guard let contactVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.contact) as? ContactVC else {return}
         

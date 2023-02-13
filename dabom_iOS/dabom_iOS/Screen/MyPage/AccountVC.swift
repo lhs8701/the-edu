@@ -20,7 +20,6 @@ class AccountVC: UIViewController {
     @IBOutlet weak var loginTypeLabel: UILabel!
     
     // MARK: - let, var
-//    let imagePickerController = UIImagePickerController()
     let imagePicker = UIImagePickerController()
     
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
@@ -41,6 +40,12 @@ class AccountVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setNavi()
+    }
+    
+    
+    // MARK: - NavigationBar Setting
+    private func setNavi() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.topItem?.title = "계정 정보"
     }
@@ -163,6 +168,8 @@ class AccountVC: UIViewController {
         
     }
     
+    
+    // MARK: - 이미지 리사이징
     func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
         let scale = newWidth / image.size.width // 새 이미지 확대/축소 비율
         let newHeight = image.size.height * scale

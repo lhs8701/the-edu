@@ -8,11 +8,16 @@
 import UIKit
 
 class EventVC: UIViewController {
-
+    
+    // MARK: - IBOutlet
     @IBOutlet weak var eventTV: UITableView!
     
+    
+    // MARK: - let, var
     private var eventList: [BannerDataModel] = []
     
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,21 +26,25 @@ class EventVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        
+        setNavi()
+    }
+    
+    
+    // MARK: - NavigationBar Setting
+    func setNavi() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.navigationBar.topItem?.title = "진행 중인 이벤트"
-        
-        
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
+    // MARK: - TableView Setting
     func setTV() {
         eventTV.delegate = self
         eventTV.dataSource = self
         eventTV.register(UINib(nibName: Const.Xib.Identifier.eventTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.eventTVC)
     }
     
+    // MARK: - Event 목록 가져오기
     func setEvent() {
         BannerDataService.shared.getOngoingBanner { response in
             switch response {
@@ -61,15 +70,11 @@ class EventVC: UIViewController {
 
 }
 
+// MARK: - UITableView extension
 extension EventVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
         return self.view.frame.width / 2
     }
-    
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return eventList.count
