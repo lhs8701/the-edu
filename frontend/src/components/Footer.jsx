@@ -7,6 +7,9 @@ const DaboomFooter = styled.footer`
   color: var(--color-gray);
   font-size: var(--size-footer);
   margin-top: 15vh;
+  border-top: 1px solid var(--color-box-gray);
+  padding: 40px 0px 30px 0px;
+  box-sizing: border-box;
 `;
 
 const FooterBox = styled.div`
@@ -31,12 +34,8 @@ export default function Footer() {
           <br />
           원격평생교육시설13호&nbsp;ㅣ&nbsp;출판사&nbsp;:&nbsp;345-2005-00013&nbsp;ㅣ&nbsp;통신판매업&nbsp;:&nbsp;2005-대구북구-00158&nbsp;ㅣ&nbsp;정보보호책임자&nbsp;:&nbsp;김창연&nbsp;&nbsp;
           <br />
-          <b>
-            기사친구는 SSL보안방식의 암호화구간을 적용하여 사이트를 안전하게
-            이용하실 수 있습니다.
-          </b>
-          <br />
           COPYRIGHT 2005 (주)조은캠프 ALL RIGHTS RESERVED.
+          <br />
           <a>관리자에게 메일보내기</a>
         </p>
       </FooterBox>

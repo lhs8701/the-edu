@@ -154,6 +154,7 @@ export default function PurchasePage() {
       <>
         <FormControl sx={{ width: "100%" }}>
           <SmallTitle>결제 방식</SmallTitle>
+          <br />
           <RadioGroup
             defaultValue={purchaseMethod}
             name="radio-buttons-group"
