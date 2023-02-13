@@ -24,7 +24,7 @@ export default function EventList() {
     { name: "시작날짜", id: 2 },
     { name: "종료날짜", id: 3 },
     { name: "", id: 4 }, //삭제버튼을 위한 필드
-    { name: "", id: 5 },
+    { name: "", id: 5 }, //보기버튼을 위한 필드
   ];
 
   const onGoingList = useQuery(

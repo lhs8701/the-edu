@@ -161,7 +161,7 @@ export async function getCurriculumApi(courseId) {
 }
 
 export async function getUserEnrollStatusApi(accessToken, courseId) {
-  return await axios.get(`${COURSE_URL}/${courseId}${ENROLL_URL}${CHECK_URL}`, {
+  return await axios.get(`${API_URL}${ENROLL_URL}${COURSE_PATH}/${courseId}`, {
     headers: {
       "Content-Type": "application/json",
       ACCESS: accessToken,
