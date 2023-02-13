@@ -89,7 +89,7 @@ export const ADMIN_BAR_LIST = {
       name: "회원관리",
       list: [
         {
-          name: "전체 조회",
+          name: "전체 회원 조회",
           url: "/admin/users",
         },
         {
@@ -102,11 +102,11 @@ export const ADMIN_BAR_LIST = {
       name: "크리에이터 관리",
       list: [
         {
-          name: "목록 조회",
+          name: "크리에이터 목록 조회",
           url: "/admin/creators",
         },
         {
-          name: "신청 목록 조회",
+          name: "크리에이터 신청 목록 조회",
           url: "/admin/creatorsrequest",
         },
       ],
@@ -149,10 +149,7 @@ export const ADMIN_BAR_LIST = {
           name: "조회 및 관리",
           url: "/admin/eventnotice",
         },
-        {
-          name: "세부 이벤트 내용",
-          url: "/admin/eventnotice/detailEvent",
-        },
+
         {
           name: "이벤트 업로드",
           url: "/admin/uploadevent",
@@ -215,10 +212,12 @@ export const PURCHASE_METHOD = [
   "가상계좌",
   "계좌이체",
   "휴대폰",
-  "상품권",
+  "문화상품권",
+  "도서문화상품권",
+  "게임문화상품권",
 ];
 
-const BASE_URL = "http://218.38.127.26:8080";
+export const BASE_URL = "http://218.38.127.26:8080";
 export const STATIC_URL = "http://the-edu.co.kr";
 export const API_URL = BASE_URL + "/api";
 // export const PLAYER_URL = STATIC_URL + "/player";

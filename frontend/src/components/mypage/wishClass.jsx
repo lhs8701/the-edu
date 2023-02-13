@@ -29,7 +29,7 @@ export default function WishClass() {
   const wishCourses = useQuery(
     ["wishCourseList", memberId],
     () => {
-      return wishCourseApi(memberId, accessToken);
+      return wishCourseApi(accessToken);
     },
     {
       enabled: !!memberId,
@@ -40,7 +40,7 @@ export default function WishClass() {
     }
   );
 
-    console.log(wishCourses?.data)
+  console.log(wishCourses?.data);
 
   return (
     <MyPageBox>

@@ -19,6 +19,7 @@ import { useRecoilValue } from "recoil";
 import { getAccessTokenSelector } from "../../atom";
 import { useMemo } from "react";
 import { useRef } from "react";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const CateBox = styled.div`
   display: flex;
@@ -182,9 +183,12 @@ const DeleteQuestionTab = styled.div`
 
 export default function UnitQuestion({ unitId }) {
   const [type, setType] = useState(false);
+  const [allListExpanded, setAllListExpanded] = useState();
   const bottomRef = useRef(null);
   const isInView = useInView(bottomRef);
   const accessToken = useRecoilValue(getAccessTokenSelector);
+  const [userQuestionTitle, setUserQuestionTitle] = useState("");
+  const [userQuestionContext, setQuestionContext] = useState("");
 
   const questionList = useInfiniteQuery(
     ["questionList", unitId],
@@ -219,91 +223,35 @@ export default function UnitQuestion({ unitId }) {
     [questionList?.data?.pages]
   );
 
+  const questionUpload = (e) => {
+    e.preventDefault();
+    if (userQuestionTitle === "") {
+      alert("제목을 입력하세요.");
+      return;
+    }
+    if (userQuestionContext === "") {
+      alert("질문을 입력하세요.");
+      return;
+    }
+    postUnitQuestionApi(
+      accessToken,
+      userQuestionTitle,
+      userQuestionContext,
+      unitId
+    )
+      .then(({ data }) => {
+        questionList.refetch();
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   useEffect(() => {
     if (isInView && questionList.hasNextPage && questionList.isSuccess) {
       questionList.fetchNextPage();
     }
   }, [isInView, questionList.data]);
-
-  const QuestionUploadForm = () => {
-    const [userQuestionTitle, setUserQuestionTitle] = useState("");
-    const [userQuestionContext, setQuestionContext] = useState("");
-    const questionUpload = (e) => {
-      e.preventDefault();
-      if (userQuestionTitle === "") {
-        alert("제목을 입력하세요.");
-        return;
-      }
-      if (userQuestionContext === "") {
-        alert("질문을 입력하세요.");
-        return;
-      }
-      postUnitQuestionApi(
-        accessToken,
-        userQuestionTitle,
-        userQuestionContext,
-        unitId
-      )
-        .then(({ data }) => {
-          questionList.refetch();
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    };
-    return (
-      <Form>
-        <TitleInputBox>
-          <TitleInput
-            type="text"
-            required
-            value={userQuestionTitle}
-            onChange={(e) => {
-              setUserQuestionTitle(e.target.value);
-            }}
-            id="title"
-            placeholder="제목을 입력해주세요"
-          />
-        </TitleInputBox>
-        <Input
-          required
-          value={userQuestionContext}
-          onChange={(e) => {
-            setQuestionContext(e.target.value);
-          }}
-          placeholder="질문을 등록해주세요"
-        />
-        <QuestionBtn onClick={questionUpload}>질문하기</QuestionBtn>
-      </Form>
-    );
-  };
-
-  const QuestionPathTab = () => {
-    return (
-      <CateBox>
-        <CateTab
-          type={!type}
-          onClick={() => {
-            setType(false);
-          }}
-          whileHover={{ y: -5 }}
-          whileTap={{ y: 0 }}
-        >
-          등록된 질문들
-        </CateTab>
-        <CateTab
-          type={type}
-          onClick={() => {
-            setType(true);
-          }}
-          whileHover={{ y: -5 }}
-          whileTap={{ y: 0 }}
-        >
-          나의 질문
-        </CateTab>
-      </CateBox>
-    );
-  };
 
   const Reply = ({ replyInfo }) => {
     return replyInfo?.map((reply) => {
@@ -432,22 +380,6 @@ export default function UnitQuestion({ unitId }) {
     });
   };
 
-  const QuestionListWrapper = () => {
-    return (
-      <>
-        <QuestionUploadForm />
-        <br />
-        <QuestionInfoBox>
-          <Tab>{questions?.length}개의 질문이 있어요.</Tab>
-        </QuestionInfoBox>
-        <QuestionBox>
-          <QuestionListComponent questions={questions} isMine={false} />
-          <BottomDiv ref={bottomRef} />
-        </QuestionBox>
-      </>
-    );
-  };
-
   const MyQuestionListWrapper = () => {
     const myBottomRef = useRef(null);
     const myIsInView = useInView(myBottomRef);
@@ -505,8 +437,88 @@ export default function UnitQuestion({ unitId }) {
 
   return (
     <Wrapper>
-      <QuestionPathTab />
-      {type ? <MyQuestionListWrapper /> : <QuestionListWrapper />}
+      <CateBox>
+        <CateTab
+          type={!type}
+          onClick={() => {
+            setType(false);
+          }}
+          whileHover={{ y: -5 }}
+          whileTap={{ y: 0 }}
+        >
+          등록된 질문들
+        </CateTab>
+        <CateTab
+          type={type}
+          onClick={() => {
+            setType(true);
+          }}
+          whileHover={{ y: -5 }}
+          whileTap={{ y: 0 }}
+        >
+          나의 질문
+        </CateTab>
+      </CateBox>
+      {type ? (
+        <MyQuestionListWrapper />
+      ) : (
+        <>
+          <Form>
+            <TitleInputBox>
+              <TitleInput
+                type="text"
+                required
+                value={userQuestionTitle}
+                onChange={(e) => {
+                  setUserQuestionTitle(e.target.value);
+                }}
+                id="title"
+                placeholder="제목을 입력해주세요"
+              />
+            </TitleInputBox>
+            <Input
+              required
+              value={userQuestionContext}
+              onChange={(e) => {
+                setQuestionContext(e.target.value);
+              }}
+              placeholder="질문을 등록해주세요"
+            />
+            <QuestionBtn onClick={questionUpload}>질문하기</QuestionBtn>
+          </Form>
+          <br />
+          <QuestionInfoBox>
+            <Tab>{questions?.length}개의 질문이 있어요.</Tab>
+          </QuestionInfoBox>
+          <QuestionBox>
+            {questions?.map((question, idx) => {
+              return (
+                <QuestionTab
+                  TransitionProps={{ unmountOnExit: true }}
+                  key={question.questionId}
+                  expanded={allListExpanded === question.questionId}
+                  onChange={() => {
+                    setAllListExpanded(question.questionId);
+                  }}
+                >
+                  <QuestionInfoTab
+                    aria-controls="panel1a-content"
+                    expandIcon={<KeyboardArrowDownIcon />}
+                    sx={{}}
+                  >
+                    {question.title}
+                  </QuestionInfoTab>
+                  <QuestionContentComponent
+                    questionId={question.questionId}
+                    isMine={false}
+                  />
+                </QuestionTab>
+              );
+            })}
+            <BottomDiv ref={bottomRef} />
+          </QuestionBox>
+        </>
+      )}
     </Wrapper>
   );
 }

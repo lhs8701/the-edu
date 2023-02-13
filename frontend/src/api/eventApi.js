@@ -11,8 +11,13 @@ export async function getOngoingEventApi() {
 export async function getClosedEventApi() {
   return await axios.get(`${EVENT_URL}${CLOSED_URL}`);
 }
-export async function createEventApi(accessToken) {
-  return await axios.post(`${EVENT_URL}`);
+export async function createEventApi(accessToken, data) {
+  return await axios.post(`${EVENT_URL}`, data, {
+    headers: {
+      ACCESS: accessToken,
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 export async function getDetailEventApi(eventId) {

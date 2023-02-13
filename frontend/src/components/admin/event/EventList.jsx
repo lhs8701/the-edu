@@ -5,13 +5,13 @@ import { useRecoilValue } from "recoil";
 import {
   deleteEventApi,
   getClosedEventApi,
-  getDetailEventApi,
   getOngoingEventApi,
 } from "../../../api/eventApi";
 import { getAdminAccessTokenSelector } from "../../../atom";
 import { ADMIN_BAR_LIST } from "../../../static";
 import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
-import { EventTable } from "../BasicTable";
+import { EventTable } from "../../BasicTable";
+import styled from "styled-components";
 
 export default function EventList() {
   const [eventList, setEventList] = useState();
@@ -24,6 +24,7 @@ export default function EventList() {
     { name: "시작날짜", id: 2 },
     { name: "종료날짜", id: 3 },
     { name: "", id: 4 }, //삭제버튼을 위한 필드
+    { name: "", id: 5 }, //보기버튼을 위한 필드
   ];
 
   const onGoingList = useQuery(
@@ -97,12 +98,14 @@ export default function EventList() {
   return (
     <div>
       <DashboardTitleTab title={ADMIN_BAR_LIST.list[4].list[0].name} />
-      <EventTable
-        cells={eventListTableCells}
-        rows={eventList}
-        deleteFun={deleteEvent}
-        navigate={navigate}
-      />
+      {eventList && (
+        <EventTable
+          cells={eventListTableCells}
+          rows={eventList}
+          deleteFun={deleteEvent}
+          navigate={navigate}
+        />
+      )}
     </div>
   );
 }

@@ -8,80 +8,67 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import DashboardTitleTab from "../dashboard/DashboardTitleTab";
+import { ADMIN_BAR_LIST } from "../../static";
+import { useRecoilValue } from "recoil";
+import { getAdminAccessTokenSelector } from "../../atom";
+import { useQuery } from "react-query";
+import { activateCreator, getAllCreatorStanbyApi } from "../../api/adminApi";
+import { AdminCreatorStanbyTable } from "../BasicTable";
 
 export default function CreatorRequest() {
-  const [rows, setRows] = useState([]);
+  const [stanbyList, setStanbyList] = useState();
+  const accessToken = useRecoilValue(getAdminAccessTokenSelector);
 
-  function createData(name, calories, fat, carbs, protein, categories) {
-    return { name, calories, fat, carbs, protein, categories };
-  }
+  const stanbyCreatorsList = [
+    { name: "승인 여부", id: 0 },
+    { name: "이름", id: 1 },
+    { name: "이메일", id: 2 },
+    { name: "전화번호", id: 3 },
+    { name: "개설 희망 과목", id: 4 },
+    { name: "경력", id: 5 },
+    { name: "승인하기", id: 6 },
+  ];
+  const { data, isSuccess } = useQuery(
+    ["admin-stanbyCreators"],
+    () => {
+      return getAllCreatorStanbyApi(accessToken);
+    },
+    {
+      enabled: !!accessToken,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
 
-  useEffect(() => {
-    // getFormResponse()
-    //   .then(({ data }) => {
-    //     console.log(data);
-    //     const list = [];
-    //     data?.items?.map((e) => {
-    //       list.push(
-    //         createData(
-    //           e.answers[2].email,
-    //           e.landed_at,
-    //           e.answers[0].text,
-    //           e.answers[1].phone_number,
-    //           e.answers[3].text,
-    //           e.answers[4].text
-    //         )
-    //       );
-    //     });
-    //     setRows(list);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  }, []);
-
-  const BasicTable = () => {
-    return (
-      <TableContainer component={Paper}>
-        <Table sx={{}} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">날짜</TableCell>
-              <TableCell align="right">이메일</TableCell>
-              <TableCell align="right">성함</TableCell>
-              <TableCell align="right">전화번호</TableCell>
-              <TableCell align="right">등록하기</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows?.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">
-                  <button>등록</button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
+  const makeStanbyList = () => {
+    if (isSuccess) {
+      setStanbyList(
+        [...data?.data].sort((a, b) => {
+          return a.id - b.id;
+        })
+      );
+    }
   };
 
+  const activeCreator = (creatorId) => {
+    activateCreator(accessToken, creatorId);
+  };
+
+  useEffect(makeStanbyList, [data?.data]);
+  console.log(stanbyList);
   return (
-    <>
-      <Typography variant="h4" mb={5}>
-        새 강좌 신청 목록
-      </Typography>
-      <BasicTable />
-    </>
+    <div>
+      <DashboardTitleTab title={ADMIN_BAR_LIST.list[1].list[1].name} />
+      {stanbyList && (
+        <AdminCreatorStanbyTable
+          cells={stanbyCreatorsList}
+          rows={stanbyList}
+          activeFun={activeCreator}
+        />
+      )}
+    </div>
   );
 }

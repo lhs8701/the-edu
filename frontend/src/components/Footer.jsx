@@ -1,15 +1,19 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const DaboomFooter = styled.footer`
   width: 1100px;
   margin: 0 auto;
-  font-weight: var(--weight-thin);
-  color: var(--color-gray);
   font-size: var(--size-footer);
   margin-top: 15vh;
+  border-top: 1px solid var(--color-box-gray);
+  padding: 30px 0px;
+  box-sizing: border-box;
 `;
 
 const FooterBox = styled.div`
+  font-weight: var(--weight-thin);
+  color: var(--color-gray);
   width: 100%;
   height: 100%;
   display: flex;
@@ -19,9 +23,33 @@ const FooterBox = styled.div`
   line-height: 15px;
 `;
 
+const InfoFooterBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15%, auto));
+  font-size: 1rem;
+  font-weight: var(--weight-middle);
+  width: 50%;
+
+  flex: 1;
+`;
+
+const InfoLink = styled(Link)`
+  text-decoration: none;
+  color: var(--color-text);
+  &:hover {
+    color: var(--color-gray);
+  }
+`;
+
 export default function Footer() {
   return (
     <DaboomFooter>
+      <InfoFooterBox>
+        <InfoLink>공지사항</InfoLink>
+        <InfoLink>이용 약관</InfoLink>
+        <InfoLink>개인정보 처리 방침</InfoLink>
+      </InfoFooterBox>
+      <br />
       <FooterBox>
         <p>
           상호명&nbsp;:&nbsp;(주)조은캠프&nbsp;ㅣ&nbsp;대표이사&nbsp;:&nbsp;이유락&nbsp;ㅣ&nbsp;대구광역시
@@ -31,12 +59,8 @@ export default function Footer() {
           <br />
           원격평생교육시설13호&nbsp;ㅣ&nbsp;출판사&nbsp;:&nbsp;345-2005-00013&nbsp;ㅣ&nbsp;통신판매업&nbsp;:&nbsp;2005-대구북구-00158&nbsp;ㅣ&nbsp;정보보호책임자&nbsp;:&nbsp;김창연&nbsp;&nbsp;
           <br />
-          <b>
-            기사친구는 SSL보안방식의 암호화구간을 적용하여 사이트를 안전하게
-            이용하실 수 있습니다.
-          </b>
-          <br />
           COPYRIGHT 2005 (주)조은캠프 ALL RIGHTS RESERVED.
+          <br />
           <a>관리자에게 메일보내기</a>
         </p>
       </FooterBox>

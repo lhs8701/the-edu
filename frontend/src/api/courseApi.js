@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../static";
-
-const COURSE_URL = `${API_URL}/courses`;
+const COURSE_PATH = `/courses`;
+const COURSE_URL = API_URL + COURSE_PATH;
 const INQUIRE_URL = "/inquiries";
 const CATEGORY_URL = "/category";
 const WISH_URL = "/wish";
@@ -69,25 +69,18 @@ export async function enrollApi(courseId, accessToken) {
 }
 
 export async function courseWishCheckApi(courseId, accessToken) {
-  return await axios.post(
-    `${COURSE_URL}/${courseId}${WISHCHECK_URL}`,
-    {},
-    {
-      headers: {
-        "Content-Type": "application/json",
-        ACCESS: accessToken,
-      },
-    }
-  );
+  return await axios.get(`${API_URL}${WISH_URL}${COURSE_PATH}/${courseId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
+    },
+  });
 }
 
-export async function courseWishApi(memberId, courseId, accessToken) {
+export async function courseWishApi(courseId, accessToken) {
   return await axios.post(
-    `${COURSE_URL}/${courseId}${WISH_URL}`,
-    {
-      memberId: memberId,
-      courseId: courseId,
-    },
+    `${API_URL}${WISH_URL}${COURSE_PATH}/${courseId}`,
+    {},
     {
       headers: {
         "Content-Type": "application/json",
@@ -168,7 +161,7 @@ export async function getCurriculumApi(courseId) {
 }
 
 export async function getUserEnrollStatusApi(accessToken, courseId) {
-  return await axios.get(`${COURSE_URL}/${courseId}${ENROLL_URL}${CHECK_URL}`, {
+  return await axios.get(`${API_URL}${ENROLL_URL}${COURSE_PATH}/${courseId}`, {
     headers: {
       "Content-Type": "application/json",
       ACCESS: accessToken,

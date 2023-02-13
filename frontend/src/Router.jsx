@@ -46,6 +46,8 @@ import Revisecourses from "./components/admin/Revisecourses";
 import CoursesInquires from "./components/creator/CoursesInquires";
 import EventList from "./components/admin/event/EventList";
 import DetailEvent from "./components/admin/event/DetailEvent";
+import SuccessPurchase from "./components/purchase/SuccessPurchase";
+import UploadEvent from "./components/admin/event/UploadEvent";
 
 const router = createBrowserRouter([
   {
@@ -109,15 +111,18 @@ const router = createBrowserRouter([
       {
         path: "purchase/:courseId",
         element: <PurchasePage />,
+        children: [
+          {
+            path: "success",
+            element: <SuccessPurchase />,
+          },
+          {
+            path: "fail",
+            element: <PurchasePage />,
+          },
+        ],
       },
-      {
-        path: "purchase/success/:courseId",
-        element: <PurchasePage />,
-      },
-      {
-        path: "purchase/fail/:courseId",
-        element: <PurchasePage />,
-      },
+
       {
         path: "roadmap",
         element: <RoadMapPage />,
@@ -216,7 +221,7 @@ const router = createBrowserRouter([
       },
       {
         path: "uploadevent",
-        element: <Courses />,
+        element: <UploadEvent />,
       },
       {
         path: "uploadnotice",

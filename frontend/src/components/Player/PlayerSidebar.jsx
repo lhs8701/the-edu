@@ -51,12 +51,13 @@ export default function PlayerSidebar({
   exitUnit,
   menu,
   setMenu,
+  setVideoVal,
 }) {
   const MENU_LIST_NAME = ["강의 목록", "수업 자료", "질문", "평가"];
   const menuList = {
     0: <CourseList exitUnit={exitUnit} courseId={courseId} unitId={unitId} />,
     1: <CourseInfo />,
-    2: <UnitQuestion unitId={unitId} />,
+    2: <UnitQuestion unitId={unitId} setVideoVal={setVideoVal} />,
     3: <UnitReview unitId={unitId} />,
   };
 

@@ -1,5 +1,11 @@
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { enrollApi } from "../api/courseApi";
@@ -17,9 +23,7 @@ import {
   DiscountTab,
   ONOFFTab,
   OwnPriceTab,
-  PaymentBox,
   PriceBox,
-  PriceUnderBar,
   PrimaryCostTab,
   PurchaseBtn,
   Select,
@@ -37,12 +41,6 @@ const MyPageWrapper = styled.div`
 `;
 
 const InfoSection = styled.div``;
-
-const CardSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const InfoBox = styled.div`
   width: 100%;
@@ -65,13 +63,10 @@ const InfoTab = styled.div`
   justify-content: space-between;
 `;
 
-const PaymentCard = styled(PaymentBox)`
-  padding: 10px 20px;
-  box-sizing: border-box;
-`;
-const PaymentP = styled.p`
+const SmallTitle = styled.h1`
   font-size: 1.3rem;
   font-weight: var(--weight-middle);
+  color: var(--color-text);
 `;
 
 const PaymentBtn = styled(PurchaseBtn)`
@@ -90,18 +85,11 @@ const CourseInfoBox = styled.div`
   height: 150px;
 `;
 
-const MethodInputBox = styled.div`
-  width: 150px;
-  height: 50px;
-  border: 1px solid var(--color-box-gray);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const MethodsBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   row-gap: 10px;
+  width: 100%;
 `;
 
 export default function PurchasePage() {
@@ -111,7 +99,8 @@ export default function PurchasePage() {
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const loginState = useRecoilValue(getLoginState);
   const purchaseInfo = 1;
-
+  const currentPath = useLocation().pathname;
+  const [isPurchaseDone, setIsPurchaseDone] = useState(false);
   const enrollCourse = () => {
     enrollApi(courseId, accessToken)
       .then((res) => {
@@ -125,31 +114,49 @@ export default function PurchasePage() {
       });
   };
 
-  const PurchaseMethods = () => {
-    return (
-      <MethodsBox>
-        {PURCHASE_METHOD.map((method, idx) => {
-          return (
-            <label htmlFor={idx}>
-              <MethodInputBox>
-                <input
-                  type="radio"
-                  name="methods"
-                  value={method}
-                  id={idx}
-                  onClick={(e) => {
-                    setPurchaseMethod(e.target.value);
-                  }}
-                />{" "}
-                {method}
-              </MethodInputBox>
-            </label>
-          );
-        })}
-      </MethodsBox>
-    );
+  const purchaseCourse = () => {
+    if (purchaseMethod) {
+      purchase(purchaseInfo, purchaseMethod);
+    } else {
+      alert("결제 방식을 선택해 주세요!");
+    }
   };
 
+  const PurchaseMethods = () => {
+    return (
+      <>
+        <FormControl sx={{ width: "100%" }}>
+          <SmallTitle>결제 방식</SmallTitle>
+          <br />
+          <RadioGroup
+            defaultValue={purchaseMethod}
+            name="radio-buttons-group"
+            onChange={(e) => {
+              setPurchaseMethod(e.target.value);
+            }}
+          >
+            <MethodsBox>
+              {PURCHASE_METHOD.map((method, idx) => {
+                return (
+                  <FormControlLabel
+                    key={idx}
+                    value={method}
+                    label={method}
+                    control={<Radio />}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flexStart",
+                    }}
+                  />
+                );
+              })}
+            </MethodsBox>
+          </RadioGroup>
+        </FormControl>
+      </>
+    );
+  };
+  console.log();
   const PurchaseThing = () => {
     return (
       <>
@@ -177,7 +184,8 @@ export default function PurchasePage() {
   const PurchaseInfo = () => {
     return (
       <div>
-        <PaymentP>쿠폰 할인</PaymentP>
+        <SmallTitle>쿠폰 할인</SmallTitle>
+        <br />
         <br />
         <Select name="purchaseOption">
           {/* {purchaseOption.purchaseOptionInfo.map((opt, idx) => (
@@ -185,7 +193,9 @@ export default function PurchasePage() {
           ))} */}
         </Select>
         <br />
-        <PaymentP>포인트 할인</PaymentP>
+        <SmallTitle>포인트 할인</SmallTitle>
+        <br />
+        <br />
         <PriceBox>
           <PrimaryCostTab>쿠폰 할인</PrimaryCostTab>
           <PrimaryCostTab></PrimaryCostTab>
@@ -206,6 +216,18 @@ export default function PurchasePage() {
     }
   }, []);
 
+  useEffect(() => {
+    // url로 현재 위치 확인
+    if (
+      currentPath.slice(-5) === "fail" ||
+      currentPath.slice(-7) === "success"
+    ) {
+      setIsPurchaseDone(true);
+    } else {
+      setIsPurchaseDone(false);
+    }
+  }, [currentPath]);
+
   return (
     <MyPageWrapper>
       <TabTitle>결제</TabTitle>
@@ -215,15 +237,15 @@ export default function PurchasePage() {
         </InfoSection>
         <br />
         <br />
-        <PurchaseInfo />
-        <PurchaseMethods />
-        <PaymentBtn
-          onClick={() => {
-            purchase(purchaseInfo, purchaseMethod);
-          }}
-        >
-          결제
-        </PaymentBtn>
+        {isPurchaseDone ? (
+          <Outlet />
+        ) : (
+          <>
+            <PurchaseInfo />
+            <PurchaseMethods />
+            <PaymentBtn onClick={purchaseCourse}>결제</PaymentBtn>
+          </>
+        )}
       </DividerBox>
     </MyPageWrapper>
   );
