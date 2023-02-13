@@ -7,10 +7,12 @@ import joeuncamp.dabombackend.domain.order.entity.CoursePeriod;
 import joeuncamp.dabombackend.domain.order.entity.price.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 public class TicketDto {
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Request{
         @Schema(hidden = true)

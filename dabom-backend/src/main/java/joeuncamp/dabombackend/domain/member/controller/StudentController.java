@@ -24,12 +24,5 @@ import java.util.List;
 public class StudentController {
     private final MyCourseService myCourseService;
 
-    @Operation(summary = "회원이 찜한 모든 강좌를 조회합니다.", description = "")
-    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/students/{memberId}/courses/wish")
-    public ResponseEntity<List<CourseDto.ShortResponse>> getWishedCourses(@PathVariable Long memberId) {
-        List<CourseDto.ShortResponse> responseDto = myCourseService.getWishedCourses(memberId);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
-    }
+
 }

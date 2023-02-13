@@ -65,9 +65,9 @@ values
     ('8', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg'),
     ('8', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg', '/static/images/default/description_s.jpg');
 
--- -- <Ticket> --
--- insert into ticket (id, price, course_period, course_id)
--- values
+-- <Ticket> --
+insert into ticket (id, price, course_period, course_id)
+values
     ('1', '30000', 'THREE_MONTH', '1'),
     ('2', '60000', 'SIX_MONTH', '1'),
     ('3', '100000', 'UNLIMITED', '1');

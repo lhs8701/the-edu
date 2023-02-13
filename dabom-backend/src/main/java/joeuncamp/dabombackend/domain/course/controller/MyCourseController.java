@@ -35,7 +35,7 @@ public class MyCourseController {
     @Operation(summary = "강좌에 수강신청합니다.", description = "이미 수강신청한 강좌인 경우 예외가 발생합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/courses/{courseId}/enroll")
+    @PostMapping("/enroll/courses/{courseId}")
     public ResponseEntity<Void> enroll(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
         EnrollDto.Request requestDto = new EnrollDto.Request(member.getId(), courseId);
         enrollService.enroll(requestDto);
@@ -45,7 +45,7 @@ public class MyCourseController {
     @Operation(summary = "강좌 수강 등록 여부를 조회합니다.", description = "")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/courses/{courseId}/enroll/check")
+    @GetMapping("/enroll/courses/{courseId}")
     public ResponseEntity<Boolean> doesEnrolled(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
         EnrollDto.Request requestDto = new EnrollDto.Request(member.getId(), courseId);
         Boolean response = enrollService.doesEnrolled(requestDto);
@@ -55,7 +55,7 @@ public class MyCourseController {
     @Operation(summary = "찜을 하거나, 해제합니다.", description = "이미 찜이 되어있는 경우, 해제합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/courses/{courseId}/wish")
+    @PostMapping("/wish/courses/{courseId}")
     public ResponseEntity<Void> toggleWish(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
         WishDto.Request requestDto = new WishDto.Request(member.getId(), courseId);
         wishService.toggleWish(requestDto);
@@ -65,11 +65,20 @@ public class MyCourseController {
     @Operation(summary = "찜한 강좌인지 확인합니다.", description = "찜이 되어있는 경우, true를 반환합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/courses/{courseId}/wish/check")
+    @GetMapping("/wish/courses/{courseId}")
     public ResponseEntity<Boolean> checkWish(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
         WishDto.Request requestDto = new WishDto.Request(member.getId(), courseId);
         Boolean response = wishService.checkWish(requestDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Operation(summary = "회원이 찜한 모든 강좌를 조회합니다.", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/wish/courses")
+    public ResponseEntity<List<CourseDto.ShortResponse>> getWishedCourses(@AuthenticationPrincipal Member member) {
+        List<CourseDto.ShortResponse> responseDto = myCourseService.getWishedCourses(member.getId());
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
     @Operation(summary = "시청 완료한 강좌 목록을 확인합니다.", description = "")

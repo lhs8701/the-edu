@@ -11,8 +11,7 @@ import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
-import joeuncamp.dabombackend.global.validation.Category;
+import joeuncamp.dabombackend.global.validation.CategoryValidation;
 import lombok.*;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class CourseDto {
         @Schema(description = "강좌 설명", example = ExampleValue.Course.DESCRIPTION)
         String description;
         @NotBlank
-        @Category
+        @CategoryValidation
         @Schema(description = "세부 카테고리", example = ExampleValue.Course.CATEGORY)
         String category;
 
