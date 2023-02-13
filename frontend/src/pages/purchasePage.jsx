@@ -91,13 +91,10 @@ const PurchaseMethodCheckLabel = styled.label`
   position: relative;
 `;
 
-const MethodInput = styled.input`
-  display: none;
-`;
-
 const SmallTitle = styled(FormLabel)`
   font-size: 1.3rem;
   font-weight: var(--weight-middle);
+  color: var(--color-text);
 `;
 
 const PaymentBtn = styled(PurchaseBtn)`
@@ -120,6 +117,7 @@ const MethodsBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   row-gap: 10px;
+  width: 100%;
 `;
 
 export default function PurchasePage() {
@@ -146,7 +144,7 @@ export default function PurchasePage() {
   const PurchaseMethods = () => {
     return (
       <>
-        <FormControl>
+        <FormControl sx={{ width: "100%" }}>
           <SmallTitle>결제 방식</SmallTitle>
           <RadioGroup
             defaultValue={purchaseMethod}
@@ -164,6 +162,10 @@ export default function PurchasePage() {
                     value={method}
                     label={method}
                     control={<Radio />}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flexStart",
+                    }}
                   />
                 );
               })}
