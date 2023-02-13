@@ -3,6 +3,7 @@ import { TOSS_CLIENTKEY } from "./AuthKey";
 import uuid from "react-uuid";
 
 export function purchase(purchaseInfo, method) {
+  const courseId = 1;
   loadTossPayments(TOSS_CLIENTKEY).then((tossPayments) => {
     tossPayments
       .requestPayment(method, {
@@ -12,8 +13,8 @@ export function purchase(purchaseInfo, method) {
         orderId: String(uuid()),
         orderName: "토스 티셔츠 외 2건",
         customerName: "박토스",
-        successUrl: "http://localhost:3000/purchase/success/1",
-        failUrl: "http://localhost:3000/purchase/fail/1",
+        successUrl: `http://localhost:3000/purchase/${courseId}/success`,
+        failUrl: `http://localhost:3000/purchase/${courseId}/fail`,
       })
       .catch((error) => {
         if (error.code === "USER_CANCEL") {
