@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { ADMIN_BAR_LIST } from "../../static";
+import { ADMIN_BAR_LIST } from "../static";
 
 export function EventTable({ rows, cells, deleteFun, navigate }) {
   return (
@@ -52,3 +52,5 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
     </TableContainer>
   );
 }
+
+export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {}

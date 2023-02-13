@@ -14,12 +14,12 @@ const RegistBtn = styled.button``;
 export default function ResearchBox() {
   const navigate = useNavigate();
   const [career, setCareer] = useState("");
-  const [category, setCategory] = useState("");
+  const [subject, setSubject] = useState("");
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
   const requestCreator = (e) => {
     e.preventDefault();
-    requestCreatorApi(accessToken)
+    requestCreatorApi(accessToken, subject, career)
       .then(() => {
         alert("신청 완료");
       })
@@ -38,9 +38,9 @@ export default function ResearchBox() {
             <CssTextField
               size="small"
               fullWidth
-              value={category}
+              value={subject}
               onChange={(e) => {
-                setCategory(e.target.value);
+                setSubject(e.target.value);
               }}
               label="개설하고 싶은 강좌 주제를 입력해주세요"
               variant="outlined"
@@ -61,18 +61,6 @@ export default function ResearchBox() {
               variant="outlined"
             />
           </Grid>
-          {/* <Grid item xs={12}>
-            <CssTextField
-              size="medium"
-              fullWidth
-              value={career}
-              onChange={(e) => {
-                setCareer(e.target.value);
-              }}
-              label="경력을 입력해주세요"
-              variant="outlined"
-            />
-          </Grid> */}
           <Grid item justifyContent="flex-end">
             <RegistBtn onClick={requestCreator}>크리에이터 신청</RegistBtn>
           </Grid>

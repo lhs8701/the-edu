@@ -141,6 +141,14 @@ export default function PurchasePage() {
       });
   };
 
+  const purchaseCourse = () => {
+    if (purchaseMethod) {
+      purchase(purchaseInfo, purchaseMethod);
+    } else {
+      alert("결제 방식을 선택해 주세요!");
+    }
+  };
+
   const PurchaseMethods = () => {
     return (
       <>
@@ -151,7 +159,6 @@ export default function PurchasePage() {
             name="radio-buttons-group"
             onChange={(e) => {
               setPurchaseMethod(e.target.value);
-              console.log(e.target.value);
             }}
           >
             <MethodsBox>
@@ -243,13 +250,7 @@ export default function PurchasePage() {
         <br />
         <PurchaseInfo />
         <PurchaseMethods />
-        <PaymentBtn
-          onClick={() => {
-            purchase(purchaseInfo, purchaseMethod);
-          }}
-        >
-          결제
-        </PaymentBtn>
+        <PaymentBtn onClick={purchaseCourse}>결제</PaymentBtn>
       </DividerBox>
     </MyPageWrapper>
   );

@@ -11,7 +11,7 @@ import {
 import { getAdminAccessTokenSelector } from "../../../atom";
 import { ADMIN_BAR_LIST } from "../../../static";
 import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
-import { EventTable } from "../BasicTable";
+import { EventTable } from "../../BasicTable";
 
 export default function EventList() {
   const [eventList, setEventList] = useState();
