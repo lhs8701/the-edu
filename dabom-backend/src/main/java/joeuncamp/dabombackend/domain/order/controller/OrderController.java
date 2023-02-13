@@ -32,7 +32,7 @@ public class OrderController {
     public ResponseEntity<Void> setTicket(@PathVariable Long courseId, @RequestBody TicketDto.Request requestDto, @AuthenticationPrincipal Member member){
         requestDto.setMemberId(member.getId());
         requestDto.setCourseId(courseId);
-        courseTicketService.setTicket(requestDto);
+        courseTicketService.updatePrice(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

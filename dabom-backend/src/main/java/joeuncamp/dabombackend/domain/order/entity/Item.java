@@ -1,5 +1,21 @@
 package joeuncamp.dabombackend.domain.order.entity;
 
-public class Item  {
+import jakarta.persistence.*;
+import joeuncamp.dabombackend.global.common.BaseTimeEntity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Getter
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
+public class Item extends BaseTimeEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+    String productName;
+    String productDetail;
+    @Embedded
+    Price price;
 }

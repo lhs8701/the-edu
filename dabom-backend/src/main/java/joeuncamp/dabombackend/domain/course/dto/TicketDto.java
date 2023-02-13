@@ -4,11 +4,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import joeuncamp.dabombackend.domain.order.entity.CoursePeriod;
-import joeuncamp.dabombackend.domain.order.entity.price.Ticket;
+import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 public class TicketDto {
     @Getter
@@ -19,8 +18,10 @@ public class TicketDto {
         Long courseId;
         @Schema(hidden = true)
         Long memberId;
-        @Schema(description = "가격")
-        long price;
+        @Schema(description = "변경할 원가")
+        long costPrice;
+        @Schema(description = "변경할 할인가")
+        long discountedPrice;
         @Schema(description = "수강 기간", example = "THREE_MONTH / SIX_MONTH / UNLIMITED")
         CoursePeriod coursePeriod;
     }
@@ -28,13 +29,18 @@ public class TicketDto {
     @Getter
     public static class Response {
         Long id;
-        long price;
+        @Schema(description = "원가")
+        long costPrice;
+        @Schema(description = "할인가")
+        long discountedPrice;
+        @Schema(description = "수강기간")
         @Enumerated(value = EnumType.STRING)
         CoursePeriodDto coursePeriod;
 
         public Response(Ticket ticket){
             this.id = ticket.getId();
-            this.price = ticket.getPrice();
+            this.costPrice = ticket.getPrice().getCostPrice();
+            this.discountedPrice = ticket.getPrice().getDiscountedPrice();
             this.coursePeriod = ticket.getCoursePeriod().getDto();
         }
     }

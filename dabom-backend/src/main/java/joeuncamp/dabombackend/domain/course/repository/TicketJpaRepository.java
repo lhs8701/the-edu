@@ -2,7 +2,7 @@ package joeuncamp.dabombackend.domain.course.repository;
 
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.order.entity.CoursePeriod;
-import joeuncamp.dabombackend.domain.order.entity.price.Ticket;
+import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

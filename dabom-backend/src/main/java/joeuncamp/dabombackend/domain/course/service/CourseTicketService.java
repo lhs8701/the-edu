@@ -5,7 +5,7 @@ import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.TicketJpaRepository;
 import joeuncamp.dabombackend.domain.order.entity.CoursePeriod;
-import joeuncamp.dabombackend.domain.order.entity.price.Ticket;
+import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,9 +33,7 @@ public class CourseTicketService {
 
     /**
      * 기본 수강권을 생성합니다.
-     * 3개월 수강권 - 5만원
-     * 6개월 수강권 - 10만원
-     * 영구 소장 - 20만원
+     * 가격은 초기값인 1000원으로 설정됩니다.
      *
      * @param course
      */
@@ -46,14 +44,14 @@ public class CourseTicketService {
 
     /**
      * 티켓 가격을 변경합니다.
+     * 원가와 할인가를 설정할 수 있습니다.
      *
      * @param requestDto 변경할 티켓 정보
      */
-    public void setTicket(TicketDto.Request requestDto) {
+    public void updatePrice(TicketDto.Request requestDto) {
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         Ticket ticket = ticketJpaRepository.findByCourseAndCoursePeriod(course, requestDto.getCoursePeriod()).orElseThrow(CResourceNotFoundException::new);
-        ticket.update(requestDto.getPrice());
+        ticket.updatePrice(requestDto.getCostPrice(), requestDto.getDiscountedPrice());
         ticketJpaRepository.save(ticket);
     }
-
 }
