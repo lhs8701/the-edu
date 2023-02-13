@@ -43,8 +43,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
     String birthDate;
 
     String email;
-
     ImageInfo profileImage;
+    long payPoint;
 
     @Enumerated(value = EnumType.STRING)
     LoginType loginType;

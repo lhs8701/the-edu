@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.order.entity;
 
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.order.entity.CoursePeriod;
 import joeuncamp.dabombackend.domain.order.entity.Item;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class Ticket extends Item {
     public Ticket(Course course, CoursePeriod coursePeriod) {
         this.productName = course.getTitle() + " " + coursePeriod.getDescription();
         this.productDetail = course.getDescription();
+        this.imageInfo = course.getThumbnailImage();
         this.price = new Price(1000L, 1000L);
         this.coursePeriod = coursePeriod;
         this.course = course;

@@ -47,6 +47,7 @@ public class AppleAuthDto {
                     .profileImage(new ImageInfo(StaticFilePath.DEFAULT_PROFILE_IMAGE.getUrl()))
                     .socialId(this.socialToken)
                     .roles(Collections.singletonList("ROLE_USER"))
+                    .payPoint(0)
                     .build();
         }
     }

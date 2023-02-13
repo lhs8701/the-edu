@@ -1,30 +1,30 @@
 -- <Member> --
 insert into member (id, created_time, modified_time, account, birth_date, email, login_type, mobile, name, nickname,
-                    password, medium_file_path, original_file_path, small_file_path, social_id)
+                    password, medium_file_path, original_file_path, small_file_path, social_id, pay_point)
 values (1, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'admin@naver.com', NULL, 'admin@naver.com',
         'BASIC', NULL, NULL, 'admin', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL),
+        '/static/images/default/profile_image_s.jpg', NULL, 0),
        (2, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student1@naver.com', NULL, 'student1@naver.com',
         'BASIC', NULL, NULL, 'student1', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL),
+        '/static/images/default/profile_image_s.jpg', NULL, 0),
        (3, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student2@naver.com', NULL, 'student2@naver.com',
         'BASIC', NULL, NULL, 'student2', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL),
+        '/static/images/default/profile_image_s.jpg', NULL, 0),
        (4, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student3@naver.com', NULL, 'student3@naver.com',
         'BASIC', NULL, NULL, 'student3', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL),
+        '/static/images/default/profile_image_s.jpg', NULL, 0),
        (5, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student4@naver.com', NULL, 'student4@naver.com',
         'BASIC', NULL, NULL, 'student4', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL),
+        '/static/images/default/profile_image_s.jpg', NULL, 0),
        (6, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student5@naver.com', NULL, 'student5@naver.com',
         'BASIC', NULL, NULL, 'student5', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL);
+        '/static/images/default/profile_image_s.jpg', NULL, 0);
 
 insert into member_roles (member_id, roles)
 values (1, 'ROLE_USER'),

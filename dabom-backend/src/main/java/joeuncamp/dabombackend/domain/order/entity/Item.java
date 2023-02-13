@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.order.entity;
 
 import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class Item extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String productName;
+    ImageInfo imageInfo;
     String productDetail;
-    @Embedded
     Price price;
 }

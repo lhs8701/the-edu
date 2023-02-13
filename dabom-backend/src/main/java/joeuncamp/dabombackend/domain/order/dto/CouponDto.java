@@ -1,6 +1,8 @@
 package joeuncamp.dabombackend.domain.order.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import joeuncamp.dabombackend.domain.order.entity.Coupon;
 import joeuncamp.dabombackend.domain.order.entity.DiscountPolicy;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,5 +34,24 @@ public class CouponDto {
         Long memberId;
         @Schema(description = "발급할 쿠폰")
         Long couponId;
+    }
+
+    @Getter
+    public static class Response{
+        @Schema(description = "쿠폰 이름")
+        String name;
+        @Schema(description = "할인률")
+        long discount;
+        @Schema(description = "정률할인 / 정액할인", example = "RATE / FIX")
+        DiscountPolicy discountPolicy;
+        @Schema(description = "유효기간")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        LocalDate endDate;
+        public Response(Coupon coupon){
+            this.name = coupon.getName();
+            this.discount = coupon.getDiscount();
+            this.discountPolicy = coupon.getDiscountPolicy();
+            this.endDate = coupon.getEndDate();
+        }
     }
 }

@@ -46,6 +46,7 @@ public class SignupRequestDto {
                 .loginType(LoginType.BASIC)
                 .profileImage(new ImageInfo(StaticFilePath.DEFAULT_PROFILE_IMAGE.getUrl()))
                 .socialId(null)
+                .payPoint(0)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
     }
