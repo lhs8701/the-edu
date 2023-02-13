@@ -44,7 +44,7 @@ extension Const {
         
         // MARK: - MyCourse
         static let getMyCourses = "http://\(serverIP)/api/students"
-        static let getMyWishCourses = "http://\(serverIP)/api/students"
+        static let getMyWishCourses = "http://\(serverIP)/api/wish/courses"
         static let getMyOngoingCourses = "\(apiBaseUrl)/courses/ongoing"
         static let getMyCompletedCourses = "\(apiBaseUrl)/courses/completed"
         
@@ -56,8 +56,8 @@ extension Const {
         static let getSearchResult = "http://\(serverIP)/api/courses/keyword"
         static let getCategoryCourses = "http://\(serverIP)/api/courses/category"
         
-        static let changeWishStatus = "http://\(serverIP)/api/courses"
-        static let isWishCourse = "http://\(serverIP)/api/courses"
+        static let changeWishStatus = "http://\(serverIP)/api/wish/courses"
+        static let isWishCourse = "http://\(serverIP)/api/wish/courses"
         
         static let enrollCourse = "\(apiBaseUrl)/courses"
         static let isEnrollCourse = "\(apiBaseUrl)/courses"

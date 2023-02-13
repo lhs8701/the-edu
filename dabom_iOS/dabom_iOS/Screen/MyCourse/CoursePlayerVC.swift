@@ -212,10 +212,10 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.curriculumTVC) as! CurriculumTVC
         
         if let curriculum = curriculum {
-            cell.curriculumTitle.text = curriculum.chapters[indexPath.section].units[indexPath.row].title
+            cell.curriculumTitle.text = "\(indexPath.row + 1). \(curriculum.chapters[indexPath.section].units[indexPath.row].title)"
             
             if curriculum.chapters[indexPath.section].units[indexPath.row].completed {
-                cell.contentView.backgroundColor = UIColor(named: "unSelectedColor")
+                cell.contentView.backgroundColor = UIColor(named: "completeUnit")
             }
             
         }
@@ -227,14 +227,19 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Const.Xib.Identifier.curriculumHeaderTVC) as! CurriculumHeaderTVC
         
         if let curriculum = curriculum {
-            header.chapterTitle.text = curriculum.chapters[section].title
+            header.chapterTitle.text = "\(section). \(curriculum.chapters[section].title)"
         }
+        header.contentView.backgroundColor = UIColor(named: "lightMain")
         
         return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         40
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        .leastNormalMagnitude 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

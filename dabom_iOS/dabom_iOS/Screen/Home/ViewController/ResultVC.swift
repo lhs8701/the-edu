@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ResultVC: UIViewController {
     // MARK: - IBOutlet
@@ -30,6 +31,7 @@ class ResultVC: UIViewController {
     var isPaging: Bool = false
     var hasNextPage: Bool = false
     
+    var defaultImageView: UIImageView = UIImageView(image: UIImage(named: "default_course"))
     
     // MARK: - Life Cycle
     
@@ -37,6 +39,14 @@ class ResultVC: UIViewController {
         super.viewDidLoad()
         
         setCV()
+        view.addSubview(defaultImageView)
+        defaultImageView.contentMode = .scaleAspectFit
+        defaultImageView.snp.makeConstraints {
+            $0.center.equalTo(resultCV.snp.center)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+        defaultImageView.isHidden = true
         
         self.resultName.text = self.resultTitle ?? ""
         if kind == "category" {
@@ -79,16 +89,16 @@ class ResultVC: UIViewController {
                     if let data = paginationData as? PaginationDataModel {
                         self.page += 1
                         self.totalPage = data.totalPage
-                        
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-//                            self.resultData.append(contentsOf: data.list)
-//                            self.resultCV.reloadData()
-//                            self.isPaging = false
-//                        })
+                    
                         self.resultData.append(contentsOf: data.list)
                         self.resultCV.reloadData()
                         self.isPaging = false
                         
+                        if self.resultData.isEmpty {
+                            self.defaultImageView.isHidden = false
+                        } else {
+                            self.defaultImageView.isHidden = true
+                        }
                     }
                 case .requestErr(let message):
                     print("requestErr", message)

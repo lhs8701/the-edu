@@ -11,13 +11,15 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 class SettingVC: UIViewController {
+    @IBOutlet weak var reissueTestView: UIView!
     
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        reissueTestView.layer.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

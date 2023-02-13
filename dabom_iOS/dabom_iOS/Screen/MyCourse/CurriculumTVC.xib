@@ -17,8 +17,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44d-qg-zkU">
-                        <rect key="frame" x="20" y="16" width="360" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44d-qg-zkU">
+                        <rect key="frame" x="30" y="16" width="340" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -26,8 +26,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="44d-qg-zkU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cb5-d5-v6k"/>
-                    <constraint firstItem="44d-qg-zkU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="iyB-US-99Z"/>
-                    <constraint firstAttribute="trailing" secondItem="44d-qg-zkU" secondAttribute="trailing" constant="20" symbolic="YES" id="kVB-Cc-JIh"/>
+                    <constraint firstItem="44d-qg-zkU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="iyB-US-99Z"/>
+                    <constraint firstAttribute="trailing" secondItem="44d-qg-zkU" secondAttribute="trailing" constant="30" id="kVB-Cc-JIh"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -109,7 +109,7 @@ class UserViewController: UIViewController {
                     self.userNameLabel.text = self.userNickname
 
                     self.profileImageView.kf.indicatorType = .activity
-                    self.profileImageView.noCacheImage(with: self.userProfileImage.mediumFilePath )
+                    self.profileImageView.noCacheImage(with: self.userProfileImage.mediumFilePath)
                 }
             case .requestErr(let message):
                 print("requestErr", message)

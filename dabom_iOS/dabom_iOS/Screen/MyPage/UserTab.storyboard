@@ -500,6 +500,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="환경설정" id="tgX-Gi-BbI"/>
+                    <connections>
+                        <outlet property="reissueTestView" destination="hYq-tl-FoT" id="yjz-VN-YeR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4CD-bn-zey" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
