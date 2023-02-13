@@ -7,6 +7,13 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import styled from "styled-components";
+
+const DeleteBtn = styled.button`
+  z-index: 10;
+  border: none;
+  padding: 5px;
+`;
 
 export function EventTable({ rows, cells, deleteFun, navigate }) {
   return (
@@ -30,22 +37,28 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
                 cursor: "pointer",
               }}
               key={row.id}
-              onClick={() => {
-                navigate(`detailEvent/${row.id}`);
-              }}
             >
               <TableCell align="center">{row.id}</TableCell>
               <TableCell align="center">{row.title}</TableCell>
               <TableCell align="center">{row.startDate}</TableCell>
               <TableCell align="center">{row.endDate}</TableCell>
               <TableCell align="center">
-                <button
+                <DeleteBtn
                   onClick={() => {
                     deleteFun(row.id);
                   }}
                 >
                   삭제
-                </button>
+                </DeleteBtn>
+              </TableCell>
+              <TableCell align="center">
+                <DeleteBtn
+                  onClick={() => {
+                    navigate(`detailEvent/${row.id}`);
+                  }}
+                >
+                  보기
+                </DeleteBtn>
               </TableCell>
             </TableRow>
           ))}

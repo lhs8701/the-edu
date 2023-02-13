@@ -24,6 +24,11 @@ const EventUploadDate = styled.div`
   margin-top: 20px;
 `;
 
+const BoldTab = styled.span`
+  font-weight: var(--weight-point);
+  color: var(--color-text);
+`;
+
 const EventInfoTab = styled.div`
   margin-top: 4rem;
   margin-bottom: 20px;
@@ -50,20 +55,31 @@ export default function DetailEvent() {
     return (
       <>
         <EventInfoTab>
-          <div>이벤트 ID: {eventInfo.id}</div>
+          <div>
+            <BoldTab>이벤트 ID : </BoldTab>
+            {eventInfo.id}
+          </div>
           <br />
 
-          <div>이벤트 제목: {eventInfo.title}</div>
+          <div>
+            <BoldTab>이벤트 제목 : </BoldTab> {eventInfo.title}
+          </div>
           <br />
-          <div>작성자: {eventInfo.writer}</div>
+          <div>
+            <BoldTab>작성자 : </BoldTab> {eventInfo.writer}
+          </div>
           <br />
-          <div>내용: {eventInfo.content}</div>
+          <div>
+            <BoldTab>내용 : </BoldTab>
+            {eventInfo.content}
+          </div>
           <EventUploadDate>
-            이벤트 날짜: {eventInfo.startDate} ~ {eventInfo.endDate}
+            <BoldTab>이벤트 날짜 : </BoldTab>
+            {eventInfo.startDate} ~ {eventInfo.endDate}
           </EventUploadDate>
         </EventInfoTab>
         <EventCardBox>
-          사진
+          <BoldTab>사진</BoldTab>
           <EventCard
             src={STATIC_URL + eventInfo.bannerImage.originalFilePath}
           />
