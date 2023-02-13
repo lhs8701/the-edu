@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // MARK: - 카카오톡 로그인 설정
-        KakaoSDK.initSDK(appKey: "9d5a7db9c37d4b17c44b843e6c4fa727")
+        KakaoSDK.initSDK(appKey: "dbcf7d906ee7afeac0bf4b0c69479de6")
         
         NetworkMonitor.shared.startMonitoring()
         

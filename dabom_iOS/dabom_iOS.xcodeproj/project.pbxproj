@@ -1207,9 +1207,10 @@
 				CODE_SIGN_ENTITLEMENTS = dabom_iOS/dabom_iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C9U8778A7W;
+				DEVELOPMENT_TEAM = MKYWGCRMF3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dabom_iOS/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "the-edu";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진의 저장 또는 업로드를 위해 사용자의 앨범에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1223,7 +1224,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joeuncamp.the-edu";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jouncamp.the-edu";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1240,9 +1241,10 @@
 				CODE_SIGN_ENTITLEMENTS = dabom_iOS/dabom_iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C9U8778A7W;
+				DEVELOPMENT_TEAM = MKYWGCRMF3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = dabom_iOS/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "the-edu";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진의 저장 또는 업로드를 위해 사용자의 앨범에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1256,7 +1258,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.joeuncamp.the-edu";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jouncamp.the-edu";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
