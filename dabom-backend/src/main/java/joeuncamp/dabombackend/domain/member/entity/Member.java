@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.order.entity.Issue;
 import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
@@ -64,6 +65,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Builder.Default
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Post> postList = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Issue> issueList = new ArrayList<>();
 
     @Schema(description = "권한", example = "일반")
     @ElementCollection(fetch = FetchType.LAZY)

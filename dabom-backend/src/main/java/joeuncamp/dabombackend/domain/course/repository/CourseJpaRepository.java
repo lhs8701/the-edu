@@ -37,6 +37,6 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
         return findByEnrolledCountFromPast(categoryType, now.minusDays(7), pageable);
     }
 
-    List<Course> findByCreatorProfile(CreatorProfile creatorProfile, Pageable pageable);
+    List<Course> findByCreatorProfile(CreatorProfile creatorProfile);
 
 }

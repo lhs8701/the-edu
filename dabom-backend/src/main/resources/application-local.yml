@@ -18,7 +18,7 @@ spring:
         format_sql: true
         hbm2ddl:
           auto: create
-#    defer-datasource-initialization: true #더미데이터 용
+    defer-datasource-initialization: true #더미데이터 용
     show-sql: true
   data:
     redis:
@@ -28,11 +28,11 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-#  sql: #더미데이터 용
-#    init:
-#      mode: always
-#      data-locations: classpath:data.sql
-#      encoding: UTF-8
+  sql: #더미데이터 용
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+      encoding: UTF-8
 
   mail:
     host: smtp.gmail.com # SMTP 서버 호스트

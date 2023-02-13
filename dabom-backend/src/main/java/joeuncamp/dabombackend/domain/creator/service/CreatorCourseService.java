@@ -24,15 +24,14 @@ public class CreatorCourseService {
      * 크리에이터가 업로드한 강좌 목록을 조회합니다.
      *
      * @param memberId 크리에이터
-     * @param pageable   pageable
      * @return 업로드한 강좌 목록
      */
-    public List<CourseDto.ShortResponse> getUploadedCourses(Long memberId, Pageable pageable) {
+    public List<CourseDto.ShortResponse> getUploadedCourses(Long memberId) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
         if (!member.isCreator()) {
             throw new CAccessDeniedException("크리에이터만 이용할 수 있는 기능입니다.");
         }
-        return courseJpaRepository.findByCreatorProfile(member.getCreatorProfile(), pageable).stream()
+        return courseJpaRepository.findByCreatorProfile(member.getCreatorProfile()).stream()
                 .map(CourseDto.ShortResponse::new)
                 .toList();
     }

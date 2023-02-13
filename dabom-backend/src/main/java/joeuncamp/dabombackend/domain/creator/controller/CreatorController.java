@@ -36,8 +36,8 @@ public class CreatorController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/creators/me/courses")
-    public ResponseEntity<List< CourseDto.ShortResponse>> getUploadedCourses(@AuthenticationPrincipal Member member, @ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
-        List< CourseDto.ShortResponse> responseDto =  creatorCourseService.getUploadedCourses(member.getId(), pageable);
+    public ResponseEntity<List< CourseDto.ShortResponse>> getUploadedCourses(@AuthenticationPrincipal Member member) {
+        List< CourseDto.ShortResponse> responseDto =  creatorCourseService.getUploadedCourses(member.getId());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
