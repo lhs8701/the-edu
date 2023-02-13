@@ -97,12 +97,14 @@ export default function EventList() {
   return (
     <div>
       <DashboardTitleTab title={ADMIN_BAR_LIST.list[4].list[0].name} />
-      <EventTable
-        cells={eventListTableCells}
-        rows={eventList}
-        deleteFun={deleteEvent}
-        navigate={navigate}
-      />
+      {eventList && (
+        <EventTable
+          cells={eventListTableCells}
+          rows={eventList}
+          deleteFun={deleteEvent}
+          navigate={navigate}
+        />
+      )}
     </div>
   );
 }

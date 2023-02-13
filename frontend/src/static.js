@@ -220,7 +220,7 @@ export const PURCHASE_METHOD = [
   "게임문화상품권",
 ];
 
-const BASE_URL = "http://218.38.127.26:8080";
+export const BASE_URL = "http://218.38.127.26:8080";
 export const STATIC_URL = "http://the-edu.co.kr";
 export const API_URL = BASE_URL + "/api";
 // export const PLAYER_URL = STATIC_URL + "/player";

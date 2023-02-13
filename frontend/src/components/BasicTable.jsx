@@ -54,3 +54,36 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
 }
 
 export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {}
+
+export function AdminUserTable({ rows, cells, deleteFun }) {
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{}} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {cells?.map((cell) => {
+              return (
+                <TableCell key={cell.id} align="left">
+                  {cell?.name}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row, idx) => (
+            <TableRow key={row.id}>
+              <TableCell align="left">{row.id}</TableCell>
+              <TableCell align="left">{row.account}</TableCell>
+              <TableCell align="left">{row.nickname}</TableCell>
+              <TableCell align="left">{row.mobile}</TableCell>
+              <TableCell align="left">{row.loginType}</TableCell>
+              <TableCell align="left">{row.creator}</TableCell>
+              <TableCell align="left">{row.joinedDate.slice(0, 10)}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}

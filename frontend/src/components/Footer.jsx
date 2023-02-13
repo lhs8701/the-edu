@@ -1,18 +1,19 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const DaboomFooter = styled.footer`
   width: 1100px;
   margin: 0 auto;
-  font-weight: var(--weight-thin);
-  color: var(--color-gray);
   font-size: var(--size-footer);
   margin-top: 15vh;
   border-top: 1px solid var(--color-box-gray);
-  padding: 40px 0px 30px 0px;
+  padding: 30px 0px;
   box-sizing: border-box;
 `;
 
 const FooterBox = styled.div`
+  font-weight: var(--weight-thin);
+  color: var(--color-gray);
   width: 100%;
   height: 100%;
   display: flex;
@@ -22,9 +23,33 @@ const FooterBox = styled.div`
   line-height: 15px;
 `;
 
+const InfoFooterBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15%, auto));
+  font-size: 1rem;
+  font-weight: var(--weight-middle);
+  width: 50%;
+
+  flex: 1;
+`;
+
+const InfoLink = styled(Link)`
+  text-decoration: none;
+  color: var(--color-text);
+  &:hover {
+    color: var(--color-gray);
+  }
+`;
+
 export default function Footer() {
   return (
     <DaboomFooter>
+      <InfoFooterBox>
+        <InfoLink>공지사항</InfoLink>
+        <InfoLink>이용 약관</InfoLink>
+        <InfoLink>개인정보 처리 방침</InfoLink>
+      </InfoFooterBox>
+      <br />
       <FooterBox>
         <p>
           상호명&nbsp;:&nbsp;(주)조은캠프&nbsp;ㅣ&nbsp;대표이사&nbsp;:&nbsp;이유락&nbsp;ㅣ&nbsp;대구광역시
