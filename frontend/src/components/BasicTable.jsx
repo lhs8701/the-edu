@@ -7,7 +7,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { ADMIN_BAR_LIST } from "../static";
 
 export function EventTable({ rows, cells, deleteFun, navigate }) {
   return (
@@ -27,9 +26,12 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
         <TableBody>
           {rows?.map((row, idx) => (
             <TableRow
+              sx={{
+                cursor: "pointer",
+              }}
               key={row.id}
               onClick={() => {
-                navigate(ADMIN_BAR_LIST.list[4].list[1].url + "/" + row.id);
+                navigate(`detailEvent/${row.id}`);
               }}
             >
               <TableCell align="left">{row.id}</TableCell>

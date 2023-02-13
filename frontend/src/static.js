@@ -149,10 +149,7 @@ export const ADMIN_BAR_LIST = {
           name: "조회 및 관리",
           url: "/admin/eventnotice",
         },
-        {
-          name: "세부 이벤트 내용",
-          url: "/admin/eventnotice/detailEvent",
-        },
+
         {
           name: "이벤트 업로드",
           url: "/admin/uploadevent",
