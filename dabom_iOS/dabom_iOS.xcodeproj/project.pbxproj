@@ -114,6 +114,7 @@
 		0EC314EA29876601004C82CF /* CourseInquiryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC314E829876601004C82CF /* CourseInquiryTVC.swift */; };
 		0EC314EB29876601004C82CF /* CourseInquiryTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EC314E929876601004C82CF /* CourseInquiryTVC.xib */; };
 		0EC8CAFD298B3760000C41E9 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8CAFC298B3760000C41E9 /* AccountVC.swift */; };
+		0ECA6B44299B44FA00238DEA /* FindPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6B43299B44FA00238DEA /* FindPasswordVC.swift */; };
 		0ED17B29298782BD0008D3C0 /* CourseInquiryAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED17B28298782BD0008D3C0 /* CourseInquiryAllVC.swift */; };
 		0ED17B2B2987854D0008D3C0 /* CourseReviewAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED17B2A2987854D0008D3C0 /* CourseReviewAllVC.swift */; };
 		0ED7037E296D3EFD0095DD14 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7037D296D3EFD0095DD14 /* SearchVC.swift */; };
@@ -271,6 +272,7 @@
 		0EC314E829876601004C82CF /* CourseInquiryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquiryTVC.swift; sourceTree = "<group>"; };
 		0EC314E929876601004C82CF /* CourseInquiryTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseInquiryTVC.xib; sourceTree = "<group>"; };
 		0EC8CAFC298B3760000C41E9 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
+		0ECA6B43299B44FA00238DEA /* FindPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordVC.swift; sourceTree = "<group>"; };
 		0ED17B28298782BD0008D3C0 /* CourseInquiryAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseInquiryAllVC.swift; sourceTree = "<group>"; };
 		0ED17B2A2987854D0008D3C0 /* CourseReviewAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewAllVC.swift; sourceTree = "<group>"; };
 		0ED7037D296D3EFD0095DD14 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 			children = (
 				0EFB74432970FB2500C58E87 /* LoginSignup.storyboard */,
 				0EFB7473297131BC00C58E87 /* LoginSignupNC.swift */,
+				0ECA6B43299B44FA00238DEA /* FindPasswordVC.swift */,
 				0E9D15282974F0620061D1ED /* SignupVC.swift */,
 				0E1E959C2977BDE800CBE70B /* UserDataModel.swift */,
 				0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */,
@@ -980,6 +983,7 @@
 				0E376A122995C8F600C42180 /* NetworkVC.swift in Sources */,
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
 				0E0498A4298EA752002425D9 /* GetCategoryDataService.swift in Sources */,
+				0ECA6B44299B44FA00238DEA /* FindPasswordVC.swift in Sources */,
 				0E685E582991E8380094D10A /* CurriculumTVC.swift in Sources */,
 				0E1E95E0297BBD9300CBE70B /* OnOffDescriptionVC.swift in Sources */,
 				0E550140296EA96400DD5B75 /* Layer+.swift in Sources */,
@@ -1219,8 +1223,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1230,9 +1233,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jouncamp.the-edu";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1253,8 +1259,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1264,9 +1269,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jouncamp.the-edu";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

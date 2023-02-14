@@ -43,6 +43,7 @@ extension Const {
             static let signupSelect = "SignupSelectVC"
             static let signup = "SignupVC"
             static let login = "LoginVC"
+            static let findPasswordVC = "FindPasswordVC"
             
             static let mainTabBar = "TabBarViewController"
             

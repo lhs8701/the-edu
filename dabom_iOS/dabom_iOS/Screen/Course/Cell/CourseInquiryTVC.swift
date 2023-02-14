@@ -66,6 +66,9 @@ class CourseInquiryTVC: UITableViewCell {
             
             if inquiryData.count == 0 {
                 defaultImageView.isHidden = false
+                allReviewBtn.isEnabled = false
+                allReviewBtn.setTitleColor(.white, for: .normal)
+                allReviewBtn.backgroundColor = .lightGray
             } else {
                 defaultImageView.isHidden = true
             }

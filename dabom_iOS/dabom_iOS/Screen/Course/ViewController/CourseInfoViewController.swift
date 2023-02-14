@@ -38,6 +38,7 @@ class CourseInfoViewController: UIViewController {
     
     var isWish: Bool?
     var isEnroll: Bool?
+    var isCharge: Bool?
 
     let maxUpper: CGFloat = 450.0
     let minUpper: CGFloat = 0.0
@@ -229,6 +230,9 @@ class CourseInfoViewController: UIViewController {
                 if let data = data as? CourseInfoDataModel {
 
                     self.courseInfoData = data
+                    if data.price > 0 {
+                        self.isCharge = true
+                    }
                     print(data)
                     self.getCourseReview()
                     self.getCourseInquiry()
@@ -346,7 +350,7 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
 
             cell.delegate = self
             
-            cell.setEnroll(self.isEnroll ?? false)
+            cell.setStatus(isEnroll: self.isEnroll ?? false, isCharge: self.isCharge ?? true)
             cell.courseThumbnailImageView.setImage(with: self.courseInfoData?.thumbnailImage.originalFilePath ?? "")
             cell.classTitle.text = self.courseInfoData?.title
             cell.courseDescription.text = self.courseInfoData?.description

@@ -725,19 +725,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TrJ-hN-VZJ">
-                                <rect key="frame" x="25" y="358" width="340" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="AdY-uv-khv"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="본인 인증하기"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z3z-DD-CUc">
-                                <rect key="frame" x="25" y="423" width="340" height="40"/>
+                                <rect key="frame" x="25" y="358" width="340" height="40"/>
                                 <color key="backgroundColor" name="mainColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="vKT-E3-fNs"/>
@@ -781,19 +770,16 @@
                             <constraint firstItem="Eof-px-O2B" firstAttribute="trailing" secondItem="sLb-Kq-Clu" secondAttribute="trailing" constant="25" id="6If-1P-fca"/>
                             <constraint firstItem="JQZ-u2-P6r" firstAttribute="top" secondItem="vnV-Dp-yJ4" secondAttribute="bottom" constant="15" id="AQ2-4g-svn"/>
                             <constraint firstItem="xs7-dR-E3v" firstAttribute="leading" secondItem="Eof-px-O2B" secondAttribute="leading" constant="25" id="AUC-F0-CvU"/>
-                            <constraint firstItem="TrJ-hN-VZJ" firstAttribute="top" secondItem="GD2-he-WYp" secondAttribute="bottom" constant="25" id="Acm-9J-fuB"/>
                             <constraint firstItem="8nr-MS-TgL" firstAttribute="leading" secondItem="Eof-px-O2B" secondAttribute="leading" constant="25" id="CLl-gk-KgT"/>
                             <constraint firstItem="JQZ-u2-P6r" firstAttribute="leading" secondItem="xs7-dR-E3v" secondAttribute="trailing" constant="20" id="Dmp-0h-9xY"/>
                             <constraint firstItem="Eof-px-O2B" firstAttribute="trailing" secondItem="z3z-DD-CUc" secondAttribute="trailing" constant="25" id="RVN-be-R9T"/>
-                            <constraint firstItem="TrJ-hN-VZJ" firstAttribute="leading" secondItem="Eof-px-O2B" secondAttribute="leading" constant="25" id="YlB-8H-C8z"/>
                             <constraint firstItem="sLb-Kq-Clu" firstAttribute="top" secondItem="8nr-MS-TgL" secondAttribute="bottom" constant="15" id="c0z-aK-C0v"/>
                             <constraint firstItem="8nr-MS-TgL" firstAttribute="top" secondItem="xs7-dR-E3v" secondAttribute="bottom" constant="30" id="ccx-Q8-v5a"/>
-                            <constraint firstItem="Eof-px-O2B" firstAttribute="trailing" secondItem="TrJ-hN-VZJ" secondAttribute="trailing" constant="25" id="dT8-VW-AbE"/>
                             <constraint firstItem="z3z-DD-CUc" firstAttribute="leading" secondItem="Eof-px-O2B" secondAttribute="leading" constant="25" id="daL-jE-thk"/>
                             <constraint firstItem="sLb-Kq-Clu" firstAttribute="top" secondItem="wdC-F7-bUg" secondAttribute="bottom" constant="8" symbolic="YES" id="dhW-ef-Dbo"/>
-                            <constraint firstItem="z3z-DD-CUc" firstAttribute="top" secondItem="TrJ-hN-VZJ" secondAttribute="bottom" constant="25" id="hPA-HM-hiA"/>
                             <constraint firstItem="Eof-px-O2B" firstAttribute="trailing" secondItem="GD2-he-WYp" secondAttribute="trailing" constant="25" id="iOz-hr-Bck"/>
                             <constraint firstItem="vnV-Dp-yJ4" firstAttribute="leading" secondItem="xs7-dR-E3v" secondAttribute="trailing" constant="20" id="joK-Om-F1r"/>
+                            <constraint firstItem="z3z-DD-CUc" firstAttribute="top" secondItem="GD2-he-WYp" secondAttribute="bottom" constant="25" id="lmm-n6-Zbc"/>
                             <constraint firstItem="Eof-px-O2B" firstAttribute="trailing" secondItem="JQZ-u2-P6r" secondAttribute="trailing" constant="25" id="nYY-dC-SDI"/>
                             <constraint firstItem="Eof-px-O2B" firstAttribute="trailing" secondItem="wdC-F7-bUg" secondAttribute="trailing" constant="25" id="pFS-Qe-wdk"/>
                             <constraint firstItem="vnV-Dp-yJ4" firstAttribute="top" secondItem="Eof-px-O2B" secondAttribute="top" constant="30" id="v93-lG-0hP"/>
@@ -803,7 +789,6 @@
                     <navigationItem key="navigationItem" title="계정 정보" id="AkW-E0-jmF"/>
                     <connections>
                         <outlet property="changePasswordBtn" destination="GD2-he-WYp" id="O3s-ua-Do2"/>
-                        <outlet property="identificationbtn" destination="TrJ-hN-VZJ" id="e1W-Ws-QzP"/>
                         <outlet property="loginTypeLabel" destination="wdC-F7-bUg" id="n6K-nB-6dU"/>
                         <outlet property="profileImageView" destination="xs7-dR-E3v" id="aLl-Pc-V7a"/>
                         <outlet property="saveBtn" destination="z3z-DD-CUc" id="fKW-31-cOB"/>

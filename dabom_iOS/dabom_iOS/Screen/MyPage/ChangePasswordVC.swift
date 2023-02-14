@@ -8,26 +8,28 @@
 import UIKit
 
 class ChangePasswordVC: UIViewController {
-
+    
+    // MARK: - IBOutlet
     @IBOutlet weak var currentPasswordField: UITextField!
-    
     @IBOutlet weak var changePasswordField: UITextField!
-    
     @IBOutlet weak var confirmPasswordField: UITextField!
-    
     @IBOutlet weak var changeBtn: UIButton!
     
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         hideKeyboardWhenTappedAround()
     }
     
+    // MARK: - configure
     private func configure() {
         changeBtn.layer.cornerRadius = 10
     }
     
+    
+    // MARK: - textField Setting
     private func textFieldSetting() {
         self.currentPasswordField.delegate = self
         self.changePasswordField.delegate = self
@@ -37,13 +39,15 @@ class ChangePasswordVC: UIViewController {
         self.changePasswordField.placeholder = "영문, 숫자, 특수문자 포함 8 ~ 16자"
         
     }
-
+    
+    // MARK: - 비밀번호 유효성 검사
     private func isValidPassword(pwd: String) -> Bool {
         let passwordRegEx = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$"
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
         return passwordTest.evaluate(with: pwd)
     }
     
+    // MARK: - 변경하기 버튼 눌렀을 때
     @IBAction func changeBtnPressed(_ sender: Any) {
         guard let currentPW = currentPasswordField.text, !currentPW.isEmpty else {
             currentPasswordField.placeholder = "현재 비밀번호를 입력해주세요"
@@ -109,6 +113,7 @@ class ChangePasswordVC: UIViewController {
     
 }
 
+// MARK: - UITextFieldDelegate
 extension ChangePasswordVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.currentPasswordField {

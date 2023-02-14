@@ -126,7 +126,7 @@ extension InCourseViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellWidth = (UIScreen.main.bounds.width - (10 * 3)) / 2
-        let cellHeight = cellWidth * 1.3
+        let cellHeight = cellWidth * 1.25
 
         return CGSize(width: cellWidth, height: cellHeight)
     }

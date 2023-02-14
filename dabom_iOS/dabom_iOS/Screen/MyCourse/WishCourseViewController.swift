@@ -52,15 +52,13 @@ class WishCourseViewController: UIViewController {
         wishCourseData = CourseThumbnailDataModel.sampleData
     }
     
+    // MARK: - 찜한 강좌 목록 가져오기
     private func getWishCourse() {
         print("call getWishCourse!")
         GetWishCourseDataService.shared.getWishCourse { response in
             switch response {
             case .success(let wishCourseData):
                 if let data = wishCourseData as? [SampleCourseThumbnail] {
-//                    for d in data {
-//                        print(d)
-//                    }
                     self.temp = data
                     self.wishCourseCollectionView.reloadData()
                     
@@ -90,11 +88,6 @@ class WishCourseViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension WishCourseViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if let wishCourseData = wishCourseData {
-//            return wishCourseData.count
-//        } else {
-//            return 0
-//        }
         return self.temp.count
         
     }
@@ -116,12 +109,7 @@ extension WishCourseViewController: UICollectionViewDelegate {
 extension WishCourseViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CourseThumbnailCollectionViewCell.identifier, for: indexPath) as? CourseThumbnailCollectionViewCell else { return UICollectionViewCell() }
-        
-//        if let wishCourseData = wishCourseData {
-//            cell.setData(wishCourseData[indexPath.row])
-//        }
-        
-        
+            
         cell.setTemp(temp[indexPath.row])
         
         return cell

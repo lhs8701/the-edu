@@ -30,6 +30,7 @@ class LoginVC: UIViewController {
         self.hideKeyboardWhenTappedAround()
         self.loginBtn.layer.cornerRadius = 10
         self.loginLabel.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 5.0)
+        self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
     
@@ -86,10 +87,6 @@ class LoginVC: UIViewController {
         }
         
         
-    }
-    
-    @IBAction func temp(_ sender: Any) {
-        AuthenticationService.shared.goToMain()
     }
  
     @IBAction func kakaoLoginBtnPressed(_ sender: Any) {
@@ -215,6 +212,14 @@ class LoginVC: UIViewController {
         }
         
         return true
+    }
+    
+    
+    @IBAction func findPasswordBtnPressed(_ sender: Any) {
+        guard let findPwVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.findPasswordVC) as? FindPasswordVC else { return }
+        
+        findPwVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(findPwVC, animated: true)
     }
     
 }

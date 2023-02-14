@@ -61,8 +61,8 @@ extension Const {
         static let changeWishStatus = "http://\(serverIP)/api/wish/courses"
         static let isWishCourse = "http://\(serverIP)/api/wish/courses"
         
-        static let enrollCourse = "\(apiBaseUrl)/courses"
-        static let isEnrollCourse = "\(apiBaseUrl)/courses"
+        static let enrollCourse = "\(apiBaseUrl)/enroll/courses"
+        static let isEnrollCourse = "\(apiBaseUrl)/enroll/courses"
         
         static let getCourseRanking = "\(apiBaseUrl)/courses/category/ranking"
         
