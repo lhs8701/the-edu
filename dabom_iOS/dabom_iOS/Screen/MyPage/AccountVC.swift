@@ -16,7 +16,6 @@ class AccountVC: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UITextField!
     @IBOutlet weak var userEmailLabel: UITextField!
-    @IBOutlet weak var identificationbtn: UIButton!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var changePasswordBtn: UIButton!
     @IBOutlet weak var loginTypeLabel: UILabel!
@@ -49,7 +48,7 @@ class AccountVC: UIViewController {
     // MARK: - NavigationBar Setting
     private func setNavi() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.navigationController?.navigationBar.topItem?.title = "계정 정보"
+
     }
     
     // MARK: - setProfile
@@ -63,7 +62,6 @@ class AccountVC: UIViewController {
         self.userEmailLabel.text = self.userEmail
         
         self.profileImageView.layer.cornerRadius = 45
-        self.identificationbtn.layer.cornerRadius = 10
         self.saveBtn.layer.cornerRadius = 10
         self.changePasswordBtn.layer.cornerRadius = 10
         
@@ -85,13 +83,9 @@ class AccountVC: UIViewController {
         
         imagePicker.delegate = self
         
-        identificationbtn.layer.isHidden = true
-        identificationbtn.snp.makeConstraints {
-            $0.height.equalTo(0)
-        }
-        saveBtn.snp.makeConstraints {
-            $0.top.equalTo(self.changePasswordBtn.snp.bottom).offset(20)
-        }
+//        saveBtn.snp.updateConstraints {
+//            $0.top.equalTo(self.changePasswordBtn.snp.bottom).offset(20)
+//        }
     }
     
     // MARK: - 이메일, 닉네임 유효성 검사
