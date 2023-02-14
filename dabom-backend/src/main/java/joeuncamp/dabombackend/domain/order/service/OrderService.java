@@ -31,7 +31,7 @@ public class OrderService {
     private final MemberJpaRepository memberJpaRepository;
     private final ItemJpaRepository itemJpaRepository;
     private final CouponJpaRepository couponJpaRepository;
-    private final CouponService couponService;
+    private final IssueService issueService;
     private final IssueJpaRepository issueJpaRepository;
     private final PayPointManager payPointManager;
     private final TossService tossService;
@@ -45,17 +45,17 @@ public class OrderService {
     public OrderDto.Response getOrderSheet(OrderDto.StatusRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
-        List<CouponDto.Response> couponList = issueJpaRepository.findByMember(member).stream()
-                .map(Issue::getCoupon)
-                .filter(coupon -> coupon.isValid(item))
-                .map(CouponDto.Response::new)
+        List<CouponDto.Response> issueList = issueJpaRepository.findByMemberAndUsedIsFalse(member).stream()
+                .filter(issue -> issueService.isAvailable(issue, item))
+                .map(issue -> new CouponDto.Response(issue.getCoupon()))
                 .toList();
         return OrderDto.Response.builder()
                 .item(item)
                 .member(member)
-                .couponList(couponList)
+                .couponList(issueList)
                 .build();
     }
+
 
     /**
      * 결제를 승인합니다.
@@ -68,7 +68,8 @@ public class OrderService {
         long price = item.getPrice().getDiscountedPrice();
         if (requestDto.getCouponId() != null) {
             Coupon coupon = couponJpaRepository.findById(requestDto.getCouponId()).orElseThrow(CResourceNotFoundException::new);
-            price = couponService.useCoupon(member, coupon, item);
+            Issue issue = issueJpaRepository.findByMemberAndCoupon(member, coupon).orElseThrow(CResourceNotFoundException::new);
+            price = issueService.useCoupon(issue, item);
         }
         price -= payPointManager.usePoint(member, requestDto.getPoint());
         if (price != requestDto.getTossSecret().getTossAmount()) {
