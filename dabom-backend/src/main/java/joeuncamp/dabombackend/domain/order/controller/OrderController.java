@@ -40,8 +40,6 @@ public class OrderController {
     }
 
     @Operation(summary="강좌 수강권 조회", description="")
-    @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/{courseId}/tickets")
     public ResponseEntity<List<TicketDto.Response>> getTickets(Long courseId){
         List<TicketDto.Response> responseDto = courseTicketService.getTickets(courseId);
@@ -56,5 +54,16 @@ public class OrderController {
         OrderDto.StatusRequest requestDto = new OrderDto.StatusRequest(member.getId(), itemId);
         OrderDto.Response responseDto = orderService.getOrderSheet(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary="주문 승인", description="결제를 승인하여 완료합니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/purchase/items/{itemId}")
+    public ResponseEntity<OrderDto.Response> completeOrder(@PathVariable Long itemId, @RequestBody OrderDto.Request requestDto, @AuthenticationPrincipal Member member){
+        requestDto.setMemberId(member.getId());
+        requestDto.setItemId(itemId);
+        orderService.completeOrder(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

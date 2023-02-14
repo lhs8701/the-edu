@@ -27,7 +27,7 @@ public class OrderDto {
     public static class Request{
         @Schema(hidden = true)
         Long memberId;
-        @Schema(description = "구매할 상품 아이디넘버")
+        @Schema(hidden = true)
         Long itemId;
         @Schema(description = "사용한 쿠폰 아이디넘버")
         Long couponId;
