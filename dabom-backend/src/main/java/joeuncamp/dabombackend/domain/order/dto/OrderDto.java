@@ -59,6 +59,7 @@ public class OrderDto {
         String productDetail;
         ImageInfo productImage;
         List<CouponDto.Response> couponList;
+        String consumer;
         long point;
 
         @Builder
@@ -67,6 +68,7 @@ public class OrderDto {
             this.productDetail = item.getProductDetail();
             this.productImage = item.getImage();
             this.couponList = couponList;
+            this.consumer = member.getNickname();
             this.point = member.getPayPoint();
         }
     }

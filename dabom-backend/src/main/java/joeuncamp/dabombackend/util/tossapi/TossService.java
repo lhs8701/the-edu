@@ -86,7 +86,13 @@ public class TossService {
                 .block()).getAccess_token();
     }
 
-    public TxIdResponse issueTxId(String accessToken){
+    /**
+     * txid를 발급합니다.
+     *
+     * @param accessToken 토스 어세스토큰
+     * @return txid
+     */
+    public TxIdResponse issueTxId(String accessToken) {
         WebClient webClient = WebClient.create();
         return webClient.method(HttpMethod.POST)
                 .uri(TXID_API)
@@ -98,7 +104,14 @@ public class TossService {
                 .block();
     }
 
-    public AuthStatusResponse getAuthStatus(String accessToken, String txId){
+    /**
+     * 본인인증 진행 상태를 조회합니다.
+     *
+     * @param accessToken 토스 어세스토큰
+     * @param txId        txid
+     * @return response
+     */
+    public AuthStatusResponse getAuthStatus(String accessToken, String txId) {
         WebClient webClient = WebClient.create();
         return webClient.method(HttpMethod.POST)
                 .uri(AUTH_STATUS_API)
@@ -110,8 +123,14 @@ public class TossService {
                 .block();
     }
 
-
-    public AuthResultResponse getAuthResult(String accessToken, String txId){
+    /**
+     * 본인인증 결과를 조회합니다.
+     *
+     * @param accessToken 어세스토큰
+     * @param txId        txid
+     * @return response
+     */
+    public AuthResultResponse getAuthResult(String accessToken, String txId) {
         WebClient webClient = WebClient.create();
 
         return webClient.method(HttpMethod.POST)
@@ -124,6 +143,11 @@ public class TossService {
                 .block();
     }
 
+    /**
+     * 세션 키를 발급합니다.
+     *
+     * @return 세션 키
+     */
     public String getSessionKey() {
         TossCertSession tossCertSession = tossCertSessionGenerator.generate();
         return tossCertSession.getSessionKey();
