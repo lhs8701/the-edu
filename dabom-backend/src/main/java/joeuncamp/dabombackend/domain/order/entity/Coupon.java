@@ -26,8 +26,13 @@ public class Coupon {
     DiscountPolicy discountPolicy;
     LocalDate endDate;
 
-    public boolean isValid(){
-        return LocalDate.now().isBefore(endDate.plusDays(1));
+    public boolean isValid(Item item) {
+        return LocalDate.now().isBefore(endDate.plusDays(1))
+                && this.getMinimumAmount() <= item.getPrice().getDiscountedPrice();
+    }
+
+    public long calculateDiscountedPrice(long price){
+        return discountPolicy.calculate(price, discount);
     }
 
 }

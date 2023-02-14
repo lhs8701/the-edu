@@ -87,6 +87,11 @@ public class Member extends BaseTimeEntity implements UserDetails {
         }
     }
 
+    public void updatePoint(long amount) {
+        this.payPoint -= amount;
+    }
+
+
     public boolean isCreator() {
         return this.getCreatorProfile() != null && this.getCreatorProfile().isActivated();
     }

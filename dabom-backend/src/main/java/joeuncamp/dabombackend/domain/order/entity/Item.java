@@ -16,7 +16,7 @@ public class Item extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String productName;
-    ImageInfo imageInfo;
+    ImageInfo image;
     String productDetail;
     Price price;
 }
