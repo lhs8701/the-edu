@@ -43,24 +43,9 @@ values ('1', '1', true);
 -- <Event> --
 insert into event (id, created_time, modified_time, medium_file_path, original_file_path, small_file_path, content,
                    end_date, start_date, title, writer_id)
-values ('1', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '재입대 바람', '2024-02-08',
-        '2023-02-08', '연초 지정대상자 지휘서신(직책자용)', '1'),
-       ('2', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '지금 무료 온라인 컨퍼런스에 등록해보세요!',
-        '2024-02-08', '2023-02-08', 'AWS 클라우드 기초 200% 활용하는 방법은?', '1'),
-       ('3', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg',
-        ' 2021 코리아세일페스타 국내선 최대 88% 할인 및 부산항공마켓까지!', '2024-02-08', '2023-02-08', '★떠나요! 괌으로★ 인천-괌 편도총액 380,500원~', '1'),
-       ('4', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '종료된 이벤트1', '2023-01-08',
-        '2023-01-07', '종료된 이벤트1', '1'),
-       ('5', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '종료된 이벤트2', '2023-01-08',
-        '2023-01-07', '종료된 이벤트2', '1'),
-       ('6', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '종료된 이벤트3', '2023-01-08',
-        '2023-01-07', '종료된 이벤트3', '1');
+values ('1', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/static/images/open_event_thumbnail_m.jpg',
+        '/static/images/open_event_thumbnail.jpg', '/static/images/open_event_thumbnail_s.jpg', '다봄 오픈 기념으로 선착순 2000명에게 강좌 할인 쿠폰을 드려요 !', '2024-02-08',
+        '2023-02-08', '다봄 오픈 이벤트 !', '1');
 
 -- <Course> --
 insert into course (id, created_time, modified_time, category, description, medium_file_path, original_file_path,
@@ -70,13 +55,21 @@ values ('1', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_E
         '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 기본편', '1'),
        ('2', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END',
         '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '/static/images/jo_oa_pil_thumbnail_m.jpg',
-        '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg', '사무자동화산업기사 필기', '1');
+        '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg', '사무자동화산업기사 필기', '1'),
+       ('3', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END',
+        '<오피스 최신강의, 최신출제기준반영,스마트폰수강,무료연장서비스>', '/static/images/os_sil_thumbnail_m.jpg',
+        '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg', '사무자동화산업기사 실기', '1');
 
 insert into description_image (description_image_id, medium_file_path, original_file_path, small_file_path)
 values ('1', '/static/images/default/description_m.jpg', '/static/images/default/description.jpg',
         '/static/images/default/description_s.jpg'),
        ('2', '/static/images/jo_oa_pil_description_m.jpg', '/static/images/jo_oa_pil_description.jpg',
-        '/static/images/jo_oa_pil_description_s.jpg');
+        '/static/images/jo_oa_pil_description_s.jpg'),
+       ('3', '/static/images/os_sil_description1_m.jpg', '/static/images/os_sil_description1.jpg',
+        '/static/images/os_sil_description1_s.jpg'),
+       ('3', '/static/images/os_sil_description2_m.jpg', '/static/images/os_sil_description2.jpg',
+        '/static/images/os_sil_description2_s.jpg');
+
 
 -- <Item> --
 insert into item (dtype, id, created_time, modified_time, cost_price, discounted_price, product_detail, product_name,
@@ -94,17 +87,29 @@ values ('ticket', '1', '2023-02-13 11:01:41.918716', '2023-02-13 11:01:41.918716
         '/static/images/default/thumbnail_m.jpg',
         '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg'),
        ('ticket', '4', '2023-02-13 11:01:49.369901', '2023-02-13 11:01:49.369901', '1000', '1000',
-        '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 필기',
-        '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg'),
+        '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 필기 3개월 수강권',
+        '/static/images/jo_oa_pil_thumbnail_m.jpg',
+        '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg'),
        ('ticket', '5', '2023-02-13 11:01:49.371984', '2023-02-13 11:01:49.371984', '1000', '1000',
-        '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 필기',
-        '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg'),
+        '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 필기 6개월 수강권',
+        '/static/images/jo_oa_pil_thumbnail_m.jpg',
+        '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg'),
        ('ticket', '6', '2023-02-13 11:01:49.372482', '2023-02-13 11:01:49.372482', '1000', '1000',
-        '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 필기',
-        '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg');
+        '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 필기 영구 수강권',
+        '/static/images/jo_oa_pil_thumbnail_m.jpg',
+        '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg'),
+       ('ticket', '7', '2023-02-13 11:01:49.369901', '2023-02-13 11:01:49.369901', '1000', '1000',
+        '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 실기 3개월 수강권',
+        '/static/images/os_sil_thumbnail_m.jpg',
+        '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg'),
+       ('ticket', '8', '2023-02-13 11:01:49.371984', '2023-02-13 11:01:49.371984', '1000', '1000',
+        '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 실기 6개월 수강권',
+        '/static/images/os_sil_thumbnail_m.jpg',
+        '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg'),
+       ('ticket', '9', '2023-02-13 11:01:49.372482', '2023-02-13 11:01:49.372482', '1000', '1000',
+        '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 실기 영구 수강권',
+        '/static/images/os_sil_thumbnail_m.jpg',
+        '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg');
 
 -- <Coupon> --
 insert into coupon (id, code, discount, discount_policy, end_date, minimum_amount, name)
@@ -127,8 +132,10 @@ values ('THREE_MONTH', '1', '1'),
        ('UNLIMITED', '3', '1'),
        ('THREE_MONTH', '4', '2'),
        ('SIX_MONTH', '5', '2'),
-       ('UNLIMITED', '6', '2');
-
+       ('UNLIMITED', '6', '2'),
+       ('THREE_MONTH', '7', '3'),
+       ('SIX_MONTH', '8', '3'),
+       ('UNLIMITED', '9', '3');
 
 -- <Enroll> --
 insert into enroll (id, created_time, modified_time, course_id, member_id)
@@ -170,8 +177,10 @@ values ('1', '1', '1', '강의 소개', false),
        ('13', '2', '2', '[제1과목] 사무자동화 시스템', false),
        ('14', '2', '3', '[제2과목] 사무경영관리 개론', false),
        ('15', '2', '4', '[제3과목] 프로그래밍 일반', false),
-       ('16', '2', '5', '[제4과목] 정보통신 개론', false);
+       ('16', '2', '5', '[제4과목] 정보통신 개론', false),
 
+       ('17', '3', '1', '▶ [특강] 100점 합격을 위한 대호쌤의 세심한 특강', false),
+       ('18', '3', '2', '▶ [본강] 단계별로 따라하는 사무자동화실기 시험방식', false);
 
 -- <Unit> --
 insert into unit (id, created_time, modified_time, description, sequence, title, file_path, chapter_id, course_id)
@@ -338,7 +347,26 @@ values ('1', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '소개
        ('79', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '2', '[4-2강] 정보통신 기기	', '/static/videos/sample-m3u8/sample.m3u8', '16', '2'),
        ('80', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '3', '[4-3강] 정보전송 기술	', '/static/videos/sample-m3u8/sample.m3u8', '16', '2'),
        ('81', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '4', '[4-4강] 정보전송 방식과 프로토콜	', '/static/videos/sample-m3u8/sample.m3u8', '16', '2'),
-       ('82', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '5', '[4-5강] 정보통신망	', '/static/videos/sample-m3u8/sample.m3u8', '16', '2');
+       ('82', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '5', '[4-5강] 정보통신망	', '/static/videos/sample-m3u8/sample.m3u8', '16', '2'),
+       ('83', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '1', '[대호쌤 공지] 시험기간 중 시험정보에 대한 팁', '/static/videos/sample-m3u8/sample.m3u8', '17', '3'),
+       ('84', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '2', '[오리엔테이션] 100점으로 합격하는 대호쌤의 합격전략	', '/static/videos/sample-m3u8/sample.m3u8', '17', '3'),
+       ('85', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '3', '[인쇄작업특강] 시험장에서 일어나는 시뮬레이션', '/static/videos/sample-m3u8/sample.m3u8', '17', '3'),
+       ('86', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '4', '[엑셀함수특강] 시험에 자주나오는 함수특강', '/static/videos/sample-m3u8/sample.m3u8', '17', '3'),
+       ('87', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '5', '[엑셀함수특강] 엑셀 달러($)사용법과 고급함수', '/static/videos/sample-m3u8/sample.m3u8', '17', '3'),
+       ('88', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '6', '[엑셀함수특강] 문자열 함수 CONCATENATE', '/static/videos/sample-m3u8/sample.m3u8', '17', '3'),
+       ('89', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '7', '[엑셀함수특강] SUMIFS, AVERAGEIFS, COUNTIFS', '/static/videos/sample-m3u8/sample.m3u8', '17', '3'),
+       ('90', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '8', '[엑셀함수특강] Frequency 함수', '/static/videos/sample-m3u8/sample.m3u8', '17', '3'),
+       ('91', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '9', '[엑셀함수특강] Sumproduct, Isnumber, Find', '/static/videos/sample-m3u8/sample.m3u8', '17', '3'),
+       ('92', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '1', '[엑셀-1단계] 작업표형식에 맞춰 데이터 입력하기', '/static/videos/sample-m3u8/sample.m3u8', '18', '3'),
+       ('93', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '2', '[엑셀-2단계] 항목계산과 정렬작업', '/static/videos/sample-m3u8/sample.m3u8', '18', '3'),
+       ('94', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '3', '[엑셀-3단계] 합계라인 계산과 서식작업', '/static/videos/sample-m3u8/sample.m3u8', '18', '3'),
+       ('95', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '4', '[엑셀-4단계] 그래프작업과 인쇄준비작업', '/static/videos/sample-m3u8/sample.m3u8', '18', '3'),
+       ('96', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '5', '[액세스-1단계] 테이블 만들기', '/static/videos/sample-m3u8/sample.m3u8', '18', '3'),
+       ('97', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '6', '[액세스-2단계] 쿼리 만들기', '/static/videos/sample-m3u8/sample.m3u8', '18', '3'),
+       ('98', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '7', '[액세스-3단계] 폼 만들기, 인쇄작업', '/static/videos/sample-m3u8/sample.m3u8', '18', '3'),
+       ('99', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '8', '[액세스-4단계] 보고서 만들기, 인쇄작업', '/static/videos/sample-m3u8/sample.m3u8', '18', '3'),
+       ('100', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '9', '[파워포인트-1, 2단계] 기본설정과 제1슬라이드 만들기', '/static/videos/sample-m3u8/sample.m3u8', '18', '3'),
+       ('101', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '10', '[파워포인트-3, 4단계] 제2슬라이드 만들고 인쇄설정하기', '/static/videos/sample-m3u8/sample.m3u8', '18', '3');
 
 -- <Question> --
 insert into question (id, created_time, modified_time, content, title, member_id, unit_id)
