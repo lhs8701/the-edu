@@ -21,13 +21,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="170" height="170"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="83H-Xb-wTG">
-                                <rect key="frame" x="0.0" y="0.0" width="170" height="100"/>
+                                <rect key="frame" x="0.0" y="0.0" width="170" height="85"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="83H-Xb-wTG" secondAttribute="height" multiplier="17:10" id="OfK-Fn-Ivr"/>
+                                    <constraint firstAttribute="width" secondItem="83H-Xb-wTG" secondAttribute="height" multiplier="2:1" id="OfK-Fn-Ivr"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-Py-jwQ">
-                                <rect key="frame" x="5" y="105" width="160" height="18"/>
+                                <rect key="frame" x="5" y="90" width="160" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

@@ -131,6 +131,7 @@ struct AuthenticationService {
         }
     }
     
+    // MARK: - 비밀번호 변경
     func changePassword(currentPW: String, changePW: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.changePassword)"
         print(URL)
@@ -162,6 +163,34 @@ struct AuthenticationService {
         }
         
     }
+    
+    // MARK: - 비밀번호 초기화 (이메일 임시 비밀번호 전송)
+    func resetPassword(email: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        let URL = "\(Const.Url.resetPassword)"
+        print(URL)
+        
+        let bodyData: Parameters = [
+            "Content-Type" : "application/json",
+            "account" : email
+        ] as Dictionary
+        
+        let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default)
+        
+        request.responseData { dataResponse in
+            debugPrint(dataResponse)
+            switch dataResponse.result {
+            case .success:
+                guard let statusCode = dataResponse.response?.statusCode else {return}
+                
+                let networkResult = self.judgeStatus(by: statusCode, nil)
+                completion(networkResult)
+            case .failure:
+                completion(.pathErr)
+            }
+        }
+        
+    }
+    
     
     // MARK: - kakao Login
     func kakaoLogin(accessToken: String, completion: @escaping (NetworkResult<Any>) -> Void) {
@@ -427,9 +456,9 @@ struct AuthenticationService {
             case 400:
                 print("statusCode 400")
                 return .pathErr
-            case 401:
+            case 401, 404:
                 print("이미 계정이 존재합니다")
-                return .pathErr
+                return .resourceErr
             case 500:
                 return .serverErr
             default:

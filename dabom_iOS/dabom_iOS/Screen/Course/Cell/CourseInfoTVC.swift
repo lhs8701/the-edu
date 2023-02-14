@@ -92,6 +92,7 @@ class CourseInfoTVC: UITableViewCell {
         
     }
     
+    // MARK: - 샘플 강의 재생 버튼 눌렀을 때 delegate 패턴
     @IBAction func samplePlayBtnPressed(_ sender: Any) {
         
         if let delegate = delegate {
