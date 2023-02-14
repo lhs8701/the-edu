@@ -15,4 +15,5 @@ api:
     unlink: https://kapi.kakao.com/v1/user/unlink
   toss:
     confirm: https://api.tosspayments.com/v1/payments/confirm
+    token: https://oauth2.cert.toss.im/token
 

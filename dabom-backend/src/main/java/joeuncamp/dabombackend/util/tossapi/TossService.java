@@ -18,8 +18,15 @@ public class TossService {
     @Value("${api.toss.confirm}")
     private String CONFIRM_API;
 
+    @Value("${api.toss.token}")
+    private String TOKEN_API;
+
     @Value("${toss.secret-key}")
     private String SECRET_KEY;
+    @Value("${toss.client-secret}")
+    private String CLIENT_SECRET;
+    @Value("${toss.client-id}")
+    private String CLIENT_ID;
 
     public PaymentInfo confirmPayment(Data data) {
         WebClient webClient = WebClient.create();
@@ -27,8 +34,24 @@ public class TossService {
         return webClient.method(HttpMethod.POST)
                 .uri(CONFIRM_API)
                 .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization","Basic " + encodedAuth)
+                .header("Authorization", "Basic " + encodedAuth)
                 .bodyValue(data)
+                .retrieve()
+                .bodyToMono(PaymentInfo.class)
+                .block();
+    }
+
+    public PaymentInfo issueToken() {
+        WebClient webClient = WebClient.create();
+        String encodedAuth = Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes());
+        return webClient.method(HttpMethod.POST)
+                .uri(TOKEN_API +
+                        "grant_type=client_credentials&" +
+                        "client_id=" + CLIENT_ID + "&" +
+                        "client_secret=" + CLIENT_SECRET + "&" +
+                        "scope=ca")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .header("Authorization", "Basic " + encodedAuth)
                 .retrieve()
                 .bodyToMono(PaymentInfo.class)
                 .block();
