@@ -4,9 +4,9 @@ import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.PayPointManager;
 import joeuncamp.dabombackend.domain.order.dto.CouponDto;
-import joeuncamp.dabombackend.domain.order.dto.Data;
+import joeuncamp.dabombackend.util.tossapi.dto.ConfirmRequest;
 import joeuncamp.dabombackend.domain.order.dto.OrderDto;
-import joeuncamp.dabombackend.domain.order.dto.PaymentInfo;
+import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import joeuncamp.dabombackend.domain.order.entity.*;
 import joeuncamp.dabombackend.domain.order.repository.CouponJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.IssueJpaRepository;
@@ -74,8 +74,8 @@ public class OrderService {
         if (price != requestDto.getTossSecret().getTossAmount()) {
             throw new CPaymentException();
         }
-        Data data = requestDto.getTossSecret().toEntity();
-        PaymentInfo paymentInfo = tossService.confirmPayment(data);
+        ConfirmRequest confirmRequest = requestDto.getTossSecret().toEntity();
+        PaymentInfo paymentInfo = tossService.confirmPayment(confirmRequest);
         Order order = Order.builder()
                 .id(paymentInfo.getOrderId())
                 .name(paymentInfo.getOrderName())

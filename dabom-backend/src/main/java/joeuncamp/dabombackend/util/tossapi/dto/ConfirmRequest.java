@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.order.dto;
+package joeuncamp.dabombackend.util.tossapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Data {
+public class ConfirmRequest {
     String paymentKey;
     String orderId;
     Long amount;

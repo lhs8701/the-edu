@@ -1,4 +1,4 @@
-package joeuncamp.dabombackend.domain.order.dto;
+package joeuncamp.dabombackend.util.tossapi.dto;
 
 import jakarta.transaction.Transactional;
 import lombok.Getter;

@@ -2,8 +2,8 @@ package joeuncamp.dabombackend.util.tossapi;
 
 import im.toss.cert.sdk.TossCertSession;
 import im.toss.cert.sdk.TossCertSessionGenerator;
-import joeuncamp.dabombackend.domain.order.dto.Data;
-import joeuncamp.dabombackend.domain.order.dto.PaymentInfo;
+import joeuncamp.dabombackend.util.tossapi.dto.ConfirmRequest;
+import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import joeuncamp.dabombackend.util.tossapi.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
 
@@ -49,17 +48,17 @@ public class TossService {
     /**
      * 결제 승인 API를 호출합니다.
      *
-     * @param data request
+     * @param confirmRequest request
      * @return response
      */
-    public PaymentInfo confirmPayment(Data data) {
+    public PaymentInfo confirmPayment(ConfirmRequest confirmRequest) {
         WebClient webClient = WebClient.create();
         String encodedAuth = Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes());
         return webClient.method(HttpMethod.POST)
                 .uri(CONFIRM_API)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Basic " + encodedAuth)
-                .bodyValue(data)
+                .bodyValue(confirmRequest)
                 .retrieve()
                 .bodyToMono(PaymentInfo.class)
                 .block();

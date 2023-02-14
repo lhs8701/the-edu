@@ -4,8 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.order.entity.Item;
-import joeuncamp.dabombackend.domain.order.entity.Order;
-import joeuncamp.dabombackend.domain.order.entity.PayType;
+import joeuncamp.dabombackend.util.tossapi.dto.ConfirmRequest;
 import lombok.*;
 
 import java.util.List;
@@ -45,8 +44,8 @@ public class OrderDto {
             @Schema(description = "toss amount")
             long tossAmount;
 
-            public Data toEntity(){
-                return new Data(this.tossPaymentKey, this.tossOrderId, this.tossAmount);
+            public ConfirmRequest toEntity(){
+                return new ConfirmRequest(this.tossPaymentKey, this.tossOrderId, this.tossAmount);
             }
         }
 
