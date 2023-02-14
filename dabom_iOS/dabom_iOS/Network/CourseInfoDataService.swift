@@ -97,7 +97,7 @@ struct CourseInfoDataService {
     
     // MARK: - 수강 신청하기
     func enrollCourse(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        let URL = "\(Const.Url.enrollCourse)/\(courseId)/enroll"
+        let URL = "\(Const.Url.enrollCourse)/\(courseId)"
         print(URL)
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -124,7 +124,7 @@ struct CourseInfoDataService {
     
     // MARK: - Course가 이미 신청한 강좌인지 확인
     func isEnrollCourse(courseId: Int, completion: @escaping (Bool) -> Void) {
-        let URL = "\(Const.Url.isEnrollCourse)/\(courseId)/enroll/check"
+        let URL = "\(Const.Url.isEnrollCourse)/\(courseId)"
         print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qMe-fA-cYa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qMe-fA-cYa">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -87,21 +87,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlw-K0-rcL">
-                                <rect key="frame" x="50" y="678" width="275" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="KAB-RW-q32"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Go To Main">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="temp:" destination="Qg5-Iw-TLz" eventType="touchUpInside" id="OBT-Me-J4k"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fBw-4Y-QNl">
                                 <rect key="frame" x="30" y="181.66666666666666" width="315" height="40"/>
                                 <constraints>
@@ -199,7 +184,6 @@
                             <constraint firstItem="fBw-4Y-QNl" firstAttribute="top" secondItem="jgO-io-bdX" secondAttribute="bottom" constant="10" id="2Vm-5n-S16"/>
                             <constraint firstItem="wDY-yV-WBk" firstAttribute="trailing" secondItem="frh-9r-YYa" secondAttribute="trailing" id="3LH-c3-9qm"/>
                             <constraint firstItem="ONF-EC-hPC" firstAttribute="leading" secondItem="frh-9r-YYa" secondAttribute="leading" constant="30" id="3Wj-yr-4ec"/>
-                            <constraint firstItem="frh-9r-YYa" firstAttribute="trailing" secondItem="qlw-K0-rcL" secondAttribute="trailing" constant="50" id="4jW-tD-Ulz"/>
                             <constraint firstItem="OlV-1l-Ke9" firstAttribute="leading" secondItem="frh-9r-YYa" secondAttribute="leading" constant="30" id="62h-zD-sqb"/>
                             <constraint firstItem="wDY-yV-WBk" firstAttribute="leading" secondItem="frh-9r-YYa" secondAttribute="leading" id="6kW-IX-u50"/>
                             <constraint firstItem="frh-9r-YYa" firstAttribute="trailing" secondItem="fBw-4Y-QNl" secondAttribute="trailing" constant="30" id="7WI-RU-qdN"/>
@@ -207,7 +191,6 @@
                             <constraint firstItem="mbr-XK-ZFf" firstAttribute="leading" secondItem="frh-9r-YYa" secondAttribute="leading" constant="50" id="D7J-x0-HdX"/>
                             <constraint firstItem="fBw-4Y-QNl" firstAttribute="leading" secondItem="frh-9r-YYa" secondAttribute="leading" constant="30" id="GR8-0f-tcA"/>
                             <constraint firstItem="NCi-2i-hL7" firstAttribute="top" secondItem="wDY-yV-WBk" secondAttribute="bottom" constant="10" id="Jvs-Gj-Rjo"/>
-                            <constraint firstItem="frh-9r-YYa" firstAttribute="bottom" secondItem="qlw-K0-rcL" secondAttribute="bottom" constant="50" id="SaJ-kL-FXu"/>
                             <constraint firstItem="CqC-TL-YWN" firstAttribute="top" secondItem="frh-9r-YYa" secondAttribute="top" constant="20" id="U4r-5z-QOL"/>
                             <constraint firstItem="jgO-io-bdX" firstAttribute="leading" secondItem="frh-9r-YYa" secondAttribute="leading" constant="30" id="WlR-BT-nfb"/>
                             <constraint firstItem="OlV-1l-Ke9" firstAttribute="top" secondItem="ONF-EC-hPC" secondAttribute="bottom" constant="10" id="d81-On-sob"/>
@@ -217,7 +200,6 @@
                             <constraint firstItem="CqC-TL-YWN" firstAttribute="leading" secondItem="frh-9r-YYa" secondAttribute="leading" constant="30" id="lP8-bP-Hga"/>
                             <constraint firstItem="frh-9r-YYa" firstAttribute="trailing" secondItem="OlV-1l-Ke9" secondAttribute="trailing" constant="30" id="pIN-ap-UKX"/>
                             <constraint firstItem="fBw-4Y-QNl" firstAttribute="top" secondItem="CqC-TL-YWN" secondAttribute="bottom" constant="80" id="qau-ev-Cu3"/>
-                            <constraint firstItem="qlw-K0-rcL" firstAttribute="leading" secondItem="frh-9r-YYa" secondAttribute="leading" constant="50" id="uCO-kN-yNO"/>
                             <constraint firstItem="mbr-XK-ZFf" firstAttribute="top" secondItem="OlV-1l-Ke9" secondAttribute="bottom" constant="50" id="x1b-M2-0gp"/>
                         </constraints>
                     </view>
@@ -249,7 +231,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="이메일로 시작하기">
+                                <state key="normal" title="    이메일로 로그인">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -257,7 +239,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NgP-S0-KcT">
-                                <rect key="frame" x="50" y="190" width="275" height="43"/>
+                                <rect key="frame" x="50" y="200" width="275" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="NgP-S0-KcT" secondAttribute="height" multiplier="32:5" id="Txj-OG-OTu"/>
                                 </constraints>
@@ -270,7 +252,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deG-Fs-MkM">
-                                <rect key="frame" x="50" y="253" width="275" height="43"/>
+                                <rect key="frame" x="50" y="273" width="275" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="deG-Fs-MkM" secondAttribute="height" multiplier="32:5" id="oAo-iP-66O"/>
                                 </constraints>
@@ -293,9 +275,9 @@
                             <constraint firstItem="NgP-S0-KcT" firstAttribute="leading" secondItem="ZCB-AU-lPs" secondAttribute="leading" constant="50" id="8Um-GC-Mdy"/>
                             <constraint firstItem="ZCB-AU-lPs" firstAttribute="trailing" secondItem="NgP-S0-KcT" secondAttribute="trailing" constant="50" id="Buc-98-SSw"/>
                             <constraint firstItem="ZCB-AU-lPs" firstAttribute="trailing" secondItem="KW6-nv-tVd" secondAttribute="trailing" constant="50" id="CDS-6F-7HF"/>
-                            <constraint firstItem="deG-Fs-MkM" firstAttribute="top" secondItem="NgP-S0-KcT" secondAttribute="bottom" constant="20" id="KRh-8j-YSa"/>
+                            <constraint firstItem="deG-Fs-MkM" firstAttribute="top" secondItem="NgP-S0-KcT" secondAttribute="bottom" constant="30" id="KRh-8j-YSa"/>
                             <constraint firstItem="KW6-nv-tVd" firstAttribute="top" secondItem="ZCB-AU-lPs" secondAttribute="top" constant="80" id="pzt-Wu-CHu"/>
-                            <constraint firstItem="NgP-S0-KcT" firstAttribute="top" secondItem="KW6-nv-tVd" secondAttribute="bottom" constant="20" id="vNU-AS-asF"/>
+                            <constraint firstItem="NgP-S0-KcT" firstAttribute="top" secondItem="KW6-nv-tVd" secondAttribute="bottom" constant="30" id="vNU-AS-asF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dlJ-TJ-3pB"/>
