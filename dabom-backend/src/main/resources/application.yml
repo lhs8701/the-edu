@@ -16,4 +16,6 @@ api:
   toss:
     confirm: https://api.tosspayments.com/v1/payments/confirm
     token: https://oauth2.cert.toss.im/token
-
+    txid: https://cert.toss.im/api/v2/sign/user/auth/request
+    auth-status: https://cert.toss.im/api/v2/sign/user/auth/status
+    auth-result: https://cert.toss.im/api/v2/sign/user/auth/result
