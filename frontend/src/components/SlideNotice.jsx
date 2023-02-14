@@ -98,7 +98,7 @@ export const SlideNotice = ({ eventList }) => {
             setisUserHover(false);
           }}
           key={page}
-          src={STATIC_URL + eventList[imageIndex].bannerImage.mediumFilePath}
+          src={STATIC_URL + eventList[imageIndex].bannerImage.originalFilePath}
           custom={direction}
           variants={variants}
           initial="enter"

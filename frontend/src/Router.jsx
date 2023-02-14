@@ -109,7 +109,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "purchase/:courseId",
+        path: "purchase/:courseId/:itemId",
         element: <PurchasePage />,
         children: [
           {
@@ -121,6 +121,7 @@ const router = createBrowserRouter([
             element: <PurchasePage />,
           },
         ],
+        errorElement: <div>dndn</div>,
       },
 
       {

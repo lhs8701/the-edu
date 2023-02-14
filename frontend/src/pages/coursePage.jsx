@@ -6,6 +6,7 @@ import {
   courseApi,
   getcourseInquiriessApi,
   getcourseReviewsApi,
+  getCourseTicketsApi,
   getCurriculumApi,
 } from "../api/courseApi";
 import CourseDetail from "../components/course/CourseDetail";
@@ -20,13 +21,25 @@ const DividerBox = styled.div`
 `;
 
 export default function CoursePage() {
-  const dummycourseInfo = dummyCourseInfo;
   const { courseId } = useParams();
   const navigate = useNavigate();
   const info = useQuery(
     ["courseDetailInfo", courseId],
     () => {
       return courseApi(courseId);
+    },
+    {
+      enabled: !!courseId,
+      onSuccess: (res) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+  const paymentInfo = useQuery(
+    ["coursePaymentInfo", courseId],
+    () => {
+      return getCourseTicketsApi(courseId);
     },
     {
       enabled: !!courseId,
@@ -88,13 +101,14 @@ export default function CoursePage() {
         <CourseIntro courseId={courseId} />
         <DividerBox>
           <CourseDetail courseId={courseId} />
-          <CoursePayment
-            title={info?.data?.title}
-            teacher={info?.data?.instructor}
-            purchaseOption={dummycourseInfo.coursePurchaseInfo}
-            price={info?.data?.price}
-            courseId={courseId}
-          />
+          {paymentInfo?.data?.data && (
+            <CoursePayment
+              ticketInfo={paymentInfo?.data?.data}
+              title={info?.data?.title}
+              teacher={info?.data?.instructor}
+              courseId={courseId}
+            />
+          )}
         </DividerBox>
       </Suspense>
     </div>
