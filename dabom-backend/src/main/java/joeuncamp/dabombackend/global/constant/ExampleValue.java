@@ -4,6 +4,10 @@ import javax.swing.text.html.HTML;
 
 public class ExampleValue {
 
+    public static class Coupon{
+        public final static String NAME = "신규 회원 환영 쿠폰";
+    }
+
     public static class Event{
         public final static String TITLE = "연초 지정대상자 지휘서신(직책자용)";
         public final static String CONTENT = "재입대 바람";

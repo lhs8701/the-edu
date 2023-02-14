@@ -13,6 +13,7 @@ public enum ErrorCode {
     REVIEW_EXIST(-1001, "이미 후기를 등록하였습니다.", HttpStatus.FORBIDDEN),
     BAD_REQUEST(-1002, "잘못된 접근입니다.", HttpStatus.BAD_REQUEST),
     CATEGORY_NOT_FOUND(-1003, "존재하지 않는 카테고리입니다.", HttpStatus.NOT_FOUND),
+    PAYMENT_ERROR(-1004, "결제 과정 중 오류가 발생했습니다.", HttpStatus.BAD_REQUEST),
 
 
     // 6000 ~ : 권한, 인증 에러

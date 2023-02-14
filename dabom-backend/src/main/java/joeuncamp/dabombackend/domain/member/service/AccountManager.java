@@ -30,7 +30,7 @@ public class AccountManager {
      * @param requestDto 회원, 현재 비밀번호
      */
     public PasswordDto.Response resetPassword(PasswordDto.ResetRequest requestDto) {
-        Member member = memberJpaRepository.findByAccountAndLoginType(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberExistException::new);
+        Member member = memberJpaRepository.findByAccountAndLoginType(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberNotFoundException::new);
         String newPassword = randomStringGenerator.generatePassword();
         member.changePassword(passwordEncoder.encode(newPassword));
         memberJpaRepository.save(member);

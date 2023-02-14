@@ -7,6 +7,7 @@ import joeuncamp.dabombackend.domain.order.entity.Coupon;
 import joeuncamp.dabombackend.domain.order.entity.Issue;
 import joeuncamp.dabombackend.domain.order.repository.CouponJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.IssueJpaRepository;
+import joeuncamp.dabombackend.global.error.exception.CBadRequestException;
 import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +30,7 @@ public class CouponGenerator {
      * @return 쿠폰
      */
     public void generate(CouponDto.GenerateRequest requestDto) {
-        Coupon coupon = Coupon.builder()
-                .code(UUID.randomUUID().toString())
-                .discountPolicy(requestDto.getDiscountPolicy())
-                .discount(requestDto.getDiscount())
-                .endDate(requestDto.getEndDate())
-                .minimumAmount(requestDto.getMinimumAmount())
-                .build();
+        Coupon coupon = requestDto.toEntity();
         couponJpaRepository.save(coupon);
     }
 
@@ -47,6 +42,9 @@ public class CouponGenerator {
     public void issue(CouponDto.IssueRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberExistException::new);
         Coupon coupon = couponJpaRepository.findById(requestDto.getCouponId()).orElseThrow(CResourceNotFoundException::new);
+        if (issueJpaRepository.findByMemberAndCoupon(member, coupon).isPresent()){
+            throw new CBadRequestException("이미 발급한 쿠폰입니다.");
+        }
         Issue issue = Issue.builder()
                 .member(member)
                 .coupon(coupon)

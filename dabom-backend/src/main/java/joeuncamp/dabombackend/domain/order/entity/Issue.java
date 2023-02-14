@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.checkerframework.checker.units.qual.A;
 
+import java.time.LocalDateTime;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +25,9 @@ public class Issue {
     @ManyToOne
     @JoinColumn
     Coupon coupon;
+    boolean used;
+
+    public void expire(){
+        this.used = true;
+    }
 }

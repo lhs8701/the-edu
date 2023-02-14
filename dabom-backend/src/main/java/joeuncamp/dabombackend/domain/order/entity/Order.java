@@ -1,11 +1,10 @@
 package joeuncamp.dabombackend.domain.order.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,8 +12,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
+@Builder
 public class Order extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    String id;
+    @OneToOne
+    @JoinColumn
+    Item item;
+    @OneToOne
+    @JoinColumn
+    Member member;
+    long amount;
+    PayType payType;
 }

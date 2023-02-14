@@ -13,3 +13,6 @@ api:
     profile: https://kapi.kakao.com/v2/user/me
     logout: https://kapi.kakao.com/v1/user/logout
     unlink: https://kapi.kakao.com/v1/user/unlink
+  toss:
+    confirm: https://api.tosspayments.com/v1/payments/confirm
+
