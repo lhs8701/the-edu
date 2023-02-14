@@ -88,7 +88,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     }
 
     public void updatePoint(long amount) {
-        this.payPoint -= amount;
+        this.payPoint += amount;
     }
 
 
