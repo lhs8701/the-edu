@@ -8,8 +8,25 @@ const MYCOURSE_URL = "/courses";
 const PROFILE_URL = "/profile";
 const ME_URL = "/me";
 const FIND_PWD_URL = "/password/reset";
+const CHANGE_PWD_URL = "/password/change";
 
-export async function resetPwd(account) {
+export async function changePwdApi(accessToken, currentPassword, newPassword) {
+  return await axios.post(
+    MEMBER_URL + ME_URL + CHANGE_PWD_URL,
+    {
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
+export async function resetPwdApi(account) {
   return await axios.post(
     MEMBER_URL + ME_URL + FIND_PWD_URL,
     {

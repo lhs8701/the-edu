@@ -13,7 +13,7 @@ import {
 } from "../../style/AccountComponentCss";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { resetPwd } from "../../api/myPageApi";
+import { resetPwdApi } from "../../api/myPageApi";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -60,7 +60,7 @@ export default function FindPassword() {
   } = useForm();
 
   const submit = () => {
-    resetPwd(isID).then(({ data }) => {
+    resetPwdApi(isID).then(({ data }) => {
       alert(data.email + "로 임시 비밀번호를 보냈어요");
     });
   };
