@@ -1,3 +1,6 @@
 spring:
   jwt:
     secret: HelloMyNickNameIsBeHangAndNiceToMeetYouHowAreYouImFineThankYouAndYou
+
+toss:
+  secret-key: test_sk_ZORzdMaqN3wa1Zvl00br5AkYXQGw

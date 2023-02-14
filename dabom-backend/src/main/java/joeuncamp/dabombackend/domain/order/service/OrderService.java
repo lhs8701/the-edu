@@ -77,13 +77,14 @@ public class OrderService {
         Data data = requestDto.getTossSecret().toEntity();
         PaymentInfo paymentInfo = tossService.confirmPayment(data);
         Order order = Order.builder()
-                .id(requestDto.getTossSecret().getTossOrderId())
-                .amount(requestDto.getTossSecret().getTossAmount())
+                .id(paymentInfo.getOrderId())
+                .name(paymentInfo.getOrderName())
+                .amount(paymentInfo.getTotalAmount())
                 .payType(PayType.findByMethod(paymentInfo.getMethod()))
                 .item(item)
                 .member(member)
                 .build();
+        log.info("{}",paymentInfo);
         orderJpaRepository.save(order);
-        log.info("{},{}", paymentInfo.getOrderName(), paymentInfo.getMethod());
     }
 }

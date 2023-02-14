@@ -18,17 +18,20 @@ public class TossService {
     @Value("${api.toss.confirm}")
     private String CONFIRM_API;
 
+    @Value("${toss.secret-key}")
+    private String SECRET_KEY;
+
     public PaymentInfo confirmPayment(Data data) {
         WebClient webClient = WebClient.create();
-        String encodedAuth = new String(Base64.getEncoder().encode("test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:".getBytes(StandardCharsets.UTF_8)));
-        PaymentInfo paymentInfo = webClient.method(HttpMethod.POST)
+        String encodedAuth = Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes());
+        return webClient.method(HttpMethod.POST)
                 .uri(CONFIRM_API)
                 .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", encodedAuth)
+                .header("Authorization","Basic " + encodedAuth)
                 .bodyValue(data)
                 .retrieve()
                 .bodyToMono(PaymentInfo.class)
                 .block();
-        return paymentInfo;
     }
 }
+

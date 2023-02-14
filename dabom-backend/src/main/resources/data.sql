@@ -502,3 +502,7 @@ insert into feedback (id, created_time, modified_time, thumbs_down, thumbs_up, m
 values ('1', '2023-02-08 14:18:05.184415', '2023-02-08 14:18:05.184415', false, true, '2', '1'),
        ('2', '2023-02-08 14:18:05.184415', '2023-02-08 14:18:05.184415', true, false, '2', '2'),
        ('3', '2023-02-08 14:18:05.184415', '2023-02-08 14:18:05.184415', false, false, '2', '3');
+
+-- <Order> --
+insert into orders (id, created_time, modified_time, item_id, member_id, amount, pay_type, name)
+values ('test', '2023-02-08 14:18:05.184415', '2023-02-08 14:18:05.184415', '1', '1', '1', 'CARD', 'test');

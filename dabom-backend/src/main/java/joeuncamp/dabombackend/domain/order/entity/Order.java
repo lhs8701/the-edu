@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @Builder
+@Table(name = "orders")
 public class Order extends BaseTimeEntity {
     @Id
     String id;
+    String name;
     @OneToOne
     @JoinColumn
     Item item;
@@ -23,5 +25,6 @@ public class Order extends BaseTimeEntity {
     @JoinColumn
     Member member;
     long amount;
+    @Enumerated(value = EnumType.STRING)
     PayType payType;
 }
