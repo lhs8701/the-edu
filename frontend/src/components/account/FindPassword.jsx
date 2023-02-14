@@ -13,6 +13,7 @@ import {
 } from "../../style/AccountComponentCss";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { resetPwd } from "../../api/myPageApi";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -52,17 +53,16 @@ const Div = styled.div`
 export default function FindPassword() {
   const [isID, setIsId] = useState("");
   const [isName, setIsName] = useState("");
-  const [isTele, setIsTele] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
-    formState,
   } = useForm();
 
   const submit = () => {
-    alert("Ss");
+    resetPwd(isID).then(({ data }) => {
+      alert(data.email + "로 임시 비밀번호를 보냈어요");
+    });
   };
 
   return (
@@ -108,26 +108,6 @@ export default function FindPassword() {
             placeholder="이름을 입력해주세요."
           />
           <ErrorMessage>{errors?.name?.message}</ErrorMessage>
-        </InputBox>
-        <InputBox>
-          <InputLabel>휴대전화 번호</InputLabel>
-          <AccountInput
-            {...register("tele", {
-              name: "tele",
-              required: "전화번호를 입력하세요!",
-              // 유효성 검사 파트
-              // pattern: {
-              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-              //   message: "wrong input",
-              // },
-              onChange: (e) => {
-                setIsTele(e.target.value);
-              },
-            })}
-            type="tel"
-            placeholder="전화번호를 입력해주세요."
-          />
-          <ErrorMessage>{errors?.tele?.message}</ErrorMessage>
         </InputBox>
         <LoginLinkBox>
           <Btn>비밀번호 찾기</Btn>
