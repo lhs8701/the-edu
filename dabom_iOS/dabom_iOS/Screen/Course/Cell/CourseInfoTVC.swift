@@ -76,7 +76,7 @@ class CourseInfoTVC: UITableViewCell {
         
         if isEnroll {
             self.courseEnrollBtn.isEnabled = false
-            self.courseEnrollBtn.setTitle("이미 신청한 강좌입니다", for: .normal)
+            self.courseEnrollBtn.setTitle("이미 수강 중인 강좌입니다", for: .normal)
             self.courseEnrollBtn.setTitleColor(.white, for: .normal)
             self.courseEnrollBtn.backgroundColor = .darkGray
         }

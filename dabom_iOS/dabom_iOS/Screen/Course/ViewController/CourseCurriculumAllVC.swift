@@ -75,7 +75,7 @@ extension CourseCurriculumAllVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.curriculumTVC) as! CurriculumTVC
         
         if let curriculum = curriculum {
-            cell.curriculumTitle.text = curriculum.chapters[indexPath.section].units[indexPath.row].title
+            cell.curriculumTitle.text = "\(indexPath.row + 1). \(curriculum.chapters[indexPath.section].units[indexPath.row].title)"
             
         }
         
@@ -86,7 +86,7 @@ extension CourseCurriculumAllVC: UITableViewDelegate, UITableViewDataSource {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Const.Xib.Identifier.curriculumHeaderTVC) as! CurriculumHeaderTVC
         
         if let curriculum = curriculum {
-            header.chapterTitle.text = curriculum.chapters[section].title
+            header.chapterTitle.text = "\(section). \(curriculum.chapters[section].title)"
         }
         
         return header
