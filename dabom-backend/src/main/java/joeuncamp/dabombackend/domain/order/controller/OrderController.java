@@ -41,7 +41,7 @@ public class OrderController {
 
     @Operation(summary="강좌 수강권 조회", description="")
     @GetMapping("/courses/{courseId}/tickets")
-    public ResponseEntity<List<TicketDto.Response>> getTickets(Long courseId){
+    public ResponseEntity<List<TicketDto.Response>> getTickets(@PathVariable Long courseId){
         List<TicketDto.Response> responseDto = courseTicketService.getTickets(courseId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

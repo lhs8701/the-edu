@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.nio.charset.StandardCharsets;
@@ -44,6 +46,11 @@ public class TossService {
     public PaymentInfo issueToken() {
         WebClient webClient = WebClient.create();
         String encodedAuth = Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes());
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("grant_type", "client_credentials");
+        formData.add("client_id", "CLIENT_ID");
+        formData.add("client_secret", "CLIENT_SECRET");
+        formData.add("grant_type", "client_credentials");
         return webClient.method(HttpMethod.POST)
                 .uri(TOKEN_API +
                         "grant_type=client_credentials&" +
