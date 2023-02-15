@@ -9,7 +9,7 @@ export function purchase(purchaseInfo, method) {
       .requestPayment(method, {
         // 결제 수단 파라미터
         // 결제 정보 파라미터
-        amount: String(purchaseInfo.amount),
+        amount: 1000,
         orderId: String(uuid()),
         orderName: String(purchaseInfo.orderName),
         customerName: String(purchaseInfo.customerName),

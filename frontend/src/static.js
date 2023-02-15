@@ -70,7 +70,7 @@ export const BAR_LIST = {
       url: "revise",
     },
     {
-      name: "쿠폰",
+      name: "쿠폰 및 적립금",
       url: "coupon",
     },
     {
@@ -157,6 +157,15 @@ export const ADMIN_BAR_LIST = {
         {
           name: "공지사항 업로드",
           url: "/admin/uploadnotice",
+        },
+      ],
+    },
+    {
+      name: "쿠폰 관리",
+      list: [
+        {
+          name: "쿠폰 생성",
+          url: "/admin/coupon",
         },
       ],
     },

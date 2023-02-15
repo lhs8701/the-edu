@@ -158,15 +158,16 @@ export default function CoursePayment({
         <Tab>
           <DiscountTab>할인 가격</DiscountTab>
           <PrimaryCostTab>
-            - {ticketInfo[selectTicket.idx].discountedPrice}
+            -{" "}
+            {ticketInfo[selectTicket.idx].costPrice -
+              ticketInfo[selectTicket.idx].discountedPrice}
           </PrimaryCostTab>
         </Tab>
         <PriceUnderBar />
         <Tab>
           <OwnPriceTab>실 결제 가격</OwnPriceTab>
           <PrimaryCostTab>
-            {ticketInfo[selectTicket.idx].costPrice -
-              ticketInfo[selectTicket.idx].discountedPrice}
+            {ticketInfo[selectTicket.idx].discountedPrice}
           </PrimaryCostTab>
         </Tab>
       </PriceBox>
@@ -177,9 +178,7 @@ export default function CoursePayment({
             `${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket.id}`,
             {
               state: {
-                price:
-                  ticketInfo[selectTicket.idx].costPrice -
-                  ticketInfo[selectTicket.idx].discountedPrice,
+                price: ticketInfo[selectTicket.idx].discountedPrice,
               },
             }
           );

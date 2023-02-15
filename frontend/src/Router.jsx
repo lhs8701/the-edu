@@ -48,6 +48,7 @@ import EventList from "./components/admin/event/EventList";
 import DetailEvent from "./components/admin/event/DetailEvent";
 import SuccessPurchase from "./components/purchase/SuccessPurchase";
 import UploadEvent from "./components/admin/event/UploadEvent";
+import AdminCoupon from "./components/admin/AdminCoupon";
 
 const router = createBrowserRouter([
   {
@@ -227,6 +228,10 @@ const router = createBrowserRouter([
       {
         path: "uploadnotice",
         element: <Courses />,
+      },
+      {
+        path: "coupon",
+        element: <AdminCoupon />,
       },
     ],
   },

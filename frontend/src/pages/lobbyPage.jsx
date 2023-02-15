@@ -17,6 +17,7 @@ import {
 } from "../static";
 import CourseReviewForm from "../components/course/CourseReviewForm";
 import Modal from "react-modal";
+import { motion } from "framer-motion";
 
 const LobbyWrapper = styled.div`
   width: 100%;
@@ -122,12 +123,17 @@ const PlayBtn = styled.button`
   }
 `;
 
-const ReviewBtn = styled.button`
+const ReviewBtn = styled(motion.button)`
   position: absolute;
-  bottom: -100px;
-  right: 0px;
-  height: 30px;
+  bottom: -150px;
+  right: 35%;
+  height: 40px;
   width: 80px;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  border: none;
+  font-weight: var(--weight-middle);
+  font-size: 1rem;
 `;
 
 export default function LobbyPage() {

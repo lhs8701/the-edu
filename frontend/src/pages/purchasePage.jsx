@@ -8,7 +8,6 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { enrollApi } from "../api/courseApi";
 import { getItemReceiptApi } from "../api/orderApi";
 import { getAccessTokenSelector, getLoginState } from "../atom";
 import { UnderBar } from "../components/course/ChatComponents";
@@ -44,6 +43,9 @@ const MyPageWrapper = styled.div`
 
 const CouponBox = styled.div`
   width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 const InfoSection = styled.div``;
@@ -250,6 +252,7 @@ export default function PurchasePage() {
             )}
           </CouponBox>
         </Div>
+        <br />
         <br />
         <br />
         <PriceBox>

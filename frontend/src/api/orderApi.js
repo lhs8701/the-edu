@@ -16,14 +16,12 @@ export async function postItemPurchaseApi(itemId, accessToken, data) {
   return await axios.post(
     `${PURCHASE_URL}/${itemId}`,
     {
-      requestDto: {
-        couponId: data.couponId,
-        point: data.point,
-      },
-      tossPayRequest: {
+      couponId: data.couponId,
+      point: data.point,
+      tossPayDto: {
         tossPaymentKey: data.key,
         tossOrderId: data.tossId,
-        tossAmount: Number(data.amount),
+        tossAmount: data.amount,
       },
     },
     {
