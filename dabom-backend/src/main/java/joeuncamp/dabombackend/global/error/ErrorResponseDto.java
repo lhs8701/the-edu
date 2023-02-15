@@ -19,4 +19,11 @@ public class ErrorResponseDto {
         this.name = errorCode.name();
         this.message = errorCode.getMessage();
     }
+
+    public ErrorResponseDto(ErrorCode errorCode, String message){
+        this.status = errorCode.getStatusCode().value();
+        this.code = errorCode.getCode();
+        this.name = errorCode.name();
+        this.message = errorCode.getMessage() + " " + message;
+    }
 }

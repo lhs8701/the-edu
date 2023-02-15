@@ -34,8 +34,8 @@ public class AppleAuthController {
     @Operation(summary = "애플로 로그인합니다.", description = "")
     @PreAuthorize("permitAll()")
     @PostMapping("/auth/apple/login")
-    public ResponseEntity<TokenForm> login(@RequestBody AppleAuthDto.LoginRequest requestDto) {
-        TokenForm responseDto = appleAuthService.login(requestDto);
+    public ResponseEntity<AppleAuthDto.LoginResponse> login(@RequestBody AppleAuthDto.LoginRequest requestDto) {
+        AppleAuthDto.LoginResponse responseDto = appleAuthService.login(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

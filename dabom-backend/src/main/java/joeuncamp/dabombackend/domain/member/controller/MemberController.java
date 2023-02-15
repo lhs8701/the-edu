@@ -4,12 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import joeuncamp.dabombackend.domain.member.dto.PasswordDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
-import joeuncamp.dabombackend.global.common.IdResponseDto;
+import joeuncamp.dabombackend.domain.member.service.AccountManager;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+    private final AccountManager accountManager;
 
     @Operation(summary = "자신의 프로필 정보를 조회합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
@@ -43,6 +43,24 @@ public class MemberController {
     public ResponseEntity<Void> updateMyProfile(@RequestBody ProfileDto.UpdateRequest updateParam, @AuthenticationPrincipal Member member) {
         updateParam.setMemberId(member.getId());
         memberService.updateMyProfile(updateParam);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "임시 비밀번호 발급", description = "회원의 이메일로 임시 비밀번호를 전송합니다.")
+    @PreAuthorize("permitAll()")
+    @PostMapping("/members/me/password/reset")
+    public ResponseEntity<PasswordDto.Response> resetPassword(@RequestBody PasswordDto.ResetRequest requestDto) {
+        PasswordDto.Response response = accountManager.resetPassword(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Operation(summary = "비밀번호 변경", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/members/me/password/change")
+    public ResponseEntity<Void> changePassword(@RequestBody PasswordDto.ChangeRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setMemberId(member.getId());
+        accountManager.changePassword(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,6 +1,8 @@
 package joeuncamp.dabombackend.domain.course.repository;
 
+import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface CourseJpaRepository extends JpaRepository<Course, Long> {
     Page<Course> findCourseByCategory(CategoryType categoryType, Pageable pageable);
@@ -33,4 +36,7 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
         Pageable pageable = PageRequest.of(0, 4);
         return findByEnrolledCountFromPast(categoryType, now.minusDays(7), pageable);
     }
+
+    List<Course> findByCreatorProfile(CreatorProfile creatorProfile);
+
 }

@@ -7,12 +7,11 @@ import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
-import joeuncamp.dabombackend.global.validation.Category;
+import joeuncamp.dabombackend.global.validation.CategoryValidation;
 import lombok.*;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class CourseDto {
         @Schema(description = "강좌 설명", example = ExampleValue.Course.DESCRIPTION)
         String description;
         @NotBlank
-        @Category
+        @CategoryValidation
         @Schema(description = "세부 카테고리", example = ExampleValue.Course.CATEGORY)
         String category;
 
@@ -44,7 +43,7 @@ public class CourseDto {
         long price;
 
         @NotBlank
-        @Schema(description = "썸네일 이미지 URL", example = ExampleValue.Image.URL)
+        @Schema(description = "썸네일 이미지 URL", example = ExampleValue.Image.THUMBNAIL)
         String thumbnailImage;
 
         @Schema(description = "소개 이미지 URL")
@@ -53,14 +52,10 @@ public class CourseDto {
 
         public Course toEntity(CreatorProfile creator) {
             CategoryType categoryType = CategoryType.findByTitle(category);
-            if (categoryType == CategoryType.EMPTY) {
-                throw new CIllegalArgumentException();
-            }
             Course course = Course.builder()
                     .title(title)
                     .description(description)
                     .category(categoryType)
-                    .price(price)
                     .thumbnailImage(new ImageInfo(thumbnailImage))
                     .descriptionImages(descriptionImageUrls.stream()
                             .map(ImageInfo::new)
@@ -144,8 +139,39 @@ public class CourseDto {
             this.thumbnailImage = course.getThumbnailImage();
             this.descriptionImages = course.getDescriptionImages();
             this.score = averageScore;
-            this.price = course.getPrice();
             this.wish = course.getWishList().size();
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    public static class StatusResponse {
+        @Schema(description = "아이디넘버")
+        Long courseId;
+        @Schema(description = "제목", example = ExampleValue.Course.TITLE)
+        String title;
+        @Schema(description = "강사", example = ExampleValue.Member.NAME)
+        String instructor;
+        @Schema(description = "카테고리", example = ExampleValue.Course.CATEGORY)
+        String category;
+        @Schema(description = "완료한 강의 수")
+        int completedUnits;
+        @Schema(description = "전체 강의 수")
+        int entireUnits;
+        @Schema(description = "다음에 시청할 강의 정보")
+        NextUnitInfo nextUnitInfo;
+        @Schema(description = "썸네일 이미지")
+        ImageInfo thumbnailImage;
+
+        public StatusResponse(Course course, int completedUnits, NextUnitInfo nextUnitInfo){
+            this.courseId = course.getId();
+            this.title = course.getTitle();
+            this.instructor = course.getInstructorName();
+            this.category = course.getCategory().getTitle();
+            this.thumbnailImage = course.getThumbnailImage();
+            this.entireUnits = course.getUnitList().size();
+            this.completedUnits = completedUnits;
+            this.nextUnitInfo = nextUnitInfo;
         }
     }
 }

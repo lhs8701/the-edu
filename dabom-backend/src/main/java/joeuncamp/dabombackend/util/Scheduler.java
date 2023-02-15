@@ -5,6 +5,8 @@ import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.RankingJpaRepository;
 import joeuncamp.dabombackend.global.constant.CategoryType;
+import joeuncamp.dabombackend.util.email.Email;
+import joeuncamp.dabombackend.util.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

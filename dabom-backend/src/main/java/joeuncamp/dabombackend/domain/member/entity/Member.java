@@ -3,9 +3,9 @@ package joeuncamp.dabombackend.domain.member.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
+import joeuncamp.dabombackend.domain.order.entity.Issue;
 import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
@@ -43,8 +43,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
     String birthDate;
 
     String email;
-
     ImageInfo profileImage;
+    long payPoint;
 
     @Enumerated(value = EnumType.STRING)
     LoginType loginType;
@@ -66,6 +66,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Post> postList = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Issue> issueList = new ArrayList<>();
+
     @Schema(description = "권한", example = "일반")
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
@@ -78,9 +82,18 @@ public class Member extends BaseTimeEntity implements UserDetails {
         if (email != null) {
             this.email = email;
         }
-        if (imageUrl != null){
+        if (imageUrl != null) {
             this.profileImage = new ImageInfo(imageUrl);
         }
+    }
+
+    public void updatePoint(long amount) {
+        this.payPoint += amount;
+    }
+
+
+    public boolean isCreator() {
+        return this.getCreatorProfile() != null && this.getCreatorProfile().isActivated();
     }
 
     @Override
@@ -113,5 +126,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
     }
 }

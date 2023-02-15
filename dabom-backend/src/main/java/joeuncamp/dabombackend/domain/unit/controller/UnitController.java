@@ -33,7 +33,7 @@ public class UnitController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/units")
-    public ResponseEntity<Long> uploadUnit(@PathVariable Long courseId, UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Long> uploadUnit(@PathVariable Long courseId, @RequestBody UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setCourseId(courseId);
         Long response = unitService.uploadUnit(requestDto);

@@ -1,7 +1,6 @@
 package joeuncamp.dabombackend.domain.player.answer.entity;
 
 import jakarta.persistence.*;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.question.entity.Question;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
@@ -9,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Builder
@@ -23,10 +24,12 @@ public class Answer extends BaseTimeEntity{
     private String content;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Question question;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Member member;
 

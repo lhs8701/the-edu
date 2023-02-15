@@ -33,8 +33,8 @@ public class ExceptionAdvice {
 
     // Custom Exception
 
-    @ExceptionHandler(CCreationDeniedException.class)
-    protected ResponseEntity<ErrorResponseDto> handle(CCreationDeniedException e){
+    @ExceptionHandler(CNotCreatorException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CNotCreatorException e){
         ErrorCode errorCode = e.getErrorCode();
         e.printStackTrace();
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
@@ -125,6 +125,19 @@ public class ExceptionAdvice {
     }
     @ExceptionHandler(CReviewExistException.class)
     protected ResponseEntity<ErrorResponseDto> handle(CReviewExistException e){
+        ErrorCode errorCode = e.getErrorCode();
+        e.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
+    @ExceptionHandler(CBadRequestException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CBadRequestException e){
+        ErrorCode errorCode = e.getErrorCode();
+        String message = e.getMessage();
+        e.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode, message), errorCode.getStatusCode());
+    }
+    @ExceptionHandler(CWrongPasswordException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CWrongPasswordException e){
         ErrorCode errorCode = e.getErrorCode();
         e.printStackTrace();
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());

@@ -1,11 +1,10 @@
 package joeuncamp.dabombackend.domain.member.service;
 
-import joeuncamp.dabombackend.domain.member.dto.CreatorRequestDto;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.service.CreatorService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
-import joeuncamp.dabombackend.domain.member.repository.CreatorProfileJpaRepository;
+import joeuncamp.dabombackend.domain.creator.repository.CreatorProfileJpaRepository;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.global.error.exception.CAlreadyCreatorException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,11 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class CreatorProfileServiceTest {
@@ -60,26 +56,5 @@ public class CreatorProfileServiceTest {
 
         // then
         assertThat(result).isEqualTo(false);
-    }
-
-    @Test
-    @DisplayName("이미 크리에이터인 경우 예외를 반환한다.")
-    void 이미_크리에이터인_경우_예외를_반환한다() {
-        // given
-        CreatorRequestDto dto = CreatorRequestDto.builder()
-                .memberId(1L)
-                .build();
-        CreatorProfile creatorProfile = CreatorProfile.builder().build();
-        Member member = Member.builder()
-                .id(1L)
-                .creatorProfile(creatorProfile)
-                .build();
-        given(memberJpaRepository.findById(1L)).willReturn(Optional.of(member));
-
-        // when
-
-        // then
-        assertThatThrownBy(() -> creatorService.activateCreatorProfile(dto))
-                .isInstanceOf(CAlreadyCreatorException.class);
     }
 }

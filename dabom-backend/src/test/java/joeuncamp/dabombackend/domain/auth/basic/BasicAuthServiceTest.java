@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.basic;
 
+import joeuncamp.dabombackend.domain.auth.dto.BasicAuthDto;
 import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
 import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.domain.auth.service.BasicAuthService;
@@ -9,6 +10,7 @@ import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
 import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
+import joeuncamp.dabombackend.global.error.exception.CWrongPasswordException;
 import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,7 +52,7 @@ public class BasicAuthServiceTest {
                 .password(ExampleValue.Member.PASSWORD)
                 .build();
 
-        SignupRequestDto dto = SignupRequestDto.builder()
+        BasicAuthDto.SignupRequest dto = BasicAuthDto.SignupRequest.builder()
                 .account(ExampleValue.Member.ACCOUNT)
                 .password(ExampleValue.Member.PASSWORD)
                 .build();
@@ -73,7 +75,7 @@ public class BasicAuthServiceTest {
                 .password(ExampleValue.Member.PASSWORD)
                 .build();
 
-        LoginRequestDto dto = LoginRequestDto.builder()
+        BasicAuthDto.LoginRequest dto = BasicAuthDto.LoginRequest.builder()
                 .account(ExampleValue.Member.ACCOUNT)
                 .password("invalid_password")
                 .build();
@@ -85,7 +87,7 @@ public class BasicAuthServiceTest {
 
         // then
         assertThatThrownBy(() -> basicAuthService.login(dto))
-                .isInstanceOf(CLoginFailedException.class);
+                .isInstanceOf(CWrongPasswordException.class);
     }
 
 }

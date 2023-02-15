@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -25,12 +27,17 @@ public class Enroll extends BaseTimeEntity {
     @JoinColumn
     Course course;
 
+    LocalDateTime endDate;
+
     @Builder
     public Enroll (Member member, Course course){
         this.member = member;
         member.getEnrollList().add(this);
-
         this.course = course;
         course.getEnrollList().add(this);
+    }
+
+    public void setEndDate(LocalDateTime endDate){
+        this.endDate = endDate;
     }
 }

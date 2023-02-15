@@ -22,7 +22,7 @@ public class CustomPageableArgumentResolver extends PageableHandlerMethodArgumen
         final String size = webRequest.getParameter("size");
 
         if (isInvalidPageAndSize(page, size)) {
-            throw new CIllegalArgumentException();
+            throw new CIllegalArgumentException("페이지 요청이 잘못되었습니다.");
         }
 
         return super.resolveArgument(methodParameter, mavContainer, webRequest, binderFactory);

@@ -2,7 +2,8 @@ package joeuncamp.dabombackend.domain.course.entity;
 
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
@@ -31,7 +32,6 @@ public class Course extends BaseTimeEntity {
 
     @Enumerated(value = EnumType.STRING)
     CategoryType category;
-    long price;
 
     ImageInfo thumbnailImage;
 
@@ -59,6 +59,10 @@ public class Course extends BaseTimeEntity {
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Unit> unitList = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Ticket> ticketList = new ArrayList<>();
+
     public void setCreatorProfile(CreatorProfile creatorProfile) {
         if (this.creatorProfile != null) {
             this.creatorProfile.getUploadedCourses().remove(this);
@@ -79,4 +83,6 @@ public class Course extends BaseTimeEntity {
                 ", category=" + category +
                 '}';
     }
+
+
 }

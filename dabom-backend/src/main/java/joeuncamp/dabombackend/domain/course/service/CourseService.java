@@ -2,26 +2,21 @@ package joeuncamp.dabombackend.domain.course.service;
 
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
-import joeuncamp.dabombackend.domain.course.dto.CurriculumDto;
 import joeuncamp.dabombackend.domain.course.entity.Chapter;
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.ChapterJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.domain.member.service.CreatorService;
-import joeuncamp.dabombackend.domain.player.record.service.ViewChecker;
+import joeuncamp.dabombackend.domain.creator.service.CreatorService;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
-import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
-import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.CategoryType;
-import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
-import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
-import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
-import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
+import joeuncamp.dabombackend.global.error.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,27 +34,28 @@ public class CourseService {
     private final CreatorService creatorService;
     private final CurriculumService curriculumService;
     private final ReviewService reviewService;
+    private final EnrollJpaRepository enrollJpaRepository;
+    private final ChapterService chapterService;
+    private final CourseTicketService courseTicketService;
 
     /**
      * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
-     *
+     * 개설 후, 크리에이터에게 강좌 등록 정보를 부여합니다.
      * @param requestDto 강좌 개설 정보
      * @return 개설된 강좌의 아이디넘버
      */
-    public IdResponseDto openCourse(CourseDto.CreationRequest requestDto) {
+    public Long openCourse(CourseDto.CreationRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!creatorService.hasCreatorProfile(member)) {
-            throw new CCreationDeniedException();
+            throw new CNotCreatorException();
         }
-
         CreatorProfile creator = member.getCreatorProfile();
-        Long savedId = createAndSaveCourse(requestDto, creator);
-        return new IdResponseDto(savedId);
-    }
-
-    private Long createAndSaveCourse(CourseDto.CreationRequest dto, CreatorProfile creator) {
-        Course course = dto.toEntity(creator);
-        return courseJpaRepository.save(course).getId();
+        Course course = requestDto.toEntity(creator);
+        courseJpaRepository.save(course);
+        enrollJpaRepository.save(Enroll.builder().member(member).course(course).build());
+        chapterService.saveDefaultChapter(course);
+        courseTicketService.saveDefaultTickets(course);
+        return course.getId();
     }
 
     /**
@@ -83,9 +79,6 @@ public class CourseService {
      */
     public PagingDto<CourseDto.ShortResponse> getCoursesByCategory(String category, Pageable pageable) {
         CategoryType type = CategoryType.findByTitle(category);
-        if (type.equals(CategoryType.EMPTY)) {
-            throw new CIllegalArgumentException();
-        }
         Page<Course> page = courseJpaRepository.findCourseByCategory(type, pageable);
         List<CourseDto.ShortResponse> courses = page.getContent().stream()
                 .map(CourseDto.ShortResponse::new)

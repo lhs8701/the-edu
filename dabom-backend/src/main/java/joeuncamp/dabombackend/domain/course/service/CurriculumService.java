@@ -1,8 +1,7 @@
 package joeuncamp.dabombackend.domain.course.service;
 
 import jakarta.transaction.Transactional;
-import joeuncamp.dabombackend.domain.course.dto.CurriculumDto;
-import joeuncamp.dabombackend.domain.course.dto.MyCourseDto;
+import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.entity.Chapter;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.ChapterJpaRepository;
@@ -14,6 +13,7 @@ import joeuncamp.dabombackend.domain.player.record.service.ViewChecker;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.unit.repository.UnitJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
+import joeuncamp.dabombackend.global.error.exception.CInternalServerException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,18 +34,19 @@ public class CurriculumService {
     private final EnrollService enrollService;
     private final ViewChecker viewChecker;
     private final RecordService recordService;
+    private final ChapterService chapterService;
 
 
     /**
      * 커리큘럼을 생성합니다.
-     * 챕터를 생성하거나, 강의간 순서를 바꿀 수 있습니다.
+     * 챕터를 생성하거나, 강의 간 순서를 바꿀 수 있습니다.
      *
      * @param requestDto dto
      */
     public void makeCurriculum(CurriculumDto.CreateRequest requestDto) {
         int sequence = 1;
         List<CurriculumDto.ChapterRequest> chapters = requestDto.getChapters();
-        chapterJpaRepository.deleteByCourseId(requestDto.getCourseId());
+        chapterService.deleteByCourse(requestDto.getCourseId());
         for (CurriculumDto.ChapterRequest chapterRequest : chapters) {
             Chapter chapter = joeuncamp.dabombackend.domain.course.entity.Chapter.builder()
                     .title(chapterRequest.getTitle())
@@ -68,6 +69,24 @@ public class CurriculumService {
     }
 
     /**
+     * 강좌의 기본 커리큘럼을 생성합니다.
+     *
+     * @param course 강좌
+     */
+    public void makeDefaultCurriculum(Course course) {
+        chapterJpaRepository.deleteByCourseId(course.getId());
+        Chapter defaultChapter = chapterJpaRepository.findByIsDefaultIsTrue().orElseThrow(CInternalServerException::new);
+        log.info("{}", defaultChapter);
+        List<Unit> units = course.getUnitList();
+        int sequence = 1;
+        for (Unit unit : units) {
+            unit.setChapter(defaultChapter);
+            unit.setSequence(sequence++);
+            unitJpaRepository.save(unit);
+        }
+    }
+
+    /**
      * 커리큘럼 상의 첫번째 강의를 샘플 강의로 반환합니다.
      *
      * @param course 강좌
@@ -75,7 +94,6 @@ public class CurriculumService {
      */
     public Unit getSampleUnit(Course course) {
         List<Unit> units = unitJpaRepository.findByCourseOrderBySequence(course);
-        log.info("{}",units);
         if (units.size() == 0) {
             return null;
         }
@@ -90,30 +108,13 @@ public class CurriculumService {
      */
     public CurriculumDto.Response getCurriculum(CurriculumDto.GetRequest requestDto) {
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
-        List<Unit> units = unitJpaRepository.findByCourseOrderBySequence(course);
-        if (units.size() == 0) {
-            return null;
+        List<Chapter> chapters = chapterJpaRepository.findByCourseId(course.getId());
+        List<ChapterResponse> chapterDto = new ArrayList<>();
+        for (Chapter chapter : chapters) {
+            List<UnitResponse> unitDto = getUnitDto(chapter);
+            chapterDto.add(new ChapterResponse(chapter, unitDto));
         }
-        List<CurriculumDto.ChapterResponse> chapterResponses = getChapters(units);
-        return new CurriculumDto.Response(chapterResponses);
-    }
-
-    private List<CurriculumDto.ChapterResponse> getChapters(List<Unit> units) {
-        List<CurriculumDto.ChapterResponse> chapterResponseList = new ArrayList<>();
-        CurriculumDto.ChapterResponse chapterResponse = new CurriculumDto.ChapterResponse();
-        chapterResponse.setTitle(units.get(0).getChapter().getTitle());
-        Chapter prev = units.get(0).getChapter();
-        for (Unit unit : units) {
-            if (!unit.getChapter().equals(prev)) {
-                chapterResponseList.add(chapterResponse);
-                chapterResponse = new CurriculumDto.ChapterResponse();
-                chapterResponse.setTitle(unit.getChapter().getTitle());
-                prev = unit.getChapter();
-            }
-            chapterResponse.getUnits().add(new CurriculumDto.UnitResponse(unit));
-        }
-        chapterResponseList.add(chapterResponse);
-        return chapterResponseList;
+        return new CurriculumDto.Response(chapterDto);
     }
 
     /**
@@ -123,37 +124,38 @@ public class CurriculumService {
      * @param requestDto 강좌, 회원
      * @return 강좌의 커리큘럼
      */
-    public CurriculumDto.StatusResponse getCurriculumWithStatus(CurriculumDto.StatusRequest requestDto) {
+    public CurriculumDto.Response getCurriculumWithStatus(CurriculumDto.StatusRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
-        List<Unit> units = unitJpaRepository.findByCourseOrderBySequence(course);
-        if (units.size() == 0) {
-            return null;
-        }
         if (!enrollService.doesEnrolled(member, course)) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("수강 등록한 회원만 커리큘럼(강좌 진척도)을 조회할 수 있습니다.");
         }
         List<Unit> completedUnits = viewChecker.getCompletedUnit(member, course);
-        MyCourseDto.Response courseStatus = new MyCourseDto.Response(course, completedUnits.size(), recordService.getNextUnitInfo(member, course));
-        List<CurriculumDto.ChapterStatusResponse> chapters = getChaptersWithStatus(units, completedUnits);
-        return new CurriculumDto.StatusResponse(courseStatus, chapters);
+        List<Chapter> chapters = chapterJpaRepository.findByCourseId(course.getId());
+        List<ChapterResponse> chapterDto = new ArrayList<>();
+        for (Chapter chapter : chapters) {
+            List<UnitResponse> unitDto = getUnitInfo(chapter, completedUnits);
+            chapterDto.add(new ChapterResponse(chapter, unitDto));
+        }
+        NextUnitInfo nextUnitInfo = recordService.getNextUnitInfo(member, course);
+        CourseDto.StatusResponse courseStatus = new CourseDto.StatusResponse(course, completedUnits.size(), nextUnitInfo);
+        return new CurriculumDto.Response(chapterDto, courseStatus);
+    }
+    private List<UnitResponse> getUnitDto(Chapter chapter) {
+        List<UnitResponse> unitDto = new ArrayList<>();
+        List<Unit> units = chapter.getUnits();
+        for (Unit unit : units) {
+            unitDto.add(new UnitDefaultResponse(unit));
+        }
+        return unitDto;
     }
 
-    private List<CurriculumDto.ChapterStatusResponse> getChaptersWithStatus(List<Unit> units, List<Unit> completedUnits) {
-        CurriculumDto.ChapterStatusResponse chapterResponse = new CurriculumDto.ChapterStatusResponse();
-        chapterResponse.setTitle(units.get(0).getChapter().getTitle());
-        Chapter prev = units.get(0).getChapter();
-        List<CurriculumDto.ChapterStatusResponse> chapterList = new ArrayList<>();
+    private List<UnitResponse> getUnitInfo(Chapter chapter, List<Unit> completedUnits) {
+        List<UnitResponse> unitDto = new ArrayList<>();
+        List<Unit> units = chapter.getUnits();
         for (Unit unit : units) {
-            if (!unit.getChapter().equals(prev)) {
-                chapterList.add(chapterResponse);
-                chapterResponse = new CurriculumDto.ChapterStatusResponse();
-                chapterResponse.setTitle(unit.getChapter().getTitle());
-                prev = unit.getChapter();
-            }
-            chapterResponse.getUnits().add(new CurriculumDto.UnitStatusResponse(unit, completedUnits.contains(unit)));
+            unitDto.add(new UnitStatusResponse(unit, completedUnits.contains(unit)));
         }
-        chapterList.add(chapterResponse);
-        return chapterList;
+        return unitDto;
     }
 }

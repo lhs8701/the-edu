@@ -5,11 +5,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import joeuncamp.dabombackend.domain.auth.dto.ReissueRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.UnlinkRequestDto;
+import joeuncamp.dabombackend.domain.auth.dto.*;
 import joeuncamp.dabombackend.domain.auth.service.BasicAuthService;
-import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
@@ -30,7 +27,7 @@ public class BasicAuthController {
     @Operation(summary = "이메일로 회원가입합니다.", description = "")
     @PostMapping("/auth/basic/signup")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<Void> signup(@RequestBody @Valid SignupRequestDto requestDto) {
+    public ResponseEntity<Void> signup(@RequestBody @Valid BasicAuthDto.SignupRequest requestDto) {
         basicAuthService.signup(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -38,27 +35,31 @@ public class BasicAuthController {
     @Operation(summary = "이메일로 로그인합니다.", description = "")
     @PostMapping("/auth/basic/login")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<TokenForm> login(@RequestBody @Valid LoginRequestDto requestDto) {
-        TokenForm responseDto = basicAuthService.login(requestDto);
+    public ResponseEntity<BasicAuthDto.LoginResponse> login(@RequestBody @Valid BasicAuthDto.LoginRequest requestDto) {
+        BasicAuthDto.LoginResponse responseDto = basicAuthService.login(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
 
     @Operation(summary = "로그아웃합니다.", description = "")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.REFRESH_TOKEN, description = "리프레시토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.REFRESH)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/basic/logout")
-    public ResponseEntity<Void> logout(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.ACCESS_TOKEN) String accessToken) {
-        basicAuthService.logout(requestDto, accessToken);
+    public ResponseEntity<Void> logout(@RequestHeader(Header.ACCESS_TOKEN) String accessToken, @RequestHeader(Header.REFRESH_TOKEN) String refreshToken) {
+        BasicAuthDto.UnlinkRequestDto requestDto = new BasicAuthDto.UnlinkRequestDto(accessToken, refreshToken);
+        basicAuthService.logout(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Operation(summary = "회원 탈퇴합니다.", description = "")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @Parameter(name = Header.REFRESH_TOKEN, description = "리프레시토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.REFRESH)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/auth/basic/withdraw")
-    public ResponseEntity<Void> withdraw(@RequestBody @Valid UnlinkRequestDto requestDto, @RequestHeader(Header.ACCESS_TOKEN) String accessToken) {
-        basicAuthService.withdraw(requestDto, accessToken);
+    public ResponseEntity<Void> withdraw(@RequestHeader(Header.ACCESS_TOKEN) String accessToken, @RequestHeader(Header.REFRESH_TOKEN) String refreshToken) {
+        BasicAuthDto.UnlinkRequestDto requestDto = new BasicAuthDto.UnlinkRequestDto(accessToken, refreshToken);
+        basicAuthService.withdraw(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -66,7 +67,7 @@ public class BasicAuthController {
             "리프레시토큰도 만료된 경우, 리이슈에 실패합니다.")
     @PostMapping("/auth/reissue")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<TokenForm> reissue(@RequestBody @Valid ReissueRequestDto requestDto) {
+    public ResponseEntity<TokenForm> reissue(@RequestBody @Valid BasicAuthDto.ReissueRequest requestDto) {
         TokenForm responseDto = basicAuthService.reissue(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

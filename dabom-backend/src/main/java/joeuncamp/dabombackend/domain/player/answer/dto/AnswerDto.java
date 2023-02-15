@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.player.answer.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
+import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.answer.entity.Answer;
 import joeuncamp.dabombackend.domain.player.question.entity.Question;
@@ -72,21 +73,21 @@ public class AnswerDto {
         Long answerId;
         @Schema(description = "답변 내용", example = ExampleValue.Question.DESCRIPTION)
         String content;
-        @Schema(description = "작성자명", example = ExampleValue.Member.NICKNAME)
-        String writer;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd.HH:mm", timezone = "Asia/Seoul")
         @Schema(description = "생성 시간", example = ExampleValue.Time.DATE)
         LocalDateTime createdTime;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd.HH:mm", timezone = "Asia/Seoul")
         @Schema(description = "최근 수정 시간", example = ExampleValue.Time.DATE)
         LocalDateTime modifiedTime;
+        @Schema(description = "작성자")
+        ProfileDto.ShortResponse writer;
 
         public Response(Answer answer) {
             this.answerId = answer.getId();
             this.content = answer.getContent();
-            this.writer = answer.getMember().getNickname();
             this.createdTime = answer.getCreatedTime();
             this.modifiedTime = answer.getModifiedTime();
+            this.writer = new ProfileDto.ShortResponse(answer.getMember());
         }
     }
 }

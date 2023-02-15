@@ -55,7 +55,7 @@ public class CourseControllerTest {
         // given
         CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder().memberId(1L).build();
 
-        given(courseService.openCourse(requestDto)).willReturn(new IdResponseDto(1L));
+        given(courseService.openCourse(requestDto)).willReturn(1L);
 
         // when
         final ResultActions actions = mockMvc.perform(post("/api/courses")

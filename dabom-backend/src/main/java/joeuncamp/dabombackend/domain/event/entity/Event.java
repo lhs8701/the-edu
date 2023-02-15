@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,6 +32,7 @@ public class Event extends BaseTimeEntity {
     LocalDate endDate;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     private Member writer;
 

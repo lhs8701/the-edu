@@ -6,7 +6,6 @@ import joeuncamp.dabombackend.global.constant.CategoryGroup;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.ErrorCode;
 import joeuncamp.dabombackend.global.error.ErrorResponseDto;
-import joeuncamp.dabombackend.global.validation.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Tag(name = "[0.Reference]", description = "참고용 API입니다.")
+@Tag(name = "[9.Reference]", description = "참고용 API입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")

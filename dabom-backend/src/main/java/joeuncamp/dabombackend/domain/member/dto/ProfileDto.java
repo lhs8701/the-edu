@@ -28,9 +28,27 @@ public class ProfileDto {
         String nickname;
         @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
         String email;
-        @Schema(description = "프로필 이미지 경로", example = ExampleValue.Image.URL)
+        @Schema(description = "프로필 이미지 경로", example = ExampleValue.Image.PROFILE_IMAGE)
         String profileImage;
     }
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ShortResponse {
+        @Schema(description = "아이디넘버", example = "1")
+        Long id;
+        @Schema(description="별명", example = ExampleValue.Member.NICKNAME)
+        String nickname;
+        @Schema(description = "프로필 이미지")
+        ImageInfo profileImage;
+
+        public ShortResponse(Member member){
+            this.id = member.getId();
+            this.nickname = member.getNickname();
+            this.profileImage = member.getProfileImage();
+        }
+    }
+
     @Getter
     @AllArgsConstructor
     @Builder

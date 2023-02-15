@@ -28,7 +28,7 @@ public class EventDto {
         String title;
         @Schema(description = "내용", example = ExampleValue.Event.CONTENT)
         String content;
-        @Schema(description = "배너 이미지", example = ExampleValue.Image.URL)
+        @Schema(description = "배너 이미지", example = ExampleValue.Image.THUMBNAIL)
         String bannerImage;
         @Schema(description = "시작 일자")
         @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -63,7 +63,7 @@ public class EventDto {
         @Schema(description = "종료 일자")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         LocalDate endDate;
-        @Schema(description = "배너 이미지", example = ExampleValue.Image.URL)
+        @Schema(description = "배너 이미지", example = ExampleValue.Image.THUMBNAIL)
         ImageInfo bannerImage;
 
         public ShortResponse(Event event){
@@ -94,7 +94,7 @@ public class EventDto {
         @Schema(description = "종료 일자")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         LocalDate endDate;
-        @Schema(description = "배너 이미지", example = ExampleValue.Image.URL)
+        @Schema(description = "배너 이미지", example = ExampleValue.Image.THUMBNAIL)
         ImageInfo bannerImage;
 
         public Response(Event event){
@@ -119,7 +119,7 @@ public class EventDto {
         String title;
         @Schema(description = "내용", example = ExampleValue.Event.CONTENT)
         String content;
-        @Schema(description = "배너 이미지", example = ExampleValue.Image.URL)
+        @Schema(description = "배너 이미지", example = ExampleValue.Image.THUMBNAIL)
         String bannerImage;
         @Schema(description = "시작 일자")
         @DateTimeFormat(pattern = "yyyy-MM-dd")

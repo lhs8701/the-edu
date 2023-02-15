@@ -18,7 +18,6 @@ public abstract class Post extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     String content;
     Integer likes;
 

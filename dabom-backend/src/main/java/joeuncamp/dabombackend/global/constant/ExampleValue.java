@@ -4,6 +4,10 @@ import javax.swing.text.html.HTML;
 
 public class ExampleValue {
 
+    public static class Coupon{
+        public final static String NAME = "신규 회원 환영 쿠폰";
+    }
+
     public static class Event{
         public final static String TITLE = "연초 지정대상자 지휘서신(직책자용)";
         public final static String CONTENT = "재입대 바람";
@@ -18,7 +22,10 @@ public class ExampleValue {
     }
 
     public static class Image{
-        public final static String URL = "/static/images/sample.jpg";
+        public final static String SAMPLE = "/static/images/default/sample.jpg";
+        public final static String THUMBNAIL = "/static/images/default/thumbnail.jpg";
+        public final static String PROFILE_IMAGE = "/static/images/default/profile_image.jpg";
+        public final static String DESCRIPTION_IMAGE = "/static/images/default/description.jpg";
     }
 
     public static class Time{
@@ -53,13 +60,13 @@ public class ExampleValue {
     }
 
     public static class Member{
-        public final static String ACCOUNT = "user@naver.com";
+        public final static String ACCOUNT = "admin@naver.com";
         public final static String PASSWORD = "Abc1234!";
         public static final String NAME = "심재헌";
         public final static String NICKNAME = "hello";
         public final static String MOBILE = "010-1234-5678";
         public final static String BIRTH_DATE = "1999.01.01";
-        public final static String EMAIL = "user@naver.com";
+        public final static String EMAIL = "admin@naver.com";
     }
 
     public static class Post{

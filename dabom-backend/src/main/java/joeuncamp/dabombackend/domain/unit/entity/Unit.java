@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Chapter;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.file.video.entity.VideoInfo;
+import joeuncamp.dabombackend.domain.player.record.entity.View;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -54,7 +57,16 @@ public class Unit extends BaseTimeEntity {
     }
 
     public void setChapter(Chapter chapter) {
+        if (this.chapter!=null){
+            this.chapter.getUnits().remove(this);
+        }
         this.chapter = chapter;
+        chapter.getUnits().add(this);
+    }
+
+    public void removeChapter(){
+        this.chapter.getUnits().remove(this);
+        this.chapter = null;
     }
 
     @Override

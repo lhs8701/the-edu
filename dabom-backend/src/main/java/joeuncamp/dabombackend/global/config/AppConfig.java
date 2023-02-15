@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.global.config;
 
+import im.toss.cert.sdk.TossCertSessionGenerator;
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFprobe;
 import org.apache.tika.Tika;
@@ -30,6 +31,11 @@ public class AppConfig {
     @Bean
     public Tika tika(){
         return new Tika();
+    }
+
+    @Bean
+    public TossCertSessionGenerator tossCertSessionGenerator(){
+        return new TossCertSessionGenerator();
     }
 
     @Bean

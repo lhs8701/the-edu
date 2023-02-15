@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Builder
@@ -18,22 +20,29 @@ public class Feedback extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String comment;
     @ManyToOne
     @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Member member;
     @ManyToOne
     @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Unit unit;
     boolean thumbsUp;
+    boolean thumbsDown;
 
     public Feedback(Member member, Unit unit) {
         this.member = member;
         this.unit = unit;
     }
 
-    public void update(String comment, Boolean thumbsUp) {
-        this.comment = comment;
+    public void update(boolean thumbsUp, boolean thumbsDown) {
+        if (thumbsUp && thumbsDown) {
+            this.thumbsUp = false;
+            this.thumbsDown = false;
+            return;
+        }
         this.thumbsUp = thumbsUp;
+        this.thumbsDown = thumbsDown;
     }
 }

@@ -2,11 +2,9 @@ package joeuncamp.dabombackend.domain.member.controller;
 
 import com.google.gson.Gson;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.service.MemberService;
+import joeuncamp.dabombackend.domain.member.service.AccountManager;
 import joeuncamp.dabombackend.global.WithAuthUser;
-import joeuncamp.dabombackend.global.common.IdResponseDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -33,6 +30,9 @@ public class MemberControllerTest {
 
     @MockBean
     MemberService memberService;
+
+    @MockBean
+    AccountManager accountManager;
 
     @Test
     @WithAuthUser(role = "USER")

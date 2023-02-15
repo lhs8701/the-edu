@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.auth.service;
 
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.dto.AppleAuthDto;
+import joeuncamp.dabombackend.domain.auth.dto.BasicAuthDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -46,11 +47,11 @@ public class AppleAuthService {
      * @param requestDto 카카오에서 발급한 토큰, 리프레시토큰
      * @return 어세스토큰, 리프레시 토큰
      */
-    public TokenForm login(AppleAuthDto.LoginRequest requestDto) {
+    public AppleAuthDto.LoginResponse login(AppleAuthDto.LoginRequest requestDto) {
         Member member = memberJpaRepository.findByLoginTypeAndSocialId(LoginType.APPLE, requestDto.getSocialToken()).orElseThrow(CMemberNotFoundException::new);
         TokenForm tokenForm = jwtProvider.generateToken(member);
         tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), String.valueOf(member.getId()));
-        return tokenForm;
+        return new AppleAuthDto.LoginResponse(member, tokenForm);
     }
 
     /**

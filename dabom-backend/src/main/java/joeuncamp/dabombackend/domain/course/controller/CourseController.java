@@ -40,9 +40,9 @@ public class CourseController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses")
-    public ResponseEntity<IdResponseDto> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
+    public ResponseEntity<Long> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
         requestDto.setMemberId(member.getId());
-        IdResponseDto response = courseService.openCourse(requestDto);
+        Long response = courseService.openCourse(requestDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -70,9 +70,9 @@ public class CourseController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/courses/{courseId}/curriculum/status")
-    public ResponseEntity<CurriculumDto.StatusResponse> getCurriculumWithStatus(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<CurriculumDto.Response> getCurriculumWithStatus(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
         CurriculumDto.StatusRequest requestDto = new CurriculumDto.StatusRequest(courseId,member.getId());
-        CurriculumDto.StatusResponse responseDto = curriculumService.getCurriculumWithStatus(requestDto);
+        CurriculumDto.Response responseDto = curriculumService.getCurriculumWithStatus(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

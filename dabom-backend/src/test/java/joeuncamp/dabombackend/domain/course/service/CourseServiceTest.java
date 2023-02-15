@@ -3,23 +3,20 @@ package joeuncamp.dabombackend.domain.course.service;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
-import joeuncamp.dabombackend.domain.member.entity.CreatorProfile;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.domain.member.service.CreatorService;
+import joeuncamp.dabombackend.domain.creator.service.CreatorService;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.common.PagingDto;
-import joeuncamp.dabombackend.global.constant.CategoryGroup;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import joeuncamp.dabombackend.global.error.exception.CCreationDeniedException;
+import joeuncamp.dabombackend.global.error.exception.CNotCreatorException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -89,7 +86,7 @@ public class CourseServiceTest {
 
         // then
         Assertions.assertThatThrownBy(() -> courseService.openCourse(requestDto))
-                .isInstanceOf(CCreationDeniedException.class);
+                .isInstanceOf(CNotCreatorException.class);
     }
 
     @Test

@@ -8,38 +8,38 @@ import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
+import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import joeuncamp.dabombackend.global.error.exception.CAlreadyEnrolledCourse;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class EnrollService {
     private final MemberJpaRepository memberJpaRepository;
-    private final CourseJpaRepository courseJpaRepository;
     private final EnrollJpaRepository enrollJpaRepository;
+    private final CourseJpaRepository courseJpaRepository;
 
     /**
-     * 강좌를 수강 등록 합니다.
+     * 수강 정보를 갱신합니다.
+     * 없다면 새로 생성합니다.
      *
-     * @param requestDto 등록할 회원과 등록할 강좌
+     * @param member 회원
+     * @param ticket 수강권
      */
-    public void enroll(EnrollDto.Request requestDto) {
-        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
-        Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
-        if (enrollJpaRepository.findByMemberAndCourse(member, course).isPresent()) {
-            throw new CAlreadyEnrolledCourse();
-        }
-        createAndSaveEnroll(member, course);
-    }
-
-    private void createAndSaveEnroll(Member member, Course course) {
-        Enroll enroll = Enroll.builder()
+    public void enroll(Member member, Ticket ticket) {
+        Course course = ticket.getCourse();
+        Optional<Enroll> enrollOptional = enrollJpaRepository.findByMemberAndCourse(member, course);
+        Enroll enroll = enrollOptional.orElseGet(() -> Enroll.builder()
                 .member(member)
                 .course(course)
-                .build();
+                .build());
+        enroll.setEndDate(LocalDateTime.now().plusMonths(ticket.getCoursePeriod().getMonth()));
         enrollJpaRepository.save(enroll);
     }
 
@@ -52,15 +52,19 @@ public class EnrollService {
     public Boolean doesEnrolled(EnrollDto.Request requestDto) {
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
-        boolean doesEnrollExist = enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
-        boolean isCreator = course.getCreatorProfile().getMember().equals(member);
-        return doesEnrollExist || isCreator;
+        Optional<Enroll> enroll = enrollJpaRepository.findByMemberAndCourse(member, course);
+        if (enroll.isEmpty()) {
+            return false;
+        }
+        return !LocalDateTime.now().isAfter(enroll.get().getEndDate());
     }
 
     public boolean doesEnrolled(Member member, Course course) {
-        boolean doesEnrollExist = enrollJpaRepository.findByMemberAndCourse(member, course).isPresent();
-        boolean isCreator = course.getCreatorProfile().getMember().equals(member);
-        return doesEnrollExist || isCreator;
+        Optional<Enroll> enroll = enrollJpaRepository.findByMemberAndCourse(member, course);
+        if (enroll.isEmpty()) {
+            return false;
+        }
+        return !LocalDateTime.now().isAfter(enroll.get().getEndDate());
     }
 }
 

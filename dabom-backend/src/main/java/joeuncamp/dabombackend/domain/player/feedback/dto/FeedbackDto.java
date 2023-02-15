@@ -21,11 +21,12 @@ public class FeedbackDto {
         Long memberId;
         @Schema(hidden = true)
         Long unitId;
-        @Schema(description = "코멘트", example = ExampleValue.Feedback.COMMENT)
-        String comment;
         @NotNull
-        @Schema(description = "따봉")
+        @Schema(description = "좋아요", example = "false")
         Boolean thumbsUp;
+        @NotNull
+        @Schema(description = "싫어요", example = "false")
+        Boolean thumbsDown;
     }
     @Getter
     @AllArgsConstructor
@@ -38,15 +39,14 @@ public class FeedbackDto {
 
     @Getter
     public static class Response{
-        @Schema(description = "코멘트", example = ExampleValue.Feedback.COMMENT)
-        String comment;
-        @NotNull
-        @Schema(description = "따봉")
-        Boolean thumbsUp;
+        @Schema(description = "좋아요", example = "false")
+        boolean thumbsUp;
+        @Schema(description = "싫어요", example = "false")
+        boolean thumbsDown;
 
         public Response(Feedback feedback){
-            this.comment = feedback.getComment();
             this.thumbsUp = feedback.isThumbsUp();
+            this.thumbsDown = feedback.isThumbsDown();
         }
     }
 

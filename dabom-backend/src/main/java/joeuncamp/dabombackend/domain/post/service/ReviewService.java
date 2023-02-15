@@ -41,7 +41,7 @@ public class ReviewService {
         Member member = memberJpaRepository.findById(createRequestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         Course course = courseJpaRepository.findById(createRequestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
         if (!enrollService.doesEnrolled(member, course)) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("등록하지 않은 강좌입니다.");
         }
         if (reviewJpaRepository.findByMemberAndCourse(member, course).isPresent()) {
             throw new CReviewExistException();
@@ -77,7 +77,7 @@ public class ReviewService {
         Review review = reviewJpaRepository.findById(requestDto.getReviewId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!member.equals(review.getMember())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("작성자 본인만 수정할 수 있습니다.");
         }
         review.update(requestDto.getContent(), requestDto.getScore());
         reviewJpaRepository.save(review);
@@ -93,7 +93,7 @@ public class ReviewService {
         Review review = reviewJpaRepository.findById(requestDto.getReviewId()).orElseThrow(CResourceNotFoundException::new);
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
         if (!member.equals(review.getMember())) {
-            throw new CAccessDeniedException();
+            throw new CAccessDeniedException("작성자 본인만 삭제할 수 있습니다.");
         }
         reviewJpaRepository.delete(review);
     }
