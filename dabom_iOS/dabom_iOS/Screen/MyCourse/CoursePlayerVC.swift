@@ -59,7 +59,7 @@ class CoursePlayerVC: UIViewController {
         guard let unitId = unitId else { return }
         guard let endTime = avPlayer.currentItem?.duration.seconds else { return }
         
-        if currentTime + 10 >= endTime {
+        if currentTime + 20 >= endTime {
             UnitDataService.shared.completeUnit(unitId: unitId) { response in
                 switch response {
                 case .success:

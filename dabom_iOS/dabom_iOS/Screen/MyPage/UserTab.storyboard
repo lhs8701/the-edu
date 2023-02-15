@@ -241,6 +241,7 @@
                         <outlet property="eventBtn" destination="8QN-c6-8BC" id="lbK-Lz-OVY"/>
                         <outlet property="informationBtn" destination="Q6j-st-Zzl" id="EEF-ZH-6m1"/>
                         <outlet property="myCouponBtn" destination="hPh-p8-rA8" id="Xta-41-npv"/>
+                        <outlet property="myCouponView" destination="ee6-ps-8vi" id="ELb-aY-S6J"/>
                         <outlet property="profileImageView" destination="yEB-op-owK" id="Gil-47-rwF"/>
                         <outlet property="profileView" destination="xZf-S4-Evb" id="xhu-tD-F3O"/>
                         <outlet property="settingBtn" destination="tCb-VK-p9t" id="YBF-0z-YEt"/>

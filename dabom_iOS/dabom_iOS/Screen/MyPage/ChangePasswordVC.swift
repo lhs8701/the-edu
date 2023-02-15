@@ -21,6 +21,7 @@ class ChangePasswordVC: UIViewController {
         super.viewDidLoad()
 
         hideKeyboardWhenTappedAround()
+        configure()
     }
     
     // MARK: - configure

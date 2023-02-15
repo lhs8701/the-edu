@@ -19,6 +19,7 @@ class UserViewController: UIViewController {
     @IBOutlet weak var informationBtn: UIButton!
     @IBOutlet weak var settingBtn: UIButton!
     
+    @IBOutlet weak var myCouponView: UIView!
     
     // MARK: - let, var
     var userNickname: String = ""
@@ -36,6 +37,7 @@ class UserViewController: UIViewController {
         eventBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
         informationBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
         settingBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
+        myCouponView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
