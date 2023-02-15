@@ -64,6 +64,11 @@ public class Unit extends BaseTimeEntity {
         chapter.getUnits().add(this);
     }
 
+    public void removeChapter(){
+        this.chapter.getUnits().remove(this);
+        this.chapter = null;
+    }
+
     @Override
     public String toString() {
         return "Unit{" +

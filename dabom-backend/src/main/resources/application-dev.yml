@@ -32,8 +32,8 @@ spring:
       port: 6379
   servlet:
     multipart:
-      max-file-size: 1000MB
-      max-request-size: 1000MB
+      max-file-size: 5000MB
+      max-request-size: 5000MB
 
   mail:
     host: smtp.gmail.com # SMTP 서버 호스트

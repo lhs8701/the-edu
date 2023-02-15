@@ -17,4 +17,6 @@ public interface UnitJpaRepository extends JpaRepository<Unit, Long> {
     List<Unit> findByCourse(Course course);
 
     Optional<Unit> findTop1ByChapterOrderBySequenceDesc(Chapter chapter);
+
+    List<Unit> findByChapter(Chapter chapter);
 }

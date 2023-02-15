@@ -34,6 +34,7 @@ public class CurriculumService {
     private final EnrollService enrollService;
     private final ViewChecker viewChecker;
     private final RecordService recordService;
+    private final ChapterService chapterService;
 
 
     /**
@@ -45,7 +46,7 @@ public class CurriculumService {
     public void makeCurriculum(CurriculumDto.CreateRequest requestDto) {
         int sequence = 1;
         List<CurriculumDto.ChapterRequest> chapters = requestDto.getChapters();
-        chapterJpaRepository.deleteByCourseId(requestDto.getCourseId());
+        chapterService.deleteByCourse(requestDto.getCourseId());
         for (CurriculumDto.ChapterRequest chapterRequest : chapters) {
             Chapter chapter = joeuncamp.dabombackend.domain.course.entity.Chapter.builder()
                     .title(chapterRequest.getTitle())
@@ -74,7 +75,7 @@ public class CurriculumService {
      */
     public void makeDefaultCurriculum(Course course) {
         chapterJpaRepository.deleteByCourseId(course.getId());
-        Chapter defaultChapter = chapterJpaRepository.findByIsDefaultTrue().orElseThrow(CInternalServerException::new);
+        Chapter defaultChapter = chapterJpaRepository.findByIsDefaultIsTrue().orElseThrow(CInternalServerException::new);
         log.info("{}", defaultChapter);
         List<Unit> units = course.getUnitList();
         int sequence = 1;
