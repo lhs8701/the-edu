@@ -51,8 +51,8 @@ values ('1', '2023-02-08 14:18:13.411223', '2023-02-08 14:18:13.411223', '/stati
 insert into course (id, created_time, modified_time, category, description, medium_file_path, original_file_path,
                     small_file_path, title, creator_profile_id)
 values ('1', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END',
-        '스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '/static/images/default/thumbnail_m.jpg',
-        '/static/images/default/thumbnail.jpg', '/static/images/default/thumbnail_s.jpg', '스프링 핵심 원리 - 기본편', '1'),
+        '스프링 입문자가 예제를 만들어가면서 스프링의 핵심 원리를 이해할 수 있습니다.', '/static/images/spring_thumbnail_m.jpg',
+        '/static/images/spring_thumbnail.jpg', '/static/images/spring_thumbnail_s.jpg', '스프링 핵심 원리 - 기본편', '1'),
        ('2', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END',
         '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '/static/images/jo_oa_pil_thumbnail_m.jpg',
         '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg', '사무자동화산업기사 필기', '1'),
