@@ -17,6 +17,7 @@ import joeuncamp.dabombackend.util.tossapi.TossService;
 import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
-    private final List<PostOrderManager> postOrderManagers;
+    @Autowired
+    List<PostOrderManager> postOrderManagers;
     private final OrderJpaRepository orderJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final ItemJpaRepository itemJpaRepository;
