@@ -57,7 +57,7 @@ export default function SuccessPurchase() {
         .catch((err) => {
           console.log(err);
           alert("결제에 오류가 있습니다.");
-          navigate(-1);
+          // navigate(-1);
         });
     } else {
       postItemPurchaseApi(itemId, accessToken, {

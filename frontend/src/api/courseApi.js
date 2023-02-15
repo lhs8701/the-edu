@@ -122,6 +122,27 @@ export async function getCategoryListApi(pageParam, category) {
   return data.data;
 }
 
+export async function postCourseReivewApi(
+  courseId,
+  accessToken,
+  content,
+  score
+) {
+  return await axios.post(
+    `${COURSE_URL}/${courseId}/reviews`,
+    {
+      content: content,
+      score: 0,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
 export async function postcourseInquiriessApi(
   accessToken,
   courseId,
@@ -134,7 +155,7 @@ export async function postcourseInquiriessApi(
       memberId: memberId,
       courseId: courseId,
       content: content,
-      score: 0,
+      score: 3,
     },
     {
       headers: {

@@ -12,6 +12,9 @@ import {
   ChatUserInfo,
   UnderBar,
 } from "./ChatComponents";
+import CourseReviewForm from "./CourseReviewForm";
+import Modal from "react-modal";
+import { useState } from "react";
 
 const BtnBox = styled.div`
   width: 100%;
@@ -40,12 +43,12 @@ export default function CourseReview({ courseId }) {
       return <Review key={review.reviewId} userInfo={review} />;
     });
   };
+
   return (
     <Wrapper>
       <Title>수강 후기</Title>
-      <BtnBox>
-        <AccountSmallBtn>등록</AccountSmallBtn>
-      </BtnBox>
+      <br />
+      <br />
       <Reviews />
     </Wrapper>
   );

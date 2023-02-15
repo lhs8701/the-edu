@@ -34,8 +34,12 @@ const UnitInfoOutline = React.memo(function UnitInfoOutline({
     setVideo(e.target.files[0]);
     uploadVideoApi(accessToken, e.target.files[0])
       .then(({ data }) => {
-        setFileUrl(data.filePath);
-        reviseUnitVideo(data.filePath, e.target.files[0]);
+        if (data.code === -7001) {
+          setIsUpload(false);
+        } else {
+          setFileUrl(data.filePath);
+          reviseUnitVideo(data.filePath, e.target.files[0]);
+        }
       })
       .catch((err) => {
         alert(err);
