@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TossPayRequest {
-    @Schema(description = "toss paymentKey")
-    String tossPaymentKey;
-    @Schema(description = "toss orderId")
-    String tossOrderId;
-    @Schema(description = "toss amount")
-    long tossAmount;
+    String paymentKey;
+    String orderId;
+    long amount;
 }
