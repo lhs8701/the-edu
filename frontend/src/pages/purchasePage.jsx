@@ -12,8 +12,13 @@ import { enrollApi } from "../api/courseApi";
 import { getItemReceiptApi } from "../api/orderApi";
 import { getAccessTokenSelector, getLoginState } from "../atom";
 import { UnderBar } from "../components/course/ChatComponents";
-import { auth, purchase } from "../purchase";
-import { PROCESS_ACCOUNT_URL, PURCHASE_METHOD, STATIC_URL } from "../static";
+import { purchase } from "../purchase";
+import {
+  PROCESS_ACCOUNT_URL,
+  PURCHASE_METHOD,
+  STATIC_URL,
+  PROCESS_MAIN_URL,
+} from "../static";
 import { AccountInput } from "../style/AccountComponentCss";
 import { TabTitle } from "../style/CommonCss";
 
@@ -112,7 +117,6 @@ const PointP = styled.p`
 
 export default function PurchasePage() {
   const { courseId, itemId } = useParams();
-  const navigate = useNavigate();
   const { state } = useLocation();
   const [purchaseMethod, setPurchaseMethod] = useState();
   const accessToken = useRecoilValue(getAccessTokenSelector);
@@ -120,20 +124,12 @@ export default function PurchasePage() {
   const currentPath = useLocation().pathname;
   const [isPurchaseDone, setIsPurchaseDone] = useState(false);
   const [itemInfo, setItemInfo] = useState();
+  const navigate = useNavigate();
   const [cost, setCost] = useState(state?.price);
-
-  const enrollCourse = () => {
-    enrollApi(courseId, accessToken)
-      .then((res) => {
-        console.log(res);
-        alert("구매가 완료 되었습니다.");
-        navigate("/");
-      })
-      .catch((err) => {
-        alert("이미 구입한 강좌입니다.");
-        navigate(0);
-      });
-  };
+  const [useCoupon, setUseCoupon] = useState({
+    id: itemInfo?.couponList[0]?.id,
+    idx: 0,
+  });
 
   useEffect(() => {
     getItemReceiptApi(itemId, accessToken).then(({ data }) => {
@@ -147,7 +143,12 @@ export default function PurchasePage() {
         <CourseInfoBox>
           <Img src={STATIC_URL + itemInfo?.productImage?.smallFilePath} />
           <InfoBox>
-            <InfoTab>
+            <InfoTab
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate(PROCESS_MAIN_URL.COURSES + "/" + courseId);
+              }}
+            >
               <p>{itemInfo?.productName}</p>
               {isPurchaseDone ? <p></p> : <p>{state?.price}원</p>}
             </InfoTab>
@@ -184,10 +185,6 @@ export default function PurchasePage() {
 
   const PurchaseForm = () => {
     const [usePoint, setUsePoint] = useState(0);
-    const [useCoupon, setUseCoupon] = useState({
-      id: itemInfo?.couponList[0]?.id,
-      idx: 0,
-    });
 
     const purchaseCourse = () => {
       if (purchaseMethod) {
@@ -195,7 +192,7 @@ export default function PurchasePage() {
           {
             courseId: courseId,
             itemId: itemId,
-            counponId: useCoupon,
+            couponId: useCoupon.id,
             point: usePoint,
             amount: state.price - usePoint + 1000,
             orderName: itemInfo.productName,
@@ -219,7 +216,11 @@ export default function PurchasePage() {
             type="text"
             value={usePoint}
             onChange={(e) => {
-              setUsePoint(e.target.value);
+              if (e.target.value > itemInfo?.point) {
+                alert("보유한 포인트보다 많은 입력은 허용되지 않습니다.");
+              } else {
+                setUsePoint(e.target.value);
+              }
             }}
             min="0"
             max={itemInfo?.point}
@@ -228,7 +229,7 @@ export default function PurchasePage() {
           <SmallTitle>쿠폰 할인</SmallTitle>
           <CouponBox>
             {itemInfo?.couponList.length === 0 ? (
-              <div>쿠폰 없음</div>
+              <div>쿠폰이 없어요!</div>
             ) : (
               <Select
                 name="couponOption"
@@ -255,7 +256,8 @@ export default function PurchasePage() {
           <FlexDiv>
             <PrimaryCostTab>쿠폰 할인</PrimaryCostTab>
             <PrimaryCostTab>
-              - {itemInfo?.couponList[useCoupon?.idx]?.discount} 원
+              쿠폰 들어오면 처리하면댐 -{" "}
+              {itemInfo?.couponList[useCoupon?.idx]?.discount} 원
             </PrimaryCostTab>
           </FlexDiv>
           <FlexDiv>
@@ -285,6 +287,7 @@ export default function PurchasePage() {
         <br />
         <br />
         <PriceUnderBar />
+        <br />
         <br />
         <br />
         <FormControl sx={{ width: "100%" }}>

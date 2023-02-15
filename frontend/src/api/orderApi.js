@@ -12,11 +12,23 @@ export async function getItemReceiptApi(itemId, accessToken) {
   });
 }
 
-export async function postItemPurchaseApi(itemId, accessToken) {
-  return await axios.post(`${PURCHASE_URL}/${itemId}`, {
-    headers: {
-      ACCESS: accessToken,
-      "Content-Type": "application/json",
+export async function postItemPurchaseApi(itemId, accessToken, data) {
+  return await axios.post(
+    `${PURCHASE_URL}/${itemId}`,
+    {
+      couponId: data.couponId,
+      point: data.point,
+      tossSecret: {
+        tossPaymentKey: data.key,
+        tossOrderId: data.tossId,
+        tossAmount: data.amount,
+      },
     },
-  });
+    {
+      headers: {
+        ACCESS: accessToken,
+        "Content-Type": "application/json",
+      },
+    }
+  );
 }

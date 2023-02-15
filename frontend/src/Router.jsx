@@ -113,11 +113,11 @@ const router = createBrowserRouter([
         element: <PurchasePage />,
         children: [
           {
-            path: "success",
+            path: ":point/:couponId/success",
             element: <SuccessPurchase />,
           },
           {
-            path: "fail",
+            path: ":point/:couponId/fail",
             element: <PurchasePage />,
           },
         ],
