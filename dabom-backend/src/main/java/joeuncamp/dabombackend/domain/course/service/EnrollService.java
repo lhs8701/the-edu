@@ -34,9 +34,6 @@ public class EnrollService {
      */
     public void enroll(Member member, Ticket ticket) {
         Course course = ticket.getCourse();
-        if (enrollJpaRepository.findByMemberAndCourse(member, course).isPresent()) {
-            throw new CAlreadyEnrolledCourse();
-        }
         Optional<Enroll> enrollOptional = enrollJpaRepository.findByMemberAndCourse(member, course);
         Enroll enroll = enrollOptional.orElseGet(() -> Enroll.builder()
                 .member(member)
