@@ -2,7 +2,7 @@ package joeuncamp.dabombackend.util.tossapi;
 
 import im.toss.cert.sdk.TossCertSession;
 import im.toss.cert.sdk.TossCertSessionGenerator;
-import joeuncamp.dabombackend.util.tossapi.dto.ConfirmRequest;
+import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import joeuncamp.dabombackend.util.tossapi.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -48,17 +48,17 @@ public class TossService {
     /**
      * 결제 승인 API를 호출합니다.
      *
-     * @param confirmRequest request
+     * @param tossPayRequest request
      * @return response
      */
-    public PaymentInfo confirmPayment(ConfirmRequest confirmRequest) {
+    public PaymentInfo confirmPayment(TossPayRequest tossPayRequest) {
         WebClient webClient = WebClient.create();
         String encodedAuth = Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes());
         return webClient.method(HttpMethod.POST)
                 .uri(CONFIRM_API)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Basic " + encodedAuth)
-                .bodyValue(confirmRequest)
+                .bodyValue(tossPayRequest)
                 .retrieve()
                 .bodyToMono(PaymentInfo.class)
                 .block();

@@ -8,11 +8,12 @@ import joeuncamp.dabombackend.domain.course.dto.TicketDto;
 import joeuncamp.dabombackend.domain.course.service.CourseTicketService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.order.dto.OrderDto;
+import joeuncamp.dabombackend.domain.order.dto.OrderSheetDto;
 import joeuncamp.dabombackend.domain.order.service.OrderSheetService;
 import joeuncamp.dabombackend.domain.order.service.OrderService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
-import joeuncamp.dabombackend.util.tossapi.dto.ConfirmRequest;
+import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,9 +54,9 @@ public class OrderController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/purchase/items/{itemId}")
-    public ResponseEntity<OrderDto.Response> getOrderSheet(@PathVariable Long itemId, @AuthenticationPrincipal Member member) {
-        OrderDto.StatusRequest requestDto = new OrderDto.StatusRequest(member.getId(), itemId);
-        OrderDto.Response responseDto = orderSheetService.getOrderSheet(requestDto);
+    public ResponseEntity<OrderSheetDto.Response> getOrderSheet(@PathVariable Long itemId, @AuthenticationPrincipal Member member) {
+        OrderSheetDto.Request requestDto = new OrderSheetDto.Request(member.getId(), itemId);
+        OrderSheetDto.Response responseDto = orderSheetService.getOrderSheet(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
@@ -63,10 +64,10 @@ public class OrderController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/purchase/items/{itemId}")
-    public ResponseEntity<OrderDto.Response> completeOrder(@PathVariable Long itemId, @RequestBody OrderDto.Request requestDto, @RequestBody ConfirmRequest confirmRequest, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> completeOrder(@PathVariable Long itemId, @RequestBody OrderDto.Request requestDto, @RequestBody TossPayRequest tossPayRequest, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setItemId(itemId);
-        orderService.makeOrder(requestDto, confirmRequest);
+        orderService.makeOrder(requestDto, tossPayRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

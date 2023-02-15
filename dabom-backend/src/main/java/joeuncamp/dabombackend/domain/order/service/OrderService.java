@@ -14,7 +14,7 @@ import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import joeuncamp.dabombackend.global.error.exception.CPaymentException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import joeuncamp.dabombackend.util.tossapi.TossService;
-import joeuncamp.dabombackend.util.tossapi.dto.ConfirmRequest;
+import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -54,9 +54,9 @@ public class OrderService {
      * 이후, 상품의 종류에 따라 적절한 후속 조치가 취해집니다.
      *
      * @param requestDto     request
-     * @param confirmRequest 토스 인증 정보
+     * @param tossPayRequest 토스 인증 정보
      */
-    public void makeOrder(OrderDto.Request requestDto, ConfirmRequest confirmRequest) {
+    public void makeOrder(OrderDto.Request requestDto, TossPayRequest tossPayRequest) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
         PostOrderManager postOrderManager = findPostOrderManager(item);
@@ -68,11 +68,11 @@ public class OrderService {
             price = issueService.useCoupon(issue, item);
         }
         price -= payPointManager.usePoint(member, requestDto.getPoint());
-        if (price != confirmRequest.getTossAmount()) {
+        if (price != tossPayRequest.getTossAmount()) {
             throw new CPaymentException();
         }
 
-        PaymentInfo paymentInfo = tossService.confirmPayment(confirmRequest);
+        PaymentInfo paymentInfo = tossService.confirmPayment(tossPayRequest);
         Order order = Order.builder()
                 .id(paymentInfo.getOrderId())
                 .name(paymentInfo.getOrderName())
