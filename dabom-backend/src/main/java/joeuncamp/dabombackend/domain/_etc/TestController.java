@@ -5,17 +5,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.file.FileUtil;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.file.image.service.ImageService;
-import joeuncamp.dabombackend.domain.order.dto.OrderDto;
-import joeuncamp.dabombackend.domain.order.service.OrderService;
-import joeuncamp.dabombackend.domain.player.record.repository.RecordRedisRepository;
+import joeuncamp.dabombackend.domain.order.service.PostOrderManager;
 import joeuncamp.dabombackend.util.hls.service.HlsConvertor;
 import joeuncamp.dabombackend.util.tossapi.TossService;
 import joeuncamp.dabombackend.util.tossapi.dto.AuthResultResponse;
-import joeuncamp.dabombackend.util.tossapi.dto.TokenResponse;
 import joeuncamp.dabombackend.util.tossapi.dto.TxIdResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,8 +30,8 @@ import java.util.List;
 public class TestController {
     private final ImageService imageService;
     private final HlsConvertor hlsConvertor;
-    private final OrderService orderService;
     private final TossService tossService;
+    private final List<PostOrderManager> postOrderManager;
 
     @Operation(summary = "개발 서버 사진 업로드 테스트", description = "")
     @PreAuthorize("permitAll()")
@@ -63,15 +59,6 @@ public class TestController {
     public ResponseEntity<?> convertToM3u8(@RequestPart MultipartFile multipartFile) {
         File file = FileUtil.createFromMultipart(multipartFile);
         hlsConvertor.convertToM3u8(file);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @Operation(summary = "결제 테스트", description = "")
-    @PreAuthorize("permitAll()")
-    @PostMapping("/test/order")
-    public ResponseEntity<?> order(@RequestBody OrderDto.Request requestDto) {
-        requestDto.setMemberId(1L);
-        orderService.completeOrder(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

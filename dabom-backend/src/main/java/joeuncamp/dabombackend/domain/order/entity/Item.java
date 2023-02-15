@@ -19,4 +19,6 @@ public class Item extends BaseTimeEntity {
     ImageInfo image;
     String productDetail;
     Price price;
+    @Enumerated(EnumType.STRING)
+    ItemType itemType;
 }

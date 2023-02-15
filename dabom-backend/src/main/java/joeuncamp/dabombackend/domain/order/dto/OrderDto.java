@@ -32,23 +32,6 @@ public class OrderDto {
         Long couponId;
         @Schema(description = "사용한 포인트 금액")
         long point;
-        @Schema(description = "토스 정보")
-        TossSecret tossSecret;
-        @Getter
-        @NoArgsConstructor
-        public static class TossSecret {
-            @Schema(description = "toss paymentKey")
-            String tossPaymentKey;
-            @Schema(description = "toss orderId")
-            String tossOrderId;
-            @Schema(description = "toss amount")
-            long tossAmount;
-
-            public ConfirmRequest toEntity(){
-                return new ConfirmRequest(this.tossPaymentKey, this.tossOrderId, this.tossAmount);
-            }
-        }
-
     }
 
     @Getter

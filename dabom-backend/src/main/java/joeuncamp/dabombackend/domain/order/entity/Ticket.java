@@ -30,6 +30,7 @@ public class Ticket extends Item {
         this.price = new Price(1000L, 1000L);
         this.coursePeriod = coursePeriod;
         this.course = course;
+        this.itemType = ItemType.TICKET;
     }
 
     public void updatePrice(long costPrice, long discountedPrice) {

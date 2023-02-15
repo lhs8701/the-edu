@@ -30,11 +30,14 @@ public class Enroll extends BaseTimeEntity {
     LocalDateTime endDate;
 
     @Builder
-    public Enroll (Member member, Course course, LocalDateTime endDate){
+    public Enroll (Member member, Course course){
         this.member = member;
         member.getEnrollList().add(this);
         this.course = course;
         course.getEnrollList().add(this);
+    }
+
+    public void setEndDate(LocalDateTime endDate){
         this.endDate = endDate;
     }
 }
