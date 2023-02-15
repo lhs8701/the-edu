@@ -126,7 +126,7 @@ export default function Outline() {
 
   const uploadCurriculum = (e) => {
     e.preventDefault();
-    if (window.confirm("강좌 커리큘럼 입력하시겠습니까?")) {
+    if (window.confirm("강좌 커리큘럼을 입력하시겠습니까?")) {
       const uploadCurriList = curriUploadFilter(chapterList);
       createCourseCurriculumApi(accessToken, courseId, uploadCurriList)
         .then(() => {
@@ -191,20 +191,20 @@ export default function Outline() {
     );
   };
 
-  // useEffect(() => {
-  //   const preventUnload = (event) => {
-  //     // NOTE: This message isn't used in modern browsers, but is required
-  //     const message = "Sure you want to leave?";
-  //     event.preventDefault();
-  //     event.returnValue = message;
-  //   };
+  useEffect(() => {
+    const preventUnload = (event) => {
+      // NOTE: This message isn't used in modern browsers, but is required
+      const message = "Sure you want to leave?";
+      event.preventDefault();
+      event.returnValue = message;
+    };
 
-  //   window.addEventListener("beforeunload", preventUnload);
+    window.addEventListener("beforeunload", preventUnload);
 
-  //   return () => {
-  //     window.removeEventListener("beforeunload", preventUnload);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("beforeunload", preventUnload);
+    };
+  }, []);
 
   return (
     <>
