@@ -14,7 +14,6 @@ import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import joeuncamp.dabombackend.global.error.exception.CPaymentException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import joeuncamp.dabombackend.util.tossapi.TossService;
-import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,11 +68,11 @@ public class OrderService {
             price = issueService.useCoupon(issue, item);
         }
         price -= payPointManager.usePoint(member, requestDto.getPoint());
-        if (price != requestDto.getTossPayRequest().getTossAmount()) {
+        if (price != requestDto.getTossPayDto().getTossAmount()) {
             throw new CPaymentException();
         }
 
-        PaymentInfo paymentInfo = tossService.confirmPayment(requestDto.getTossPayRequest());
+        PaymentInfo paymentInfo = tossService.confirmPayment(requestDto.getTossPayDto().toEntity());
         Order order = Order.builder()
                 .id(paymentInfo.getOrderId())
                 .name(paymentInfo.getOrderName())

@@ -3,7 +3,6 @@ package joeuncamp.dabombackend.util.tossapi;
 import im.toss.cert.sdk.TossCertSession;
 import im.toss.cert.sdk.TossCertSessionGenerator;
 import joeuncamp.dabombackend.domain.order.dto.OrderDto;
-import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import joeuncamp.dabombackend.util.tossapi.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,7 @@ public class TossService {
      * @param tossPayRequest request
      * @return response
      */
-    public PaymentInfo confirmPayment(OrderDto.Request.TossPayRequest tossPayRequest) {
+    public PaymentInfo confirmPayment(TossPayRequest tossPayRequest) {
         WebClient webClient = WebClient.create();
         String encodedAuth = Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes());
         return webClient.method(HttpMethod.POST)
