@@ -38,7 +38,7 @@ const IntroPlayerTab = styled.div`
 const DetailInfoBox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
   align-items: flex-end;
   text-align: end;
@@ -53,6 +53,7 @@ const DescriptionTab = styled.div`
   font-weight: var(--weight-thin);
   height: 215px;
   color: var(--color-gray);
+  font-size: 0.9rem;
 `;
 
 export default function CourseIntro({ courseId }) {
@@ -74,6 +75,7 @@ export default function CourseIntro({ courseId }) {
         </IntroPlayerTab>
         <DetailInfoBox>
           <TeacherTab>강사: {courseInfo?.instructor}</TeacherTab>
+          <br />
           <DescriptionTab>{courseInfo?.description}</DescriptionTab>
         </DetailInfoBox>
       </MoreInfoBox>

@@ -1,7 +1,7 @@
-import { Button, Fab, Grid } from "@mui/material";
+import { Button, CircularProgress, Fab, Grid } from "@mui/material";
 import { useState } from "react";
 import { uploadImageApi } from "../../api/creatorApi";
-import { PreviewImg } from "./CourseInfoUpload";
+import { PreviewImg, ProgressBarDiv } from "./CourseInfoUpload";
 
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useEffect } from "react";
@@ -13,6 +13,7 @@ export default function CourseInfoImage({
   accessToken,
   setDummyImgUrlUpdate,
 }) {
+  const [isUpload, setIsUpload] = useState();
   const [imgValue, setImgValue] = useState({
     file: false,
     url: "",
@@ -41,12 +42,14 @@ export default function CourseInfoImage({
   };
 
   const uploadImg = (e) => {
+    setIsUpload(true);
     uploadImageApi(e.target.files[0], accessToken)
       .then(({ data }) => {
         setImgValue({ file: e.target.files[0], url: data.originalFilePath });
       })
       .catch((err) => {
-        console.log(err);
+        alert(err);
+        setIsUpload(false);
       });
   };
 
@@ -66,6 +69,7 @@ export default function CourseInfoImage({
             }}
             variant="contained"
             onClick={() => {
+              setIsUpload(false);
               setImgValue({
                 file: false,
                 url: "",
@@ -75,6 +79,14 @@ export default function CourseInfoImage({
             취소
           </Button>
         </>
+      ) : isUpload ? (
+        <ProgressBarDiv>
+          <CircularProgress
+            sx={{
+              color: "var(--color-primary)",
+            }}
+          />
+        </ProgressBarDiv>
       ) : (
         <Button
           sx={{

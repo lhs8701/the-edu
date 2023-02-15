@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { queryClient } from "../..";
 import { uploadImageApi } from "../../api/creatorApi";
-import { myInfoApi, revisemyInfoApi } from "../../api/myPageApi";
+import { changePwdApi, myInfoApi, revisemyInfoApi } from "../../api/myPageApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import { STATIC_URL } from "../../static";
 import {
@@ -92,15 +92,16 @@ export default function Revise() {
   const [isId, setIsId] = useState(infos?.data?.email);
   const [isName, setIsName] = useState(infos?.data?.nickname);
   const [isTele, setIsTele] = useState(infos?.data?.mobile);
+  const [isCurrentPwd, setIsCurrentPwd] = useState("");
+  const [isNewPwd, setIsNewPwd] = useState("");
   const [isProfileImg, setIsProfileImg] = useState(
     infos?.data?.profileImage.mediumFilePath
   );
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
-    watch,
     setValue,
   } = useForm({
     mode: "onBlur",
@@ -111,6 +112,17 @@ export default function Revise() {
     },
     reValidateMode: "onBlur",
   });
+
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2 },
+  } = useForm({
+    mode: "onBlur",
+    reValidateMode: "onBlur",
+  });
+
+  console.log(errors2.currentPwd?.message);
 
   const submit = () => {
     const info = {
@@ -139,6 +151,14 @@ export default function Revise() {
       })
       .catch((err) => {
         console.log(err);
+      });
+  };
+
+  const changePwd = () => {
+    changePwdApi(accessToken, isCurrentPwd, isNewPwd)
+      .then(() => alert("비밀번호가 변경되었습니다."))
+      .catch(() => {
+        alert("err");
       });
   };
 
@@ -226,53 +246,62 @@ export default function Revise() {
               type="text"
             />
           </InputBox>
-          {/* <InputBox>
-            <InputLabel>비밀번호</InputLabel>
-            <AccountInput
-              type="password"
-              placeholder="비밀번호를 입력해주세요."
-            />
-          </InputBox>
-          <InputBox>
-            <InputLabel>비밀번호 확인</InputLabel>
-            <AccountInput
-              type="password"
-              placeholder="비밀번호를 입력해주세요."
-            />
-          </InputBox> */}
-          {/* <InputBox>
-            <InputLabel>휴대전화 번호</InputLabel>
-            <TeleInput
-              {...register("tele", {
-                name: "tele",
-                // 유효성 검사 파트
-                // pattern: {
-                //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                //   message: "wrong input",
-                // },
-                minLength: {
-                  value: MIN_TELE_LENGTH,
-                  message: "10글자 이상 입력해주세요.",
-                },
-                maxLength: {
-                  value: MAX_TELE_LENGTH,
-                  message: "11글자 이하로 입력해주세요.",
-                },
-                onChange: (e) => {
-                  setIsTele(e.target.value);
-                },
-              })}
-              type="tel"
-            />
-            <button>인증</button>
-          </InputBox> */}
 
           <AccountBtn
             texthovercolor={"--color-background"}
             bgcolor={"--color-primary"}
             textcolor={"--color-text"}
           >
-            수정하기
+            기본 정보 수정하기
+          </AccountBtn>
+        </ReviseForm>
+        <br />
+        <br />
+        <br />
+        <br />
+        <ReviseForm onSubmit={handleSubmit2(changePwd)}>
+          <InputBox>
+            <InputLabel>현재 비밀번호</InputLabel>
+            <AccountInput
+              {...register2("currendPwd", {
+                name: "currentPwd",
+                // 유효성 검사 파트
+                // pattern: {
+                //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+                //   message: "wrong input",
+                // },
+                onChange: (e) => {
+                  setIsCurrentPwd(e.target.value);
+                },
+              })}
+              placeholder="현재 비밀번호를 입력해주세요."
+            />
+          </InputBox>
+          <InputBox>
+            <InputLabel>새 비밀번호 확인</InputLabel>
+            <AccountInput
+              type="text"
+              {...register2("newPwd", {
+                name: "newPwd",
+                required: "비밀번호를 입력하세요",
+                // 유효성 검사 파트
+                // pattern: {
+                //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
+                //   message: "wrong input",
+                // },
+                onChange: (e) => {
+                  setIsNewPwd(e.target.value);
+                },
+              })}
+              placeholder="새 비밀번호를 입력해주세요."
+            />
+          </InputBox>
+          <AccountBtn
+            texthovercolor={"--color-background"}
+            bgcolor={"--color-primary"}
+            textcolor={"--color-text"}
+          >
+            비밀번호 수정하기
           </AccountBtn>
         </ReviseForm>
       </MyPageContentBox>

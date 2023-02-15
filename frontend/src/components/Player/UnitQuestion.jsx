@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import styled from "styled-components";
 import { faClosedCaptioning as regular } from "@fortawesome/free-regular-svg-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Swal from "sweetalert2";
 import { Wrapper } from "../../style/PlayerSideBarCss";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
@@ -17,9 +17,7 @@ import {
 } from "../../api/questionApi";
 import { useRecoilValue } from "recoil";
 import { getAccessTokenSelector } from "../../atom";
-import { useMemo } from "react";
 import { useRef } from "react";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const CateBox = styled.div`
   display: flex;
@@ -91,10 +89,6 @@ const QuestionBox = styled(motion.div)`
   flex-direction: column;
   margin: 0 auto;
   height: 50vh;
-
-  /* @media screen and (max-height: 90vh) and (min-height: 617px) {
-    height: 30vh;
-  } */
 `;
 
 const QuestionTab = styled(Accordion)`
@@ -117,7 +111,6 @@ const Tab = styled(motion.div)`
   white-space: nowrap;
   font-size: var(--font-size-question-any);
   text-overflow: ellipsis;
-  /* display: ${(props) => (props.visible ? "default" : "none")}; */
 `;
 
 const Form = styled.form`
@@ -189,6 +182,7 @@ export default function UnitQuestion({ unitId }) {
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const [userQuestionTitle, setUserQuestionTitle] = useState("");
   const [userQuestionContext, setQuestionContext] = useState("");
+  const [section, setSection] = useState(true);
 
   const questionList = useInfiniteQuery(
     ["questionList", unitId],
@@ -247,6 +241,15 @@ export default function UnitQuestion({ unitId }) {
       });
   };
 
+  const spreadAccordian = (questionId) => {
+    setSection(true);
+    if (allListExpanded === questionId) {
+      setAllListExpanded();
+    } else {
+      setAllListExpanded(questionId);
+    }
+  };
+
   useEffect(() => {
     if (isInView && questionList.hasNextPage && questionList.isSuccess) {
       questionList.fetchNextPage();
@@ -280,7 +283,6 @@ export default function UnitQuestion({ unitId }) {
   };
 
   const QuestionContentComponent = ({ questionId, isMine }) => {
-    const [section, setSection] = useState(true);
     const questionContent = useQuery(
       ["questionContent", questionId],
       () => {
@@ -498,13 +500,12 @@ export default function UnitQuestion({ unitId }) {
                   key={question.questionId}
                   expanded={allListExpanded === question.questionId}
                   onChange={() => {
-                    setAllListExpanded(question.questionId);
+                    spreadAccordian(question.questionId);
                   }}
                 >
                   <QuestionInfoTab
                     aria-controls="panel1a-content"
                     expandIcon={<KeyboardArrowDownIcon />}
-                    sx={{}}
                   >
                     {question.title}
                   </QuestionInfoTab>

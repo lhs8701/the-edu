@@ -1,10 +1,12 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { faL } from "@fortawesome/free-solid-svg-icons";
+import { Box, Button, CircularProgress, Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { uploadVideoApi } from "../../api/creatorApi";
 import { getAccessTokenSelector } from "../../atom";
+import { ProgressBarDiv } from "./CourseInfoUpload";
 
 const UploadTab = styled(Box)`
   display: flex;
@@ -26,14 +28,25 @@ const UnitInfoOutline = React.memo(function UnitInfoOutline({
 }) {
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
+  const [isUpload, setIsUpload] = useState(false);
   const upload = (e) => {
+    setIsUpload(true);
     setVideo(e.target.files[0]);
-    uploadVideoApi(accessToken, e.target.files[0]).then(({ data }) => {
-      setFileUrl(data.filePath);
-      reviseUnitVideo(data.filePath, e.target.files[0]);
-    });
+    uploadVideoApi(accessToken, e.target.files[0])
+      .then(({ data }) => {
+        if (data.code === -7001) {
+          setIsUpload(false);
+        } else {
+          setFileUrl(data.filePath);
+          reviseUnitVideo(data.filePath, e.target.files[0]);
+        }
+      })
+      .catch((err) => {
+        alert(err);
+        setIsUpload(false);
+      });
   };
-  console.log("render");
+
   return (
     <UploadTab>
       {fileUrl ? (
@@ -51,35 +64,36 @@ const UnitInfoOutline = React.memo(function UnitInfoOutline({
             onClick={() => {
               setFileUrl("");
               setVideo();
+              setIsUpload(false);
             }}
           >
             취소
           </Button>
         </div>
-      ) : (
-        <>
-          <Button
+      ) : isUpload ? (
+        <ProgressBarDiv>
+          <CircularProgress
             sx={{
-              width: 300,
-              height: 200,
-              backgroundColor: "var(--color-box-gray)",
-              "&:hover": {
-                backgroundColor: "#b1b1b1",
-              },
+              color: "var(--color-primary)",
             }}
-            variant="contained"
-            component="label"
-          >
-            Upload
-            <input
-              hidden
-              accept=".mp4"
-              onChange={upload}
-              multiple
-              type="file"
-            />
-          </Button>
-        </>
+          />
+        </ProgressBarDiv>
+      ) : (
+        <Button
+          sx={{
+            width: 300,
+            height: 200,
+            backgroundColor: "var(--color-box-gray)",
+            "&:hover": {
+              backgroundColor: "#b1b1b1",
+            },
+          }}
+          variant="contained"
+          component="label"
+        >
+          Upload
+          <input hidden accept=".mp4" onChange={upload} multiple type="file" />
+        </Button>
       )}
     </UploadTab>
   );

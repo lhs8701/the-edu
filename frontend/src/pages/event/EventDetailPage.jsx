@@ -84,7 +84,6 @@ export default function EventDetailPage() {
   );
 
   const EventDetailComponent = ({ eventInfo }) => {
-    console.log(eventInfo);
     return (
       <>
         <EventInfoTab>

@@ -21,6 +21,7 @@ const MyClassListBox = styled.div`
   align-items: center;
   justify-items: center;
   margin-bottom: 50px;
+  grid-auto-flow: dense;
 `;
 
 const ListTitle = styled.h1`
@@ -35,10 +36,17 @@ const ListWrapper = styled.div`
 `;
 
 const ClassListBox = styled.div`
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
   width: 100%;
+  height: 200px; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
   height: 200px;
+  align-items: center;
+  justify-items: center;
+  grid-auto-flow: dense;
 `;
 const NoneTitle = styled.h1`
   font-size: 1.5rem;

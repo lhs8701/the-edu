@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
@@ -15,6 +15,9 @@ import {
   PROCESS_MAIN_URL,
   STATIC_URL,
 } from "../static";
+import CourseReviewForm from "../components/course/CourseReviewForm";
+import Modal from "react-modal";
+import { motion } from "framer-motion";
 
 const LobbyWrapper = styled.div`
   width: 100%;
@@ -120,11 +123,25 @@ const PlayBtn = styled.button`
   }
 `;
 
+const ReviewBtn = styled(motion.button)`
+  position: absolute;
+  bottom: -150px;
+  right: 35%;
+  height: 40px;
+  width: 80px;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  border: none;
+  font-weight: var(--weight-middle);
+  font-size: 1rem;
+`;
+
 export default function LobbyPage() {
   const loginState = useRecoilValue(getLoginState);
   const { courseId } = useParams();
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data } = useQuery(
     ["userCurriStatus", courseId],
@@ -158,8 +175,8 @@ export default function LobbyPage() {
       })
       .catch((err) => {
         console.log(err);
-        alert("Error");
-        navigate("/");
+        // alert("Error");
+        // navigate("/");
       });
   };
 
@@ -168,7 +185,11 @@ export default function LobbyPage() {
   const InFo = ({ courseInfo }) => {
     return (
       <>
-        <ImgBox>
+        <ImgBox
+          onClick={() => {
+            navigate(PROCESS_MAIN_URL.COURSES + "/" + courseId);
+          }}
+        >
           <Img src={STATIC_URL + courseInfo?.thumbnailImage?.smallFilePath} />
         </ImgBox>
         <InfoBox>
@@ -211,17 +232,17 @@ export default function LobbyPage() {
 
   const Unit = ({ unitInfo, idx }) => {
     return (
-      <SmallCategoryTab completed={unitInfo.completed}>
+      <SmallCategoryTab completed={unitInfo?.completed}>
         &nbsp;&nbsp;&nbsp;{idx + 1}. &nbsp;
-        {unitInfo.title}
-        <PlayBtn onClick={() => playUnit(unitInfo.unitId)}>재생</PlayBtn>
+        {unitInfo?.title}
+        <PlayBtn onClick={() => playUnit(unitInfo?.unitId)}>재생</PlayBtn>
       </SmallCategoryTab>
     );
   };
 
   const SmallCategories = ({ smallCurri }) => {
     return smallCurri.map((unit, idx) => {
-      return <Unit unitInfo={unit} idx={idx} key={unit.unitId} />;
+      return <Unit unitInfo={unit} idx={idx} key={unit?.unitId} />;
     });
   };
 
@@ -249,13 +270,17 @@ export default function LobbyPage() {
 
   return (
     <LobbyWrapper>
-      <InfoSection
-        onClick={() => {
-          navigate(PROCESS_MAIN_URL.COURSES + "/" + courseId);
-        }}
-      >
+      <InfoSection>
         <InFo courseInfo={data?.data?.courseStatus} />
+        <ReviewBtn
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
+        >
+          리뷰 등록
+        </ReviewBtn>
       </InfoSection>
+
       <CategorySection>
         <br />
         <br />
@@ -264,6 +289,35 @@ export default function LobbyPage() {
         <br />
         <Categories curriculum={data?.data?.chapters} />
       </CategorySection>
+      <Modal
+        isOpen={isModalOpen}
+        ariaHideApp={false}
+        onRequestClose={() => setIsModalOpen(false)}
+        style={{
+          overlay: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
+            width: "100%",
+            height: "100%",
+          },
+          content: {
+            overflow: "hidden",
+            width: "35%",
+            height: "75%",
+            top: "10%",
+            left: "32.5%",
+          },
+        }}
+      >
+        {
+          <CourseReviewForm
+            setIsModalOpen={setIsModalOpen}
+            courseId={courseId}
+          />
+        }
+      </Modal>
     </LobbyWrapper>
   );
 }

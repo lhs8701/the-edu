@@ -1,4 +1,11 @@
-import { Button, Fab, Grid, MenuItem, Select } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Fab,
+  Grid,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { useState } from "react";
 import { CATE_VALUE } from "../../static";
 import { CssTextField } from "./Outline";
@@ -14,9 +21,16 @@ export const PreviewImg = styled.img`
   width: 350px;
   height: 200px;
 `;
-
+export const ProgressBarDiv = styled.div`
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 export default function CourseInfoUpload({ setCourseValue }) {
   const MIN_PRICE = 10000;
+  const [isUpload, setIsUpload] = useState(false);
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const [dummyImgUrlUpdate, setDummyImgUrlUpdate] = useState(false);
   const [courseTitle, setCourseTitle] = useState("");
@@ -60,12 +74,14 @@ export default function CourseInfoUpload({ setCourseValue }) {
   };
 
   const uploadThumbImg = (e) => {
+    setIsUpload(true);
     uploadImageApi(e.target.files[0], accessToken)
       .then(({ data }) => {
         setThumbImg({ file: e.target.files[0], url: data.originalFilePath });
       })
       .catch((err) => {
-        console.log(err);
+        alert(err);
+        setIsUpload(false);
       });
   };
 
@@ -212,6 +228,7 @@ export default function CourseInfoUpload({ setCourseValue }) {
               }}
               variant="contained"
               onClick={() => {
+                setIsUpload(false);
                 setThumbImg({
                   file: false,
                   url: "",
@@ -221,30 +238,36 @@ export default function CourseInfoUpload({ setCourseValue }) {
               취소
             </Button>
           </>
-        ) : (
-          <>
-            <Button
+        ) : isUpload ? (
+          <ProgressBarDiv>
+            <CircularProgress
               sx={{
-                width: 300,
-                height: 200,
-                backgroundColor: "var(--color-box-gray)",
-                "&:hover": {
-                  backgroundColor: "#b1b1b1",
-                },
+                color: "var(--color-primary)",
               }}
-              variant="contained"
-              component="label"
-            >
-              Upload
-              <input
-                hidden
-                accept=".jpg, .jpeg, .png"
-                onChange={uploadThumbImg}
-                multiple
-                type="file"
-              />
-            </Button>{" "}
-          </>
+            />
+          </ProgressBarDiv>
+        ) : (
+          <Button
+            sx={{
+              width: 300,
+              height: 200,
+              backgroundColor: "var(--color-box-gray)",
+              "&:hover": {
+                backgroundColor: "#b1b1b1",
+              },
+            }}
+            variant="contained"
+            component="label"
+          >
+            Upload
+            <input
+              hidden
+              accept=".jpg, .jpeg, .png"
+              onChange={uploadThumbImg}
+              multiple
+              type="file"
+            />
+          </Button>
         )}
       </Grid>
 

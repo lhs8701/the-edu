@@ -51,7 +51,6 @@ export default function DetailEvent() {
   );
 
   const EventDetailComponent = ({ eventInfo }) => {
-    console.log(eventInfo);
     return (
       <>
         <EventInfoTab>

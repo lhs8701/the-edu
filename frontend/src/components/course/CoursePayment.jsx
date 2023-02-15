@@ -63,7 +63,8 @@ export default function CoursePayment({
   teacher,
   purchaseOption,
   courseId,
-  price,
+
+  ticketInfo,
 }) {
   const navigate = useNavigate();
   const accessToken = useRecoilValue(getAccessTokenSelector);
@@ -71,12 +72,15 @@ export default function CoursePayment({
   const loginState = useRecoilValue(getLoginState);
   const [isWishState, setIsWishState] = useState(false);
   const [isWishPushState, setIsWishPushState] = useState();
+  const [selectTicket, setSelectTicket] = useState({
+    id: ticketInfo[0]?.id,
+    idx: 0,
+  });
 
   useLayoutEffect(() => {
     if (loginState) {
       courseWishCheckApi(courseId, accessToken)
         .then(({ data }) => {
-          console.log(data.data);
           if (data.code === -7001) {
             setIsWishState(false);
           } else {
@@ -127,31 +131,57 @@ export default function CoursePayment({
       </IconBox>
       <Title>{title}</Title>
       <Teacher>{teacher} 강사</Teacher>
-      <Select name="purchaseOption">
-        {purchaseOption.purchaseOptionInfo.map((opt, idx) => (
-          <option>{opt.optionName}</option>
+      <Select
+        value={selectTicket.id}
+        onChange={(e) => {
+          setSelectTicket({
+            id: e.target.value,
+            idx: e.nativeEvent.target.options.selectedIndex,
+          });
+        }}
+        name="purchaseOption"
+      >
+        {ticketInfo?.map((option) => (
+          <option key={option.id} value={option.id}>
+            {option?.coursePeriod?.description}
+          </option>
         ))}
       </Select>
       <br />
       <PriceBox>
         <Tab>
           <PrimaryCostTab>원 가격</PrimaryCostTab>
-          <PrimaryCostTab>{price}</PrimaryCostTab>
+          <PrimaryCostTab>
+            {ticketInfo[selectTicket.idx].costPrice}
+          </PrimaryCostTab>
         </Tab>
         <Tab>
           <DiscountTab>할인 가격</DiscountTab>
-          <PrimaryCostTab></PrimaryCostTab>
+          <PrimaryCostTab>
+            -{" "}
+            {ticketInfo[selectTicket.idx].costPrice -
+              ticketInfo[selectTicket.idx].discountedPrice}
+          </PrimaryCostTab>
         </Tab>
         <PriceUnderBar />
         <Tab>
-          <OwnPriceTab>결제 가격</OwnPriceTab>
-          <PrimaryCostTab></PrimaryCostTab>
+          <OwnPriceTab>실 결제 가격</OwnPriceTab>
+          <PrimaryCostTab>
+            {ticketInfo[selectTicket.idx].discountedPrice}
+          </PrimaryCostTab>
         </Tab>
       </PriceBox>
 
       <PurchaseBtn
         onClick={() => {
-          navigate(`${PROCESS_MAIN_URL.PURCHASE}/${courseId}`);
+          navigate(
+            `${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket.id}`,
+            {
+              state: {
+                price: ticketInfo[selectTicket.idx].discountedPrice,
+              },
+            }
+          );
         }}
       >
         결제

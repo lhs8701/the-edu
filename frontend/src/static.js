@@ -70,7 +70,7 @@ export const BAR_LIST = {
       url: "revise",
     },
     {
-      name: "쿠폰",
+      name: "쿠폰 및 적립금",
       url: "coupon",
     },
     {
@@ -160,6 +160,15 @@ export const ADMIN_BAR_LIST = {
         },
       ],
     },
+    {
+      name: "쿠폰 관리",
+      list: [
+        {
+          name: "쿠폰 생성",
+          url: "/admin/coupon",
+        },
+      ],
+    },
   ],
 };
 
@@ -207,15 +216,7 @@ export const CREATOR_BAR_LIST = {
   ],
 };
 
-export const PURCHASE_METHOD = [
-  "카드",
-  "가상계좌",
-  "계좌이체",
-  "휴대폰",
-  "문화상품권",
-  "도서문화상품권",
-  "게임문화상품권",
-];
+export const PURCHASE_METHOD = ["카드", "가상계좌", "계좌이체", "휴대폰"];
 
 export const BASE_URL = "http://218.38.127.26:8080";
 export const STATIC_URL = "http://the-edu.co.kr";

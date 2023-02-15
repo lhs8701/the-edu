@@ -27,7 +27,7 @@ export const ONOFFTab = styled.div`
 
 export const PrimaryCostTab = styled.h1`
   color: var(--color-gray);
-  font-weight: var(--weight-middle);
+  font-weight: var(--weight-thin);
   font-size: 18px;
   margin: 10px 0px;
 `;

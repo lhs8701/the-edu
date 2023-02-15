@@ -19,7 +19,7 @@ const CouponRegisterBox = styled.div`
   display: flex;
   justify-content: space-between;
   height: auto;
-  align-items: center;
+  align-items: flex-end;
   margin-bottom: 30px;
 `;
 
@@ -30,6 +30,10 @@ const CouponRegisterTitle = styled.h1`
 
 const CouponInput = styled(AccountInput)`
   width: 100%;
+  background-color: var(--color-background);
+`;
+const PointInput = styled(AccountInput)`
+  width: 70%;
 `;
 
 const CouponBtn = styled(AccountSmallBtn)``;
@@ -43,9 +47,24 @@ const CouponListBox = styled.div`
 export default function Coupon() {
   return (
     <MyPageBox>
-      <MyPageTitle>나의 쿠폰</MyPageTitle>
+      <MyPageTitle>나의 쿠폰 및 적립금</MyPageTitle>
       <MyPageContentBox>
         <CouponWrapper>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "flex-start",
+            }}
+          >
+            <CouponRegisterTitle>나의 적립금</CouponRegisterTitle>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <PointInput placeholder="적립금" disabled />
+          </div>
+          <br />
+          <br />
+          <br />
+
           <CouponRegisterBox>
             <div style={{ width: "100%" }}>
               <CouponRegisterTitle>쿠폰 등록</CouponRegisterTitle>
@@ -53,6 +72,9 @@ export default function Coupon() {
             </div>
             <CouponBtn>등록</CouponBtn>
           </CouponRegisterBox>
+          <br />
+          <br />
+          <br />
           <CouponRegisterTitle>쿠폰 목록</CouponRegisterTitle>
           <CouponListBox>
             {dummyCouponList.map((coupon) => {

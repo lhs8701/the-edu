@@ -15,6 +15,11 @@ const ONGOING_URL = "/ongoing";
 const COMPELETE_URL = "/completed";
 const RANK_URL = "/ranking";
 const RECENT_URL = "/recent";
+const TICKET_URL = "/tickets";
+
+export async function getCourseTicketsApi(courseId) {
+  return await axios.get(`${COURSE_URL}/${courseId}${TICKET_URL}`);
+}
 
 export async function getCompletedApi(accessToken) {
   return await axios.get(`${COURSE_URL}${COMPELETE_URL}`, {
@@ -117,6 +122,27 @@ export async function getCategoryListApi(pageParam, category) {
   return data.data;
 }
 
+export async function postCourseReivewApi(
+  courseId,
+  accessToken,
+  content,
+  score
+) {
+  return await axios.post(
+    `${COURSE_URL}/${courseId}/reviews`,
+    {
+      content: content,
+      score: 0,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
 export async function postcourseInquiriessApi(
   accessToken,
   courseId,
@@ -129,7 +155,7 @@ export async function postcourseInquiriessApi(
       memberId: memberId,
       courseId: courseId,
       content: content,
-      score: 0,
+      score: 3,
     },
     {
       headers: {
