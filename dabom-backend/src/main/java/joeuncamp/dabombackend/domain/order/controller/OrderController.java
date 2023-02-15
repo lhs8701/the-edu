@@ -15,6 +15,7 @@ import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +27,7 @@ import java.util.List;
 @RestController
 @Tag(name = "[5.Order]", description = "구매 관련 API입니다.")
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/api")
 public class OrderController {
     private final CourseTicketService courseTicketService;
@@ -67,6 +69,7 @@ public class OrderController {
     public ResponseEntity<Void> completeOrder(@PathVariable Long itemId, @RequestBody OrderDto.Request requestDto, @RequestBody TossPayRequest tossPayRequest, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setItemId(itemId);
+        log.info("{} {}", requestDto, tossPayRequest);
         orderService.makeOrder(requestDto, tossPayRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }

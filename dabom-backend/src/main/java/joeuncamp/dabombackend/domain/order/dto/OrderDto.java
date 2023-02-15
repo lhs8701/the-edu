@@ -16,5 +16,15 @@ public class OrderDto {
         Long couponId;
         @Schema(description = "사용한 포인트 금액")
         long point;
+
+        @Override
+        public String toString() {
+            return "Request{" +
+                    "memberId=" + memberId +
+                    ", itemId=" + itemId +
+                    ", couponId=" + couponId +
+                    ", point=" + point +
+                    '}';
+        }
     }
 }
