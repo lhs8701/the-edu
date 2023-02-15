@@ -21,7 +21,6 @@ public class ChapterService {
 
     public void setUnitToLastChapter(Unit unit, Long courseId) {
         Chapter lastChapter = chapterJpaRepository.findTop1ByCourseIdOrderBySequenceDesc(courseId).orElseThrow(CInternalServerException::new);
-        log.info("{}", lastChapter);
         int lastSequence = getLastSequenceOfChapter(lastChapter);
         unit.setChapter(lastChapter);
         unit.setSequence(lastSequence + 1);

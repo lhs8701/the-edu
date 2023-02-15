@@ -32,16 +32,6 @@ public class MyCourseController {
     private final EnrollService enrollService;
     private final MyCourseService myCourseService;
 
-    @Operation(summary = "강좌에 수강신청합니다.", description = "이미 수강신청한 강좌인 경우 예외가 발생합니다.")
-    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
-    @PostMapping("/enroll/courses/{courseId}")
-    public ResponseEntity<Void> enroll(@PathVariable Long courseId, @AuthenticationPrincipal Member member) {
-        EnrollDto.Request requestDto = new EnrollDto.Request(member.getId(), courseId);
-        enrollService.enroll(requestDto);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @Operation(summary = "강좌 수강 등록 여부를 조회합니다.", description = "")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")

@@ -43,28 +43,6 @@ public class MyCourseControllerTest {
     @MockBean
     MyCourseService myCourseService;
 
-    @Test
-    @WithAuthUser(role = "USER")
-    void 강좌에_수강신청한다() throws Exception {
-        //given
-
-        Long memberId = 1L;
-        Long courseId = 1L;
-        EnrollDto.Request requestDto = EnrollDto.Request.builder()
-                .memberId(memberId)
-                .courseId(courseId)
-                .build();
-
-        //when
-        final ResultActions actions = mockMvc.perform(post("/api/enroll/courses/{courseId}", 1)
-                .content(new Gson().toJson(requestDto))
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .with(csrf()));
-
-        //then
-        actions.andExpect(status().isOk());
-    }
-
     @WithAuthUser(role = "USER")
     @Test
     @DisplayName("강좌에 찜을 하거나, 해제한다.")

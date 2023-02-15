@@ -9,6 +9,7 @@ import joeuncamp.dabombackend.domain.course.service.CourseTicketService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.order.dto.OrderDto;
 import joeuncamp.dabombackend.domain.order.service.OrderService;
+import joeuncamp.dabombackend.domain.order.service.OrderSheetService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import java.util.List;
 public class OrderController {
     private final CourseTicketService courseTicketService;
     private final OrderService orderService;
+    private final OrderSheetService orderSheetService;
 
     @Operation(summary="강좌 수강권 설정", description="수강권의 금액을 설정합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
@@ -52,7 +54,7 @@ public class OrderController {
     @GetMapping("/purchase/items/{itemId}")
     public ResponseEntity<OrderDto.Response> getOrderSheet(@PathVariable Long itemId, @AuthenticationPrincipal Member member){
         OrderDto.StatusRequest requestDto = new OrderDto.StatusRequest(member.getId(), itemId);
-        OrderDto.Response responseDto = orderService.getOrderSheet(requestDto);
+        OrderDto.Response responseDto = orderSheetService.getOrderSheet(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

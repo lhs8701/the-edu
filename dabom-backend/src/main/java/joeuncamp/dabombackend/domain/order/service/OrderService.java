@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.order.service;
 
+import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.member.service.PayPointManager;
@@ -36,26 +37,6 @@ public class OrderService {
     private final PayPointManager payPointManager;
     private final TossService tossService;
 
-    /**
-     * 구매를 위한 주문서 정보를 조회합니다.
-     *
-     * @param requestDto 구매할 상품, 회원
-     * @return 주문서 정보
-     */
-    public OrderDto.Response getOrderSheet(OrderDto.StatusRequest requestDto) {
-        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
-        Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
-        List<CouponDto.Response> issueList = issueJpaRepository.findByMemberAndUsedIsFalse(member).stream()
-                .filter(issue -> issueService.isAvailable(issue, item))
-                .map(issue -> new CouponDto.Response(issue.getCoupon()))
-                .toList();
-        return OrderDto.Response.builder()
-                .item(item)
-                .member(member)
-                .couponList(issueList)
-                .build();
-    }
-
 
     /**
      * 결제를 승인합니다.
@@ -85,7 +66,6 @@ public class OrderService {
                 .item(item)
                 .member(member)
                 .build();
-        log.info("{}",paymentInfo);
         orderJpaRepository.save(order);
     }
 }
