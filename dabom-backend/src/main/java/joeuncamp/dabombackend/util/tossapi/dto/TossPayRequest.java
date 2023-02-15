@@ -13,13 +13,4 @@ public class TossPayRequest {
     String tossOrderId;
     @Schema(description = "toss amount")
     long tossAmount;
-
-    @Override
-    public String toString() {
-        return "TossPayRequest{" +
-                "tossPaymentKey='" + tossPaymentKey + '\'' +
-                ", tossOrderId='" + tossOrderId + '\'' +
-                ", tossAmount=" + tossAmount +
-                '}';
-    }
 }

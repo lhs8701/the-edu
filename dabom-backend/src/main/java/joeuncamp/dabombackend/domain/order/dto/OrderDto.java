@@ -16,15 +16,17 @@ public class OrderDto {
         Long couponId;
         @Schema(description = "사용한 포인트 금액")
         long point;
+        TossPayRequest tossPayRequest;
 
-        @Override
-        public String toString() {
-            return "Request{" +
-                    "memberId=" + memberId +
-                    ", itemId=" + itemId +
-                    ", couponId=" + couponId +
-                    ", point=" + point +
-                    '}';
+        @Getter
+        @NoArgsConstructor
+        public static class TossPayRequest {
+            @Schema(description = "toss paymentKey")
+            String tossPaymentKey;
+            @Schema(description = "toss orderId")
+            String tossOrderId;
+            @Schema(description = "toss amount")
+            long tossAmount;
         }
     }
 }

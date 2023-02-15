@@ -66,11 +66,10 @@ public class OrderController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/purchase/items/{itemId}")
-    public ResponseEntity<Void> completeOrder(@PathVariable Long itemId, @RequestBody OrderDto.Request requestDto, @RequestBody TossPayRequest tossPayRequest, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> completeOrder(@PathVariable Long itemId, @RequestBody OrderDto.Request requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setItemId(itemId);
-        log.info("{} {}", requestDto, tossPayRequest);
-        orderService.makeOrder(requestDto, tossPayRequest);
+        orderService.makeOrder(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
