@@ -27,19 +27,19 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-Py-jwQ">
-                                <rect key="frame" x="5" y="90" width="160" height="18"/>
+                                <rect key="frame" x="5" y="93" width="160" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강사 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dds-sK-DGk">
-                                <rect key="frame" x="5" y="151.66666666666666" width="44.666666666666664" height="13.333333333333343"/>
+                                <rect key="frame" x="5" y="148.66666666666666" width="44.666666666666664" height="13.333333333333343"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카테고리 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02s-em-lse">
-                                <rect key="frame" x="57.666666666666657" y="151.66666666666666" width="60.333333333333343" height="13.333333333333343"/>
+                                <rect key="frame" x="57.666666666666657" y="148.66666666666666" width="60.333333333333343" height="13.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="gyK-uY-wfE" secondAttribute="bottom" constant="5" id="0BI-6j-xCN"/>
-                            <constraint firstAttribute="bottom" secondItem="02s-em-lse" secondAttribute="bottom" constant="5" id="2FI-qH-2Rl"/>
+                            <constraint firstAttribute="bottom" secondItem="02s-em-lse" secondAttribute="bottom" constant="8" id="2FI-qH-2Rl"/>
                             <constraint firstItem="02s-em-lse" firstAttribute="leading" secondItem="dds-sK-DGk" secondAttribute="trailing" constant="8" id="61H-wM-g6y"/>
                             <constraint firstAttribute="trailing" secondItem="gyK-uY-wfE" secondAttribute="trailing" constant="5" id="Azg-Tj-I34"/>
                             <constraint firstItem="gyK-uY-wfE" firstAttribute="leading" secondItem="dXw-ia-6OL" secondAttribute="trailing" constant="2" id="J4m-SZ-AQs"/>
@@ -70,10 +70,10 @@
                             <constraint firstItem="dds-sK-DGk" firstAttribute="leading" secondItem="Ahs-Ih-XRF" secondAttribute="leading" constant="5" id="Qey-LF-FcN"/>
                             <constraint firstItem="kfV-Py-jwQ" firstAttribute="leading" secondItem="Ahs-Ih-XRF" secondAttribute="leading" constant="5" id="gO5-xH-bSI"/>
                             <constraint firstItem="83H-Xb-wTG" firstAttribute="leading" secondItem="Ahs-Ih-XRF" secondAttribute="leading" id="lC0-Ea-zqD"/>
-                            <constraint firstAttribute="bottom" secondItem="dds-sK-DGk" secondAttribute="bottom" constant="5" id="lct-Kd-ije"/>
+                            <constraint firstAttribute="bottom" secondItem="dds-sK-DGk" secondAttribute="bottom" constant="8" id="lct-Kd-ije"/>
                             <constraint firstAttribute="trailing" secondItem="kfV-Py-jwQ" secondAttribute="trailing" constant="5" id="tUs-FR-3G4"/>
                             <constraint firstAttribute="trailing" secondItem="83H-Xb-wTG" secondAttribute="trailing" id="xvG-v1-zlb"/>
-                            <constraint firstItem="kfV-Py-jwQ" firstAttribute="top" secondItem="83H-Xb-wTG" secondAttribute="bottom" constant="5" id="yXC-0b-XCu"/>
+                            <constraint firstItem="kfV-Py-jwQ" firstAttribute="top" secondItem="83H-Xb-wTG" secondAttribute="bottom" constant="8" id="yXC-0b-XCu"/>
                         </constraints>
                     </view>
                 </subviews>

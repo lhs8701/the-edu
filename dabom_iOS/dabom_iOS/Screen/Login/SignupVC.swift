@@ -105,6 +105,10 @@ class SignupVC: UIViewController {
                 print("networkFail")
             case .resourceErr:
                 print("resourceErr")
+                let alert = UIAlertController(title: "", message: "이미 가입된 이메일입니다", preferredStyle: .alert)
+                let confirm = UIAlertAction(title: "확인", style: .default)
+                alert.addAction(confirm)
+                self.present(alert, animated: true)
             }
         }
         

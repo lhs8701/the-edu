@@ -67,12 +67,18 @@ class CourseInfoTVC: UITableViewCell {
         guard let isEnroll = isEnroll else {return}
         guard let isCharge = isCharge else {return}
         
-        if isCharge {
-            self.courseEnrollBtn.isEnabled = false
-            self.courseEnrollBtn.setTitle("유료 강좌는 웹에서 구매 가능합니다", for: .normal)
-            self.courseEnrollBtn.setTitleColor(.white, for: .normal)
-            self.courseEnrollBtn.backgroundColor = .darkGray
-        }
+//        self.courseEnrollBtn.isEnabled = false
+        
+        self.courseEnrollBtn.isEnabled = false
+        self.courseEnrollBtn.setTitle("유료 강좌는 웹에서 구매 가능합니다", for: .normal)
+        self.courseEnrollBtn.setTitleColor(.white, for: .normal)
+        self.courseEnrollBtn.backgroundColor = .darkGray
+//        if isCharge {
+//            self.courseEnrollBtn.isEnabled = false
+//            self.courseEnrollBtn.setTitle("유료 강좌는 웹에서 구매 가능합니다", for: .normal)
+//            self.courseEnrollBtn.setTitleColor(.white, for: .normal)
+//            self.courseEnrollBtn.backgroundColor = .darkGray
+//        }
         
         if isEnroll {
             self.courseEnrollBtn.isEnabled = false
