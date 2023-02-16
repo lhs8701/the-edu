@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.member.service;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CBadRequestException;
+import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
