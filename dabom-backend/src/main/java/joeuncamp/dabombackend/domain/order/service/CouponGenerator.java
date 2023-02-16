@@ -15,8 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -74,18 +72,19 @@ public class CouponGenerator {
      *
      * @param couponId 코드를 생성할 쿠폰
      */
-    public void generateCouponCode(Long couponId) {
+    public void generateCouponCode(Long couponId, int count) {
         Coupon coupon = couponJpaRepository.findById(couponId).orElseThrow(CResourceNotFoundException::new);
         List<String> codeList = coupon.getCode();
-        String code = getValidCode(codeList);
-        codeList.add(code);
+        putRandomCode(codeList, count);
         couponJpaRepository.save(coupon);
     }
 
-    private String getValidCode(List<String> codeList) {
+    private void putRandomCode(List<String> codeList, int count) {
         RandomStringGenerator randomStringGenerator = new RandomStringGenerator();
-        String code;
-        while (codeList.contains(code = randomStringGenerator.generateCouponCode())) ;
-        return code;
+        for (int i = 0; i < count; i++) {
+            String code;
+            while (codeList.contains(code = randomStringGenerator.generateCouponCode())) ;
+            codeList.add(code);
+        }
     }
 }
