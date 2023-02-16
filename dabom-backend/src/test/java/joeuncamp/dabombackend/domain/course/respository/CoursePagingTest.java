@@ -14,6 +14,7 @@ import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.domain.wish.repository.WishJpaRepository;
 import joeuncamp.dabombackend.global.config.JpaAuditingConfig;
 import joeuncamp.dabombackend.global.constant.CategoryType;
+import joeuncamp.dabombackend.util.tossapi.dto.MemberPrivacy;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -242,9 +243,9 @@ public class CoursePagingTest {
     @DisplayName("강사명이나 제목에 키워드가 포함된 강좌를 모두 조회한다.")
     void 강사명이나_제목에_키워드가_포함된_강좌를_모두_조회한다() {
         String keyword = "철수";
-        Member m1 = Member.builder().name("김철수").build();
-        Member m2 = Member.builder().name("이철수").build();
-        Member m3 = Member.builder().name("정민수").build();
+        Member m1 = Member.builder().memberPrivacy(MemberPrivacy.builder().name("김철수").build()).build();
+        Member m2 = Member.builder().memberPrivacy(MemberPrivacy.builder().name("이철수").build()).build();
+        Member m3 = Member.builder().memberPrivacy(MemberPrivacy.builder().name("정민수").build()).build();
         memberJpaRepository.save(m1);
         memberJpaRepository.save(m2);
         memberJpaRepository.save(m3);
@@ -288,7 +289,7 @@ public class CoursePagingTest {
     @DisplayName("일주일 간 등록자 수가 많은 순으로 강좌를 정렬한다.")
     void 일주일_간_등록자_수가_많은_순으로_강좌를_정렬한다() {
         // given
-        Member m1 = Member.builder().name("김철수").build();
+        Member m1 = Member.builder().memberPrivacy(MemberPrivacy.builder().name("김철수").build()).build();
         memberJpaRepository.save(m1);
         Course c1 = Course.builder().category(CategoryType.BACK_END).title("c1").build();
         Course c2 = Course.builder().category(CategoryType.BACK_END).title("c2").build();
