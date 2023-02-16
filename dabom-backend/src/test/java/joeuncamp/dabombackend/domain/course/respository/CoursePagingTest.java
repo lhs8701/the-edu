@@ -59,10 +59,10 @@ public class CoursePagingTest {
     @DisplayName("강좌를 페이지 단위로 조회한다.")
     void 강좌를_페이지_단위로_조회한다() {
         // given
-        Course c1 = Course.builder().category(CategoryType.BACK_END).build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).active(true).build();
         Pageable pageable = PageRequest.of(1, 2);
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
@@ -84,10 +84,10 @@ public class CoursePagingTest {
         // given
         Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "createdTime"));
         CreatorProfile creator = CreatorProfile.builder().build();
-        Course c1 = Course.builder().category(CategoryType.BACK_END).build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).active(true).build();
         creatorProfileJpaRepository.save(creator);
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
