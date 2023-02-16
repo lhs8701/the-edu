@@ -25,6 +25,7 @@ public class CouponService {
 
     /**
      * 쿠폰 코드로 쿠폰을 발급받습니다.
+     * 사용한 코드는 폐기됩니다.
      *
      * @param requestDto 회원, 쿠폰 코드
      */
@@ -35,7 +36,10 @@ public class CouponService {
                 .filter(c -> c.getCode().contains(requestDto.getCouponCode()))
                 .findAny().orElseThrow(CResourceNotFoundException::new);
         couponGenerator.issue(member, coupon);
+        coupon.getCode().remove(requestDto.getCouponCode());
+        couponJpaRepository.save(coupon);
     }
+
 
     /**
      * 사용한 쿠폰 목록을 조회합니다.
