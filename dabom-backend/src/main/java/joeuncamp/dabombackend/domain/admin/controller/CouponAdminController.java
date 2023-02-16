@@ -58,7 +58,7 @@ public class CouponAdminController {
     @Operation(summary = "모든 쿠폰 조회", description = "현재까지 발급한 모든 쿠폰을 조회합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/coupon")
+    @GetMapping("/coupons")
     public ResponseEntity<List<CouponAdminDto.Response>> getCoupons() {
         List<CouponAdminDto.Response> responseDto = couponAdminService.getCoupons();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
