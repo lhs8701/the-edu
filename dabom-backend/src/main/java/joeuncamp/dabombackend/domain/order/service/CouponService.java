@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 @Service
 @RequiredArgsConstructor
@@ -47,6 +48,21 @@ public class CouponService {
         List<Issue> issueList = issueJpaRepository.findByMember(member);
         return issueList.stream()
                 .filter(Issue::isUsed)
+                .map(i -> new CouponDto.Response(i.getCoupon()))
+                .toList();
+    }
+
+    /**
+     * 사용하지 않은 쿠폰 목록을 조회합니다.
+     *
+     * @param memberId 회원
+     * @return 사용하지 않은 쿠폰 목록
+     */
+    public List<CouponDto.Response> getMyUnusedCoupons(Long memberId) {
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(CMemberExistException::new);
+        List<Issue> issueList = issueJpaRepository.findByMember(member);
+        return issueList.stream()
+                .filter(Predicate.not(Issue::isUsed))
                 .map(i -> new CouponDto.Response(i.getCoupon()))
                 .toList();
     }

@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class CouponDto {
@@ -29,7 +30,7 @@ public class CouponDto {
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate endDate;
 
-        public Coupon toEntity(){
+        public Coupon toEntity() {
             return Coupon.builder()
                     .name(this.name)
                     .discountPolicy(this.discountPolicy)
@@ -49,10 +50,11 @@ public class CouponDto {
         @Schema(hidden = true, description = "발급할 쿠폰")
         Long couponId;
     }
+
     @Getter
     @Setter
     @NoArgsConstructor
-    public static class RegisterRequest{
+    public static class RegisterRequest {
         @Schema(hidden = true)
         Long memberId;
         @Schema(description = "등록할 쿠폰 코드")
@@ -60,7 +62,7 @@ public class CouponDto {
     }
 
     @Getter
-    public static class Response{
+    public static class Response {
         @Schema(description = "쿠폰 아이디넘버")
         Long id;
         @Schema(description = "쿠폰 이름")
@@ -72,12 +74,15 @@ public class CouponDto {
         @Schema(description = "유효기간")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         LocalDate endDate;
-        public Response(Coupon coupon){
+        boolean expired;
+
+        public Response(Coupon coupon) {
             this.id = coupon.getId();
             this.name = coupon.getName();
             this.discount = coupon.getDiscount();
             this.discountPolicy = coupon.getDiscountPolicy();
             this.endDate = coupon.getEndDate();
+            this.expired = coupon.getEndDate().isBefore(LocalDateTime.now().toLocalDate());
         }
     }
 }

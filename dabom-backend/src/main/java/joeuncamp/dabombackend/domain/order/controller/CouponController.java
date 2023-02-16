@@ -40,9 +40,18 @@ public class CouponController {
     @Operation(summary="사용한 쿠폰 조회", description="회원이 사용한 쿠폰 목록을 조회합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/coupons")
+    @GetMapping("/coupons/used")
     public ResponseEntity<List<CouponDto.Response>> getMyUsedCoupons(@AuthenticationPrincipal Member member){
         List<CouponDto.Response> responseDto = couponService.getMyUsedCoupons(member.getId());
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary="미사용 쿠폰 조회", description="회원이 사용하지 않은 쿠폰 목록을 조회합니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/coupons/unused")
+    public ResponseEntity<List<CouponDto.Response>> getMyUnusedCoupons(@AuthenticationPrincipal Member member){
+        List<CouponDto.Response> responseDto = couponService.getMyUnusedCoupons(member.getId());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
