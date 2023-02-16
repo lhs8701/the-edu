@@ -70,7 +70,7 @@ public class CoursePagingTest {
         courseJpaRepository.save(c4);
 
         // when
-        Page<Course> pages = courseJpaRepository.findCourseByCategory(CategoryType.BACK_END, pageable);
+        Page<Course> pages = courseJpaRepository.findCourseByCategoryAndActiveIsTrue(CategoryType.BACK_END, pageable);
 
         // then
         assertThat(pages.getNumber()).isEqualTo(1);
@@ -95,7 +95,7 @@ public class CoursePagingTest {
         courseJpaRepository.save(c4);
 
         // when
-        Page<Course> pages = courseJpaRepository.findCourseByCategory(CategoryType.BACK_END, pageable);
+        Page<Course> pages = courseJpaRepository.findCourseByCategoryAndActiveIsTrue(CategoryType.BACK_END, pageable);
         List<Course> courses = pages.getContent();
 
         // then
@@ -119,7 +119,7 @@ public class CoursePagingTest {
         courseJpaRepository.save(c4);
 
         // when
-        Page<Course> pages = courseJpaRepository.findCourseByCategory(CategoryType.BACK_END, pageable);
+        Page<Course> pages = courseJpaRepository.findCourseByCategoryAndActiveIsTrue(CategoryType.BACK_END, pageable);
         List<Course> courses = pages.getContent();
 
         // then
@@ -142,7 +142,7 @@ public class CoursePagingTest {
         courseJpaRepository.save(c4);
 
         // when
-        Page<Course> pages = courseJpaRepository.findCourseByCategory(CategoryType.BACK_END, pageable);
+        Page<Course> pages = courseJpaRepository.findCourseByCategoryAndActiveIsTrue(CategoryType.BACK_END, pageable);
         List<Course> courses = pages.getContent();
 
         // then

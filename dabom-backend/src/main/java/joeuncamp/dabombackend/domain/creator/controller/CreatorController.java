@@ -32,6 +32,16 @@ public class CreatorController {
     private final CreatorActivator creatorActivator;
     private final CreatorCourseService creatorCourseService;
 
+    @Operation(summary = "강좌를 개설합니다.", description = "강좌 개설은 크리에이터 프로필을 활성화한 회원만 가능합니다. \n 개설된 강좌의 아이디넘버가 반환됩니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/courses")
+    public ResponseEntity<Long> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
+        requestDto.setMemberId(member.getId());
+        Long response = creatorCourseService.openCourse(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
     @Operation(summary = "업로드한 강좌 조회", description = "")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
@@ -50,4 +60,6 @@ public class CreatorController {
         creatorActivator.standByMember(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 }

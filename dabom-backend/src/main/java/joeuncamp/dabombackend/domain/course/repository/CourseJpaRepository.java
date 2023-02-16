@@ -1,6 +1,5 @@
 package joeuncamp.dabombackend.domain.course.repository;
 
-import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.global.constant.CategoryType;
@@ -15,7 +14,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CourseJpaRepository extends JpaRepository<Course, Long> {
-    Page<Course> findCourseByCategory(CategoryType categoryType, Pageable pageable);
+    Page<Course> findCourseByCategoryAndActiveIsTrue(CategoryType categoryType, Pageable pageable);
+
+    List<Course> findByActiveIsFalse();
 
     @Query("select c from Course c" + " join Review r on r.course = c " + "group by c " + "order by avg(r.score) desc ")
     Page<Course> findCourseByCategoryOrderByScore(CategoryType categoryType, Pageable pageable);

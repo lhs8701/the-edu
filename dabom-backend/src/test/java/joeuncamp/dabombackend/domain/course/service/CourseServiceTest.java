@@ -11,8 +11,6 @@ import joeuncamp.dabombackend.domain.post.service.ReviewService;
 import joeuncamp.dabombackend.global.common.PagingDto;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
-import joeuncamp.dabombackend.global.error.exception.CNotCreatorException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -73,23 +71,6 @@ public class CourseServiceTest {
     }
 
     @Test
-    @DisplayName("크리에이터가 아닌 사람이 강좌를 개설할 경우 예외가 발생한다.")
-    void 크리에이터가_아닌_사람이_강좌를_개설할_경우_예외가_발생한다() {
-        // given
-        CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder().memberId(1L).build();
-        Member member = Member.builder().build();
-        Long memberId = 1L;
-        given(memberJpaRepository.findById(memberId)).willReturn(Optional.of(member));
-        given(creatorService.hasCreatorProfile(member)).willReturn(false);
-
-        // when
-
-        // then
-        Assertions.assertThatThrownBy(() -> courseService.openCourse(requestDto))
-                .isInstanceOf(CNotCreatorException.class);
-    }
-
-    @Test
     @DisplayName("강좌 단건 조회 시, 강좌 정보가 반환된다.")
     void 강좌_단건_조회_시_강좌_정보가_반환된다() {
         // given
@@ -113,7 +94,7 @@ public class CourseServiceTest {
         String category = ExampleValue.Course.CATEGORY;
         Pageable pageable = PageRequest.of(0, 2);
         Page<Course> page = new PageImpl<>(List.of(course));
-        given(courseJpaRepository.findCourseByCategory(CategoryType.BACK_END, pageable)).willReturn(page);
+        given(courseJpaRepository.findCourseByCategoryAndActiveIsTrue(CategoryType.BACK_END, pageable)).willReturn(page);
 
         // when
         PagingDto<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category, pageable);

@@ -37,7 +37,7 @@ public class CourseTicketService {
      *
      * @param course
      */
-    public void saveDefaultTickets(Course course) {
+    public void createDefaultTickets(Course course) {
         List<Ticket> tickets = List.of(new Ticket(course, CoursePeriod.THREE_MONTH), new Ticket(course, CoursePeriod.SIX_MONTH), new Ticket(course, CoursePeriod.UNLIMITED));
         ticketJpaRepository.saveAll(tickets);
     }

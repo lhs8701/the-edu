@@ -60,6 +60,7 @@ public class CourseDto {
                     .descriptionImages(descriptionImageUrls.stream()
                             .map(ImageInfo::new)
                             .toList())
+                    .active(false)
                     .build();
             course.setCreatorProfile(creator);
             return course;

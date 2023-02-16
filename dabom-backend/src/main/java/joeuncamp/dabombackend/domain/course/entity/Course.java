@@ -62,6 +62,7 @@ public class Course extends BaseTimeEntity {
     @Builder.Default
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Ticket> ticketList = new ArrayList<>();
+    boolean active;
 
     public void setCreatorProfile(CreatorProfile creatorProfile) {
         if (this.creatorProfile != null) {
@@ -84,5 +85,7 @@ public class Course extends BaseTimeEntity {
                 '}';
     }
 
-
+    public void activate(){
+        this.active = true;
+    }
 }

@@ -50,25 +50,6 @@ public class CourseControllerTest {
 
     @Test
     @WithAuthUser(role = "USER")
-    @DisplayName("강좌를 개설한다.")
-    void 강좌를_개설한다() throws Exception {
-        // given
-        CourseDto.CreationRequest requestDto = CourseDto.CreationRequest.builder().memberId(1L).build();
-
-        given(courseService.openCourse(requestDto)).willReturn(1L);
-
-        // when
-        final ResultActions actions = mockMvc.perform(post("/api/courses")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(new Gson().toJson(requestDto)));
-
-        // then
-        actions.andExpect(status().isCreated());
-    }
-
-    @Test
-    @WithAuthUser(role = "USER")
     @DisplayName("강좌를 단건 조회한다.")
     void 강좌를_단건_조회한다() throws Exception {
         //given
