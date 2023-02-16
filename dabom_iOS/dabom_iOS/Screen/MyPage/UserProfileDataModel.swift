@@ -11,10 +11,9 @@ struct UserProfileDataModel: Codable {
     var id: Int?
     var account: String?
     var nickname: String?
-    var mobile: String?
-    var birthDate: String?
     var email: String?
     var socialId: String?
     var profileImage: ImageDataModel
     var loginType: String?
+    var certified: Bool?
 }

@@ -22,7 +22,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oam-t6-VTF">
-                                <rect key="frame" x="0.0" y="541" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="441" width="375" height="50"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vOc-ds-9Sd">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
@@ -51,7 +51,7 @@
                             <constraint firstItem="Nng-7R-zzz" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="HmN-zD-sa7"/>
                             <constraint firstItem="Nng-7R-zzz" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="K2O-4u-kd6"/>
                             <constraint firstItem="Nng-7R-zzz" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="Kbz-8X-du4"/>
-                            <constraint firstItem="oam-t6-VTF" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="450" id="dkW-Z6-FrA"/>
+                            <constraint firstItem="oam-t6-VTF" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="350" id="dkW-Z6-FrA"/>
                             <constraint firstItem="oam-t6-VTF" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="mhX-gI-PIR"/>
                             <constraint firstItem="Nng-7R-zzz" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="sHc-WW-jOp"/>
                         </constraints>
