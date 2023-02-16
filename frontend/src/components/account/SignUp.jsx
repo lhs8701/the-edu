@@ -15,7 +15,7 @@ import {
 } from "../../style/AccountComponentCss";
 import Term from "./Term";
 import { useForm } from "react-hook-form";
-import { postTossTxId, signUp } from "../../api/authApi";
+import { postTossTxId, signUp, successTossCert } from "../../api/authApi";
 import { useScript } from "../../hook";
 import Helmet from "react-helmet";
 import { API_URL } from "../../static";
@@ -117,7 +117,7 @@ export default function SignUp() {
   const [isId, setIsId] = useState("");
   const [isPwd, setIsPwd] = useState("");
   const [isName, setIsName] = useState("");
-  const [isTele, setIsTele] = useState("");
+  const [isCert, setIsCert] = useState(false);
   const [isBirth, setIsBirth] = useState("");
   const [isCheck, setIsCheck] = useState(false);
   const navigate = useNavigate();
@@ -136,6 +136,10 @@ export default function SignUp() {
   });
 
   const submit = () => {
+    if (!isCert) {
+      alert("휴대전화 인증이 되지 않았습니다.");
+      return;
+    }
     signUp({
       account: isId,
       password: isPwd,
@@ -183,10 +187,16 @@ export default function SignUp() {
                 authUrl: data.success.authUrl,
                 txId: data.success.txId,
                 onSuccess: function () {
-                  alert("성공");
+                  successTossCert(data.success.txId)
+                    .then(() => {
+                      setIsCert(true);
+                    })
+                    .catch((err) => {
+                      alert(err);
+                    });
                 },
                 onFail: function (error) {
-                  console.error("에러가 발생했습니다", error); // 인증 실패시 행동을 정의해주세요.
+                  alert("에러가 발생했습니다", error); // 인증 실패시 행동을 정의해주세요.
                 },
               });
             })

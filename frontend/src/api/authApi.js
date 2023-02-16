@@ -25,6 +25,18 @@ export async function postTossTxId() {
   );
 }
 
+export async function successTossCert(txid) {
+  return await axios.post(
+    API_URL + "/test/toss-result" + "/" + txid,
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+
 export async function kakaoWithdraw(accessToken, refreshToken, socialToken) {
   return await axios.post(
     AUTH_URL + KAKAO_WITHDRAW_PATH,
