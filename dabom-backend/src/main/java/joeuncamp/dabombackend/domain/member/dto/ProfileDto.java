@@ -63,6 +63,8 @@ public class ProfileDto {
         LoginType loginType;
         @Schema(description = "프로필 이미지")
         ImageInfo profileImage;
+        @Schema(description = "본인인증 여부")
+        boolean certified;
 
         public Response(Member member) {
             this.id = member.getId();
@@ -72,6 +74,7 @@ public class ProfileDto {
             this.socialId = member.getSocialId();
             this.loginType = member.getLoginType();
             this.profileImage = member.getProfileImage();
+            this.certified = member.isCertified();
         }
     }
 }
