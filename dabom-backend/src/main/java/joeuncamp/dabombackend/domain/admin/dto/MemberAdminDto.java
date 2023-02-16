@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.LoginType;
+import joeuncamp.dabombackend.util.tossapi.dto.MemberPrivacy;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -17,26 +18,22 @@ public class MemberAdminDto {
     public static class ShortResponse {
         Long id;
         String account;
-        String name;
         String nickname;
-        String mobile;
-        String birthDate;
         String email;
         ImageInfo profileImage;
         @Enumerated(value = EnumType.STRING)
         LoginType loginType;
         String socialId;
         boolean isCreator;
+        boolean certified;
+        MemberPrivacy memberPrivacy;
         List<String> roles;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         LocalDateTime joinedDate;
         public ShortResponse(Member member){
             this.id = member.getId();
             this.account = member.getAccount();
-            this.name = member.getName();
             this.nickname = member.getNickname();
-            this.mobile = member.getMobile();
-            this.birthDate = member.getBirthDate();
             this.email = member.getEmail();
             this.profileImage = member.getProfileImage();
             this.loginType = member.getLoginType();
@@ -44,6 +41,10 @@ public class MemberAdminDto {
             this.isCreator = !Objects.isNull(member.getCreatorProfile());
             this.roles = member.getRoles();
             this.joinedDate = member.getCreatedTime();
+            this.certified = member.isCertified();
+            if (this.certified){
+                this.memberPrivacy = member.getMemberPrivacy();
+            }
         }
     }
 }

@@ -8,11 +8,13 @@ import joeuncamp.dabombackend.domain.admin.dto.MemberAdminDto;
 import joeuncamp.dabombackend.domain.admin.service.MemberAdminService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
+import joeuncamp.dabombackend.util.tossapi.TossService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,4 +36,14 @@ public class MemberAdminController {
         List<MemberAdminDto.ShortResponse> responseDto = memberAdminService.getAllMember();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @Operation(summary="토스 본인인증 토큰 발급", description="본인인증을 위한 토큰을 발급합니다. 유효기간은 1년입니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/cert/token")
+    public ResponseEntity<String> issueTossToken(){
+        String responseDto = memberAdminService.issueTossToken();
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
 }

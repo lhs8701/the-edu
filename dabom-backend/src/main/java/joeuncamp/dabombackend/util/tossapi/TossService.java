@@ -31,9 +31,6 @@ public class TossService {
     @Value("${api.toss.txid}")
     private String TXID_API;
 
-    @Value("${api.toss.auth-status}")
-    private String AUTH_STATUS_API;
-
     @Value("${api.toss.auth-result}")
     private String AUTH_RESULT_API;
 
@@ -43,6 +40,8 @@ public class TossService {
     private String CLIENT_SECRET;
     @Value("${toss.client-id}")
     private String CLIENT_ID;
+    @Value("${toss.token}")
+    private String TOKEN;
 
     private final TossCertSessionGenerator tossCertSessionGenerator;
 
@@ -89,16 +88,15 @@ public class TossService {
     /**
      * txid를 발급합니다.
      *
-     * @param accessToken 토스 어세스토큰
      * @return txid
      */
-    public TxIdResponse issueTxId(String accessToken) {
+    public TxIdResponse issueTxId() {
         WebClient webClient = WebClient.create();
         TxIdRequest request = new TxIdRequest();
         return webClient.method(HttpMethod.POST)
                 .uri(TXID_API)
                 .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + accessToken)
+                .header("Authorization", "Bearer " + TOKEN)
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(TxIdResponse.class)
@@ -106,38 +104,18 @@ public class TossService {
     }
 
     /**
-     * 본인인증 진행 상태를 조회합니다.
-     *
-     * @param accessToken 토스 어세스토큰
-     * @param txId        txid
-     * @return response
-     */
-    public AuthStatusResponse getAuthStatus(String accessToken, String txId) {
-        WebClient webClient = WebClient.create();
-        return webClient.method(HttpMethod.POST)
-                .uri(AUTH_STATUS_API)
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + accessToken)
-                .bodyValue(new AuthStatusRequest(txId))
-                .retrieve()
-                .bodyToMono(AuthStatusResponse.class)
-                .block();
-    }
-
-    /**
      * 본인인증 결과를 조회합니다.
      *
-     * @param accessToken 어세스토큰
      * @param txId        txid
      * @return response
      */
-    public AuthResultResponse getAuthResult(String accessToken, String txId, TossCertSession tossCertSession) {
+    public AuthResultResponse getAuthResult(String txId, TossCertSession tossCertSession) {
         WebClient webClient = WebClient.create();
 
         return webClient.method(HttpMethod.POST)
                 .uri(AUTH_RESULT_API)
                 .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + accessToken)
+                .header("Authorization", "Bearer " + TOKEN)
                 .bodyValue(new AuthResultRequest(txId, tossCertSession.getSessionKey()))
                 .retrieve()
                 .bodyToMono(AuthResultResponse.class)
@@ -154,9 +132,9 @@ public class TossService {
     public MemberPrivacy decryptPersonalData(AuthResultResponse authResultResponse, TossCertSession tossCertSession) {
         AuthResultResponse.Success.PersonalData personalData = authResultResponse.getSuccess().getPersonalData();
         return MemberPrivacy.builder()
-                .userName(tossCertSession.decrypt(personalData.getName()))
-                .userPhone(tossCertSession.decrypt(personalData.getPhone()))
-                .userBirthday(tossCertSession.decrypt(personalData.getBirthday()))
+                .name(tossCertSession.decrypt(personalData.getName()))
+                .mobile(tossCertSession.decrypt(personalData.getPhone()))
+                .birthday(tossCertSession.decrypt(personalData.getBirthday()))
                 .build();
     }
 }

@@ -10,6 +10,7 @@ import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.LoginType;
+import joeuncamp.dabombackend.util.tossapi.dto.MemberPrivacy;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,21 +30,13 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     String account;
-
     String password;
-
-    String name;
-
     String nickname;
-
-    String mobile;
-
-    String birthDate;
-
     String email;
     ImageInfo profileImage;
+    boolean certified;
+    MemberPrivacy memberPrivacy;
     long payPoint;
 
     @Enumerated(value = EnumType.STRING)
@@ -129,5 +122,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     public void changePassword(String newPassword) {
         this.password = newPassword;
+    }
+
+    public void setCertified(MemberPrivacy memberPrivacy) {
+        this.certified = true;
+        this.memberPrivacy = memberPrivacy;
     }
 }

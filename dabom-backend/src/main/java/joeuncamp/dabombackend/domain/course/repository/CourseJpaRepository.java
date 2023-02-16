@@ -26,7 +26,7 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
     @Query("select c from Course c" + " join Wish w on w.course = c " + "group by c " + "order by count(w) desc ")
     Page<Course> findCourseByCategoryOrderByWishCount(CategoryType categoryType, Pageable pageable);
 
-    @Query(" select c from Course c " + " where c.title like %:keyword% or c.creatorProfile.member.name like %:keyword% ")
+    @Query(" select c from Course c " + " where c.title like %:keyword% or c.creatorProfile.member.memberPrivacy.name like %:keyword% ")
     Page<Course> findAllByKeyword(@Param("keyword")String keyword, Pageable pageable);
 
     @Query(" select c from Course c " + " join Enroll e on e.course = c " + " where c.category = :category and e.createdTime > :time " + " group by c " + " order by count(e) desc ")

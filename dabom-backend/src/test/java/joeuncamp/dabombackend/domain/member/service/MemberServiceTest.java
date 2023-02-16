@@ -1,8 +1,6 @@
 package joeuncamp.dabombackend.domain.member.service;
 
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileResponseDto;
-import joeuncamp.dabombackend.domain.member.dto.ProfileUpdateParam;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;

@@ -12,10 +12,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class ProfileDto {
-    @Getter
-    public static class Request{
-
-    }
 
     @Getter
     @Setter
@@ -59,10 +55,6 @@ public class ProfileDto {
         String account;
         @Schema(description="별명", example = ExampleValue.Member.NICKNAME)
         String nickname;
-        @Schema(description="전화번호", example = ExampleValue.Member.MOBILE)
-        String mobile;
-        @Schema(description = "생년월일", example = ExampleValue.Member.BIRTH_DATE)
-        String birthDate;
         @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
         String email;
         @Schema(description = "소셜 아이디넘버")
@@ -76,8 +68,6 @@ public class ProfileDto {
             this.id = member.getId();
             this.account = member.getAccount();
             this.nickname = member.getNickname();
-            this.mobile = member.getMobile();
-            this.birthDate = member.getBirthDate();
             this.email = member.getEmail();
             this.socialId = member.getSocialId();
             this.loginType = member.getLoginType();
