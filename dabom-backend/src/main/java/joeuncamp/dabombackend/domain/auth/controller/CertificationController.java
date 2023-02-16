@@ -33,7 +33,7 @@ public class CertificationController {
     @Operation(summary = "토스 txId 발급", description = "")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/cert/txId")
+    @PostMapping("/cert/txid")
     public ResponseEntity<TxIdResponse> getTxId() {
         TxIdResponse response = certificationService.getTxId();
         return new ResponseEntity<>(response, HttpStatus.OK);
