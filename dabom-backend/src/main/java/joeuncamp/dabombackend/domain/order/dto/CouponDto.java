@@ -49,6 +49,15 @@ public class CouponDto {
         @Schema(hidden = true, description = "발급할 쿠폰")
         Long couponId;
     }
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class RegisterRequest{
+        @Schema(hidden = true)
+        Long memberId;
+        @Schema(description = "등록할 쿠폰 코드")
+        String couponCode;
+    }
 
     @Getter
     public static class Response{
