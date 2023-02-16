@@ -2,10 +2,10 @@ package joeuncamp.dabombackend.util.tossapi;
 
 import im.toss.cert.sdk.TossCertSession;
 import im.toss.cert.sdk.TossCertSessionGenerator;
-import joeuncamp.dabombackend.domain.order.dto.OrderDto;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import joeuncamp.dabombackend.util.tossapi.dto.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -19,6 +19,7 @@ import java.util.Base64;
 import java.util.Objects;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class TossService {
     @Value("${api.toss.confirm}")
@@ -91,13 +92,15 @@ public class TossService {
      * @param accessToken 토스 어세스토큰
      * @return txid
      */
-    public TxIdResponse issueTxId(String accessToken) {
+    public TxIdResponse issueTxId(String accessToken, MemberPrivacy memberPrivacy) {
         WebClient webClient = WebClient.create();
+        TxIdRequest request = getTxIdRequest(memberPrivacy);
+        log.info("{}",request);
         return webClient.method(HttpMethod.POST)
                 .uri(TXID_API)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + accessToken)
-                .bodyValue(new TxIdRequest("USER_NONE"))
+                .bodyValue(request)
                 .retrieve()
                 .bodyToMono(TxIdResponse.class)
                 .block();
@@ -129,27 +132,43 @@ public class TossService {
      * @param txId        txid
      * @return response
      */
-    public AuthResultResponse getAuthResult(String accessToken, String txId) {
+    public AuthResultResponse getAuthResult(String accessToken, String txId, TossCertSession tossCertSession) {
         WebClient webClient = WebClient.create();
 
         return webClient.method(HttpMethod.POST)
                 .uri(AUTH_RESULT_API)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + accessToken)
-                .bodyValue(new AuthResultRequest(txId, getSessionKey()))
+                .bodyValue(new AuthResultRequest(txId, tossCertSession.getSessionKey()))
                 .retrieve()
                 .bodyToMono(AuthResultResponse.class)
                 .block();
     }
 
     /**
-     * 세션 키를 발급합니다.
+     * 토스 본인인증 결과로 받은 개인정보를 복호화합니다.
      *
-     * @return 세션 키
+     * @param authResultResponse 토스 본인인증 결과  DTO
+     * @param tossCertSession 토스 세션
+     * @return 회원 개인정보
      */
-    public String getSessionKey() {
+    public MemberPrivacy decryptPersonalData(AuthResultResponse authResultResponse, TossCertSession tossCertSession) {
+        AuthResultResponse.Success.PersonalData personalData = authResultResponse.getSuccess().getPersonalData();
+        return MemberPrivacy.builder()
+                .userName(tossCertSession.decrypt(personalData.getName()))
+                .userPhone(tossCertSession.decrypt(personalData.getPhone()))
+                .userBirthday(tossCertSession.decrypt(personalData.getBirthday()))
+                .build();
+    }
+
+    private TxIdRequest getTxIdRequest(MemberPrivacy memberPrivacy) {
         TossCertSession tossCertSession = tossCertSessionGenerator.generate();
-        return tossCertSession.getSessionKey();
+        return TxIdRequest.builder()
+                .userName(tossCertSession.encrypt(memberPrivacy.getUserName()))
+                .userPhone(tossCertSession.encrypt(memberPrivacy.getUserPhone()))
+                .userBirthday(tossCertSession.encrypt(memberPrivacy.getUserBirthday()))
+                .sessionKey(tossCertSession.getSessionKey())
+                .build();
     }
 }
 

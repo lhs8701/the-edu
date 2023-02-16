@@ -1,5 +1,7 @@
 package joeuncamp.dabombackend.domain._etc;
 
+import im.toss.cert.sdk.TossCertSession;
+import im.toss.cert.sdk.TossCertSessionGenerator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.file.FileUtil;
@@ -10,6 +12,7 @@ import joeuncamp.dabombackend.util.hls.service.HlsConvertor;
 import joeuncamp.dabombackend.util.tossapi.TossService;
 import joeuncamp.dabombackend.util.tossapi.dto.AuthResultResponse;
 import joeuncamp.dabombackend.util.tossapi.dto.TxIdResponse;
+import joeuncamp.dabombackend.util.tossapi.dto.MemberPrivacy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,7 +34,7 @@ public class TestController {
     private final ImageService imageService;
     private final HlsConvertor hlsConvertor;
     private final TossService tossService;
-    private final List<PostOrderManager> postOrderManager;
+    private final TossCertSessionGenerator tossCertSessionGenerator;
 
     @Operation(summary = "개발 서버 사진 업로드 테스트", description = "")
     @PreAuthorize("permitAll()")
@@ -72,17 +75,21 @@ public class TestController {
 
     @Operation(summary = "토스 txId 발급 테스트", description = "")
     @PreAuthorize("permitAll()")
-    @PostMapping("/test/toss-txId/{accessToken}")
-    public ResponseEntity<?> issueTxId(@PathVariable String accessToken) {
-        TxIdResponse response = tossService.issueTxId(accessToken);
+    @PostMapping("/test/toss-txId")
+    public ResponseEntity<?> issueTxId(@RequestBody MemberPrivacy memberPrivacy) {
+        String accessToken = tossService.issueToken();
+        log.info(accessToken);
+        TxIdResponse response = tossService.issueTxId(accessToken, memberPrivacy);
+        log.info("{}",response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-    @Operation(summary = "토스 txId 발급 테스트", description = "")
-    @PreAuthorize("permitAll()")
-    @PostMapping("/test/toss-result/{accessToken}/{txid}")
-    public ResponseEntity<?> getResult(@PathVariable String accessToken, @PathVariable String txid) {
-        AuthResultResponse response = tossService.getAuthResult(accessToken, txid);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//
+//    @Operation(summary = "토스 본인인증 조회 테스트", description = "")
+//    @PreAuthorize("permitAll()")
+//    @PostMapping("/test/toss-result/{accessToken}/{txid}")
+//    public ResponseEntity<?> getResult(@PathVariable String accessToken, @PathVariable String txid) {
+//        TossCertSession
+//        AuthResultResponse response = tossService.getAuthResult(accessToken, txid);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 }

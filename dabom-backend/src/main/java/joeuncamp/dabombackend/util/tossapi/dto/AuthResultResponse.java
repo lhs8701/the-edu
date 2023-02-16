@@ -5,6 +5,8 @@ import lombok.Getter;
 @Getter
 public class AuthResultResponse {
     String resultType;
+    Success success;
+    Error error;
     @Getter
     public static class Success{
         String signature;
