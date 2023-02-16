@@ -143,5 +143,21 @@ public class TossService {
                 .bodyToMono(AuthResultResponse.class)
                 .block();
     }
+
+    /**
+     * 토스 본인인증 결과로 받은 개인정보를 복호화합니다.
+     *
+     * @param authResultResponse 토스 본인인증 결과  DTO
+     * @param tossCertSession 토스 세션
+     * @return 회원 개인정보
+     */
+    public MemberPrivacy decryptPersonalData(AuthResultResponse authResultResponse, TossCertSession tossCertSession) {
+        AuthResultResponse.Success.PersonalData personalData = authResultResponse.getSuccess().getPersonalData();
+        return MemberPrivacy.builder()
+                .userName(tossCertSession.decrypt(personalData.getName()))
+                .userPhone(tossCertSession.decrypt(personalData.getPhone()))
+                .userBirthday(tossCertSession.decrypt(personalData.getBirthday()))
+                .build();
+    }
 }
 

@@ -65,14 +65,6 @@ public class TestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary = "토스 토큰 발급 테스트", description = "")
-    @PreAuthorize("permitAll()")
-    @PostMapping("/test/toss-token")
-    public ResponseEntity<?> issueToken() {
-        String accessToken = tossService.issueToken();
-        return new ResponseEntity<>(accessToken, HttpStatus.OK);
-    }
-
     @Operation(summary = "토스 txId 발급 테스트", description = "")
     @PreAuthorize("permitAll()")
     @PostMapping("/test/toss-txId")
@@ -81,13 +73,15 @@ public class TestController {
         TxIdResponse response = tossService.issueTxId(accessToken);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-//
-//    @Operation(summary = "토스 본인인증 조회 테스트", description = "")
-//    @PreAuthorize("permitAll()")
-//    @PostMapping("/test/toss-result/{accessToken}/{txid}")
-//    public ResponseEntity<?> getResult(@PathVariable String accessToken, @PathVariable String txid) {
-//        TossCertSession
-//        AuthResultResponse response = tossService.getAuthResult(accessToken, txid);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+
+    @Operation(summary = "토스 본인인증 조회 테스트", description = "")
+    @PreAuthorize("permitAll()")
+    @PostMapping("/test/toss-result/{txid}")
+    public ResponseEntity<?> getResult(@PathVariable String txid) {
+        String accessToken = tossService.issueToken();
+        TossCertSession tossCertSession = tossCertSessionGenerator.generate();
+        AuthResultResponse response = tossService.getAuthResult(accessToken, txid, tossCertSession);
+        MemberPrivacy memberPrivacy = tossService.decryptPersonalData(response, tossCertSession);
+        return new ResponseEntity<>(memberPrivacy, HttpStatus.OK);
+    }
 }
