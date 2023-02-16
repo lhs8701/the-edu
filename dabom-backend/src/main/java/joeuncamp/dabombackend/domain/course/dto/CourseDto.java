@@ -102,6 +102,33 @@ public class CourseDto {
     @Getter
     @AllArgsConstructor
     @Builder
+    public static class CreatorResponse {
+        @Schema(description = "아이디넘버", example = "1")
+        Long courseId;
+        @Schema(description = "제목", example = ExampleValue.Course.TITLE)
+        String title;
+        @Schema(description = "강사", example = ExampleValue.Member.NAME)
+        String instructor;
+        @Schema(description = "카테고리", example = ExampleValue.Course.CATEGORY)
+        String category;
+        @Schema(description = "썸네일 이미지")
+        ImageInfo thumbnailImage;
+        @Schema(description = "활성화 여부")
+        boolean active;
+
+        public CreatorResponse(Course course) {
+            this.courseId = course.getId();
+            this.title = course.getTitle();
+            this.instructor = course.getInstructorName();
+            this.category = course.getCategory().getTitle();
+            this.thumbnailImage = course.getThumbnailImage();
+            this.active = course.isActive();
+        }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
     public static class Response {
         @Schema(description = "아이디넘버", example = "1")
         Long id;

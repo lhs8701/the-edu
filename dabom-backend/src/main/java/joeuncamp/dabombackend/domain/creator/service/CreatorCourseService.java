@@ -60,13 +60,13 @@ public class CreatorCourseService {
      * @param memberId 크리에이터
      * @return 업로드한 강좌 목록
      */
-    public List<CourseDto.ShortResponse> getUploadedCourses(Long memberId) {
+    public List<CourseDto.CreatorResponse> getUploadedCourses(Long memberId) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
         if (!member.isCreator()) {
             throw new CAccessDeniedException("크리에이터만 이용할 수 있는 기능입니다.");
         }
         return courseJpaRepository.findByCreatorProfile(member.getCreatorProfile()).stream()
-                .map(CourseDto.ShortResponse::new)
+                .map(CourseDto.CreatorResponse::new)
                 .toList();
     }
 }

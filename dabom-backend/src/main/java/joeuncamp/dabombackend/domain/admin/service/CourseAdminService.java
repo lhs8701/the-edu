@@ -5,6 +5,8 @@ import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CBadRequestException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
+import joeuncamp.dabombackend.util.email.Email;
+import joeuncamp.dabombackend.util.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.List;
 public class CourseAdminService {
 
     private final CourseJpaRepository courseJpaRepository;
+    private final EmailService emailService;
 
     /**
      * 대기 상태의 강좌 목록을 조회합니다.
@@ -30,6 +33,7 @@ public class CourseAdminService {
 
     /**
      * 강좌를 활성화합니다.
+     * 크리에이터에게 알림 메일을 보냅니다.
      *
      * @param courseId 활성화할 강좌
      */
@@ -39,6 +43,7 @@ public class CourseAdminService {
             throw new CBadRequestException("이미 활성화된 강좌입니다.");
         }
         course.activate();
+        courseJpaRepository.save(course);
+        emailService.sendMail(EmailService.ActivatedEmail(course, course.getCreatorProfile().getMember().getEmail()));
     }
-
 }
