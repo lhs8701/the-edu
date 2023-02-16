@@ -114,8 +114,12 @@ values ('ticket', '1', '2023-02-13 11:01:41.918716', '2023-02-13 11:01:41.918716
         '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg','TICKET');
 
 -- <Coupon> --
-insert into coupon (id, code, discount, discount_policy, end_date, minimum_amount, name)
-values ('1', 'ebf7ebef-cd11-47f7-831f-52b01983019c', '10', 'RATE', '2024-02-13', '100000', '신규 회원 환영 쿠폰');
+insert into coupon (id, discount, discount_policy, end_date, minimum_amount, name)
+values ('1', '10', 'RATE', '2024-02-13', '100000', '신규 회원 환영 쿠폰');
+
+-- <Coupon Code> --
+insert into coupon_code (coupon_id, code)
+values ('1', 'abcdabcdabcdabcd');
 
 -- <Issue> --
 insert into issue (id, coupon_id, member_id, used)

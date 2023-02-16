@@ -31,13 +31,22 @@ public class CouponAdminController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Operation(summary = "쿠폰 발급", description = "회원에게 쿠폰을 발급합니다.")
+    @Operation(summary = "쿠폰 발급", description = "관리자가 회원에게 쿠폰을 발급합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/coupon/{couponId}/issue")
     public ResponseEntity<Void> issue(@PathVariable Long couponId, @RequestBody CouponDto.IssueRequest requestDto) {
         requestDto.setCouponId(couponId);
         couponGenerator.issue(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "쿠폰 랜덤 코드 생성", description = "쿠폰의 랜덤 코드를 생성합니다. 회원은 랜덤 코드를 입력해 쿠폰을 스스로 발급할 수 있습니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/coupon/{couponId}/code")
+    public ResponseEntity<Void> generateCouponCode(@PathVariable Long couponId) {
+        couponGenerator.generateCouponCode(couponId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

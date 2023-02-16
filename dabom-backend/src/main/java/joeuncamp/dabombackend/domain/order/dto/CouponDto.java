@@ -32,7 +32,6 @@ public class CouponDto {
         public Coupon toEntity(){
             return Coupon.builder()
                     .name(this.name)
-                    .code(UUID.randomUUID().toString())
                     .discountPolicy(this.discountPolicy)
                     .discount(this.discount)
                     .endDate(this.endDate)

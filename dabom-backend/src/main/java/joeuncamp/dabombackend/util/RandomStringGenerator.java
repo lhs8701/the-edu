@@ -42,4 +42,12 @@ public class RandomStringGenerator {
                 .toString();
         return prefix + middle + numbers + CHARACTER;
     }
+
+    public String generateCouponCode() {
+        Random random = new Random();
+        return random.ints(ASCII_LOWER_A, ASCII_LOWER_Z)
+                .limit(16)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
 }

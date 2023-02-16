@@ -70,7 +70,6 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Issue> issueList = new ArrayList<>();
 
-    @Schema(description = "권한", example = "일반")
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private List<String> roles = new ArrayList<>();

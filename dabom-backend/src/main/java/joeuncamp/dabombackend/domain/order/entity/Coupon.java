@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.query.sqm.TemporalUnit;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -19,7 +21,10 @@ public class Coupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
-    String code;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    List<String> code = new ArrayList<>();
     long minimumAmount;
     long discount;
     @Enumerated(value = EnumType.STRING)
