@@ -132,10 +132,10 @@ public class CoursePagingTest {
     void 강좌를_제목_순으로_조회한다() {
         // given
         Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "title"));
-        Course c1 = Course.builder().category(CategoryType.BACK_END).title("b").build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).title("a").build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).title("d").build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c").build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).title("b").active(true).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).title("a").active(true).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).title("d").active(true).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c").active(true).build();
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
         courseJpaRepository.save(c3);
