@@ -3,6 +3,8 @@ package joeuncamp.dabombackend.domain.admin.service;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
+import joeuncamp.dabombackend.global.error.exception.CBadRequestException;
+import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,19 @@ public class CourseAdminService {
         return courses.stream()
                 .map(CourseDto.ShortResponse::new)
                 .toList();
+    }
+
+    /**
+     * 강좌를 활성화합니다.
+     *
+     * @param courseId 활성화할 강좌
+     */
+    public void activateCourse(Long courseId) {
+        Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
+        if (course.isActive()) {
+            throw new CBadRequestException("이미 활성화된 강좌입니다.");
+        }
+        course.activate();
     }
 
 }
