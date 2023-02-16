@@ -25,27 +25,6 @@ const MAX_PWD_LENGTH = 16;
 const MIN_TELE_LENGTH = 10;
 const MAX_TELE_LENGTH = 11;
 
-const AuthBtn = styled.div`
-  border: none;
-  background-color: var(--color-primary);
-  color: var(--color-black);
-  font-size: var(--size-login-btn);
-  font-weight: var(--weight-point);
-  height: 35px;
-  border-radius: 7px;
-  width: 75px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:active {
-    transform: scale(0.9);
-  }
-  &:hover {
-    color: var(--color-background);
-  }
-`;
-
 const TermBox = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
@@ -111,7 +90,7 @@ export default function SignUp() {
   const [isId, setIsId] = useState("");
   const [isPwd, setIsPwd] = useState("");
   const [isName, setIsName] = useState("");
-  const [isCert, setIsCert] = useState(false);
+
   const [isCheck2, setIsCheck2] = useState({
     inputCheck: false,
     lookCheck: false,
@@ -136,10 +115,6 @@ export default function SignUp() {
   });
 
   const submit = () => {
-    if (!isCert) {
-      alert("휴대전화 인증이 되지 않았습니다.");
-      return;
-    }
     signUp({
       account: isId,
       password: isPwd,
@@ -160,46 +135,6 @@ export default function SignUp() {
       });
   };
 
-  function AuthButton() {
-    const [loading, error] = useScript("https://cdn.toss.im/cert/v1");
-
-    return (
-      <AuthBtn
-        onClick={() => {
-          // eslint-disable-next-line no-undef
-          var tossCert = TossCert(); // 1. TossCert객체를 초기화합니다.
-          tossCert.preparePopup(); // 2. 팝업차단 방지를 위해 비동기 호출 전에 빈 팝업을 먼저 띄웁니다.
-          // 3. 서버 투 서버의 인증요청 API를 호출합니다. 원하는 방식으로 적절히 수정해주세요.
-          // eslint-disable-next-line no-undef
-          postTossTxId()
-            .then(({ data }) => {
-              tossCert.start({
-                authUrl: data.success.authUrl,
-                txId: data.success.txId,
-                onSuccess: function () {
-                  successTossCert(data.success.txId)
-                    .then(() => {
-                      setIsCert(true);
-                    })
-                    .catch((err) => {
-                      alert(err);
-                    });
-                },
-                onFail: function (error) {
-                  alert("에러가 발생했습니다", error); // 인증 실패시 행동을 정의해주세요.
-                },
-              });
-            })
-            .catch((err) => {
-              alert(err);
-            });
-        }}
-      >
-        인증
-      </AuthBtn>
-    );
-  }
-  console.log(isCheck.lookCheck, isCheck2);
   return (
     <>
       <Helmet>
@@ -318,12 +253,6 @@ export default function SignUp() {
             <ErrorMessage>{errors?.pwdConfirm?.message}</ErrorMessage>
           </InputBox>
 
-          <TeleInputBox>
-            <InputLabel>휴대전화 번호</InputLabel>
-            <AuthButton />
-          </TeleInputBox>
-          <br />
-          <br />
           <TermBox>
             <TermLabel checked={isCheck.inputCheck}>
               <TermCheck

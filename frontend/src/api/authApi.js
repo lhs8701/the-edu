@@ -12,25 +12,29 @@ const KAKAO_SIGNIN_PATH = "/kakao/login";
 const KAKAO_LOGOUT_PATH = "/kakao/logout";
 const KAKAO_WITHDRAW_PATH = "/kakao/withdraw";
 const BASIC_WITHDRAW_PATH = "/basic/withdraw";
+const CERT_PATH = "/cert/txid";
+const AFTER_CERT_PATH = "/cert/result";
 
-export async function postTossTxId() {
+export async function postTossTxId(accessToken) {
   return await axios.post(
-    API_URL + "/test/toss-txId",
+    API_URL + CERT_PATH,
     {},
     {
       headers: {
+        ACCESS: accessToken,
         "Content-Type": "application/json",
       },
     }
   );
 }
 
-export async function successTossCert(txid) {
+export async function successTossCert(txid, accessToken) {
   return await axios.post(
-    API_URL + "/test/toss-result" + "/" + txid,
-    {},
+    API_URL + AFTER_CERT_PATH,
+    { txid: txid },
     {
       headers: {
+        ACCESS: accessToken,
         "Content-Type": "application/json",
       },
     }

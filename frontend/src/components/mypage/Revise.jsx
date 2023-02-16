@@ -6,15 +6,16 @@ import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { queryClient } from "../..";
+import { postTossTxId, successTossCert } from "../../api/authApi";
 import { uploadImageApi } from "../../api/creatorApi";
 import { changePwdApi, myInfoApi, revisemyInfoApi } from "../../api/myPageApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
+import { useScript } from "../../hook";
 import { STATIC_URL } from "../../static";
 import {
   AccountBtn,
   AccountForm,
   AccountInput,
-  AccountSmallBtn,
   InputBox,
   InputLabel,
 } from "../../style/AccountComponentCss";
@@ -31,28 +32,40 @@ const MAX_PWD_LENGTH = 16;
 const MIN_TELE_LENGTH = 10;
 const MAX_TELE_LENGTH = 11;
 
-const ImgUploadBtn = styled.div`
-  &:hover {
-    color: red;
-  }
-  cursor: pointer;
+const CertBox = styled.div`
+  position: absolute;
+  top: 45%;
+  right: 0%;
 `;
 
-const TeleInput = styled(AccountInput)`
-  width: 83%;
+const AuthBtn = styled.div`
+  background-color: var(--color-box-gray);
+  color: var(--color-black);
+  font-size: var(--size-login-btn);
+  font-weight: var(--weight-point);
+  height: 35px;
+  border-radius: 7px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:active {
+    transform: scale(0.9);
+  }
+  &:hover {
+    color: var(--color-background);
+  }
 `;
+
 const ImgBox = styled.div`
   display: flex;
   align-items: center;
 `;
-const AuthBtn = styled(AccountSmallBtn)``;
 
 const ReviseForm = styled(AccountForm)`
   width: var(--size-revise-coupon-window);
   margin: 0 auto;
-`;
-const ImgNameTab = styled.div`
-  display: flex;
 `;
 
 const ProfileImg = styled.img`
@@ -74,12 +87,13 @@ export default function Revise() {
     },
     {
       enabled: !!memberId,
-      onSuccess: ({ email, id, nickname, mobile, profileImage }) => {
+      onSuccess: ({ email, nickname, profileImage }) => {
         setIsName(nickname);
-        setIsTele(mobile);
+
         setIsId(email);
+
         setIsProfileImg(profileImage.mediumFilePath);
-        setValue("tele", mobile);
+
         setValue("name", nickname);
         setValue("email", email);
       },
@@ -91,7 +105,6 @@ export default function Revise() {
 
   const [isId, setIsId] = useState(infos?.data?.email);
   const [isName, setIsName] = useState(infos?.data?.nickname);
-  const [isTele, setIsTele] = useState(infos?.data?.mobile);
   const [isCurrentPwd, setIsCurrentPwd] = useState("");
   const [isNewPwd, setIsNewPwd] = useState("");
   const [isProfileImg, setIsProfileImg] = useState(
@@ -108,7 +121,6 @@ export default function Revise() {
     defaultValues: {
       name: isName,
       email: isId,
-      tele: isTele,
     },
     reValidateMode: "onBlur",
   });
@@ -121,8 +133,6 @@ export default function Revise() {
     mode: "onBlur",
     reValidateMode: "onBlur",
   });
-
-  console.log(errors2.currentPwd?.message);
 
   const submit = () => {
     const info = {
@@ -162,12 +172,55 @@ export default function Revise() {
       });
   };
 
+  function AuthButton() {
+    const [loading, error] = useScript("https://cdn.toss.im/cert/v1");
+
+    return (
+      <AuthBtn
+        onClick={() => {
+          // eslint-disable-next-line no-undef
+          var tossCert = TossCert(); // 1. TossCert객체를 초기화합니다.
+          tossCert.preparePopup(); // 2. 팝업차단 방지를 위해 비동기 호출 전에 빈 팝업을 먼저 띄웁니다.
+          // 3. 서버 투 서버의 인증요청 API를 호출합니다. 원하는 방식으로 적절히 수정해주세요.
+          postTossTxId(accessToken)
+            .then(({ data }) => {
+              tossCert.start({
+                authUrl: data.success.authUrl,
+                txId: data.success.txId,
+                onSuccess: function () {
+                  alert("성공");
+                  successTossCert(data.success.txId, accessToken)
+                    .then(() => {
+                      window.location.reload();
+                    })
+                    .catch((err) => {
+                      alert(err);
+                    });
+                },
+                onFail: function (error) {
+                  alert("에러가 발생했습니다", error); // 인증 실패시 행동을 정의해주세요.
+                },
+              });
+            })
+            .catch((err) => {
+              alert(err);
+            });
+        }}
+      >
+        전화번호 인증하기
+      </AuthBtn>
+    );
+  }
+
   return (
     <MyPageBox>
       <MyPageTitle>개인정보 수정</MyPageTitle>
       <MyPageContentBox>
         <ReviseForm onSubmit={handleSubmit(submit)}>
           <InputBox>
+            <CertBox>
+              {!undefined ? <AuthButton /> : "본인인증이 완료된 계정이에요."}
+            </CertBox>
             <InputLabel>프로필 사진</InputLabel>
             <br />
             <br />
@@ -227,7 +280,6 @@ export default function Revise() {
               type="text"
             />
           </NameInputBox>
-
           <InputBox>
             <InputLabel>이메일 주소</InputLabel>
             <AccountInput

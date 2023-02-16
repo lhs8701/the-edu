@@ -22,6 +22,8 @@ import Chart from "../dashboard/Chart";
 import Deposits from "../dashboard/Deposits";
 import { Outlet, useNavigate } from "react-router";
 import CreatorListItems from "./CreatorListItems";
+import { Button } from "@mui/material";
+import { STATIC_URL } from "../../static";
 
 function Copyright(props) {
   return (
@@ -31,12 +33,9 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
+      <Link color="inherit" href={STATIC_URL}>
+        The-Edu 바로가기
+      </Link>
     </Typography>
   );
 }
@@ -105,7 +104,7 @@ function DashboardContent({ isCreator }) {
         <AppBar
           position="absolute"
           open={open}
-          sx={{ backgroundColor: "var(--color-primary)", boxShadow: "none" }}
+          sx={{ backgroundColor: "var(--color-primary)" }}
         >
           <Toolbar
             sx={{
@@ -126,12 +125,13 @@ function DashboardContent({ isCreator }) {
             </IconButton>
             <Typography
               component="h1"
-              variant="h6"
+              variant="h5"
               color="inherit"
               noWrap
               sx={{
                 flexGrow: 1,
-                fontWeight: "var(--size-middle)",
+                fontWeight: "var(--size-point)",
+                color: "var(--color-text)",
               }}
             >
               The-Edu 크리에이터 페이지
@@ -153,13 +153,6 @@ function DashboardContent({ isCreator }) {
               px: [1],
             }}
           >
-            <button
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              The-Edu
-            </button>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
