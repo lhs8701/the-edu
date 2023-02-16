@@ -71,10 +71,7 @@ export async function signUp(userData) {
     {
       account: userData.account,
       password: userData.password,
-      name: userData.name,
       nickname: userData.nickname,
-      mobile: userData.mobile,
-      birthDate: userData.birthDate,
     },
     {
       headers: {

@@ -12,7 +12,7 @@ export function useScript(src) {
       script.src = src;
       script.async = true;
     }
-    console.log(script);
+
     const handleLoad = () => setLoading(false);
     const handleError = (error) => setError(error);
 

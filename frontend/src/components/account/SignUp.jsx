@@ -6,19 +6,17 @@ import {
   AccountBtn,
   AccountForm,
   AccountInput,
-  AccountSmallBtn,
   AccountTitle,
   AccountWrapper,
   ErrorMessage,
   InputBox,
   InputLabel,
 } from "../../style/AccountComponentCss";
-import Term from "./Term";
+import { PrivacyTerm, Term } from "./Term";
 import { useForm } from "react-hook-form";
 import { postTossTxId, signUp, successTossCert } from "../../api/authApi";
 import { useScript } from "../../hook";
 import Helmet from "react-helmet";
-import { API_URL } from "../../static";
 
 const MIN_PWD_LENGTH = 8;
 const MAX_NAME_LENGTH = 16;
@@ -26,10 +24,6 @@ const MIN_NAME_LENGTH = 2;
 const MAX_PWD_LENGTH = 16;
 const MIN_TELE_LENGTH = 10;
 const MAX_TELE_LENGTH = 11;
-
-const TeleInput = styled(AccountInput)`
-  width: 100%;
-`;
 
 const AuthBtn = styled.div`
   border: none;
@@ -118,8 +112,14 @@ export default function SignUp() {
   const [isPwd, setIsPwd] = useState("");
   const [isName, setIsName] = useState("");
   const [isCert, setIsCert] = useState(false);
-  const [isBirth, setIsBirth] = useState("");
-  const [isCheck, setIsCheck] = useState(false);
+  const [isCheck2, setIsCheck2] = useState({
+    inputCheck: false,
+    lookCheck: false,
+  });
+  const [isCheck, setIsCheck] = useState({
+    inputCheck: false,
+    lookCheck: false,
+  });
   const navigate = useNavigate();
   const {
     register,
@@ -143,15 +143,7 @@ export default function SignUp() {
     signUp({
       account: isId,
       password: isPwd,
-      name: isName,
       nickname: isName,
-      mobile: "010-1234-5578",
-      birthDate:
-        isBirth.substr(0, 4) +
-        "." +
-        isBirth.substr(5, 2) +
-        "." +
-        isBirth.substr(8, 2),
     })
       .then(() => {
         alert("회원 가입이 되셨습니다.");
@@ -170,8 +162,6 @@ export default function SignUp() {
 
   function AuthButton() {
     const [loading, error] = useScript("https://cdn.toss.im/cert/v1");
-    // if (error) return <p>Error!</p>;
-    // if (loading) return <p>Loading...</p>;
 
     return (
       <AuthBtn
@@ -209,7 +199,7 @@ export default function SignUp() {
       </AuthBtn>
     );
   }
-
+  console.log(isCheck.lookCheck, isCheck2);
   return (
     <>
       <Helmet>
@@ -335,13 +325,16 @@ export default function SignUp() {
           <br />
           <br />
           <TermBox>
-            <TermLabel checked={isCheck}>
+            <TermLabel checked={isCheck.inputCheck}>
               <TermCheck
                 {...register("service", {
                   name: "service",
-                  required: "약관에 동의해주세요!",
+                  required: "이용약관에 동의해주세요!",
                   onChange: (e) => {
-                    setIsCheck((prev) => !prev);
+                    setIsCheck((prev) => ({
+                      ...prev,
+                      inputCheck: !prev.inputCheck,
+                    }));
                   },
                 })}
                 type="checkbox"
@@ -351,6 +344,15 @@ export default function SignUp() {
             <TermErrMessage>{errors?.service?.message}</TermErrMessage>
             <TermBtn
               onClick={() => {
+                setIsCheck((current) => ({
+                  ...current,
+                  lookCheck: true,
+                }));
+                setIsCheck2((current) => ({
+                  ...current,
+                  lookCheck: false,
+                }));
+
                 setModalOpen(true);
               }}
             >
@@ -358,13 +360,33 @@ export default function SignUp() {
             </TermBtn>
           </TermBox>
           <TermBox>
-            <TermLabel>
-              <TermCheck type="checkbox" />
+            <TermLabel checked={isCheck2.inputCheck}>
+              <TermCheck
+                {...register("service2", {
+                  name: "service2",
+                  required: "개인정보 약관에 동의해주세요!",
+                  onChange: (e) => {
+                    setIsCheck2((prev) => ({
+                      ...prev,
+                      inputCheck: !prev.inputCheck,
+                    }));
+                  },
+                })}
+                type="checkbox"
+              />
               [필수] 개인정보 수집 및 이용에 대한 동의
             </TermLabel>
-            <ErrorMessage></ErrorMessage>
+            <TermErrMessage>{errors?.service2?.message}</TermErrMessage>
             <TermBtn
               onClick={() => {
+                setIsCheck((current) => ({
+                  ...current,
+                  lookCheck: false,
+                }));
+                setIsCheck2((current) => ({
+                  ...current,
+                  lookCheck: true,
+                }));
                 setModalOpen(true);
               }}
             >
@@ -395,14 +417,17 @@ export default function SignUp() {
             },
             content: {
               overflow: "hidden",
-              width: "25%",
+              width: "35%",
               height: "75%",
               top: "10%",
-              left: "37.5%",
+              left: "30.5%",
             },
           }}
         >
-          {<Term setModalOpen={setModalOpen} />}
+          {isCheck.lookCheck ? <Term setModalOpen={setModalOpen} /> : null}
+          {isCheck2.lookCheck ? (
+            <PrivacyTerm setModalOpen={setModalOpen} />
+          ) : null}
         </Modal>
       </AccountWrapper>
     </>
