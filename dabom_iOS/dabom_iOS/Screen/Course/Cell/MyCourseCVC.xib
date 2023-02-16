@@ -28,15 +28,35 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEt-qY-wjE">
-                                <rect key="frame" x="7.9999999999999964" y="93" width="55.666666666666657" height="18"/>
+                                <rect key="frame" x="9.9999999999999964" y="95" width="55.666666666666657" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강의 제목" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLt-c3-IiP">
-                                <rect key="frame" x="10" y="119" width="150" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLt-c3-IiP">
+                                <rect key="frame" x="10" y="121" width="150" height="17"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="강의">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSOriginalFont" metaFont="menu" size="14"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="2" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="2" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="제목">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSOriginalFont" metaFont="menu" size="14"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="2" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="kEO-iV-eMw">
@@ -90,10 +110,10 @@
                             <constraint firstItem="ejr-Zd-hhN" firstAttribute="leading" secondItem="2P0-p4-GSJ" secondAttribute="trailing" constant="3" id="PMj-ZW-4Pd"/>
                             <constraint firstItem="Ccb-05-Aph" firstAttribute="leading" secondItem="UOR-WC-TGZ" secondAttribute="trailing" constant="3" id="QU8-pk-JIL"/>
                             <constraint firstAttribute="trailing" secondItem="Vo4-c2-Nwp" secondAttribute="trailing" id="XDZ-kr-x6v"/>
-                            <constraint firstItem="eEt-qY-wjE" firstAttribute="leading" secondItem="Nnm-VR-RCW" secondAttribute="leading" constant="8" id="Xih-Vy-K6D"/>
+                            <constraint firstItem="eEt-qY-wjE" firstAttribute="leading" secondItem="Nnm-VR-RCW" secondAttribute="leading" constant="10" id="Xih-Vy-K6D"/>
                             <constraint firstItem="oLt-c3-IiP" firstAttribute="top" secondItem="eEt-qY-wjE" secondAttribute="bottom" constant="8" id="YKf-cI-wWH"/>
                             <constraint firstItem="kEO-iV-eMw" firstAttribute="top" secondItem="nfn-kX-PXC" secondAttribute="bottom" constant="8" id="Z9K-t2-1tv"/>
-                            <constraint firstItem="eEt-qY-wjE" firstAttribute="top" secondItem="Vo4-c2-Nwp" secondAttribute="bottom" constant="8" id="bU9-wA-wtj"/>
+                            <constraint firstItem="eEt-qY-wjE" firstAttribute="top" secondItem="Vo4-c2-Nwp" secondAttribute="bottom" constant="10" id="bU9-wA-wtj"/>
                             <constraint firstAttribute="trailing" secondItem="Ccb-05-Aph" secondAttribute="trailing" constant="10" id="qWB-oA-HXu"/>
                             <constraint firstItem="2P0-p4-GSJ" firstAttribute="leading" secondItem="Nnm-VR-RCW" secondAttribute="leading" constant="10" id="rAA-Hb-igv"/>
                             <constraint firstItem="Vo4-c2-Nwp" firstAttribute="top" secondItem="Nnm-VR-RCW" secondAttribute="top" id="sgF-9p-z0P"/>

@@ -40,7 +40,7 @@ class CourseInfoViewController: UIViewController {
     var isEnroll: Bool?
     var isCharge: Bool?
 
-    let maxUpper: CGFloat = 450.0
+    let maxUpper: CGFloat = 350.0
     let minUpper: CGFloat = 0.0
     
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
@@ -321,7 +321,7 @@ class CourseInfoViewController: UIViewController {
 extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 450
+            return 350
         } else {
             return UITableView.automaticDimension
         }
@@ -350,7 +350,6 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
 
             cell.delegate = self
             
-            cell.setStatus(isEnroll: self.isEnroll ?? false, isCharge: self.isCharge ?? true)
             cell.courseThumbnailImageView.setImage(with: self.courseInfoData?.thumbnailImage.originalFilePath ?? "")
             cell.classTitle.text = self.courseInfoData?.title
             cell.courseDescription.text = self.courseInfoData?.description

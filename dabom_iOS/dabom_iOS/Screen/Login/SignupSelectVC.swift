@@ -112,6 +112,13 @@ class SignupSelectVC: UIViewController {
         
     }
     
+    func goToLogin() {
+        self.dismiss(animated: true) {
+            let nextVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.login) as! LoginVC
+
+            self.rootView?.navigationController?.pushViewController(nextVC, animated: true)
+        }
+    }
 
 }
 
@@ -139,7 +146,23 @@ extension SignupSelectVC: ASAuthorizationControllerDelegate {
                 switch (response) {
                 case .success:
                     print("appleSignup Success")
-                    AuthenticationService.shared.goToLoginSignup()
+                    AuthenticationService.shared.appleLogin(socialToken: userIdentifier) { response in
+                        switch (response) {
+                        case .success:
+                            print("appleLogin Success")
+                            AuthenticationService.shared.goToMain()
+                        case .requestErr(let message):
+                            print("requestErr", message)
+                        case .pathErr:
+                            print("pathErr")
+                        case .serverErr:
+                            print("serverErr")
+                        case .networkFail:
+                            print("networkFail")
+                        case .resourceErr:
+                            print("resourceErr")
+                        }
+                    }
                 case .requestErr(let message):
                     print("requestErr", message)
                 case .pathErr:
@@ -150,6 +173,12 @@ extension SignupSelectVC: ASAuthorizationControllerDelegate {
                     print("networkFail")
                 case .resourceErr:
                     print("resourceErr")
+                    let alert = UIAlertController(title: "", message: "이미 가입된 계정입니다", preferredStyle: .alert)
+                    let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+                        self.goToLogin()
+                    }
+                    alert.addAction(confirm)
+                    self.present(alert, animated: true)
                 }
             }
             
