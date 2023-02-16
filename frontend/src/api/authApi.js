@@ -13,6 +13,18 @@ const KAKAO_LOGOUT_PATH = "/kakao/logout";
 const KAKAO_WITHDRAW_PATH = "/kakao/withdraw";
 const BASIC_WITHDRAW_PATH = "/basic/withdraw";
 
+export async function postTossTxId() {
+  return await axios.post(
+    API_URL + "/test/toss-txId",
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+
 export async function kakaoWithdraw(accessToken, refreshToken, socialToken) {
   return await axios.post(
     AUTH_URL + KAKAO_WITHDRAW_PATH,

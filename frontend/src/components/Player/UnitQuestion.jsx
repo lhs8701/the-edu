@@ -91,6 +91,10 @@ const QuestionBox = styled(motion.div)`
   height: 50vh;
 `;
 
+const MyQuestionBox = styled(QuestionBox)`
+  height: 70vh;
+`;
+
 const QuestionTab = styled(Accordion)`
   box-sizing: border-box;
   width: 100%;
@@ -183,7 +187,8 @@ export default function UnitQuestion({ unitId }) {
   const [userQuestionTitle, setUserQuestionTitle] = useState("");
   const [userQuestionContext, setQuestionContext] = useState("");
   const [section, setSection] = useState(true);
-
+  const myBottomRef = useRef(null);
+  const myIsInView = useInView(myBottomRef);
   const questionList = useInfiniteQuery(
     ["questionList", unitId],
     ({ pageParam = 0 }) => {
@@ -217,6 +222,45 @@ export default function UnitQuestion({ unitId }) {
     [questionList?.data?.pages]
   );
 
+  const myQuestionList = useInfiniteQuery(
+    ["myQuestionList", unitId],
+    ({ pageParam = 0 }) => {
+      return getAllMyQuestionsApi(pageParam, unitId, accessToken);
+    },
+    {
+      retry: 1,
+      retryDelay: 5000,
+      onSuccess: (res) => {
+        if (res.pages[0].code === -7001) {
+          //query를 더이상 호출하지 않게 하자
+        }
+      },
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+      getNextPageParam: (lastPage, allPages) => {
+        if (Number(lastPage.totalPage) === 0) {
+          return undefined;
+        }
+        if (lastPage.totalPage === lastPage.page + 1) {
+          return undefined;
+        }
+        return lastPage.page + 1;
+      },
+    }
+  );
+
+  const myQuestions = useMemo(
+    () => myQuestionList?.data?.pages.flatMap((page) => page.list),
+    [myQuestionList?.data?.pages]
+  );
+
+  useEffect(() => {
+    if (isInView && myQuestionList.hasNextPage && myQuestionList.isSuccess) {
+      myQuestionList.fetchNextPage();
+    }
+  }, [myIsInView, myQuestionList.data]);
+
   const questionUpload = (e) => {
     e.preventDefault();
     if (userQuestionTitle === "") {
@@ -235,6 +279,7 @@ export default function UnitQuestion({ unitId }) {
     )
       .then(({ data }) => {
         questionList.refetch();
+        myQuestionList.refetch();
       })
       .catch((err) => {
         alert(err);
@@ -355,88 +400,6 @@ export default function UnitQuestion({ unitId }) {
     );
   };
 
-  const QuestionComponent = ({ question, isMine }) => {
-    return (
-      <QuestionTab
-        TransitionProps={{ unmountOnExit: true }}
-        key={question.questionId}
-      >
-        <QuestionInfoTab
-          aria-controls="panel1a-content"
-          expandIcon={<KeyboardArrowDownIcon />}
-          sx={{}}
-        >
-          {question.title}
-        </QuestionInfoTab>
-        <QuestionContentComponent
-          questionId={question.questionId}
-          isMine={isMine}
-        />
-      </QuestionTab>
-    );
-  };
-
-  const QuestionListComponent = ({ questions, isMine }) => {
-    return questions?.map((question, idx) => {
-      return <QuestionComponent question={question} isMine={isMine} />;
-    });
-  };
-
-  const MyQuestionListWrapper = () => {
-    const myBottomRef = useRef(null);
-    const myIsInView = useInView(myBottomRef);
-    const myQuestionList = useInfiniteQuery(
-      ["myQuestionList", unitId],
-      ({ pageParam = 0 }) => {
-        return getAllMyQuestionsApi(pageParam, unitId, accessToken);
-      },
-      {
-        retry: 1,
-        retryDelay: 5000,
-        onSuccess: (res) => {
-          if (res.pages[0].code === -7001) {
-            //query를 더이상 호출하지 않게 하자
-          }
-        },
-        onError: () => {
-          console.error("에러 발생했지롱");
-        },
-        getNextPageParam: (lastPage, allPages) => {
-          if (Number(lastPage.totalPage) === 0) {
-            return undefined;
-          }
-          if (lastPage.totalPage === lastPage.page + 1) {
-            return undefined;
-          }
-          return lastPage.page + 1;
-        },
-      }
-    );
-
-    const questions = useMemo(
-      () => myQuestionList?.data?.pages.flatMap((page) => page.list),
-      [myQuestionList?.data?.pages]
-    );
-
-    useEffect(() => {
-      if (isInView && myQuestionList.hasNextPage && myQuestionList.isSuccess) {
-        myQuestionList.fetchNextPage();
-      }
-    }, [myIsInView, myQuestionList.data]);
-
-    return (
-      <>
-        <QuestionInfoBox>
-          <Tab>{questions?.length}개의 질문이 있어요.</Tab>
-        </QuestionInfoBox>
-        <QuestionBox>
-          <QuestionListComponent questions={questions} isMine={true} />
-          <BottomDiv ref={myBottomRef} />
-        </QuestionBox>
-      </>
-    );
-  };
-
   return (
     <Wrapper>
       <CateBox>
@@ -462,7 +425,34 @@ export default function UnitQuestion({ unitId }) {
         </CateTab>
       </CateBox>
       {type ? (
-        <MyQuestionListWrapper />
+        <>
+          <QuestionInfoBox>
+            <Tab>{myQuestions?.length}개의 질문이 있어요.</Tab>
+          </QuestionInfoBox>
+          <MyQuestionBox>
+            {myQuestions?.map((question, idx) => {
+              return (
+                <QuestionTab
+                  TransitionProps={{ unmountOnExit: true }}
+                  key={question.questionId}
+                >
+                  <QuestionInfoTab
+                    aria-controls="panel1a-content"
+                    expandIcon={<KeyboardArrowDownIcon />}
+                    sx={{}}
+                  >
+                    {question.title}
+                  </QuestionInfoTab>
+                  <QuestionContentComponent
+                    questionId={question.questionId}
+                    isMine={true}
+                  />
+                </QuestionTab>
+              );
+            })}
+            <BottomDiv ref={myBottomRef} />
+          </MyQuestionBox>
+        </>
       ) : (
         <>
           <Form>
