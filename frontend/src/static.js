@@ -168,6 +168,10 @@ export const ADMIN_BAR_LIST = {
           name: "쿠폰 생성",
           url: "/admin/coupon",
         },
+        {
+          name: "모든 쿠폰 조회",
+          url: "/admin/couponlist",
+        },
       ],
     },
   ],
@@ -195,10 +199,6 @@ export const CREATOR_BAR_LIST = {
         {
           name: "나의 강좌",
           url: "/creator/mycourses",
-        },
-        {
-          name: "등록 신청한 강좌",
-          url: "/creator/registcourses",
         },
         {
           name: "강좌 등록 신청",

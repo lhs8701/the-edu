@@ -208,7 +208,7 @@ export default function Outline() {
 
   return (
     <>
-      <DashboardTitleTab title={CREATOR_BAR_LIST.list[2].list[2].name} />
+      <DashboardTitleTab title={CREATOR_BAR_LIST.list[2].list[1].name} />
       <Box mb={2}>
         <TabComponent />
       </Box>

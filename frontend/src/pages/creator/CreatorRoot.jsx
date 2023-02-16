@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useRecoilValue } from "recoil";
+import { getCreatorIdSelector } from "../../atom";
 
 import CreatorDashboard from "../../components/creator/CreatorDashboard";
 import { CREATOR_BAR_LIST } from "../../static";
 
 export default function CreatorRoot() {
   const navigate = useNavigate();
-  const isCreator = false;
+  const isCreator = useRecoilValue(getCreatorIdSelector);
+  console.log(isCreator);
 
-  // useEffect(() => {
-  //   if (!isCreator) {
-  //     navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (isCreator < 0) {
+      navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
+    }
+  }, []);
 
   return (
     <div>

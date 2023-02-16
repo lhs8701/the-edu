@@ -3,6 +3,7 @@ import { STATIC_URL } from "../../static";
 
 const InfoImg = styled.img`
   width: 100%;
+  margin-top: -2.5px;
 `;
 
 export default function CourseImg({ images }) {

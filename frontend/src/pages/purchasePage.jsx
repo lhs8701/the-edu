@@ -118,6 +118,7 @@ const PointP = styled.p`
 `;
 
 export default function PurchasePage() {
+  const ZERO = 0;
   const { courseId, itemId } = useParams();
   const { state } = useLocation();
   const [purchaseMethod, setPurchaseMethod] = useState();
@@ -206,7 +207,7 @@ export default function PurchasePage() {
         alert("결제 방식을 선택해 주세요!");
       }
     };
-
+    console.log(useCoupon);
     return (
       <div>
         <Div>
@@ -239,10 +240,13 @@ export default function PurchasePage() {
                 onChange={(e) => {
                   setUseCoupon({
                     id: e.target.value,
-                    idx: e.nativeEvent.target.options.selectedIndex,
+                    idx: e.nativeEvent.target.options.selectedIndex - 1, //맨 첫번째 인덱스는 선택안함이니 -1함
                   });
                 }}
               >
+                <option value={-1} key={0}>
+                  선택 안함
+                </option>
                 {itemInfo?.couponList?.map((coupon) => (
                   <option value={coupon.id} key={coupon.id}>
                     {coupon?.name}
@@ -259,8 +263,11 @@ export default function PurchasePage() {
           <FlexDiv>
             <PrimaryCostTab>쿠폰 할인</PrimaryCostTab>
             <PrimaryCostTab>
-              쿠폰 들어오면 처리하면댐 -{" "}
-              {itemInfo?.couponList[useCoupon?.idx]?.discount} 원
+              -&nbsp;
+              {Number(useCoupon.id) === -1
+                ? ZERO
+                : itemInfo?.couponList[useCoupon?.idx]?.discount}
+              &nbsp;원
             </PrimaryCostTab>
           </FlexDiv>
           <FlexDiv>
@@ -270,7 +277,11 @@ export default function PurchasePage() {
           <FlexDiv>
             <OwnPriceTab>총 할인 금액</OwnPriceTab>
             <PrimaryCostTab>
-              - {usePoint + itemInfo?.couponList[useCoupon?.idx]?.discount}원
+              -&nbsp;
+              {Number(useCoupon.id) === -1
+                ? usePoint
+                : usePoint + itemInfo?.couponList[useCoupon?.idx]?.discount}
+              &nbsp;원
             </PrimaryCostTab>
           </FlexDiv>
           <br />
@@ -278,11 +289,11 @@ export default function PurchasePage() {
           <FlexDiv>
             <SmallTitle>총 결제 금액</SmallTitle>
             <PrimaryCostTab>
-              -{" "}
-              {state?.cost -
-                usePoint +
-                itemInfo?.couponList[useCoupon?.idx]?.discount}
-              원
+              {state?.price -
+                (Number(useCoupon.id) === -1
+                  ? usePoint
+                  : usePoint + itemInfo?.couponList[useCoupon?.idx]?.discount)}
+              &nbsp;원
             </PrimaryCostTab>
           </FlexDiv>
         </PriceBox>

@@ -72,7 +72,7 @@ export default function CreatorListItems({ isCreator }) {
 
   const listFilter = (list, idx) => {
     if (idx === 0) {
-      if (isCreator) {
+      if (isCreator > 0) {
         return (
           <ListComponent
             key={idx}

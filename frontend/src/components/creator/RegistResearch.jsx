@@ -1,10 +1,10 @@
 import { Box, Button, Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { requestCreatorApi } from "../../api/creatorApi";
-import { getAccessTokenSelector } from "../../atom";
+import { getAccessTokenSelector, getCreatorIdSelector } from "../../atom";
 import { CREATOR_BAR_LIST } from "../../static";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import { CssTextField } from "./Outline";
@@ -16,6 +16,7 @@ export default function ResearchBox() {
   const [career, setCareer] = useState("");
   const [subject, setSubject] = useState("");
   const accessToken = useRecoilValue(getAccessTokenSelector);
+  const creatorId = useRecoilValue(getCreatorIdSelector);
 
   const requestCreator = (e) => {
     e.preventDefault();
@@ -29,10 +30,19 @@ export default function ResearchBox() {
         }
       });
   };
+
+  useEffect(() => {
+    if (creatorId > 0) {
+      navigate(CREATOR_BAR_LIST.list[0].creator[0].url);
+    }
+  }, []);
+
   return (
     <>
       <DashboardTitleTab title={CREATOR_BAR_LIST.list[0].creator[1].name} />
       <Box component="form">
+        <div>신청 후 영업일로부터 2일 이내에 결과가 확정이됩니다.</div>
+        <br />
         <Grid container spacing={2} direction="row" justifyContent="flex-start">
           <Grid item xs={12}>
             <CssTextField

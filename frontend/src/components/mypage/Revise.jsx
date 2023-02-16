@@ -171,7 +171,7 @@ export default function Revise() {
         alert("err");
       });
   };
-
+  console.log(infos?.data?.certified);
   function AuthButton() {
     const [loading, error] = useScript("https://cdn.toss.im/cert/v1");
 
@@ -191,7 +191,7 @@ export default function Revise() {
                   alert("성공");
                   successTossCert(data.success.txId, accessToken)
                     .then(() => {
-                      window.location.reload();
+                      // window.location.reload();
                     })
                     .catch((err) => {
                       alert(err);
@@ -219,7 +219,11 @@ export default function Revise() {
         <ReviseForm onSubmit={handleSubmit(submit)}>
           <InputBox>
             <CertBox>
-              {!undefined ? <AuthButton /> : "본인인증이 완료된 계정이에요."}
+              {infos?.data?.certified ? (
+                "본인인증이 완료된 계정이에요."
+              ) : (
+                <AuthButton />
+              )}
             </CertBox>
             <InputLabel>프로필 사진</InputLabel>
             <br />

@@ -48,8 +48,10 @@ import EventList from "./components/admin/event/EventList";
 import DetailEvent from "./components/admin/event/DetailEvent";
 import SuccessPurchase from "./components/purchase/SuccessPurchase";
 import UploadEvent from "./components/admin/event/UploadEvent";
-import AdminCoupon from "./components/admin/AdminCoupon";
+import AdminCoupon from "./components/admin/coupon/AdminCoupon";
 import PrivacyTerms from "./components/PrivacyTemrs";
+import CouponList from "./components/admin/coupon/CouponList";
+import DetailCoupon from "./components/admin/coupon/DetailCoupon";
 
 const router = createBrowserRouter([
   {
@@ -238,6 +240,14 @@ const router = createBrowserRouter([
       {
         path: "coupon",
         element: <AdminCoupon />,
+      },
+      {
+        path: "coupon/:couponId",
+        element: <DetailCoupon />,
+      },
+      {
+        path: "couponlist",
+        element: <CouponList />,
       },
     ],
   },

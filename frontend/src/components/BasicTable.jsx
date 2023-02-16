@@ -68,7 +68,82 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
   );
 }
 
-export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {}
+export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{}} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {cells?.map((cell) => {
+              return (
+                <TableCell key={cell.id} align="center">
+                  {cell?.name}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row, idx) => (
+            <TableRow key={row.id}>
+              <TableCell align="center">{row.courseId}</TableCell>
+              <TableCell align="center">{row.title}</TableCell>
+              <TableCell align="center">{row.category}</TableCell>
+              <TableCell align="center">
+                {row.creator ? "맞음" : "아님"}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+export function CouponTable({ rows, cells, navigate }) {
+  console.log(rows);
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{}} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {cells?.map((cell) => {
+              return (
+                <TableCell key={cell.id} align="center">
+                  {cell?.name}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row, idx) => (
+            <TableRow key={row.id}>
+              <TableCell align="center">{row.id}</TableCell>
+              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">
+                {row.discountPolicy === "Rate" ? "고정 할인" : "비율 할인"}
+              </TableCell>
+              <TableCell align="center">{row.discount}</TableCell>
+              <TableCell align="center">{row.endDate}</TableCell>
+              <TableCell align="center">
+                {row.expired ? "만료" : "유효"}
+              </TableCell>
+              <TableCell align="center">
+                <button
+                  onClick={() => {
+                    navigate(`${row.id}`, { state: row.code });
+                  }}
+                >
+                  상세 보기
+                </button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
 
 export function AdminUserTable({ rows, cells, deleteFun }) {
   return (

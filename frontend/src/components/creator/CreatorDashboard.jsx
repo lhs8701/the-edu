@@ -159,7 +159,7 @@ function DashboardContent({ isCreator }) {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <CreatorListItems isCreator={false} />
+            <CreatorListItems isCreator={isCreator} />
             {/* <Divider sx={{ my: 1 }} /> */}
             {/* {secondaryListItems} */}
           </List>
