@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -50,6 +51,19 @@ public class CouponGenerator {
         Issue issue = Issue.builder()
                 .member(member)
                 .coupon(coupon)
+                .used(false)
+                .build();
+        issueJpaRepository.save(issue);
+    }
+
+    public void issue(Member member, Coupon coupon) {
+        if (issueJpaRepository.findByMemberAndCoupon(member, coupon).isPresent()) {
+            throw new CBadRequestException("이미 발급한 쿠폰입니다.");
+        }
+        Issue issue = Issue.builder()
+                .member(member)
+                .coupon(coupon)
+                .used(false)
                 .build();
         issueJpaRepository.save(issue);
     }

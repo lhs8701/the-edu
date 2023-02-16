@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Tag(name = "[5.Order]", description = "구매 관련 API입니다.")
+@Tag(name = "[5-1.Order]", description = "구매 관련 API입니다.")
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api")

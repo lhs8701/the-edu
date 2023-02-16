@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface IssueJpaRepository extends JpaRepository<Issue, Long> {
     List<Issue> findByMemberAndUsedIsFalse(Member member);
     Optional<Issue> findByMemberAndCoupon(Member member, Coupon coupon);
+
+    List<Issue> findByMember(Member member);
+
 }
