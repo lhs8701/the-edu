@@ -15,10 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Tag(name = "[5-2.Coupon]", description = "쿠폰 관련 API입니다.")
@@ -36,5 +35,14 @@ public class CouponController {
         requestDto.setMemberId(member.getId());
         couponService.registerCoupon(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary="사용한 쿠폰 조회", description="회원이 사용한 쿠폰 목록을 조회합니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/coupons")
+    public ResponseEntity<List<CouponDto.Response>> getMyUsedCoupons(@AuthenticationPrincipal Member member){
+        List<CouponDto.Response> responseDto = couponService.getMyUsedCoupons(member.getId());
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
