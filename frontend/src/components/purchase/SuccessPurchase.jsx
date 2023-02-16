@@ -51,7 +51,6 @@ export default function SuccessPurchase() {
         amount: amount,
       })
         .then(() => {
-          alert("결제가 완료되었습니다.");
           setLoading(true);
         })
         .catch((err) => {

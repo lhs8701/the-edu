@@ -49,6 +49,7 @@ import DetailEvent from "./components/admin/event/DetailEvent";
 import SuccessPurchase from "./components/purchase/SuccessPurchase";
 import UploadEvent from "./components/admin/event/UploadEvent";
 import AdminCoupon from "./components/admin/AdminCoupon";
+import PrivacyTerms from "./components/PrivacyTemrs";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,11 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <MainPage />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: "/privacyterms",
+        element: <PrivacyTerms />,
         errorElement: <ErrorComponent />,
       },
       {

@@ -181,7 +181,7 @@ export default function Revise() {
                   border: "none",
                   boxShadow: "none",
                   "&:hover": {
-                    backgroundColor: "#eeeeee",
+                    backgroundColor: "var(--color-background)",
                   },
                 }}
                 variant="contained"

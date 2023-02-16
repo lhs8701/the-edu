@@ -84,8 +84,16 @@ export default function SignIn() {
         creatorId: data.creatorId,
       });
     } catch (err) {
-      console.log(err.response.status);
-      alert("로그인 오류입니다.");
+      console.log(err.response);
+      if (err.response.data.code === -6008) {
+        alert("회원정보가 없습니다.");
+      } else if (err.response.data.code === -6009) {
+        alert("잘못된 비밀번호입니다.");
+      } else if (err.response.data.code === -6002) {
+        alert(err.response.data.message);
+      } else if (err.response.data.code === -6001) {
+        alert(err.response.data.message);
+      }
     }
   }
 

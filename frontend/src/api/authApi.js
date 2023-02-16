@@ -10,6 +10,36 @@ const REISSUE_PATH = "/reissue";
 const BASIC_LOGOUT_PATH = "/basic/logout";
 const KAKAO_SIGNIN_PATH = "/kakao/login";
 const KAKAO_LOGOUT_PATH = "/kakao/logout";
+const KAKAO_WITHDRAW_PATH = "/kakao/withdraw";
+const BASIC_WITHDRAW_PATH = "/basic/withdraw";
+
+export async function kakaoWithdraw(accessToken, refreshToken, socialToken) {
+  return await axios.post(
+    AUTH_URL + KAKAO_WITHDRAW_PATH,
+    { socialToken: socialToken },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+        REFRESH: refreshToken,
+      },
+    }
+  );
+}
+
+export async function basicWithdraw(accessToken, refreshToken) {
+  return await axios.post(
+    AUTH_URL + BASIC_WITHDRAW_PATH,
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+        REFRESH: refreshToken,
+      },
+    }
+  );
+}
 
 export async function signUp(userData) {
   return await axios.post(

@@ -16,7 +16,11 @@ import {
   Select,
 } from "../../style/CourseCss";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { courseWishApi, courseWishCheckApi } from "../../api/courseApi";
+import {
+  courseWishApi,
+  courseWishCheckApi,
+  getUserEnrollStatusApi,
+} from "../../api/courseApi";
 import {
   getAccessTokenSelector,
   getLoginState,
@@ -71,6 +75,7 @@ export default function CoursePayment({
   const memberId = useRecoilValue(getMemberIdSelector);
   const loginState = useRecoilValue(getLoginState);
   const [isWishState, setIsWishState] = useState(false);
+  const [isAlreadyIn, setIsAlereadyIn] = useState(false);
   const [isWishPushState, setIsWishPushState] = useState();
   const [selectTicket, setSelectTicket] = useState({
     id: ticketInfo[0]?.id,
@@ -119,6 +124,40 @@ export default function CoursePayment({
     }
   };
 
+  const goPurchase = () => {
+    if (loginState) {
+      if (isAlreadyIn) {
+        alert("이미 구입한 강좌입니다.");
+      } else {
+        navigate(
+          `${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket.id}`,
+          {
+            state: {
+              price: ticketInfo[selectTicket.idx].discountedPrice,
+            },
+          }
+        );
+      }
+    } else {
+      alert("로그인이 필요해요!");
+    }
+  };
+
+  const checkUserEnroll = () => {
+    if (loginState) {
+      getUserEnrollStatusApi(accessToken, courseId)
+        .then(({ data }) => {
+          if (data) {
+            setIsAlereadyIn(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  useEffect(checkUserEnroll, []);
   return (
     <PaymentBox>
       <IconBox>
@@ -172,20 +211,7 @@ export default function CoursePayment({
         </Tab>
       </PriceBox>
 
-      <PurchaseBtn
-        onClick={() => {
-          navigate(
-            `${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket.id}`,
-            {
-              state: {
-                price: ticketInfo[selectTicket.idx].discountedPrice,
-              },
-            }
-          );
-        }}
-      >
-        결제
-      </PurchaseBtn>
+      <PurchaseBtn onClick={goPurchase}>결제</PurchaseBtn>
     </PaymentBox>
   );
 }

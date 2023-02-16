@@ -229,9 +229,10 @@ export default function Header() {
       state: false,
       isKakao: false,
       isBasic: false,
-      memberId: 0,
+      memberId: -1,
       accessToken: "",
       refreshToken: "",
+      creatorId: -1,
     });
     queryClient.clear();
     navigate("/");

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { PROCESS_MAIN_URL } from "../static";
 
 const DaboomFooter = styled.footer`
   width: 1100px;
@@ -46,7 +47,7 @@ export default function Footer() {
     <DaboomFooter>
       <InfoFooterBox>
         <InfoLink>공지사항</InfoLink>
-        <InfoLink>이용 약관</InfoLink>
+        <InfoLink to={PROCESS_MAIN_URL.PRIVACY}>이용 약관</InfoLink>
         <InfoLink>개인정보 처리 방침</InfoLink>
       </InfoFooterBox>
       <br />

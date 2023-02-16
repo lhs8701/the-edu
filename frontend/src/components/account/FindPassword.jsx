@@ -64,10 +64,20 @@ export default function FindPassword() {
 
   const submit = () => {
     setIsSubmit(true);
-    resetPwdApi(isID).then(({ data }) => {
-      alert(data.email + "로 임시 비밀번호를 보냈어요");
-      navigate(-1);
-    });
+    resetPwdApi(isID)
+      .then(({ data }) => {
+        alert(data.email + "로 임시 비밀번호를 보냈어요");
+        navigate(-1);
+      })
+      .catch((err) => {
+        if (err.response.data.code === -6008) {
+          alert(err.response.data.message);
+        } else {
+          alert(err);
+        }
+
+        setIsSubmit(false);
+      });
   };
 
   return (

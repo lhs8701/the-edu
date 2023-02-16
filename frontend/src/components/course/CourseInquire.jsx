@@ -64,7 +64,9 @@ export default function CourseInquire({ courseId }) {
           memberId
         );
 
-        if (data) {
+        if (data.code === -7001) {
+          alert("로그인 후 서비스를 이용할 수 있습니다.");
+        } else if (data.id) {
           window.location.reload();
         }
       } catch (err) {

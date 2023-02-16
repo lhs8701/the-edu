@@ -49,6 +49,7 @@ export const PROCESS_MAIN_URL = {
   EVENT: "/event",
   SEARCH: "/search",
   PLAYER: "/player",
+  PRIVACY: "/privacyterms",
 };
 
 export const BAR_LIST = {
