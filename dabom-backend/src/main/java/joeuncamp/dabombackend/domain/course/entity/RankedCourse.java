@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RankedCourse extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String title;
