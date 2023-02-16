@@ -76,11 +76,9 @@ public class TestController {
     @Operation(summary = "토스 txId 발급 테스트", description = "")
     @PreAuthorize("permitAll()")
     @PostMapping("/test/toss-txId")
-    public ResponseEntity<?> issueTxId(@RequestBody MemberPrivacy memberPrivacy) {
+    public ResponseEntity<?> issueTxId() {
         String accessToken = tossService.issueToken();
-        log.info(accessToken);
-        TxIdResponse response = tossService.issueTxId(accessToken, memberPrivacy);
-        log.info("{}",response);
+        TxIdResponse response = tossService.issueTxId(accessToken);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 //

@@ -14,10 +14,7 @@ public class TxIdResponse {
     @ToString
     public static class Success{
         String txId;
-        String appScheme;
-        String androidAppUri;
-        String iosAppUri;
-//        String authUrl;
+        String authUrl;
     }
     @Getter
     @ToString

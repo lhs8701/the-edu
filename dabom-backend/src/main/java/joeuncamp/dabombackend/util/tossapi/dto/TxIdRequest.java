@@ -8,19 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class TxIdRequest {
     String requestType;
-    String triggerType;
-    String userName;
-    String userPhone;
-    String userBirthday;
-    String sessionKey;
-
-    @Builder
-    public TxIdRequest(String userName, String userPhone, String userBirthday, String sessionKey){
-        this.requestType = "USER_PERSONAL";
-        this.triggerType = "APP_SCHEME";
-        this.userName = userName;
-        this.userPhone = userPhone;
-        this.userBirthday = userBirthday;
-        this.sessionKey = sessionKey;
+    public TxIdRequest(){
+        this.requestType = "USER_NONE";
     }
 }

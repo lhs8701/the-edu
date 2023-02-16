@@ -92,10 +92,9 @@ public class TossService {
      * @param accessToken 토스 어세스토큰
      * @return txid
      */
-    public TxIdResponse issueTxId(String accessToken, MemberPrivacy memberPrivacy) {
+    public TxIdResponse issueTxId(String accessToken) {
         WebClient webClient = WebClient.create();
-        TxIdRequest request = getTxIdRequest(memberPrivacy);
-        log.info("{}",request);
+        TxIdRequest request = new TxIdRequest();
         return webClient.method(HttpMethod.POST)
                 .uri(TXID_API)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -143,32 +142,6 @@ public class TossService {
                 .retrieve()
                 .bodyToMono(AuthResultResponse.class)
                 .block();
-    }
-
-    /**
-     * 토스 본인인증 결과로 받은 개인정보를 복호화합니다.
-     *
-     * @param authResultResponse 토스 본인인증 결과  DTO
-     * @param tossCertSession 토스 세션
-     * @return 회원 개인정보
-     */
-    public MemberPrivacy decryptPersonalData(AuthResultResponse authResultResponse, TossCertSession tossCertSession) {
-        AuthResultResponse.Success.PersonalData personalData = authResultResponse.getSuccess().getPersonalData();
-        return MemberPrivacy.builder()
-                .userName(tossCertSession.decrypt(personalData.getName()))
-                .userPhone(tossCertSession.decrypt(personalData.getPhone()))
-                .userBirthday(tossCertSession.decrypt(personalData.getBirthday()))
-                .build();
-    }
-
-    private TxIdRequest getTxIdRequest(MemberPrivacy memberPrivacy) {
-        TossCertSession tossCertSession = tossCertSessionGenerator.generate();
-        return TxIdRequest.builder()
-                .userName(tossCertSession.encrypt(memberPrivacy.getUserName()))
-                .userPhone(tossCertSession.encrypt(memberPrivacy.getUserPhone()))
-                .userBirthday(tossCertSession.encrypt(memberPrivacy.getUserBirthday()))
-                .sessionKey(tossCertSession.getSessionKey())
-                .build();
     }
 }
 
