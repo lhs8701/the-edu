@@ -13,6 +13,7 @@ import joeuncamp.dabombackend.global.error.exception.*;
 import joeuncamp.dabombackend.util.tossapi.TossService;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class PayOrderService implements OrderService {
     @Autowired
@@ -67,8 +69,8 @@ public class PayOrderService implements OrderService {
         return orderJpaRepository.save(order);
     }
 
-    private Optional<Coupon> getCoupon(OrderDto.Request requestDto){
-        if (requestDto.getCouponId() == null){
+    private Optional<Coupon> getCoupon(OrderDto.Request requestDto) {
+        if (requestDto.getCouponId() == null) {
             return Optional.empty();
         }
         return couponJpaRepository.findById(requestDto.getCouponId());
@@ -78,6 +80,8 @@ public class PayOrderService implements OrderService {
         long originalPrice = item.getPrice().getDiscountedPrice();
         long discountedByCoupon = 0;
         long discountedByPoint = requestDto.getPoint();
+        log.info("원래 가격:{}", originalPrice);
+
         if (couponOptional.isPresent()) {
             validateCoupon(requestDto, member, item);
             discountedByCoupon = couponOptional.get().calculateDiscountedPrice(originalPrice);
@@ -85,7 +89,9 @@ public class PayOrderService implements OrderService {
         if (requestDto.getPoint() != 0) {
             validatePoint(requestDto, member);
         }
-        if (originalPrice - (discountedByCoupon + discountedByPoint) != requestDto.getTossPayDto().getTossAmount()){
+        log.info("쿠폰 할인:{}", discountedByCoupon);
+        log.info("포인트 할인:{}", discountedByPoint);
+        if (originalPrice - (discountedByCoupon + discountedByPoint) != requestDto.getTossPayDto().getTossAmount()) {
             throw new CPaymentException("결제 금액이 상이합니다.");
         }
     }
