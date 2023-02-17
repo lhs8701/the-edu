@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.order.entity;
 
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.member.entity.Member;
+import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,12 +19,12 @@ public class PayOrder extends Order {
     PayType payType;
 
     @Builder
-    public PayOrder(String id, String name, Item item, Member member, long amount, PayType payType){
-        this.id = id;
-        this.name = name;
-        this.item = item;
+    public PayOrder(PaymentInfo paymentInfo, Member member, Item item){
+        this.id = paymentInfo.getOrderId();
+        this.name = paymentInfo.getOrderName();
+        this.amount = paymentInfo.getTotalAmount();
+        this.payType = PayType.findByMethod(paymentInfo.getMethod());
         this.member = member;
-        this.amount = amount;
-        this.payType = payType;
+        this.item = item;
     }
 }

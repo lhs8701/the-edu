@@ -35,7 +35,6 @@ public class CourseRepositoryTest {
                 .title(ExampleValue.Course.TITLE)
                 .description(ExampleValue.Course.DESCRIPTION)
                 .category(ExampleValue.Course.CATEGORY)
-                .price(159000)
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.creator.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
@@ -47,6 +48,11 @@ public class CreatorCourseService {
         CreatorProfile creator = member.getCreatorProfile();
         Course course = requestDto.toEntity(creator);
         courseJpaRepository.save(course);
+        doDefaultSettings(member, course);
+        return course.getId();
+    }
+
+    private void doDefaultSettings(Member member, Course course) {
         Enroll enroll = Enroll.builder()
                 .course(course)
                 .member(member)
@@ -54,7 +60,7 @@ public class CreatorCourseService {
         enroll.setEndDate(MAX_DATE);
         enrollJpaRepository.save(enroll);
         chapterService.saveDefaultChapter(course);
-        return course.getId();
+        ticketService.createPaidTickets(course);
     }
 
     /**
@@ -79,8 +85,11 @@ public class CreatorCourseService {
      * @param courseId   강좌
      * @param chargeType 유료/무료
      */
+    @Transactional
     public void selectFreeOrPayOfCourse(Long courseId, ChargeType chargeType) {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
         chargeType.createTicket(course, ticketService);
+        course.setChargeType(chargeType);
+        courseJpaRepository.save(course);
     }
 }

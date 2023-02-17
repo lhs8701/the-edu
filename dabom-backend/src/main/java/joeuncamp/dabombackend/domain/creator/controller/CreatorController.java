@@ -57,7 +57,7 @@ public class CreatorController {
     @PostMapping("/creators/me/standby")
     public ResponseEntity<Void> standByCreator(@RequestBody CreatorDto.StandByRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
-        creatorActivator.standByMember(requestDto);
+        creatorActivator.registerCreator(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
