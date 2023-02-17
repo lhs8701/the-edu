@@ -12,7 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class CouponDto {
     @Getter
@@ -22,8 +21,6 @@ public class CouponDto {
         String name;
         @Schema(description = "최소 사용 금액")
         long minimumAmount;
-        @Schema(description = "정액할인 / 정률할인(%)", example = "FIX / RATE")
-        DiscountPolicy discountPolicy;
         @Schema(description = "할인액")
         long discount;
         @Schema(description = "유효기간")
@@ -33,7 +30,7 @@ public class CouponDto {
         public Coupon toEntity() {
             return Coupon.builder()
                     .name(this.name)
-                    .discountPolicy(this.discountPolicy)
+                    .discountPolicy(DiscountPolicy.RATE)
                     .discount(this.discount)
                     .endDate(this.endDate)
                     .minimumAmount(this.minimumAmount)

@@ -7,11 +7,6 @@ public enum DiscountPolicy {
         long calculate(long value, long discount){
             return value * (100 - discount / 100);
         }
-    },
-    FIX {
-        long calculate(long value, long discount){
-            return value - discount;
-        }
     };
     abstract long calculate(long value, long discount);
 }
