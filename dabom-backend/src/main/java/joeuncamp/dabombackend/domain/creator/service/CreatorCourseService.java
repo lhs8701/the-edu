@@ -6,9 +6,11 @@ import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.course.service.ChapterService;
+import joeuncamp.dabombackend.domain.course.service.TicketService;
 import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
+import joeuncamp.dabombackend.global.constant.ChargeType;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CNotCreatorException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -26,6 +28,7 @@ public class CreatorCourseService {
     private final LocalDateTime MAX_DATE = LocalDateTime.of(3000, 12, 31, 0, 0, 0);
     private final ChapterService chapterService;
     private final EnrollJpaRepository enrollJpaRepository;
+    private final TicketService ticketService;
 
     /**
      * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
@@ -68,5 +71,16 @@ public class CreatorCourseService {
         return courseJpaRepository.findByCreatorProfile(member.getCreatorProfile()).stream()
                 .map(CourseDto.CreatorResponse::new)
                 .toList();
+    }
+
+    /**
+     * 강좌의 지불 방식을 선택합니다.
+     *
+     * @param courseId   강좌
+     * @param chargeType 유료/무료
+     */
+    public void selectFreeOrPayOfCourse(Long courseId, ChargeType chargeType) {
+        Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
+        chargeType.createTicket(course, ticketService);
     }
 }

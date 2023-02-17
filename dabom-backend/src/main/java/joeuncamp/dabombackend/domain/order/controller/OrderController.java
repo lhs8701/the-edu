@@ -5,12 +5,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.course.dto.TicketDto;
-import joeuncamp.dabombackend.domain.course.service.CourseTicketService;
+import joeuncamp.dabombackend.domain.course.service.TicketService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.order.dto.OrderDto;
 import joeuncamp.dabombackend.domain.order.dto.OrderSheetDto;
 import joeuncamp.dabombackend.domain.order.service.OrderSheetService;
-import joeuncamp.dabombackend.domain.order.service.PayOrderService;
 import joeuncamp.dabombackend.domain.order.service.OrderSystem;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
@@ -30,25 +29,14 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/api")
 public class OrderController {
-    private final CourseTicketService courseTicketService;
+    private final TicketService ticketService;
     private final OrderSheetService orderSheetService;
     private final OrderSystem orderSystem;
-
-    @Operation(summary = "강좌 수강권 설정", description = "수강권의 금액을 설정합니다.")
-    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
-    @PostMapping("/courses/{courseId}/tickets")
-    public ResponseEntity<Void> setTicket(@PathVariable Long courseId, @RequestBody TicketDto.Request requestDto, @AuthenticationPrincipal Member member) {
-        requestDto.setMemberId(member.getId());
-        requestDto.setCourseId(courseId);
-        courseTicketService.updatePrice(requestDto);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @Operation(summary = "강좌 수강권 조회", description = "")
     @GetMapping("/courses/{courseId}/tickets")
     public ResponseEntity<List<TicketDto.Response>> getTickets(@PathVariable Long courseId) {
-        List<TicketDto.Response> responseDto = courseTicketService.getTickets(courseId);
+        List<TicketDto.Response> responseDto = ticketService.getTickets(courseId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

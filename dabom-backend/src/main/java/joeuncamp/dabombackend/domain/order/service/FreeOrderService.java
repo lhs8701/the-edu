@@ -46,12 +46,6 @@ public class FreeOrderService implements OrderService {
     public Order saveOrder(OrderDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
-
-        long price = item.getPrice().getDiscountedPrice();
-        if (price != 0) {
-            throw new CBadRequestException("무료 상품 주문에 실패했습니다.");
-        }
-
         Order order = FreeOrder.builder()
                 .id(UUID.randomUUID().toString())
                 .name(item.getProductName())

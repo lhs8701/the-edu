@@ -44,7 +44,7 @@ public class PayOrderService implements OrderService {
      * 주문을 완료합니다.
      * 이후, 상품의 종류에 따라 적절한 후속 조치가 취해집니다.
      *
-     * @param requestDto     request
+     * @param requestDto request
      */
     @Override
     public Order saveOrder(OrderDto.Request requestDto) {

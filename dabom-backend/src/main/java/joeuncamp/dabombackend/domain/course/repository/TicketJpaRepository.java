@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface TicketJpaRepository extends JpaRepository<Ticket, Long> {
     Optional<Ticket> findByCourseAndCoursePeriod(Course course, CoursePeriod coursePeriod);
+
+    void deleteByCourse(Course course);
 }

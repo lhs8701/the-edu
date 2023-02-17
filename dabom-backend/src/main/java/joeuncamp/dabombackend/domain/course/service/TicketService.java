@@ -1,11 +1,13 @@
 package joeuncamp.dabombackend.domain.course.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.TicketDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.TicketJpaRepository;
 import joeuncamp.dabombackend.domain.order.entity.CoursePeriod;
 import joeuncamp.dabombackend.domain.order.entity.Ticket;
+import joeuncamp.dabombackend.global.constant.ChargeType;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CourseTicketService {
+public class TicketService {
     private final CourseJpaRepository courseJpaRepository;
     private final TicketJpaRepository ticketJpaRepository;
 
@@ -32,14 +34,33 @@ public class CourseTicketService {
     }
 
     /**
-     * 기본 수강권을 생성합니다.
+     * 기본 유료 수강권을 생성합니다.
+     * 기존의 수강권은 모두 삭제됩니다.
      * 가격은 초기값인 1000원으로 설정됩니다.
      *
-     * @param course
+     * @param course 강좌
      */
-    public void createDefaultTickets(Course course) {
-        List<Ticket> tickets = List.of(new Ticket(course, CoursePeriod.THREE_MONTH), new Ticket(course, CoursePeriod.SIX_MONTH), new Ticket(course, CoursePeriod.UNLIMITED));
+    @Transactional
+    public void createPaidTickets(Course course) {
+        ticketJpaRepository.deleteByCourse(course);
+        Ticket threeMonthTicket = Ticket.newPaidTicket(course, CoursePeriod.THREE_MONTH);
+        Ticket sixMonthTicket = Ticket.newPaidTicket(course, CoursePeriod.SIX_MONTH);
+        Ticket unlimitedTicket = Ticket.newPaidTicket(course, CoursePeriod.UNLIMITED);
+        List<Ticket> tickets = List.of(threeMonthTicket, sixMonthTicket, unlimitedTicket);
         ticketJpaRepository.saveAll(tickets);
+    }
+
+    /**
+     * 기본 무료 수강권을 생성합니다.
+     * 기존의 수강권은 모두 삭제됩니다.
+     *
+     * @param course 강좌
+     */
+    @Transactional
+    public void createFreeTicket(Course course) {
+        ticketJpaRepository.deleteByCourse(course);
+        Ticket freeTicket = Ticket.newFreeTicket(course);
+        ticketJpaRepository.save(freeTicket);
     }
 
     /**
