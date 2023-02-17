@@ -32,8 +32,7 @@ public class Coupon {
     LocalDate endDate;
 
     public boolean isValid(Item item) {
-        return LocalDate.now().isBefore(endDate.plusDays(1))
-                && this.getMinimumAmount() <= item.getPrice().getDiscountedPrice();
+        return LocalDate.now().isBefore(endDate) && this.getMinimumAmount() <= item.getPrice().getDiscountedPrice();
     }
 
     public long calculateDiscountedPrice(long price){

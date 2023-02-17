@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Getter
-@AllArgsConstructor
-@Builder
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
 @Table(name = "orders")
-public class Order extends BaseTimeEntity {
+public abstract class Order extends BaseTimeEntity {
     @Id
     String id;
     String name;
@@ -24,7 +24,4 @@ public class Order extends BaseTimeEntity {
     @OneToOne
     @JoinColumn
     Member member;
-    long amount;
-    @Enumerated(value = EnumType.STRING)
-    PayType payType;
 }
