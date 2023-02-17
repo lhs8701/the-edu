@@ -11,9 +11,9 @@ import Alamofire
 struct EventDataService {
     static let shared = EventDataService()
     
+    // MARK: - 이벤트 상세 정보 가져오기
     func getEvent(eventId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getEvent)/\(eventId)"
-        print(URL)
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
@@ -37,10 +37,8 @@ struct EventDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("statusCode 400")
             return .pathErr
         case 401, 404:
-            print("잘못된 리소스")
             return .resourceErr
         case 500:
             return .serverErr
