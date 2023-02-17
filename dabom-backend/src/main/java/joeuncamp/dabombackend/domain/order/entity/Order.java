@@ -43,7 +43,6 @@ public class Order extends BaseTimeEntity {
         this.item = item;
     }
 
-    @Builder
     public Order(Member member, Item item){
         this.id = UUID.randomUUID().toString();
         this.name = item.getProductName();
@@ -63,10 +62,7 @@ public class Order extends BaseTimeEntity {
     }
 
     public static Order FreeOrder(Member member, Item item){
-        return Order.builder()
-                .member(member)
-                .item(item)
-                .build();
+        return new Order(member, item);
     }
 
 }
