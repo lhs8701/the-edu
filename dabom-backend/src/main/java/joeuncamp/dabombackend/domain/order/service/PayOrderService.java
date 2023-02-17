@@ -46,7 +46,7 @@ public class PayOrderService implements OrderService {
     @Override
     public Order saveOrder(OrderDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
-        if (member.isCertified()){
+        if (!member.isCertified()){
             throw new CMemberNotCertifiedException();
         }
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
