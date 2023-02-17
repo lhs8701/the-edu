@@ -12,18 +12,34 @@ import AuthenticationServices
 
 class SignupSelectVC: UIViewController {
     
+    // MARK: - IBOutlet
+    
     @IBOutlet weak var emailSignupBtn: UIButton!
+    
+    
+    // MARK: - let, var
     
     var rootView: LoginSignupVC?
     
+    
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureView()
+    }
+    
+    
+    // MARK: - configure
+    
+    private func configureView() {
         self.emailSignupBtn.layer.cornerRadius = 5
     }
     
+    
     // MARK: - 이메일 회원가입
+    
     @IBAction func emailSignupBtnPressed(_ sender: Any) {
         self.dismiss(animated: true) {
             let nextVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.signup) as! SignupVC
@@ -32,7 +48,9 @@ class SignupSelectVC: UIViewController {
         }
     }
     
+    
     // MARK: - 카카오톡 회원가입
+    
     @IBAction func kakaoSignup(_ sender: Any) {
         // 카카오톡 앱으로 로그인 가능하면
         if (UserApi.isKakaoTalkLoginAvailable()) {
@@ -40,15 +58,11 @@ class SignupSelectVC: UIViewController {
                 if let error = error {
                     print(error)
                 } else {
-                    print("loginWithKakaoTalk() success")
-                    
                     let accessToken = String(oauthToken?.accessToken ?? "")
-                    //                    let refreshToken = oauthToken?.refreshToken
                     
                     AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
                         switch (response) {
                         case .success:
-                            print("kakaoLogin Success")
                             UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
                             UserDefaults.standard.setValue("kakao", forKey: "loginType")
                             AuthenticationService.shared.goToMain()
@@ -71,15 +85,11 @@ class SignupSelectVC: UIViewController {
                 if let error = error {
                     print(error)
                 } else {
-                    print("loginWithKakaoAccount() success")
-                    
                     let accessToken = String(oauthToken?.accessToken ?? "")
-                    //                    let refreshToken = oauthToken?.refreshToken
                     
                     AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
                         switch (response) {
                         case .success:
-                            print("kakaoLogin Success")
                             UserDefaults.standard.setValue("kakao", forKey: "loginType")
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
@@ -99,7 +109,9 @@ class SignupSelectVC: UIViewController {
         }
     }
     
+    
     // MARK: - Apple 회원가입
+    
     @IBAction func appleSignup(_ sender: Any) {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
@@ -112,6 +124,7 @@ class SignupSelectVC: UIViewController {
         
     }
     
+    // 이미 가입된 회원일 때 dismiss 후 로그인 화면으로 이동
     func goToLogin() {
         self.dismiss(animated: true) {
             let nextVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.login) as! LoginVC
@@ -133,14 +146,9 @@ extension SignupSelectVC: ASAuthorizationControllerDelegate {
     // MARK: - Apple 인증 성공 시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            print(appleIDCredential)
             let userIdentifier = appleIDCredential.user
-            print(userIdentifier)
             let userName = (appleIDCredential.fullName?.familyName ?? "") + (appleIDCredential.fullName?.givenName ?? "")
             let email = appleIDCredential.email ?? ""
-            print(email)
-            print(userIdentifier)
-            print(userName)
             
             AuthenticationService.shared.appleSignup(socialToken: userIdentifier, email: email, nickname: userName) { response in
                 switch (response) {
@@ -181,10 +189,9 @@ extension SignupSelectVC: ASAuthorizationControllerDelegate {
                     self.present(alert, animated: true)
                 }
             }
-            
-            
         }
     }
+    
     
     // MARK: - Apple 인증 실패 시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
@@ -195,4 +202,5 @@ extension SignupSelectVC: ASAuthorizationControllerDelegate {
         alert.addAction(confirm)
         self.present(alert, animated: true)
     }
+    
 }

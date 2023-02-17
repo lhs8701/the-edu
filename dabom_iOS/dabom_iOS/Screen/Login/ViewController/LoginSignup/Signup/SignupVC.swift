@@ -9,45 +9,94 @@ import UIKit
 
 class SignupVC: UIViewController {
     // MARK: - IBOutlet
-    @IBOutlet var defaultHidden: [UILabel]!
     
+    @IBOutlet var defaultHidden: [UILabel]!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var emailTextFieldDesc: UILabel!
-    
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordTextFieldDesc: UILabel!
-    
     @IBOutlet weak var passwordConfirmTextField: UITextField!
     @IBOutlet weak var passwordConfirmDesc: UILabel!
-    
     @IBOutlet weak var nameTextField: UITextField!
-        
     @IBOutlet weak var signupBtn: UIButton!
     
     
-    
     // MARK: - let, var
-    let datePicker = UIDatePicker()
     
     var User = UserDataModel()
     
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        configureView()
+        textFieldSetting()
+        hideKeyboardWhenTappedAround()
+    }
+    
+    
+    // MARK: - configure
+    
+    private func configureView() {
         for label in defaultHidden {
             label.isHidden = true
         }
         
-        self.textFieldSetting()
-        self.hideKeyboardWhenTappedAround()
         self.signupBtn.layer.cornerRadius = 10
     }
     
     
+    // MARK: - setting
+    
+    private func textFieldSetting() {
+        // delegate 설정
+        self.emailTextField.delegate = self
+        self.passwordTextField.delegate = self
+        self.passwordConfirmTextField.delegate = self
+        self.nameTextField.delegate = self
+        
+        self.emailTextField.placeholder = "sample@gmail.com"
+        self.passwordTextField.placeholder = "영문, 숫자, 특수문자 포함 8 ~ 16자"
+        self.nameTextField.placeholder = "2 ~ 16자 닉네임"
+    }
+    
+    
+    // MARK: - 유효성 검사
+    
+    func isValidEmail(id: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: id)
+    }
+    
+    func isValidPassword(pwd: String) -> Bool {
+        let passwordRegEx = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$"
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
+        return passwordTest.evaluate(with: pwd)
+    }
+    
+    func isValidNickname(nickname: String) -> Bool {
+        if nickname.count >= 2 && nickname.count <= 16 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
+    // MARK: - 회원 가입 이후에 로그인 화면으로 이동
+    
+    func goToLogin() {
+        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.login) as? LoginVC else {return}
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    
     // MARK: - IBAction
+    
     @IBAction func signupBtnPressed(_ sender: Any) {
         // 이메일, 비밀번호 입력 여부
         guard let email = emailTextField.text, !email.isEmpty else {
@@ -92,7 +141,6 @@ class SignupVC: UIViewController {
         AuthenticationService.shared.emailSignup(user: User) { response in
             switch (response) {
             case .success:
-                print("signup Success")
                 self.goToLogin()
             case .requestErr(let message):
                 print("requestErr", message)
@@ -111,60 +159,13 @@ class SignupVC: UIViewController {
                 self.present(alert, animated: true)
             }
         }
-        
-        print(email)
-        print(password)
-        
-        
     }
-    
-    // MARK: - setting
-    func textFieldSetting() {
-        // delegate 설정
-        self.emailTextField.delegate = self
-        self.passwordTextField.delegate = self
-        self.passwordConfirmTextField.delegate = self
-        self.nameTextField.delegate = self
-        
-        self.emailTextField.placeholder = "sample@gmail.com"
-        self.passwordTextField.placeholder = "영문, 숫자, 특수문자 포함 8 ~ 16자"
-        self.nameTextField.placeholder = "2 ~ 16자 닉네임"
-        
-    }
-    
-    
-    
-    // MARK: - 유효성 검사
-    func isValidEmail(id: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: id)
-    }
-    
-    func isValidPassword(pwd: String) -> Bool {
-        let passwordRegEx = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$"
-        let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
-        return passwordTest.evaluate(with: pwd)
-    }
-    
-    func isValidNickname(nickname: String) -> Bool {
-        if nickname.count >= 2 && nickname.count <= 16 {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    
-    func goToLogin() {
-        guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.loginSignup, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.login) as? LoginVC else {return}
-        
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
-    
+
 }
 
+
 // MARK: - extension
+
 extension SignupVC: UITextFieldDelegate {
     // 리턴 시에 유효성 검사
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
