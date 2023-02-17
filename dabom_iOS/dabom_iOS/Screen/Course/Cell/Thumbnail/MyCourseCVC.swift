@@ -8,8 +8,8 @@
 import UIKit
 
 class MyCourseCVC: UICollectionViewCell {
-    
-    static let identifier = "MyCourseCVC"
+
+    // MARK: - IBOutlet
 
     @IBOutlet weak var thumbnailImage: UIImageView!
     @IBOutlet weak var courseTitle: UILabel!
@@ -17,13 +17,27 @@ class MyCourseCVC: UICollectionViewCell {
     @IBOutlet weak var progressUnitCount: UILabel!
     @IBOutlet weak var totalUnitCount: UILabel!
     @IBOutlet weak var percentage: UILabel!
-    
     @IBOutlet weak var progressBar: UIProgressView!
+    
+    
+    // MARK: - let, var
+    
+    static let identifier = "MyCourseCVC"
+    
+    
+    // MARK: - Life Cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
+        configureView()
+    }
+
+    
+    // MARK: - configure
+    
+    private func configureView() {
         layer.masksToBounds = false
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5
@@ -35,7 +49,10 @@ class MyCourseCVC: UICollectionViewCell {
         
         courseTitle.adjustsFontSizeToFitWidth = true
     }
-
+    
+    
+    // MARK: - func
+    
     func setData(_ myCourseData: MyCourseDataModel) {
         let rate = Float(myCourseData.completedUnits) / Float(myCourseData.entireUnits)
         
@@ -48,4 +65,5 @@ class MyCourseCVC: UICollectionViewCell {
         percentage.text = String(format: "%.1f", rate * 100)
         progressBar.progress = rate
     }
+    
 }

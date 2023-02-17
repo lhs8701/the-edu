@@ -9,19 +9,36 @@ import UIKit
 
 class CourseThumbnailCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "CourseThumbnailCollectionViewCell"
+    // MARK: - IBOutlet
     
     @IBOutlet weak var thumbnailImage: UIImageView!
     @IBOutlet weak var courseTitle: UILabel!
     @IBOutlet weak var creatorName: UILabel!
     @IBOutlet weak var categoryName: UILabel!
     
+    
+    // MARK: - let, var
+    
+    static let identifier = "CourseThumbnailCollectionViewCell"
+    
+    
+    // MARK: - Life Cycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        configureView()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
         
-//        self.layer.cornerRadius = 7
-//        self.clipsToBounds = true
+    }
+    
+    
+    // MARK: - configure
+    
+    private func configureView() {
         layer.masksToBounds = false
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5
@@ -34,11 +51,8 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
         contentView.layer.masksToBounds = true
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-    }
     
+    // MARK: - func
     
     func setData(_ thumbnailData: CourseThumbnailDataModel) {
         thumbnailImage.image = thumbnailData.thumbnailImage
@@ -50,7 +64,6 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
     }
     
     func setTemp(_ thumbnailData: SampleCourseThumbnail) {
-//        thumbnailImage.image = UIImage(named: "testThumb01")
         thumbnailImage.setImage(with: thumbnailData.thumbnailImage.mediumFilePath)
         courseTitle.text = thumbnailData.title
         creatorName.text = thumbnailData.instructor
