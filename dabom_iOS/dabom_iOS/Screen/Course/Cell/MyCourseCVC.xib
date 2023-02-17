@@ -27,8 +27,8 @@
                                     <constraint firstAttribute="width" secondItem="Vo4-c2-Nwp" secondAttribute="height" multiplier="2:1" id="hgc-oH-uET"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEt-qY-wjE">
-                                <rect key="frame" x="9.9999999999999964" y="95" width="55.666666666666657" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강좌 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEt-qY-wjE">
+                                <rect key="frame" x="10" y="95" width="150" height="18"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="강의">
                                         <attributes>
-                                            <font key="NSFont" size="14" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="2" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -51,7 +51,7 @@
                                     </fragment>
                                     <fragment content="제목">
                                         <attributes>
-                                            <font key="NSFont" size="14" name=".AppleSDGothicNeoI-Regular"/>
+                                            <font key="NSFont" metaFont="system" size="14"/>
                                             <font key="NSOriginalFont" metaFont="menu" size="14"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="2" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -99,6 +99,7 @@
                         <constraints>
                             <constraint firstItem="kEO-iV-eMw" firstAttribute="top" secondItem="Ccb-05-Aph" secondAttribute="bottom" constant="8" symbolic="YES" id="0Uh-Vv-SJ4"/>
                             <constraint firstItem="kEO-iV-eMw" firstAttribute="leading" secondItem="Nnm-VR-RCW" secondAttribute="leading" constant="10" id="191-R5-uCc"/>
+                            <constraint firstAttribute="trailing" secondItem="eEt-qY-wjE" secondAttribute="trailing" constant="10" id="1hh-S7-Zai"/>
                             <constraint firstItem="kEO-iV-eMw" firstAttribute="top" secondItem="ejr-Zd-hhN" secondAttribute="bottom" constant="9" id="3oi-UZ-b5e"/>
                             <constraint firstItem="nfn-kX-PXC" firstAttribute="leading" secondItem="ejr-Zd-hhN" secondAttribute="trailing" constant="3" id="8Um-QY-slC"/>
                             <constraint firstItem="Vo4-c2-Nwp" firstAttribute="leading" secondItem="Nnm-VR-RCW" secondAttribute="leading" id="EGp-RB-2He"/>

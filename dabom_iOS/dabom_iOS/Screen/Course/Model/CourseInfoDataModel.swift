@@ -17,7 +17,6 @@ struct CourseInfoDataModel: Codable {
     let thumbnailImage: ImageDataModel
     let descriptionImages: [ImageDataModel]
     let score: Double
-    let price: Int
     let wish: Int
 }
 

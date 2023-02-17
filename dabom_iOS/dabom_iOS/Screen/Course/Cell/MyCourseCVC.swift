@@ -32,6 +32,8 @@ class MyCourseCVC: UICollectionViewCell {
 
         contentView.layer.cornerRadius = 7
         contentView.layer.masksToBounds = true
+        
+        courseTitle.adjustsFontSizeToFitWidth = true
     }
 
     func setData(_ myCourseData: MyCourseDataModel) {

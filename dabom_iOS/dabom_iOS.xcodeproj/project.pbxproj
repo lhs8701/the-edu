@@ -29,6 +29,8 @@
 		0E1E95A12978CE0700CBE70B /* UserGrantInfoDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95A02978CE0700CBE70B /* UserGrantInfoDataModel.swift */; };
 		0E1E95DE297BB90600CBE70B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95DD297BB90600CBE70B /* Image.swift */; };
 		0E1E95E0297BBD9300CBE70B /* OnOffDescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E95DF297BBD9300CBE70B /* OnOffDescriptionVC.swift */; };
+		0E283D16299F14FB00CDF76F /* TicketDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E283D15299F14FB00CDF76F /* TicketDataService.swift */; };
+		0E283D18299F157A00CDF76F /* TicketDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E283D17299F157A00CDF76F /* TicketDataModel.swift */; };
 		0E376A0E2995C74100C42180 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E376A0D2995C74100C42180 /* NetworkMonitor.swift */; };
 		0E376A102995C8D900C42180 /* ShowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E376A0F2995C8D900C42180 /* ShowVC.swift */; };
 		0E376A122995C8F600C42180 /* NetworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E376A112995C8F600C42180 /* NetworkVC.swift */; };
@@ -187,6 +189,8 @@
 		0E1E95A2297916B400CBE70B /* dabom_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dabom_iOS.entitlements; sourceTree = "<group>"; };
 		0E1E95DD297BB90600CBE70B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		0E1E95DF297BBD9300CBE70B /* OnOffDescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnOffDescriptionVC.swift; sourceTree = "<group>"; };
+		0E283D15299F14FB00CDF76F /* TicketDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketDataService.swift; sourceTree = "<group>"; };
+		0E283D17299F157A00CDF76F /* TicketDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketDataModel.swift; sourceTree = "<group>"; };
 		0E376A0D2995C74100C42180 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		0E376A0F2995C8D900C42180 /* ShowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVC.swift; sourceTree = "<group>"; };
 		0E376A112995C8F600C42180 /* NetworkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkVC.swift; sourceTree = "<group>"; };
@@ -480,6 +484,7 @@
 			children = (
 				0E602834296665C600A25F48 /* CourseThumbnailDataModel.swift */,
 				0EDD52292994BB11008731CD /* CurriculumDataModel.swift */,
+				0E283D17299F157A00CDF76F /* TicketDataModel.swift */,
 				0EC314E029875753004C82CF /* CourseReviewDataModel.swift */,
 				0EC314E429876491004C82CF /* CourseInquiryDataModel.swift */,
 				0EAF7B52298256CE00F65E5A /* SampleCourseThumbnail.swift */,
@@ -608,6 +613,7 @@
 				0E1E959A2977AC8200CBE70B /* CourseInfoDataService.swift */,
 				0E376A0D2995C74100C42180 /* NetworkMonitor.swift */,
 				0E376A0F2995C8D900C42180 /* ShowVC.swift */,
+				0E283D15299F14FB00CDF76F /* TicketDataService.swift */,
 				0E376A132995C92C00C42180 /* NetworkView.storyboard */,
 				0E376A112995C8F600C42180 /* NetworkVC.swift */,
 				0EAF7B542982646E00F65E5A /* GetWishCourseDataService.swift */,
@@ -982,6 +988,7 @@
 				0E376A162995CC8A00C42180 /* MyCouponVC.swift in Sources */,
 				0E376A122995C8F600C42180 /* NetworkVC.swift in Sources */,
 				0E60282D29656BB500A25F48 /* WishCourseViewController.swift in Sources */,
+				0E283D16299F14FB00CDF76F /* TicketDataService.swift in Sources */,
 				0E0498A4298EA752002425D9 /* GetCategoryDataService.swift in Sources */,
 				0ECA6B44299B44FA00238DEA /* FindPasswordVC.swift in Sources */,
 				0E685E582991E8380094D10A /* CurriculumTVC.swift in Sources */,
@@ -997,6 +1004,7 @@
 				0E1E958F297783FD00CBE70B /* Const.swift in Sources */,
 				0EC314E32987582A004C82CF /* GetReviewDataService.swift in Sources */,
 				0E04989E298CD7EA002425D9 /* UnitDataService.swift in Sources */,
+				0E283D18299F157A00CDF76F /* TicketDataModel.swift in Sources */,
 				0EC314E7298764EA004C82CF /* GetInquiryDataService.swift in Sources */,
 				0EA647CE298B9D22009AB119 /* UIImageView+.swift in Sources */,
 				0E0498B1298EAD4F002425D9 /* CategoryHeaderTVC.swift in Sources */,

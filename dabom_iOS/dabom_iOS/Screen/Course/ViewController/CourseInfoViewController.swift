@@ -40,7 +40,7 @@ class CourseInfoViewController: UIViewController {
     var isEnroll: Bool?
     var isCharge: Bool?
 
-    let maxUpper: CGFloat = 350.0
+    let maxUpper: CGFloat = 400.0
     let minUpper: CGFloat = 0.0
     
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
@@ -48,6 +48,7 @@ class CourseInfoViewController: UIViewController {
     
     var reviewData: [CourseReviewDataModel] = []
     var inquiryData: [CourseInquiryDataModel] = []
+    var ticketData: [TicketDataModel] = []
     
     
     var onOffButton: UIButton!
@@ -67,8 +68,8 @@ class CourseInfoViewController: UIViewController {
         setSegmentController()
             
         // courseId 기본값 설정 (임시)
-//        self.courseId = 2
         getCourseInfo(id: self.courseId!)
+        getTicket(courseId: self.courseId!)
         
         if self.loginType != nil {
             checkWish()
@@ -230,10 +231,6 @@ class CourseInfoViewController: UIViewController {
                 if let data = data as? CourseInfoDataModel {
 
                     self.courseInfoData = data
-                    if data.price > 0 {
-                        self.isCharge = true
-                    }
-                    print(data)
                     self.getCourseReview()
                     self.getCourseInquiry()
                     self.mainTV.reloadData()
@@ -301,6 +298,36 @@ class CourseInfoViewController: UIViewController {
         }
     }
     
+    // MARK: - getTicket
+    private func getTicket(courseId: Int) {
+        TicketDataService.shared.getTickets(courseId: courseId) { response in
+            switch response {
+            case .success(let data):
+                if let data = data as? [TicketDataModel] {
+                    self.ticketData = data
+                    print(self.ticketData[0].id)
+                    
+                    if self.ticketData[0].costPrice > 0 {
+                        self.isCharge = true
+                    } else {
+                        self.isCharge = false
+                    }
+                }
+                print("ticket Success")
+            case .requestErr(let message):
+                print("requestErr", message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .resourceErr:
+                print("resourceErr")
+            }
+        }
+    }
+    
     // MARK: - Description Image 갯수 반환
     private func getDescriptionCnt() -> Int {
         var descriptionCnt = self.courseInfoData?.descriptionImages.count ?? 0
@@ -321,7 +348,7 @@ class CourseInfoViewController: UIViewController {
 extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 350
+            return 400
         } else {
             return UITableView.automaticDimension
         }
@@ -350,6 +377,7 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
 
             cell.delegate = self
             
+            cell.setStatus(isEnroll: self.isEnroll ?? false, isCharge: self.isCharge ?? true)
             cell.courseThumbnailImageView.setImage(with: self.courseInfoData?.thumbnailImage.originalFilePath ?? "")
             cell.classTitle.text = self.courseInfoData?.title
             cell.courseDescription.text = self.courseInfoData?.description
@@ -435,36 +463,31 @@ extension CourseInfoViewController: allReviewBtnDelegate {
 
 // MARK: - CourseEnrollBtnDelegate 강좌 신청 버튼 눌렀을 때
 extension CourseInfoViewController: CourseEnrollBtnDelegate {
-    func CourseEnroll() {
+    func CourseEnroll() {        
         if self.loginType != nil {
             let alert = UIAlertController(title: "수강 신청", message: "해당 강좌에 수강 신청하시겠습니까?", preferredStyle: .alert)
             let cancel = UIAlertAction(title: "취소", style: .cancel)
             let confirm = UIAlertAction(title: "신청", style: .default) { _ in
-                CourseInfoDataService.shared.enrollCourse(courseId: self.courseId!) { response in
-                    switch (response) {
+                TicketDataService.shared.postPurchase(itemId: self.ticketData[0].id) { response in
+                    switch response {
                     case .success:
                         let complete = UIAlertController(title: "신청 되었습니다", message: nil, preferredStyle: .alert)
                         let done = UIAlertAction(title: "확인", style: .default)
                         complete.addAction(done)
                         self.present(complete, animated: true)
-                        
+                                                
                         self.isEnroll = true
                         self.mainTV.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
                         print("enroll Success")
                     case .requestErr(let message):
                         print("requestErr", message)
                     case .pathErr:
-                        print("networkResult pathErr")
                         print("pathErr")
                     case .serverErr:
                         print("serverErr")
                     case .networkFail:
                         print("networkFail")
                     case .resourceErr:
-                        let err = UIAlertController(title: "이미 신청한 강좌입니다", message: nil, preferredStyle: .alert)
-                        let done = UIAlertAction(title: "확인", style: .default)
-                        err.addAction(done)
-                        self.present(err, animated: true)
                         print("resourceErr")
                     }
                 }

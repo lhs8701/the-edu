@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,33 +50,55 @@
                             <constraint firstItem="MbL-1y-vmz" firstAttribute="leading" secondItem="NOx-eI-5St" secondAttribute="leading" id="UuK-6p-CX6"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="클래스 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTF-L7-Evq">
-                        <rect key="frame" x="20" y="247.33333333333337" width="96" height="26"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="클래스 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTF-L7-Evq">
+                        <rect key="frame" x="20" y="247.33333333333337" width="244" height="26"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="클래스 짧은 소개" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8K-Kt-NRt">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="클래스 짧은 소개" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8K-Kt-NRt">
                         <rect key="frame" x="20" y="288.33333333333331" width="364" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="크리에이터 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLy-Gm-rSr">
-                        <rect key="frame" x="282.66666666666669" y="249.33333333333334" width="101.33333333333331" height="19.333333333333343"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="크리에이터 이름" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLy-Gm-rSr">
+                        <rect key="frame" x="284" y="249.33333333333334" width="100" height="19.333333333333343"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="qHO-7Z-bJx"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jfk-cJ-PU3">
+                        <rect key="frame" x="20" y="348" width="364" height="40"/>
+                        <color key="backgroundColor" name="mainColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="Lhx-BX-YKW"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="수강 신청하기">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="courseEnrollBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5np-Td-V5w"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Jfk-cJ-PU3" secondAttribute="trailing" constant="20" id="1aK-bX-Xvo"/>
                     <constraint firstItem="eLy-Gm-rSr" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="A57-zx-gK1"/>
                     <constraint firstItem="H8K-Kt-NRt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Ajz-1M-14B"/>
+                    <constraint firstItem="Jfk-cJ-PU3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="GGy-Px-dNe"/>
                     <constraint firstAttribute="trailingMargin" secondItem="H8K-Kt-NRt" secondAttribute="trailing" id="HZ4-8e-Pcu"/>
                     <constraint firstItem="NOx-eI-5St" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Hzt-MZ-C4F"/>
                     <constraint firstItem="eLy-Gm-rSr" firstAttribute="top" secondItem="NOx-eI-5St" secondAttribute="bottom" constant="22" id="JGe-pu-Fyd"/>
+                    <constraint firstItem="eLy-Gm-rSr" firstAttribute="leading" secondItem="MTF-L7-Evq" secondAttribute="trailing" constant="20" id="JYW-bM-sw1"/>
                     <constraint firstItem="NOx-eI-5St" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="McE-bz-2jM"/>
                     <constraint firstItem="MTF-L7-Evq" firstAttribute="top" secondItem="NOx-eI-5St" secondAttribute="bottom" constant="20" id="RIf-gh-Q0W"/>
+                    <constraint firstAttribute="bottom" secondItem="Jfk-cJ-PU3" secondAttribute="bottom" constant="8" id="arR-oU-Rul"/>
                     <constraint firstAttribute="trailing" secondItem="NOx-eI-5St" secondAttribute="trailing" id="oF0-Of-aw4"/>
                     <constraint firstItem="MTF-L7-Evq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="pjB-M2-act"/>
                     <constraint firstItem="H8K-Kt-NRt" firstAttribute="top" secondItem="MTF-L7-Evq" secondAttribute="bottom" constant="15" id="uvB-ra-1Mi"/>
@@ -85,6 +108,7 @@
             <connections>
                 <outlet property="classTitle" destination="MTF-L7-Evq" id="r6k-J0-vIL"/>
                 <outlet property="courseDescription" destination="H8K-Kt-NRt" id="yVY-mF-EAI"/>
+                <outlet property="courseEnrollBtn" destination="Jfk-cJ-PU3" id="Nob-JT-XOq"/>
                 <outlet property="courseThumbnailImageView" destination="xnC-nY-p3R" id="MRf-Yc-SDt"/>
                 <outlet property="instructor" destination="eLy-Gm-rSr" id="ZeZ-6y-lnV"/>
             </connections>
@@ -93,5 +117,8 @@
     </objects>
     <resources>
         <image name="play.circle.fill" catalog="system" width="128" height="123"/>
+        <namedColor name="mainColor">
+            <color red="1" green="0.85500001907348633" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>
