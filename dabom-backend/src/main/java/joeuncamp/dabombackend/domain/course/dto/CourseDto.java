@@ -149,9 +149,6 @@ public class CourseDto {
         List<ImageInfo> descriptionImages;
         @Schema(description = "평점", example = "3.5")
         double score;
-        @Schema(description = "가격", example = "143000")
-        long price;
-
         @Schema(description = "찜", example = "1500")
         long wish;
 
