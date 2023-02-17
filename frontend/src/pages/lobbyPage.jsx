@@ -58,7 +58,7 @@ const InfoBox = styled.div`
   bottom: -18%;
   left: 6.5%;
   border-radius: var(--size-border-radius);
-  padding: 15px 20px;
+  padding: 10px 15px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -78,9 +78,11 @@ const InfoTab = styled(Tab)`
 `;
 const CourseTitle = styled.p`
   font-weight: var(--weight-middle);
-  font-size: 18px;
+  font-size: 1.1rem;
 `;
-const CourseRate = styled.p``;
+const CourseRate = styled.p`
+  font-size: 0.9rem;
+`;
 
 const CategoryBox = styled.div`
   width: 85%;

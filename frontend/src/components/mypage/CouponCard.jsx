@@ -5,13 +5,13 @@ const CouponDiscountTab = styled.div`
   height: 28px;
   width: 100%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
 `;
 
 const DiscountP = styled.p`
   font-weight: var(--weight-middle);
-  font-size: 21px;
+  font-size: 1rem;
   color: var(--color-gray);
 `;
 const DiscountDateP = styled(DiscountP)`
@@ -19,26 +19,25 @@ const DiscountDateP = styled(DiscountP)`
 `;
 const DiscountRate = styled(DiscountP)`
   font-weight: var(--weight-point);
-  color: var(--color-text);
-  font-size: 28px;
-  width: 135px;
+  color: var(--color-primary);
+  font-size: 1.1rem;
   text-align: end;
 `;
 
 export default function CouponCard({ coupon }) {
+  console.log(coupon);
   return (
     <Card whileHover={{ y: "-5px" }} whileTap={{ y: "0px" }}>
       <CardInfoBox>
-        <CardTitle>{coupon?.title}</CardTitle>
+        <CardTitle>{coupon?.name}</CardTitle>
         <CouponDiscountTab>
-          <DiscountP>원래 가격에서 </DiscountP>
           <DiscountRate>
-            {coupon?.discountValue}
-            {coupon?.discountRate ? "%" : "원"}
+            {coupon?.discount}
+            {coupon?.discountPolicy === "RATE" ? "%" : "원"}
           </DiscountRate>
           <DiscountP>&nbsp; &nbsp;할인</DiscountP>
         </CouponDiscountTab>
-        <DiscountDateP>{coupon?.expireDate}</DiscountDateP>
+        <DiscountDateP>{coupon?.endDate}</DiscountDateP>
       </CardInfoBox>
     </Card>
   );

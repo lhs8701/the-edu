@@ -28,6 +28,7 @@ import {
 } from "../../atom";
 import { useRecoilValue } from "recoil";
 import { queryClient } from "../..";
+import { postItemPurchaseApi } from "../../api/orderApi";
 
 const IconBox = styled.div`
   width: 100%;
@@ -125,22 +126,42 @@ export default function CoursePayment({
   };
 
   const goPurchase = () => {
-    if (loginState) {
-      if (isAlreadyIn) {
-        alert("이미 구입한 강좌입니다.");
-      } else {
-        navigate(
-          `${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket.id}`,
-          {
-            state: {
-              price: ticketInfo[selectTicket.idx].discountedPrice,
-            },
-          }
-        );
-      }
-    } else {
+    if (!loginState) {
       alert("로그인이 필요해요!");
+      return;
     }
+    if (isAlreadyIn) {
+      alert("이미 구입한 강좌입니다.");
+      navigate(PROCESS_MAIN_URL.LOBBY.slice(1));
+      return;
+    }
+    if (ticketInfo?.length === 1) {
+      postItemPurchaseApi(ticketInfo[0].id, accessToken, {
+        couponId: null,
+        point: null,
+        key: null,
+        tossId: null,
+        amount: null,
+      })
+        .then(() => {
+          alert("등록이 완료되었습니다.");
+          navigate(PROCESS_MAIN_URL.LOBBY.slice(0));
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response.status === 400) {
+            alert("사용 불가한 쿠폰입니다.");
+          } else {
+            alert("결제에 오류가 있습니다.");
+          }
+        });
+      return;
+    }
+    navigate(`${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket.id}`, {
+      state: {
+        price: ticketInfo[selectTicket.idx].discountedPrice,
+      },
+    });
   };
 
   const checkUserEnroll = () => {
