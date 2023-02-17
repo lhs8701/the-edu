@@ -10,12 +10,20 @@ import Kingfisher
 
 class BannerCollectionViewCell: UICollectionViewCell {
 
+    // MARK: - IBOutlet
+    
     @IBOutlet weak var bannerImageView: UIImageView!
+    
+    
+    // MARK: - Life Cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
 
     }
+    
+    
+    // MARK: - func
     
     func setData(bannerData: BannerDataModel) {
         bannerImageView.kf.indicatorType = .activity
