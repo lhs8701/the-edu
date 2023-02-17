@@ -148,4 +148,10 @@ public class ExceptionAdvice {
         e.printStackTrace();
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
     }
+    @ExceptionHandler(CMemberNotCertifiedException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CMemberNotCertifiedException e){
+        ErrorCode errorCode = e.getErrorCode();
+        e.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
 }

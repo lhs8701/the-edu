@@ -9,10 +9,7 @@ import joeuncamp.dabombackend.domain.order.repository.CouponJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.IssueJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.ItemJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.OrderJpaRepository;
-import joeuncamp.dabombackend.global.error.exception.CBadRequestException;
-import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
-import joeuncamp.dabombackend.global.error.exception.CPaymentException;
-import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
+import joeuncamp.dabombackend.global.error.exception.*;
 import joeuncamp.dabombackend.util.tossapi.TossService;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +46,9 @@ public class PayOrderService implements OrderService {
     @Override
     public Order saveOrder(OrderDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
+        if (member.isCertified()){
+            throw new CMemberNotCertifiedException();
+        }
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
 
         long price = item.getPrice().getDiscountedPrice();
