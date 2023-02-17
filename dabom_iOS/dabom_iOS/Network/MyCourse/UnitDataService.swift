@@ -14,7 +14,6 @@ struct UnitDataService {
     // MARK: - Unit 정보 가져오기
     func getUnit(unitId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getUnit)/\(unitId)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -42,7 +41,6 @@ struct UnitDataService {
     // MARK: - 시청 기록 가져오기
     func getRecord(unitId: Int, completion: @escaping (Double) -> Void) {
         let URL = "\(Const.Url.getRecord)/\(unitId)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -79,7 +77,6 @@ struct UnitDataService {
     // MARK: - 시청 기록 저장하기
     func saveRecord(unitId: Int, time: Double, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.saveRecord)/\(unitId)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -111,7 +108,6 @@ struct UnitDataService {
     // MARK: - 강의 시청 완료 처리
     func completeUnit(unitId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.completeUnit)/\(unitId)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -145,10 +141,8 @@ struct UnitDataService {
             case 200:
                 return isValidData(data: data)
             case 400:
-                print("statusCode 400")
                 return .pathErr
             case 401, 404:
-                print("잘못된 리소스")
                 return .resourceErr
             case 500:
                 return .serverErr
@@ -160,10 +154,8 @@ struct UnitDataService {
             case 200:
                 return .success(true)
             case 400:
-                print("statusCode 400")
                 return .pathErr
             case 401:
-                print("이미 계정이 존재합니다")
                 return .pathErr
             case 500:
                 return .serverErr

@@ -47,10 +47,8 @@ struct GetPaginationDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("Status 400")
             return .pathErr
         case 500:
-            print("Status 500")
             return .serverErr
         default:
             return .networkFail

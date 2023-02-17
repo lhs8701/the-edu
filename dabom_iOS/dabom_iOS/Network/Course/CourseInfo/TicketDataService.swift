@@ -11,6 +11,7 @@ import Alamofire
 struct TicketDataService {
     static let shared = TicketDataService()
     
+    // MARK: - 강좌 수강권 정보 가져오기
     func getTickets(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getTickets)/\(courseId)/tickets"
         print(URL)
@@ -31,9 +32,9 @@ struct TicketDataService {
         }
     }
     
+    // MARK: - 강좌 주문 승인
     func postPurchase(itemId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.postPurchase)/\(itemId)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -48,7 +49,6 @@ struct TicketDataService {
         let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 201, 204, 205]) { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -70,12 +70,10 @@ struct TicketDataService {
             case 200:
                 return isValidData(data: data)
             case 400:
-                print("Status 400")
                 return .pathErr
             case 403, 404:
                 return .resourceErr
             case 500:
-                print("Status 500")
                 return .serverErr
             default:
                 return .networkFail
@@ -85,12 +83,10 @@ struct TicketDataService {
             case 200:
                 return .success(true)
             case 400:
-                print("Status 400")
                 return .pathErr
             case 403, 404:
                 return .resourceErr
             case 500:
-                print("Status 500")
                 return .serverErr
             default:
                 return .networkFail

@@ -14,12 +14,10 @@ struct GetReviewDataService {
     // MARK: - courseId에 맞는 강좌 리뷰 가져오기
     func getReview(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getCourseReview)/\(courseId)/reviews"
-        print(URL)
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
         request.responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -39,10 +37,8 @@ struct GetReviewDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("Status 400")
             return .pathErr
         case 500:
-            print("Status 500")
             return .serverErr
         default:
             return .networkFail

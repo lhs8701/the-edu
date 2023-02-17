@@ -14,7 +14,6 @@ struct GetWishCourseDataService {
     // MARK: - 유저의 찜한 강좌 가져오기
     func getWishCourse(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getMyWishCourses)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -47,10 +46,8 @@ struct GetWishCourseDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("Status 400")
             return .pathErr
         case 500:
-            print("Status 500")
             return .serverErr
         default:
             return .networkFail

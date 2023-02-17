@@ -11,13 +11,12 @@ import Alamofire
 struct UserProfileService {
     static let shared = UserProfileService()
     
-    
+    // MARK: - User Profile 정보 가져오기
     func getProfile(completion: @escaping (NetworkResult<Any>) -> Void) {
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         let URL = "\(Const.Url.getProfile)/me/profile"
-        print(URL)
-        
+
         let header: HTTPHeaders = [
             "Content-Type" : "application/json",
             "ACCESS" : accessToken
@@ -26,7 +25,6 @@ struct UserProfileService {
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
         
         request.responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -41,6 +39,7 @@ struct UserProfileService {
         }
     }
     
+    // MARK: - User Profile 수정
     func patchProfile(nickname: String, email: String, profileImage: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -61,7 +60,6 @@ struct UserProfileService {
         let request = AF.request(URL, method: .patch, parameters: bodyData, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 201, 204, 205]) { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -82,10 +80,8 @@ struct UserProfileService {
             case 200:
                 return isValidData(data: data)
             case 400:
-                print("statusCode 400")
                 return .pathErr
             case 401, 404:
-                print("잘못된 리소스")
                 return .resourceErr
             case 500:
                 return .serverErr
@@ -97,15 +93,12 @@ struct UserProfileService {
             case 200:
                 return .success(true)
             case 400:
-                print("statusCode 400")
                 return .pathErr
             case 401:
-                print("이미 계정이 존재합니다")
                 return .pathErr
             case 500:
                 return .serverErr
             default:
-                print(statusCode)
                 return .networkFail
             }
         }

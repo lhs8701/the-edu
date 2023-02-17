@@ -14,7 +14,6 @@ struct GetInquiryDataService {
     // MARK: - courseId에 맞는 강좌 문의사항 가져오기
     func getInquiry(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getCourseInquiries)/\(courseId)/inquiries"
-        print(URL)
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
@@ -39,10 +38,8 @@ struct GetInquiryDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("Status 400")
             return .pathErr
         case 500:
-            print("Status 500")
             return .serverErr
         default:
             return .networkFail

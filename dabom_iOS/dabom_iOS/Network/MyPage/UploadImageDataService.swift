@@ -11,9 +11,9 @@ import Alamofire
 struct UploadImageDataService {
     static let shared = UploadImageDataService()
     
+    // MARK: - 프로필 이미지 업로드
     func uploadImage(nickname: String, image: UIImage, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.uploadImage)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -24,13 +24,11 @@ struct UploadImageDataService {
         
         
         let imageData = image.jpegData(compressionQuality: 1.0)
-//        let imageData = image.jpegData(compressionQuality: 1.0)
         
         AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(imageData!, withName: "multipartFile", fileName: "profile.jpeg", mimeType: "image/jpeg")
         }, to: URL, method: .post, headers: header)
         .responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -51,10 +49,8 @@ struct UploadImageDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("Status 400")
             return .pathErr
         case 500:
-            print("Status 500")
             return .serverErr
         default:
             return .networkFail

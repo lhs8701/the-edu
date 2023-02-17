@@ -14,7 +14,6 @@ struct CurriculumDataService {
     // MARK: - Curriculum 정보 가져오기
     func getCurriculum(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getUserCurriculum)/\(courseId)/curriculum"
-        print(URL)
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
@@ -38,10 +37,8 @@ struct CurriculumDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("statusCode 400")
             return .pathErr
         case 401, 404:
-            print("잘못된 리소스")
             return .resourceErr
         case 500:
             return .serverErr

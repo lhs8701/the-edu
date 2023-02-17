@@ -14,7 +14,7 @@ struct CourseInfoDataService {
     // MARK: - Course 기본 정보 가져오기
     func getCourseInfo(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getCourseInfo)/\(id)"
-        print(URL)
+
         let dataRequest = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
         dataRequest.responseData { dataResponse in
@@ -34,6 +34,7 @@ struct CourseInfoDataService {
     // MARK: - Course가 찜한 강좌인지 확인
     func isWishCourse(courseId: Int, completion: @escaping (Bool) -> Void) {
         let URL = "\(Const.Url.isWishCourse)/\(courseId)"
+        
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         let header: HTTPHeaders = [
@@ -44,7 +45,6 @@ struct CourseInfoDataService {
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
         
         request.responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -71,7 +71,7 @@ struct CourseInfoDataService {
     // MARK: - 찜하기
     func changeWishCourse(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.changeWishStatus)/\(courseId)"
-        print(URL)
+
         let accessToken = UserDefaults.standard.string(forKey: "accessToken")
         
         let header: HTTPHeaders = [
@@ -82,7 +82,6 @@ struct CourseInfoDataService {
         let request = AF.request(URL, method: .post, encoding: JSONEncoding.default, headers: header)
         
         request.responseData(emptyResponseCodes: [200, 204, 205]) { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -98,7 +97,7 @@ struct CourseInfoDataService {
     // MARK: - 수강 신청하기
     func enrollCourse(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.enrollCourse)/\(courseId)"
-        print(URL)
+
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
         let header: HTTPHeaders = [
@@ -125,7 +124,6 @@ struct CourseInfoDataService {
     // MARK: - Course가 이미 신청한 강좌인지 확인
     func isEnrollCourse(courseId: Int, completion: @escaping (Bool) -> Void) {
         let URL = "\(Const.Url.isEnrollCourse)/\(courseId)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -168,10 +166,8 @@ struct CourseInfoDataService {
             case 200:
                 return isValidData(data: data)
             case 400:
-                print("Status 400")
                 return .pathErr
             case 500:
-                print("Status 500")
                 return .serverErr
             default:
                 return .networkFail
@@ -181,12 +177,10 @@ struct CourseInfoDataService {
             case 200:
                 return .success(true)
             case 400:
-                print("Status 400")
                 return .pathErr
             case 403, 404:
                 return .resourceErr
             case 500:
-                print("Status 500")
                 return .serverErr
             default:
                 return .networkFail

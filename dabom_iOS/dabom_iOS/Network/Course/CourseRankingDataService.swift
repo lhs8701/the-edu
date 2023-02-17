@@ -11,9 +11,9 @@ import Alamofire
 struct CourseRankingDataService {
     static let shared = CourseRankingDataService()
     
+    // MARK: - 강좌 랭킹 가져오기
     func getCourseRanking(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getCourseRanking)"
-        print(URL)
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
@@ -37,10 +37,8 @@ struct CourseRankingDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("statusCode 400")
             return .pathErr
         case 401, 404:
-            print("잘못된 리소스")
             return .resourceErr
         case 500:
             return .serverErr

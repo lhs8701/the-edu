@@ -14,7 +14,6 @@ struct UserCurriculumDataService {
     // MARK: - Curriculum 정보 가져오기
     func getUserCurriculum(courseId: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getUserCurriculum)/\(courseId)/curriculum/status"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -26,7 +25,6 @@ struct UserCurriculumDataService {
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default, headers: header)
         
         request.responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -46,10 +44,8 @@ struct UserCurriculumDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("statusCode 400")
             return .pathErr
         case 401, 404:
-            print("잘못된 리소스")
             return .resourceErr
         case 500:
             return .serverErr
