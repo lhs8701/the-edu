@@ -22,7 +22,7 @@ public class IssueService {
      * @return 쿠폰 적용된 금액
      */
     public long useCoupon(Issue issue, Item item) {
-        if (isAvailable(issue, item)) {
+        if (!isAvailable(issue, item)) {
             throw new CBadRequestException("사용 불가능한 쿠폰입니다.");
         }
         issue.expire();
