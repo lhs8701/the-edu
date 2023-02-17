@@ -11,12 +11,13 @@ import SnapKit
 class FindPasswordVC: UIViewController {
 
     // MARK: - IBOutlet
-    @IBOutlet weak var emailTextField: UITextField!
     
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var sendBtn: UIButton!
     
     
     // MARK: - let, var
+    
     lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         
@@ -33,21 +34,33 @@ class FindPasswordVC: UIViewController {
     
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.hideKeyboardWhenTappedAround()
-        
+        hideKeyboardWhenTappedAround()
+        setNavi()
+        configureView()
+    }
+    
+    
+    // MARK: - configure
+    
+    private func setNavi() {
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
-        self.emailTextField.placeholder = "sample@gmail.com"
-        self.sendBtn.layer.cornerRadius = 10
-        
+    }
+    
+    private func configureView() {
         view.addSubview(activityIndicator)
         
         activityIndicator.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        emailTextField.placeholder = "sample@gmail.com"
+        sendBtn.layer.cornerRadius = 10
     }
+    
     
     // MARK: - Email 유효성 검증
     func isValidEmail(email: String) -> Bool {
@@ -72,7 +85,6 @@ class FindPasswordVC: UIViewController {
             AuthenticationService.shared.resetPassword(email: email) { response in
                 switch response {
                 case .success:
-                    print("send Success")
                     let alert = UIAlertController(title: "", message: "전송 되었습니다", preferredStyle: .alert)
                     let confirm = UIAlertAction(title: "확인", style: .default) {_ in
                         self.navigationController?.popViewController(animated: true)
@@ -82,7 +94,6 @@ class FindPasswordVC: UIViewController {
                     
                     self.present(alert, animated: true)
                     self.activityIndicator.stopAnimating()
-                    
                 case .requestErr(let message):
                     print("requestErr", message)
                 case .pathErr:
@@ -100,8 +111,6 @@ class FindPasswordVC: UIViewController {
                 }
             }
         }
-        
-        
     }
     
 }
