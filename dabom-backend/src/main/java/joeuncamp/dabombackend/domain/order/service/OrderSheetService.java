@@ -8,6 +8,7 @@ import joeuncamp.dabombackend.domain.order.dto.OrderSheetDto;
 import joeuncamp.dabombackend.domain.order.entity.Item;
 import joeuncamp.dabombackend.domain.order.repository.IssueJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.ItemJpaRepository;
+import joeuncamp.dabombackend.global.error.exception.CMemberNotCertifiedException;
 import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,9 @@ public class OrderSheetService {
      */
     public OrderSheetDto.Response getOrderSheet(OrderSheetDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
+        if (!member.isCertified()) {
+            throw new CMemberNotCertifiedException();
+        }
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
         List<CouponDto.Response> issueList = issueJpaRepository.findByMemberAndUsedIsFalse(member).stream()
                 .filter(issue -> issueService.isAvailable(issue, item))
