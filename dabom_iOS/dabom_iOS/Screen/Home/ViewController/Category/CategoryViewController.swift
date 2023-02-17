@@ -9,6 +9,7 @@ import UIKit
 
 class CategoryViewController: UIViewController {
     
+    // MARK: - IBOutlet
 
     @IBOutlet weak var firstCategory: UIButton!
     @IBOutlet weak var secondCategory: UIButton!
@@ -17,11 +18,22 @@ class CategoryViewController: UIViewController {
     @IBOutlet weak var fifthCategory: UIButton!
     
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
-        
+        configureView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setNavi()
+    }
+    
+    
+    // MARK: - configure
+    
+    private func configureView() {
         self.firstCategory.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 2.0)
         self.secondCategory.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 2.0)
         self.thirdCategory.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 2.0)
@@ -29,13 +41,15 @@ class CategoryViewController: UIViewController {
         self.fifthCategory.layer.drawLineAt(edges: [.bottom], color: UIColor.black, width: 2.0)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    private func setNavi() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        self.navigationController?.navigationBar.topItem?.title = "카테고리"
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
         
     
+    // MARK: - IBAction
+    
+    // 카테고리 선택했을 때 카테고리 결과 화면으로 이동
     @IBAction func categorySelected(_ sender: UIButton) {
         let nextVC = UIStoryboard.init(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.categoryResult) as! ResultVC
         
@@ -44,9 +58,6 @@ class CategoryViewController: UIViewController {
         
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
-        
     }
-    
-    
 
 }

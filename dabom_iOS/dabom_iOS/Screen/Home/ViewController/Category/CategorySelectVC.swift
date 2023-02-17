@@ -10,13 +10,17 @@ import UIKit
 class CategorySelectVC: UIViewController {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var categoryTV: UITableView!
     
+    
     // MARK: - let, var
+    
     var category: [CategoryDataModel] = []
     
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,7 +33,9 @@ class CategorySelectVC: UIViewController {
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
+    
     // MARK: - TableView Setting
+    
     private func setTV() {
         self.categoryTV.delegate = self
         self.categoryTV.dataSource = self
@@ -37,7 +43,9 @@ class CategorySelectVC: UIViewController {
         self.categoryTV.register(UINib(nibName: Const.Xib.Name.categoryHeaderTVC, bundle: nil), forHeaderFooterViewReuseIdentifier: Const.Xib.Identifier.categoryHeaderTVC)
     }
     
+    
     // MARK: - Category 목록 가져오기
+    
     private func setCategory() {
         GetCategoryDataService.shared.getCategory { response in
             switch response {
@@ -61,11 +69,13 @@ class CategorySelectVC: UIViewController {
         }
     }
 
-
 }
 
+
 // MARK: - UITableView Extension
+
 extension CategorySelectVC: UITableViewDelegate, UITableViewDataSource {
+    
     // section 수
     func numberOfSections(in tableView: UITableView) -> Int {
         category.count
@@ -106,9 +116,6 @@ extension CategorySelectVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Const.Xib.Identifier.categoryHeaderTVC) as! CategoryHeaderTVC
         
-//        header.addGestureRecognizer()
-        
-        
         if !category.isEmpty {
             header.setGroupName(groupName: category[section].groupName)
         }
@@ -127,4 +134,5 @@ extension CategorySelectVC: UITableViewDelegate, UITableViewDataSource {
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
+    
 }
