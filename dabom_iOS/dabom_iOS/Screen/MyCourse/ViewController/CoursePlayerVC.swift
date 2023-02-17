@@ -87,6 +87,12 @@ class CoursePlayerVC: UIViewController {
         self.unitThumbnailImage.setImage(with: self.thumbnailImage)
         self.unitTitleLabel.text = self.unitTitle
         self.unitTitleLabel.adjustsFontSizeToFitWidth = true
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print(error)
+        }
     }
     
     // MARK: - TableView Setting

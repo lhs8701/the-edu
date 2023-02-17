@@ -654,6 +654,7 @@
 			isa = PBXGroup;
 			children = (
 				0E1E959A2977AC8200CBE70B /* CourseInfoDataService.swift */,
+				0E283D15299F14FB00CDF76F /* TicketDataService.swift */,
 				0EDD522B2994C1B5008731CD /* CurriculumDataService.swift */,
 				0EC314E22987582A004C82CF /* GetReviewDataService.swift */,
 				0EC314E6298764EA004C82CF /* GetInquiryDataService.swift */,
@@ -768,8 +769,8 @@
 			isa = PBXGroup;
 			children = (
 				0E37E4B3299F4F480076B881 /* Cell */,
-				0E37E4B2299F4F190076B881 /* Model */,
 				0E37E4B4299F4F5C0076B881 /* ViewController */,
+				0E37E4B2299F4F190076B881 /* Model */,
 			);
 			path = MyCourse;
 			sourceTree = "<group>";
@@ -842,7 +843,6 @@
 				0E376A132995C92C00C42180 /* NetworkView.storyboard */,
 				0E9D52B4299F47F50071B42D /* share */,
 				0E9D52B5299F481C0071B42D /* Authentication */,
-				0E283D15299F14FB00CDF76F /* TicketDataService.swift */,
 				0E9D52B6299F482C0071B42D /* Course */,
 				0E9D52B7299F48710071B42D /* MyCourse */,
 				0E9D52B8299F48790071B42D /* MyPage */,
