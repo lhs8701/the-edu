@@ -9,6 +9,7 @@ import joeuncamp.dabombackend.domain.course.service.TicketService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.order.dto.OrderDto;
 import joeuncamp.dabombackend.domain.order.dto.OrderSheetDto;
+import joeuncamp.dabombackend.domain.order.service.OrderChart;
 import joeuncamp.dabombackend.domain.order.service.OrderSheetService;
 import joeuncamp.dabombackend.domain.order.service.OrderSystem;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -32,6 +33,7 @@ public class OrderController {
     private final TicketService ticketService;
     private final OrderSheetService orderSheetService;
     private final OrderSystem orderSystem;
+    private final OrderChart orderChart;
 
     @Operation(summary = "강좌 수강권 조회", description = "")
     @GetMapping("/courses/{courseId}/tickets")
@@ -59,5 +61,14 @@ public class OrderController {
         requestDto.setItemId(itemId);
         orderSystem.makeOrder(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "주문 내역 조회", description = "회원의 주문 내역을 조회합니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/orders")
+    public ResponseEntity<List<OrderDto.Response>> getOrderHistory(@AuthenticationPrincipal Member member) {
+        List<OrderDto.Response> responseDto = orderChart.getOrderHistory(member.getId());
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

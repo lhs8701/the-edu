@@ -63,17 +63,13 @@ public class PayOrderService implements OrderService {
             payPointManager.usePoint(member, requestDto.getPoint());
         }
         payPointManager.raisePoint(member, (long) (paymentInfo.getTotalAmount() * 0.1));
-        Order order = PayOrder.builder()
-                .paymentInfo(paymentInfo)
-                .item(item)
-                .member(member)
-                .build();
+        Order order = Order.PayOrder(paymentInfo, member, item);
         return orderJpaRepository.save(order);
     }
 
     private Optional<Coupon> getCoupon(OrderDto.Request requestDto){
         if (requestDto.getCouponId() == null){
-            return Optional.of(new Coupon());
+            return Optional.empty();
         }
         return couponJpaRepository.findById(requestDto.getCouponId());
     }
