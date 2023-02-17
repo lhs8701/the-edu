@@ -39,7 +39,7 @@ public class EnrollService {
                 .member(member)
                 .course(course)
                 .build());
-        enroll.setEndDate(LocalDateTime.now().plusMonths(ticket.getCoursePeriod().getMonth()));
+        enroll.setEndDate(LocalDateTime.now().plus(ticket.getCoursePeriod().getPeriod()));
         enrollJpaRepository.save(enroll);
     }
 

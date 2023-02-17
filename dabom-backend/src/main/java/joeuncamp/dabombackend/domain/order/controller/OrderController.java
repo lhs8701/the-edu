@@ -10,10 +10,10 @@ import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.order.dto.OrderDto;
 import joeuncamp.dabombackend.domain.order.dto.OrderSheetDto;
 import joeuncamp.dabombackend.domain.order.service.OrderSheetService;
-import joeuncamp.dabombackend.domain.order.service.OrderService;
+import joeuncamp.dabombackend.domain.order.service.PayOrderService;
+import joeuncamp.dabombackend.domain.order.service.OrderSystem;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
-import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,8 +31,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class OrderController {
     private final CourseTicketService courseTicketService;
-    private final OrderService orderService;
     private final OrderSheetService orderSheetService;
+    private final OrderSystem orderSystem;
 
     @Operation(summary = "강좌 수강권 설정", description = "수강권의 금액을 설정합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
@@ -69,7 +69,7 @@ public class OrderController {
     public ResponseEntity<Void> completeOrder(@PathVariable Long itemId, @RequestBody OrderDto.Request requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setItemId(itemId);
-        orderService.makeOrder(requestDto);
+        orderSystem.makeOrder(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

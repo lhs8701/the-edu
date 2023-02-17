@@ -23,15 +23,9 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class CourseService {
-
-    private final MemberJpaRepository memberJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
-    private final CreatorService creatorService;
     private final CurriculumService curriculumService;
     private final ReviewService reviewService;
-    private final EnrollJpaRepository enrollJpaRepository;
-    private final ChapterService chapterService;
-    private final CourseTicketService courseTicketService;
 
     /**
      * 강좌의 정보를 조회합니다.

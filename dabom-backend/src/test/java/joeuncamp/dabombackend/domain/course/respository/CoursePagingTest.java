@@ -109,10 +109,10 @@ public class CoursePagingTest {
     void 강좌를_최근_생성일_순으로_조회한다() {
         // given
         Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "createdTime"));
-        Course c1 = Course.builder().category(CategoryType.BACK_END).build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).active(true).build();
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
         courseJpaRepository.save(c3);
