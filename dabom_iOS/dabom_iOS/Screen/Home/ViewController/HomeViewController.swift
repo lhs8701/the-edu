@@ -10,17 +10,21 @@ import UIKit
 class HomeViewController: UIViewController {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var homeTableView: UITableView!
     
     
     // MARK: - let, var
+    
     private var courseTableList: [CourseTableDataModel] = []
     private var courseRankingList: [CourseRankingDataModel] = []
     private var bannerList: [BannerDataModel] = []
     
     var autoStart: Bool = false
     
+    
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +43,7 @@ class HomeViewController: UIViewController {
 
     
     // MARK: - TableView Setting
+    
     private func setTV() {
         homeTableView.register(UINib(nibName: Const.Xib.Name.courseTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.courseTVC)
         homeTableView.register(UINib(nibName: Const.Xib.Name.bannerTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.bannerTVC)
@@ -49,7 +54,9 @@ class HomeViewController: UIViewController {
         
     }
     
+    
     // MARK: - 강좌 랭킹 정보 가져오기
+    
     private func setRanking() {
         CourseRankingDataService.shared.getCourseRanking { response in
             switch response {
@@ -71,6 +78,9 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    
+    
+    // MARK: - 진행 중인 이벤트 배너 가져오기
     
     private func setBanner() {
         BannerDataService.shared.getOngoingBanner { response in
@@ -96,6 +106,7 @@ class HomeViewController: UIViewController {
     
     
     // MARK: - 카테고리 햄버거 버튼 눌렀을 때
+    
     @IBAction func categoryBtnPressed(_ sender: Any) {
         guard let categoryVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: "CategorySelectVC") as? CategorySelectVC else {return}
         
@@ -106,7 +117,10 @@ class HomeViewController: UIViewController {
 
 
 // MARK: - UITableViewDelegate
+
 extension HomeViewController: UITableViewDelegate {
+    
+    // tableView 높이 자동 지정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -118,6 +132,7 @@ extension HomeViewController: UITableViewDelegate {
 
 
 // MARK: - UITableViewDataSource
+
 extension HomeViewController: UITableViewDataSource {
     // 행 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -127,13 +142,11 @@ extension HomeViewController: UITableViewDataSource {
     // 행 번호마다 셀 설정
     // 0 -> 배너
     // 1 ~ -> 클래스 랭킹
-    // 마지막 -> 로드맵 (아직 구현 안됨)
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // 0 -> 배너 셀
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BannerTableViewCell.identifier, for: indexPath) as? BannerTableViewCell else { return UITableViewCell() }
-//            cell.setData(BannerDataModel.sampleData)
             if self.bannerList.count != 0 {
                 if !autoStart {
                     cell.autoStart = true
@@ -142,7 +155,6 @@ extension HomeViewController: UITableViewDataSource {
                 
                 cell.setData(bannerTableData: self.bannerList)
             }
-            
             cell.delegate = self
             
             return cell
@@ -160,8 +172,11 @@ extension HomeViewController: UITableViewDataSource {
     
 }
 
+
 // MARK: - 클래스 랭킹에 표시된 강좌 썸네일 클릭 시 강좌 상세보기로 이동
+
 extension HomeViewController: CourseCVCellDelegate {
+    
     func CourseSelectedCVCell(courseId: Int, courseName: String) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
 
@@ -174,8 +189,11 @@ extension HomeViewController: CourseCVCellDelegate {
     
 }
 
+
 // MARK: - 배너 셀 클릭 시 이벤트 페이지로 이동
+
 extension HomeViewController: BannerCVCellDelegate {
+    
     func BannerSelectedCVCell(eventId: Int, bannerName: String) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.bannerInfo) as? BannerInfoViewController else { return }
         
@@ -185,4 +203,5 @@ extension HomeViewController: BannerCVCellDelegate {
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
+    
 }

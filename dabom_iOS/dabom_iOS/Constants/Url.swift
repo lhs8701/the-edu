@@ -63,6 +63,9 @@ extension Const {
         
         static let enrollCourse = "\(apiBaseUrl)/enroll/courses"
         static let isEnrollCourse = "\(apiBaseUrl)/enroll/courses"
+        static let getTickets = "\(apiBaseUrl)/courses"
+        
+        static let postPurchase = "\(apiBaseUrl)/purchase/items"
         
         static let getCourseRanking = "\(apiBaseUrl)/courses/category/ranking"
         

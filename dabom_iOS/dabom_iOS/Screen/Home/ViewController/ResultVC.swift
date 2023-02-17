@@ -9,22 +9,20 @@ import UIKit
 import SnapKit
 
 class ResultVC: UIViewController {
+    
     // MARK: - IBOutlet
     
     @IBOutlet weak var resultCV: UICollectionView!
-    
     @IBOutlet weak var resultName: UILabel!
-    
     @IBOutlet weak var resultKind: UILabel!
+    
     
     // MARK: - let, var
     
     var resultTitle: String?
-    
     var resultData: Array<SampleCourseThumbnail> = []
-    var sampleApiData: Array<CourseThumbnailDataModel> = CourseThumbnailDataModel.sampleAPI
-    
     var kind: String = "category"
+    
     var page = 0
     var totalPage = 0
     var size = 10
@@ -33,12 +31,31 @@ class ResultVC: UIViewController {
     
     var defaultImageView: UIImageView = UIImageView(image: UIImage(named: "default_course"))
     
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setCV()
+        configureView()
+        setNavi()
+    }
+    
+    
+    // MARK: - configure
+    
+    private func configureView() {
+        resultName.text = resultTitle ?? ""
+        if kind == "category" {
+            resultKind.text = "카테고리"
+        } else if kind == "search" {
+            resultKind.text = "검색 결과"
+        }
+        
+        resultName.sizeToFit()
+        resultName.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor")!, width: 3.0)
+        
         view.addSubview(defaultImageView)
         defaultImageView.contentMode = .scaleAspectFit
         defaultImageView.snp.makeConstraints {
@@ -47,20 +64,10 @@ class ResultVC: UIViewController {
             $0.height.equalTo(300)
         }
         defaultImageView.isHidden = true
-        
-        self.resultName.text = self.resultTitle ?? ""
-        if kind == "category" {
-            self.resultKind.text = "카테고리"
-        } else if kind == "search" {
-            self.resultKind.text = "검색 결과"
-        }
-        
-        self.resultName.sizeToFit()
-        self.resultName.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor")!, width: 3.0)
-        
-        
+    }
+    
+    private func setNavi() {
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
-
     }
     
     
@@ -76,12 +83,14 @@ class ResultVC: UIViewController {
     }
     
     
-    // MARK: - getData
+    // MARK: - getData -> pagination
     
     func getData(page: Int) {
-        print("getData!!")
+        
+        // 한번에 여러번 pagination 되는 것을 막기 위한 flag
         self.isPaging = true
         
+        // 총 페이지 수를 넘지 않았을 때만 다음 페이지 데이터 불러오기
         if page <= totalPage {
             GetPaginationDataService.shared.getPagination(kind: self.kind, keyword: self.resultTitle ?? "", page: self.page, size: self.size) { response in
                 switch response {
@@ -89,11 +98,13 @@ class ResultVC: UIViewController {
                     if let data = paginationData as? PaginationDataModel {
                         self.page += 1
                         self.totalPage = data.totalPage
-                    
+                        
+                        // 받아온 데이터를 배열에 추가하고 reload
                         self.resultData.append(contentsOf: data.list)
                         self.resultCV.reloadData()
                         self.isPaging = false
                         
+                        // 만약 받아온 결과가 없다면 defualt image 등장
                         if self.resultData.isEmpty {
                             self.defaultImageView.isHidden = false
                         } else {
@@ -113,19 +124,21 @@ class ResultVC: UIViewController {
                 }
             }
         }
-        
-        
     }
+    
 }
+
 
 // MARK: - UICollectionViewDelegate
 
 extension ResultVC: UICollectionViewDelegate {
     
+    // 받아온 데이터 갯수만큼 표시
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return resultData.count
     }
     
+    // 썸네일 눌렀을 때 강좌 상세보기로 이동
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
         
@@ -136,9 +149,11 @@ extension ResultVC: UICollectionViewDelegate {
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
+    // 스크롤이 바닥에 닿았을 때 다음 페이지 불러오기 -> pagination
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if resultCV.contentOffset.y > (resultCV.contentSize.height - resultCV.bounds.size.height) {
+            // 현재 페이징 중이 아니라면
             if !isPaging {
                 self.getData(page: self.page)
             }
@@ -147,22 +162,27 @@ extension ResultVC: UICollectionViewDelegate {
     }
 }
 
+
 // MARK: - UICollectionViewDataSource
 
 extension ResultVC: UICollectionViewDataSource {
+    
+    // collectionView cell data setting
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CourseThumbnailCollectionViewCell.identifier, for: indexPath) as? CourseThumbnailCollectionViewCell else { return UICollectionViewCell() }
 
-//        cell.setData(resultData[indexPath.row])
         cell.setTemp(resultData[indexPath.row])
         
         return cell
     }
 }
 
+
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension ResultVC: UICollectionViewDelegateFlowLayout {
+    
+    // collectionView cell 사이즈 지정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellWidth = (UIScreen.main.bounds.width - (10 * 3)) / 2
