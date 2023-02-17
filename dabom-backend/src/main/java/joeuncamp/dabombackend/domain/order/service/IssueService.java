@@ -14,7 +14,6 @@ public class IssueService {
 
     /**
      * 상품에 쿠폰을 적용합니다.
-     * 이미 사용한 쿠폰이거나, 쿠폰 적용이 불가능한 상품인 경우 예외가 발생합니다.
      * 해당 쿠폰을 '사용'처리하고, 할인된 금액을 반환합니다.
      *
      * @param issue 쿠폰 발급 정보
@@ -22,9 +21,6 @@ public class IssueService {
      * @return 쿠폰 적용된 금액
      */
     public long useCoupon(Issue issue, Item item) {
-        if (!isAvailable(issue, item)) {
-            throw new CBadRequestException("사용 불가능한 쿠폰입니다.");
-        }
         issue.expire();
         issueJpaRepository.save(issue);
         return issue.getCoupon().calculateDiscountedPrice(item.getPrice().getDiscountedPrice());

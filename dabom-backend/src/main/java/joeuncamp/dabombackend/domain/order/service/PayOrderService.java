@@ -10,15 +10,14 @@ import joeuncamp.dabombackend.domain.order.repository.IssueJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.ItemJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.OrderJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.*;
-import joeuncamp.dabombackend.util.RoundCalculator;
 import joeuncamp.dabombackend.util.tossapi.TossService;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -52,9 +51,17 @@ public class PayOrderService implements OrderService {
             throw new CMemberNotCertifiedException();
         }
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
-        validateAmount(requestDto, member, item);
+        Optional<Coupon> couponOptional = couponJpaRepository.findById(requestDto.getCouponId());
+        validateAmount(requestDto, member, item, couponOptional);
+
         PaymentInfo paymentInfo = tossService.confirmPayment(requestDto.getTossPayDto().toEntity());
-        payPointManager.usePoint(member, requestDto.getPoint());
+        if (couponOptional.isPresent()) {
+            Issue issue = issueJpaRepository.findByMemberAndCoupon(member, couponOptional.get()).orElseThrow(CResourceNotFoundException::new);
+            issueService.useCoupon(issue, item);
+        }
+        if (requestDto.getPoint() != 0) {
+            payPointManager.usePoint(member, requestDto.getPoint());
+        }
         payPointManager.raisePoint(member, (long) (paymentInfo.getTotalAmount() * 0.1));
         Order order = PayOrder.builder()
                 .paymentInfo(paymentInfo)
@@ -64,20 +71,35 @@ public class PayOrderService implements OrderService {
         return orderJpaRepository.save(order);
     }
 
-    private void validateAmount(OrderDto.Request requestDto, Member member, Item item){
-        long discountedPriceByCoupon = item.getPrice().getDiscountedPrice();
-        if (requestDto.getCouponId() != null){
-            Coupon coupon = couponJpaRepository.findById(requestDto.getCouponId()).orElseThrow(CResourceNotFoundException::new);
-            Issue issue = issueJpaRepository.findByMemberAndCoupon(member, coupon).orElseThrow(CResourceNotFoundException::new);
-            discountedPriceByCoupon = issueService.useCoupon(issue, item);
+    private void validateAmount(OrderDto.Request requestDto, Member member, Item item, Optional<Coupon> couponOptional) {
+        long originalPrice = item.getPrice().getDiscountedPrice();
+        long discountedByCoupon = 0;
+        long discountedByPoint = requestDto.getPoint();
+        if (couponOptional.isPresent()) {
+            validateCoupon(requestDto, member, item);
+            discountedByCoupon = couponOptional.get().calculateDiscountedPrice(originalPrice);
         }
-        long point = requestDto.getPoint();
-        long amount = requestDto.getTossPayDto().getTossAmount();
-        if (member.getPayPoint() < point){
-            throw new CPaymentException("사용할 포인트가 보유한 포인트보다 많습니다.");
+        if (requestDto.getPoint() != 0) {
+            validatePoint(requestDto, member);
         }
-        if (discountedPriceByCoupon - point != amount){
+        if (originalPrice - (discountedByCoupon + discountedByPoint) != requestDto.getTossPayDto().getTossAmount()){
             throw new CPaymentException("결제 금액이 상이합니다.");
+        }
+    }
+
+    private void validateCoupon(OrderDto.Request requestDto, Member member, Item item) {
+        Coupon coupon = couponJpaRepository.findById(requestDto.getCouponId()).orElseThrow(CResourceNotFoundException::new);
+        Issue issue = issueJpaRepository.findByMemberAndCoupon(member, coupon).orElseThrow(CResourceNotFoundException::new);
+        if (!issueService.isAvailable(issue, item)) {
+            throw new CBadRequestException("사용 불가능한 쿠폰입니다.");
+        }
+        coupon.calculateDiscountedPrice(item.getPrice().getDiscountedPrice());
+    }
+
+    private void validatePoint(OrderDto.Request requestDto, Member member) {
+        long point = requestDto.getPoint();
+        if (member.getPayPoint() < point) {
+            throw new CPaymentException("사용할 포인트가 보유한 포인트보다 많습니다.");
         }
     }
 }
