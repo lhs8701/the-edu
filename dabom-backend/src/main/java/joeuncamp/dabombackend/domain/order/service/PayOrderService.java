@@ -51,7 +51,7 @@ public class PayOrderService implements OrderService {
             throw new CMemberNotCertifiedException();
         }
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
-        Optional<Coupon> couponOptional = couponJpaRepository.findById(requestDto.getCouponId());
+        Optional<Coupon> couponOptional = getCoupon(requestDto);
         validateAmount(requestDto, member, item, couponOptional);
 
         PaymentInfo paymentInfo = tossService.confirmPayment(requestDto.getTossPayDto().toEntity());
@@ -69,6 +69,13 @@ public class PayOrderService implements OrderService {
                 .member(member)
                 .build();
         return orderJpaRepository.save(order);
+    }
+
+    private Optional<Coupon> getCoupon(OrderDto.Request requestDto){
+        if (requestDto.getCouponId() == null){
+            return Optional.of(new Coupon());
+        }
+        return couponJpaRepository.findById(requestDto.getCouponId());
     }
 
     private void validateAmount(OrderDto.Request requestDto, Member member, Item item, Optional<Coupon> couponOptional) {
