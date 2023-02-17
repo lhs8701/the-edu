@@ -42,7 +42,7 @@ export default function SuccessPurchase() {
   const { itemId, couponId, point } = useParams();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    if (couponId === "undefined") {
+    if (Number(couponId) === -1) {
       postItemPurchaseApi(itemId, accessToken, {
         couponId: null,
         point: Number(point),
@@ -55,7 +55,11 @@ export default function SuccessPurchase() {
         })
         .catch((err) => {
           console.log(err);
-          alert("결제에 오류가 있습니다.");
+          if (err.response.status === 400) {
+            alert("사용 불가한 쿠폰입니다.");
+          } else {
+            alert("결제에 오류가 있습니다.");
+          }
           // navigate(-1);
         });
     } else {
@@ -65,7 +69,19 @@ export default function SuccessPurchase() {
         key: paymentKey,
         tossId: orderId,
         amount: amount,
-      });
+      })
+        .then(() => {
+          setLoading(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response.status === 400) {
+            alert("사용 불가한 쿠폰입니다.");
+          } else {
+            alert("결제에 오류가 있습니다.");
+          }
+          // navigate(-1);
+        });
     }
   }, []);
 

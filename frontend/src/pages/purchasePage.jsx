@@ -130,8 +130,9 @@ export default function PurchasePage() {
   const navigate = useNavigate();
   const [cost, setCost] = useState(state?.price);
   const [useCoupon, setUseCoupon] = useState({
-    id: itemInfo?.couponList[0]?.id,
-    idx: 0,
+    rate: true,
+    value: -1,
+    id: -1,
   });
 
   useEffect(() => {
@@ -174,6 +175,37 @@ export default function PurchasePage() {
     }
   }, []);
 
+  const couponChange = (e) => {
+    if (Number(e.target.value) === -1) {
+      setUseCoupon({
+        rate: true,
+        value: -1,
+        id: e.target.value,
+      });
+      return;
+    }
+    if (
+      itemInfo?.couponList[e.nativeEvent.target.options.selectedIndex - 1]
+        .discountPolicy === "FIX"
+    ) {
+      setUseCoupon({
+        rate: false,
+        value:
+          itemInfo?.couponList[e.nativeEvent.target.options.selectedIndex - 1]
+            .discount,
+        id: e.target.value,
+      });
+    } else {
+      setUseCoupon({
+        rate: true,
+        value:
+          itemInfo?.couponList[e.nativeEvent.target.options.selectedIndex - 1]
+            .discount,
+        id: e.target.value,
+      });
+    }
+  };
+  console.log(useCoupon);
   useEffect(() => {
     // url로 현재 위치 확인
     if (
@@ -190,6 +222,21 @@ export default function PurchasePage() {
     const [usePoint, setUsePoint] = useState(0);
 
     const purchaseCourse = () => {
+      let cost = 0;
+      if (Number(useCoupon.value) === -1) {
+        cost = state.price - usePoint;
+      } else {
+        if (useCoupon.rate) {
+          cost =
+            state.price - // 쿠폰쓰고 퍼센트 할인 쿠폰일때
+            Number(((useCoupon.value * state.price) / 100).toFixed()) -
+            usePoint;
+        } else {
+          // 쿠폰쓰고 정가 쿠폰일때
+          cost = state.price - useCoupon.value - usePoint;
+        }
+      }
+
       if (purchaseMethod) {
         purchase(
           {
@@ -197,7 +244,7 @@ export default function PurchasePage() {
             itemId: itemId,
             couponId: useCoupon.id,
             point: usePoint,
-            amount: state.price - usePoint + 1000,
+            amount: cost,
             orderName: itemInfo.productName,
             customerName: itemInfo.consumer,
           },
@@ -207,7 +254,7 @@ export default function PurchasePage() {
         alert("결제 방식을 선택해 주세요!");
       }
     };
-    console.log(useCoupon);
+
     return (
       <div>
         <Div>
@@ -237,12 +284,7 @@ export default function PurchasePage() {
               <Select
                 name="couponOption"
                 value={useCoupon.id}
-                onChange={(e) => {
-                  setUseCoupon({
-                    id: e.target.value,
-                    idx: e.nativeEvent.target.options.selectedIndex - 1, //맨 첫번째 인덱스는 선택안함이니 -1함
-                  });
-                }}
+                onChange={couponChange}
               >
                 <option value={-1} key={0}>
                   선택 안함
@@ -264,9 +306,11 @@ export default function PurchasePage() {
             <PrimaryCostTab>쿠폰 할인</PrimaryCostTab>
             <PrimaryCostTab>
               -&nbsp;
-              {Number(useCoupon.id) === -1
+              {Number(useCoupon.value) === -1
                 ? ZERO
-                : itemInfo?.couponList[useCoupon?.idx]?.discount}
+                : useCoupon.rate
+                ? Number(((useCoupon.value * state?.price) / 100).toFixed())
+                : useCoupon.value}
               &nbsp;원
             </PrimaryCostTab>
           </FlexDiv>
@@ -277,10 +321,13 @@ export default function PurchasePage() {
           <FlexDiv>
             <OwnPriceTab>총 할인 금액</OwnPriceTab>
             <PrimaryCostTab>
-              -&nbsp;
-              {Number(useCoupon.id) === -1
+              -&nbsp;{" "}
+              {Number(useCoupon.value) === -1
                 ? usePoint
-                : usePoint + itemInfo?.couponList[useCoupon?.idx]?.discount}
+                : useCoupon.rate
+                ? Number(((useCoupon.value * state?.price) / 100).toFixed()) +
+                  usePoint
+                : useCoupon.value + usePoint}
               &nbsp;원
             </PrimaryCostTab>
           </FlexDiv>
@@ -289,10 +336,13 @@ export default function PurchasePage() {
           <FlexDiv>
             <SmallTitle>총 결제 금액</SmallTitle>
             <PrimaryCostTab>
-              {state?.price -
-                (Number(useCoupon.id) === -1
-                  ? usePoint
-                  : usePoint + itemInfo?.couponList[useCoupon?.idx]?.discount)}
+              {Number(useCoupon.value) === -1 // 쿠폰 안쓸경우
+                ? state?.price - usePoint
+                : useCoupon.rate
+                ? state?.price - // 쿠폰쓰고 퍼센트 할인 쿠폰일때
+                  Number(((useCoupon.value * state.price) / 100).toFixed()) -
+                  usePoint // 쿠폰쓰고 정가 쿠폰일때
+                : state?.price - useCoupon.value - usePoint}
               &nbsp;원
             </PrimaryCostTab>
           </FlexDiv>
