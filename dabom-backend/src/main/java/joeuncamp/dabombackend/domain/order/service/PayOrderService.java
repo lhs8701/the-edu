@@ -63,11 +63,7 @@ public class PayOrderService implements OrderService {
             payPointManager.usePoint(member, requestDto.getPoint());
         }
         payPointManager.raisePoint(member, (long) (paymentInfo.getTotalAmount() * 0.1));
-        Order order = PayOrder.builder()
-                .paymentInfo(paymentInfo)
-                .item(item)
-                .member(member)
-                .build();
+        Order order = Order.PayOrder(paymentInfo, member, item);
         return orderJpaRepository.save(order);
     }
 

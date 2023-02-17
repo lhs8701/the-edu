@@ -46,12 +46,7 @@ public class FreeOrderService implements OrderService {
     public Order saveOrder(OrderDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
-        Order order = FreeOrder.builder()
-                .id(UUID.randomUUID().toString())
-                .name(item.getProductName())
-                .item(item)
-                .member(member)
-                .build();
+        Order order = Order.FreeOrder(member, item);
         return orderJpaRepository.save(order);
     }
 }
