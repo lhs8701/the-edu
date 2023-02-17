@@ -14,7 +14,6 @@ struct AuthenticationService {
     // MARK: - email Signup
     func emailSignup(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.signup)"
-        print(URL)
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json"
@@ -44,7 +43,6 @@ struct AuthenticationService {
     // MARK: - email Login
     func emailLogin(user: UserDataModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.login)"
-        print(URL)
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json"
@@ -75,7 +73,6 @@ struct AuthenticationService {
     // MARK: - Logout
     func logout(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.logout)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
@@ -105,7 +102,6 @@ struct AuthenticationService {
     // MARK: - Withdraw
     func withdraw(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.withdraw)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
@@ -134,7 +130,6 @@ struct AuthenticationService {
     // MARK: - 비밀번호 변경
     func changePassword(currentPW: String, changePW: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.changePassword)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         
@@ -167,7 +162,6 @@ struct AuthenticationService {
     // MARK: - 비밀번호 초기화 (이메일 임시 비밀번호 전송)
     func resetPassword(email: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.resetPassword)"
-        print(URL)
         
         let bodyData: Parameters = [
             "Content-Type" : "application/json",
@@ -177,7 +171,6 @@ struct AuthenticationService {
         let request = AF.request(URL, method: .post, parameters: bodyData, encoding: JSONEncoding.default)
         
         request.responseData { dataResponse in
-            debugPrint(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -195,7 +188,6 @@ struct AuthenticationService {
     // MARK: - kakao Login
     func kakaoLogin(accessToken: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.kakaoLogin)"
-        print(URL)
         
         let header: HTTPHeaders = [
             "Content-Type" : "application/json"
@@ -221,9 +213,9 @@ struct AuthenticationService {
         }
     }
     
+    // MARK: - kakao Logout
     func kakaoLogout(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.kakaoLogout)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
@@ -254,9 +246,9 @@ struct AuthenticationService {
         }
     }
     
+    // MARK: - kakao Withdraw
     func kakaoWithdraw(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.kakaoWithdraw)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
@@ -290,7 +282,6 @@ struct AuthenticationService {
     // MARK: - apple signup
     func appleSignup(socialToken: String, email: String, nickname: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.appleSignup)"
-        print(URL)
         
         let bodyData: Parameters = [
             "socialToken" : socialToken,
@@ -314,9 +305,9 @@ struct AuthenticationService {
         
     }
     
+    // MARK: - apple login
     func appleLogin(socialToken: String, completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.appleLogin)"
-        print(URL)
         
         let bodyData : Parameters = [
             "socialToken" : socialToken
@@ -338,9 +329,9 @@ struct AuthenticationService {
         }
     }
     
+    // MARK: - apple logout
     func appleLogout(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.appleLogout)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
@@ -366,9 +357,9 @@ struct AuthenticationService {
         }
     }
     
+    // MARK: - apple withdraw
     func appleWithdraw(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.appleWithdraw)"
-        print(URL)
         
         let accessToken = UserDefaults.standard.string(forKey: "accessToken") ?? ""
         let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") ?? ""
@@ -438,10 +429,8 @@ struct AuthenticationService {
             case 200, 201:
                 return setUserGrant(data: data)
             case 400:
-                print("statusCode 400")
                 return .pathErr
             case 401, 404:
-                print("잘못된 리소스")
                 return .resourceErr
             case 500:
                 return .serverErr
@@ -454,10 +443,8 @@ struct AuthenticationService {
             case 200, 201:
                 return .success(true)
             case 400:
-                print("statusCode 400")
                 return .pathErr
             case 401, 404:
-                print("이미 계정이 존재합니다")
                 return .resourceErr
             case 500:
                 return .serverErr
