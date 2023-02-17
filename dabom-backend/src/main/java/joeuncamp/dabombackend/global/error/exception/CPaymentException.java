@@ -6,9 +6,11 @@ import lombok.Getter;
 @Getter
 public class CPaymentException extends RuntimeException{
     private final ErrorCode errorCode;
+    private final String message;
 
-    public CPaymentException(){
+    public CPaymentException(String message){
         super();
-        errorCode = ErrorCode.PAYMENT_ERROR;
+        this.errorCode = ErrorCode.PAYMENT_ERROR;
+        this.message = message;
     }
 }

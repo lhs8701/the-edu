@@ -10,10 +10,12 @@ import joeuncamp.dabombackend.domain.order.repository.IssueJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.ItemJpaRepository;
 import joeuncamp.dabombackend.domain.order.repository.OrderJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.*;
+import joeuncamp.dabombackend.util.RoundCalculator;
 import joeuncamp.dabombackend.util.tossapi.TossService;
 import joeuncamp.dabombackend.util.tossapi.dto.PaymentInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,31 +48,36 @@ public class PayOrderService implements OrderService {
     @Override
     public Order saveOrder(OrderDto.Request requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberNotFoundException::new);
-        if (!member.isCertified()){
+        if (!member.isCertified()) {
             throw new CMemberNotCertifiedException();
         }
         Item item = itemJpaRepository.findById(requestDto.getItemId()).orElseThrow(CResourceNotFoundException::new);
-
-        long price = item.getPrice().getDiscountedPrice();
-        if (requestDto.getCouponId() != null) {
-            Coupon coupon = couponJpaRepository.findById(requestDto.getCouponId()).orElseThrow(CResourceNotFoundException::new);
-            Issue issue = issueJpaRepository.findByMemberAndCoupon(member, coupon).orElseThrow(CResourceNotFoundException::new);
-            price = issueService.useCoupon(issue, item);
-        }
-        price -= payPointManager.usePoint(member, requestDto.getPoint());
-        if (price != requestDto.getTossPayDto().getTossAmount()) {
-            throw new CPaymentException();
-        }
-
+        validateAmount(requestDto, member, item);
         PaymentInfo paymentInfo = tossService.confirmPayment(requestDto.getTossPayDto().toEntity());
+        payPointManager.usePoint(member, requestDto.getPoint());
+        payPointManager.raisePoint(member, (long) (paymentInfo.getTotalAmount() * 0.1));
         Order order = PayOrder.builder()
-                .id(paymentInfo.getOrderId())
-                .name(paymentInfo.getOrderName())
-                .amount(paymentInfo.getTotalAmount())
-                .payType(PayType.findByMethod(paymentInfo.getMethod()))
+                .paymentInfo(paymentInfo)
                 .item(item)
                 .member(member)
                 .build();
         return orderJpaRepository.save(order);
+    }
+
+    private void validateAmount(OrderDto.Request requestDto, Member member, Item item){
+        long discountedPriceByCoupon = item.getPrice().getDiscountedPrice();
+        if (requestDto.getCouponId() != null){
+            Coupon coupon = couponJpaRepository.findById(requestDto.getCouponId()).orElseThrow(CResourceNotFoundException::new);
+            Issue issue = issueJpaRepository.findByMemberAndCoupon(member, coupon).orElseThrow(CResourceNotFoundException::new);
+            discountedPriceByCoupon = issueService.useCoupon(issue, item);
+        }
+        long point = requestDto.getPoint();
+        long amount = requestDto.getTossPayDto().getTossAmount();
+        if (member.getPayPoint() < point){
+            throw new CPaymentException("사용할 포인트가 보유한 포인트보다 많습니다.");
+        }
+        if (discountedPriceByCoupon - point != amount){
+            throw new CPaymentException("결제 금액이 상이합니다.");
+        }
     }
 }
