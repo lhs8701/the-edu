@@ -67,7 +67,7 @@ public class MemberController {
     @Operation(summary = "포인트 조회", description = "")
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/members/me/point")
+    @GetMapping("/members/me/point")
     public ResponseEntity<Long> getPoint(@AuthenticationPrincipal Member member) {
         return new ResponseEntity<>(member.getPayPoint(), HttpStatus.OK);
     }
