@@ -57,7 +57,10 @@ values ('2', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_E
         '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg', '사무자동화산업기사 필기', '1', true),
        ('3', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END',
         '<오피스 최신강의, 최신출제기준반영,스마트폰수강,무료연장서비스>', '/static/images/os_sil_thumbnail_m.jpg',
-        '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg', '사무자동화산업기사 실기', '1', true);
+        '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg', '사무자동화산업기사 실기', '1', true),
+       ('4', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END',
+        '컴퓨터그래픽스운용기능사 자격증 취득희망자, 웹디자이너로 취업 희망자', '/static/images/graphics_thumbnail_m.jpg',
+        '/static/images/graphics_thumbnail.jpg', '/static/images/graphics_thumbnail_s.jpg', '사무자동화산업기사 실기', '1', true);
 
 insert into description_image (description_image_id, medium_file_path, original_file_path, small_file_path)
 values ('2', '/static/images/jo_oa_pil_description_m.jpg', '/static/images/jo_oa_pil_description.jpg',
@@ -65,7 +68,9 @@ values ('2', '/static/images/jo_oa_pil_description_m.jpg', '/static/images/jo_oa
        ('3', '/static/images/os_sil_description1_m.jpg', '/static/images/os_sil_description1.jpg',
         '/static/images/os_sil_description1_s.jpg'),
        ('3', '/static/images/os_sil_description2_m.jpg', '/static/images/os_sil_description2.jpg',
-        '/static/images/os_sil_description2_s.jpg');
+        '/static/images/os_sil_description2_s.jpg'),
+       ('4', '/static/images/graphics_description_m.jpg', '/static/images/graphics_description.jpg',
+        '/static/images/graphics_description_s.jpg');
 
 
 -- <Item> --
@@ -169,7 +174,8 @@ values
        ('16', '2', '5', '[제4과목] 정보통신 개론', false),
 
        ('17', '3', '1', '▶ [특강] 100점 합격을 위한 대호쌤의 세심한 특강', false),
-       ('18', '3', '2', '▶ [본강] 단계별로 따라하는 사무자동화실기 시험방식', false);
+       ('18', '3', '2', '▶ [본강] 단계별로 따라하는 사무자동화실기 시험방식', false),
+       ('19', '4', '1', '컴퓨터그래픽스운용기능사', false);
 
 
     -- <Unit> --
@@ -219,7 +225,39 @@ values
        ('98', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '7', '[액세스-3단계] 폼 만들기, 인쇄작업', '/static/videos/os_sil_access_step_03-m3u8/os_sil_access_step_03.m3u8', '18', '3'),
        ('99', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '8', '[액세스-4단계] 보고서 만들기, 인쇄작업', '/static/videos/os_sil_access_step_04-m3u8/os_sil_access_step_04.m3u8', '18', '3'),
        ('100', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '9', '[파워포인트-1, 2단계] 기본설정과 제1슬라이드 만들기', '/static/videos/os_sil_ppt_step_01-m3u8/os_sil_ppt_step_01.m3u8', '18', '3'),
-       ('101', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '10', '[파워포인트-3, 4단계] 제2슬라이드 만들고 인쇄설정하기', '/static/videos/os_sil_ppt_step_02-m3u8/os_sil_ppt_step_02.m3u8', '18', '3');
+       ('101', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '10', '[파워포인트-3, 4단계] 제2슬라이드 만들고 인쇄설정하기', '/static/videos/os_sil_ppt_step_02-m3u8/os_sil_ppt_step_02.m3u8', '18', '3'),
+       ('102', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '1', '강의소개', '/static/videos/graphic_silgi_01-m3u8/graphic_silgi_01.m3u8', '19', '4'),
+       ('103', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '2', '기본기능익히기', '/static/videos/graphic_silgi_02-m3u8/graphic_silgi_02.m3u8', '19', '4'),
+       ('104', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '3', '트랜스폼활용하기', '/static/videos/graphic_silgi_03-m3u8/graphic_silgi_03.m3u8', '19', '4'),
+       ('105', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '4', '패스파인더활용하기', '/static/videos/graphic_silgi_04-m3u8/graphic_silgi_04.m3u8', '19', '4'),
+       ('106', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '5', '그래프그리기', '/static/videos/graphic_silgi_05-m3u8/graphic_silgi_05.m3u8', '19', '4'),
+       ('107', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '6', '로고와문양만들기', '/static/videos/graphic_silgi_06-m3u8/graphic_silgi_06.m3u8', '19', '4'),
+       ('108', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '7', '펜툴활용하기', '/static/videos/graphic_silgi_07-m3u8/graphic_silgi_07.m3u8', '19', '4'),
+       ('109', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '8', '포토샵의기본기능', '/static/videos/graphic_silgi_08-m3u8/graphic_silgi_08.m3u8', '19', '4'),
+       ('110', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '9', '선택툴이해하기', '/static/videos/graphic_silgi_09-m3u8/graphic_silgi_09.m3u8', '19', '4'),
+       ('111', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '10', '펜툴활용하기', '/static/videos/graphic_silgi_10-m3u8/graphic_silgi_10.m3u8', '19', '4'),
+       ('112', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '11', '이미지수정하기', '/static/videos/graphic_silgi_11-m3u8/graphic_silgi_11.m3u8', '19', '4'),
+       ('113', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '12', '레이어활용하기', '/static/videos/graphic_silgi_12-m3u8/graphic_silgi_12.m3u8', '19', '4'),
+       ('114', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '13', '필터이해하기', '/static/videos/graphic_silgi_13-m3u8/graphic_silgi_13.m3u8', '19', '4'),
+       ('115', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '14', '페이지메이커기본기능', '/static/videos/graphic_silgi_14-m3u8/graphic_silgi_14.m3u8', '19', '4'),
+       ('116', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '15', '페이지메이커핵심기능', '/static/videos/graphic_silgi_15-m3u8/graphic_silgi_15.m3u8', '19', '4'),
+       ('117', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '16', '1회출제예상문제풀이', '/static/videos/graphic_silgi_16-m3u8/graphic_silgi_16.m3u8', '19', '4'),
+       ('118', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '17', '1회출제예상문제풀이', '/static/videos/graphic_silgi_17-m3u8/graphic_silgi_17.m3u8', '19', '4'),
+       ('119', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '18', '1회출제예상문제풀이', '/static/videos/graphic_silgi_18-m3u8/graphic_silgi_18.m3u8', '19', '4'),
+       ('120', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '19', '1회출제예상문제풀이', '/static/videos/graphic_silgi_19-m3u8/graphic_silgi_19.m3u8', '19', '4'),
+       ('121', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '20', '2회출제예상문제풀이', '/static/videos/graphic_silgi_20-m3u8/graphic_silgi_20.m3u8', '19', '4'),
+       ('122', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '21', '2회출제예상문제풀이', '/static/videos/graphic_silgi_21-m3u8/graphic_silgi_21.m3u8', '19', '4'),
+       ('123', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '22', '2회출제예상문제풀이', '/static/videos/graphic_silgi_22-m3u8/graphic_silgi_22.m3u8', '19', '4'),
+       ('124', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '23', '2회출제예상문제풀이', '/static/videos/graphic_silgi_23-m3u8/graphic_silgi_23.m3u8', '19', '4'),
+       ('125', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '24', '3회출제예상문제풀이', '/static/videos/graphic_silgi_24-m3u8/graphic_silgi_24.m3u8', '19', '4'),
+       ('126', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '25', '3회출제예상문제풀이', '/static/videos/graphic_silgi_25-m3u8/graphic_silgi_25.m3u8', '19', '4'),
+       ('127', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '26', '3회출제예상문제풀이', '/static/videos/graphic_silgi_26-m3u8/graphic_silgi_26.m3u8', '19', '4'),
+       ('128', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '27', '3회출제예상문제풀이', '/static/videos/graphic_silgi_27-m3u8/graphic_silgi_27.m3u8', '19', '4'),
+       ('129', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '28', '4회출제예상문제풀이', '/static/videos/graphic_silgi_28-m3u8/graphic_silgi_28.m3u8', '19', '4'),
+       ('130', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '29', '4회출제예상문제풀이', '/static/videos/graphic_silgi_29-m3u8/graphic_silgi_29.m3u8', '19', '4'),
+       ('131', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '30', '4회출제예상문제풀이', '/static/videos/graphic_silgi_30-m3u8/graphic_silgi_30.m3u8', '19', '4'),
+       ('132', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '31', '4회출제예상문제풀이', '/static/videos/graphic_silgi_31-m3u8/graphic_silgi_31.m3u8', '19', '4'),
+       ('133', '2023-02-08 13:07:33.914238', '2023-02-08 13:07:33.914238', '', '32', '실기시험시 유의사항', '/static/videos/graphic_silgi_32-m3u8/graphic_silgi_32.m3u8', '19', '4');
 
 -- <Question> --
 insert into question (id, created_time, modified_time, content, title, member_id, unit_id)
