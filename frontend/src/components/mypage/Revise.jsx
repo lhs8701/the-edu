@@ -191,7 +191,7 @@ export default function Revise() {
                   alert("성공");
                   successTossCert(data.success.txId, accessToken)
                     .then(() => {
-                      // window.location.reload();
+                      window.location.reload();
                     })
                     .catch((err) => {
                       alert(err);

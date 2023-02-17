@@ -14,51 +14,27 @@ import { getFeedbackApi, postFeedbackApi } from "../../api/feebackApi";
 
 const SideTitleAlignCenter = styled(SideTitle)`
   text-align: center;
+  margin-top: 40%;
 `;
 
-const BtnTab = styled.div`
-  margin-top: 15px;
-  width: 90%;
+const ReviewWrapper = styled(Wrapper)`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
-const Form = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 100%;
-`;
-
-const Input = styled.textarea`
-  width: 90%;
-  height: 10vh;
-`;
-const ThumbBox = styled.div`
-  background-color: pink;
-`;
 export default function UnitReview({ unitId }) {
   const [comment, setComment] = useState("");
-  const [thumbUp, setThumbUp] = useState(false);
-  const [thumbDown, setThumbDown] = useState(false);
+  const [thumbsUp, setThumbsUp] = useState(false);
+  const [thumbsDown, setThumbsDown] = useState(false);
   const [clicked, setClicked] = useState(false);
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
   const getFeedback = () => {
-    console.log("재 갱신");
     getFeedbackApi(accessToken, unitId)
       .then(({ data }) => {
-        console.log(data);
-        if (data.thumbsUp) {
-          setThumbUp(true);
-          setThumbDown(false);
-        } else {
-          setThumbDown(true);
-          setThumbUp(false);
-        }
+        setThumbsUp(data.thumbsUp);
+        setThumbsDown(data.thumbsDown);
       })
       .catch((err) => {
         if (err.response.status !== 404) {
@@ -67,25 +43,18 @@ export default function UnitReview({ unitId }) {
       });
   };
 
-  const postFeedback = (upAndDown) => {
-    let thumb;
-    if (upAndDown) {
-      thumb = true;
-    } else {
-      thumb = false;
-    }
-    postFeedbackApi(accessToken, unitId, thumb, comment)
+  const postFeedback = (thumbsUp, thumbsDown) => {
+    console.log("이거 보냄", thumbsUp, thumbsDown);
+    postFeedbackApi(accessToken, unitId, thumbsUp, thumbsDown)
       .then(({}) => {})
       .catch((err) => {
         console.log(err);
       });
   };
 
-  useEffect(getFeedback, [clicked]);
-
   const ThumbUpComponent = () => {
     let icon;
-    if (thumbUp) {
+    if (thumbsUp) {
       icon = ThumbUpIcon;
     } else {
       icon = ThumbUpOffAltIcon;
@@ -94,8 +63,14 @@ export default function UnitReview({ unitId }) {
       <Icon
         sx={{ height: "3rem", width: "3rem", cursor: "pointer" }}
         onClick={() => {
-          setClicked((prev) => !prev);
-          postFeedback(true);
+          if (thumbsUp) {
+            postFeedback(false, false);
+            setThumbsUp(false);
+          } else {
+            postFeedback(true, false);
+            setThumbsUp(true);
+            setThumbsDown(false);
+          }
         }}
         component={icon}
       />
@@ -104,7 +79,7 @@ export default function UnitReview({ unitId }) {
 
   const ThumbDownComponent = () => {
     let icon;
-    if (thumbDown) {
+    if (thumbsDown) {
       icon = ThumbDownAltIcon;
     } else {
       icon = ThumbDownOffAltIcon;
@@ -113,8 +88,14 @@ export default function UnitReview({ unitId }) {
       <Icon
         sx={{ height: "3rem", width: "3rem", cursor: "pointer" }}
         onClick={() => {
-          setClicked((prev) => !prev);
-          postFeedback(false);
+          if (thumbsDown) {
+            postFeedback(false, false);
+            setThumbsDown(false);
+          } else {
+            postFeedback(false, true);
+            setThumbsDown(true);
+            setThumbsUp(false);
+          }
         }}
         component={icon}
       />
@@ -128,6 +109,8 @@ export default function UnitReview({ unitId }) {
     margin: 50px 0px;
   `;
 
+  useEffect(getFeedback, []);
+
   return (
     <Wrapper>
       <SideTitleAlignCenter>강의가 어떠셨나요?</SideTitleAlignCenter>
@@ -135,25 +118,6 @@ export default function UnitReview({ unitId }) {
         <ThumbUpComponent />
         <ThumbDownComponent />
       </IconTab>
-      <Form>
-        <Input
-          value={comment}
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-          placeholder="개선사항을 적어주세요!"
-        />
-        <BtnTab>
-          <div />
-          <button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 1 }}
-            onClick={postFeedback}
-          >
-            보내기
-          </button>
-        </BtnTab>
-      </Form>
     </Wrapper>
   );
 }

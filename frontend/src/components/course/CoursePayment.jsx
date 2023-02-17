@@ -145,7 +145,7 @@ export default function CoursePayment({
       })
         .then(() => {
           alert("등록이 완료되었습니다.");
-          navigate(PROCESS_MAIN_URL.LOBBY.slice(0));
+          navigate(PROCESS_MAIN_URL.LOBBY.slice(1));
         })
         .catch((err) => {
           console.log(err);

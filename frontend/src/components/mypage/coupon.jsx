@@ -185,7 +185,7 @@ export default function Coupon() {
               >
                 사용하지 않은 쿠폰
                 {isTabStatus === 1 && (
-                  <StatusDisplayUnderBar layoutId="myClass" />
+                  <StatusDisplayUnderBar layoutId="myCoupons" />
                 )}
               </StatusNavTab>
               <StatusNavTab
@@ -196,7 +196,7 @@ export default function Coupon() {
               >
                 사용한 쿠폰
                 {isTabStatus === 2 && (
-                  <StatusDisplayUnderBar layoutId="myClass" />
+                  <StatusDisplayUnderBar layoutId="myCoupons" />
                 )}
               </StatusNavTab>
             </StatusNavBox>
@@ -204,14 +204,20 @@ export default function Coupon() {
           <CouponListBox>
             {isTabStatus === 1 ? (
               unUsedCouponList?.data?.data.length === 0 ? (
-                <AlertTitle>사용할 수 있는 쿠폰이 없어요.</AlertTitle>
+                <>
+                  <br />
+                  <AlertTitle>사용할 수 있는 쿠폰이 없어요.</AlertTitle>
+                </>
               ) : (
                 unUsedCouponList?.data?.data.map((coupon) => {
                   return <CouponCard key={coupon.id} coupon={coupon} />;
                 })
               )
             ) : usedCouponList?.data?.data.length === 0 ? (
-              <AlertTitle>사용한 쿠폰이 없어요.</AlertTitle>
+              <>
+                <br />
+                <AlertTitle>사용한 쿠폰이 없어요.</AlertTitle>
+              </>
             ) : (
               usedCouponList?.data?.data.map((coupon) => {
                 return <CouponCard key={coupon.id} coupon={coupon} />;

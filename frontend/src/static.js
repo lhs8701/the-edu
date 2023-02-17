@@ -36,6 +36,7 @@ export const PROCESS_MAIN_URL = {
     DEFAULT: "my",
     WISH: "/wish",
     COUPON: "/coupon",
+    REVISE: "/revise",
     DEAL: "/deal",
     WITHDRAW: "/withdraw",
   },

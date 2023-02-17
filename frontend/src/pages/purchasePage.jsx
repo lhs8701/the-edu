@@ -128,7 +128,6 @@ export default function PurchasePage() {
   const [isPurchaseDone, setIsPurchaseDone] = useState(false);
   const [itemInfo, setItemInfo] = useState();
   const navigate = useNavigate();
-  const [cost, setCost] = useState(state?.price);
   const [useCoupon, setUseCoupon] = useState({
     rate: true,
     value: -1,
@@ -136,9 +135,20 @@ export default function PurchasePage() {
   });
 
   useEffect(() => {
-    getItemReceiptApi(itemId, accessToken).then(({ data }) => {
-      setItemInfo(data);
-    });
+    getItemReceiptApi(itemId, accessToken)
+      .then(({ data }) => {
+        setItemInfo(data);
+      })
+      .catch((err) => {
+        if (err.response.data.code === -6010) {
+          alert("본인인증이 필요한 서비스입니다.");
+          navigate(
+            "/" +
+              PROCESS_MAIN_URL.MYPAGE.DEFAULT +
+              PROCESS_MAIN_URL.MYPAGE.REVISE
+          );
+        }
+      });
   }, []);
 
   const PurchaseThing = () => {
@@ -260,28 +270,6 @@ export default function PurchasePage() {
       }
     };
 
-    useEffect(() => {
-      if (
-        useCoupon.rate &&
-        Number(((useCoupon.value * state?.price) / 100).toFixed()) + usePoint &&
-        usePoint !== 0
-      ) {
-        setUsePoint(
-          Number(((useCoupon.value * state?.price) / 100).toFixed()) +
-            usePoint -
-            state.price
-        );
-        alert("이미 충분히 혜택을 받고 계세요. 제가 아껴드릴게요!");
-      } else if (
-        !useCoupon.rate &&
-        useCoupon.value + usePoint &&
-        usePoint !== 0
-      ) {
-        setUsePoint(useCoupon.value + usePoint - state.price);
-        alert("이미 충분히 혜택을 받고 계세요. 제가 아껴드릴게요!");
-      }
-    }, [useCoupon, usePoint]); //쿠폰가격 + 포인트가격이 원가격을넘으면 포인트를 없애자
-
     return (
       <div>
         <Div>
@@ -293,13 +281,27 @@ export default function PurchasePage() {
             type="text"
             value={usePoint}
             onChange={(e) => {
-              if (e.target.value > itemInfo?.point) {
+              if (e.target.value > 10000) {
+                // 일반적으로 많은 입력
                 alert("보유한 포인트보다 많은 입력은 허용되지 않습니다.");
+                return;
               } else if (e.target.value > state.price) {
+                // 구매가격보다 높은 가격 입력
                 alert("구매가격보다 많은 입력은 허용되지 않습니다.");
-              } else {
-                setUsePoint(e.target.value);
+                return;
+              } else if (
+                Number(e.target.value) +
+                  Number(((useCoupon.value * state?.price) / 100).toFixed()) >=
+                state.price
+              ) {
+                alert("포인트 + 쿠폰 할인 혜택이 원 가격보다 높습니다");
+
+                setUsePoint(
+                  state.price -
+                    Number(((useCoupon.value * state?.price) / 100).toFixed())
+                );
               }
+              setUsePoint(e.target.value);
             }}
             min="0"
             max={itemInfo?.point}
