@@ -11,9 +11,9 @@ import Alamofire
 struct BannerDataService {
     static let shared = BannerDataService()
     
+    // MARK: - 현재 진행 중인 이벤트 배너정보 가져오기
     func getOngoingBanner(completion: @escaping (NetworkResult<Any>) -> Void) {
         let URL = "\(Const.Url.getOngoingBanner)"
-        print(URL)
         
         let request = AF.request(URL, method: .get, encoding: JSONEncoding.default)
         
@@ -37,10 +37,8 @@ struct BannerDataService {
         case 200:
             return isValidData(data: data)
         case 400:
-            print("statusCode 400")
             return .pathErr
         case 401, 404:
-            print("잘못된 리소스")
             return .resourceErr
         case 500:
             return .serverErr
