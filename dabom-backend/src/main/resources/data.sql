@@ -60,7 +60,7 @@ values ('2', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_E
         '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg', '사무자동화산업기사 실기', '1', true),
        ('4', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END',
         '컴퓨터그래픽스운용기능사 자격증 취득희망자, 웹디자이너로 취업 희망자', '/static/images/graphics_thumbnail_m.jpg',
-        '/static/images/graphics_thumbnail.jpg', '/static/images/graphics_thumbnail_s.jpg', '사무자동화산업기사 실기', '1', true);
+        '/static/images/graphics_thumbnail.jpg', '/static/images/graphics_thumbnail_s.jpg', '컴퓨터그래픽스운용기능사 실기', '1', true);
 
 insert into description_image (description_image_id, medium_file_path, original_file_path, small_file_path)
 values ('2', '/static/images/jo_oa_pil_description_m.jpg', '/static/images/jo_oa_pil_description.jpg',
@@ -137,7 +137,7 @@ values ('THREE_MONTH', '4', '2', 'PAID'),
 insert into enroll (id, created_time, modified_time, course_id, member_id, end_date)
 values ('2', '2023-02-16 13:45:24.036603', '2023-02-14 13:45:24.036603', '2', '1', '2024-02-13 11:01:49.369901'),
        ('3', '2023-02-16 13:45:24.036603', '2023-02-14 13:45:24.036603', '3', '1', '2024-02-13 11:01:49.369901'),
-       ('5', '2023-02-16 13:45:24.036603', '2023-02-14 13:45:24.036603', '2', '2', '2024-02-13 11:01:49.369901');
+       ('5', '2023-02-16 13:45:24.036603', '2023-02-14 13:45:24.036603', '4', '2', '2024-02-13 11:01:49.369901');
 
 -- <Post> --
 insert into post (dtype, id, created_time, modified_time, content, likes, course_id, member_id)

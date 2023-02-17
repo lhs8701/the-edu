@@ -69,6 +69,8 @@ public class CouponDto {
         String name;
         @Schema(description = "할인률")
         long discount;
+        @Schema(description = "최소 적용 금액")
+        long minimumAmount;
         @Schema(description = "정률할인 / 정액할인", example = "RATE / FIX")
         DiscountPolicy discountPolicy;
         @Schema(description = "유효기간")
@@ -80,6 +82,7 @@ public class CouponDto {
             this.id = coupon.getId();
             this.name = coupon.getName();
             this.discount = coupon.getDiscount();
+            this.minimumAmount = coupon.getMinimumAmount();
             this.discountPolicy = coupon.getDiscountPolicy();
             this.endDate = coupon.getEndDate();
             this.expired = coupon.getEndDate().isBefore(LocalDateTime.now().toLocalDate());
