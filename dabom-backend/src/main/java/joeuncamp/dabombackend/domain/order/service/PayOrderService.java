@@ -73,7 +73,7 @@ public class PayOrderService implements OrderService {
 
     private Optional<Coupon> getCoupon(OrderDto.Request requestDto){
         if (requestDto.getCouponId() == null){
-            return Optional.of(new Coupon());
+            return Optional.empty();
         }
         return couponJpaRepository.findById(requestDto.getCouponId());
     }
