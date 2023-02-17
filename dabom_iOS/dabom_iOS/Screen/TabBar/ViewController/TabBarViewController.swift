@@ -9,9 +9,18 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
 
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureTabBar()
+    }
+    
+    
+    // MARK: - configure
+    
+    private func configureTabBar() {
         tabBar.backgroundColor = .white
         tabBar.isTranslucent = false
         

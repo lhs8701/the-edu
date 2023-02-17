@@ -23,7 +23,7 @@ class FindPasswordVC: UIViewController {
         
         activityIndicator.backgroundColor = .lightGray
         activityIndicator.layer.opacity = 0.4
-        activityIndicator.color = .black
+        activityIndicator.color = .black	
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .medium
             
