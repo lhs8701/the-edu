@@ -10,6 +10,7 @@ import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.CategoryType;
+import joeuncamp.dabombackend.global.constant.ChargeType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.validation.CategoryValidation;
 import lombok.*;
@@ -36,16 +37,9 @@ public class CourseDto {
         @CategoryValidation
         @Schema(description = "세부 카테고리", example = ExampleValue.Course.CATEGORY)
         String category;
-
-        @NotNull
-        @PositiveOrZero
-        @Schema(description = "가격", example = "143000")
-        long price;
-
         @NotBlank
         @Schema(description = "썸네일 이미지 URL", example = ExampleValue.Image.THUMBNAIL)
         String thumbnailImage;
-
         @Schema(description = "소개 이미지 URL")
         List<String> descriptionImageUrls;
 
@@ -61,6 +55,7 @@ public class CourseDto {
                             .map(ImageInfo::new)
                             .toList())
                     .active(false)
+                    .chargeType(ChargeType.PAID)
                     .build();
             course.setCreatorProfile(creator);
             return course;

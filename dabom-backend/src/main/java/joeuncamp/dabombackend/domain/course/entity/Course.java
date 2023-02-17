@@ -9,6 +9,7 @@ import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.CategoryType;
+import joeuncamp.dabombackend.global.constant.ChargeType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,9 +28,9 @@ public class Course extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String title;
-
     String description;
-
+    @Enumerated(value = EnumType.STRING)
+    ChargeType chargeType;
     @Enumerated(value = EnumType.STRING)
     CategoryType category;
 
@@ -87,5 +88,9 @@ public class Course extends BaseTimeEntity {
 
     public void activate(){
         this.active = true;
+    }
+
+    public void setChargeType(ChargeType chargeType){
+        this.chargeType = chargeType;
     }
 }
