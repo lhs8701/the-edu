@@ -13,7 +13,7 @@ const Title = styled(TabTitle)`
 `;
 
 const Input = styled(InputTextArea)`
-  height: 75%;
+  height: 80%;
   width: 100%;
 `;
 
@@ -45,7 +45,6 @@ export default function CourseReviewForm({ courseId, setIsModalOpen }) {
         <AccountSmallBtn onClick={uploadReview}>등록</AccountSmallBtn>
       </Div>
 
-      <br />
       <br />
       <Input value={content} onChange={(e) => setContent(e.target.value)} />
     </Wrapper>

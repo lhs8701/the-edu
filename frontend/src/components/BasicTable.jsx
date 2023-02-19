@@ -69,6 +69,7 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
 }
 
 export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {
+  console.log(rows);
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">
@@ -90,7 +91,7 @@ export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {
               <TableCell align="center">{row.title}</TableCell>
               <TableCell align="center">{row.category}</TableCell>
               <TableCell align="center">
-                {row.creator ? "맞음" : "아님"}
+                {row.active ? "승인" : "미승인"}
               </TableCell>
             </TableRow>
           ))}
@@ -226,6 +227,7 @@ export function AdminCreatorStanbyTable({ rows, cells, activeFun }) {
 }
 
 export function AdminCreatorsTable({ rows, cells, activeFun }) {
+  console.log(rows);
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">
@@ -244,9 +246,48 @@ export function AdminCreatorsTable({ rows, cells, activeFun }) {
           {rows?.map((row, idx) => (
             <TableRow key={row.id}>
               <TableCell align="center">{row.creatorId}</TableCell>
-              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">{row.nickname}</TableCell>
               <TableCell align="center">{row.email}</TableCell>
               <TableCell align="center">{row.mobile}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+
+export function AdminReadyCoursesTable({ rows, cells, navigate }) {
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{}} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {cells?.map((cell) => {
+              return (
+                <TableCell key={cell.id} align="center">
+                  {cell?.name}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row, idx) => (
+            <TableRow key={row.id}>
+              <TableCell align="center">{row.courseId}</TableCell>
+              <TableCell align="center">{row.title}</TableCell>
+              <TableCell align="center">{row.instructor}</TableCell>
+              <TableCell align="center">{row.category}</TableCell>
+              <TableCell align="center">
+                <button
+                  onClick={() => {
+                    navigate(`${row.courseId}`);
+                  }}
+                >
+                  상세 보기
+                </button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -6,7 +6,32 @@ const GET_USERS_URL = `${ADMIN_URL}/members`;
 const GET_CREATOR_STANBY_URL = `${ADMIN_URL}/creators/standby`;
 const CREATOR_URL = `${ADMIN_URL}/creators`;
 const POST_GENERATE_COUPON_URL = `${ADMIN_URL}/coupons/generate`;
+const GET_READYCOURSE_URL = `${ADMIN_URL}/courses/inactive`;
+const POST_ACTIVECOURSE_URL = `${ADMIN_URL}/courses`;
 const COUPON_LIST_URL = `${ADMIN_URL}/coupons`;
+
+export async function activeCourseApi(accessToken, courseId) {
+  return await axios.post(
+    `${POST_ACTIVECOURSE_URL}/${courseId}/activate`,
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
+export async function getReadyCourseListApi(accessToken) {
+  return await axios.get(GET_READYCOURSE_URL, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
+    },
+  });
+}
+
 export async function getAllCouponListApi(accessToken) {
   return await axios.get(COUPON_LIST_URL, {
     headers: {
@@ -15,6 +40,7 @@ export async function getAllCouponListApi(accessToken) {
     },
   });
 }
+
 export async function generateCouponApi(accessToken, data) {
   return await axios.post(
     POST_GENERATE_COUPON_URL,

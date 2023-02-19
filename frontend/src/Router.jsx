@@ -41,8 +41,8 @@ import CourseProfit from "./components/admin/CourseProfit";
 import CategoryProfit from "./components/admin/CategoryProfit";
 import Users from "./components/admin/Users";
 import Creators from "./components/admin/Creators";
-import Courses from "./components/admin/Courses";
-import Revisecourses from "./components/admin/Revisecourses";
+import Courses from "./components/admin/course/Courses";
+import Revisecourses from "./components/admin/course/Revisecourses";
 import CoursesInquires from "./components/creator/CoursesInquires";
 import EventList from "./components/admin/event/EventList";
 import DetailEvent from "./components/admin/event/DetailEvent";
@@ -52,6 +52,8 @@ import AdminCoupon from "./components/admin/coupon/AdminCoupon";
 import PrivacyTerms from "./components/PrivacyTemrs";
 import CouponList from "./components/admin/coupon/CouponList";
 import DetailCoupon from "./components/admin/coupon/DetailCoupon";
+import DetailCourseInfo from "./components/admin/course/DetailCourseInfo";
+import UnitVideo from "./components/admin/course/UnitVideo";
 
 const router = createBrowserRouter([
   {
@@ -216,6 +218,14 @@ const router = createBrowserRouter([
       {
         path: "revisecourses",
         element: <Revisecourses />,
+      },
+      {
+        path: "revisecourses/:courseId",
+        element: <DetailCourseInfo />,
+      },
+      {
+        path: "revisecourses/:courseId/:unitId",
+        element: <UnitVideo />,
       },
       {
         path: "courses",

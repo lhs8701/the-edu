@@ -78,6 +78,7 @@ export default function ClassCard({ course }) {
     >
       <ClassImgBox>
         <ClassImg
+          loading="lazy"
           src={STATIC_URL + course?.thumbnailImage?.mediumFilePath}
           animate={{
             scale: isCardOn ? 1.2 : 1,

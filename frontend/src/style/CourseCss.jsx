@@ -12,7 +12,6 @@ export const Select = styled.select`
 `;
 export const PriceBox = styled.div`
   width: 100%;
-  height: 150px;
 `;
 export const ONOFFTab = styled.div`
   width: 65px;

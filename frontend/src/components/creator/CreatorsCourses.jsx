@@ -11,7 +11,7 @@ export default function CreatorsCourses() {
   const [coursesList, setCoursesList] = useState();
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const stanbyCreatorsList = [
-    { name: "강좌 Id", id: 0 },
+    { name: "강좌 ID", id: 0 },
     { name: "강좌 제목", id: 1 },
     { name: "카테고리", id: 2 },
     { name: "승인 여부", id: 3 },

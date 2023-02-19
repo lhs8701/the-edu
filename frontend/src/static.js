@@ -117,11 +117,11 @@ export const ADMIN_BAR_LIST = {
       name: "강좌 관리",
       list: [
         {
-          name: "신규 조회 및 관리",
+          name: "대기 신청 강좌 관리",
           url: "/admin/revisecourses",
         },
         {
-          name: "전체 조회 및 관리",
+          name: "전체 강좌 관리",
           url: "/admin/courses",
         },
       ],

@@ -10,7 +10,13 @@ export default function CourseImg({ images }) {
   return (
     <>
       {images?.map((img, idx) => {
-        return <InfoImg key={idx} src={STATIC_URL + img.originalFilePath} />;
+        return (
+          <InfoImg
+            loading="lazy"
+            key={idx}
+            src={STATIC_URL + img.originalFilePath}
+          />
+        );
       })}
     </>
   );

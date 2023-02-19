@@ -226,7 +226,7 @@ export default function PlayerRoot() {
   }, []);
 
   useEffect(() => {
-    if (videoVal.played >= 0.9 && !videoVal.done) {
+    if (videoVal.played >= 0.8 && !videoVal.done) {
       setVideoVal({ ...videoVal, done: true });
       postWatchAllApi(accessToken, unitId);
     }

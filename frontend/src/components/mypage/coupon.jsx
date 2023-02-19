@@ -131,6 +131,8 @@ export default function Coupon() {
       .catch((err) => {
         if (err.response.status === 404) {
           alert("옳지 않은 쿠폰번호 입니다.");
+        } else if (err.response.status === 400) {
+          alert("이미 발급한 쿠폰입니다.");
         } else {
           alert(err);
         }
@@ -151,7 +153,7 @@ export default function Coupon() {
           >
             <CouponRegisterTitle>나의 적립금 :</CouponRegisterTitle>
             &nbsp;&nbsp;&nbsp;
-            <PointDiv>{myPoints?.data}</PointDiv>
+            <PointDiv>{myPoints?.data}원</PointDiv>
           </div>
           <br />
           <br />

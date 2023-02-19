@@ -285,9 +285,11 @@ export default function PurchasePage() {
                 // 일반적으로 많은 입력
                 alert("보유한 포인트보다 많은 입력은 허용되지 않습니다.");
                 return;
-              } else if (e.target.value > state.price) {
+              } else if (e.target.value >= state.price) {
                 // 구매가격보다 높은 가격 입력
-                alert("구매가격보다 많은 입력은 허용되지 않습니다.");
+                alert(
+                  "구매가격보다 동일하거나 많은 포인트 사용은 허용되지 않습니다."
+                );
                 return;
               } else if (
                 Number(e.target.value) +
@@ -352,7 +354,7 @@ export default function PurchasePage() {
             <PrimaryCostTab>{usePoint} 원</PrimaryCostTab>
           </FlexDiv>
           <FlexDiv>
-            <OwnPriceTab>총 할인 금액</OwnPriceTab>
+            <OwnPriceTab>총 할인 가격</OwnPriceTab>
             <PrimaryCostTab>
               {Number(useCoupon.value) === -1 //no coupon
                 ? usePoint
@@ -372,8 +374,16 @@ export default function PurchasePage() {
           <br />
           <br />
           <FlexDiv>
-            <SmallTitle>총 결제 금액</SmallTitle>
+            <OwnPriceTab>원래 가격</OwnPriceTab>
             <PrimaryCostTab>
+              {state.price}
+              &nbsp;원
+            </PrimaryCostTab>
+          </FlexDiv>
+          <FlexDiv>
+            <SmallTitle>최종 결제 가격</SmallTitle>
+            <PrimaryCostTab>
+              ={" "}
               {Number(useCoupon.value) === -1 // 쿠폰 안쓸경우
                 ? state?.price - usePoint
                 : useCoupon.rate
@@ -388,8 +398,7 @@ export default function PurchasePage() {
           </FlexDiv>
         </PriceBox>
         <br />
-        <br />
-        <br />
+
         <PriceUnderBar />
         <br />
         <br />
