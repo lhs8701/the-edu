@@ -68,6 +68,7 @@ public class BasicAuthService {
      * @param requestDto 계정, 비밀번호
      * @return 어세스토큰, 리프레시토큰
      */
+    @Transactional
     public BasicAuthDto.LoginResponse login(BasicAuthDto.LoginRequest requestDto) {
         Member member = memberJpaRepository.findByAccountAndLoginType(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberNotFoundException::new);
         if (!member.isEmailCertified()) {
@@ -87,6 +88,7 @@ public class BasicAuthService {
      *
      * @param requestDto 어세스토큰, 리프레시토큰
      */
+    @Transactional
     public void logout(BasicAuthDto.UnlinkRequestDto requestDto) {
         tokenRedisRepository.saveBlockedToken(requestDto.getAccessToken());
         tokenRedisRepository.deleteRefreshToken(requestDto.getRefreshToken());
@@ -98,6 +100,7 @@ public class BasicAuthService {
      *
      * @param requestDto 어세스토큰, 리프레시토큰
      */
+    @Transactional
     public void withdraw(BasicAuthDto.UnlinkRequestDto requestDto) {
         Member member = (Member) jwtProvider.getAuthentication(requestDto.getAccessToken()).getPrincipal();
         memberJpaRepository.deleteById(member.getId());
@@ -112,6 +115,7 @@ public class BasicAuthService {
      * @param requestDto 어세스토큰, 리프레시토큰
      * @return 재발급한 어세스토큰, 리프레시토큰
      */
+    @Transactional
     public TokenForm reissue(BasicAuthDto.ReissueRequest requestDto) {
         isReissueAvailable(requestDto.getAccessToken(), requestDto.getRefreshToken());
         Member member = (Member) jwtProvider.getAuthentication(requestDto.getRefreshToken()).getPrincipal();
