@@ -41,6 +41,7 @@ public class OrderDto {
             }
         }
     }
+    @Getter
     public static class Response{
         @Schema(description = "주문 아이디")
         String orderId;
