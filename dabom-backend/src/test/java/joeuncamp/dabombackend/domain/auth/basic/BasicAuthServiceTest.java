@@ -73,6 +73,7 @@ public class BasicAuthServiceTest {
         Member member = Member.builder()
                 .account(ExampleValue.Member.ACCOUNT)
                 .password(ExampleValue.Member.PASSWORD)
+                .emailCertified(true)
                 .build();
 
         BasicAuthDto.LoginRequest dto = BasicAuthDto.LoginRequest.builder()
