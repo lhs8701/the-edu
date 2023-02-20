@@ -34,7 +34,7 @@ import Comment from "./components/mypage/Comment";
 import CreatorInfo from "./components/creator/CreatorInfo";
 import CreatorProfit from "./components/creator/CreatorProfit";
 import CoursesComment from "./components/creator/CoursesComment";
-import Outline from "./components/creator/Outline";
+import Outline from "./components/creator/uploadCourse/Outline";
 import CreatorsCourses from "./components/creator/CreatorsCourses";
 import CreatorsRegisted from "./components/creator/CreatorsRegisted";
 import CourseProfit from "./components/admin/CourseProfit";
@@ -54,6 +54,8 @@ import CouponList from "./components/admin/coupon/CouponList";
 import DetailCoupon from "./components/admin/coupon/DetailCoupon";
 import DetailCourseInfo from "./components/admin/course/DetailCourseInfo";
 import UnitVideo from "./components/admin/course/UnitVideo";
+import CourseDetailSetUp from "./components/creator/CourseDetailSetUp";
+import FailPurchase from "./components/purchase/FailPurchase";
 
 const router = createBrowserRouter([
   {
@@ -129,7 +131,7 @@ const router = createBrowserRouter([
           },
           {
             path: ":point/:couponId/fail",
-            element: <PurchasePage />,
+            element: <FailPurchase />,
           },
         ],
         errorElement: <div>dndn</div>,
@@ -285,6 +287,10 @@ const router = createBrowserRouter([
       {
         path: "mycourses",
         element: <CreatorsCourses />,
+      },
+      {
+        path: "mycourses/:courseId",
+        element: <CourseDetailSetUp />,
       },
       {
         path: "registcourses",

@@ -13,6 +13,37 @@ const FILE_URL = API_URL + FILE_PATH;
 const STANBY_URL = "/standby";
 const ACTIVE_URL = "/activate/members";
 
+export async function setUpTicketApi(accessToken, courseId, data) {
+  return await axios.post(
+    `${API_URL}${COURSES_URL}/${courseId}/tickets`,
+    {
+      costPrice: data.costPrice,
+      discountedPrice: data.discountedPrice,
+      coursePeriod: "THREE_MONTH / SIX_MONTH / UNLIMITED",
+    },
+    {
+      headers: {
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
+export async function changeChateTypeApi(accessToken, courseId, chargeType) {
+  return await axios.post(
+    `${API_URL}${COURSES_URL}/${courseId}`,
+    {},
+    {
+      headers: {
+        ACCESS: accessToken,
+      },
+      params: {
+        chargeType: chargeType,
+      },
+    }
+  );
+}
+
 export async function requestCreatorApi(accessToken, subject, career) {
   return await axios.post(
     CREATOR_URL + STANBY_URL,

@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { uploadVideoApi } from "../../api/creatorApi";
-import { getAccessTokenSelector } from "../../atom";
+import { uploadVideoApi } from "../../../api/creatorApi";
+import { getAccessTokenSelector } from "../../../atom";
 import { ProgressBarDiv } from "./CourseInfoUpload";
 
 const UploadTab = styled(Box)`

@@ -7,7 +7,7 @@ import { generateCouponApi, getAllCouponListApi } from "../../../api/adminApi";
 import { getAdminAccessTokenSelector } from "../../../atom";
 import { ADMIN_BAR_LIST } from "../../../static";
 import { CouponTable } from "../../BasicTable";
-import { CssTextField } from "../../creator/Outline";
+import { CssTextField } from "../../creator/uploadCourse/Outline";
 import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
 
 export default function AdminCoupon() {

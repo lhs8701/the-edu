@@ -3,12 +3,9 @@ import { TOSS_CLIENTKEY } from "./AuthKey";
 import uuid from "react-uuid";
 
 export function purchase(purchaseInfo, method) {
-  console.log();
   loadTossPayments(TOSS_CLIENTKEY).then((tossPayments) => {
     tossPayments
       .requestPayment(method, {
-        // 결제 수단 파라미터
-        // 결제 정보 파라미터
         amount: purchaseInfo.amount,
         orderId: String(uuid()),
         orderName: String(purchaseInfo.orderName),

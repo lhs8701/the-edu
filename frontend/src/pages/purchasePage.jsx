@@ -218,8 +218,9 @@ export default function PurchasePage() {
   console.log(useCoupon);
   useEffect(() => {
     // url로 현재 위치 확인
+    console.log(currentPath.slice(-4));
     if (
-      currentPath.slice(-5) === "fail" ||
+      currentPath.slice(-4) === "fail" ||
       currentPath.slice(-7) === "success"
     ) {
       setIsPurchaseDone(true);
@@ -235,23 +236,23 @@ export default function PurchasePage() {
       let cost = 0;
       if (Number(useCoupon.value) === -1) {
         //안쓸때
-        cost = state.price - usePoint;
+        cost = state?.price - usePoint;
       } else {
         if (useCoupon.rate) {
           cost =
-            state.price - // 쿠폰쓰고 퍼센트 할인 쿠폰일때
-            Number(((useCoupon.value * state.price) / 100).toFixed()) -
+            state?.price - // 쿠폰쓰고 퍼센트 할인 쿠폰일때
+            Number(((useCoupon.value * state?.price) / 100).toFixed()) -
             usePoint;
         } else {
           // 쿠폰쓰고 정가 쿠폰일때
-          cost = state.price - useCoupon.value - usePoint;
+          cost = state?.price - useCoupon.value - usePoint;
         }
       }
-      console.log();
+
       if (Number(cost) <= 0) {
         cost = 1;
       }
-      console.log(cost);
+
       if (purchaseMethod) {
         purchase(
           {
@@ -285,7 +286,7 @@ export default function PurchasePage() {
                 // 일반적으로 많은 입력
                 alert("보유한 포인트보다 많은 입력은 허용되지 않습니다.");
                 return;
-              } else if (e.target.value >= state.price) {
+              } else if (e.target.value >= state?.price) {
                 // 구매가격보다 높은 가격 입력
                 alert(
                   "구매가격보다 동일하거나 많은 포인트 사용은 허용되지 않습니다."
@@ -294,12 +295,12 @@ export default function PurchasePage() {
               } else if (
                 Number(e.target.value) +
                   Number(((useCoupon.value * state?.price) / 100).toFixed()) >=
-                state.price
+                state?.price
               ) {
                 alert("포인트 + 쿠폰 할인 혜택이 원 가격보다 높습니다");
 
                 setUsePoint(
-                  state.price -
+                  state?.price -
                     Number(((useCoupon.value * state?.price) / 100).toFixed())
                 );
               }
@@ -343,8 +344,8 @@ export default function PurchasePage() {
                 ? ZERO
                 : useCoupon.rate
                 ? Number(((useCoupon.value * state?.price) / 100).toFixed())
-                : useCoupon.value > state.price
-                ? state.price
+                : useCoupon.value > state?.price
+                ? state?.price
                 : useCoupon.value}
               &nbsp;원
             </PrimaryCostTab>
@@ -361,12 +362,12 @@ export default function PurchasePage() {
                 : useCoupon.rate // used rate coupon
                 ? Number(((useCoupon.value * state?.price) / 100).toFixed()) +
                     usePoint > // 원 가격보다 작을 경우와 큰 경우 구분
-                  state.price
-                  ? state.price
+                  state?.price
+                  ? state?.price
                   : Number(((useCoupon.value * state?.price) / 100).toFixed()) +
                     usePoint
-                : useCoupon.value + usePoint > state.price
-                ? state.price
+                : useCoupon.value + usePoint > state?.price
+                ? state?.price
                 : useCoupon.value + usePoint}
               &nbsp;원
             </PrimaryCostTab>
@@ -376,7 +377,7 @@ export default function PurchasePage() {
           <FlexDiv>
             <OwnPriceTab>원래 가격</OwnPriceTab>
             <PrimaryCostTab>
-              {state.price}
+              {state?.price}
               &nbsp;원
             </PrimaryCostTab>
           </FlexDiv>
@@ -388,7 +389,7 @@ export default function PurchasePage() {
                 ? state?.price - usePoint
                 : useCoupon.rate
                 ? state?.price - // 쿠폰쓰고 퍼센트 할인 쿠폰일때
-                  Number(((useCoupon.value * state.price) / 100).toFixed()) -
+                  Number(((useCoupon.value * state?.price) / 100).toFixed()) -
                   usePoint // 쿠폰쓰고 정가 쿠폰일때
                 : state?.price - useCoupon.value - usePoint < 0
                 ? 0

@@ -7,7 +7,7 @@ import { requestCreatorApi } from "../../api/creatorApi";
 import { getAccessTokenSelector, getCreatorIdSelector } from "../../atom";
 import { CREATOR_BAR_LIST } from "../../static";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
-import { CssTextField } from "./Outline";
+import { CssTextField } from "./uploadCourse/Outline";
 
 const RegistBtn = styled.button``;
 

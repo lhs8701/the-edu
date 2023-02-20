@@ -7,13 +7,13 @@ import {
   Select,
 } from "@mui/material";
 import { useState } from "react";
-import { CATE_VALUE } from "../../static";
+import { CATE_VALUE } from "../../../static";
 import { CssTextField } from "./Outline";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { uploadImageApi } from "../../api/creatorApi";
-import { getAccessTokenSelector } from "../../atom";
+import { uploadImageApi } from "../../../api/creatorApi";
+import { getAccessTokenSelector } from "../../../atom";
 import { useRecoilValue } from "recoil";
 import CourseInfoImage from "./CourseInfoImage";
 

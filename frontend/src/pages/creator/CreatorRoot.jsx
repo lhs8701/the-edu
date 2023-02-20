@@ -9,7 +9,6 @@ import { CREATOR_BAR_LIST } from "../../static";
 export default function CreatorRoot() {
   const navigate = useNavigate();
   const isCreator = useRecoilValue(getCreatorIdSelector);
-  console.log(isCreator);
 
   useEffect(() => {
     if (isCreator < 0) {

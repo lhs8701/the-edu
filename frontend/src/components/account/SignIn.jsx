@@ -18,6 +18,7 @@ import { KAKAO_CLIENT_ID, KAKAO_REDIRECT_URL } from "../../AuthKey";
 import { login } from "../../api/authApi";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { getLoginState, LoginState } from "../../atom";
+import kakaoImg from "../../images/kakao_login_medium_wide.png";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -47,6 +48,16 @@ const AnyLink = styled(Link)`
   &:active {
     transform: scale(0.9);
   }
+`;
+
+const ImgDiv = styled.div`
+  display: flex;
+  margin: 0 auto;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+  background-color: #fee501;
+  border-radius: var(--size-border-radius);
 `;
 
 export default function SignIn() {
@@ -84,7 +95,6 @@ export default function SignIn() {
         creatorId: data.creatorId,
       });
     } catch (err) {
-      console.log(err.response);
       if (err.response.data.code === -6008) {
         alert("회원정보가 없습니다.");
       } else if (err.response.data.code === -6009) {
@@ -159,16 +169,23 @@ export default function SignIn() {
           <AccountSmallBtn>로그인</AccountSmallBtn>
         </BtnSignUpBox>
       </AccountForm>
-      <AccountBtn
+      <ImgDiv>
+        <img
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            window.location.href = KAKAO_AUTH_URL;
+          }}
+          src={kakaoImg}
+          alt=""
+        />
+      </ImgDiv>
+      {/* <AccountBtn
         texthovercolor={"--color-background"}
         bgcolor={"--color-primary"}
         textcolor={"--color-text"}
-        onClick={() => {
-          window.location.href = KAKAO_AUTH_URL;
-        }}
       >
         카카오로 시작하기
-      </AccountBtn>
+      </AccountBtn> */}
       {/* <AccountBtn
         texthovercolor={"--color-background"}
         bgcolor={"--color-account-naver"}

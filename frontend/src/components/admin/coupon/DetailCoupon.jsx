@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import { generateCouponCodeApi } from "../../../api/adminApi";
 import { getAdminAccessTokenSelector } from "../../../atom";
-import { CssTextField } from "../../creator/Outline";
+import { CssTextField } from "../../creator/uploadCourse/Outline";
 import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
 
 export default function DetailCoupon() {

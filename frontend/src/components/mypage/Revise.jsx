@@ -92,7 +92,7 @@ export default function Revise() {
 
         setIsId(email);
 
-        setIsProfileImg(profileImage.mediumFilePath);
+        setIsProfileImg(profileImage?.originalFilePath);
 
         setValue("name", nickname);
         setValue("email", email);
@@ -108,7 +108,7 @@ export default function Revise() {
   const [isCurrentPwd, setIsCurrentPwd] = useState("");
   const [isNewPwd, setIsNewPwd] = useState("");
   const [isProfileImg, setIsProfileImg] = useState(
-    infos?.data?.profileImage.mediumFilePath
+    infos?.data?.profileImage?.originalFilePath
   );
 
   const {

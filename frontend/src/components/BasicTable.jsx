@@ -13,6 +13,9 @@ const DeleteBtn = styled.button`
   z-index: 10;
   border: none;
   padding: 5px;
+  &:hover {
+    scale: 1.1;
+  }
 `;
 
 export function EventTable({ rows, cells, deleteFun, navigate }) {
@@ -69,7 +72,6 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
 }
 
 export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {
-  console.log(rows);
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">
@@ -92,6 +94,15 @@ export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {
               <TableCell align="center">{row.category}</TableCell>
               <TableCell align="center">
                 {row.active ? "승인" : "미승인"}
+              </TableCell>
+              <TableCell align="center">
+                <DeleteBtn
+                  onClick={() => {
+                    navigate(`${row.courseId}`);
+                  }}
+                >
+                  상세 설정
+                </DeleteBtn>
               </TableCell>
             </TableRow>
           ))}

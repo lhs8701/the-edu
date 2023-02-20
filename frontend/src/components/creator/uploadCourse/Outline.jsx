@@ -3,18 +3,18 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 import styled from "styled-components";
-import { CREATOR_BAR_LIST } from "../../static";
-import DashboardTitleTab from "../dashboard/DashboardTitleTab";
+import { CREATOR_BAR_LIST } from "../../../static";
+import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-import { getAccessTokenSelector } from "../../atom";
+import { getAccessTokenSelector } from "../../../atom";
 import { useRecoilValue } from "recoil";
 import CourseInfoUpload from "./CourseInfoUpload";
 import {
   createCourseApi,
   createCourseCurriculumApi,
-} from "../../api/creatorApi";
+} from "../../../api/creatorApi";
 import Chapter from "./Chapter";
 
 const BtnDiv = styled.div`

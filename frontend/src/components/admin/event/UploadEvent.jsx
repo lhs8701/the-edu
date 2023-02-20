@@ -6,7 +6,7 @@ import { uploadImageApi } from "../../../api/creatorApi";
 import { createEventApi } from "../../../api/eventApi";
 import { getAdminAccessTokenSelector } from "../../../atom";
 import { ADMIN_BAR_LIST } from "../../../static";
-import { CssTextField } from "../../creator/Outline";
+import { CssTextField } from "../../creator/uploadCourse/Outline";
 import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
 
 const UploadTab = styled(Box)`

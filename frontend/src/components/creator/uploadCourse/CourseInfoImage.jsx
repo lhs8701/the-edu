@@ -1,6 +1,6 @@
 import { Button, CircularProgress, Fab, Grid } from "@mui/material";
 import { useState } from "react";
-import { uploadImageApi } from "../../api/creatorApi";
+import { uploadImageApi } from "../../../api/creatorApi";
 import { PreviewImg, ProgressBarDiv } from "./CourseInfoUpload";
 
 import RemoveIcon from "@mui/icons-material/Remove";

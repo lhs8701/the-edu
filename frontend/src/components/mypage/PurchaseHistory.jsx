@@ -28,7 +28,7 @@ export default function PurchaseHistory() {
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
   const { data, onSuccess } = useQuery(
-    ["myInfo", memberId],
+    ["myPurchaseInfo", memberId],
     () => {
       return getOrdersApi(accessToken);
     },
@@ -40,21 +40,26 @@ export default function PurchaseHistory() {
       },
     }
   );
-  console.log(data);
+  console.log(data?.data);
   return (
     <MyPageBox>
       <MyPageTitle>나의 구매 내역</MyPageTitle>
-      <MyPageContentBox>
-        <PurchaseWrapper>
-          <CouponListBox>
-            {/* {data?.map((purchase) => {
-              return (
-                <PurchaseCard key={purchase?.purchaseId} purchase={purchase} />
-              );
-            })} */}
-          </CouponListBox>
-        </PurchaseWrapper>
-      </MyPageContentBox>
+      {onSuccess && (
+        <MyPageContentBox>
+          <PurchaseWrapper>
+            <CouponListBox>
+              {/* {data?.data?.map((purchase) => {
+                return ( 구매내역 정보 더 상세하게 줘야함 서버에서
+                  <PurchaseCard
+                    key={purchase?.purchaseId}
+                    purchase={purchase}
+                  />
+                );
+              })} */}
+            </CouponListBox>
+          </PurchaseWrapper>
+        </MyPageContentBox>
+      )}
     </MyPageBox>
   );
 }
