@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import joeuncamp.dabombackend.domain.auth.dto.CertRequestDto;
 import joeuncamp.dabombackend.domain.auth.service.CertificationService;
 import joeuncamp.dabombackend.domain.auth.service.EmailCertificationService;
@@ -30,13 +31,23 @@ public class CertificationController {
     private final CertificationService certificationService;
     private final EmailCertificationService emailCertificationService;
 
+    private boolean isIosAppSupported(HttpServletRequest request){
+        String userAgent = request.getHeader("User-Agent");
+        return userAgent != null && userAgent.contains("iPhone") && userAgent.contains("Mobile");
+    }
+
     @Operation(summary = "이메일 인증", description = "이메일 인증을 시도합니다. 성공한 경우, 홈페이지로 리다이렉트됩니다.")
     @PreAuthorize("permitAll()")
     @GetMapping("/cert/email")
-    public ResponseEntity<?> certifyEmail(@RequestParam(name = "email") String email, @RequestParam(name = "auth-key") String authKey) {
+    public ResponseEntity<?> certifyEmail(@RequestParam(name = "email") String email, @RequestParam(name = "auth-key") String authKey, HttpServletRequest request) {
         emailCertificationService.certifyEmail(email, authKey);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "the-edu://");
+        if (isIosAppSupported(request)){
+            headers.add("Location", "the-edu://");
+        }
+        else{
+            headers.add("Location", "http://www.the-edu.co.kr/");
+        }
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
