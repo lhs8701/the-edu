@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.repository.EmailAuthKeyRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class EmailCertificationService {
     private final EmailService emailService;

@@ -50,6 +50,7 @@ public class BasicAuthService {
 
     /**
      * 로그인합니다.
+     * 이메일 인증이 안된 계정의 경우 예외가 발생합니다.
      * 어세스토큰과 리프레시토큰을 반환합니다.
      *
      * @param requestDto 계정, 비밀번호
@@ -57,6 +58,9 @@ public class BasicAuthService {
      */
     public BasicAuthDto.LoginResponse login(BasicAuthDto.LoginRequest requestDto) {
         Member member = memberJpaRepository.findByAccountAndLoginType(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberNotFoundException::new);
+        if (!member.isEmailCertified()){
+            throw new CMemberNotCertifiedException();
+        }
         if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
             throw new CWrongPasswordException();
         }

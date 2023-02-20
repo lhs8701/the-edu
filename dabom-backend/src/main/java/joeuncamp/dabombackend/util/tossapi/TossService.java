@@ -43,8 +43,6 @@ public class TossService {
     @Value("${toss.token}")
     private String TOKEN;
 
-    private final TossCertSessionGenerator tossCertSessionGenerator;
-
     /**
      * 결제 승인 API를 호출합니다.
      *
