@@ -39,8 +39,9 @@ public class CertificationController {
 //        headers.setLocation(URI.create("http://the-edu.co.kr/"));
 //        headers.setLocation(URI.create("the-edu://"));
 //        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
-        RedirectView redirectView = new RedirectView("the-edu://");
-        redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("the-edu://");
+//        redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
         return redirectView;
     }
 
