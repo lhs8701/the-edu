@@ -35,7 +35,8 @@ public class CertificationController {
     public ResponseEntity<Void> certifyEmail(@RequestParam(name = "email") String email, @RequestParam(name = "auth-key") String authKey) {
         emailCertificationService.certifyEmail(email, authKey);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("http://the-edu.co.kr/"));
+//        headers.setLocation(URI.create("http://the-edu.co.kr/"));
+        headers.setLocation(URI.create("the-edu://"));
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
