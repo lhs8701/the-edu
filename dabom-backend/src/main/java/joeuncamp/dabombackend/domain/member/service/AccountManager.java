@@ -10,6 +10,7 @@ import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import joeuncamp.dabombackend.global.error.exception.CWrongPasswordException;
 import joeuncamp.dabombackend.util.RandomStringGenerator;
+import joeuncamp.dabombackend.util.email.Email;
 import joeuncamp.dabombackend.util.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +35,7 @@ public class AccountManager {
         String newPassword = randomStringGenerator.generatePassword();
         member.changePassword(passwordEncoder.encode(newPassword));
         memberJpaRepository.save(member);
-        emailService.sendMail(EmailService.passwordResetEmail(newPassword, member.getEmail()));
+        emailService.sendMail(Email.passwordReissueEmail(member.getEmail(), newPassword));
         return new PasswordDto.Response(member.getEmail());
     }
 
