@@ -11,11 +11,13 @@ import joeuncamp.dabombackend.util.RandomStringGenerator;
 import joeuncamp.dabombackend.util.email.Email;
 import joeuncamp.dabombackend.util.email.EmailService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class EmailCertificationService {
     private final EmailService emailService;
@@ -30,6 +32,7 @@ public class EmailCertificationService {
     public void sendCertificationLink(String email) {
         String authKey = RandomStringGenerator.generateEmailAuthKey();
         emailAuthKeyRedisRepository.saveAuthKey(email, authKey);
+        log.info("redis 저장 완료");
         emailService.sendMail(Email.emailCertificationEmail(email, authKey));
     }
 

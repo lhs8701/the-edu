@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.auth.repository;
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.global.constant.JwtExpiration;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 @Transactional
 public class EmailAuthKeyRedisRepository {
     private final StringRedisTemplate redisTemplate;
