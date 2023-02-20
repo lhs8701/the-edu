@@ -87,24 +87,6 @@
             </objects>
             <point key="canvasLocation" x="1238" y="-715"/>
         </scene>
-        <!--강좌 구매-->
-        <scene sceneID="QSi-lz-UNk">
-            <objects>
-                <viewController storyboardIdentifier="CoursePurchaseVC" id="Jfb-KM-DIv" customClass="CoursePurchaseVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="rSF-EQ-kex">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Pyb-9E-k1C"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="강좌 구매" id="X6m-1h-iR8">
-                        <barButtonItem key="backBarButtonItem" title=" " id="M3p-rm-teG"/>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aTn-6Z-Bfq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1239" y="-29"/>
-        </scene>
         <!--Course Curriculum AllVC-->
         <scene sceneID="f1h-cM-djh">
             <objects>

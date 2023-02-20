@@ -8,13 +8,20 @@
 import UIKit
 
 class CourseCurriculumAllVC: UIViewController {
+    
+    // MARK: - IBOutlet
 
     @IBOutlet weak var curriculumTV: UITableView!
-    
     @IBOutlet weak var curriculumTitle: UILabel!
+    
+    
+    // MARK: - let, var
     
     var curriculum: CurriculumDataModel?
     var courseId: Int?
+    
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +41,9 @@ class CourseCurriculumAllVC: UIViewController {
         self.curriculumTV.register(UINib(nibName: Const.Xib.Name.curriculumTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.curriculumTVC)
         self.curriculumTV.register(UINib(nibName: Const.Xib.Name.curriculumHeaderTVC, bundle: nil), forHeaderFooterViewReuseIdentifier: Const.Xib.Identifier.curriculumHeaderTVC)
     }
+    
+    
+    // MARK: - 커리큘럼 정보 가져오기
     
     private func setCurriculum() {
         if let courseId = courseId {
@@ -59,8 +69,10 @@ class CourseCurriculumAllVC: UIViewController {
         }
     }
 
-
 }
+
+
+// MARK: - extension
 
 extension CourseCurriculumAllVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -74,6 +86,7 @@ extension CourseCurriculumAllVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.curriculumTVC) as! CurriculumTVC
         
+        // 챕터 이름 세팅
         if let curriculum = curriculum {
             cell.curriculumTitle.text = "\(indexPath.row + 1). \(curriculum.chapters[indexPath.section].units[indexPath.row].title)"
             
@@ -85,6 +98,7 @@ extension CourseCurriculumAllVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Const.Xib.Identifier.curriculumHeaderTVC) as! CurriculumHeaderTVC
         
+        // 강의 이름 세팅
         if let curriculum = curriculum {
             header.chapterTitle.text = "\(section). \(curriculum.chapters[section].title)"
         }
