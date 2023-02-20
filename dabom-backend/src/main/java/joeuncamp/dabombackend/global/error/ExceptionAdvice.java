@@ -155,4 +155,10 @@ public class ExceptionAdvice {
         e.printStackTrace();
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
     }
+    @ExceptionHandler(CCertificationFailedException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CCertificationFailedException e){
+        ErrorCode errorCode = e.getErrorCode();
+        e.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
 }

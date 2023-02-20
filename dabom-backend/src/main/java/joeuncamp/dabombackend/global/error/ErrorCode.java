@@ -29,6 +29,7 @@ public enum ErrorCode {
     MEMBER_NOT_FOUND(-6008, "회원을 조회할 수 없습니다.", HttpStatus.UNAUTHORIZED),
     WRONG_PASSWORD(-6009, "잘못된 비밀번호입니다.", HttpStatus.UNAUTHORIZED),
     MEMBER_NOT_CERTIFIED(-6010, "본인인증이 필요한 서비스입니다.", HttpStatus.UNAUTHORIZED),
+    CERTIFICATION_FAILED(-6011, "인증에 실패했습니다.", HttpStatus.UNAUTHORIZED),
 
 
     // 7000 ~ : 시큐리티 에러

@@ -67,14 +67,14 @@ public class Email {
         String subject = "온라인 강의 플랫폼 (다봄) 이메일 인증";
         String message = "<h2> 회원가입을 위해 메일을 인증해 주세요 </h2><br>"
                 + "<p> 안녕하세요 온라인 강의 플랫폼, 다봄입니다. <br>"
-                + "아래 메일 인증 버튼을 눌러 회원가입을 완료해주세요."
-                + "<a href='"
+                + "아래 메일 인증 버튼을 눌러 회원가입을 완료해주세요. <br> <br>"
+                + "<h3><a href='"
                 + URI.EMAIL_CERTIFICATION_URI
-                + "?destination="
+                + "?email="
                 + destination
                 + "&auth-key="
                 + authKey
-                + "' target='_blenk'>메일 인증</a>";
+                + "' target='_blenk'>메일 인증</a></h3>";
 
         return Email.builder()
                 .to(destination)

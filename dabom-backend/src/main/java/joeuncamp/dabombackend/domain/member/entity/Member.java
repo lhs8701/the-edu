@@ -129,4 +129,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.certified = true;
         this.memberPrivacy = memberPrivacy;
     }
+    public void setEmailCertified() {
+        this.emailCertified = true;
+    }
 }
