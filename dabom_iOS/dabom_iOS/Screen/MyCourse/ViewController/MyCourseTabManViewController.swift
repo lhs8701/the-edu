@@ -13,13 +13,20 @@ class MyCourseTabManViewController: TabmanViewController {
 
     
     // MARK: - let, var
+    
     private var viewControllers: Array<UIViewController> = []
 
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configure()
+        tapManSetting()
+    }
+    
+    private func configure() {
         let inCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.inCourse) as! InCourseViewController
         let completionCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.completionCourse) as! CompletionCourseViewController
         let wishCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.wishCourse) as! WishCourseViewController
@@ -27,7 +34,9 @@ class MyCourseTabManViewController: TabmanViewController {
         viewControllers.append(inCourseVC)
         viewControllers.append(completionCourseVC)
         viewControllers.append(wishCourseVC)
-        
+    }
+    
+    private func tapManSetting() {
         self.dataSource = self
         
         let bar = TMBar.ButtonBar()
@@ -48,11 +57,11 @@ class MyCourseTabManViewController: TabmanViewController {
         
         addBar(bar, dataSource: self, at: .top)
     }
-    
-
 
 }
 
+
+// MARK: - extension
 
 extension MyCourseTabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func numberOfViewControllers(in pageboyViewController: Pageboy.PageboyViewController) -> Int {

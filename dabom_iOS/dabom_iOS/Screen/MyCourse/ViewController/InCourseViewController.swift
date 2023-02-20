@@ -11,29 +11,24 @@ import SnapKit
 class InCourseViewController: UIViewController {
 
     // MARK: - IBOutlet
+    
     @IBOutlet weak var inCourseCV: UICollectionView!
     
     
     // MARK: - let, var
+    
     var inCourseData: Array<MyCourseDataModel>?
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
     
     var defaultImageView: UIImageView = UIImageView(image: UIImage(named: "default_incourse"))
     
+    
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(defaultImageView)
-        defaultImageView.contentMode = .scaleAspectFit
-        defaultImageView.snp.makeConstraints {
-            $0.center.equalTo(inCourseCV.snp.center)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(300)
-        }
-        defaultImageView.isHidden = true
-        
-        // Do any additional setup after loading the view.
+        setDefaultImage()
         setCV()
     }
     
@@ -43,7 +38,9 @@ class InCourseViewController: UIViewController {
         }
     }
     
+    
     // MARK: - func
+    
     private func setCV() {
         self.inCourseCV.register(UINib(nibName: Const.Xib.Name.myCourseCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.myCourseCVC)
         self.inCourseCV.delegate = self
@@ -51,6 +48,9 @@ class InCourseViewController: UIViewController {
         self.inCourseCV.isScrollEnabled = true
         
     }
+    
+    
+    // MARK: - 수강 중인 강좌 목록 가져오기
     
     private func getOngoingCourses() {
         MyCourseDataService.shared.getOngoing { response in
@@ -79,8 +79,25 @@ class InCourseViewController: UIViewController {
             }
         }
     }
+    
+    
+    // MARK: - 기본 이미지 세팅 (수강 중인 강좌 목록이 없을 때 노출)
+    
+    private func setDefaultImage() {
+        view.addSubview(defaultImageView)
+        defaultImageView.contentMode = .scaleAspectFit
+        defaultImageView.snp.makeConstraints {
+            $0.center.equalTo(inCourseCV.snp.center)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+        defaultImageView.isHidden = true
+    }
 
 }
+
+
+// MARK: - extension
 
 extension InCourseViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -102,13 +119,12 @@ extension InCourseViewController: UICollectionViewDelegate {
             nextVC.thumbnailImage = inCourseData[indexPath.row].thumbnailImage.mediumFilePath
         }
         
-//        nextVC.unitThumbnailImage.image = self.inCourseData[indexPath.row].thumbㅌ
         nextVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(nextVC, animated: true)
-
-
     }
+    
 }
+
 
 extension InCourseViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -121,6 +137,7 @@ extension InCourseViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
 
 extension InCourseViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -13,18 +13,15 @@ class CoursePlayerVC: UIViewController {
 
     // MARK: - IBOutlet
     @IBOutlet weak var unitThumbnailImage: UIImageView!
-    
     @IBOutlet weak var playBtn: UIButton!
-    
     @IBOutlet weak var unitTitleLabel: UILabel!
-    
     @IBOutlet weak var curriculumTV: UITableView!
-    
     @IBOutlet weak var courseCurriculum: UILabel!
-    
     @IBOutlet weak var courseCurriclumView: UIView!
     
+    
     // MARK: - let, var
+    
     let Url = URL(string: Const.Url.m3u8Test)
     
     var courseId: Int?
@@ -37,7 +34,9 @@ class CoursePlayerVC: UIViewController {
     var avPlayer = AVPlayer()
     var avController = AVPlayerViewController()
     
+    
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playBtn.isEnabled = false
@@ -49,7 +48,7 @@ class CoursePlayerVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(avPlayer.currentTime().seconds)
+        // 현재까지 동영상 플레이한 시간 가져오기
         let currentTime = avPlayer.currentTime().seconds
 
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -59,6 +58,7 @@ class CoursePlayerVC: UIViewController {
         guard let unitId = unitId else { return }
         guard let endTime = avPlayer.currentItem?.duration.seconds else { return }
         
+        // 동영상 남은 시간이 20초 이하일 때 수강 완료 처리
         if currentTime + 20 >= endTime {
             UnitDataService.shared.completeUnit(unitId: unitId) { response in
                 switch response {
@@ -78,15 +78,20 @@ class CoursePlayerVC: UIViewController {
             }
         }
         
+        // 동영상 시청 기록 저장
         saveRecord(time: currentTime)
     }
     
+    
     // MARK: - View configure
+    
     private func configure() {
         self.courseCurriculum.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 4.0)
         self.unitThumbnailImage.setImage(with: self.thumbnailImage)
         self.unitTitleLabel.text = self.unitTitle
         self.unitTitleLabel.adjustsFontSizeToFitWidth = true
+        
+        // 무음 모드에서도 동영상 소리 실행 가능하게 설정
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             try AVAudioSession.sharedInstance().setActive(true)
@@ -95,7 +100,9 @@ class CoursePlayerVC: UIViewController {
         }
     }
     
+    
     // MARK: - TableView Setting
+    
     private func setTV() {
         self.curriculumTV.delegate = self
         self.curriculumTV.dataSource = self
@@ -103,7 +110,9 @@ class CoursePlayerVC: UIViewController {
         self.curriculumTV.register(UINib(nibName: Const.Xib.Name.curriculumHeaderTVC, bundle: nil), forHeaderFooterViewReuseIdentifier: Const.Xib.Identifier.curriculumHeaderTVC)
     }
     
+    
     // MARK: - 커리큘럼 정보 가져오기
+    
     private func setCurriculum() {
         if let courseId = courseId {
             UserCurriculumDataService.shared.getUserCurriculum(courseId: courseId) { response in
@@ -129,7 +138,9 @@ class CoursePlayerVC: UIViewController {
         
     }
     
+    
     // MARK: - Unit 정보 받아오기
+    
     private func getUnit() {
         if let unitId = unitId {
             UnitDataService.shared.getUnit(unitId: unitId) { response in
@@ -158,7 +169,9 @@ class CoursePlayerVC: UIViewController {
         }
     }
     
+    
     // MARK: - 시청 기록 저장하기
+    
     private func saveRecord(time: Double) {
         if let unitId = unitId {
             UnitDataService.shared.saveRecord(unitId: unitId, time: time) { response in
@@ -180,7 +193,9 @@ class CoursePlayerVC: UIViewController {
         }
     }
     
+    
     // MARK: - 시청 기록 가져오기
+    
     private func getRecord() {
         if let unitId = unitId {
             
@@ -192,18 +207,20 @@ class CoursePlayerVC: UIViewController {
         }
     }
     
+    
     // MARK: - 동영상 플레이
+    
     @IBAction func playBtnPressed(_ sender: Any) {
-        print("playBtnPressed")
-
+        
         self.present(avController, animated: true, completion: nil)
         avPlayer.play()
         
     }
-    
-    
 
 }
+
+
+// MARK: - extension
 
 extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -252,13 +269,13 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
         40
     }
     
+    // 커리큘럼 -> 강의 선택했을 때 선택 강의로 동영상 이동
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let curriculum = curriculum {
             self.unitId = curriculum.chapters[indexPath.section].units[indexPath.row].unitId
             self.unitTitleLabel.text = curriculum.chapters[indexPath.section].units[indexPath.row].title
             self.playBtn.isEnabled = false
-//            configure()
             getUnit()
             setCurriculum()
         }
