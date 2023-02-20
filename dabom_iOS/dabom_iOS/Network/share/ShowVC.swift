@@ -15,14 +15,11 @@ func showNetworkVCOnRoot() {
         guard let networkViewController = story.instantiateViewController(withIdentifier: "NetworkVC") as? NetworkVC else {print("storyboard error")
             return}
         networkViewController.modalPresentationStyle = .fullScreen
-        //UIApplication.shared.windows.first?.rootViewController?.show(networkViewController, sender: nil)
         
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         let window = windowScene?.windows.first
         
         window?.rootViewController?.show(networkViewController, sender: nil)
-        
-        print("showNetworkVCOnRoot()")
     }
 }

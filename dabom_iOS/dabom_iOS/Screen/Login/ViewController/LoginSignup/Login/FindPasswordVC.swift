@@ -108,6 +108,7 @@ class FindPasswordVC: UIViewController {
                     let confirm = UIAlertAction(title: "확인", style: .default)
                     alert.addAction(confirm)
                     self.present(alert, animated: true)
+                    self.activityIndicator.stopAnimating()
                 }
             }
         }

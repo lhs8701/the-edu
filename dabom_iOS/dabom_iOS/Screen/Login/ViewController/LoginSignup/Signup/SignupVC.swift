@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class SignupVC: UIViewController {
     // MARK: - IBOutlet
@@ -25,6 +26,19 @@ class SignupVC: UIViewController {
     
     var User = UserDataModel()
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        
+        activityIndicator.backgroundColor = .lightGray
+        activityIndicator.layer.opacity = 0.4
+        activityIndicator.color = .black
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .medium
+            
+        activityIndicator.stopAnimating()
+            
+        return activityIndicator
+    }()
     
     // MARK: - Life Cycle
     
@@ -40,6 +54,12 @@ class SignupVC: UIViewController {
     // MARK: - configure
     
     private func configureView() {
+        view.addSubview(activityIndicator)
+
+        activityIndicator.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         for label in defaultHidden {
             label.isHidden = true
         }
@@ -138,29 +158,45 @@ class SignupVC: UIViewController {
         User.password = password
         User.nickname = nickname
         
+        signup()
+    }
+
+    func signup() {
+        activityIndicator.startAnimating()
         AuthenticationService.shared.emailSignup(user: User) { response in
             switch (response) {
             case .success:
-                self.goToLogin()
+                let alert = UIAlertController(title: "이메일 인증", message: "인증 메일이 전송되었습니다.\n메일을 확인하고 회원가입을 완료해주세요.", preferredStyle: .alert)
+                let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+                    self.goToLogin()
+                }
+                alert.addAction(confirm)
+                self.present(alert, animated: true)
+                self.activityIndicator.stopAnimating()
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:
                 print("networkResult pathErr")
                 print("pathErr")
+                let alert = UIAlertController(title: "", message: "이미 인증 중인 이메일입니다.", preferredStyle: .alert)
+                let confirm = UIAlertAction(title: "확인", style: .default)
+                alert.addAction(confirm)
+                self.present(alert, animated: true)
+                self.activityIndicator.stopAnimating()
             case .serverErr:
                 print("serverErr")
             case .networkFail:
                 print("networkFail")
             case .resourceErr:
                 print("resourceErr")
-                let alert = UIAlertController(title: "", message: "이미 가입된 이메일입니다", preferredStyle: .alert)
+                let alert = UIAlertController(title: "", message: "이미 가입된 이메일입니다.", preferredStyle: .alert)
                 let confirm = UIAlertAction(title: "확인", style: .default)
                 alert.addAction(confirm)
                 self.present(alert, animated: true)
+                self.activityIndicator.stopAnimating()
             }
         }
     }
-
 }
 
 

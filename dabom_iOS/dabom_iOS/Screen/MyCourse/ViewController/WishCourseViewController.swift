@@ -58,7 +58,6 @@ class WishCourseViewController: UIViewController {
     // MARK: - 찜한 강좌 목록 가져오기
     
     private func getWishCourse() {
-        print("call getWishCourse!")
         GetWishCourseDataService.shared.getWishCourse { response in
             switch response {
             case .success(let wishCourseData):
