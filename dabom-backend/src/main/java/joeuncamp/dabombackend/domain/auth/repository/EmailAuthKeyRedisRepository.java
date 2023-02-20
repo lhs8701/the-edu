@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.auth.repository;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.global.constant.JwtExpiration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class EmailAuthKeyRedisRepository {
     private final StringRedisTemplate redisTemplate;
     private static final long EXPIRATION = 30;

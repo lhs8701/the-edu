@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.auth.service;
 import io.jsonwebtoken.Claims;
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.dto.*;
+import joeuncamp.dabombackend.domain.auth.repository.EmailAuthKeyRedisRepository;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -31,6 +33,7 @@ public class BasicAuthService {
     private final PasswordEncoder passwordEncoder;
     private final TokenRedisRepository tokenRedisRepository;
     private final EmailCertificationService emailCertificationService;
+    private final EmailAuthKeyRedisRepository emailAuthKeyRedisRepository;
 
     /**
      * 회원가입합니다.
@@ -39,14 +42,23 @@ public class BasicAuthService {
      * @param requestDto 개인정보
      */
     public void signup(BasicAuthDto.SignupRequest requestDto) {
-        if (memberJpaRepository.findByAccount(requestDto.getAccount()).isPresent()) {
-            throw new CMemberExistException();
+        if (emailAuthKeyRedisRepository.findByEmail(requestDto.getAccount()).isPresent()) {
+            throw new CBadRequestException("해당 이메일로 가입 중인 계정이 존재합니다. 메일을 확인해주세요.");
+        }
+        Optional<Member> memberOptional = memberJpaRepository.findByAccount(requestDto.getAccount());
+        if (memberOptional.isPresent()) {
+            if (memberOptional.get().isEmailCertified()) {
+                throw new CMemberExistException();
+            }
+            memberJpaRepository.delete(memberOptional.get());
         }
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
         Member member = requestDto.toEntity(encodedPassword);
         memberJpaRepository.save(member);
         emailCertificationService.sendCertificationLink(member.getEmail());
     }
+
+
 
     /**
      * 로그인합니다.
@@ -58,7 +70,7 @@ public class BasicAuthService {
      */
     public BasicAuthDto.LoginResponse login(BasicAuthDto.LoginRequest requestDto) {
         Member member = memberJpaRepository.findByAccountAndLoginType(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberNotFoundException::new);
-        if (!member.isEmailCertified()){
+        if (!member.isEmailCertified()) {
             throw new CMemberNotCertifiedException();
         }
         if (!passwordEncoder.matches(requestDto.getPassword(), member.getPassword())) {
@@ -73,7 +85,7 @@ public class BasicAuthService {
      * 로그아웃합니다.
      * 어세스토큰을 Block처리하고, 리프레시토큰을 레디스에서 제거합니다.
      *
-     * @param requestDto  어세스토큰, 리프레시토큰
+     * @param requestDto 어세스토큰, 리프레시토큰
      */
     public void logout(BasicAuthDto.UnlinkRequestDto requestDto) {
         tokenRedisRepository.saveBlockedToken(requestDto.getAccessToken());
@@ -84,7 +96,7 @@ public class BasicAuthService {
      * 회원을 탈퇴합니다.
      * DB에서 회원을 삭제하고, 로그아웃 로직을 실행합니다.
      *
-     * @param requestDto  어세스토큰, 리프레시토큰
+     * @param requestDto 어세스토큰, 리프레시토큰
      */
     public void withdraw(BasicAuthDto.UnlinkRequestDto requestDto) {
         Member member = (Member) jwtProvider.getAuthentication(requestDto.getAccessToken()).getPrincipal();
