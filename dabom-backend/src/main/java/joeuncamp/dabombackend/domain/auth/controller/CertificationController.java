@@ -32,12 +32,13 @@ public class CertificationController {
     @Operation(summary = "이메일 인증", description = "이메일 인증을 시도합니다. 성공한 경우, 홈페이지로 리다이렉트됩니다.")
     @PreAuthorize("permitAll()")
     @GetMapping("/cert/email")
-    public ResponseEntity<Void> certifyEmail(@RequestParam(name = "email") String email, @RequestParam(name = "auth-key") String authKey) {
+    public String certifyEmail(@RequestParam(name = "email") String email, @RequestParam(name = "auth-key") String authKey) {
         emailCertificationService.certifyEmail(email, authKey);
-        HttpHeaders headers = new HttpHeaders();
+//        HttpHeaders headers = new HttpHeaders();
 //        headers.setLocation(URI.create("http://the-edu.co.kr/"));
-        headers.setLocation(URI.create("the-edu://"));
-        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+//        headers.setLocation(URI.create("the-edu://"));
+//        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+        return "redirect:" + "the-edu://";
     }
 
     @Operation(summary = "토스 txId 발급", description = "")
