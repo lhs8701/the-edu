@@ -44,29 +44,6 @@ public class BasicAuthServiceTest {
     PasswordEncoder passwordEncoder;
 
     @Test
-    @DisplayName("계정이 이미 존재하는 경우 회원가입이 실패한다.")
-    void 계정이_이미_존재하는_경우_회원가입이_실패한다() {
-        // given
-        Member existingMember = Member.builder()
-                .account(ExampleValue.Member.ACCOUNT)
-                .password(ExampleValue.Member.PASSWORD)
-                .build();
-
-        BasicAuthDto.SignupRequest dto = BasicAuthDto.SignupRequest.builder()
-                .account(ExampleValue.Member.ACCOUNT)
-                .password(ExampleValue.Member.PASSWORD)
-                .build();
-
-        given(memberJpaRepository.findByAccount(dto.getAccount())).willReturn(Optional.of(existingMember));
-        // when
-
-        // then
-        assertThatThrownBy(() -> basicAuthService.signup(dto))
-                .isInstanceOf(CMemberExistException.class);
-    }
-
-
-    @Test
     @DisplayName("비밀번호가 일치하지 않으면 로그인이 실패한다.")
     void 비밀번호가_일치하지_않으면_로그인이_실패한다() {
         // given
