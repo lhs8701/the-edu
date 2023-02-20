@@ -83,3 +83,6 @@ path:
 hls:
   ffmpeg: C:/ProgramData/chocolatey/bin/ffmpeg.exe
   ffprobe: C:/ProgramData/chocolatey/bin/ffprobe.exe
+
+cert:
+  email: http://the-edu.co.kr:8080/api/cert/email

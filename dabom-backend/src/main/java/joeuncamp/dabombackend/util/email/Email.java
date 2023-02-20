@@ -2,16 +2,20 @@ package joeuncamp.dabombackend.util.email;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.global.constant.URI;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
 public class Email {
+    @Value("${cert.email}")
+    static String EMAIL_CERTIFICATION_URI;
     @Schema(description = "수신자")
     String to;
     @Schema(description = "제목")
@@ -51,6 +55,26 @@ public class Email {
         String subject = "온라인 강의 플랫폼 (다봄) 크리에이터 승인이 완료되었음을 알려드립니다.";
         String message = "<h2> " + memberName + " 님, 크리에이터 승인이 완료되었습니다. </h2><br>"
                 + "<p> 다봄에서 당신의 좋은 영향력을 마음껏 펼쳐주세요 ! <br>";
+
+        return Email.builder()
+                .to(destination)
+                .subject(subject)
+                .message(message)
+                .build();
+    }
+
+    public static Email emailCertificationEmail(String destination, String authKey) {
+        String subject = "온라인 강의 플랫폼 (다봄) 이메일 인증";
+        String message = "<h2> 회원가입을 위해 메일을 인증해 주세요 </h2><br>"
+                + "<p> 안녕하세요 온라인 강의 플랫폼, 다봄입니다. <br>"
+                + "아래 메일 인증 버튼을 눌러 회원가입을 완료해주세요."
+                + "<a href='"
+                + URI.EMAIL_CERTIFICATION_URI
+                + "?destination="
+                + destination
+                + "&auth-key="
+                + authKey
+                + "' target='_blenk'>메일 인증</a>";
 
         return Email.builder()
                 .to(destination)

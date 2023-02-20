@@ -63,3 +63,6 @@ path:
 hls:
   ffmpeg: C:/ProgramData/chocolatey/bin/ffmpeg.exe
   ffprobe: C:/ProgramData/chocolatey/bin/ffprobe.exe
+
+cert:
+  email: http://localhost:8080/api/cert/email
