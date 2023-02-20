@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+// MARK: - 리뷰 모두 보기 버튼 Delegate
 protocol allReviewBtnDelegate {
     func allReviewBtnPressed()
 }
@@ -15,13 +16,14 @@ protocol allReviewBtnDelegate {
 class CourseReviewTVC: UITableViewCell {
 
     // MARK: - IBOutlet
+    
     @IBOutlet weak var reviewTitle: UILabel!
-    
     @IBOutlet weak var reviewTV: UITableView!
-    
     @IBOutlet weak var allReviewBtn: UIButton!
     
+    
     // MARK: - var, let
+    
     var delegate: allReviewBtnDelegate?
     
     var reviewData: [CourseReviewDataModel] = []
@@ -29,10 +31,11 @@ class CourseReviewTVC: UITableViewCell {
     var defaultImageView: UIImageView = UIImageView()
     var defaultImage = UIImage(named: "default_review")
     
+    
     // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
         
         reviewTitle.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 5)
         
@@ -54,15 +57,17 @@ class CourseReviewTVC: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
+    
     // MARK: - setData
+    
     func setData(_ data: [CourseReviewDataModel]?) {
         
         if let data = data {
             self.reviewData = data
             
+            // 리뷰 데이터가 0개일 때 버튼 처리
             if reviewData.count == 0 {
                 defaultImageView.isHidden = false
                 allReviewBtn.isEnabled = false
@@ -72,16 +77,21 @@ class CourseReviewTVC: UITableViewCell {
                 defaultImageView.isHidden = true
             }
         }
+        
     }
     
+    
     // MARK: - IBAction
+    
     @IBAction func allBtnPressed(_ sender: Any) {
         delegate?.allReviewBtnPressed()
     }
     
 }
 
+
 // MARK: - extension
+
 extension CourseReviewTVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 데이터가 3개 이하면 데이터 갯수만큼 보여주기

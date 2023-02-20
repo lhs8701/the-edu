@@ -9,7 +9,12 @@ import UIKit
 
 class WishCourseViewController: UIViewController {
     
+    // MARK: - IBOutlet
+    
     @IBOutlet weak var wishCourseCollectionView: UICollectionView!
+    
+    
+    // MARK: - let, var
     
     var wishCourseData: Array<CourseThumbnailDataModel>?
     let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
@@ -19,30 +24,27 @@ class WishCourseViewController: UIViewController {
     
     var defaultImageView: UIImageView = UIImageView(image: UIImage(named: "default_wish"))
     
+    
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(defaultImageView)
-        defaultImageView.contentMode = .scaleAspectFit
-        defaultImageView.snp.makeConstraints {
-            $0.center.equalTo(wishCourseCollectionView.snp.center)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(300)
-        }
-        defaultImageView.isHidden = true
-        
+        setDefaultImage()
         setCV()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         if self.loginType != nil {
             getWishCourse()
         }
         
     }
     
+    
     // MARK: - func
+    
     private func setCV() {
         self.wishCourseCollectionView.register(UINib(nibName: Const.Xib.Name.courseThumbnailCVC, bundle: nil), forCellWithReuseIdentifier: Const.Xib.Identifier.courseThumbnailCVC)
         self.wishCourseCollectionView.delegate = self
@@ -52,7 +54,9 @@ class WishCourseViewController: UIViewController {
         wishCourseData = CourseThumbnailDataModel.sampleData
     }
     
+    
     // MARK: - 찜한 강좌 목록 가져오기
+    
     private func getWishCourse() {
         print("call getWishCourse!")
         GetWishCourseDataService.shared.getWishCourse { response in
@@ -81,15 +85,29 @@ class WishCourseViewController: UIViewController {
             }
         }
     }
+    
+    
+    // MARK: - 기본 이미지 세팅 (수강 중인 강좌 목록이 없을 때 노출)
+    
+    private func setDefaultImage() {
+        view.addSubview(defaultImageView)
+        defaultImageView.contentMode = .scaleAspectFit
+        defaultImageView.snp.makeConstraints {
+            $0.center.equalTo(wishCourseCollectionView.snp.center)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(300)
+        }
+        defaultImageView.isHidden = true
+    }
 
 }
 
 
 // MARK: - UICollectionViewDelegate
+
 extension WishCourseViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.temp.count
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -105,8 +123,11 @@ extension WishCourseViewController: UICollectionViewDelegate {
     
 }
 
+
 // MARK: - UICollectionViewDataSource
+
 extension WishCourseViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CourseThumbnailCollectionViewCell.identifier, for: indexPath) as? CourseThumbnailCollectionViewCell else { return UICollectionViewCell() }
             
@@ -115,11 +136,13 @@ extension WishCourseViewController: UICollectionViewDataSource {
         return cell
     }
     
-    
 }
 
+
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension WishCourseViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellWidth = (UIScreen.main.bounds.width - (10 * 3)) / 2
@@ -144,4 +167,5 @@ extension WishCourseViewController: UICollectionViewDelegateFlowLayout {
 
         return CGFloat(spacingSize)
     }
+    
 }

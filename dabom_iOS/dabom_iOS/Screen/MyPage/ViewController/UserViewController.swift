@@ -11,6 +11,7 @@ import Kingfisher
 class UserViewController: UIViewController {
 
     // MARK: - IBOutlet
+    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -18,26 +19,23 @@ class UserViewController: UIViewController {
     @IBOutlet weak var eventBtn: UIButton!
     @IBOutlet weak var informationBtn: UIButton!
     @IBOutlet weak var settingBtn: UIButton!
-    
     @IBOutlet weak var myCouponView: UIView!
     
+    
     // MARK: - let, var
+    
     var userNickname: String = ""
     var userEmail: String = ""
     var userProfile: String = ""
     var userProfileImage: ImageDataModel = ImageDataModel()
     
+    
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        profileImageView.layer.cornerRadius = 40
-        myCouponBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
-        eventBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
-        informationBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
-        settingBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
-        myCouponView.isHidden = true
+        configureView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,8 +46,18 @@ class UserViewController: UIViewController {
         self.getProfile()
     }
     
+    private func configureView() {
+        profileImageView.layer.cornerRadius = 40
+        myCouponBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
+        eventBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
+        informationBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
+        settingBtn.layer.drawLineAt(edges: [.bottom], color: UIColor.lightGray, width: 1.0)
+        myCouponView.isHidden = true
+    }
+    
     
     // MARK: - 내 쿠폰함 버튼 눌렀을 때
+    
     @IBAction func myCouponBtnPressed(_ sender: Any) {
         guard let couponVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.myCoupon) as? MyCouponVC else {return}
         
@@ -60,6 +68,7 @@ class UserViewController: UIViewController {
 
     
     // MARK: - 계정 설정 버튼 눌렀을 때
+    
     @IBAction func accountBtnPressed(_ sender: Any) {
         guard let accountVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.account) as? AccountVC else {return}
 
@@ -75,6 +84,7 @@ class UserViewController: UIViewController {
     
     
     // MARK: - 이벤트 버튼 눌렀을 때
+    
     @IBAction func eventBtnPressed(_ sender: Any) {
         guard let eventVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.event) as? EventVC else {return}
         
@@ -85,6 +95,7 @@ class UserViewController: UIViewController {
     
     
     // MARK: - 서비스 문의 버튼 눌렀을 때
+    
     @IBAction func contactBtnPressed(_ sender: Any) {
         guard let contactVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.contact) as? ContactVC else {return}
         
@@ -95,6 +106,7 @@ class UserViewController: UIViewController {
     
     
     // MARK: - 환경 설정 버튼 눌렀을 때
+    
     @IBAction func settingBtnPressed(_ sender: Any) {
         guard let settingVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.setting) as? SettingVC else {return}
         
@@ -102,7 +114,9 @@ class UserViewController: UIViewController {
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
     
+    
     // MARK: - 유저 프로필 정보 가져오기 (프로필 사진, 닉네임)
+    
     private func getProfile() {
         UserProfileService.shared.getProfile { response in
             switch response {

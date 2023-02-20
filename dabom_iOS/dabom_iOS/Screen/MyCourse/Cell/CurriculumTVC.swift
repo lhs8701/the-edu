@@ -9,20 +9,23 @@ import UIKit
 
 class CurriculumTVC: UITableViewCell {
 
+    // MARK: - IBOutlet
+    
     @IBOutlet weak var curriculumTitle: UILabel!
     
     
+    // MARK: - Life Cycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
+
+        // Label 크기에 맞추어서 글자 크기 줄이기
         curriculumTitle.adjustsFontSizeToFitWidth = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
     override func prepareForReuse() {

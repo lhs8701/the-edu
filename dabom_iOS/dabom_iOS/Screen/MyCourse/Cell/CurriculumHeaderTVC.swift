@@ -9,12 +9,17 @@ import UIKit
 
 class CurriculumHeaderTVC: UITableViewHeaderFooterView {
 
+    // MARK: - IBOutlet
+    
     @IBOutlet weak var chapterTitle: UILabel!
+    
+    
+    // MARK: - Life Cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
+
+        // Label 크기에 맞추어서 글자 크기 줄이기
         chapterTitle.adjustsFontSizeToFitWidth = true
     }
 

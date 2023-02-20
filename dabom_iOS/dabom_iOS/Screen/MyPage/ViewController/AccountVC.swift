@@ -12,7 +12,9 @@ import SnapKit
 
 
 class AccountVC: UIViewController {
+    
     // MARK: - IBOutlet
+    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UITextField!
     @IBOutlet weak var userEmailLabel: UITextField!
@@ -20,7 +22,9 @@ class AccountVC: UIViewController {
     @IBOutlet weak var changePasswordBtn: UIButton!
     @IBOutlet weak var loginTypeLabel: UILabel!
     
+    
     // MARK: - let, var
+    
     let imagePicker = UIImagePickerController()
     
     let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
@@ -31,7 +35,9 @@ class AccountVC: UIViewController {
     
     var profileImage: UIImage?
     
+    
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,12 +52,15 @@ class AccountVC: UIViewController {
     
     
     // MARK: - NavigationBar Setting
+    
     private func setNavi() {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
 
     }
     
+    
     // MARK: - setProfile
+    
     private func setProfile() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoPressed))
         self.profileImageView.addGestureRecognizer(tapGesture)
@@ -82,13 +91,11 @@ class AccountVC: UIViewController {
         }
         
         imagePicker.delegate = self
-        
-//        saveBtn.snp.updateConstraints {
-//            $0.top.equalTo(self.changePasswordBtn.snp.bottom).offset(20)
-//        }
     }
     
+    
     // MARK: - 이메일, 닉네임 유효성 검사
+    
     func isValidEmail(id: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
@@ -105,6 +112,7 @@ class AccountVC: UIViewController {
     
     
     // MARK: - 저장하기 버튼 눌렀을 때 동작
+    
     @IBAction func saveBtnPressed(_ sender: Any) {
         
         guard let email = userEmailLabel.text, !email.isEmpty else {
@@ -139,12 +147,12 @@ class AccountVC: UIViewController {
     
     
     // MARK: - 수정한 프로필 서버로 전송
+    
     private func patchProfile() {
         
         UserProfileService.shared.patchProfile(nickname: self.userNickname, email: self.userEmail, profileImage: self.userProfile) { response in
             switch response {
             case .success:
-                print("patch Profile Success")
                 self.navigationController?.popViewController(animated: true)
             case .requestErr(let message):
                 print("requestErr", message)
@@ -161,19 +169,20 @@ class AccountVC: UIViewController {
     }
     
     // MARK: - 프로필 사진 변경하기 위해서 사진 눌렀을 때
+    
     @objc func photoPressed() {
         
         if photoPermission() {
-//            imagePicker.sourceType = .photoLibrary
-//            present(imagePicker, animated: true)
+            print("permitted")
         } else {
             print("false")
             openSetting()
         }
         
-        
     }
     
+    
+    // MARK: - 비밀번호 바꾸기 버튼 눌렀을 때
     
     @IBAction func changePasswordBtnPressed(_ sender: Any) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.userTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.changePasswordVC) as? ChangePasswordVC else {return}
@@ -183,10 +192,10 @@ class AccountVC: UIViewController {
     }
     
     
-    
     // MARK: - 이미지 리사이징
+    
     func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
-        let scale = newWidth / image.size.width // 새 이미지 확대/축소 비율
+        let scale = newWidth / image.size.width
         let newHeight = image.size.height * scale
         UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
         image.draw(in: CGRectMake(0, 0, newWidth, newHeight))
@@ -197,6 +206,9 @@ class AccountVC: UIViewController {
     
 }
 
+
+// MARK: - extension
+
 extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -205,18 +217,15 @@ extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDele
             
             self.saveBtn.isEnabled = false
             
+            // 유저가 앨범에서 사진 선택하면 서버로 업로드
             UploadImageDataService.shared.uploadImage(nickname: self.userNickname, image: resizeImage) { response in
                 switch response {
                 case .success(let data):
-                    
-                    print("upload Image Success")
-                    
                     if let data = data as? ImageDataModel {
                         self.userProfile = data.originalFilePath
                     }
-//                    self.userProfile =
                     self.saveBtn.isEnabled = true
-                    
+
                 case .requestErr(let message):
                     print("requestErr", message)
                 case .pathErr:
@@ -233,26 +242,25 @@ extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         dismiss(animated: true)
     }
     
+    
     // MARK: - 사진 눌렀을 때 권한 확인
+    
     func photoPermission() -> Bool {
         let status = PHPhotoLibrary.authorizationStatus()
         
         switch status {
         case .authorized:
-            print("photo authorized")
             imagePicker.sourceType = .photoLibrary
             present(imagePicker, animated: true)
             return true
         case .denied, .limited, .restricted: return false
         case .notDetermined:
-            print("photo notDetermined")
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { state in
                 if state == .authorized {
                     DispatchQueue.main.async {
                         self.imagePicker.sourceType = .photoLibrary
                         self.present(self.imagePicker, animated: true)
                     }
-                    
                 }
             }
             return true
@@ -260,11 +268,11 @@ extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDele
             print("default")
             return false
         }
-        
-
     }
     
+    
     // MARK: - 권한이 거부되어 있을 때 설정 화면으로 유도
+    
     func openSetting() {
         let alert = UIAlertController(title: "설정", message: "앨범 접근이 허용되어 있지 않습니다. \r\n 설정화면으로 이동하시겠습니까?", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "취소", style: .cancel)

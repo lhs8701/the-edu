@@ -15,27 +15,28 @@ class CourseInfoViewController: UIViewController {
     // MARK: - IBOutlet
 
     @IBOutlet weak var mainTV: UITableView!
-    
     @IBOutlet weak var stickyView: UIView!
-    
     @IBOutlet weak var upperConstraint: NSLayoutConstraint! {
         didSet {
             upperConstraint.constant = maxUpper
         }
     }
-    
     @IBOutlet weak var segmentCtrl: UISegmentedControl!
     
     
     // MARK: - 변수, 상수
-    var courseTitle: String?
-    var courseDescription: String?
-    var instructor: String?
     
-    var courseInfoData: CourseInfoDataModel?
+    let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
+    let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
     
     var courseId: Int?
     
+    var courseInfoData: CourseInfoDataModel?
+    
+    var courseTitle: String?
+    var courseDescription: String?
+    var instructor: String?
+
     var isWish: Bool?
     var isEnroll: Bool?
     var isCharge: Bool?
@@ -43,13 +44,9 @@ class CourseInfoViewController: UIViewController {
     let maxUpper: CGFloat = 400.0
     let minUpper: CGFloat = 0.0
     
-    let memberId: Int = UserDefaults.standard.integer(forKey: "memberId")
-    let loginType: String? = UserDefaults.standard.string(forKey: "loginType")
-    
     var reviewData: [CourseReviewDataModel] = []
     var inquiryData: [CourseInquiryDataModel] = []
     var ticketData: [TicketDataModel] = []
-    
     
     var onOffButton: UIButton!
     var heartButton: UIButton!
@@ -66,11 +63,17 @@ class CourseInfoViewController: UIViewController {
         setRightBarButton()
         setTableView()
         setSegmentController()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print(error)
+        }
             
-        // courseId 기본값 설정 (임시)
         getCourseInfo(id: self.courseId!)
         getTicket(courseId: self.courseId!)
         
+        // 로그인 중일 때만 wish, enroll 체크
         if self.loginType != nil {
             checkWish()
             checkEnroll()
@@ -89,7 +92,9 @@ class CourseInfoViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
+    
     // MARK: - rightBarButtonItem 설정
+    
     private func setRightBarButton() {
         let onOffImage = UIImage(named: "onoff")?.withRenderingMode(.alwaysOriginal)
         self.onOffButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 30))
@@ -109,7 +114,9 @@ class CourseInfoViewController: UIViewController {
         navigationItem.rightBarButtonItems = [heart, onOff]
     }
     
+    
     // MARK: - 찜한 강좌인지 확인
+    
     func checkWish() {
         CourseInfoDataService.shared.isWishCourse(courseId: self.courseId!) { check in
             switch check {
@@ -121,14 +128,18 @@ class CourseInfoViewController: UIViewController {
         }
     }
     
+    
     // MARK: - 신청한 강좌인지 확인
+    
     func checkEnroll() {
         CourseInfoDataService.shared.isEnrollCourse(courseId: self.courseId!) { check in
             self.isEnroll = check
         }
     }
     
+    
     // MARK: - 찜하기 버튼 눌렀을 때
+    
     @objc func wishBtnPressed(_ sender: UIButton) {
         if self.loginType != nil {
             CourseInfoDataService.shared.changeWishCourse(courseId: self.courseId!) { response in
@@ -149,6 +160,7 @@ class CourseInfoViewController: UIViewController {
                 }
             }
             
+            // 찜 버튼 토글
             if sender.isSelected {
                 sender.isSelected = false
             } else {
@@ -169,14 +181,18 @@ class CourseInfoViewController: UIViewController {
         
     }
     
+    
     // MARK: - OnOff 설명 버튼
+    
     @objc func onOffBtnPressed(_ sender: UIButton) {
         guard let descVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.onOffDescription) as? OnOffDescriptionVC else {return}
         
         present(descVC, animated: true)
     }
     
+    
     // MARK: - tableView 설정
+    
     private func setTableView() {
         self.mainTV.delegate = self
         self.mainTV.dataSource = self
@@ -190,6 +206,7 @@ class CourseInfoViewController: UIViewController {
 
     
     // MARK: - segmentController 설정
+    
     private func setSegmentController() {
         let backgroundImg = UIImage(named: "segment")
         let Img = UIImage()
@@ -223,7 +240,9 @@ class CourseInfoViewController: UIViewController {
         }
     }
     
-    // MARK: - getCourse
+    
+    // MARK: - 강좌 정보 가져오기
+    
     private func getCourseInfo(id: Int) {
         CourseInfoDataService.shared.getCourseInfo(id: id) { response in
             switch (response) {
@@ -250,9 +269,13 @@ class CourseInfoViewController: UIViewController {
         }
     }
     
-    // MARK: - getCourseReview
+    
+    // MARK: - 강좌 리뷰 정보 가져오기
+    
     private func getCourseReview() {
-        GetReviewDataService.shared.getReview(courseId: self.courseId ?? 1) { response in
+        guard let courseId = courseId else { return }
+    
+        GetReviewDataService.shared.getReview(courseId: courseId) { response in
             switch response {
             case .success(let reviewData):
                 if let data = reviewData as? [CourseReviewDataModel] {
@@ -274,9 +297,13 @@ class CourseInfoViewController: UIViewController {
         }
     }
     
-    // MARK: - getCourseInquiry
+    
+    // MARK: - 강좌 문의 정보 가져오기
+    
     private func getCourseInquiry() {
-        GetInquiryDataService.shared.getInquiry(courseId: self.courseId ?? 1) { response in
+        guard let courseId = courseId else { return }
+        
+        GetInquiryDataService.shared.getInquiry(courseId: courseId) { response in
             switch response {
             case .success(let inquiryData):
                 if let data = inquiryData as? [CourseInquiryDataModel] {
@@ -298,7 +325,9 @@ class CourseInfoViewController: UIViewController {
         }
     }
     
-    // MARK: - getTicket
+    
+    // MARK: - 수강권 정보 가져오기
+    
     private func getTicket(courseId: Int) {
         TicketDataService.shared.getTickets(courseId: courseId) { response in
             switch response {
@@ -328,7 +357,9 @@ class CourseInfoViewController: UIViewController {
         }
     }
     
+    
     // MARK: - Description Image 갯수 반환
+    
     private func getDescriptionCnt() -> Int {
         var descriptionCnt = self.courseInfoData?.descriptionImages.count ?? 0
         
@@ -345,6 +376,7 @@ class CourseInfoViewController: UIViewController {
 
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
+
 extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
@@ -384,12 +416,14 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.instructor.text = self.courseInfoData?.instructor
             
             return cell
+            
         case 1:
             // Sticky View 자리
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.segmentTVC, for: indexPath) as? SegmentTVC else { return UITableViewCell() }
             return cell
+            
         case 2...descriptionCnt+1:
-            // description Image
+            // 클래스 소개 이미지
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.infoImageTVC, for: indexPath) as? InfoImageTVC else { return UITableViewCell() }
             
             cell.contentView.snp.makeConstraints {
@@ -404,31 +438,38 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             return cell
+            
         case descriptionCnt + 2:
+            // 커리큘럼
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseCurriculumTVC, for: indexPath) as? CourseCurriculumTVC else { return UITableViewCell() }
             cell.delegate = self
             
             return cell
+            
         case descriptionCnt+3:
-            // Review
+            // 강좌 리뷰
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseReviewTVC, for: indexPath) as? CourseReviewTVC else { return UITableViewCell() }
             cell.setData(self.reviewData)
             cell.delegate = self
             
             return cell
+            
         case descriptionCnt+4:
-            // Inquiry
+            // 강좌 문의사항
             guard let cell = mainTV.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.courseInquiryTVC, for: indexPath) as? CourseInquiryTVC else { return UITableViewCell() }
             cell.setData(self.inquiryData)
             cell.delegate = self
             
             return cell
+            
         default:
             return UITableViewCell()
         }
     }
     
-    // StickyView 조절
+    
+    // MARK: - Sticky view 조절
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0 {
             upperConstraint.constant = max((maxUpper - scrollView.contentOffset.y), minUpper)
@@ -438,7 +479,9 @@ extension CourseInfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: - allInquiryBtnDelegate
+
+// MARK: - 문의사항 모두 보기 버튼 delegate 패턴
+
 extension CourseInfoViewController: allInquiryBtnDelegate {
     func allInquiryBtnPressed() {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInquiryAllVC) as? CourseInquiryAllVC else { return }
@@ -450,7 +493,9 @@ extension CourseInfoViewController: allInquiryBtnDelegate {
     
 }
 
-// MARK: - allReviewBtnDelegate
+
+// MARK: - 리뷰 모두 모기 버튼 delegate 패턴
+
 extension CourseInfoViewController: allReviewBtnDelegate {
     func allReviewBtnPressed() {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseReviewAllVC) as? CourseReviewAllVC else { return }
@@ -461,7 +506,9 @@ extension CourseInfoViewController: allReviewBtnDelegate {
     }
 }
 
+
 // MARK: - CourseEnrollBtnDelegate 강좌 신청 버튼 눌렀을 때
+
 extension CourseInfoViewController: CourseEnrollBtnDelegate {
     func CourseEnroll() {        
         if self.loginType != nil {
@@ -478,7 +525,6 @@ extension CourseInfoViewController: CourseEnrollBtnDelegate {
                                                 
                         self.isEnroll = true
                         self.mainTV.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
-                        print("enroll Success")
                     case .requestErr(let message):
                         print("requestErr", message)
                     case .pathErr:
@@ -511,6 +557,8 @@ extension CourseInfoViewController: CourseEnrollBtnDelegate {
         }
     }
     
+    // MARK: - 강좌 상세보기 최상단의 강좌 샘플 강의
+    
     func CourseSamplePlay() {
         guard let courseInfoData = courseInfoData else {return}
         guard let videoUrl = URL(string: "\(Const.Url.baseUrl)\(courseInfoData.sample.videoInfo.filePath)") else {return}
@@ -522,7 +570,9 @@ extension CourseInfoViewController: CourseEnrollBtnDelegate {
     }
 }
 
+
 // MARK: - 강좌 커리큘럼 보기 버튼 눌렀을 때
+
 extension CourseInfoViewController: allCurriculumBtnDelegate {
     func allCurriculumBtnPressed() {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseCurriculumAllVC) as? CourseCurriculumAllVC else {return}

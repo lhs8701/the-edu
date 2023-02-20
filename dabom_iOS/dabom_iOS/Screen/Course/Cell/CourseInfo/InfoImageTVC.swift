@@ -9,8 +9,17 @@ import UIKit
 
 class InfoImageTVC: UITableViewCell {
 
+    // MARK: - IBOutlet
+    
     @IBOutlet weak var infoImageView: UIImageView!
+    
+    
+    // MARK: - let, var
+    
     var infoImage: UIImage?
+    
+    
+    // MARK: - Life Cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,7 +28,6 @@ class InfoImageTVC: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
 
     }
     
