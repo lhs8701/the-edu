@@ -35,6 +35,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     String nickname;
     String email;
     ImageInfo profileImage;
+    boolean emailCertified;
     boolean certified;
     MemberPrivacy memberPrivacy;
     long payPoint;
@@ -127,5 +128,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
     public void setCertified(MemberPrivacy memberPrivacy) {
         this.certified = true;
         this.memberPrivacy = memberPrivacy;
+    }
+    public void setEmailCertified() {
+        this.emailCertified = true;
     }
 }

@@ -30,6 +30,7 @@ public class BasicAuthService {
     private final JwtValidator jwtValidator;
     private final PasswordEncoder passwordEncoder;
     private final TokenRedisRepository tokenRedisRepository;
+    private final EmailCertificationService emailCertificationService;
 
     /**
      * 회원가입합니다.
@@ -42,12 +43,9 @@ public class BasicAuthService {
             throw new CMemberExistException();
         }
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
-        createAndSaveMember(requestDto, encodedPassword);
-    }
-
-    private void createAndSaveMember(BasicAuthDto.SignupRequest requestDto, String encodedPassword) {
         Member member = requestDto.toEntity(encodedPassword);
         memberJpaRepository.save(member);
+        emailCertificationService.sendCertificationLink(member.getEmail());
     }
 
     /**

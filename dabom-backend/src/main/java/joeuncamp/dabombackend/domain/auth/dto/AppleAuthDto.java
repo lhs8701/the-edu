@@ -48,6 +48,7 @@ public class AppleAuthDto {
                     .socialId(this.socialToken)
                     .roles(Collections.singletonList("ROLE_USER"))
                     .payPoint(0)
+                    .emailCertified(true)
                     .certified(false)
                     .build();
         }

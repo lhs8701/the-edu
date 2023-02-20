@@ -50,4 +50,12 @@ public class RandomStringGenerator {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }
+
+    public static String generateEmailAuthKey() {
+        Random random = new Random();
+        return random.ints(ASCII_LOWER_A, ASCII_LOWER_Z)
+                .limit(8)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
 }

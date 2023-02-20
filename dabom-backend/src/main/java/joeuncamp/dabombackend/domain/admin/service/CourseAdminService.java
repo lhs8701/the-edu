@@ -44,6 +44,6 @@ public class CourseAdminService {
         }
         course.activate();
         courseJpaRepository.save(course);
-        emailService.sendMail(EmailService.ActivatedEmail(course, course.getCreatorProfile().getMember().getEmail()));
+        emailService.sendMail(Email.courseAcceptEmail(course.getCreatorProfile().getMember().getEmail(), course.getTitle()));
     }
 }

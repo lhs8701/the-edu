@@ -1,30 +1,30 @@
 -- <Member> --
 insert into member (id, created_time, modified_time, account, birthday, email, login_type, mobile, name, nickname,
-                    password, medium_file_path, original_file_path, small_file_path, social_id, pay_point, certified)
+                    password, medium_file_path, original_file_path, small_file_path, social_id, pay_point, certified, email_certified)
 values (1, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'admin@naver.com', NULL, 'admin@naver.com',
         'BASIC', NULL, NULL, '조대호', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL, 0, false),
+        '/static/images/default/profile_image_s.jpg', NULL, 0, true, true),
        (2, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student1@naver.com', NULL, 'student1@naver.com',
         'BASIC', NULL, NULL, '철수', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL, 0, false),
+        '/static/images/default/profile_image_s.jpg', NULL, 0, true, true),
        (3, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student2@naver.com', NULL, 'student2@naver.com',
         'BASIC', NULL, NULL, '민수', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL, 0, false),
+        '/static/images/default/profile_image_s.jpg', NULL, 0, true, true),
        (4, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student3@naver.com', NULL, 'student3@naver.com',
         'BASIC', NULL, NULL, '재영', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL, 0, false),
+        '/static/images/default/profile_image_s.jpg', NULL, 0, true, true),
        (5, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student4@naver.com', NULL, 'student4@naver.com',
         'BASIC', NULL, NULL, '민서', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL, 0, false),
+        '/static/images/default/profile_image_s.jpg', NULL, 0, true, true),
        (6, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'student5@naver.com', NULL, 'student5@naver.com',
         'BASIC', NULL, NULL, '민지', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
-        '/static/images/default/profile_image_s.jpg', NULL, 0, false);
+        '/static/images/default/profile_image_s.jpg', NULL, 0, true, true);
 
 insert into member_roles (member_id, roles)
 values (1, 'ROLE_USER'),
@@ -76,15 +76,15 @@ values ('2', '/static/images/jo_oa_pil_description_m.jpg', '/static/images/jo_oa
 -- <Item> --
 insert into item (dtype, id, created_time, modified_time, cost_price, discounted_price, product_detail, product_name,
                   medium_file_path, original_file_path, small_file_path, item_type)
-values ('ticket', '4', '2023-02-13 11:01:49.369901', '2023-02-13 11:01:49.369901', '1000', '1000',
+values ('ticket', '4', '2023-02-13 11:01:49.369901', '2023-02-13 11:01:49.369901', '1', '1',
         '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 필기 3개월 수강권',
         '/static/images/jo_oa_pil_thumbnail_m.jpg',
         '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg', 'TICKET'),
-       ('ticket', '5', '2023-02-13 11:01:49.371984', '2023-02-13 11:01:49.371984', '1000', '1000',
+       ('ticket', '5', '2023-02-13 11:01:49.371984', '2023-02-13 11:01:49.371984', '1', '1',
         '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 필기 6개월 수강권',
         '/static/images/jo_oa_pil_thumbnail_m.jpg',
         '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg', 'TICKET'),
-       ('ticket', '6', '2023-02-13 11:01:49.372482', '2023-02-13 11:01:49.372482', '1000', '1000',
+       ('ticket', '6', '2023-02-13 11:01:49.372482', '2023-02-13 11:01:49.372482', '1', '1',
         '<최신 출제기준반영,스마트폰수강,무료연장서비스,기출문제풀이>', '사무자동화산업기사 필기 영구 수강권',
         '/static/images/jo_oa_pil_thumbnail_m.jpg',
         '/static/images/jo_oa_pil_thumbnail.jpg', '/static/images/jo_oa_pil_thumbnail_s.jpg', 'TICKET'),
