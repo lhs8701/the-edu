@@ -10,6 +10,7 @@ import UIKit
 class ChangePasswordVC: UIViewController {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var currentPasswordField: UITextField!
     @IBOutlet weak var changePasswordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
@@ -17,6 +18,7 @@ class ChangePasswordVC: UIViewController {
     
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,13 +26,16 @@ class ChangePasswordVC: UIViewController {
         configure()
     }
     
+    
     // MARK: - configure
+    
     private func configure() {
         changeBtn.layer.cornerRadius = 10
     }
     
     
     // MARK: - textField Setting
+    
     private func textFieldSetting() {
         self.currentPasswordField.delegate = self
         self.changePasswordField.delegate = self
@@ -41,14 +46,18 @@ class ChangePasswordVC: UIViewController {
         
     }
     
+    
     // MARK: - 비밀번호 유효성 검사
+    
     private func isValidPassword(pwd: String) -> Bool {
         let passwordRegEx = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$"
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
         return passwordTest.evaluate(with: pwd)
     }
     
+    
     // MARK: - 변경하기 버튼 눌렀을 때
+    
     @IBAction func changeBtnPressed(_ sender: Any) {
         guard let currentPW = currentPasswordField.text, !currentPW.isEmpty else {
             currentPasswordField.placeholder = "현재 비밀번호를 입력해주세요"
@@ -93,7 +102,6 @@ class ChangePasswordVC: UIViewController {
         AuthenticationService.shared.changePassword(currentPW: currentPW, changePW: changePW) { response in
             switch (response) {
             case .success:
-                print("change Success")
                 self.navigationController?.popViewController(animated: true)
             case .requestErr(let message):
                 print("requestErr", message)
@@ -114,7 +122,9 @@ class ChangePasswordVC: UIViewController {
     
 }
 
+
 // MARK: - UITextFieldDelegate
+
 extension ChangePasswordVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.currentPasswordField {
