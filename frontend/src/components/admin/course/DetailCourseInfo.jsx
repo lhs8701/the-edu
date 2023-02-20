@@ -107,10 +107,10 @@ export default function DetailCourseInfo() {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div key={unit.unitId}>{unit.title}</div>
+                    <div key={unit?.unitId}>{unit?.title}</div>
                     <button
                       onClick={() => {
-                        navigate(`${unit.unitId}`);
+                        navigate(`${unit?.unitId}`);
                       }}
                     >
                       강좌 보기
@@ -123,12 +123,12 @@ export default function DetailCourseInfo() {
         })}
         <br />
         <br />
-        <CoursePayment
+        {/* <CoursePayment
           ticketInfo={paymentInfo?.data?.data}
           title={info?.data?.title}
           teacher={info?.data?.instructor}
           courseId={courseId}
-        />
+        /> */}
       </DividerBox>
     </>
   );

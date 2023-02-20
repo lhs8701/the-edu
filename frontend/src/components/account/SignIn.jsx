@@ -58,6 +58,7 @@ const ImgDiv = styled.div`
   justify-content: center;
   background-color: #fee501;
   border-radius: var(--size-border-radius);
+  cursor: pointer;
 `;
 
 export default function SignIn() {
@@ -103,6 +104,8 @@ export default function SignIn() {
         alert(err.response.data.message);
       } else if (err.response.data.code === -6001) {
         alert(err.response.data.message);
+      } else if (err.response.data.code === -6010) {
+        alert("이메일 인증한 후 로그인이 가능합니다.");
       }
     }
   }
@@ -171,7 +174,6 @@ export default function SignIn() {
       </AccountForm>
       <ImgDiv>
         <img
-          style={{ cursor: "pointer" }}
           onClick={() => {
             window.location.href = KAKAO_AUTH_URL;
           }}

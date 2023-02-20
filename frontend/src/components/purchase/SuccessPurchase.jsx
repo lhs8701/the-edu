@@ -1,35 +1,13 @@
 import { CircularProgress } from "@mui/material";
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
-import styled from "styled-components";
+
 import { postItemPurchaseApi } from "../../api/orderApi";
 import { getAccessTokenSelector } from "../../atom";
 import { PROCESS_MAIN_URL } from "../../static";
-
-const ProgressDiv = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-const BtnDiv = styled.div`
-  display: flex;
-`;
-const SuccuessP = styled.p`
-  font-size: 1.5rem;
-  font-weight: var(--weight-middle);
-`;
-
-const MoveBtn = styled.button`
-  width: 180px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-background);
-  font-size: 1rem;
-`;
+import { AlertP, CenterDiv, MoveBtn } from "../../style/CommonCss";
 
 export default function SuccessPurchase() {
   const navigate = useNavigate();
@@ -39,7 +17,7 @@ export default function SuccessPurchase() {
     "paymentKey"
   );
   const amount = new URL(window.location.href).searchParams.get("amount");
-  const { itemId, couponId, point } = useParams();
+  const { courseId, itemId, couponId, point } = useParams();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (Number(couponId) === -1) {
@@ -84,23 +62,32 @@ export default function SuccessPurchase() {
         });
     }
   }, []);
-
+  console.log(
+    "/" + PROCESS_MAIN_URL.COURSES + PROCESS_MAIN_URL.LOBBY + "/" + courseId
+  );
   return (
-    <ProgressDiv>
+    <CenterDiv>
       {loading ? (
         <div>
-          <SuccuessP>결제가 완료되었습니다. 😃</SuccuessP>
           <br />
           <br />
-          <ProgressDiv>
+          <AlertP>결제가 완료되었습니다. 😃</AlertP>
+          <br />
+          <br />
+          <CenterDiv>
             <MoveBtn
               onClick={() => {
-                navigate("/" + PROCESS_MAIN_URL.MYPAGE.DEFAULT);
+                navigate(
+                  PROCESS_MAIN_URL.COURSES +
+                    "/" +
+                    courseId +
+                    PROCESS_MAIN_URL.LOBBY
+                );
               }}
             >
-              나의 클래스로 가기
+              강좌 로비로 가기
             </MoveBtn>
-          </ProgressDiv>
+          </CenterDiv>
         </div>
       ) : (
         <CircularProgress
@@ -109,6 +96,6 @@ export default function SuccessPurchase() {
           }}
         />
       )}
-    </ProgressDiv>
+    </CenterDiv>
   );
 }

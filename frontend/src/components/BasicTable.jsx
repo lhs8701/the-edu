@@ -48,19 +48,19 @@ export function EventTable({ rows, cells, deleteFun, navigate }) {
               <TableCell align="center">
                 <DeleteBtn
                   onClick={() => {
-                    deleteFun(row.id);
+                    navigate(`detailEvent/${row.id}`);
                   }}
                 >
-                  삭제
+                  보기
                 </DeleteBtn>
               </TableCell>
               <TableCell align="center">
                 <DeleteBtn
                   onClick={() => {
-                    navigate(`detailEvent/${row.id}`);
+                    deleteFun(row.id);
                   }}
                 >
-                  보기
+                  삭제
                 </DeleteBtn>
               </TableCell>
             </TableRow>

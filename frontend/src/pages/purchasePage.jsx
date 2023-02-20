@@ -102,7 +102,7 @@ const MethodsBox = styled.div`
 
 const FlexDiv = styled.div`
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
 `;
 
@@ -115,6 +115,11 @@ const Div = styled.div`
 const PointP = styled.p`
   font-size: 0.8rem;
   font-weight: var(--weight-thin);
+`;
+
+const TotalPriceP = styled(PrimaryCostTab)`
+  font-weight: var(--weight-point);
+  color: var(--color-text);
 `;
 
 export default function PurchasePage() {
@@ -215,10 +220,9 @@ export default function PurchasePage() {
       });
     }
   };
-  console.log(useCoupon);
+
   useEffect(() => {
     // url로 현재 위치 확인
-    console.log(currentPath.slice(-4));
     if (
       currentPath.slice(-4) === "fail" ||
       currentPath.slice(-7) === "success"
@@ -235,25 +239,22 @@ export default function PurchasePage() {
     const purchaseCourse = () => {
       let cost = 0;
       if (Number(useCoupon.value) === -1) {
-        //안쓸때
+        //쿠폰 안쓸때
         cost = state?.price - usePoint;
       } else {
-        if (useCoupon.rate) {
-          cost =
-            state?.price - // 쿠폰쓰고 퍼센트 할인 쿠폰일때
-            Number(((useCoupon.value * state?.price) / 100).toFixed()) -
-            usePoint;
-        } else {
-          // 쿠폰쓰고 정가 쿠폰일때
-          cost = state?.price - useCoupon.value - usePoint;
-        }
+        cost =
+          Number(state?.price) -
+          Number(((useCoupon.value * state?.price) / 100).toFixed()) -
+          Number(usePoint);
       }
-
-      if (Number(cost) <= 0) {
-        cost = 1;
+      console.log(cost);
+      if (Number(cost) < 100) {
+        alert("할인 에러입니다. 다시 할인 혜택을 적용하세요.");
+        return;
       }
 
       if (purchaseMethod) {
+        // 구매 목록을 선택했는지 안했는지 확인
         purchase(
           {
             courseId: courseId,
@@ -274,42 +275,6 @@ export default function PurchasePage() {
     return (
       <div>
         <Div>
-          <SmallTitle>
-            포인트 할인
-            <PointP>(현재 나의 포인트: {itemInfo?.point})</PointP>
-          </SmallTitle>
-          <PointInput
-            type="text"
-            value={usePoint}
-            onChange={(e) => {
-              if (e.target.value > 10000) {
-                // 일반적으로 많은 입력
-                alert("보유한 포인트보다 많은 입력은 허용되지 않습니다.");
-                return;
-              } else if (e.target.value >= state?.price) {
-                // 구매가격보다 높은 가격 입력
-                alert(
-                  "구매가격보다 동일하거나 많은 포인트 사용은 허용되지 않습니다."
-                );
-                return;
-              } else if (
-                Number(e.target.value) +
-                  Number(((useCoupon.value * state?.price) / 100).toFixed()) >=
-                state?.price
-              ) {
-                alert("포인트 + 쿠폰 할인 혜택이 원 가격보다 높습니다");
-
-                setUsePoint(
-                  state?.price -
-                    Number(((useCoupon.value * state?.price) / 100).toFixed())
-                );
-              }
-              setUsePoint(e.target.value);
-            }}
-            min="0"
-            max={itemInfo?.point}
-            placeholder={itemInfo?.point + " 포인트를 사용하실 수 있어요."}
-          />
           <SmallTitle>쿠폰 할인</SmallTitle>
           <CouponBox>
             {itemInfo?.couponList.length === 0 ? (
@@ -331,11 +296,55 @@ export default function PurchasePage() {
               </Select>
             )}
           </CouponBox>
+          <SmallTitle>
+            포인트 할인
+            <PointP>(현재 나의 포인트: {itemInfo?.point})</PointP>
+          </SmallTitle>
+
+          <PointInput
+            type="text"
+            value={usePoint}
+            onChange={(e) => {
+              if (e.target.value > itemInfo?.point) {
+                // 일반적으로 많은 입력
+                alert("보유한 포인트보다 많은 입력은 허용되지 않습니다.");
+                return;
+              } else if (e.target.value > state?.price - 100) {
+                // 구매가격보다 높은 가격 입력
+                alert(
+                  "구매가격보다 동일하거나 많은 포인트 사용은 허용되지 않습니다."
+                );
+                return;
+              } else if (
+                Number(e.target.value) +
+                  Number(((useCoupon.value * state?.price) / 100).toFixed()) >
+                state?.price - 100
+              ) {
+                alert("포인트 + 쿠폰 할인 혜택이 최대 할인 가격보다 높습니다");
+              } else {
+                setUsePoint(e.target.value);
+              }
+            }}
+            min="0"
+            max={itemInfo?.point}
+            placeholder={itemInfo?.point + " 포인트를 사용하실 수 있어요."}
+          />
         </Div>
         <br />
         <br />
         <br />
         <PriceBox>
+          <FlexDiv>
+            <PrimaryCostTab>원래 가격</PrimaryCostTab>
+            <PrimaryCostTab>
+              {state?.price}
+              &nbsp;원
+            </PrimaryCostTab>
+          </FlexDiv>
+          <br />
+          <PriceUnderBar />
+          <br />
+          <br />
           <FlexDiv>
             <PrimaryCostTab>쿠폰 할인</PrimaryCostTab>
             <PrimaryCostTab>
@@ -351,61 +360,51 @@ export default function PurchasePage() {
             </PrimaryCostTab>
           </FlexDiv>
           <FlexDiv>
-            <DiscountTab>포인트 할인</DiscountTab>
+            <PrimaryCostTab>포인트 할인</PrimaryCostTab>
             <PrimaryCostTab>{usePoint} 원</PrimaryCostTab>
           </FlexDiv>
           <FlexDiv>
-            <OwnPriceTab>총 할인 가격</OwnPriceTab>
-            <PrimaryCostTab>
+            <DiscountTab>총 할인 가격</DiscountTab>
+            <DiscountTab>
+              ({(state?.price * 9) / 10}원 이상의 할인은 적용되지 않습니다.)
+            </DiscountTab>
+            <DiscountTab>
               {Number(useCoupon.value) === -1 //no coupon
                 ? usePoint
-                : useCoupon.rate // used rate coupon
-                ? Number(((useCoupon.value * state?.price) / 100).toFixed()) +
-                    usePoint > // 원 가격보다 작을 경우와 큰 경우 구분
-                  state?.price
-                  ? state?.price
-                  : Number(((useCoupon.value * state?.price) / 100).toFixed()) +
-                    usePoint
-                : useCoupon.value + usePoint > state?.price
-                ? state?.price
-                : useCoupon.value + usePoint}
+                : Number(((useCoupon.value * state?.price) / 100).toFixed()) +
+                  Number(usePoint)}
               &nbsp;원
-            </PrimaryCostTab>
+            </DiscountTab>
           </FlexDiv>
           <br />
           <br />
-          <FlexDiv>
-            <OwnPriceTab>원래 가격</OwnPriceTab>
-            <PrimaryCostTab>
-              {state?.price}
-              &nbsp;원
-            </PrimaryCostTab>
-          </FlexDiv>
+
           <FlexDiv>
             <SmallTitle>최종 결제 가격</SmallTitle>
-            <PrimaryCostTab>
+            <TotalPriceP>
               ={" "}
               {Number(useCoupon.value) === -1 // 쿠폰 안쓸경우
                 ? state?.price - usePoint
-                : useCoupon.rate
-                ? state?.price - // 쿠폰쓰고 퍼센트 할인 쿠폰일때
+                : useCoupon.rate // 쿠폰쓰고 퍼센트 할인 쿠폰일때
+                ? state?.price -
                   Number(((useCoupon.value * state?.price) / 100).toFixed()) -
                   usePoint // 쿠폰쓰고 정가 쿠폰일때
                 : state?.price - useCoupon.value - usePoint < 0
                 ? 0
                 : state?.price - useCoupon.value - usePoint}
               &nbsp;원
-            </PrimaryCostTab>
+            </TotalPriceP>
           </FlexDiv>
         </PriceBox>
         <br />
-
+        <br />
         <PriceUnderBar />
         <br />
         <br />
         <br />
         <FormControl sx={{ width: "100%" }}>
           <SmallTitle>결제 방식</SmallTitle>
+          <br />
           <br />
           <RadioGroup
             defaultValue={purchaseMethod}

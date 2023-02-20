@@ -19,7 +19,7 @@ export async function setUpTicketApi(accessToken, courseId, data) {
     {
       costPrice: data.costPrice,
       discountedPrice: data.discountedPrice,
-      coursePeriod: "THREE_MONTH / SIX_MONTH / UNLIMITED",
+      coursePeriod: data.period,
     },
     {
       headers: {
@@ -29,7 +29,7 @@ export async function setUpTicketApi(accessToken, courseId, data) {
   );
 }
 
-export async function changeChateTypeApi(accessToken, courseId, chargeType) {
+export async function changeChargeTypeApi(accessToken, courseId, chargeType) {
   return await axios.post(
     `${API_URL}${COURSES_URL}/${courseId}`,
     {},

@@ -1,12 +1,10 @@
-import { Button, ListItem, ListItemText } from "@mui/material";
+import { Box, Button, ListItem, ListItemText } from "@mui/material";
 import { useState } from "react";
-import { Outlet, useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import { createUnitsApi } from "../../../api/creatorApi";
 import { getAccessTokenSelector } from "../../../atom";
 import { CssTextField } from "./Outline";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 import UnitInfoOutline from "./UnitInfoOutline";
 
 export default function Unit({
@@ -25,6 +23,7 @@ export default function Unit({
   const [fileUrl, setFileUrl] = useState(unit.url);
   const [unitId, setUnitId] = useState(unit.unitId);
   const [video, setVideo] = useState(unit.file);
+  const [isUpload, setIsUpload] = useState(false);
 
   const removeUnit = () => {
     setUnits((current) =>
@@ -102,45 +101,55 @@ export default function Unit({
       alert("영상을 입력하세요");
       return;
     }
-    createUnitsApi(
-      accessToken,
-      courseId,
-      unitTitle,
-      unitDescription,
-      fileUrl
-    ).then(({ data }) => {
-      setUnitId(data);
-      reviseUnitId(data);
-    });
+
+    createUnitsApi(accessToken, courseId, unitTitle, unitDescription, fileUrl)
+      .then(({ data }) => {
+        setVideoClicked(false);
+        reviseUnit();
+        setUnitId(data);
+        reviseUnitId(data);
+      })
+      .catch((err) => {
+        alert("에러");
+      });
   };
 
   const InfoReviseBtn = ({ infoClicked }) => {
     return infoClicked ? (
       <Button
+        variant="outlined"
         sx={{ color: "black" }}
         onClick={() => {
           setInfoClicked(false);
           reviseUnit();
         }}
       >
-        제목 입력
+        제목 업로드
       </Button>
     ) : (
       <Button
+        variant="outlined"
         sx={{ color: "black" }}
         onClick={() => {
           setInfoClicked(true);
         }}
       >
-        제목 수정
+        강의 제목 수정
       </Button>
     );
   };
+  console.log(isUpload);
   return (
     <>
-      <ListItem>
-        {infoClicked ? (
-          <>
+      <ListItem
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {videoClicked ? (
+          <Box>
             <CssTextField
               type="text"
               unit={unitTitle}
@@ -152,6 +161,7 @@ export default function Unit({
                 setUnitTitle(e.target.value);
               }}
             />
+            &nbsp; &nbsp;
             <CssTextField
               type="text"
               unit={unitDescription}
@@ -163,36 +173,41 @@ export default function Unit({
                 setUnitDescription(e.target.value);
               }}
             />
-          </>
+          </Box>
         ) : (
           <>
             <ListItemText primary={unitIdx + 1 + ". " + unitTitle} />
             <ListItemText primary={unitDescription} />
           </>
         )}
+
         <div>
-          <InfoReviseBtn infoClicked={infoClicked} />
+          {/* <InfoReviseBtn infoClicked={infoClicked} /> */}
+          &nbsp; &nbsp;
           {videoClicked ? (
-            <Button
-              sx={{ color: "black" }}
-              onClick={() => {
-                uploadUnit();
-                setVideoClicked(false);
-                reviseUnit();
-              }}
-            >
-              영상 확인
-            </Button>
+            isUpload & (fileUrl !== "") ? (
+              <Button
+                variant="outlined"
+                sx={{ color: "black" }}
+                onClick={() => {
+                  uploadUnit();
+                }}
+              >
+                확인
+              </Button>
+            ) : null
           ) : (
             <Button
+              variant="outlined"
               sx={{ color: "black" }}
               onClick={() => {
                 setVideoClicked(true);
               }}
             >
-              영상 등록
+              영상 업로드
             </Button>
           )}
+          &nbsp;
           <Button
             onClick={() => {
               removeUnit();
@@ -212,6 +227,8 @@ export default function Unit({
           video={video}
           setVideo={setVideo}
           reviseUnitVideo={reviseUnitVideo}
+          setIsUpload={setIsUpload}
+          isUpload={isUpload}
         />
       )}
     </>

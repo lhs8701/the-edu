@@ -25,10 +25,12 @@ const UnitInfoOutline = React.memo(function UnitInfoOutline({
   video,
   setVideo,
   reviseUnitVideo,
+  setIsUpload,
+  isUpload,
 }) {
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
-  const [isUpload, setIsUpload] = useState(false);
+  // const [isUpload, setIsUpload] = useState(false);
   const upload = (e) => {
     setIsUpload(true);
     setVideo(e.target.files[0]);

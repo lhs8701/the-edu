@@ -41,7 +41,7 @@ export default function ResearchBox() {
     <>
       <DashboardTitleTab title={CREATOR_BAR_LIST.list[0].creator[1].name} />
       <Box component="form">
-        <div>신청 후 영업일로부터 2일 이내에 결과가 확정이됩니다.</div>
+        <div>검토 후 이메일로 연락을 드리겠습니다.</div>
         <br />
         <Grid container spacing={2} direction="row" justifyContent="flex-start">
           <Grid item xs={12}>

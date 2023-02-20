@@ -104,9 +104,9 @@ export default function AdminCoupon() {
             variant="outlined"
             id="cate1"
           >
-            <MenuItem value={"FIX"} key={0}>
+            {/* <MenuItem value={"FIX"} key={0}>
               고정 가격 할인
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem value={"RATE"} key={1}>
               % 할인
             </MenuItem>
@@ -164,7 +164,7 @@ export default function AdminCoupon() {
       <br />
       <br />
       <div>
-        <DashboardTitleTab title={ADMIN_BAR_LIST.list[5].list[1].name} />
+        <DashboardTitleTab title="전체 쿠폰 관리" />
         {isSuccess && (
           <CouponTable
             cells={userListTableCells}

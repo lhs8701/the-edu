@@ -125,8 +125,8 @@ export default function SignUp() {
         navigate("/account/login");
       })
       .catch((err) => {
-        console.log(err.response.status);
-        if (err.response.status == 401) {
+        console.log(err.response);
+        if (err.response.data.code === -6002) {
           alert("이미 가입된 정보입니다.");
           navigate("/account/login");
         } else {

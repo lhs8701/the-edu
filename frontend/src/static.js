@@ -28,6 +28,7 @@ export const PROCESS_ACCOUNT_URL = {
   SIGNUP: "account/signup",
   FINDID: "account/id",
   FINDPWD: "account/password",
+  EMAIL_CERTIFICATION: "account/certification",
 };
 
 export const PROCESS_MAIN_URL = {
@@ -169,10 +170,6 @@ export const ADMIN_BAR_LIST = {
           name: "쿠폰 생성",
           url: "/admin/coupon",
         },
-        {
-          name: "모든 쿠폰 조회",
-          url: "/admin/couponlist",
-        },
       ],
     },
   ],
@@ -218,7 +215,7 @@ export const CREATOR_BAR_LIST = {
   ],
 };
 
-export const PURCHASE_METHOD = ["카드", "가상계좌", "계좌이체", "휴대폰"];
+export const PURCHASE_METHOD = ["카드", "계좌이체", "휴대폰"];
 
 export const BASE_URL = "http://218.38.127.26:8080";
 export const STATIC_URL = "http://the-edu.co.kr";

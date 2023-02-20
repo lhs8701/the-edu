@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import { getUploadedCoursesApi } from "../../api/creatorApi";
-import { getAccessTokenSelector } from "../../atom";
+import { getAccessTokenSelector, getCreatorIdSelector } from "../../atom";
 import { CREATOR_BAR_LIST } from "../../static";
 import { MyUploadCoursesTable } from "../BasicTable";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
@@ -32,7 +32,13 @@ export default function CreatorsCourses() {
       },
     }
   );
+  const isCreator = useRecoilValue(getCreatorIdSelector);
 
+  useEffect(() => {
+    if (isCreator < 0) {
+      navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
+    }
+  }, []);
   return (
     <div>
       <DashboardTitleTab title={CREATOR_BAR_LIST.list[2].list[0].name} />

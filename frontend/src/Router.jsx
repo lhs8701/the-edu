@@ -56,6 +56,7 @@ import DetailCourseInfo from "./components/admin/course/DetailCourseInfo";
 import UnitVideo from "./components/admin/course/UnitVideo";
 import CourseDetailSetUp from "./components/creator/CourseDetailSetUp";
 import FailPurchase from "./components/purchase/FailPurchase";
+import EmailCert from "./components/account/EmailCert";
 
 const router = createBrowserRouter([
   {
@@ -177,6 +178,7 @@ const router = createBrowserRouter([
         element: <FindPassword />,
       },
       { path: "kauth", element: <KaKaoAuth /> },
+      { path: "certification", element: <EmailCert /> },
     ],
     errorElement: <ErrorComponent />,
   },
@@ -291,6 +293,10 @@ const router = createBrowserRouter([
       {
         path: "mycourses/:courseId",
         element: <CourseDetailSetUp />,
+      },
+      {
+        path: "mycourses/:courseId/:unitId",
+        element: <UnitVideo />,
       },
       {
         path: "registcourses",

@@ -8,7 +8,7 @@ import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-import { getAccessTokenSelector } from "../../../atom";
+import { getAccessTokenSelector, getCreatorIdSelector } from "../../../atom";
 import { useRecoilValue } from "recoil";
 import CourseInfoUpload from "./CourseInfoUpload";
 import {
@@ -21,7 +21,7 @@ const BtnDiv = styled.div`
   display: Flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 25px;
 `;
 
@@ -65,15 +65,7 @@ export default function Outline() {
   };
   const [chapterList, setChapterList] = useState([chapter]);
   const [courseId, setCourseId] = useState();
-
-  // window.addEventListener("beforeunload", (event) => {
-  //   // 표준에 따라 기본 동작 방지
-  //   event.preventDefault();
-  //   // Chrome에서는 returnValue 설정이 필요함
-  //   event.returnValue = "";
-  //   alert("fdddd");
-  // });
-
+  const [scriptOn, setScriptOn] = useState(false);
   const plusChapter = () => {
     const chapter = {
       title: "",
@@ -147,17 +139,43 @@ export default function Outline() {
 
   const ChapterPlusComponent = () => {
     return (
-      <Button
-        onClick={() => {
-          plusChapter();
-        }}
-        variant="text"
-        size="large"
-        sx={{ color: "black" }}
-      >
-        챕터 추가
-        <AddIcon />
-      </Button>
+      <>
+        <Button onClick={() => [setScriptOn(!scriptOn)]}>
+          {scriptOn ? "설명 닫기" : "설명 보기"}
+        </Button>
+        {scriptOn && (
+          <p>
+            강좌의 커리큘럼을 설정하는 공간입니다. 아래의 순서를 지켜 업로드
+            부탁드립니다.
+            <br />
+            <br />
+            순서
+            <br />
+            1. 챕터 제목 추가를 눌러 챕터의 제목을 설정하세요.
+            <br /> 3. 강의 정보 수정을 눌러 제목 및 강의 설명, 영상을
+            업로드하시고 업로드를 누르세요.
+            <br />
+            <br /> - 챕터 추가를 눌러 챕터를 추가할 수 있습니다.
+          </p>
+        )}
+        <br />
+        <br />
+        <Button
+          onClick={() => {
+            plusChapter();
+          }}
+          variant="text"
+          size="large"
+          sx={{
+            color: "black",
+            display: "flex",
+            alignItems: "flex-start",
+          }}
+        >
+          챕터 추가 &nbsp;
+          <AddIcon />
+        </Button>
+      </>
     );
   };
 
@@ -204,6 +222,13 @@ export default function Outline() {
     return () => {
       window.removeEventListener("beforeunload", preventUnload);
     };
+  }, []);
+
+  const isCreator = useRecoilValue(getCreatorIdSelector);
+  useEffect(() => {
+    if (isCreator < 0) {
+      navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
+    }
   }, []);
 
   return (

@@ -188,7 +188,6 @@ export default function Revise() {
                 authUrl: data.success.authUrl,
                 txId: data.success.txId,
                 onSuccess: function () {
-                  alert("성공");
                   successTossCert(data.success.txId, accessToken)
                     .then(() => {
                       window.location.reload();
@@ -196,6 +195,7 @@ export default function Revise() {
                     .catch((err) => {
                       alert(err);
                     });
+                  alert("성공");
                 },
                 onFail: function (error) {
                   alert("에러가 발생했습니다", error); // 인증 실패시 행동을 정의해주세요.

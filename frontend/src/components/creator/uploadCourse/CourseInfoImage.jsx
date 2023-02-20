@@ -66,6 +66,7 @@ export default function CourseInfoImage({
               "&:hover": {
                 backgroundColor: "#b1b1b1",
               },
+              ml: 5,
             }}
             variant="contained"
             onClick={() => {
@@ -110,7 +111,7 @@ export default function CourseInfoImage({
           />
         </Button>
       )}
-      <Fab aria-label="remove" size="small">
+      <Fab sx={{ ml: "50px" }} aria-label="remove" size="small">
         <RemoveIcon onClick={removeCnt} />
       </Fab>
     </Grid>

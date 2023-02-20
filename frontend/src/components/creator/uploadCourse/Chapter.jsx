@@ -143,7 +143,7 @@ export default function Chapter({
                     setClicked(true);
                   }}
                 >
-                  제목 수정
+                  챕터 제목 추가
                 </Button>
               )}
               <Button

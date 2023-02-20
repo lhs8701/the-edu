@@ -38,7 +38,7 @@ export default function CourseInfoUpload({ setCourseValue }) {
   const [firstCategory, setFirstCategory] = useState("");
   const [secCategory, setSecCategory] = useState("");
   const [introImgCnt, setIntroImgCnt] = useState(1);
-  const [coursePrice, setCoursePrice] = useState(0);
+
   const introImg = {
     id: 0,
     url: "",
@@ -150,7 +150,6 @@ export default function CourseInfoUpload({ setCourseValue }) {
       title: courseTitle,
       detail: courseDetail,
       category: secCategory,
-      price: coursePrice,
       thumbUrl: thumbImg.url,
       descriptionImageUrls: introImgUrlList,
     });
@@ -160,7 +159,6 @@ export default function CourseInfoUpload({ setCourseValue }) {
     courseTitle,
     courseDetail,
     secCategory,
-    coursePrice,
     thumbImg,
   ]);
 
@@ -197,23 +195,8 @@ export default function CourseInfoUpload({ setCourseValue }) {
           }}
         />
       </Grid>
-      <Grid item xs={4}>
-        <CssTextField
-          fullWidth
-          type="number"
-          id="price"
-          name="price"
-          label="강의 가격"
-          size="small"
-          value={coursePrice}
-          inputProps={{ min: 4, max: 10 }}
-          onChange={(e) => {
-            setCoursePrice(e.target.value);
-          }}
-        />
-      </Grid>
       <Grid item xs={6}></Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <div>썸네일 이미지 (1장)</div>
         <br />
         {thumbImg.file ? (
@@ -271,13 +254,17 @@ export default function CourseInfoUpload({ setCourseValue }) {
         )}
       </Grid>
 
-      <Grid item xs={11}>
+      <Grid mt={7} item xs={3}>
         강의 소개 이미지 (추가가능)
       </Grid>
-      <Grid item xs={1}>
-        <Fab aria-label="add" size="small">
-          <AddIcon onClick={plusIntroImg} />
-        </Fab>
+      <Grid mt={6} item xs={3}>
+        <Button onClick={plusIntroImg} variant="contained">
+          {" "}
+          추가하기
+        </Button>
+        {/* <Fab aria-label="add" size="small">
+          <AddIcon  />
+        </Fab> */}
       </Grid>
       {introImgList.map((intro) => {
         return (
