@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 강좌 썸네일 클릭 시 강좌 상세보기 화면으로 이동하기 위한 delegate 패턴
 protocol CourseCVCellDelegate {
     func CourseSelectedCVCell(courseId: Int, courseName: String)
 }
@@ -44,6 +45,7 @@ class CourseTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        // 셀 재사용 문제 해결을 위해 셀 내용 초기화
         rankingCategoryTitle.layer.sublayers?.remove(at: 0)
         rankingCategoryTitle.text = nil
         rankingCategoryTitle.sizeToFit()
@@ -87,6 +89,7 @@ class CourseTableViewCell: UITableViewCell {
         
         thumbnailData = courseRankingData.courseList
         
+        // 데이터가 비어있으면(받아온 데이터가 없으면) 기본 이미지 노출
         if thumbnailData.isEmpty {
             self.defaultImageView.isHidden = false
         } else {

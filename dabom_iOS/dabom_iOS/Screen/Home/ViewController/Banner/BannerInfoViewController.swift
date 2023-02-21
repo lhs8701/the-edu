@@ -67,6 +67,7 @@ class BannerInfoViewController: UIViewController {
             EventDataService.shared.getEvent(eventId: eventId) { response in
                 switch response {
                 case .success(let data):
+                    // 가져온 정보로 데이터 삽입
                     if let data = data as? EventDataModel {
                         self.contentLabel.text = data.content
                         self.endDateLabel.text = data.endDate

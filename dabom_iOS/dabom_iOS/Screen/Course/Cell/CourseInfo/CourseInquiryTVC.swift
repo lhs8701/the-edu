@@ -33,15 +33,21 @@ class CourseInquiryTVC: UITableViewCell {
     // MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        configureView()
+        setTV()
+    }
 
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+    }
+    
+    private func configureView() {
         inquiryTitle.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 5)
         
         allReviewBtn.layer.cornerRadius = 5
         
-        inquiryTV.delegate = self
-        inquiryTV.dataSource = self
-        inquiryTV.register(UINib(nibName: Const.Xib.Name.reviewInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.reviewInquiryTVC)
-
         contentView.addSubview(defaultImageView)
         
         defaultImageView.image = defaultImage
@@ -49,12 +55,12 @@ class CourseInquiryTVC: UITableViewCell {
         defaultImageView.snp.makeConstraints {
             $0.edges.equalTo(self.inquiryTV.snp.edges)
         }
-        
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
+    
+    private func setTV() {
+        inquiryTV.delegate = self
+        inquiryTV.dataSource = self
+        inquiryTV.register(UINib(nibName: Const.Xib.Name.reviewInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.reviewInquiryTVC)
     }
     
     

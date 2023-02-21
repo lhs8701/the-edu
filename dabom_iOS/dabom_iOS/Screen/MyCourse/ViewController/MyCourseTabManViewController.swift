@@ -27,8 +27,13 @@ class MyCourseTabManViewController: TabmanViewController {
     }
     
     private func configure() {
+        // 덜 봄 화면
         let inCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.inCourse) as! InCourseViewController
+        
+        // 다 봄 화면
         let completionCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.completionCourse) as! CompletionCourseViewController
+        
+        // 찜 화면
         let wishCourseVC = UIStoryboard.init(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.wishCourse) as! WishCourseViewController
         
         viewControllers.append(inCourseVC)

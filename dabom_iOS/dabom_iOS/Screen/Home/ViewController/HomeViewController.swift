@@ -61,6 +61,7 @@ class HomeViewController: UIViewController {
         CourseRankingDataService.shared.getCourseRanking { response in
             switch response {
             case .success(let data):
+                // 받아온 데이터를 배열에 넣고, tableView -> reloadData()
                 if let data = data as? [CourseRankingDataModel] {
                     self.courseRankingList = data
                     self.homeTableView.reloadData()
@@ -86,6 +87,7 @@ class HomeViewController: UIViewController {
         BannerDataService.shared.getOngoingBanner { response in
             switch response {
             case .success(let data):
+                // 받아온 배너 데이터를 배열에 넣고, tableView -> reloadData()
                 if let data = data as? [BannerDataModel] {
                     self.bannerList = data
                     self.homeTableView.reloadData()
@@ -105,7 +107,7 @@ class HomeViewController: UIViewController {
     }
     
     
-    // MARK: - 카테고리 햄버거 버튼 눌렀을 때
+    // MARK: - 카테고리 햄버거 버튼 눌렀을 때 카테고리 목록 화면으로 이동
     
     @IBAction func categoryBtnPressed(_ sender: Any) {
         guard let categoryVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: "CategorySelectVC") as? CategorySelectVC else {return}

@@ -36,14 +36,19 @@ class CourseReviewTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        
+        configureView()
+        setTV()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+    }
+    
+    private func configureView() {
         reviewTitle.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor") ?? .yellow, width: 5)
         
         allReviewBtn.layer.cornerRadius = 5
-        
-        reviewTV.delegate = self
-        reviewTV.dataSource = self
-        reviewTV.register(UINib(nibName: Const.Xib.Name.reviewInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.reviewInquiryTVC)
         
         contentView.addSubview(defaultImageView)
         
@@ -53,10 +58,11 @@ class CourseReviewTVC: UITableViewCell {
             $0.edges.equalTo(self.reviewTV.snp.edges)
         }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
+    
+    private func setTV() {
+        reviewTV.delegate = self
+        reviewTV.dataSource = self
+        reviewTV.register(UINib(nibName: Const.Xib.Name.reviewInquiryTVC, bundle: nil), forCellReuseIdentifier: Const.Xib.Identifier.reviewInquiryTVC)
     }
     
     

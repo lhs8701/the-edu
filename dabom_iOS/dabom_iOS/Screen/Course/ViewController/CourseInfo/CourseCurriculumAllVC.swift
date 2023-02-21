@@ -75,10 +75,12 @@ class CourseCurriculumAllVC: UIViewController {
 // MARK: - extension
 
 extension CourseCurriculumAllVC: UITableViewDelegate, UITableViewDataSource {
+    // section 수 -> 강좌 챕터 수
     func numberOfSections(in tableView: UITableView) -> Int {
         self.curriculum?.chapters.count ?? 0
     }
     
+    // row 수 -> 챕터의 강의 수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.curriculum?.chapters[section].units.count ?? 0
     }

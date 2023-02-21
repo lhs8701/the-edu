@@ -47,15 +47,20 @@ class ResultVC: UIViewController {
     
     private func configureView() {
         resultName.text = resultTitle ?? ""
+        
+        // 이전 뷰에서 넘겨준 kind 값이 category -> 카테고리 결과를 보여줌
         if kind == "category" {
             resultKind.text = "카테고리"
         } else if kind == "search" {
+            // 이전 뷰에서 넘겨준 kind 값이 search -> 검색 결과를 보여줌
             resultKind.text = "검색 결과"
         }
         
         resultName.sizeToFit()
         resultName.layer.drawLineAt(edges: [.bottom], color: UIColor(named: "mainColor")!, width: 3.0)
         
+        
+        // 결과가 없을 때 보여줄 defulatImage 설정
         view.addSubview(defaultImageView)
         defaultImageView.contentMode = .scaleAspectFit
         defaultImageView.snp.makeConstraints {

@@ -74,6 +74,7 @@ class AccountVC: UIViewController {
         self.saveBtn.layer.cornerRadius = 10
         self.changePasswordBtn.layer.cornerRadius = 10
         
+        // loginType에 따라 이메일 변경 부분 세팅
         if loginType == "kakao" {
             self.loginTypeLabel.isHidden = false
             self.loginTypeLabel.text = "카카오 로그인 회원입니다"
@@ -215,6 +216,7 @@ extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDele
             let resizeImage = self.resizeImage(image: image, newWidth: 300)
             self.profileImageView.image = resizeImage
             
+            // 이미지 업로드 완료될 때까지 저장하기 버튼 비활성화
             self.saveBtn.isEnabled = false
             
             // 유저가 앨범에서 사진 선택하면 서버로 업로드
@@ -224,6 +226,8 @@ extension AccountVC: UIImagePickerControllerDelegate, UINavigationControllerDele
                     if let data = data as? ImageDataModel {
                         self.userProfile = data.originalFilePath
                     }
+                    
+                    // 업로드 완료되면 저장하기 버튼 활성화
                     self.saveBtn.isEnabled = true
 
                 case .requestErr(let message):

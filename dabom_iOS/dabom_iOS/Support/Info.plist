@@ -12,6 +12,16 @@
 				<string>kakaodbcf7d906ee7afeac0bf4b0c69479de6</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.jouncamp.the-edu</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>the-edu</string>
+			</array>
+		</dict>
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>

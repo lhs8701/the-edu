@@ -57,6 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return AuthController.handleOpenUrl(url: url)
         }
         
+        let component = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        
         return false
     }
     

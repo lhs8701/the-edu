@@ -63,12 +63,7 @@ class CourseInfoViewController: UIViewController {
         setRightBarButton()
         setTableView()
         setSegmentController()
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print(error)
-        }
+        setAudio()
             
         getCourseInfo(id: self.courseId!)
         getTicket(courseId: self.courseId!)
@@ -93,6 +88,18 @@ class CourseInfoViewController: UIViewController {
     }
     
     
+    // MARK: - 핸드폰 무음 시에도 소리 실행하게 설정
+    
+    private func setAudio() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print(error)
+        }
+    }
+    
+    
     // MARK: - rightBarButtonItem 설정
     
     private func setRightBarButton() {
@@ -111,6 +118,7 @@ class CourseInfoViewController: UIViewController {
         self.heartButton.addTarget(self, action: #selector(wishBtnPressed(_:)), for: .touchUpInside)
         let heart = UIBarButtonItem(customView: heartButton)
 
+        // rightBarButtonItem에 찜하기 버튼, 온오프 버튼 존재 -> 현재 온오프 버튼은 hidden
         navigationItem.rightBarButtonItems = [heart, onOff]
     }
     
@@ -167,6 +175,7 @@ class CourseInfoViewController: UIViewController {
                 sender.isSelected = true
             }
         } else {
+            // 로그인하지 않은 상태에서 또는 로그인이 만료된 상태에서 찜하기 눌렀을 때 로그인 화면으로 유도
             let alert = UIAlertController(title: "로그인이 필요한 서비스입니다", message: "로그인 하시겠습니까?", preferredStyle: .alert)
             let cancel = UIAlertAction(title: "취소", style: .cancel)
             let login = UIAlertAction(title: "확인", style: .default) { _ in
@@ -224,16 +233,19 @@ class CourseInfoViewController: UIViewController {
     
     @objc func segCtrlValChanged(_ sender: UISegmentedControl) {
         let descriptionCnt = self.getDescriptionCnt()
-        print(descriptionCnt)
         
         switch sender.selectedSegmentIndex {
         case 0:
+            // 클래스 소개로 스크롤 이동
             self.mainTV.scrollToRow(at: NSIndexPath(row: 2, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
         case 1:
+            // 커리큘럼으로 스크롤 이동
             self.mainTV.scrollToRow(at: NSIndexPath(row: descriptionCnt + 2, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
         case 2:
+            // 강좌 후기로 스크롤 이동
             self.mainTV.scrollToRow(at: NSIndexPath(row: descriptionCnt + 3, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
         case 3:
+            // 문의사항으로 스크롤 이동
             self.mainTV.scrollToRow(at: NSIndexPath(row: descriptionCnt + 4, section: 0) as IndexPath, at: UITableView.ScrollPosition.top, animated: true)
         default:
             break
@@ -241,14 +253,13 @@ class CourseInfoViewController: UIViewController {
     }
     
     
-    // MARK: - 강좌 정보 가져오기
+    // MARK: - 강좌 상세 정보 가져오기
     
     private func getCourseInfo(id: Int) {
         CourseInfoDataService.shared.getCourseInfo(id: id) { response in
             switch (response) {
             case .success(let data):
                 if let data = data as? CourseInfoDataModel {
-
                     self.courseInfoData = data
                     self.getCourseReview()
                     self.getCourseInquiry()
@@ -334,15 +345,14 @@ class CourseInfoViewController: UIViewController {
             case .success(let data):
                 if let data = data as? [TicketDataModel] {
                     self.ticketData = data
-                    print(self.ticketData[0].id)
                     
+                    // 유료 강좌인지 무료 강좌인지 확인
                     if self.ticketData[0].costPrice > 0 {
                         self.isCharge = true
                     } else {
                         self.isCharge = false
                     }
                 }
-                print("ticket Success")
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:

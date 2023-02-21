@@ -34,6 +34,9 @@ class CoursePlayerVC: UIViewController {
     var avPlayer = AVPlayer()
     var avController = AVPlayerViewController()
     
+    // 동영상 남은 시간이 20초 이하일 때 수강 완료 처리
+    var completeTime = 20.0
+    
     
     // MARK: - Life Cycle
     
@@ -59,7 +62,7 @@ class CoursePlayerVC: UIViewController {
         guard let endTime = avPlayer.currentItem?.duration.seconds else { return }
         
         // 동영상 남은 시간이 20초 이하일 때 수강 완료 처리
-        if currentTime + 20 >= endTime {
+        if currentTime + completeTime >= endTime {
             UnitDataService.shared.completeUnit(unitId: unitId) { response in
                 switch response {
                 case .success:
@@ -223,10 +226,12 @@ class CoursePlayerVC: UIViewController {
 // MARK: - extension
 
 extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
+    // section 수 -> 챕터 수
     func numberOfSections(in tableView: UITableView) -> Int {
         self.curriculum?.chapters.count ?? 0
     }
     
+    // row 수 -> 챕터의 강의 수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.curriculum?.chapters[section].units.count ?? 0
     }
@@ -234,6 +239,7 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Const.Xib.Identifier.curriculumTVC) as! CurriculumTVC
         
+        // 커리큘럼 강의 이름 설정
         if let curriculum = curriculum {
             cell.curriculumTitle.text = "\(indexPath.row + 1). \(curriculum.chapters[indexPath.section].units[indexPath.row].title)"
             
@@ -249,6 +255,7 @@ extension CoursePlayerVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Const.Xib.Identifier.curriculumHeaderTVC) as! CurriculumHeaderTVC
         
+        // 커리큘럼 챕터 이름 설정
         if let curriculum = curriculum {
             header.chapterTitle.text = "\(section). \(curriculum.chapters[section].title)"
         }

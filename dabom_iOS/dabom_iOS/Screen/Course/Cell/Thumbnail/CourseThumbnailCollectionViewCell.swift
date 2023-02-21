@@ -39,6 +39,7 @@ class CourseThumbnailCollectionViewCell: UICollectionViewCell {
     // MARK: - configure
     
     private func configureView() {
+        // 그림자, 둥근 모서리 설정
         layer.masksToBounds = false
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5

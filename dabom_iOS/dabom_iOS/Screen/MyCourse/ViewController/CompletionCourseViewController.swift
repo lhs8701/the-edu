@@ -106,6 +106,7 @@ extension CompletionCourseViewController: UICollectionViewDelegate {
         }
     }
     
+    // 셀 선택 시 플레이어로 이동
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.myCourseTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.coursePlayerVC) as? CoursePlayerVC else { return }
         

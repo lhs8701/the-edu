@@ -11,7 +11,6 @@ class NetworkVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("NetworkViewController here")
         // Do any additional setup after loading the view.
         let alert = UIAlertController(title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", preferredStyle: UIAlertController.Style.alert)
         let end = UIAlertAction(title: "종료", style: .destructive) { _ in

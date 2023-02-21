@@ -63,8 +63,11 @@ class SignupSelectVC: UIViewController {
                     AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
                         switch (response) {
                         case .success:
+                            // 카카오 로그인이 성공했으면 UserDefaults에 토큰, loginType 저장
                             UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
                             UserDefaults.standard.setValue("kakao", forKey: "loginType")
+                            
+                            // 저장(로그인) 후 메인 화면으로 이동
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)
@@ -90,7 +93,11 @@ class SignupSelectVC: UIViewController {
                     AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
                         switch (response) {
                         case .success:
+                            // 카카오 로그인이 성공했으면 UserDefaults에 토큰, loginType 저장
+                            UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
                             UserDefaults.standard.setValue("kakao", forKey: "loginType")
+                            
+                            // 저장(로그인) 후 메인 화면으로 이동
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)
@@ -150,14 +157,16 @@ extension SignupSelectVC: ASAuthorizationControllerDelegate {
             let userName = (appleIDCredential.fullName?.familyName ?? "") + (appleIDCredential.fullName?.givenName ?? "")
             let email = appleIDCredential.email ?? ""
             
+            
+            // 애플 회원가입 api 호출
             AuthenticationService.shared.appleSignup(socialToken: userIdentifier, email: email, nickname: userName) { response in
                 switch (response) {
                 case .success:
-                    print("appleSignup Success")
+                    // 회원가입 성공하면 바로 login 호출
                     AuthenticationService.shared.appleLogin(socialToken: userIdentifier) { response in
                         switch (response) {
                         case .success:
-                            print("appleLogin Success")
+                            // 로그인까지 성공하면 메인화면으로 이동
                             AuthenticationService.shared.goToMain()
                         case .requestErr(let message):
                             print("requestErr", message)
@@ -180,7 +189,7 @@ extension SignupSelectVC: ASAuthorizationControllerDelegate {
                 case .networkFail:
                     print("networkFail")
                 case .resourceErr:
-                    print("resourceErr")
+                    // 회원가입 호출 시 이미 가입 된 계정일 때
                     let alert = UIAlertController(title: "", message: "이미 가입된 계정입니다", preferredStyle: .alert)
                     let confirm = UIAlertAction(title: "확인", style: .default) { _ in
                         self.goToLogin()
