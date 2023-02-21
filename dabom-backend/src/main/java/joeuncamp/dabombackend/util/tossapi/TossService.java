@@ -71,8 +71,9 @@ public class TossService {
      */
     public void cancel(String paymentKey) {
         WebClient webClient = WebClient.create();
-        String URL = CANCEL_API.replace("\\{paymentKey\\}", paymentKey);
-        log.info(URL);
+        String URL = CANCEL_API;
+        URL = URL.replace("{paymentKey}", paymentKey);
+        log.info("------------------->>>>>>>>>>>>>>"+URL);
         String encodedAuth = Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes());
         webClient.method(HttpMethod.POST)
                 .uri(URL)
