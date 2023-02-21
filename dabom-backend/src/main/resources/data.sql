@@ -1,6 +1,7 @@
 -- <Member> --
 insert into member (id, created_time, modified_time, account, birthday, email, login_type, mobile, name, nickname,
-                    password, medium_file_path, original_file_path, small_file_path, social_id, pay_point, certified, email_certified, locked)
+                    password, medium_file_path, original_file_path, small_file_path, social_id, pay_point, certified,
+                    email_certified, locked)
 values (1, '2023-02-08 11:31:14.982873', '2023-02-08 11:31:14.982873', 'admin@naver.com', '19800101', 'admin@naver.com',
         'BASIC', '01012345678', '조대호', '조대호', '{bcrypt}$2a$10$9WYLiZLDXSkF15LFXnjppOKS/Ae6SGkWtHZRZte3IN0TfByYufxmK',
         '/static/images/default/profile_image_m.jpg', '/static/images/default/profile_image.jpg',
@@ -37,8 +38,8 @@ values (1, 'ROLE_USER'),
 
 
 -- <CreatorProfile> --
-insert into creator_profile (id, member_id, activated)
-values ('1', '1', true);
+insert into creator_profile (id, member_id, activated, subject, career)
+values ('1', '1', true, 'test', 'test');
 
 -- <Event> --
 insert into event (id, created_time, modified_time, medium_file_path, original_file_path, small_file_path, content,
@@ -57,10 +58,12 @@ values ('2', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_E
         true, false),
        ('3', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END',
         '<오피스 최신강의, 최신출제기준반영,스마트폰수강,무료연장서비스>', '/static/images/os_sil_thumbnail_m.jpg',
-        '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg', '사무자동화산업기사 실기', '1', true, false),
+        '/static/images/os_sil_thumbnail.jpg', '/static/images/os_sil_thumbnail_s.jpg', '사무자동화산업기사 실기', '1', true,
+        false),
        ('4', '2023-02-08 12:36:46.459130', '2023-02-08 12:36:46.459130', 'BACK_END',
         '컴퓨터그래픽스운용기능사 자격증 취득희망자, 웹디자이너로 취업 희망자', '/static/images/graphics_thumbnail_m.jpg',
-        '/static/images/graphics_thumbnail.jpg', '/static/images/graphics_thumbnail_s.jpg', '컴퓨터그래픽스운용기능사 실기', '1', true, false);
+        '/static/images/graphics_thumbnail.jpg', '/static/images/graphics_thumbnail_s.jpg', '컴퓨터그래픽스운용기능사 실기', '1',
+        true, false);
 
 insert into description_image (description_image_id, medium_file_path, original_file_path, small_file_path)
 values ('2', '/static/images/jo_oa_pil_description_m.jpg', '/static/images/jo_oa_pil_description.jpg',

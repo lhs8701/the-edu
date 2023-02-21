@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.domain.creator.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -20,7 +21,8 @@ public class CreatorProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
+    String subject;
+    String career;
     @OneToOne
     @JoinColumn(name = "member_id")
     Member member;
