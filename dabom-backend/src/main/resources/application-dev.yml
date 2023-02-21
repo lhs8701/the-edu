@@ -62,7 +62,7 @@ logging:
     root: info
     org.springframework: info
     org.hibernate:
-      SQL: debug
+      SQL: info
       type: trace
   file:
     name: "C:/Dabom/logs/dev/current.log"
