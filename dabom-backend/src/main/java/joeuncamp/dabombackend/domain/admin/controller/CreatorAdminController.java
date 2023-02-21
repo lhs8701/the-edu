@@ -9,12 +9,15 @@ import joeuncamp.dabombackend.domain.admin.dto.MemberAdminDto;
 import joeuncamp.dabombackend.domain.admin.service.CreatorAdminService;
 import joeuncamp.dabombackend.domain.admin.service.MemberAdminService;
 import joeuncamp.dabombackend.domain.creator.service.CreatorActivator;
+import joeuncamp.dabombackend.domain.member.entity.Member;
+import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,4 +57,12 @@ public class CreatorAdminController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    @Operation(summary = "강의 재생을 위한 세부정보를 조회합니다.", description = "영상의 세부 정보와 함께 URL이 반환됩니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/courses/units/{unitId}")
+    public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId) {
+        UnitDto.Response responseDto = creatorAdminService.playUnit(unitId);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }
