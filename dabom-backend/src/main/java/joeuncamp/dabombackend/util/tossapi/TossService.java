@@ -33,7 +33,7 @@ public class TossService {
 
     @Value("${api.toss.auth-result}")
     private String AUTH_RESULT_API;
-    @Value("${api.toss.cancel")
+    @Value("${api.toss.cancel}")
     private String CANCEL_API;
 
     @Value("${toss.secret-key}")
