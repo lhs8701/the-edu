@@ -1,5 +1,6 @@
 import { Box, Button, Grid } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { uploadImageApi } from "../../../api/creatorApi";
@@ -27,7 +28,7 @@ export default function UploadEvent({}) {
   const [content, setContent] = useState();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-
+  const navigate = useNavigate();
   const upload = (e) => {
     uploadImageApi(e.target.files[0], accessToken)
       .then(({ data }) => {
@@ -45,7 +46,14 @@ export default function UploadEvent({}) {
       startDate: startDate,
       endDate: endDate,
       bannerImage: img.url,
-    });
+    })
+      .then(() => {
+        alert("완료");
+        navigate(-1);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (

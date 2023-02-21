@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { postTossTxId, signUp, successTossCert } from "../../api/authApi";
 import { useScript } from "../../hook";
 import Helmet from "react-helmet";
+import { CenterDiv } from "../../style/CommonCss";
 
 const MIN_PWD_LENGTH = 8;
 const MAX_NAME_LENGTH = 16;
@@ -90,7 +91,7 @@ export default function SignUp() {
   const [isId, setIsId] = useState("");
   const [isPwd, setIsPwd] = useState("");
   const [isName, setIsName] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const [isCheck2, setIsCheck2] = useState({
     inputCheck: false,
     lookCheck: false,
@@ -115,17 +116,19 @@ export default function SignUp() {
   });
 
   const submit = () => {
+    setIsLoading(true);
     signUp({
       account: isId,
       password: isPwd,
       nickname: isName,
     })
       .then(() => {
-        alert("회원 가입이 되셨습니다.");
+        alert("이메일 인증 후 로그인을 할 수 있어요.");
         navigate("/account/login");
       })
       .catch((err) => {
-        console.log(err.response);
+        setIsLoading(false);
+
         if (err.response.data.code === -6002) {
           alert("이미 가입된 정보입니다.");
           navigate("/account/login");
@@ -323,13 +326,17 @@ export default function SignUp() {
             </TermBtn>
           </TermBox>
           <br />
-          <AccountBtn
-            texthovercolor={"--color-background"}
-            bgcolor={"--color-primary"}
-            textcolor={"--color-text"}
-          >
-            회원가입
-          </AccountBtn>
+          {isLoading ? (
+            <CenterDiv>진행 중...</CenterDiv>
+          ) : (
+            <AccountBtn
+              texthovercolor={"--color-background"}
+              bgcolor={"--color-primary"}
+              textcolor={"--color-text"}
+            >
+              회원가입
+            </AccountBtn>
+          )}
         </AccountForm>
         <Modal
           isOpen={isModalOpen}

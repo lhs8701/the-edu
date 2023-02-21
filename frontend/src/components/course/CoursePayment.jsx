@@ -128,6 +128,7 @@ export default function CoursePayment({
   const goPurchase = () => {
     if (!loginState) {
       alert("로그인이 필요해요!");
+      navigate("/account/login");
       return;
     }
     if (isAlreadyIn) {
@@ -191,7 +192,7 @@ export default function CoursePayment({
       </IconBox>
       <Title>{title}</Title>
       <Teacher>{teacher} 강사</Teacher>
-      <Select
+      {/* <Select
         value={selectTicket.id}
         onChange={(e) => {
           setSelectTicket({
@@ -206,28 +207,28 @@ export default function CoursePayment({
             {option?.coursePeriod?.description}
           </option>
         ))}
-      </Select>
+      </Select> */}
       <br />
       <PriceBox>
         <Tab>
           <PrimaryCostTab>원 가격</PrimaryCostTab>
           <PrimaryCostTab>
-            {ticketInfo[selectTicket.idx].costPrice}
+            {ticketInfo[selectTicket.idx]?.costPrice}
           </PrimaryCostTab>
         </Tab>
         <Tab>
           <DiscountTab>할인 가격</DiscountTab>
           <PrimaryCostTab>
             -{" "}
-            {ticketInfo[selectTicket.idx].costPrice -
-              ticketInfo[selectTicket.idx].discountedPrice}
+            {ticketInfo[selectTicket.idx]?.costPrice -
+              ticketInfo[selectTicket.idx]?.discountedPrice}
           </PrimaryCostTab>
         </Tab>
         <PriceUnderBar />
         <Tab>
           <OwnPriceTab>실 결제 가격</OwnPriceTab>
           <PrimaryCostTab>
-            {ticketInfo[selectTicket.idx].discountedPrice}
+            {ticketInfo[selectTicket.idx]?.discountedPrice}
           </PrimaryCostTab>
         </Tab>
       </PriceBox>

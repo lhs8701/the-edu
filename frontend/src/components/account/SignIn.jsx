@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { PROCESS_ACCOUNT_URL } from "../../static";
 import {
@@ -85,7 +85,7 @@ export default function SignIn() {
         account: isID,
         password: password,
       });
-      console.log(data);
+
       setIsLoggedIn({
         state: true,
         isKakao: false,
@@ -181,27 +181,6 @@ export default function SignIn() {
           alt=""
         />
       </ImgDiv>
-      {/* <AccountBtn
-        texthovercolor={"--color-background"}
-        bgcolor={"--color-primary"}
-        textcolor={"--color-text"}
-      >
-        카카오로 시작하기
-      </AccountBtn> */}
-      {/* <AccountBtn
-        texthovercolor={"--color-background"}
-        bgcolor={"--color-account-naver"}
-        textcolor={"--color-text"}
-      >
-        네이버로 시작하기test
-      </AccountBtn>
-      <AccountBtn
-        texthovercolor={"--color-text"}
-        bgcolor={"--color-account-apple"}
-        textcolor={"--color-background"}
-      >
-        애플로 시작하기
-      </AccountBtn> */}
     </AccountWrapper>
   );
 }

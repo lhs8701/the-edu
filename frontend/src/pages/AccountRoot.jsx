@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -50,8 +50,11 @@ const SubTitle = styled(Title)`
 export default function AccountRoot() {
   const loginState = useRecoilValue(getLoginState);
   const navigate = useNavigate();
+  const { state } = useLocation();
 
-  if (loginState) {
+  if (loginState & (state?.state === "certification")) {
+    navigate("/");
+  } else if (loginState) {
     navigate(-1);
   }
 

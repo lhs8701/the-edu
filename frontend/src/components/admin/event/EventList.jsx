@@ -87,6 +87,7 @@ export default function EventList() {
   const deleteEvent = (eventId) => {
     deleteEventApi(eventId, adminAccessToken)
       .then(() => {
+        alert("삭제 완료");
         refetchList();
       })
       .catch((err) => {

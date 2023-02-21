@@ -123,11 +123,11 @@ export default function CourseDetailSetUp() {
                 placeholder="할인해서 판매할 가격을 설정하세요."
               />
             </Grid>
-            <Grid item xs={3}>
-              <Button onClick={setUpTicket}> 설정하기</Button>
-            </Grid>
           </>
         )}
+        <Grid item xs={3}>
+          <Button onClick={setUpTicket}> 설정하기</Button>
+        </Grid>
         <br />
         <br />
         <br />

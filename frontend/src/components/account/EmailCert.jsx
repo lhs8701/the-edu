@@ -30,7 +30,9 @@ export default function EmailCert() {
         &nbsp;
         <MoveBtn
           onClick={() => {
-            navigate("/" + PROCESS_ACCOUNT_URL.LOGIN);
+            navigate("/" + PROCESS_ACCOUNT_URL.LOGIN, {
+              state: { state: "certification" },
+            });
           }}
         >
           로그인 하기

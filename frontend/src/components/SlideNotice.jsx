@@ -92,7 +92,7 @@ export const SlideNotice = ({ eventList }) => {
       <AnimatePresence initial={false} custom={direction}>
         <Ad
           onClick={() => {
-            navigate(`${PROCESS_MAIN_URL.EVENT}/${eventList[imageIndex].id}`);
+            navigate(`${PROCESS_MAIN_URL.EVENT}/${eventList[imageIndex]?.id}`);
           }}
           onMouseEnter={() => {
             setisUserHover(true);
@@ -101,7 +101,9 @@ export const SlideNotice = ({ eventList }) => {
             setisUserHover(false);
           }}
           key={page}
-          src={STATIC_URL + eventList[imageIndex].bannerImage.originalFilePath}
+          src={
+            STATIC_URL + eventList[imageIndex]?.bannerImage?.originalFilePath
+          }
           custom={direction}
           variants={variants}
           initial="enter"
