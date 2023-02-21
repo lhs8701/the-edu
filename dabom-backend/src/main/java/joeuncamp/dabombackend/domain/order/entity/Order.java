@@ -20,6 +20,7 @@ public class Order extends BaseTimeEntity {
     @Id
     String id;
     String name;
+    String paymentKey;
     long amount;
     @Enumerated(value = EnumType.STRING)
     OrderStatus orderStatus;
@@ -36,6 +37,7 @@ public class Order extends BaseTimeEntity {
     public Order(PaymentInfo paymentInfo, Member member, Item item){
         this.id = paymentInfo.getOrderId();
         this.name = item.getProductName();
+        this.paymentKey = paymentInfo.getPaymentKey();
         this.amount = paymentInfo.getTotalAmount();
         this.orderStatus = OrderStatus.DONE;
         this.payType = PayType.findByMethod(paymentInfo.getMethod());
@@ -65,4 +67,7 @@ public class Order extends BaseTimeEntity {
         return new Order(member, item);
     }
 
+    public void setOrderStatus(OrderStatus orderStatus){
+        this.orderStatus = orderStatus;
+    }
 }

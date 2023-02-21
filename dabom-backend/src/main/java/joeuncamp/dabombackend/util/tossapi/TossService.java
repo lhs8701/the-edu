@@ -33,6 +33,8 @@ public class TossService {
 
     @Value("${api.toss.auth-result}")
     private String AUTH_RESULT_API;
+    @Value("${api.toss.cancel")
+    private String CANCEL_API;
 
     @Value("${toss.secret-key}")
     private String SECRET_KEY;
@@ -59,6 +61,24 @@ public class TossService {
                 .bodyValue(tossPayRequest)
                 .retrieve()
                 .bodyToMono(PaymentInfo.class)
+                .block();
+    }
+
+    /**
+     * 결제를 취소합니다.
+     *
+     * @param paymentKey 페이먼트 키
+     */
+    public void cancel(String paymentKey) {
+        WebClient webClient = WebClient.create();
+        String URL = CANCEL_API.replace("{paymentKey}", paymentKey);
+        String encodedAuth = Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes());
+        webClient.method(HttpMethod.POST)
+                .uri(URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Basic " + encodedAuth)
+                .retrieve()
+                .bodyToMono(Void.class)
                 .block();
     }
 
@@ -104,7 +124,7 @@ public class TossService {
     /**
      * 본인인증 결과를 조회합니다.
      *
-     * @param txId        txid
+     * @param txId txid
      * @return response
      */
     public AuthResultResponse getAuthResult(String txId, TossCertSession tossCertSession) {
@@ -120,11 +140,13 @@ public class TossService {
                 .block();
     }
 
+
+
     /**
      * 토스 본인인증 결과로 받은 개인정보를 복호화합니다.
      *
      * @param authResultResponse 토스 본인인증 결과  DTO
-     * @param tossCertSession 토스 세션
+     * @param tossCertSession    토스 세션
      * @return 회원 개인정보
      */
     public MemberPrivacy decryptPersonalData(AuthResultResponse authResultResponse, TossCertSession tossCertSession) {

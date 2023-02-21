@@ -12,6 +12,7 @@ import joeuncamp.dabombackend.domain.order.dto.OrderSheetDto;
 import joeuncamp.dabombackend.domain.order.service.OrderChart;
 import joeuncamp.dabombackend.domain.order.service.OrderSheetService;
 import joeuncamp.dabombackend.domain.order.service.OrderSystem;
+import joeuncamp.dabombackend.domain.order.service.RefundService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,7 @@ public class OrderController {
     private final OrderSheetService orderSheetService;
     private final OrderSystem orderSystem;
     private final OrderChart orderChart;
+    private final RefundService refundService;
 
     @Operation(summary = "강좌 수강권 조회", description = "")
     @GetMapping("/courses/{courseId}/tickets")
@@ -70,5 +72,14 @@ public class OrderController {
     public ResponseEntity<List<OrderDto.Response>> getOrderHistory(@AuthenticationPrincipal Member member) {
         List<OrderDto.Response> responseDto = orderChart.getOrderHistory(member.getId());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary = "환불", description = "상품을 환불합니다. 정책에 따라 환불이 불가능할 수 있습니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/refund/orders/{orderId}")
+    public ResponseEntity<Void> refund(@PathVariable String orderId, @AuthenticationPrincipal Member member) {
+        refundService.refund(orderId, member);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
