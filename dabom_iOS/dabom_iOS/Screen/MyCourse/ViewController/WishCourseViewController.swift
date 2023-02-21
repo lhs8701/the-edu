@@ -109,6 +109,7 @@ extension WishCourseViewController: UICollectionViewDelegate {
         return self.temp.count
     }
     
+    // 샐 선택 시 강좌 상세보기 화면으로 이동
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let nextVC = UIStoryboard(name: Const.Storyboard.Name.courseInfoView, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.courseInfo) as? CourseInfoViewController else { return }
         
