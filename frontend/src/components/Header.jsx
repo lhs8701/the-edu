@@ -299,7 +299,7 @@ export default function Header() {
                 >
                   <CateLink
                     iscategoryon={isCategoryOn}
-                    to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0 + "/" + 0}
+                    to={PROCESS_MAIN_URL.CATEGORIES}
                   >
                     전체 보기
                   </CateLink>

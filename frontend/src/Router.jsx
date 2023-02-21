@@ -57,6 +57,7 @@ import UnitVideo from "./components/admin/course/UnitVideo";
 import CourseDetailSetUp from "./components/creator/CourseDetailSetUp";
 import FailPurchase from "./components/purchase/FailPurchase";
 import EmailCert from "./components/account/EmailCert";
+import { AllCoursesPage } from "./pages/AllCoursesPage";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,11 @@ const router = createBrowserRouter([
       {
         path: "category/:categoryId/:smallCategoryId",
         element: <CategoryPage />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: "category",
+        element: <AllCoursesPage />,
         errorElement: <ErrorComponent />,
       },
       {
