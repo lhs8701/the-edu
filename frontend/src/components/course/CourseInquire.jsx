@@ -8,6 +8,7 @@ import { AccountSmallBtn } from "../../style/AccountComponentCss";
 import { Title } from "../../style/CourseCss";
 import {
   Box,
+  ChatBottom,
   ChatContextArea,
   ChatUserInfo,
   InputTextArea,
@@ -87,6 +88,7 @@ export default function CourseInquire({ courseId }) {
         <Box>
           <ChatUserInfo writer={userInfo?.writer} rate={""} />
           <ChatContextArea content={userInfo?.content} />
+          <ChatBottom />
         </Box>
         <UnderBar />
       </>

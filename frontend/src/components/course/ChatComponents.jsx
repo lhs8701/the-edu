@@ -67,10 +67,6 @@ const ContextTab = styled.div`
 
 const BottomBox = styled.div`
   margin: 0 auto;
-  width: 95%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-top: 15px;
 `;
 
@@ -125,13 +121,10 @@ export const ChatContextArea = ({ content }) => {
   );
 };
 
-export const ChatBottom = () => {
+export const ChatBottom = ({ reply }) => {
   return (
     <BottomBox>
       <Reply>답글달기</Reply>
-      <HeartTab>
-        하트&nbsp;<HearTCnt>3</HearTCnt>
-      </HeartTab>
     </BottomBox>
   );
 };

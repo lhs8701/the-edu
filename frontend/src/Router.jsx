@@ -63,6 +63,7 @@ import ReviseActivateCourse from "./components/admin/course/ReviseActivateCourse
 import StopCourses from "./components/admin/course/StopCourses";
 import ReviseStopCourse from "./components/admin/course/ReviseStopCourse";
 import LockUsers from "./components/admin/LockUsers";
+import ManageUnitQuestion from "./components/creator/ManageUnitQuestion";
 
 const router = createBrowserRouter([
   {
@@ -326,7 +327,11 @@ const router = createBrowserRouter([
       },
       {
         path: "mycourses/comment/:courseId",
-        element: <div>dndndn</div>,
+        element: <CoursesComment />,
+      },
+      {
+        path: "mycourses/comment/:courseId/:unitId",
+        element: <ManageUnitQuestion />,
       },
       {
         path: "mycourses/:courseId/:unitId",

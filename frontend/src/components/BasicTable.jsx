@@ -150,7 +150,9 @@ export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {
               <TableCell align="center">
                 <DeleteBtn
                   onClick={() => {
-                    navigate(`comment/${row.courseId}`);
+                    navigate(`comment/${row.courseId}`, {
+                      state: row.title,
+                    });
                   }}
                 >
                   관리하기

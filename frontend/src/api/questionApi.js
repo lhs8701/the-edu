@@ -6,6 +6,27 @@ const QUESTION_TAIL_URL = "/questions";
 const ANSWER_URL = `${API_URL}/questions`;
 const ANSWER_TAIL_URL = "/answers";
 const MINE_URL = "/mine";
+
+export async function postUnitQuestionReplyApi(
+  accessToken,
+
+  content,
+  questionId
+) {
+  return await axios.post(
+    `${ANSWER_URL}/${questionId}${ANSWER_TAIL_URL}`,
+    {
+      content: content,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
 export async function getQuestionListApi(pageParam, unitId, accessToken) {
   const params = {
     page: pageParam,

@@ -280,6 +280,8 @@ export default function UnitQuestion({ unitId }) {
       .then(({ data }) => {
         questionList.refetch();
         myQuestionList.refetch();
+        setUserQuestionTitle("");
+        setQuestionContext("");
       })
       .catch((err) => {
         alert(err);
