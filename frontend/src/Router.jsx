@@ -42,7 +42,7 @@ import CategoryProfit from "./components/admin/CategoryProfit";
 import Users from "./components/admin/Users";
 import Creators from "./components/admin/Creators";
 import Courses from "./components/admin/course/Courses";
-import Revisecourses from "./components/admin/course/Revisecourses";
+
 import CoursesInquires from "./components/creator/CoursesInquires";
 import EventList from "./components/admin/event/EventList";
 import DetailEvent from "./components/admin/event/DetailEvent";
@@ -58,6 +58,10 @@ import CourseDetailSetUp from "./components/creator/CourseDetailSetUp";
 import FailPurchase from "./components/purchase/FailPurchase";
 import EmailCert from "./components/account/EmailCert";
 import { AllCoursesPage } from "./pages/AllCoursesPage";
+import EnrollCourses from "./components/admin/course/EnrollCourses";
+import ReviseActivateCourse from "./components/admin/course/ReviseActivateCourse";
+import StopCourses from "./components/admin/course/StopCourses";
+import ReviseStopCourse from "./components/admin/course/ReviseStopCourse";
 
 const router = createBrowserRouter([
   {
@@ -226,8 +230,8 @@ const router = createBrowserRouter([
         element: <Creators />,
       },
       {
-        path: "revisecourses",
-        element: <Revisecourses />,
+        path: "enrollcourses",
+        element: <EnrollCourses />,
       },
       {
         path: "revisecourses/:courseId",
@@ -240,6 +244,18 @@ const router = createBrowserRouter([
       {
         path: "courses",
         element: <Courses />,
+      },
+      {
+        path: "courses/:courseId",
+        element: <ReviseActivateCourse />,
+      },
+      {
+        path: "stopcourses",
+        element: <StopCourses />,
+      },
+      {
+        path: "stopcourses/:courseId",
+        element: <ReviseStopCourse />,
       },
       {
         path: "eventnotice",

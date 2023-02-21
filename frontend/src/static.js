@@ -119,11 +119,15 @@ export const ADMIN_BAR_LIST = {
       list: [
         {
           name: "대기 신청 강좌 관리",
-          url: "/admin/revisecourses",
+          url: "/admin/enrollcourses",
         },
         {
           name: "전체 강좌 관리",
           url: "/admin/courses",
+        },
+        {
+          name: "정지된 강좌 관리",
+          url: "/admin/stopcourses",
         },
       ],
     },

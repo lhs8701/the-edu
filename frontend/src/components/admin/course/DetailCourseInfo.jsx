@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import { getAdminAccessTokenSelector } from "../../../atom";
 import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
@@ -9,14 +9,10 @@ import {
   getCurriculumApi,
 } from "../../../api/courseApi";
 import { activeCourseApi } from "../../../api/adminApi";
-import CourseInfo from "../../Player/CourseInfo";
-import { STATIC_URL } from "../../../static";
 import CourseIntro from "../../course/CourseIntro";
-import CourseDetail from "../../course/CourseDetail";
 import styled from "styled-components";
-import CoursePayment from "../../course/CoursePayment";
-import CourseCategory from "../../course/CourseCategory";
 import CourseImg from "../../course/CourseImg";
+import SimpleCurriculumCheck from "../../creator/SimpleCurriculumCheck";
 
 const DividerBox = styled.div`
   margin: 0 auto;
@@ -27,7 +23,8 @@ export default function DetailCourseInfo() {
   const accessToken = useRecoilValue(getAdminAccessTokenSelector);
   const { courseId } = useParams();
   const navigate = useNavigate();
-
+  const { state } = useLocation();
+  console.log(state);
   const info = useQuery(
     ["courseDetailInfo", courseId],
     () => {
@@ -83,7 +80,9 @@ export default function DetailCourseInfo() {
   return (
     <>
       <DashboardTitleTab title="강좌 상세 보기" />
-      <button onClick={allowCourse}>승인하기</button>
+      {state?.state === "enroll" && (
+        <button onClick={allowCourse}>승인하기</button>
+      )}
 
       <br />
       <br />
@@ -97,32 +96,14 @@ export default function DetailCourseInfo() {
         <br />
         <div>커리큘럼</div>
         <br />
+        <br />
+        <SimpleCurriculumCheck
+          curriculumList={curriculum?.data?.data?.chapters}
+        />
 
-        {curriculum?.data?.data?.chapters?.map((chapter) => {
-          return (
-            <>
-              <div>{chapter?.title}</div>
-              {chapter?.units?.map((unit) => {
-                return (
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <div key={unit?.unitId}>{unit?.title}</div>
-                    <button
-                      onClick={() => {
-                        navigate(`${unit?.unitId}`);
-                      }}
-                    >
-                      강좌 보기
-                    </button>
-                  </div>
-                );
-              })}
-            </>
-          );
-        })}
         <br />
         <br />
+
         {/* <CoursePayment
           ticketInfo={paymentInfo?.data?.data}
           title={info?.data?.title}

@@ -37,7 +37,17 @@ export default function UnitVideo() {
         }
       })
       .catch((err) => {
-        console.log("크리에이터");
+        getUnitVideoApi(unitId, accessToken)
+          .then(({ data }) => {
+            if (data?.code) {
+              alert("에러발생");
+              navigate(-1);
+            }
+            setUnitInfo(data);
+          })
+          .catch((err) => {
+            alert("에러발생");
+          });
       });
   };
 

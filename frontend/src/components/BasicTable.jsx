@@ -336,10 +336,106 @@ export function AdminReadyCoursesTable({ rows, cells, navigate }) {
               <TableCell align="center">
                 <button
                   onClick={() => {
-                    navigate(`${row.courseId}`);
+                    navigate(`${row.courseId}`, {
+                      state: {
+                        state: "enroll",
+                      },
+                    });
                   }}
                 >
                   상세 보기
+                </button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+export function AdminStopCoursesTable({ rows, cells, navigate }) {
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{}} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {cells?.map((cell) => {
+              return (
+                <TableCell key={cell.id} align="center">
+                  {cell?.name}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row, idx) => (
+            <TableRow key={row.id}>
+              <TableCell align="center">{row.courseId}</TableCell>
+              <TableCell align="center">{row.title}</TableCell>
+              <TableCell align="center">{row.instructor}</TableCell>
+              <TableCell align="center">{row.category}</TableCell>
+              <TableCell align="center">
+                <button
+                  onClick={() => {
+                    navigate(`${row.courseId}`, {
+                      state: { state: "stop" },
+                    });
+                  }}
+                >
+                  상세 보기
+                </button>
+              </TableCell>
+              <TableCell align="center">
+                <button onClick={() => {}}>정지 해제</button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+export function AdminCoursesTable({ rows, cells, navigate, stopFun }) {
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{}} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {cells?.map((cell) => {
+              return (
+                <TableCell key={cell.id} align="center">
+                  {cell?.name}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row, idx) => (
+            <TableRow key={row.id}>
+              <TableCell align="center">{row.courseId}</TableCell>
+              <TableCell align="center">{row.title}</TableCell>
+              <TableCell align="center">{row.instructor}</TableCell>
+              <TableCell align="center">{row.category}</TableCell>
+              <TableCell align="center">
+                <button
+                  onClick={() => {
+                    navigate("/admin/revisecourses/" + `${row.courseId}`, {
+                      state: { state: "normal" },
+                    });
+                  }}
+                >
+                  상세 보기
+                </button>
+              </TableCell>
+              <TableCell align="center">
+                <button
+                  onClick={() => {
+                    stopFun(`${row.courseId}`);
+                  }}
+                >
+                  정지 하기
                 </button>
               </TableCell>
             </TableRow>

@@ -14,6 +14,7 @@ import {
 } from "../style/MypageComponentsCss";
 import { NavBox } from "../style/SideBarCss";
 import { getAllCoursesApi } from "../api/courseApi";
+import { BottomDiv } from "../style/CommonCss";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -66,11 +67,6 @@ const AllLink = styled(Link)`
   padding-bottom: 7px;
   margin-top: 5px;
   text-decoration: none;
-`;
-
-const BottomDiv = styled.div`
-  width: 100%;
-  height: 1px;
 `;
 
 export const SideBar = ({ barList }) => {

@@ -1,15 +1,12 @@
-import { FormControl, InputLabel, NativeSelect } from "@mui/material";
-import { Box } from "@mui/system";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import { getReadyCourseListApi } from "../../../api/adminApi";
 import { getAdminAccessTokenSelector } from "../../../atom";
-import { ADMIN_BAR_LIST, CREATOR_BAR_LIST } from "../../../static";
+import { ADMIN_BAR_LIST } from "../../../static";
 import { AdminReadyCoursesTable } from "../../BasicTable";
 import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
-
-export default function Revisecourses() {
+export default function StopCourses() {
   const accessToken = useRecoilValue(getAdminAccessTokenSelector);
   const navigate = useNavigate();
 
@@ -22,7 +19,7 @@ export default function Revisecourses() {
   ];
 
   const { data, isSuccess } = useQuery(
-    ["admin-allCoupons"],
+    ["admin-allStopCourseList"],
     () => {
       return getReadyCourseListApi(accessToken);
     },
@@ -36,7 +33,7 @@ export default function Revisecourses() {
   );
   return (
     <>
-      <DashboardTitleTab title={ADMIN_BAR_LIST.list[2].list[0].name} />
+      <DashboardTitleTab title={ADMIN_BAR_LIST.list[2].list[2].name} />
       {isSuccess && (
         <AdminReadyCoursesTable
           cells={courseListTableCells}
