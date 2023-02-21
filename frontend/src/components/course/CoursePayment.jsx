@@ -68,7 +68,6 @@ export default function CoursePayment({
   teacher,
   purchaseOption,
   courseId,
-
   ticketInfo,
 }) {
   const navigate = useNavigate();
@@ -78,10 +77,7 @@ export default function CoursePayment({
   const [isWishState, setIsWishState] = useState(false);
   const [isAlreadyIn, setIsAlereadyIn] = useState(false);
   const [isWishPushState, setIsWishPushState] = useState();
-  const [selectTicket, setSelectTicket] = useState({
-    id: ticketInfo[0]?.id,
-    idx: 0,
-  });
+  const [selectTicket, setSelectTicket] = useState(ticketInfo?.id);
 
   useLayoutEffect(() => {
     if (loginState) {
@@ -136,8 +132,8 @@ export default function CoursePayment({
       navigate(PROCESS_MAIN_URL.LOBBY.slice(1));
       return;
     }
-    if (ticketInfo?.length === 1) {
-      postItemPurchaseApi(ticketInfo[0].id, accessToken, {
+    if (ticketInfo?.costPrice === 0) {
+      postItemPurchaseApi(ticketInfo.id, accessToken, {
         couponId: null,
         point: null,
         key: null,
@@ -158,9 +154,9 @@ export default function CoursePayment({
         });
       return;
     }
-    navigate(`${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket.id}`, {
+    navigate(`${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket}`, {
       state: {
-        price: ticketInfo[selectTicket.idx].discountedPrice,
+        price: ticketInfo.discountedPrice,
       },
     });
   };
@@ -180,6 +176,7 @@ export default function CoursePayment({
   };
 
   useEffect(checkUserEnroll, []);
+
   return (
     <PaymentBox>
       <IconBox>
@@ -192,44 +189,35 @@ export default function CoursePayment({
       </IconBox>
       <Title>{title}</Title>
       <Teacher>{teacher} 강사</Teacher>
-      {/* <Select
+      <Select
         value={selectTicket.id}
         onChange={(e) => {
-          setSelectTicket({
-            id: e.target.value,
-            idx: e.nativeEvent.target.options.selectedIndex,
-          });
+          setSelectTicket(e.target.value);
         }}
         name="purchaseOption"
       >
-        {ticketInfo?.map((option) => (
-          <option key={option.id} value={option.id}>
-            {option?.coursePeriod?.description}
-          </option>
-        ))}
-      </Select> */}
+        <option key={ticketInfo.id} value={ticketInfo.id}>
+          {ticketInfo?.coursePeriod === null
+            ? "무료 강좌"
+            : ticketInfo?.coursePeriod + "개월 수강권"}
+        </option>
+      </Select>
       <br />
       <PriceBox>
         <Tab>
           <PrimaryCostTab>원 가격</PrimaryCostTab>
-          <PrimaryCostTab>
-            {ticketInfo[selectTicket.idx]?.costPrice}
-          </PrimaryCostTab>
+          <PrimaryCostTab>{ticketInfo?.costPrice}</PrimaryCostTab>
         </Tab>
         <Tab>
           <DiscountTab>할인 가격</DiscountTab>
           <PrimaryCostTab>
-            -{" "}
-            {ticketInfo[selectTicket.idx]?.costPrice -
-              ticketInfo[selectTicket.idx]?.discountedPrice}
+            - {ticketInfo?.costPrice - ticketInfo?.discountedPrice}
           </PrimaryCostTab>
         </Tab>
         <PriceUnderBar />
         <Tab>
           <OwnPriceTab>실 결제 가격</OwnPriceTab>
-          <PrimaryCostTab>
-            {ticketInfo[selectTicket.idx]?.discountedPrice}
-          </PrimaryCostTab>
+          <PrimaryCostTab>{ticketInfo?.discountedPrice}</PrimaryCostTab>
         </Tab>
       </PriceBox>
 

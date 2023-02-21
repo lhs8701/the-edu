@@ -46,7 +46,7 @@ export default function KaKaoAuth() {
           .catch((err) => {
             console.log(err.response.status);
             alert("이미 가입된 정보입니다.");
-            navigate(-1);
+            navigate("/");
           });
       })
       .catch((err) => {

@@ -76,9 +76,9 @@ export default function PurchaseCard({ purchase }) {
         </CourseInfoTab>
         <PurchaseId>주문 번호 : {purchase.orderId}</PurchaseId>
         <PurchaseId>
-          결제 방식 : {purchase.payType === "CARD" && "카드"}
+          결제 방식 : {purchase.payType === "CARD" && "카드 결제"}
           {purchase.payType === "TELE" && "휴대전화"}
-          {purchase.payType === "뭐시기무서ㅣ기" && "카드"}
+          {purchase.payType === "EMPTY" && "결제 없음"}
         </PurchaseId>
         <PurchaseId>
           주문 상태 :{" "}

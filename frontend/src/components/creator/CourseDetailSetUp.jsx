@@ -2,7 +2,7 @@ import { Button, Grid, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
-import { getCurriculumApi } from "../../api/courseApi";
+import { getCourseTicketsApi, getCurriculumApi } from "../../api/courseApi";
 import { changeChargeTypeApi, setUpTicketApi } from "../../api/creatorApi";
 import { getAccessTokenSelector, getCreatorIdSelector } from "../../atom";
 import { CREATOR_BAR_LIST } from "../../static";
@@ -18,6 +18,7 @@ export default function CourseDetailSetUp() {
   const [period, setPeriod] = useState();
   const [price, setPrice] = useState();
   const [discountPrice, setDiscountPrice] = useState();
+  const [policy, setPolicy] = useState(true);
   const isCreator = useRecoilValue(getCreatorIdSelector);
   const navigate = useNavigate();
 
@@ -40,42 +41,62 @@ export default function CourseDetailSetUp() {
     if (isCreator < 0) {
       navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
     }
+    getCourseTicketsApi(courseId)
+      .then(({ data }) => {
+        console.log(data);
+        if (data.costPrice === 0) {
+          setPolicy(false);
+        }
+        setPrice(data.costPrice);
+        setPeriod(data.coursePeriod);
+        setDiscountPrice(data.discountedPrice);
+      })
+      .catch((err) => {
+        alert(err);
+      });
     getCurriculumApi(courseId)
       .then(({ data }) => setCurriculumList(data.chapters))
       .catch((err) => {
         alert(err);
       });
   }, []);
-
+  useEffect(() => {
+    if (!policy) {
+      setPrice(0);
+      setPeriod(0);
+      setDiscountPrice(0);
+    }
+  }, [policy]);
   return (
     <>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <DashboardTitleTab title="강좌 가격 설정" />
         </Grid>
+
         <Grid item xs={3}>
           <CssTextField
             size="small"
             fullWidth
-            value={price}
+            value={policy}
             onChange={(e) => {
-              setPrice(e.target.value);
+              setPolicy(e.target.value);
             }}
             select
             label="강의 가격 정책"
             variant="outlined"
             id="cate1"
           >
-            <MenuItem value={0} key={0}>
+            <MenuItem value={false} key={0}>
               무료
             </MenuItem>
-            <MenuItem value={10000} key={1}>
+            <MenuItem value={true} key={1}>
               유료
             </MenuItem>
           </CssTextField>
         </Grid>
         <Grid item xs={12} />
-        {price !== 0 && (
+        {policy && (
           <>
             {" "}
             <Grid item xs={3}>
@@ -114,6 +135,12 @@ export default function CourseDetailSetUp() {
                 fullWidth
                 value={discountPrice}
                 onChange={(e) => {
+                  if (e.target.value > price) {
+                    alert(
+                      "원 가격보다 높은 가격은 할인가격으로 설정할 수 없습니다."
+                    );
+                    return;
+                  }
                   setDiscountPrice(e.target.value);
                 }}
                 type="number"
@@ -123,10 +150,19 @@ export default function CourseDetailSetUp() {
                 placeholder="할인해서 판매할 가격을 설정하세요."
               />
             </Grid>
+            <div>
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;- 강좌 수강 시한을 영구로 설정하고
+              싶으시다면 0을 입력하시면 됩니다.
+            </div>
           </>
         )}
-        <Grid item xs={3}>
-          <Button onClick={setUpTicket}> 설정하기</Button>
+
+        <Grid item xs={12}>
+          <Button variant="contained" onClick={setUpTicket}>
+            {" "}
+            설정하기
+          </Button>
         </Grid>
         <br />
         <br />
