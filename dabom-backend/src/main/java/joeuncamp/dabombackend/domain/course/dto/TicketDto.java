@@ -3,7 +3,6 @@ package joeuncamp.dabombackend.domain.course.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import joeuncamp.dabombackend.domain.order.entity.CoursePeriod;
 import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,11 +18,11 @@ public class TicketDto {
         @Schema(hidden = true)
         Long memberId;
         @Schema(description = "변경할 원가")
-        long costPrice;
+        Long costPrice;
         @Schema(description = "변경할 할인가")
-        long discountedPrice;
-        @Schema(description = "수강 기간", example = "THREE_MONTH / SIX_MONTH / UNLIMITED")
-        CoursePeriod coursePeriod;
+        Long discountedPrice;
+        @Schema(description = "수강 기간")
+        Integer coursePeriod;
     }
 
     @Getter
@@ -35,13 +34,13 @@ public class TicketDto {
         long discountedPrice;
         @Schema(description = "수강기간")
         @Enumerated(value = EnumType.STRING)
-        CoursePeriodDto coursePeriod;
+        Integer coursePeriod;
 
         public Response(Ticket ticket){
             this.id = ticket.getId();
             this.costPrice = ticket.getPrice().getCostPrice();
             this.discountedPrice = ticket.getPrice().getDiscountedPrice();
-            this.coursePeriod = ticket.getCoursePeriod().getDto();
+            this.coursePeriod = ticket.getCoursePeriod();
         }
     }
 }

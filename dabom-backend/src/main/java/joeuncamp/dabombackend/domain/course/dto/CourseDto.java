@@ -2,15 +2,12 @@ package joeuncamp.dabombackend.domain.course.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.RankedCourse;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.global.constant.CategoryType;
-import joeuncamp.dabombackend.global.constant.ChargeType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.validation.CategoryValidation;
 import lombok.*;
@@ -55,7 +52,6 @@ public class CourseDto {
                             .map(ImageInfo::new)
                             .toList())
                     .active(false)
-                    .chargeType(ChargeType.PAID)
                     .build();
             course.setCreatorProfile(creator);
             return course;

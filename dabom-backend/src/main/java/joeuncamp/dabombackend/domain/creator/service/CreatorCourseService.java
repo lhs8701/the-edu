@@ -1,6 +1,5 @@
 package joeuncamp.dabombackend.domain.creator.service;
 
-import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
@@ -11,7 +10,6 @@ import joeuncamp.dabombackend.domain.course.service.TicketService;
 import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
-import joeuncamp.dabombackend.global.constant.ChargeType;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CNotCreatorException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -60,7 +58,7 @@ public class CreatorCourseService {
         enroll.setEndDate(MAX_DATE);
         enrollJpaRepository.save(enroll);
         chapterService.saveDefaultChapter(course);
-        ticketService.createPaidTickets(course);
+        ticketService.createDefaultTickets(course);
     }
 
     /**
@@ -77,19 +75,5 @@ public class CreatorCourseService {
         return courseJpaRepository.findByCreatorProfile(member.getCreatorProfile()).stream()
                 .map(CourseDto.CreatorResponse::new)
                 .toList();
-    }
-
-    /**
-     * 강좌의 지불 방식을 선택합니다.
-     *
-     * @param courseId   강좌
-     * @param chargeType 유료/무료
-     */
-    @Transactional
-    public void selectFreeOrPayOfCourse(Long courseId, ChargeType chargeType) {
-        Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
-        chargeType.createTicket(course, ticketService);
-        course.setChargeType(chargeType);
-        courseJpaRepository.save(course);
     }
 }

@@ -11,7 +11,6 @@ import joeuncamp.dabombackend.domain.creator.dto.CreatorDto;
 import joeuncamp.dabombackend.domain.creator.service.CreatorCourseService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.creator.service.CreatorActivator;
-import joeuncamp.dabombackend.global.constant.ChargeType;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -61,15 +60,6 @@ public class CreatorController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary = "강좌 무료/유료 전환", description = "")
-    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
-    @PostMapping("/courses/{courseId}")
-    public ResponseEntity<Void> selectFreeOrPayOfCourse(@PathVariable Long courseId, @RequestParam ChargeType chargeType) {
-        creatorCourseService.selectFreeOrPayOfCourse(courseId, chargeType);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @Operation(summary = "강좌 수강권 설정", description = "수강권의 금액을 설정합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
@@ -77,7 +67,7 @@ public class CreatorController {
     public ResponseEntity<Void> setTicket(@PathVariable Long courseId, @RequestBody TicketDto.Request requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setCourseId(courseId);
-        ticketService.updatePrice(requestDto);
+        ticketService.updateTicket(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

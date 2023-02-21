@@ -9,7 +9,6 @@ import joeuncamp.dabombackend.domain.unit.entity.Unit;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.CategoryType;
-import joeuncamp.dabombackend.global.constant.ChargeType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,8 +28,6 @@ public class Course extends BaseTimeEntity {
     Long id;
     String title;
     String description;
-    @Enumerated(value = EnumType.STRING)
-    ChargeType chargeType;
     @Enumerated(value = EnumType.STRING)
     CategoryType category;
 
@@ -60,9 +57,8 @@ public class Course extends BaseTimeEntity {
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Unit> unitList = new ArrayList<>();
 
-    @Builder.Default
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Ticket> ticketList = new ArrayList<>();
+    @OneToOne(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Ticket ticket;
     boolean active;
 
     public void setCreatorProfile(CreatorProfile creatorProfile) {
@@ -88,9 +84,5 @@ public class Course extends BaseTimeEntity {
 
     public void activate(){
         this.active = true;
-    }
-
-    public void setChargeType(ChargeType chargeType){
-        this.chargeType = chargeType;
     }
 }

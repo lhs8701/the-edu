@@ -2,14 +2,12 @@ package joeuncamp.dabombackend.domain.order.entity;
 
 import jakarta.persistence.*;
 import joeuncamp.dabombackend.domain.course.entity.Course;
-import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
-import joeuncamp.dabombackend.global.constant.ChargeType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
-import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Super;
+
+import java.time.Period;
 
 @Getter
 @NoArgsConstructor
@@ -17,24 +15,20 @@ import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Super;
 @DiscriminatorValue("ticket")
 @Entity
 public class Ticket extends Item {
-    @Enumerated(value = EnumType.STRING)
-    ChargeType chargeType;
-    @Enumerated(value = EnumType.STRING)
-    CoursePeriod coursePeriod;
-    @ManyToOne
+    Integer coursePeriod;
+    @OneToOne
     @JoinColumn
     Course course;
 
     @Builder
-    public Ticket(long costPrice, long discountedPrice, CoursePeriod coursePeriod, Course course, ChargeType chargeType) {
-        this.productName = course.getTitle() + " " + coursePeriod.getDescription();
+    public Ticket(long costPrice, long discountedPrice, Integer coursePeriod, Course course) {
+        this.productName = course.getTitle() + " 수강권";
         this.productDetail = course.getDescription();
         this.price = new Price(costPrice, discountedPrice);
         this.coursePeriod = coursePeriod;
         this.course = course;
         this.image = course.getThumbnailImage();
         this.itemType = ItemType.TICKET;
-        this.chargeType = chargeType;
     }
 
     public static Ticket newFreeTicket(Course course) {
@@ -42,23 +36,29 @@ public class Ticket extends Item {
                 .costPrice(0)
                 .discountedPrice(0)
                 .course(course)
-                .coursePeriod(CoursePeriod.UNLIMITED)
-                .chargeType(ChargeType.FREE)
+                .coursePeriod(null)
                 .build();
     }
 
-    public static Ticket newPaidTicket(Course course, CoursePeriod coursePeriod) {
+    public static Ticket newPaidTicket(Course course, Integer period) {
         return Ticket.builder()
                 .costPrice(1000)
                 .discountedPrice(1000)
                 .course(course)
-                .coursePeriod(coursePeriod)
-                .chargeType(ChargeType.PAID)
+                .coursePeriod(period)
                 .build();
     }
 
-    public void updatePrice(long costPrice, long discountedPrice) {
+    public void update(long costPrice, long discountedPrice, Integer coursePeriod) {
         this.price.costPrice = costPrice;
         this.price.discountedPrice = discountedPrice;
+        this.coursePeriod = coursePeriod;
+    }
+
+    public Period getDuration(){
+        if (this.coursePeriod == null){
+            return Period.ofYears(1000);
+        }
+        return Period.ofMonths(this.getCoursePeriod());
     }
 }
