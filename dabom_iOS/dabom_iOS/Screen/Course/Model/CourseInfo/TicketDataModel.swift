@@ -11,10 +11,11 @@ struct TicketDataModel: Codable {
     let id: Int
     let costPrice: Int
     let discountedPrice: Int
-    let coursePeriod: CoursePeriod
+//    let coursePeriod: CoursePeriod
+    let coursePeriod: Int?
 }
 
-struct CoursePeriod: Codable {
-    let code: String
-    let description: String
-}
+//struct CoursePeriod: Codable {
+//    let code: String
+//    let description: String
+//}
