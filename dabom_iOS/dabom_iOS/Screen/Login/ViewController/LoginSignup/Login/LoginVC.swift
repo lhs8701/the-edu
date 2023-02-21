@@ -127,9 +127,11 @@ class LoginVC: UIViewController {
             User.account = email
             User.password = password
             
+            // 이메일 로그인 api 호출
             AuthenticationService.shared.emailLogin(user: User) { response in
                 switch (response) {
                 case .success:
+                    // 로그인 성공했을 때
                     UserDefaults.standard.setValue("email", forKey: "loginType")
                     AuthenticationService.shared.goToMain()
                 case .requestErr(let message):
@@ -141,6 +143,7 @@ class LoginVC: UIViewController {
                 case .networkFail:
                     print("networkFail")
                 case .resourceErr:
+                    // 아이디 또는 비밀번호가 잘못됐을 때
                     self.passwordTextField.text = ""
                     let alert = UIAlertController(title: "", message: "아이디 또는 비밀번호를 확인해주세요", preferredStyle: .alert)
                     let confirm = UIAlertAction(title: "확인", style: .default)
@@ -161,9 +164,11 @@ class LoginVC: UIViewController {
                 } else {
                     let accessToken = String(oauthToken?.accessToken ?? "")
                     
+                    // 카카오 로그인 api 호출
                     AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
                         switch (response) {
                         case .success:
+                            // 로그인 성공했을 때 토큰, loginType 저장
                             UserDefaults.standard.setValue("kakao", forKey: "loginType")
                             UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
                             AuthenticationService.shared.goToMain()
@@ -188,9 +193,11 @@ class LoginVC: UIViewController {
                 } else {
                     let accessToken = String(oauthToken?.accessToken ?? "")
                     
+                    // 카카오 로그인 api 호출
                     AuthenticationService.shared.kakaoLogin(accessToken: accessToken) { response in
                         switch (response) {
                         case .success:
+                            // 로그인 성공했을 때 토큰, loginType 저장
                             UserDefaults.standard.setValue("kakao", forKey: "loginType")
                             UserDefaults.standard.setValue(accessToken, forKey: "kakaoToken")
                             AuthenticationService.shared.goToMain()
@@ -287,9 +294,11 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             let userName = (appleIDCredential.fullName?.familyName ?? "") + (appleIDCredential.fullName?.givenName ?? "")
             let email = appleIDCredential.email ?? ""
             
+            // 애플 로그인 api 호출
             AuthenticationService.shared.appleLogin(socialToken: userIdentifier) { response in
                 switch (response) {
                 case .success:
+                    // 로그인 성공했을 때
                     UserDefaults.standard.setValue("apple", forKey: "loginType")
                     AuthenticationService.shared.goToMain()
                 case .requestErr(let message):

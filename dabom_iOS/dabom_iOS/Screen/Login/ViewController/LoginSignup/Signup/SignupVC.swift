@@ -26,6 +26,7 @@ class SignupVC: UIViewController {
     
     var User = UserDataModel()
     
+    // 로딩 중 activityIndicator
     lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         
@@ -136,7 +137,7 @@ class SignupVC: UIViewController {
             return
         }
             
-        // 이메일, 비밀번호 유효성 검사
+        // 이메일, 비밀번호가 입력되었으면, 유효성 검사
         if !isValidEmail(id: email) {
             emailTextField.text = ""
             emailTextField.placeholder = "잘못된 이메일 형식입니다"
@@ -158,16 +159,22 @@ class SignupVC: UIViewController {
         User.password = password
         User.nickname = nickname
         
+        // 이메일, 비밀번호가 입력되었는지, 유효성 검사 이후 회원가입 호출
         signup()
     }
 
     func signup() {
+        // 회원가입 시에 인증 이메일 발송해야하기 때문에 이메일이 발송될 때까지 로딩 중 activityIndicator 노출
         activityIndicator.startAnimating()
+        
+        // 이메일 회원가입 api 호출
         AuthenticationService.shared.emailSignup(user: User) { response in
             switch (response) {
             case .success:
+                // 인증 이메일이 발송되었을 때
                 let alert = UIAlertController(title: "이메일 인증", message: "인증 메일이 전송되었습니다.\n메일을 확인하고 회원가입을 완료해주세요.", preferredStyle: .alert)
                 let confirm = UIAlertAction(title: "확인", style: .default) { _ in
+                    // 로그인 화면으로 이동
                     self.goToLogin()
                 }
                 alert.addAction(confirm)
@@ -176,8 +183,7 @@ class SignupVC: UIViewController {
             case .requestErr(let message):
                 print("requestErr", message)
             case .pathErr:
-                print("networkResult pathErr")
-                print("pathErr")
+                // 이메일 회원가입 호출 시 이미 그 이메일이 인증 진행 중인 이메일일 때
                 let alert = UIAlertController(title: "", message: "이미 인증 중인 이메일입니다.", preferredStyle: .alert)
                 let confirm = UIAlertAction(title: "확인", style: .default)
                 alert.addAction(confirm)
@@ -188,7 +194,7 @@ class SignupVC: UIViewController {
             case .networkFail:
                 print("networkFail")
             case .resourceErr:
-                print("resourceErr")
+                // 이메일 회원가입 호출 시 이미 그 이메일이 가입된 이메일일 때
                 let alert = UIAlertController(title: "", message: "이미 가입된 이메일입니다.", preferredStyle: .alert)
                 let confirm = UIAlertAction(title: "확인", style: .default)
                 alert.addAction(confirm)
@@ -203,7 +209,7 @@ class SignupVC: UIViewController {
 // MARK: - extension
 
 extension SignupVC: UITextFieldDelegate {
-    // 리턴 시에 유효성 검사
+    // 키보드 리턴 시에 유효성 검사
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.emailTextField {
             if !isValidEmail(id: textField.text ?? "") {
