@@ -106,13 +106,6 @@ export default function ClassCard({ course }) {
         <ClassInfoTeacherP>
           &nbsp;&nbsp;&nbsp;&nbsp;{course?.instructor}
         </ClassInfoTeacherP>
-        <ClassInfoP
-          animate={{
-            color: isCardOn ? "var(--color-primary)" : "var(--color-text)",
-          }}
-        >
-          별{course?.courseStarRate}&nbsp;&nbsp;&nbsp;
-        </ClassInfoP>
       </ClassInfoBox>
     </ClassTab>
   );

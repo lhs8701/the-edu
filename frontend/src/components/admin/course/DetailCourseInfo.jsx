@@ -13,6 +13,7 @@ import CourseIntro from "../../course/CourseIntro";
 import styled from "styled-components";
 import CourseImg from "../../course/CourseImg";
 import SimpleCurriculumCheck from "../../creator/SimpleCurriculumCheck";
+import { useState } from "react";
 
 const DividerBox = styled.div`
   margin: 0 auto;
@@ -25,6 +26,7 @@ export default function DetailCourseInfo() {
   const navigate = useNavigate();
   const { state } = useLocation();
   console.log(state);
+
   const info = useQuery(
     ["courseDetailInfo", courseId],
     () => {
@@ -68,26 +70,32 @@ export default function DetailCourseInfo() {
   );
 
   const allowCourse = () => {
+    setIsLoading(true);
     activeCourseApi(accessToken, courseId)
       .then(() => {
         alert("승인 완료");
+        navigate(-1);
       })
       .catch((err) => {
+        setIsLoading(false);
         alert(err);
       });
   };
-
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
       <DashboardTitleTab title="강좌 상세 보기" />
-      {state?.state === "enroll" && (
-        <button onClick={allowCourse}>승인하기</button>
+      {state?.state === "enroll" && !isLoading && (
+        <button onClick={allowCourse}>강좌 승인하기</button>
       )}
 
       <br />
       <br />
+      <div>원 가격: {paymentInfo?.data?.data?.costPrice} </div>
+      <div>할인 가격: {paymentInfo?.data?.data?.discountedPrice} </div>
+      <div>강의 수강 기간: {paymentInfo?.data?.data?.coursePeriod} </div>
       <br />
-
+      <br />
       <DividerBox>
         <CourseIntro courseId={courseId} />
         <br />

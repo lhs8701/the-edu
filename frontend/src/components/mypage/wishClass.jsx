@@ -54,7 +54,7 @@ export default function WishClass() {
         </WishListBox>
         {wishCourses?.data?.length === 0 && (
           <CenterDiv>
-            <AlertP>구매가 없어요.</AlertP>
+            <AlertP>찜한 강의가 없어요.</AlertP>
           </CenterDiv>
         )}
       </MyPageContentBox>

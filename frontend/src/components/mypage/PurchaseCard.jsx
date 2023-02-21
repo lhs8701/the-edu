@@ -71,7 +71,9 @@ export default function PurchaseCard({ purchase }) {
 
   const refund = () => {
     refundApi(purchase.orderId, accessToken)
-      .then(() => {})
+      .then(() => {
+        alert("환불이 완료되었습니다.");
+      })
       .catch((err) => {});
   };
 

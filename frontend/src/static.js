@@ -199,14 +199,6 @@ export const CREATOR_BAR_LIST = {
           name: "강좌 등록 신청",
           url: "/creator/inputcourses",
         },
-        {
-          name: "강좌 댓글 관리",
-          url: "/creator/comment",
-        },
-        {
-          name: "강좌 문의 관리",
-          url: "/creator/inquirecourses",
-        },
       ],
     },
   ],
@@ -217,7 +209,7 @@ export const PURCHASE_METHOD = ["카드", "계좌이체", "휴대폰"];
 export const BASE_URL = "http://218.38.127.26:8080";
 export const STATIC_URL = "http://the-edu.co.kr";
 export const API_URL = BASE_URL + "/api";
-export const PLAYER_URL = STATIC_URL + "/player";
-// export const PLAYER_URL = "http://localhost:3000/player";
-export const TOSS_PURCHASE_URL = STATIC_URL + "/purchase";
-// export const TOSS_PURCHASE_URL = "http://localhost:3000/purchase";
+// export const PLAYER_URL = STATIC_URL + "/player";
+export const PLAYER_URL = "http://localhost:3000/player";
+// export const TOSS_PURCHASE_URL = STATIC_URL + "/purchase";
+export const TOSS_PURCHASE_URL = "http://localhost:3000/purchase";

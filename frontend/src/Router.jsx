@@ -235,6 +235,14 @@ const router = createBrowserRouter([
         element: <EnrollCourses />,
       },
       {
+        path: "enrollcourses/:courseId",
+        element: <DetailCourseInfo />,
+      },
+      {
+        path: "enrollcourses/:courseId/:unitId",
+        element: <UnitVideo />,
+      },
+      {
         path: "revisecourses/:courseId",
         element: <DetailCourseInfo />,
       },
@@ -296,7 +304,6 @@ const router = createBrowserRouter([
         path: "register",
         element: <ResearchBox />,
       },
-
       {
         path: "info",
         element: <CreatorInfo />,
@@ -316,6 +323,10 @@ const router = createBrowserRouter([
       {
         path: "mycourses/:courseId",
         element: <CourseDetailSetUp />,
+      },
+      {
+        path: "mycourses/comment/:courseId",
+        element: <div>dndndn</div>,
       },
       {
         path: "mycourses/:courseId/:unitId",

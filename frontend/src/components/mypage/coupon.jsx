@@ -125,7 +125,7 @@ export default function Coupon() {
   const registCoupon = () => {
     registCouponApi(accessToken, couponCode)
       .then(() => {
-        alert("등록 완료");
+        alert("쿠폰이 등록되었습니다.");
         setCouponCode("");
       })
       .catch((err) => {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
+import { getAdminVideoInfoApi, getVideoInfoApi } from "../../../api/adminApi";
 import { getUnitVideoApi } from "../../../api/unitApi";
 import {
   getAccessTokenSelector,
@@ -18,14 +19,12 @@ export default function UnitVideo() {
   const navigate = useNavigate();
 
   const getUnitInfo = () => {
-    getUnitVideoApi(unitId, adminAccessToken)
+    getAdminVideoInfoApi(adminAccessToken, unitId)
       .then(({ data }) => {
         if (data?.code === -7001) {
           getUnitVideoApi(unitId, accessToken)
             .then(({ data }) => {
               if (data?.code) {
-                alert("에러발생");
-                navigate(-1);
               }
               setUnitInfo(data);
             })
@@ -39,10 +38,6 @@ export default function UnitVideo() {
       .catch((err) => {
         getUnitVideoApi(unitId, accessToken)
           .then(({ data }) => {
-            if (data?.code) {
-              alert("에러발생");
-              navigate(-1);
-            }
             setUnitInfo(data);
           })
           .catch((err) => {

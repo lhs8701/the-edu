@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import { getCourseTicketsApi, getCurriculumApi } from "../../api/courseApi";
-import { changeChargeTypeApi, setUpTicketApi } from "../../api/creatorApi";
+import { setUpTicketApi } from "../../api/creatorApi";
 import { getAccessTokenSelector, getCreatorIdSelector } from "../../atom";
 import { CREATOR_BAR_LIST } from "../../static";
 import { UnderBar } from "../course/ChatComponents";
@@ -60,6 +60,7 @@ export default function CourseDetailSetUp() {
         alert(err);
       });
   }, []);
+
   useEffect(() => {
     if (!policy) {
       setPrice(0);
@@ -67,6 +68,7 @@ export default function CourseDetailSetUp() {
       setDiscountPrice(0);
     }
   }, [policy]);
+
   return (
     <>
       <Grid container spacing={2}>
@@ -108,7 +110,7 @@ export default function CourseDetailSetUp() {
                   setPeriod(e.target.value);
                 }}
                 type="number"
-                label="강좌 수강 기한 설정"
+                label="강좌 수강 기한 설정"
                 variant="outlined"
                 id="cate1"
                 placeholder="기본 설정은 달(month)입니다."
@@ -123,10 +125,10 @@ export default function CourseDetailSetUp() {
                   setPrice(e.target.value);
                 }}
                 type="number"
-                label="강의 원 가격"
+                label="강의 원 가격"
                 variant="outlined"
                 id="cate1"
-                placeholder="강좌의 원 가격을 설정하세요."
+                placeholder="강좌의 원 가격을 설정하세요."
               />
             </Grid>
             <Grid item xs={3}>

@@ -54,7 +54,13 @@ export default function CreatorRequest() {
   };
 
   const activeCreator = (creatorId) => {
-    activateCreator(accessToken, creatorId);
+    activateCreator(accessToken, creatorId)
+      .then(() => {
+        alert("승인 완료");
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   useEffect(makeStanbyList, [data?.data]);

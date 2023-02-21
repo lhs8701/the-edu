@@ -17,6 +17,7 @@ export default function CreatorsCourses() {
     { name: "카테고리", id: 2 },
     { name: "승인 여부", id: 3 },
     { name: "상세 설정", id: 4 },
+    { name: "댓글 관리", id: 5 },
   ];
 
   const { data, isSuccess } = useQuery(

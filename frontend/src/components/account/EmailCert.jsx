@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import styled from "styled-components";
 import { PROCESS_ACCOUNT_URL } from "../../static";
 import { AlertP, CenterDiv, MoveBtn } from "../../style/CommonCss";
 
@@ -15,7 +14,6 @@ export default function EmailCert() {
       <br />
       <br />
       <br />
-
       <br />
       <br />
       <br />

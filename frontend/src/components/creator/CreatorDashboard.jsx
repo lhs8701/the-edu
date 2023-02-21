@@ -212,7 +212,8 @@ function DashboardContent({ isCreator }) {
               </Grid>
             </Grid> */}
             <Outlet />
-            <Copyright sx={{ pt: 4 }} />
+
+            <Copyright sx={{ mt: 7, pt: 4 }} />
           </Container>
         </Box>
       </Box>

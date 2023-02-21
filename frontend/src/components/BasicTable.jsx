@@ -147,6 +147,15 @@ export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {
                   상세 설정
                 </DeleteBtn>
               </TableCell>
+              <TableCell align="center">
+                <DeleteBtn
+                  onClick={() => {
+                    navigate(`comment/${row.courseId}`);
+                  }}
+                >
+                  관리하기
+                </DeleteBtn>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -277,7 +286,7 @@ export function AdminCreatorStanbyTable({ rows, cells, activeFun }) {
               <TableCell align="center">{row.email}</TableCell>
               <TableCell align="center">{row.mobile}</TableCell>
               <TableCell align="center">{row.subject}</TableCell>
-              <TableCell align="center">{row.creator}</TableCell>
+              <TableCell align="center">{row.career}</TableCell>
               <TableCell align="center">
                 <button
                   onClick={() => {

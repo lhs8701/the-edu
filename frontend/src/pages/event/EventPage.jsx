@@ -70,7 +70,9 @@ export default function EventPage() {
           }}
           whileTap={{ y: 0, transition: { duration: 0.01 } }}
         >
-          <EventCard src={STATIC_URL + eventInfo.bannerImage.mediumFilePath} />
+          <EventCard
+            src={STATIC_URL + eventInfo.bannerImage.originalFilePath}
+          />
         </EventCardBox>
         <div>
           <EventPeriod>D - {eventInfo.dday}</EventPeriod>

@@ -144,11 +144,11 @@ export default function Revise() {
     };
     revisemyInfoApi(accessToken, info)
       .then(() => {
-        alert("완료");
+        alert("내 정보가 변경이 되었습니다.");
         queryClient.refetchQueries({ queryKey: ["myInfo", memberId] });
       })
       .catch((err) => {
-        alert("에러");
+        alert(err);
         console.log(err);
         console.log(err.response.status);
         if (err.response.status === 401) {
