@@ -77,6 +77,7 @@ public class TossService {
                 .uri(URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Basic " + encodedAuth)
+                .bodyValue(new CancelRequest("단순 변심..재헌"))
                 .retrieve()
                 .bodyToMono(Void.class)
                 .block();
