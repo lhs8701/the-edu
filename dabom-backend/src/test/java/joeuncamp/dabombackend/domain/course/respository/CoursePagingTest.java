@@ -59,10 +59,10 @@ public class CoursePagingTest {
     @DisplayName("강좌를 페이지 단위로 조회한다.")
     void 강좌를_페이지_단위로_조회한다() {
         // given
-        Course c1 = Course.builder().category(CategoryType.BACK_END).active(true).build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).active(true).build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).active(true).build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
         Pageable pageable = PageRequest.of(1, 2);
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
@@ -84,10 +84,10 @@ public class CoursePagingTest {
         // given
         Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "createdTime"));
         CreatorProfile creator = CreatorProfile.builder().build();
-        Course c1 = Course.builder().category(CategoryType.BACK_END).active(true).build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).active(true).build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).active(true).build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
         creatorProfileJpaRepository.save(creator);
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
@@ -109,10 +109,10 @@ public class CoursePagingTest {
     void 강좌를_최근_생성일_순으로_조회한다() {
         // given
         Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "createdTime"));
-        Course c1 = Course.builder().category(CategoryType.BACK_END).active(true).build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).active(true).build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).active(true).build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).active(true).build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).build();
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
         courseJpaRepository.save(c3);
@@ -132,10 +132,10 @@ public class CoursePagingTest {
     void 강좌를_제목_순으로_조회한다() {
         // given
         Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "title"));
-        Course c1 = Course.builder().category(CategoryType.BACK_END).title("b").active(true).build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).title("a").active(true).build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).title("d").active(true).build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c").active(true).build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).title("b").locked(false).active(true).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).title("a").locked(false).active(true).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).title("d").locked(false).active(true).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c").locked(false).active(true).build();
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
         courseJpaRepository.save(c3);
@@ -157,9 +157,9 @@ public class CoursePagingTest {
         Pageable pageable = PageRequest.of(0, 5);
         Member member = Member.builder().build();
         memberJpaRepository.save(member);
-        Course c1 = Course.builder().category(CategoryType.BACK_END).title("1").build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).title("2").build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).title("3").build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).title("1").build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).title("2").build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).title("3").build();
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
         courseJpaRepository.save(c3);
@@ -189,8 +189,8 @@ public class CoursePagingTest {
         Pageable pageable = PageRequest.of(0, 5);
         Member member = Member.builder().build();
         memberJpaRepository.save(member);
-        Course c1 = Course.builder().category(CategoryType.BACK_END).title("1").build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).title("2").build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).title("1").build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).title("2").build();
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
 
@@ -217,8 +217,8 @@ public class CoursePagingTest {
         Pageable pageable = PageRequest.of(0, 5);
         Member member = Member.builder().build();
         memberJpaRepository.save(member);
-        Course c1 = Course.builder().category(CategoryType.BACK_END).title("1").build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).title("2").build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).title("1").build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).locked(false).active(true).title("2").build();
         courseJpaRepository.save(c1);
         courseJpaRepository.save(c2);
 
@@ -291,11 +291,11 @@ public class CoursePagingTest {
         // given
         Member m1 = Member.builder().memberPrivacy(MemberPrivacy.builder().name("김철수").build()).build();
         memberJpaRepository.save(m1);
-        Course c1 = Course.builder().category(CategoryType.BACK_END).title("c1").build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).title("c2").build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).title("c3").build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c4").build();
-        Course c5 = Course.builder().category(CategoryType.FRONT_END).title("c5").build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).title("c1").locked(false).active(true).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).title("c2").locked(false).active(true).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).title("c3").locked(false).active(true).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c4").locked(false).active(true).build();
+        Course c5 = Course.builder().category(CategoryType.FRONT_END).title("c5").locked(false).active(true).build();
         courseJpaRepository.saveAll(List.of(c1,c2,c3,c4,c5));
         Enroll e1 = Enroll.builder().course(c1).member(m1).build();
         Enroll e2 = Enroll.builder().course(c1).member(m1).build();
