@@ -64,7 +64,7 @@ class SettingVC: UIViewController {
 
 
     // MARK: - 로그아웃 버튼 눌렀을 때
-    
+    /// loginType에 따라 다른 로그아웃 api 호출
     @IBAction func logoutBtnPressed(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: "로그아웃 하시겠습니까?", preferredStyle: .actionSheet)
         
@@ -168,7 +168,7 @@ class SettingVC: UIViewController {
     
     
     // MARK: - 회원탈퇴 버튼 눌렀을 때
-    
+    /// loginType에 따라 다른 회원탈퇴 api 호출
     @IBAction func withdrawBtnPressed(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: "정말로 탈퇴 하시겠습니까?", preferredStyle: .actionSheet)
         
