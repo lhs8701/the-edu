@@ -47,6 +47,8 @@ public class OrderDto {
         String orderId;
         @Schema(description = "주문명")
         String orderName;
+        @Schema(description = "페이먼트 키")
+        String paymentKey;
         @Schema(description = "상품 이미지")
         ImageInfo image;
         @Schema(description = "결제 방법")
@@ -62,6 +64,7 @@ public class OrderDto {
         public Response(Order order){
             this.orderId = order.getId();
             this.orderName = order.getName();
+            this.paymentKey = order.getPaymentKey();
             this.image = order.getItem().getImage();
             this.amount = order.getAmount();
             this.payType = order.getPayType();
