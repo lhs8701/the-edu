@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { getOrdersApi } from "../../api/orderApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import { dummyPurchaseList } from "../../dummy";
+import { AlertP, CenterDiv } from "../../style/CommonCss";
 import {
   MyPageBox,
   MyPageContentBox,
@@ -54,6 +55,11 @@ export default function PurchaseHistory() {
             </CouponListBox>
           </PurchaseWrapper>
         </MyPageContentBox>
+      )}
+      {data?.data?.length === 0 && (
+        <CenterDiv>
+          <AlertP>구매가 없어요.</AlertP>
+        </CenterDiv>
       )}
     </MyPageBox>
   );

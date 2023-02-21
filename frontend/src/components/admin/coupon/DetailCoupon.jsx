@@ -13,7 +13,7 @@ export default function DetailCoupon() {
   const { state } = useLocation();
   const { couponId } = useParams();
   const [count, setCount] = useState(0);
-  const [isCode, setIsCode] = useState(0);
+  const [isCode, setIsCode] = useState(true);
   const accessToken = useRecoilValue(getAdminAccessTokenSelector);
   const navigate = useNavigate();
   const makeCode = () => {

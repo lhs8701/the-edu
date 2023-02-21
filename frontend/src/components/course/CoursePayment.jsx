@@ -160,7 +160,7 @@ export default function CoursePayment({
       },
     });
   };
-
+  console.log(ticketInfo);
   const checkUserEnroll = () => {
     if (loginState) {
       getUserEnrollStatusApi(accessToken, courseId)
@@ -197,8 +197,10 @@ export default function CoursePayment({
         name="purchaseOption"
       >
         <option key={ticketInfo.id} value={ticketInfo.id}>
-          {ticketInfo?.coursePeriod === null
+          {ticketInfo?.costPrice === 0
             ? "무료 강좌"
+            : ticketInfo?.coursePeriod === null
+            ? "영구 수강권"
             : ticketInfo?.coursePeriod + "개월 수강권"}
         </option>
       </Select>

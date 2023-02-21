@@ -5,7 +5,11 @@ import { useEffect, useMemo, useRef } from "react";
 import { useInfiniteQuery, useQuery } from "react-query";
 import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
-import { getReadyCourseListApi } from "../../../api/adminApi";
+import {
+  getReadyCourseListApi,
+  lockCoursesApi,
+  stopCoursesApi,
+} from "../../../api/adminApi";
 import { getAllCoursesApi } from "../../../api/courseApi";
 import { getAdminAccessTokenSelector } from "../../../atom";
 import { ADMIN_BAR_LIST, CREATOR_BAR_LIST } from "../../../static";
@@ -62,6 +66,16 @@ export default function Courses() {
     { name: "정지 하기", id: 5 },
   ];
 
+  const stopCourse = (courseId) => {
+    lockCoursesApi(accessToken, courseId)
+      .then(() => {
+        alert("강의를 정지하였습니다.");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   useEffect(() => {
     if (isInView && courseList.hasNextPage && courseList.isSuccess) {
       courseList.fetchNextPage();
@@ -75,6 +89,7 @@ export default function Courses() {
         cells={courseListTableCells}
         rows={courses}
         navigate={navigate}
+        stopFun={stopCourse}
       />
       <BottomDiv ref={bottomRef} />
     </>

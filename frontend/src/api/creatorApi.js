@@ -19,7 +19,7 @@ export async function setUpTicketApi(accessToken, courseId, data) {
     {
       costPrice: data.costPrice,
       discountedPrice: data.discountedPrice,
-      coursePeriod: data.period,
+      coursePeriod: data.coursePeriod,
     },
     {
       headers: {

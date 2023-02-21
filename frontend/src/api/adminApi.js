@@ -9,6 +9,40 @@ const POST_GENERATE_COUPON_URL = `${ADMIN_URL}/coupons/generate`;
 const GET_READYCOURSE_URL = `${ADMIN_URL}/courses/inactive`;
 const POST_ACTIVECOURSE_URL = `${ADMIN_URL}/courses`;
 const COUPON_LIST_URL = `${ADMIN_URL}/coupons`;
+const GET_STOP_COURSES_URL = `${ADMIN_URL}/courses/locked`;
+
+export async function getStopCoursesApi(accessToken) {
+  return await axios.get(GET_STOP_COURSES_URL, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
+    },
+  });
+}
+export async function lockCoursesApi(accessToken, courseId) {
+  return await axios.post(
+    `${POST_ACTIVECOURSE_URL}/${courseId}/lock`,
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+export async function unlockCoursesApi(accessToken, courseId) {
+  return await axios.post(
+    `${POST_ACTIVECOURSE_URL}/${courseId}/unlock`,
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
 
 export async function importCouponApi(accessToken, counponId, memberId) {
   return await axios.post(

@@ -189,7 +189,7 @@ export function CouponTable({ rows, cells, navigate }) {
                     navigate(`${row.id}`, { state: row.code });
                   }}
                 >
-                  이동
+                  발급하기
                 </button>
               </TableCell>
             </TableRow>
@@ -353,7 +353,7 @@ export function AdminReadyCoursesTable({ rows, cells, navigate }) {
     </TableContainer>
   );
 }
-export function AdminStopCoursesTable({ rows, cells, navigate }) {
+export function AdminStopCoursesTable({ rows, cells, navigate, unlockFun }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">
@@ -387,7 +387,13 @@ export function AdminStopCoursesTable({ rows, cells, navigate }) {
                 </button>
               </TableCell>
               <TableCell align="center">
-                <button onClick={() => {}}>정지 해제</button>
+                <button
+                  onClick={() => {
+                    unlockFun(row.courseId);
+                  }}
+                >
+                  정지 해제
+                </button>
               </TableCell>
             </TableRow>
           ))}

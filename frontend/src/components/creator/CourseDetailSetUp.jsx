@@ -24,9 +24,9 @@ export default function CourseDetailSetUp() {
 
   const setUpTicket = () => {
     const data = {
-      costPrice: price,
-      discountedPrice: discountPrice,
-      coursePeriod: period,
+      costPrice: Number(price),
+      discountedPrice: Number(discountPrice),
+      coursePeriod: Number(period),
     };
     setUpTicketApi(accessToken, courseId, data)
       .then(() => {
@@ -135,7 +135,8 @@ export default function CourseDetailSetUp() {
                 fullWidth
                 value={discountPrice}
                 onChange={(e) => {
-                  if (e.target.value > price) {
+                  console.log(typeof e.target.value, typeof price);
+                  if (Number(e.target.value) > Number(price)) {
                     alert(
                       "원 가격보다 높은 가격은 할인가격으로 설정할 수 없습니다."
                     );

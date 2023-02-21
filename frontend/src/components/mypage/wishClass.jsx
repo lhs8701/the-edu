@@ -5,6 +5,7 @@ import { queryClient } from "../..";
 import { wishCourseApi } from "../../api/myPageApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import { dummyWishList } from "../../dummy";
+import { AlertP, CenterDiv } from "../../style/CommonCss";
 import {
   MyPageBox,
   MyPageContentBox,
@@ -50,8 +51,12 @@ export default function WishClass() {
           {wishCourses?.data?.map((course) => {
             return <ClassCard key={course.courseId} course={course} />;
           })}
-          {wishCourses?.data?.length === 0 && <h1>원하는 강의가 없어요</h1>}
         </WishListBox>
+        {wishCourses?.data?.length === 0 && (
+          <CenterDiv>
+            <AlertP>구매가 없어요.</AlertP>
+          </CenterDiv>
+        )}
       </MyPageContentBox>
     </MyPageBox>
   );
