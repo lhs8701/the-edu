@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getOrdersApi } from "../../api/orderApi";
+import { getOrdersApi, refundApi } from "../../api/orderApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import { dummyPurchaseList } from "../../dummy";
 import { AlertP, CenterDiv } from "../../style/CommonCss";
@@ -41,6 +41,7 @@ export default function PurchaseHistory() {
       },
     }
   );
+
   console.log(data?.data);
   return (
     <MyPageBox>

@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
-import {
-  getReadyCourseListApi,
-  getStopCoursesApi,
-  unlockCoursesApi,
-} from "../../../api/adminApi";
+import { getStopCoursesApi, unlockCoursesApi } from "../../../api/adminApi";
 import { getAdminAccessTokenSelector } from "../../../atom";
 import { ADMIN_BAR_LIST } from "../../../static";
-import {
-  AdminReadyCoursesTable,
-  AdminStopCoursesTable,
-} from "../../BasicTable";
+import { AdminStopCoursesTable } from "../../BasicTable";
 import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
+
 export default function StopCourses() {
   const accessToken = useRecoilValue(getAdminAccessTokenSelector);
   const navigate = useNavigate();
@@ -36,6 +29,7 @@ export default function StopCourses() {
         alert(err);
       });
   }, []);
+
   const unlock = (courseId) => {
     unlockCoursesApi(accessToken, courseId)
       .then(() => {

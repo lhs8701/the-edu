@@ -198,7 +198,7 @@ export default function LobbyPage() {
         <InfoBox>
           <InfoTab>
             <CourseTitle>{courseInfo?.title}</CourseTitle>
-            <CourseRate>- {courseInfo?.instructor}</CourseRate>
+            <CourseRate>{courseInfo?.instructor}</CourseRate>
           </InfoTab>
           <Tab>
             <Slider

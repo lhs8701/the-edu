@@ -200,7 +200,7 @@ export function CouponTable({ rows, cells, navigate }) {
   );
 }
 
-export function AdminUserTable({ rows, cells, deleteFun }) {
+export function AdminUserTable({ rows, cells, fun, isLockPage }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">
@@ -223,11 +223,26 @@ export function AdminUserTable({ rows, cells, deleteFun }) {
               <TableCell align="center">{row.nickname}</TableCell>
               <TableCell align="center">{row.mobile}</TableCell>
               <TableCell align="center">{row.loginType}</TableCell>
+
               <TableCell align="center">
                 {row.creator ? "맞음" : "아님"}
               </TableCell>
               <TableCell align="center">
                 {row.joinedDate.slice(0, 10)}
+              </TableCell>
+              <TableCell align="center">
+                {row.locked & !isLockPage ? ( // 정지당했고 전체 페이지일때 나타냄
+                  "정지됨"
+                ) : (
+                  //나머지 경우 버튼을 표시
+                  <button
+                    onClick={() => {
+                      fun(row.id);
+                    }}
+                  >
+                    {isLockPage ? "해제하기" : "정지하기"}
+                  </button>
+                )}
               </TableCell>
             </TableRow>
           ))}

@@ -1,4 +1,7 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { refundApi } from "../../api/orderApi";
+import { getAccessTokenSelector } from "../../atom";
 import { STATIC_URL } from "../../static";
 import { Card, CardTitle, CardInfoBox } from "../../style/MypageComponentsCss";
 
@@ -64,6 +67,14 @@ const CancelBtn = styled.button`
 `;
 
 export default function PurchaseCard({ purchase }) {
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+
+  const refund = () => {
+    refundApi(purchase.orderId, accessToken)
+      .then(() => {})
+      .catch((err) => {});
+  };
+
   return (
     <HistoryCard>
       <Img src={STATIC_URL + purchase.image.mediumFilePath} />
@@ -71,13 +82,15 @@ export default function PurchaseCard({ purchase }) {
         <CourseInfoTab>
           <CourseInfo>
             <CardTitle>{purchase.orderName}</CardTitle>
-            <CancelBtn>주문 취소</CancelBtn>
+            {purchase.orderStatus === "DONE" ? (
+              <CancelBtn onClick={refund}>주문 취소</CancelBtn>
+            ) : null}
           </CourseInfo>
         </CourseInfoTab>
         <PurchaseId>주문 번호 : {purchase.orderId}</PurchaseId>
         <PurchaseId>
           결제 방식 : {purchase.payType === "CARD" && "카드 결제"}
-          {purchase.payType === "TELE" && "휴대전화"}
+          {purchase.payType === "MOBILE" && "휴대전화"}
           {purchase.payType === "EMPTY" && "결제 없음"}
         </PurchaseId>
         <PurchaseId>

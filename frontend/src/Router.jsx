@@ -62,6 +62,7 @@ import EnrollCourses from "./components/admin/course/EnrollCourses";
 import ReviseActivateCourse from "./components/admin/course/ReviseActivateCourse";
 import StopCourses from "./components/admin/course/StopCourses";
 import ReviseStopCourse from "./components/admin/course/ReviseStopCourse";
+import LockUsers from "./components/admin/LockUsers";
 
 const router = createBrowserRouter([
   {
@@ -219,7 +220,7 @@ const router = createBrowserRouter([
       },
       {
         path: "leaveusers",
-        element: <Users />,
+        element: <LockUsers />,
       },
       {
         path: "creatorsrequest",

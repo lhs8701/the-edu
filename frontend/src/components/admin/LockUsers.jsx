@@ -1,13 +1,18 @@
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
-import { getAllUsersApi, lockedMembersApi } from "../../api/adminApi";
+import {
+  getAllUsersApi,
+  getLockedMembersApi,
+  lockedMembersApi,
+  unLockedMembersApi,
+} from "../../api/adminApi";
 import { ADMIN_BAR_LIST } from "../../static";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import { getAdminAccessTokenSelector } from "../../atom";
 import { useEffect, useState } from "react";
 import { AdminUserTable } from "../BasicTable";
 
-export default function Users() {
+export default function LockUsers() {
   const accessToken = useRecoilValue(getAdminAccessTokenSelector);
   const [userList, setUserList] = useState();
   const userListTableCells = [
@@ -18,12 +23,12 @@ export default function Users() {
     { name: "로그인 타입", id: 4 },
     { name: "크리에이터", id: 5 },
     { name: "가입 날짜", id: 6 },
-    { name: "회원 정지", id: 7 },
+    { name: "정지 해제", id: 7 },
   ];
   const { data, isSuccess } = useQuery(
     ["admin-allUsers"],
     () => {
-      return getAllUsersApi(accessToken);
+      return getLockedMembersApi(accessToken);
     },
     {
       enabled: !!accessToken,
@@ -60,9 +65,9 @@ export default function Users() {
   };
 
   const lockMember = (memberId) => {
-    lockedMembersApi(accessToken, memberId)
+    unLockedMembersApi(accessToken, memberId)
       .then(() => {
-        alert("해당 유저를 정지하였습니다.");
+        alert("정지 해제하였습니다.");
       })
       .catch((err) => {
         alert(err);
@@ -72,13 +77,13 @@ export default function Users() {
   useEffect(makeUserList, [data?.data]);
   return (
     <div>
-      <DashboardTitleTab title={ADMIN_BAR_LIST.list[0].list[0].name} />
+      <DashboardTitleTab title={ADMIN_BAR_LIST.list[0].list[1].name} />
       {userList && (
         <AdminUserTable
           cells={userListTableCells}
           rows={userList}
           fun={lockMember}
-          isLockPage={false}
+          isLockPage={true}
         />
       )}
     </div>

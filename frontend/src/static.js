@@ -64,10 +64,7 @@ export const BAR_LIST = {
       name: "찜한 클래스",
       url: "wish",
     },
-    {
-      name: "나의 댓글",
-      url: "comment",
-    },
+
     {
       name: "개인정보 수정",
       url: "revise",
@@ -96,7 +93,7 @@ export const ADMIN_BAR_LIST = {
           url: "/admin/users",
         },
         {
-          name: "탈퇴 관리",
+          name: "제제 목록 관리",
           url: "/admin/leaveusers",
         },
       ],

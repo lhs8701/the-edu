@@ -132,8 +132,8 @@ export default function SignUp() {
         if (err.response.data.code === -6002) {
           alert("이미 가입된 정보입니다.");
           navigate("/account/login");
-        } else {
-          alert("잘못된 정보입니다. 정확한 정보를 입력해주세요.");
+        } else if (err.response.status === 500) {
+          alert("서버 오류입니다.");
         }
       });
   };
