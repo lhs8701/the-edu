@@ -1,15 +1,11 @@
 package joeuncamp.dabombackend.domain.auth.basic;
 
 import joeuncamp.dabombackend.domain.auth.dto.BasicAuthDto;
-import joeuncamp.dabombackend.domain.auth.dto.LoginRequestDto;
-import joeuncamp.dabombackend.domain.auth.dto.SignupRequestDto;
 import joeuncamp.dabombackend.domain.auth.service.BasicAuthService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
-import joeuncamp.dabombackend.global.error.exception.CLoginFailedException;
-import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CWrongPasswordException;
 import joeuncamp.dabombackend.global.security.jwt.JwtProvider;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +20,6 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
@@ -58,7 +53,7 @@ public class BasicAuthServiceTest {
                 .password("invalid_password")
                 .build();
 
-        when(memberJpaRepository.findByAccountAndLoginType(dto.getAccount(), LoginType.BASIC)).thenReturn(Optional.of(member));
+        when(memberJpaRepository.findByAccountAndLoginTypeAndLockedIsFalse(dto.getAccount(), LoginType.BASIC)).thenReturn(Optional.of(member));
         when(passwordEncoder.matches(dto.getPassword(), member.getPassword())).thenReturn(false);
 
         // when

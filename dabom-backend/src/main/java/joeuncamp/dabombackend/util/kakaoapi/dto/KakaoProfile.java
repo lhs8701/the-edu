@@ -37,6 +37,7 @@ public class KakaoProfile {
                 .payPoint(0)
                 .emailCertified(true)
                 .certified(false)
+                .locked(false)
                 .build();
     }
 }

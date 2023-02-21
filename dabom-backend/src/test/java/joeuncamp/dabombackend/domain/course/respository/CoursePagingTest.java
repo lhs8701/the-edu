@@ -256,11 +256,11 @@ public class CoursePagingTest {
         creatorProfileJpaRepository.save(cr2);
         creatorProfileJpaRepository.save(cr3);
         Pageable pageable = PageRequest.of(0, 10);
-        Course c1 = Course.builder().category(CategoryType.BACK_END).title("c1 철수").creatorProfile(cr1).build();
-        Course c2 = Course.builder().category(CategoryType.BACK_END).title("c2 test").creatorProfile(cr1).build();
-        Course c3 = Course.builder().category(CategoryType.BACK_END).title("c3 test").creatorProfile(cr2).build();
-        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c4 test").creatorProfile(cr3).build();
-        Course c5 = Course.builder().category(CategoryType.BACK_END).title("c5 철수").creatorProfile(cr3).build();
+        Course c1 = Course.builder().category(CategoryType.BACK_END).title("c1 철수").locked(false).active(true).creatorProfile(cr1).build();
+        Course c2 = Course.builder().category(CategoryType.BACK_END).title("c2 test").locked(false).active(true).creatorProfile(cr1).build();
+        Course c3 = Course.builder().category(CategoryType.BACK_END).title("c3 test").locked(false).active(true).creatorProfile(cr2).build();
+        Course c4 = Course.builder().category(CategoryType.BACK_END).title("c4 test").locked(false).active(true).creatorProfile(cr3).build();
+        Course c5 = Course.builder().category(CategoryType.BACK_END).title("c5 철수").locked(false).active(true).creatorProfile(cr3).build();
         courseJpaRepository.saveAll(List.of(c1, c2, c3, c4, c5));
 
         // when

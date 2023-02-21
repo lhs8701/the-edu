@@ -134,4 +134,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
     public void setEmailCertified() {
         this.emailCertified = true;
     }
+    public void lock() {
+        this.locked = true;
+    }
+    public void unlock() {
+        this.locked = false;
+    }
 }

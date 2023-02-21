@@ -1,6 +1,5 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
-import io.jsonwebtoken.Claims;
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.dto.*;
 import joeuncamp.dabombackend.domain.auth.repository.EmailAuthKeyRedisRepository;
@@ -17,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -69,7 +67,7 @@ public class BasicAuthService {
      */
     @Transactional
     public BasicAuthDto.LoginResponse login(BasicAuthDto.LoginRequest requestDto) {
-        Member member = memberJpaRepository.findByAccountAndLoginType(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberNotFoundException::new);
+        Member member = memberJpaRepository.findByAccountAndLoginTypeAndLockedIsFalse(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberNotFoundException::new);
         if (!member.isEmailCertified()) {
             throw new CMemberNotCertifiedException();
         }

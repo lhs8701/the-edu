@@ -1,6 +1,5 @@
 package joeuncamp.dabombackend.domain.auth.service;
 
-import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.repository.EmailAuthKeyRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -35,13 +34,19 @@ public class EmailCertificationService {
         emailService.sendMail(Email.emailCertificationEmail(email, authKey));
     }
 
+    /**
+     * 이메일 인증을 완료합니다.
+     *
+     * @param email 이메일
+     * @param authKey 인증키
+     */
     public void certifyEmail(String email, String authKey) {
         Optional<String> authKeyOptional = emailAuthKeyRedisRepository.findByEmail(email);
-        if (authKeyOptional.isEmpty() || !authKeyOptional.get().equals(authKey)){
+        if (authKeyOptional.isEmpty() || !authKeyOptional.get().equals(authKey)) {
             throw new CCertificationFailedException();
         }
         emailAuthKeyRedisRepository.deleteByEmail(email);
-        Member member = memberJpaRepository.findByAccountAndLoginType(email, LoginType.BASIC).orElseThrow(CResourceNotFoundException::new);
+        Member member = memberJpaRepository.findByAccountAndLoginTypeAndLockedIsFalse(email, LoginType.BASIC).orElseThrow(CResourceNotFoundException::new);
         member.setEmailCertified();
         memberJpaRepository.save(member);
     }

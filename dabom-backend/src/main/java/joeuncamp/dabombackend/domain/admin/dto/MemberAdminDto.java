@@ -26,6 +26,7 @@ public class MemberAdminDto {
         String socialId;
         boolean isCreator;
         boolean certified;
+        boolean locked;
         MemberPrivacy memberPrivacy;
         List<String> roles;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
@@ -42,6 +43,7 @@ public class MemberAdminDto {
             this.roles = member.getRoles();
             this.joinedDate = member.getCreatedTime();
             this.certified = member.isCertified();
+            this.locked = member.isLocked();
             if (this.certified){
                 this.memberPrivacy = member.getMemberPrivacy();
             }

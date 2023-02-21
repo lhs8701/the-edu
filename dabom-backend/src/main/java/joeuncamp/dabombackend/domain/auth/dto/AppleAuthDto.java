@@ -50,6 +50,7 @@ public class AppleAuthDto {
                     .payPoint(0)
                     .emailCertified(true)
                     .certified(false)
+                    .locked(false)
                     .build();
         }
     }
