@@ -1,8 +1,7 @@
 package joeuncamp.dabombackend.util.email;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import joeuncamp.dabombackend.domain.course.entity.Course;
-import joeuncamp.dabombackend.global.constant.URI;
+import joeuncamp.dabombackend.global.constant.UriPath;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -70,7 +69,7 @@ public class Email {
                 + "<p> 안녕하세요 온라인 강의 플랫폼, 다봄입니다. <br>"
                 + "아래 메일 인증 버튼을 눌러 회원가입을 완료해주세요. <br> <br>"
                 + "<a  href='"
-                + URI.EMAIL_CERTIFICATION_URI
+                + UriPath.EMAIL_CERTIFICATION_URI
                 + "?email="
                 + destination
                 + "&auth-key="

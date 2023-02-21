@@ -42,7 +42,6 @@ public class BasicAuthService {
      */
     public void signup(BasicAuthDto.SignupRequest requestDto) {
         if (emailAuthKeyRedisRepository.findByEmail(requestDto.getAccount()).isPresent()) {
-            log.info("이메일 인증 중복");
             throw new CBadRequestException("해당 이메일로 가입 중인 계정이 존재합니다. 메일을 확인해주세요.");
         }
         Optional<Member> memberOptional = memberJpaRepository.findByAccount(requestDto.getAccount());
@@ -56,7 +55,6 @@ public class BasicAuthService {
         Member member = requestDto.toEntity(encodedPassword);
         memberJpaRepository.save(member);
         emailCertificationService.sendCertificationLink(member.getEmail());
-        log.info("이메일 발송 완료");
     }
 
 

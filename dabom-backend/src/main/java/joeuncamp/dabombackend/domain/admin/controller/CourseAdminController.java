@@ -41,5 +41,4 @@ public class CourseAdminController {
         courseAdminService.activateCourse(courseId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

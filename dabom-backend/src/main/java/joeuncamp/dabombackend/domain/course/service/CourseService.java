@@ -56,6 +56,20 @@ public class CourseService {
     }
 
     /**
+     * 활성화 상태인 모든 강좌를 조회합니다.
+     *
+     * @param pageable pageable
+     * @return 모든 강좌
+     */
+    public PagingDto<CourseDto.ShortResponse> getAllCourses(Pageable pageable) {
+        Page<Course> page = courseJpaRepository.findByActiveIsTrue(pageable);
+        List<CourseDto.ShortResponse> courses = page.getContent().stream()
+                .map(CourseDto.ShortResponse::new)
+                .toList();
+        return new PagingDto<>(page.getNumber(), page.getTotalPages(), courses);
+    }
+
+    /**
      * 강좌를 검색합니다.
      * 제목이나, 강사명에 키워드가 포함된 강좌를 모두 조회합니다.
      *

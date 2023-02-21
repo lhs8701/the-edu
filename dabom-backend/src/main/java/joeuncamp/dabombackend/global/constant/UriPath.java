@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class URI {
+public class UriPath {
     public static String EMAIL_CERTIFICATION_URI;
 
     @Value("${cert.email}")

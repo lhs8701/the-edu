@@ -32,7 +32,6 @@ public class EmailCertificationService {
     public void sendCertificationLink(String email) {
         String authKey = RandomStringGenerator.generateEmailAuthKey();
         emailAuthKeyRedisRepository.saveAuthKey(email, authKey);
-        log.info("redis 저장 완료");
         emailService.sendMail(Email.emailCertificationEmail(email, authKey));
     }
 

@@ -82,6 +82,14 @@ public class CourseController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    @Operation(summary = "전체 강좌 조회", description = "활성화 상태인 전체 강좌를 조회합니다.")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/courses")
+    public ResponseEntity<PagingDto<CourseDto.ShortResponse>> getAllCourses(@ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
+        PagingDto<CourseDto.ShortResponse> responseDto = courseService.getAllCourses(pageable);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
     @Operation(summary = "강좌를 검색합니다.", description = "제목이나 강사명 중에 검색어가 포함되어 있는 강좌를 모두 조회합니다.")
     @PreAuthorize("permitAll()")
     @GetMapping("/courses/keyword/{keyword}")

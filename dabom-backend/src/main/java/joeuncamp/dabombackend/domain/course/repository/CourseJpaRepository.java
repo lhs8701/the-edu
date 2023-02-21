@@ -15,6 +15,7 @@ import java.util.List;
 
 public interface CourseJpaRepository extends JpaRepository<Course, Long> {
     Page<Course> findCourseByCategoryAndActiveIsTrue(CategoryType categoryType, Pageable pageable);
+    Page<Course> findByActiveIsTrue(Pageable pageable);
 
     List<Course> findByActiveIsFalse();
 

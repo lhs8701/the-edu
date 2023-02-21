@@ -3,11 +3,15 @@ package joeuncamp.dabombackend.domain.admin.service;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
+import joeuncamp.dabombackend.global.common.PagingDto;
+import joeuncamp.dabombackend.global.constant.CategoryType;
 import joeuncamp.dabombackend.global.error.exception.CBadRequestException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import joeuncamp.dabombackend.util.email.Email;
 import joeuncamp.dabombackend.util.email.EmailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
