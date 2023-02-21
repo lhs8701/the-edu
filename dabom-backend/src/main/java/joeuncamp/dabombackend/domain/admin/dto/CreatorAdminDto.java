@@ -19,6 +19,8 @@ public class CreatorAdminDto {
     public static class Response{
         Long memberId;
         Long creatorId;
+        String subject;
+        String career;
         String account;
         String name;
         String nickname;
@@ -40,6 +42,8 @@ public class CreatorAdminDto {
             Member member = creatorProfile.getMember();
             this.memberId = member.getId();
             this.creatorId = creatorProfile.getId();
+            this.subject = creatorProfile.getSubject();
+            this.career = creatorProfile.getCareer();
             this.account = member.getAccount();
             this.nickname = member.getNickname();
             this.email = member.getEmail();

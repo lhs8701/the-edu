@@ -52,7 +52,7 @@ public class UnitController {
 
     @Operation(summary = "강의 재생을 위한 세부정보를 조회합니다.", description = "영상의 세부 정보와 함께 URL이 반환됩니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/courses/units/{unitId}")
     public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId, @AuthenticationPrincipal Member member) {
         UnitDto.PlayRequest requestDto = new UnitDto.PlayRequest(member.getId(), unitId);
