@@ -13,17 +13,17 @@ const Catalog = styled(motion.li)`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  color: ${(props) =>
+  background-color: ${(props) =>
     props.men === props.now
       ? "var(--color-box-gray)"
-      : "var(--color-text)"}; //props 활용
+      : "var(--color-background)"}; //props 활용
   padding-left: 8px;
   padding-top: 8px;
   padding-bottom: 8px;
-  background: ${(props) =>
+  color: ${(props) =>
     props.complete
       ? "var(--color-box-gray)"
-      : "var(--color-background)"}; //props 활용
+      : "var(--color-text)"}; //props 활용
 `;
 
 const ListBox = styled.ul`

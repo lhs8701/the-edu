@@ -10,6 +10,19 @@ const GET_READYCOURSE_URL = `${ADMIN_URL}/courses/inactive`;
 const POST_ACTIVECOURSE_URL = `${ADMIN_URL}/courses`;
 const COUPON_LIST_URL = `${ADMIN_URL}/coupons`;
 
+export async function importCouponApi(accessToken, counponId, memberId) {
+  return await axios.post(
+    `${COUPON_LIST_URL}/${counponId}/issue`,
+    { memberId: memberId },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
 export async function activeCourseApi(accessToken, courseId) {
   return await axios.post(
     `${POST_ACTIVECOURSE_URL}/${courseId}/activate`,

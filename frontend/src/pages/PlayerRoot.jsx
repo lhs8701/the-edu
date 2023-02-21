@@ -104,7 +104,7 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.6rem;
 `;
 
 export default function PlayerRoot() {

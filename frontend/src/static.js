@@ -154,12 +154,8 @@ export const ADMIN_BAR_LIST = {
         },
 
         {
-          name: "이벤트 업로드",
+          name: "업로드",
           url: "/admin/uploadevent",
-        },
-        {
-          name: "공지사항 업로드",
-          url: "/admin/uploadnotice",
         },
       ],
     },

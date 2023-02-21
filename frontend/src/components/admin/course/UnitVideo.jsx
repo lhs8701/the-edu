@@ -3,25 +3,41 @@ import ReactPlayer from "react-player";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import { getUnitVideoApi } from "../../../api/unitApi";
-import { getAdminAccessTokenSelector } from "../../../atom";
+import {
+  getAccessTokenSelector,
+  getAdminAccessTokenSelector,
+} from "../../../atom";
 import { STATIC_URL } from "../../../static";
+import { MoveBtn } from "../../../style/CommonCss";
 
 export default function UnitVideo() {
-  const accessToken = useRecoilValue(getAdminAccessTokenSelector);
+  const adminAccessToken = useRecoilValue(getAdminAccessTokenSelector);
+  const accessToken = useRecoilValue(getAccessTokenSelector);
   const { unitId } = useParams();
   const [unitInfo, setUnitInfo] = useState();
   const navigate = useNavigate();
 
   const getUnitInfo = () => {
-    getUnitVideoApi(unitId, accessToken)
+    getUnitVideoApi(unitId, adminAccessToken)
       .then(({ data }) => {
-        if (data?.code) {
-          alert("err");
+        if (data?.code === -7001) {
+          getUnitVideoApi(unitId, accessToken)
+            .then(({ data }) => {
+              if (data?.code) {
+                alert("에러발생");
+                navigate(-1);
+              }
+              setUnitInfo(data);
+            })
+            .catch((err) => {
+              alert("에러발생");
+            });
+        } else {
+          setUnitInfo(data);
         }
-        setUnitInfo(data);
       })
       .catch((err) => {
-        alert(err);
+        console.log("크리에이터");
       });
   };
 
@@ -31,15 +47,19 @@ export default function UnitVideo() {
 
   return (
     <div style={{ height: "500px" }}>
-      <button
+      <MoveBtn
+        style={{ height: "30px", width: "100px" }}
         onClick={() => {
           navigate(-1);
         }}
       >
         뒤로가기
-      </button>
-      <div>{unitInfo?.title}</div>
-      <div>{unitInfo?.description}</div>
+      </MoveBtn>
+      <br />
+      <div>제목: {unitInfo?.title}</div>
+      <div>설명: {unitInfo?.description}</div>
+      <br />
+      <br />
       <ReactPlayer
         url={STATIC_URL + unitInfo?.videoInfo?.filePath}
         controls={true}

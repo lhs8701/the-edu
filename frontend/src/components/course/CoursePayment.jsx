@@ -182,7 +182,7 @@ export default function CoursePayment({
   return (
     <PaymentBox>
       <IconBox>
-        <ONOFFTab>온/오프</ONOFFTab>
+        <ONOFFTab>온라인</ONOFFTab>
         {isWishPushState ? (
           <Icon onClick={pushWish} icon={alreadyHeart} />
         ) : (

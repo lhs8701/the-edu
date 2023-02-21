@@ -157,7 +157,7 @@ export default function UploadEvent({}) {
           </>
         )}
       </UploadTab>
-      <Button onClick={uploadEvent}>이벤트 업로드</Button>
+      <Button onClick={uploadEvent}>업로드</Button>
     </div>
   );
 }

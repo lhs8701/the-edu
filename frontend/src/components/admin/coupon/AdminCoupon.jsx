@@ -19,14 +19,14 @@ export default function AdminCoupon() {
   const navigate = useNavigate();
   const accessToken = useRecoilValue(getAdminAccessTokenSelector);
 
-  const userListTableCells = [
+  const couponTableCells = [
     { name: "쿠폰 ID", id: 0 },
     { name: "쿠폰 이름", id: 1 },
     { name: "할인 방식", id: 2 },
     { name: "할인률", id: 3 },
     { name: "종료 날짜", id: 4 },
     { name: "만료 여부", id: 5 },
-    { name: "쿠폰 코드 생성", id: 6 },
+    { name: "쿠폰 발급", id: 6 },
   ];
 
   const { data, isSuccess } = useQuery(
@@ -167,7 +167,7 @@ export default function AdminCoupon() {
         <DashboardTitleTab title="전체 쿠폰 관리" />
         {isSuccess && (
           <CouponTable
-            cells={userListTableCells}
+            cells={couponTableCells}
             rows={data?.data}
             navigate={navigate}
           />

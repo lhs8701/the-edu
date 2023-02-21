@@ -2,6 +2,7 @@ import { Button, Grid, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 import { getCurriculumApi } from "../../api/courseApi";
 import { changeChargeTypeApi, setUpTicketApi } from "../../api/creatorApi";
 import { getAccessTokenSelector, getCreatorIdSelector } from "../../atom";
@@ -11,6 +12,24 @@ import { UnderBar } from "../course/ChatComponents";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import Title from "../dashboard/Title";
 import { CssTextField } from "./uploadCourse/Outline";
+
+const UnitBox = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  &:hover {
+    background-color: var(--color-box-gray);
+  }
+  margin-bottom: 7px; ;
+`;
+
+const ChapterBox = styled.div`
+  border: 1px solid black;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+`;
 
 export default function CourseDetailSetUp() {
   const accessToken = useRecoilValue(getAccessTokenSelector);
@@ -37,19 +56,12 @@ export default function CourseDetailSetUp() {
       });
   }, []);
 
-  const CoursePaidInfo = ({ period }) => {
-    const [price, setPrice] = useState(0);
-    const [discountPrice, setDiscountPrice] = useState(0);
+  const CoursePaidInfo = () => {
+    const [period, setPeriod] = useState();
+    const [price, setPrice] = useState();
+    const [discountPrice, setDiscountPrice] = useState();
 
     const setUpTicket = () => {
-      let type;
-      if (period === "3개월") {
-        type = "THREE_MONTH";
-      } else if (period === "6개월") {
-        type = "SIX_MONTH";
-      } else {
-        type = "UNLIMITED";
-      }
       const data = {
         costPrice: price,
         discountedPrice: discountPrice,
@@ -72,9 +84,22 @@ export default function CourseDetailSetUp() {
     }, []);
     return (
       <>
-        <Grid item xs={1}>
-          <Title>{period}</Title>
+        <Grid item xs={3}>
+          <CssTextField
+            size="small"
+            fullWidth
+            value={period}
+            onChange={(e) => {
+              setPeriod(e.target.value);
+            }}
+            type="number"
+            label="강좌 수강 기한 설정"
+            variant="outlined"
+            id="cate1"
+            placeholder="기본 설정은 달(month)입니다."
+          />
         </Grid>
+
         <Grid item xs={3}>
           <CssTextField
             size="small"
@@ -87,6 +112,7 @@ export default function CourseDetailSetUp() {
             label="강의 원 가격"
             variant="outlined"
             id="cate1"
+            placeholder="강좌의 원 가격을 설정하세요."
           />
         </Grid>
         <Grid item xs={3}>
@@ -101,15 +127,16 @@ export default function CourseDetailSetUp() {
             label="할인 가격"
             variant="outlined"
             id="cate1"
+            placeholder="할인해서 판매할 가격을 설정하세요."
           />
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={3}>
           <Button onClick={setUpTicket}> 설정하기</Button>
         </Grid>
       </>
     );
   };
-  console.log(curriculumList);
+
   return (
     <>
       <Grid container spacing={2}>
@@ -149,9 +176,8 @@ export default function CourseDetailSetUp() {
         <Grid item xs={12}>
           <DashboardTitleTab title="강좌 수강권 가격 설정" />
         </Grid>
-        <CoursePaidInfo period={"3개월"} />
-        <CoursePaidInfo period={"6개월"} />
-        <CoursePaidInfo period={"영구"} />
+        <CoursePaidInfo />
+
         <br />
         <br />
         <br />
@@ -162,19 +188,19 @@ export default function CourseDetailSetUp() {
           <DashboardTitleTab title="강좌 커리큘럼 확인" />
         </Grid>
         <Grid item xs={12}>
-          {curriculumList?.map((chapter) => {
+          {curriculumList?.map((chapter, idx) => {
             return (
-              <>
-                <div>{chapter?.title}</div>
-                {chapter?.units?.map((unit) => {
+              <ChapterBox key={chapter.title}>
+                <div>
+                  {idx + 1}. {chapter?.title}
+                </div>
+                <br />
+                {chapter?.units?.map((unit, idx) => {
                   return (
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <div key={unit?.unitId}>{unit?.title}</div>
+                    <UnitBox key={unit.unitId}>
+                      <div>
+                        {idx + 1}. {unit?.title}
+                      </div>
                       <button
                         onClick={() => {
                           navigate(`${unit?.unitId}`);
@@ -182,10 +208,10 @@ export default function CourseDetailSetUp() {
                       >
                         강좌 보기
                       </button>
-                    </div>
+                    </UnitBox>
                   );
                 })}
-              </>
+              </ChapterBox>
             );
           })}
         </Grid>

@@ -18,6 +18,7 @@ import {
 import CourseReviewForm from "../components/course/CourseReviewForm";
 import Modal from "react-modal";
 import { motion } from "framer-motion";
+import { MoveBtn } from "../style/CommonCss";
 
 const LobbyWrapper = styled.div`
   width: 100%;
@@ -104,6 +105,7 @@ const SmallCategoryTab = styled.div`
   width: 100%;
   background-color: ${({ completed }) =>
     completed ? "var(--color-box-gray)" : "var(--color-background)"};
+  color: ${({ completed }) => (completed ? "#7c7c7c" : "var(--color-text)")};
   font-weight: var(--weight-middle);
   font-size: 1.1rem;
   padding: 10px 20px;
@@ -117,23 +119,22 @@ const SmallCategoryTab = styled.div`
 `;
 
 const PlayBtn = styled.button`
-  border: none;
   border-radius: 10px;
   padding: 3px 10px;
   &:hover {
     scale: 1.1;
   }
+  transition: 0.1s;
 `;
 
 const ReviewBtn = styled(motion.button)`
   position: absolute;
   bottom: -150px;
-  right: 35%;
+  right: 36%;
   height: 40px;
-  width: 80px;
+  width: 100px;
   border-radius: 10px;
-  background-color: var(--color-primary);
-  border: none;
+  background-color: var(--color-background);
   font-weight: var(--weight-middle);
   font-size: 1rem;
 `;
@@ -275,6 +276,10 @@ export default function LobbyPage() {
       <InfoSection>
         <InFo courseInfo={data?.data?.courseStatus} />
         <ReviewBtn
+          whileHover={{ backgroundColor: "var(--color-primary)" }}
+          transition={{
+            duration: 0.2,
+          }}
           onClick={() => {
             setIsModalOpen(true);
           }}

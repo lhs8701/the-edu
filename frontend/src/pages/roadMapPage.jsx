@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { TabTitle, Wrapper } from "../style/CommonCss";
-
-const EventCard = styled.div``;
+import { MoveBtn, TabTitle, Wrapper } from "../style/CommonCss";
 
 const PrepareDiv = styled.div`
   display: flex;
@@ -10,15 +8,7 @@ const PrepareDiv = styled.div`
   justify-content: center;
   font-size: 2rem;
 `;
-const MoveBtn = styled.button`
-  width: 180px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-background);
-  font-size: 1rem;
-`;
+
 export default function RoadMapPage() {
   const navigate = useNavigate();
   return (

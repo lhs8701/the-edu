@@ -15,9 +15,7 @@ export default function EmailCert() {
       <br />
       <br />
       <br />
-      <br />
-      <br />
-      <br />
+
       <br />
       <br />
       <br />

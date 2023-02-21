@@ -18,6 +18,49 @@ const DeleteBtn = styled.button`
   }
 `;
 
+export function CouponUserTable({ rows, cells, importCouponFun }) {
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{}} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {cells?.map((cell) => {
+              return (
+                <TableCell key={cell.id} align="center">
+                  {cell?.name}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row, idx) => (
+            <TableRow key={row.id}>
+              <TableCell align="center">{row.id}</TableCell>
+              <TableCell align="center">{row.account}</TableCell>
+              <TableCell align="center">{row.nickname}</TableCell>
+              <TableCell align="center">{row.mobile}</TableCell>
+              <TableCell align="center">{row.loginType}</TableCell>
+              <TableCell align="center">
+                {row.creator ? "맞음" : "아님"}
+              </TableCell>
+              <TableCell align="center">
+                <button
+                  onClick={() => {
+                    importCouponFun(row.id);
+                  }}
+                >
+                  쿠폰 발급
+                </button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+
 export function EventTable({ rows, cells, deleteFun, navigate }) {
   return (
     <TableContainer component={Paper}>
@@ -146,7 +189,7 @@ export function CouponTable({ rows, cells, navigate }) {
                     navigate(`${row.id}`, { state: row.code });
                   }}
                 >
-                  상세 보기
+                  이동
                 </button>
               </TableCell>
             </TableRow>
