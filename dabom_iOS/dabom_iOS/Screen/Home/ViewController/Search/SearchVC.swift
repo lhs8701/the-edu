@@ -54,6 +54,7 @@ class SearchVC: UIViewController {
     // MARK: - func
     
     private func getRecentSearch() {
+        // 최근 검색 기록 가져와서 reloadData, 최근 검색 기록은 UserDefaults에 저장되어 있음
         self.recentSearchList = UserDefaults.standard.array(forKey: "recentSearch") as? [String]
         self.recentSearchTV.reloadData()
     }

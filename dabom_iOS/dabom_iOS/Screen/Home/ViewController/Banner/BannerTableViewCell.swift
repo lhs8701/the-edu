@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 배너 이미지 선택 시 화면 이동 위해 delegate 패턴 사용
 protocol BannerCVCellDelegate {
     func BannerSelectedCVCell(eventId: Int, bannerName: String)
 }

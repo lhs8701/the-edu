@@ -50,10 +50,10 @@ class CategorySelectVC: UIViewController {
         GetCategoryDataService.shared.getCategory { response in
             switch response {
             case .success(let data):
+                // 받아온 카테고리 목록 데이터를 배열에 넣고 tableView -> reloadData()
                 if let data = data as? [CategoryDataModel] {
                     self.category = data
                     self.categoryTV.reloadData()
-                    print(self.category)
                 }
             case .requestErr(let message):
                 print("requestErr", message)
@@ -97,8 +97,7 @@ extension CategorySelectVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.categoryName.text = category[indexPath.section].categoryList[indexPath.row]
         cell.setCategoryName(categoryName: category[indexPath.section].categoryList[indexPath.row])
-        
-        
+
         return cell
     }
     
@@ -128,6 +127,8 @@ extension CategorySelectVC: UITableViewDelegate, UITableViewDataSource {
         let nextVC = UIStoryboard(name: Const.Storyboard.Name.homeTab, bundle: nil).instantiateViewController(withIdentifier: Const.ViewController.Identifier.categoryResult) as! ResultVC
         
         nextVC.resultTitle = self.category[indexPath.section].categoryList[indexPath.row]
+        
+        // 카테고리 목록 결과를 표시하기 위해 category 넘겨줌
         nextVC.kind = "category"
         tableView.deselectRow(at: indexPath, animated: true)
         
