@@ -12,4 +12,6 @@ public interface MemberJpaRepository extends JpaRepository<Member, Long>{
     Optional<Member> findByAccount(String account);
     Optional<Member> findByAccountAndLoginType(String account, LoginType loginType);
     Optional<Member> findByLoginTypeAndSocialId(LoginType loginType, String kakaoId);
+    Optional<Member> findByIdAndAccountNonLockedIsTrue(Long memberId);
+
 }

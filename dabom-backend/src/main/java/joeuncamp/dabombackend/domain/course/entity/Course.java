@@ -60,6 +60,7 @@ public class Course extends BaseTimeEntity {
     @OneToOne(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Ticket ticket;
     boolean active;
+    boolean locked;
 
     public void setCreatorProfile(CreatorProfile creatorProfile) {
         if (this.creatorProfile != null) {
@@ -84,5 +85,15 @@ public class Course extends BaseTimeEntity {
 
     public void activate(){
         this.active = true;
+    }
+
+    public void lock() {
+        this.locked = true;
+    }
+    public void unlock() {
+        this.locked = false;
+    }
+    public boolean isAvailable(){
+        return this.active && !this.locked;
     }
 }

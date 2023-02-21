@@ -20,6 +20,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
-        return memberRepository.findById(Long.parseLong(memberId)).orElseThrow(CMemberNotFoundException::new);
+        return memberRepository.findByIdAndAccountNonLockedIsTrue(Long.parseLong(memberId)).orElseThrow(CMemberNotFoundException::new);
     }
 }

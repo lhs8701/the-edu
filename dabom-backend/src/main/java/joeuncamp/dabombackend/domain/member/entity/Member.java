@@ -68,6 +68,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
+    boolean locked;
+
     public void updateProfile(String nickname, String email, String imageUrl) {
         if (nickname != null) {
             this.nickname = nickname;
@@ -108,7 +110,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
