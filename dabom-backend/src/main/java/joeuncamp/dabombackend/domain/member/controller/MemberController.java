@@ -63,5 +63,13 @@ public class MemberController {
         accountManager.changePassword(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @Operation(summary = "포인트 조회", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/members/me/point")
+    public ResponseEntity<Long> getPoint(@AuthenticationPrincipal Member member) {
+        return new ResponseEntity<>(member.getPayPoint(), HttpStatus.OK);
+    }
 }
 

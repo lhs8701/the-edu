@@ -10,10 +10,11 @@ import joeuncamp.dabombackend.domain.order.repository.IssueJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CBadRequestException;
 import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
+import joeuncamp.dabombackend.util.RandomStringGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,20 +36,55 @@ public class CouponGenerator {
     }
 
     /**
-     * 회원에게 쿠폰을 발급합니다.
+     * 관리자가 회원에게 쿠폰을 발급합니다.
      *
      * @param requestDto 발급할 쿠폰, 발급할 회원
      */
     public void issue(CouponDto.IssueRequest requestDto) {
         Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CMemberExistException::new);
         Coupon coupon = couponJpaRepository.findById(requestDto.getCouponId()).orElseThrow(CResourceNotFoundException::new);
-        if (issueJpaRepository.findByMemberAndCoupon(member, coupon).isPresent()){
+        if (issueJpaRepository.findByMemberAndCoupon(member, coupon).isPresent()) {
             throw new CBadRequestException("이미 발급한 쿠폰입니다.");
         }
         Issue issue = Issue.builder()
                 .member(member)
                 .coupon(coupon)
+                .used(false)
                 .build();
         issueJpaRepository.save(issue);
+    }
+
+    public void issue(Member member, Coupon coupon) {
+        if (issueJpaRepository.findByMemberAndCoupon(member, coupon).isPresent()) {
+            throw new CBadRequestException("이미 발급한 쿠폰입니다.");
+        }
+        Issue issue = Issue.builder()
+                .member(member)
+                .coupon(coupon)
+                .used(false)
+                .build();
+        issueJpaRepository.save(issue);
+    }
+
+    /**
+     * 쿠폰의 랜덤 코드를 생성합니다.
+     * 회원은 랜덤 코드를 사용해서 쿠폰을 발급할 수 있습니다.
+     *
+     * @param couponId 코드를 생성할 쿠폰
+     */
+    public void generateCouponCode(Long couponId, int count) {
+        Coupon coupon = couponJpaRepository.findById(couponId).orElseThrow(CResourceNotFoundException::new);
+        List<String> codeList = coupon.getCode();
+        putRandomCode(codeList, count);
+        couponJpaRepository.save(coupon);
+    }
+
+    private void putRandomCode(List<String> codeList, int count) {
+        RandomStringGenerator randomStringGenerator = new RandomStringGenerator();
+        for (int i = 0; i < count; i++) {
+            String code;
+            while (codeList.contains(code = randomStringGenerator.generateCouponCode())) ;
+            codeList.add(code);
+        }
     }
 }

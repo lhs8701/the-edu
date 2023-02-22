@@ -2,14 +2,9 @@ package joeuncamp.dabombackend.domain.course.service;
 
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
-import joeuncamp.dabombackend.domain.course.entity.Chapter;
 import joeuncamp.dabombackend.domain.course.entity.Course;
-import joeuncamp.dabombackend.domain.course.entity.Enroll;
-import joeuncamp.dabombackend.domain.course.repository.ChapterJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
-import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
-import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.creator.service.CreatorService;
 import joeuncamp.dabombackend.domain.post.service.ReviewService;
@@ -28,35 +23,9 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class CourseService {
-
-    private final MemberJpaRepository memberJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
-    private final CreatorService creatorService;
     private final CurriculumService curriculumService;
     private final ReviewService reviewService;
-    private final EnrollJpaRepository enrollJpaRepository;
-    private final ChapterService chapterService;
-    private final CourseTicketService courseTicketService;
-
-    /**
-     * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
-     * 개설 후, 크리에이터에게 강좌 등록 정보를 부여합니다.
-     * @param requestDto 강좌 개설 정보
-     * @return 개설된 강좌의 아이디넘버
-     */
-    public Long openCourse(CourseDto.CreationRequest requestDto) {
-        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
-        if (!creatorService.hasCreatorProfile(member)) {
-            throw new CNotCreatorException();
-        }
-        CreatorProfile creator = member.getCreatorProfile();
-        Course course = requestDto.toEntity(creator);
-        courseJpaRepository.save(course);
-        enrollJpaRepository.save(Enroll.builder().member(member).course(course).build());
-        chapterService.saveDefaultChapter(course);
-        courseTicketService.saveDefaultTickets(course);
-        return course.getId();
-    }
 
     /**
      * 강좌의 정보를 조회합니다.
@@ -79,7 +48,21 @@ public class CourseService {
      */
     public PagingDto<CourseDto.ShortResponse> getCoursesByCategory(String category, Pageable pageable) {
         CategoryType type = CategoryType.findByTitle(category);
-        Page<Course> page = courseJpaRepository.findCourseByCategory(type, pageable);
+        Page<Course> page = courseJpaRepository.findCourseByCategoryAndActiveIsTrue(type, pageable);
+        List<CourseDto.ShortResponse> courses = page.getContent().stream()
+                .map(CourseDto.ShortResponse::new)
+                .toList();
+        return new PagingDto<>(page.getNumber(), page.getTotalPages(), courses);
+    }
+
+    /**
+     * 활성화 상태인 모든 강좌를 조회합니다.
+     *
+     * @param pageable pageable
+     * @return 모든 강좌
+     */
+    public PagingDto<CourseDto.ShortResponse> getAllCourses(Pageable pageable) {
+        Page<Course> page = courseJpaRepository.findByActiveIsTrue(pageable);
         List<CourseDto.ShortResponse> courses = page.getContent().stream()
                 .map(CourseDto.ShortResponse::new)
                 .toList();

@@ -34,6 +34,10 @@ public class KakaoProfile {
                 .loginType(LoginType.KAKAO)
                 .socialId(String.valueOf(this.id))
                 .roles(Collections.singletonList("ROLE_USER"))
+                .payPoint(0)
+                .emailCertified(true)
+                .certified(false)
+                .locked(false)
                 .build();
     }
 }

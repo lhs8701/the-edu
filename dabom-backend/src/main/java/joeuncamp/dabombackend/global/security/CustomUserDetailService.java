@@ -3,7 +3,6 @@ package joeuncamp.dabombackend.global.security;
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
-import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +19,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
-        return memberRepository.findById(Long.parseLong(memberId)).orElseThrow(CMemberNotFoundException::new);
+        return memberRepository.findByIdAndLockedIsFalse(Long.parseLong(memberId)).orElseThrow(CMemberNotFoundException::new);
     }
 }

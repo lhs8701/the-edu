@@ -2,7 +2,6 @@ package joeuncamp.dabombackend.domain.auth.service;
 
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.dto.KakaoAuthDto;
-import joeuncamp.dabombackend.domain.auth.dto.SocialUnlinkRequestDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -44,7 +43,7 @@ public class KakaoAuthService {
     }
 
     private Member findMemberOrCreate(KakaoProfile profile, String kakaoId) {
-        Optional<Member> found = memberJpaRepository.findByLoginTypeAndSocialId(LoginType.KAKAO, kakaoId);
+        Optional<Member> found = memberJpaRepository.findByLoginTypeAndSocialIdAndLockedIsFalse(LoginType.KAKAO, kakaoId);
         if (found.isEmpty()) {
             Member member = profile.toEntity();
             return memberJpaRepository.save(member);

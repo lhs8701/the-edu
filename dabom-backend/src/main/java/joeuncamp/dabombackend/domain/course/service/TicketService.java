@@ -1,20 +1,18 @@
 package joeuncamp.dabombackend.domain.course.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.TicketDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
 import joeuncamp.dabombackend.domain.course.repository.TicketJpaRepository;
-import joeuncamp.dabombackend.domain.order.entity.CoursePeriod;
 import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
-public class CourseTicketService {
+public class TicketService {
     private final CourseJpaRepository courseJpaRepository;
     private final TicketJpaRepository ticketJpaRepository;
 
@@ -24,34 +22,42 @@ public class CourseTicketService {
      * @param courseId 조회할 강좌
      * @return 수강권 정보
      */
-    public List<TicketDto.Response> getTickets(Long courseId) {
+    public TicketDto.Response getTicket(Long courseId) {
         Course course = courseJpaRepository.findById(courseId).orElseThrow(CResourceNotFoundException::new);
-        return course.getTicketList().stream()
-                .map(TicketDto.Response::new)
-                .toList();
+        return new TicketDto.Response(course.getTicket());
     }
 
     /**
-     * 기본 수강권을 생성합니다.
-     * 가격은 초기값인 1000원으로 설정됩니다.
+     * 기본 유료 수강권을 생성합니다.
+     * 기존의 수강권은 삭제됩니다.
+     * 기간 - 6개월, 가격 - 1000원으로 설정됩니다.
      *
-     * @param course
+     * @param course 강좌
      */
-    public void saveDefaultTickets(Course course) {
-        List<Ticket> tickets = List.of(new Ticket(course, CoursePeriod.THREE_MONTH), new Ticket(course, CoursePeriod.SIX_MONTH), new Ticket(course, CoursePeriod.UNLIMITED));
-        ticketJpaRepository.saveAll(tickets);
+    @Transactional
+    public void createDefaultTickets(Course course) {
+        ticketJpaRepository.deleteByCourse(course);
+        Ticket ticket = Ticket.newPaidTicket(course, 6);
+        ticketJpaRepository.save(ticket);
     }
 
     /**
-     * 티켓 가격을 변경합니다.
+     * 티켓 가격과 기간을 변경합니다.
      * 원가와 할인가를 설정할 수 있습니다.
      *
      * @param requestDto 변경할 티켓 정보
      */
-    public void updatePrice(TicketDto.Request requestDto) {
+    public void updateTicket(TicketDto.Request requestDto) {
         Course course = courseJpaRepository.findById(requestDto.getCourseId()).orElseThrow(CResourceNotFoundException::new);
-        Ticket ticket = ticketJpaRepository.findByCourseAndCoursePeriod(course, requestDto.getCoursePeriod()).orElseThrow(CResourceNotFoundException::new);
-        ticket.updatePrice(requestDto.getCostPrice(), requestDto.getDiscountedPrice());
+        Ticket ticket = ticketJpaRepository.findByCourse(course).orElseThrow(CResourceNotFoundException::new);
+        ticket.update(requestDto.getCostPrice(), requestDto.getDiscountedPrice(), getPeriod(requestDto));
         ticketJpaRepository.save(ticket);
+    }
+
+    private Integer getPeriod(TicketDto.Request requestDto) {
+        if (requestDto.getDiscountedPrice() == 0) {
+            return null;
+        }
+        return requestDto.getCoursePeriod();
     }
 }

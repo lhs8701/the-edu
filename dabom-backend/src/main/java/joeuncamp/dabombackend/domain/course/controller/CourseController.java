@@ -36,16 +36,6 @@ public class CourseController {
 
     private final RankingService rankingService;
 
-    @Operation(summary = "강좌를 개설합니다.", description = "강좌 개설은 크리에이터 프로필을 활성화한 회원만 가능합니다. \n 개설된 강좌의 아이디넘버가 반환됩니다.")
-    @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
-    @PostMapping("/courses")
-    public ResponseEntity<Long> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
-        requestDto.setMemberId(member.getId());
-        Long response = courseService.openCourse(requestDto);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
-
     @Operation(summary = "강좌 커리큘럼을 생성합니다.", description = "커리큘럼 생성은 크리에이터 본인만 가능합니다. \n 챕터와 강의 순서를 변경할 수 있습니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
@@ -89,6 +79,14 @@ public class CourseController {
     @GetMapping("/courses/category/{category}")
     public ResponseEntity<PagingDto<CourseDto.ShortResponse>> getCourseByCategory(@PathVariable @Schema(example = "백엔드") String category, @ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
         PagingDto<CourseDto.ShortResponse> responseDto = courseService.getCoursesByCategory(category, pageable);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary = "전체 강좌 조회", description = "활성화 상태인 전체 강좌를 조회합니다.")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/courses")
+    public ResponseEntity<PagingDto<CourseDto.ShortResponse>> getAllCourses(@ParameterObject @PageableDefault(sort = "title") Pageable pageable) {
+        PagingDto<CourseDto.ShortResponse> responseDto = courseService.getAllCourses(pageable);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

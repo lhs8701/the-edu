@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.Optional;
 
 @Service
@@ -39,7 +40,7 @@ public class EnrollService {
                 .member(member)
                 .course(course)
                 .build());
-        enroll.setEndDate(LocalDateTime.now().plusMonths(ticket.getCoursePeriod().getMonth()));
+        enroll.setEndDate(LocalDateTime.now().plus(ticket.getDuration()));
         enrollJpaRepository.save(enroll);
     }
 

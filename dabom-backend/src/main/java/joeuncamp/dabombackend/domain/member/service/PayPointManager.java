@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.member.service;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CBadRequestException;
+import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,6 @@ public class PayPointManager {
      * @return 사용한 포인트
      */
     public long usePoint(Member member, long point) {
-        if (member.getPayPoint() < point) {
-            throw new CBadRequestException("포인트가 부족합니다.");
-        }
         member.updatePoint(-point);
         memberJpaRepository.save(member);
         return point;

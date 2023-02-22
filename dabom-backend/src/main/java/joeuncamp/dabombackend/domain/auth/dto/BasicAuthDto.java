@@ -54,6 +54,9 @@ public class BasicAuthDto {
                     .socialId(null)
                     .payPoint(0)
                     .roles(Collections.singletonList("ROLE_USER"))
+                    .emailCertified(false)
+                    .certified(false)
+                    .locked(false)
                     .build();
         }
     }

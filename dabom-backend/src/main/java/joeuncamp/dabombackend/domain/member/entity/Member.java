@@ -10,6 +10,7 @@ import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.wish.entity.Wish;
 import joeuncamp.dabombackend.global.common.BaseTimeEntity;
 import joeuncamp.dabombackend.global.constant.LoginType;
+import joeuncamp.dabombackend.util.tossapi.dto.MemberPrivacy;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,21 +30,14 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     String account;
-
     String password;
-
-    String name;
-
     String nickname;
-
-    String mobile;
-
-    String birthDate;
-
     String email;
     ImageInfo profileImage;
+    boolean emailCertified;
+    boolean certified;
+    MemberPrivacy memberPrivacy;
     long payPoint;
 
     @Enumerated(value = EnumType.STRING)
@@ -70,10 +64,11 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Issue> issueList = new ArrayList<>();
 
-    @Schema(description = "권한", example = "일반")
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
+
+    boolean locked;
 
     public void updateProfile(String nickname, String email, String imageUrl) {
         if (nickname != null) {
@@ -115,7 +110,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
@@ -130,5 +125,19 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     public void changePassword(String newPassword) {
         this.password = newPassword;
+    }
+
+    public void setCertified(MemberPrivacy memberPrivacy) {
+        this.certified = true;
+        this.memberPrivacy = memberPrivacy;
+    }
+    public void setEmailCertified() {
+        this.emailCertified = true;
+    }
+    public void lock() {
+        this.locked = true;
+    }
+    public void unlock() {
+        this.locked = false;
     }
 }

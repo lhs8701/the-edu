@@ -11,7 +11,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 public class CouponDto {
     @Getter
@@ -21,19 +21,16 @@ public class CouponDto {
         String name;
         @Schema(description = "최소 사용 금액")
         long minimumAmount;
-        @Schema(description = "정액할인 / 정률할인(%)", example = "FIX / RATE")
-        DiscountPolicy discountPolicy;
         @Schema(description = "할인액")
         long discount;
         @Schema(description = "유효기간")
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate endDate;
 
-        public Coupon toEntity(){
+        public Coupon toEntity() {
             return Coupon.builder()
                     .name(this.name)
-                    .code(UUID.randomUUID().toString())
-                    .discountPolicy(this.discountPolicy)
+                    .discountPolicy(DiscountPolicy.RATE)
                     .discount(this.discount)
                     .endDate(this.endDate)
                     .minimumAmount(this.minimumAmount)
@@ -52,24 +49,40 @@ public class CouponDto {
     }
 
     @Getter
-    public static class Response{
+    @Setter
+    @NoArgsConstructor
+    public static class RegisterRequest {
+        @Schema(hidden = true)
+        Long memberId;
+        @Schema(description = "등록할 쿠폰 코드")
+        String couponCode;
+    }
+
+    @Getter
+    public static class Response {
         @Schema(description = "쿠폰 아이디넘버")
         Long id;
         @Schema(description = "쿠폰 이름")
         String name;
         @Schema(description = "할인률")
         long discount;
+        @Schema(description = "최소 적용 금액")
+        long minimumAmount;
         @Schema(description = "정률할인 / 정액할인", example = "RATE / FIX")
         DiscountPolicy discountPolicy;
         @Schema(description = "유효기간")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         LocalDate endDate;
-        public Response(Coupon coupon){
+        boolean expired;
+
+        public Response(Coupon coupon) {
             this.id = coupon.getId();
             this.name = coupon.getName();
             this.discount = coupon.getDiscount();
+            this.minimumAmount = coupon.getMinimumAmount();
             this.discountPolicy = coupon.getDiscountPolicy();
             this.endDate = coupon.getEndDate();
+            this.expired = coupon.getEndDate().isBefore(LocalDateTime.now().toLocalDate());
         }
     }
 }

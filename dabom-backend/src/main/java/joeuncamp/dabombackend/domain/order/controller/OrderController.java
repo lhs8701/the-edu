@@ -5,15 +5,16 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.course.dto.TicketDto;
-import joeuncamp.dabombackend.domain.course.service.CourseTicketService;
+import joeuncamp.dabombackend.domain.course.service.TicketService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.order.dto.OrderDto;
 import joeuncamp.dabombackend.domain.order.dto.OrderSheetDto;
+import joeuncamp.dabombackend.domain.order.service.OrderChart;
 import joeuncamp.dabombackend.domain.order.service.OrderSheetService;
-import joeuncamp.dabombackend.domain.order.service.OrderService;
+import joeuncamp.dabombackend.domain.order.service.OrderSystem;
+import joeuncamp.dabombackend.domain.order.service.RefundService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
-import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,30 +26,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Tag(name = "[5.Order]", description = "구매 관련 API입니다.")
+@Tag(name = "[5-1.Order]", description = "구매 관련 API입니다.")
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api")
 public class OrderController {
-    private final CourseTicketService courseTicketService;
-    private final OrderService orderService;
+    private final TicketService ticketService;
     private final OrderSheetService orderSheetService;
-
-    @Operation(summary = "강좌 수강권 설정", description = "수강권의 금액을 설정합니다.")
-    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
-    @PostMapping("/courses/{courseId}/tickets")
-    public ResponseEntity<Void> setTicket(@PathVariable Long courseId, @RequestBody TicketDto.Request requestDto, @AuthenticationPrincipal Member member) {
-        requestDto.setMemberId(member.getId());
-        requestDto.setCourseId(courseId);
-        courseTicketService.updatePrice(requestDto);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    private final OrderSystem orderSystem;
+    private final OrderChart orderChart;
+    private final RefundService refundService;
 
     @Operation(summary = "강좌 수강권 조회", description = "")
     @GetMapping("/courses/{courseId}/tickets")
-    public ResponseEntity<List<TicketDto.Response>> getTickets(@PathVariable Long courseId) {
-        List<TicketDto.Response> responseDto = courseTicketService.getTickets(courseId);
+    public ResponseEntity<TicketDto.Response> getTickets(@PathVariable Long courseId) {
+        TicketDto.Response responseDto = ticketService.getTicket(courseId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
@@ -69,7 +61,25 @@ public class OrderController {
     public ResponseEntity<Void> completeOrder(@PathVariable Long itemId, @RequestBody OrderDto.Request requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setItemId(itemId);
-        orderService.makeOrder(requestDto);
+        orderSystem.makeOrder(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "주문 내역 조회", description = "회원의 주문 내역을 조회합니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/orders")
+    public ResponseEntity<List<OrderDto.Response>> getOrderHistory(@AuthenticationPrincipal Member member) {
+        List<OrderDto.Response> responseDto = orderChart.getOrderHistory(member.getId());
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary = "환불", description = "상품을 환불합니다. 정책에 따라 환불이 불가능할 수 있습니다.")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/refund/orders/{orderId}")
+    public ResponseEntity<Void> refund(@PathVariable String orderId, @AuthenticationPrincipal Member member) {
+        refundService.refund(orderId, member);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

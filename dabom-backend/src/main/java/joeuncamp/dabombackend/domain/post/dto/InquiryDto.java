@@ -52,6 +52,8 @@ public class InquiryDto {
         int likes;
         @Schema(description = "작성자")
         ProfileDto.ShortResponse writer;
+        @Schema(description = "댓글")
+        ReplyDto.Response reply;
 
         public Response(Inquiry inquiry){
             this.inquiryId = inquiry.getId();
@@ -59,6 +61,9 @@ public class InquiryDto {
             this.content = inquiry.getContent();
             this.likes = inquiry.getLikes();
             this.writer = new ProfileDto.ShortResponse(inquiry.getMember());
+            if (inquiry.getReply() != null) {
+                this.reply = new ReplyDto.Response(inquiry.getReply());
+            }
         }
     }
 

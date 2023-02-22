@@ -67,12 +67,16 @@ public class ViewChecker {
                 .toList();
         List<Course> completedCourses = new ArrayList<>();
         for (Course course : entireCourses) {
-            List<Unit> units = getCompletedUnit(member, course);
-            if (units.size() == course.getUnitList().size()) {
+            if (watchedAll(member, course)){
                 completedCourses.add(course);
             }
         }
         return completedCourses;
+    }
+
+    public boolean watchedAll(Member member, Course course) {
+        List<Unit> units = getCompletedUnit(member, course);
+        return units.size() == course.getUnitList().size();
     }
 
     /**
@@ -91,4 +95,6 @@ public class ViewChecker {
                 .map(View::getUnit)
                 .toList();
     }
+
+
 }

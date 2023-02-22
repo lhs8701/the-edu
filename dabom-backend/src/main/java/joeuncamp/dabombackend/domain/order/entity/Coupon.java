@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.query.sqm.TemporalUnit;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -19,7 +21,10 @@ public class Coupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
-    String code;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    List<String> code = new ArrayList<>();
     long minimumAmount;
     long discount;
     @Enumerated(value = EnumType.STRING)
@@ -27,8 +32,7 @@ public class Coupon {
     LocalDate endDate;
 
     public boolean isValid(Item item) {
-        return LocalDate.now().isBefore(endDate.plusDays(1))
-                && this.getMinimumAmount() <= item.getPrice().getDiscountedPrice();
+        return LocalDate.now().isBefore(endDate) && this.getMinimumAmount() <= item.getPrice().getDiscountedPrice();
     }
 
     public long calculateDiscountedPrice(long price){

@@ -1,8 +1,15 @@
 package joeuncamp.dabombackend.domain.order.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
+import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
+import joeuncamp.dabombackend.domain.member.entity.Member;
+import joeuncamp.dabombackend.domain.order.entity.*;
 import joeuncamp.dabombackend.util.tossapi.dto.TossPayRequest;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 public class OrderDto {
     @Getter
@@ -32,6 +39,37 @@ public class OrderDto {
             public TossPayRequest toEntity(){
                 return new TossPayRequest(tossPaymentKey, tossOrderId, tossAmount);
             }
+        }
+    }
+    @Getter
+    public static class Response{
+        @Schema(description = "주문 아이디")
+        String orderId;
+        @Schema(description = "주문명")
+        String orderName;
+        @Schema(description = "페이먼트 키")
+        String paymentKey;
+        @Schema(description = "상품 이미지")
+        ImageInfo image;
+        @Schema(description = "결제 방법")
+        PayType payType;
+        @Schema(description = "결제 금액")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+        long amount;
+        @Schema(description = "주문 상태")
+        OrderStatus orderStatus;
+        @Schema(description = "주문 날짜")
+        LocalDateTime orderTime;
+
+        public Response(Order order){
+            this.orderId = order.getId();
+            this.orderName = order.getName();
+            this.paymentKey = order.getPaymentKey();
+            this.image = order.getItem().getImage();
+            this.amount = order.getAmount();
+            this.payType = order.getPayType();
+            this.orderStatus = order.getOrderStatus();
+            this.orderTime = order.getCreatedTime();
         }
     }
 }

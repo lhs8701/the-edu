@@ -1,15 +1,14 @@
 package joeuncamp.dabombackend.domain.member.service;
 
-import joeuncamp.dabombackend.domain.member.dto.AccountDto;
 import joeuncamp.dabombackend.domain.member.dto.PasswordDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.global.constant.LoginType;
 import joeuncamp.dabombackend.global.error.exception.CIllegalArgumentException;
-import joeuncamp.dabombackend.global.error.exception.CMemberExistException;
 import joeuncamp.dabombackend.global.error.exception.CMemberNotFoundException;
 import joeuncamp.dabombackend.global.error.exception.CWrongPasswordException;
 import joeuncamp.dabombackend.util.RandomStringGenerator;
+import joeuncamp.dabombackend.util.email.Email;
 import joeuncamp.dabombackend.util.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,11 +29,11 @@ public class AccountManager {
      * @param requestDto 회원, 현재 비밀번호
      */
     public PasswordDto.Response resetPassword(PasswordDto.ResetRequest requestDto) {
-        Member member = memberJpaRepository.findByAccountAndLoginType(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberNotFoundException::new);
+        Member member = memberJpaRepository.findByAccountAndLoginTypeAndLockedIsFalse(requestDto.getAccount(), LoginType.BASIC).orElseThrow(CMemberNotFoundException::new);
         String newPassword = randomStringGenerator.generatePassword();
         member.changePassword(passwordEncoder.encode(newPassword));
         memberJpaRepository.save(member);
-        emailService.sendMail(EmailService.passwordResetEmail(newPassword, member.getEmail()));
+        emailService.sendMail(Email.passwordReissueEmail(member.getEmail(), newPassword));
         return new PasswordDto.Response(member.getEmail());
     }
 

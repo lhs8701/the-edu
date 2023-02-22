@@ -142,4 +142,23 @@ public class ExceptionAdvice {
         e.printStackTrace();
         return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
     }
+    @ExceptionHandler(CPaymentException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CPaymentException e){
+        ErrorCode errorCode = e.getErrorCode();
+        String message = e.getMessage();
+        e.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode, message), errorCode.getStatusCode());
+    }
+    @ExceptionHandler(CMemberNotCertifiedException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CMemberNotCertifiedException e){
+        ErrorCode errorCode = e.getErrorCode();
+        e.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
+    @ExceptionHandler(CCertificationFailedException.class)
+    protected ResponseEntity<ErrorResponseDto> handle(CCertificationFailedException e){
+        ErrorCode errorCode = e.getErrorCode();
+        e.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponseDto(errorCode), errorCode.getStatusCode());
+    }
 }

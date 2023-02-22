@@ -2,7 +2,6 @@ package joeuncamp.dabombackend.domain.auth.service;
 
 import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.auth.dto.AppleAuthDto;
-import joeuncamp.dabombackend.domain.auth.dto.BasicAuthDto;
 import joeuncamp.dabombackend.domain.auth.repository.TokenRedisRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
@@ -28,7 +27,7 @@ public class AppleAuthService {
      * @param requestDto 애플 토큰에서 추출한 이메일, 소셜 아이디, 닉네임
      */
     public void signup(AppleAuthDto.SignupRequest requestDto) {
-        if (memberJpaRepository.findByLoginTypeAndSocialId(LoginType.APPLE, requestDto.getSocialToken()).isPresent()) {
+        if (memberJpaRepository.findByLoginTypeAndSocialIdAndLockedIsFalse(LoginType.APPLE, requestDto.getSocialToken()).isPresent()) {
             throw new CMemberExistException();
         }
         createAndSaveMember(requestDto);
@@ -48,7 +47,7 @@ public class AppleAuthService {
      * @return 어세스토큰, 리프레시 토큰
      */
     public AppleAuthDto.LoginResponse login(AppleAuthDto.LoginRequest requestDto) {
-        Member member = memberJpaRepository.findByLoginTypeAndSocialId(LoginType.APPLE, requestDto.getSocialToken()).orElseThrow(CMemberNotFoundException::new);
+        Member member = memberJpaRepository.findByLoginTypeAndSocialIdAndLockedIsFalse(LoginType.APPLE, requestDto.getSocialToken()).orElseThrow(CMemberNotFoundException::new);
         TokenForm tokenForm = jwtProvider.generateToken(member);
         tokenRedisRepository.saveRefreshToken(tokenForm.getRefreshToken(), String.valueOf(member.getId()));
         return new AppleAuthDto.LoginResponse(member, tokenForm);

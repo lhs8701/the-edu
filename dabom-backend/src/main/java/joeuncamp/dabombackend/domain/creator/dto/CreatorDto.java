@@ -32,6 +32,8 @@ public class CreatorDto {
         public CreatorProfile toEntity(Member member) {
             return CreatorProfile.builder()
                     .member(member)
+                    .subject(subject)
+                    .career(career)
                     .activated(false)
                     .build();
         }
