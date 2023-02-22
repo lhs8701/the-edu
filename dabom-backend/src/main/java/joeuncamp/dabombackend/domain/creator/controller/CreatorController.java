@@ -11,6 +11,7 @@ import joeuncamp.dabombackend.domain.creator.dto.CreatorDto;
 import joeuncamp.dabombackend.domain.creator.service.CreatorCourseService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.creator.service.CreatorActivator;
+import joeuncamp.dabombackend.domain.post.dto.ReplyDto;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.Header;
 import lombok.RequiredArgsConstructor;
@@ -45,8 +46,8 @@ public class CreatorController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/creators/me/courses")
-    public ResponseEntity<List< CourseDto.CreatorResponse>> getUploadedCourses(@AuthenticationPrincipal Member member) {
-        List< CourseDto.CreatorResponse> responseDto =  creatorCourseService.getUploadedCourses(member.getId());
+    public ResponseEntity<List<CourseDto.CreatorResponse>> getUploadedCourses(@AuthenticationPrincipal Member member) {
+        List<CourseDto.CreatorResponse> responseDto = creatorCourseService.getUploadedCourses(member.getId());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
@@ -71,5 +72,25 @@ public class CreatorController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(summary = "수강후기 / 수강전 문의사항 댓글 작성", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/reply/posts/{postId}")
+    public ResponseEntity<Long> writeReply(@PathVariable Long postId, @RequestBody ReplyDto.WriteRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setMemberId(member.getId());
+        requestDto.setPostId(postId);
+        Long response = creatorCourseService.writeReply(requestDto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
+    @Operation(summary = "수강후기 / 수강전 문의사항 댓글 수정", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @PatchMapping("/reply/{replyId}")
+    public ResponseEntity<Void> updateReply(@PathVariable Long replyId, @RequestBody ReplyDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
+        requestDto.setMemberId(member.getId());
+        requestDto.setReplyId(replyId);
+        creatorCourseService.updateReply(requestDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
