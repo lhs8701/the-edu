@@ -52,7 +52,9 @@ public class CreatorStatusService {
         List<CreatorStatusDto.CourseStatus> courseStatusList = new ArrayList<>();
         List<Course> courses = creator.getUploadedCourses();
         for (Course course : courses) {
-            Map<Integer, List<Long>> monthlyProfit = getMonthlyProfit(course);
+            List<Map.Entry<Integer, List<Long>>> monthlyProfit = getMonthlyProfit(course).entrySet()
+                    .stream()
+                    .toList();
             Long cancelCount = orderJpaRepository.countByCourseAndCanceled(course);
             Long studentCount = enrollJpaRepository.countByCourse(course);
             List<Member> members = enrollJpaRepository.findByCourse(course).stream()

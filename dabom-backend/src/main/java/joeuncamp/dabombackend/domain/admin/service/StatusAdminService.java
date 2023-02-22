@@ -31,7 +31,6 @@ public class StatusAdminService {
      */
     public StatusAdminDto getServiceStatus() {
         Long totalProfit = orderJpaRepository.findTotalProfitInTicket();
-//        Map<Integer, List<Long>> monthlyProfit = getMonthlyProfit();
         List<Map.Entry<Integer, List<Long>>> monthlyProfit = getMonthlyProfit().entrySet()
                 .stream()
                 .toList();
