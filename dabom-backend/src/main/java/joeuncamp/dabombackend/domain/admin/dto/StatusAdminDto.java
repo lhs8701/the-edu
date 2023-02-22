@@ -11,6 +11,6 @@ import java.util.Map;
 @Getter
 public class StatusAdminDto {
     Long totalProfit;
-    Map<Integer, List<Long>> monthlyProfit;
+    List<Map.Entry<Integer, List<Long>>> monthlyProfit;
     List<CreatorStatusDto> creatorStatusList;
 }
