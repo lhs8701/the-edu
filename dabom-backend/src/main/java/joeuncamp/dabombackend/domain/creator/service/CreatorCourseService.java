@@ -10,6 +10,11 @@ import joeuncamp.dabombackend.domain.course.service.TicketService;
 import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
+import joeuncamp.dabombackend.domain.post.dto.ReplyDto;
+import joeuncamp.dabombackend.domain.post.entity.Post;
+import joeuncamp.dabombackend.domain.post.entity.Reply;
+import joeuncamp.dabombackend.domain.post.repository.PostJpaRepository;
+import joeuncamp.dabombackend.domain.post.repository.ReplyJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CNotCreatorException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
@@ -28,6 +33,8 @@ public class CreatorCourseService {
     private final ChapterService chapterService;
     private final EnrollJpaRepository enrollJpaRepository;
     private final TicketService ticketService;
+    private final PostJpaRepository postJpaRepository;
+    private final ReplyJpaRepository replyJpaRepository;
 
     /**
      * 강좌를 개설합니다. 크리에이터 프로필이 활성화되지 않은 경우, 예외가 발생합니다.
@@ -75,5 +82,37 @@ public class CreatorCourseService {
         return courseJpaRepository.findByCreatorProfile(member.getCreatorProfile()).stream()
                 .map(CourseDto.CreatorResponse::new)
                 .toList();
+    }
+
+
+    /**
+     * 게시물에 댓글을 작성합니다.
+     *
+     * @param requestDto 댓글 작성 DTO
+     * @return 작성한 댓글의 아이디넘버
+     */
+    public Long writeReply(ReplyDto.WriteRequest requestDto) {
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        Post post = postJpaRepository.findById(requestDto.getPostId()).orElseThrow(CResourceNotFoundException::new);
+        if (!member.isCreator() || !post.getCourse().getCreatorProfile().equals(member.getCreatorProfile())) {
+            throw new CAccessDeniedException("크리에이터만 이용할 수 있는 기능입니다.");
+        }
+        Reply reply = requestDto.toEntity(member.getCreatorProfile(), post);
+        return replyJpaRepository.save(reply).getId();
+    }
+
+    /**
+     * 댓글을 수정합니다.
+     *
+     * @param requestDto 댓글 수정 DTO
+     */
+    public void updateReply(ReplyDto.UpdateRequest requestDto) {
+        Member member = memberJpaRepository.findById(requestDto.getMemberId()).orElseThrow(CResourceNotFoundException::new);
+        Reply reply = replyJpaRepository.findById(requestDto.getReplyId()).orElseThrow(CResourceNotFoundException::new);
+        if (!member.isCreator() || !reply.getCreator().equals(member.getCreatorProfile())) {
+            throw new CAccessDeniedException("크리에이터만 이용할 수 있는 기능입니다.");
+        }
+        reply.update(requestDto.getContent());
+        replyJpaRepository.save(reply);
     }
 }

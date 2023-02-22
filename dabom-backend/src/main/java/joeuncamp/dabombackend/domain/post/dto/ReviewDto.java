@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.post.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
@@ -80,6 +81,8 @@ public class ReviewDto {
         int rating;
         @Schema(description = "작성자")
         ProfileDto.ShortResponse writer;
+        @Schema(description = "댓글")
+        ReplyDto.Response reply;
 
         public Response(Review review) {
             this.reviewId = review.getId();
@@ -88,6 +91,9 @@ public class ReviewDto {
             this.likes = review.getLikes();
             this.rating = review.getScore();
             this.writer = new ProfileDto.ShortResponse(review.getMember());
+            if (review.getReply() != null) {
+                this.reply = new ReplyDto.Response(review.getReply());
+            }
         }
     }
 }
