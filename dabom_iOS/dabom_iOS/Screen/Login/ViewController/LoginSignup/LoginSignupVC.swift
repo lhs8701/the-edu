@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class LoginSignupVC: UIViewController {
 
@@ -19,7 +20,7 @@ class LoginSignupVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setNavi()
         configureView()
     }

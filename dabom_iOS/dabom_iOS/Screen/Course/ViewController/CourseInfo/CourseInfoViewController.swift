@@ -46,7 +46,7 @@ class CourseInfoViewController: UIViewController {
     
     var reviewData: [CourseReviewDataModel] = []
     var inquiryData: [CourseInquiryDataModel] = []
-    var ticketData: [TicketDataModel] = []
+    var ticketData: TicketDataModel?
     
     var onOffButton: UIButton!
     var heartButton: UIButton!
@@ -343,11 +343,11 @@ class CourseInfoViewController: UIViewController {
         TicketDataService.shared.getTickets(courseId: courseId) { response in
             switch response {
             case .success(let data):
-                if let data = data as? [TicketDataModel] {
+                if let data = data as? TicketDataModel {
                     self.ticketData = data
                     
                     // 유료 강좌인지 무료 강좌인지 확인
-                    if self.ticketData[0].costPrice > 0 {
+                    if data.costPrice > 0 {
                         self.isCharge = true
                     } else {
                         self.isCharge = false
@@ -520,12 +520,13 @@ extension CourseInfoViewController: allReviewBtnDelegate {
 // MARK: - CourseEnrollBtnDelegate 강좌 신청 버튼 눌렀을 때
 
 extension CourseInfoViewController: CourseEnrollBtnDelegate {
-    func CourseEnroll() {        
+    func CourseEnroll() {
+        guard let ticketData = ticketData else { return }
         if self.loginType != nil {
             let alert = UIAlertController(title: "수강 신청", message: "해당 강좌에 수강 신청하시겠습니까?", preferredStyle: .alert)
             let cancel = UIAlertAction(title: "취소", style: .cancel)
             let confirm = UIAlertAction(title: "신청", style: .default) { _ in
-                TicketDataService.shared.postPurchase(itemId: self.ticketData[0].id) { response in
+                TicketDataService.shared.postPurchase(itemId: ticketData.id) { response in
                     switch response {
                     case .success:
                         let complete = UIAlertController(title: "신청 되었습니다", message: nil, preferredStyle: .alert)

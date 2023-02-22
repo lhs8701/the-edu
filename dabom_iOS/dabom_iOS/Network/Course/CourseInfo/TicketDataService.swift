@@ -99,7 +99,7 @@ struct TicketDataService {
     private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         
-        guard let decodedData = try? decoder.decode([TicketDataModel].self, from: data) else {
+        guard let decodedData = try? decoder.decode(TicketDataModel.self, from: data) else {
             print("decode fail")
             return .pathErr }
         
