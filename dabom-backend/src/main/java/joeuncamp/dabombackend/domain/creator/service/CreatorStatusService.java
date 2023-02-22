@@ -58,6 +58,7 @@ public class CreatorStatusService {
                     .count();
             Double averageScore = reviewJpaRepository.findScoreByCourse(course);
             courseStatusList.add(CreatorStatusDto.CourseStatus.builder()
+                    .course(course)
                     .profit(profit)
                     .cancelCount(cancelCount)
                     .studentCount(studentCount)

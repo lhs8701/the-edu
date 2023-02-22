@@ -15,6 +15,9 @@ public class DateTimeUtil {
         LocalDate memberJoinedDate = createdTime.toLocalDate();
         LocalDate startDate = YearMonth.from(memberJoinedDate).atDay(1);
         LocalDate endDate = YearMonth.from(startDate).atEndOfMonth();
+        while (startDate.getYear() <= LocalDate.now().getYear()){
+
+        }
         while (startDate.isBefore(LocalDate.now())) {
             log.info("startDate:{}", startDate);
             log.info("endDate:{}", endDate);
