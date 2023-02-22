@@ -67,6 +67,7 @@ import ManageUnitQuestion from "./components/creator/course/ManageUnitQuestion";
 import HomePageTerm from "./components/HompageTerm";
 import Profit from "./components/admin/Profit";
 import PlayerErrComponent from "./components/Player/PlayerErrComponent";
+import CreatorsProfit from "./components/admin/CreatorsProfit";
 
 const router = createBrowserRouter([
   {
@@ -216,8 +217,8 @@ const router = createBrowserRouter([
         element: <CategoryProfit />,
       },
       {
-        path: "coursesprofit",
-        element: <CourseProfit />,
+        path: "creatorsprofit",
+        element: <CreatorsProfit />,
       },
       {
         path: "profit",

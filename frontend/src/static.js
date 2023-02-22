@@ -138,8 +138,8 @@ export const ADMIN_BAR_LIST = {
           url: "/admin/categoryprofit",
         },
         {
-          name: "강좌별 수익",
-          url: "/admin/coursesprofit",
+          name: "크리에이터별 수익",
+          url: "/admin/creatorsprofit",
         },
         {
           name: "전체 수익",
