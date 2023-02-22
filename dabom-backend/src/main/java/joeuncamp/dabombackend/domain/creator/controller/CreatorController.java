@@ -109,7 +109,7 @@ public class CreatorController {
     @Operation(summary = "크리에이터 상태 확인", description = "")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
-    @DeleteMapping("/creators/status")
+    @GetMapping("/creators/status")
     public ResponseEntity<CreatorStatusDto> getStatus(@AuthenticationPrincipal Member member) {
         CreatorStatusDto responseDto = creatorStatusService.getCreatorStatus(member);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
