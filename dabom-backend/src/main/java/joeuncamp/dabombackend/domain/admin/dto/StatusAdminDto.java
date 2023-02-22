@@ -10,6 +10,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Getter
 public class StatusAdminDto {
+    Long totalProfit;
     Map<Integer, List<Long>> monthlyProfit;
     List<CreatorStatusDto> creatorStatusList;
 }

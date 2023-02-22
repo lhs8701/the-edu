@@ -30,12 +30,13 @@ public class StatusAdminService {
      * @return 수익 상태
      */
     public StatusAdminDto getServiceStatus() {
+        Long totalProfit = orderJpaRepository.findTotalProfitInTicket();
         Map<Integer, List<Long>> monthlyProfit = getMonthlyProfit();
         List<CreatorStatusDto> creatorStatusList = creatorProfileJpaRepository.findAll()
                 .stream()
                 .map(creatorStatusService::getResponse)
                 .toList();
-        return new StatusAdminDto(monthlyProfit, creatorStatusList);
+        return new StatusAdminDto(totalProfit, monthlyProfit, creatorStatusList);
     }
 
     private Map<Integer, List<Long>> getMonthlyProfit() {
