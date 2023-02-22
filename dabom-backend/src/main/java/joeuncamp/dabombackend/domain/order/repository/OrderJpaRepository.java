@@ -15,9 +15,6 @@ import java.util.List;
 public interface OrderJpaRepository extends JpaRepository<Order, String> {
     List<Order> findByMember(Member member);
 
-    @Query(" select sum(o.amount) from Order o inner join Item i on o.item = i where treat(i as Ticket).course = :course and o.orderStatus = 'DONE'")
-    Long findProfitByCourse(@Param("course") Course course);
-
     @Query(" select sum(o.amount) from Order o inner join Item i on o.item = i where treat(i as Ticket).course = :course and o.orderStatus = 'DONE' and o.createdTime between :startDate and :endDate ")
     Long findProfitByCourseInDuration(@Param("course") Course course, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
@@ -27,9 +24,6 @@ public interface OrderJpaRepository extends JpaRepository<Order, String> {
     @Query(" select sum(o.amount) from Order o inner join Item i on o.item = i inner join Course c on treat(i as Ticket).course = c where c.creatorProfile = :creator and o.orderStatus = 'DONE'")
     Long findProfitByCreator(@Param("creator") CreatorProfile creator);
 
-    @Query(" select sum(o.amount) from Order o inner join Item i on o.item = i where type(i) in (Ticket) and o.orderStatus = 'DONE'")
-    Long findProfitInTicket();
-
     @Query(" select sum(o.amount) from Order o inner join Item i on o.item = i where type(i) in (Ticket) and o.orderStatus = 'DONE' and o.createdTime between :startDate and :endDate ")
-    Long findProfitInTicketInDuration(LocalDateTime atStartOfDay, LocalDateTime atTime);
+    Long findProfitInTicketInDuration(LocalDateTime startDate, LocalDateTime endDate);
 }
