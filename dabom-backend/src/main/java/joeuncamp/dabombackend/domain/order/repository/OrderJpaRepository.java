@@ -29,4 +29,7 @@ public interface OrderJpaRepository extends JpaRepository<Order, String> {
 
     @Query(" select sum(o.amount) from Order o inner join Item i on o.item = i where type(i) in (Ticket) and o.orderStatus = 'DONE'")
     Long findProfitInTicket();
+
+    @Query(" select sum(o.amount) from Order o inner join Item i on o.item = i where type(i) in (Ticket) and o.orderStatus = 'DONE' and o.createdTime between :startDate and :endDate ")
+    Long findProfitInTicketInDuration(LocalDateTime atStartOfDay, LocalDateTime atTime);
 }

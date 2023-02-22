@@ -5,10 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Getter
 public class StatusAdminDto {
-    Long totalProfit;
+    Map<Integer, List<Long>> monthlyProfit;
     List<CreatorStatusDto> creatorStatusList;
 }

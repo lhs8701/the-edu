@@ -84,8 +84,8 @@ public class CreatorStatusService {
             if (!map.containsKey(startDate.getYear())) {
                 map.put(startDate.getYear(), new ArrayList<>());
             }
-            Long monthProfit = orderJpaRepository.findProfitByCourseInDuration(course, startDate.atStartOfDay(), endDate.atTime(LocalTime.MAX));
-            map.get(startDate.getYear()).add(monthProfit);
+            Long monthlyProfit = orderJpaRepository.findProfitByCourseInDuration(course, startDate.atStartOfDay(), endDate.atTime(LocalTime.MAX));
+            map.get(startDate.getYear()).add(monthlyProfit);
             startDate = startDate.plusMonths(1);
             endDate = YearMonth.from(startDate).atEndOfMonth();
         }
