@@ -22,14 +22,14 @@ public class CreatorStatusDto {
         String title;
         CategoryType category;
         ImageInfo thumbnailImage;
-        long profit;
-        long cancelCount;
-        long studentCount;
-        long numOfCompleted;
-        double averageScore;
+        Long profit;
+        Long cancelCount;
+        Long studentCount;
+        Long numOfCompleted;
+        Double averageScore;
 
         @Builder
-        public CourseStatus(Course course, long profit, long cancelCount, long studentCount, long numOfCompleted, double averageScore) {
+        public CourseStatus(Course course, Long profit, Long cancelCount, Long studentCount, Long numOfCompleted, Double averageScore) {
             this.courseId = course.getId();
             this.title = course.getTitle();
             this.category = course.getCategory();

@@ -9,6 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class StatusAdminDto {
-    long totalProfit;
+    Long totalProfit;
     List<CreatorStatusDto> creatorStatusList;
 }

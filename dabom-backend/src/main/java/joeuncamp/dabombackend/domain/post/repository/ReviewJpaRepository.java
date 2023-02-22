@@ -17,5 +17,5 @@ public interface ReviewJpaRepository extends JpaRepository<Review, Long> {
     Optional<Review> findByMemberAndCourse(Member member, Course course);
 
     @Query(" select avg(r.score) from Review r where r.course = :course ")
-    Long findScoreByCourse(@Param("course") Course course);
+    Double findScoreByCourse(@Param("course") Course course);
 }

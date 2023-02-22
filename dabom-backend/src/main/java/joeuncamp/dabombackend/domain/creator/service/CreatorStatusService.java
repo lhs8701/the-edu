@@ -47,16 +47,16 @@ public class CreatorStatusService {
         List<CreatorStatusDto.CourseStatus> courseStatusList = new ArrayList<>();
         List<Course> courses = creator.getUploadedCourses();
         for (Course course : courses) {
-            long profit = orderJpaRepository.findProfitByCourse(course);
-            long cancelCount = orderJpaRepository.countByCourseAndCanceled(course);
-            long studentCount = enrollJpaRepository.countByCourse(course);
+            Long profit = orderJpaRepository.findProfitByCourse(course);
+            Long cancelCount = orderJpaRepository.countByCourseAndCanceled(course);
+            Long studentCount = enrollJpaRepository.countByCourse(course);
             List<Member> members = enrollJpaRepository.findByCourse(course).stream()
                     .map(Enroll::getMember)
                     .toList();
-            long numOfCompleted = members.stream()
+            Long numOfCompleted = members.stream()
                     .filter(member -> viewChecker.watchedAll(member, course))
                     .count();
-            double averageScore = reviewJpaRepository.findScoreByCourse(course);
+            Double averageScore = reviewJpaRepository.findScoreByCourse(course);
             courseStatusList.add(CreatorStatusDto.CourseStatus.builder()
                     .profit(profit)
                     .cancelCount(cancelCount)
@@ -65,7 +65,7 @@ public class CreatorStatusService {
                     .averageScore(averageScore)
                     .build());
         }
-        long totalProfit = orderJpaRepository.findProfitByCreator(creator);
+        Long totalProfit = orderJpaRepository.findProfitByCreator(creator);
         return new CreatorStatusDto(courseStatusList, totalProfit);
     }
 }
