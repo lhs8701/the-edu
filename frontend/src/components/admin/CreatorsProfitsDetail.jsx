@@ -1,36 +1,18 @@
 import { Grid, Paper } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { getCreatorStatusApi } from "../../api/creatorApi";
-import { getAccessTokenSelector } from "../../atom";
-import { CREATOR_BAR_LIST } from "../../static";
+import { useLocation } from "react-router";
 import Chart from "../dashboard/Chart";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import Deposits from "../dashboard/Deposits";
-import Title from "../dashboard/Title";
 
-export default function CreatorInfo() {
-  const accessToken = useRecoilValue(getAccessTokenSelector);
-  const [status, setStatus] = useState();
-
-  const getCreatorStatus = () => {
-    getCreatorStatusApi(accessToken)
-      .then(({ data }) => {
-        setStatus(data);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  };
-
-  useEffect(getCreatorStatus, []);
+export default function CreatorsProfitDetail() {
+  const { state } = useLocation();
 
   return (
     <Grid container xs={12}>
       <Grid item xs={12}>
-        <DashboardTitleTab title={CREATOR_BAR_LIST.list[0].creator[0].name} />
+        <DashboardTitleTab title={`${state.creatorName} 강사의 수익`} />
       </Grid>
-      <Grid item xs={2.2} mb={4}>
+      <Grid item xs={2.2} mb={3}>
         <Paper
           sx={{
             p: 2,
@@ -41,10 +23,10 @@ export default function CreatorInfo() {
             height: 200,
           }}
         >
-          <Deposits title={"전체 수익"} amount={status?.totalProfit} />
+          <Deposits title={"전체 수익"} amount={state?.totalProfit} />
         </Paper>
       </Grid>
-      {status?.courseStatus?.map((course, idx) => {
+      {state?.courseStatus?.map((course, idx) => {
         return (
           <Grid key={course.courseId} item xs={12} mb={2}>
             <DashboardTitleTab title={`"${course.title}" 강좌의 수익`} />

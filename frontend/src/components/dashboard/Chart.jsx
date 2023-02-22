@@ -37,8 +37,8 @@ export default function Chart({ money, title }) {
         money = month;
       }
 
-      list.push(createData(idx + "월", total));
-      barList.push(createData(idx + "월", money));
+      list.push(createData(idx + 1 + "월", total));
+      barList.push(createData(idx + 1 + "월", money));
     });
     setData(list);
     setBarData(barList);

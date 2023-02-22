@@ -68,6 +68,7 @@ import HomePageTerm from "./components/HompageTerm";
 import Profit from "./components/admin/Profit";
 import PlayerErrComponent from "./components/Player/PlayerErrComponent";
 import CreatorsProfit from "./components/admin/CreatorsProfit";
+import CreatorsProfitDetail from "./components/admin/CreatorsProfitsDetail";
 
 const router = createBrowserRouter([
   {
@@ -219,6 +220,10 @@ const router = createBrowserRouter([
       {
         path: "creatorsprofit",
         element: <CreatorsProfit />,
+      },
+      {
+        path: "creatorsprofit/:creatorId",
+        element: <CreatorsProfitDetail />,
       },
       {
         path: "profit",
