@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class LoginSignupVC: UIViewController {
 
@@ -14,11 +15,25 @@ class LoginSignupVC: UIViewController {
     @IBOutlet weak var signupSelectBtn: UIButton!
     @IBOutlet weak var loginSelectBtn: UIButton!
     
+    let testBtn = UIButton(type: .system)
+    let favorite = UIAction(title: "즐겨찾기") { _ in
+        print("즐겨찾기")
+    }
+    
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(testBtn)
+        testBtn.setTitle("테스트", for: .normal)
+        testBtn.menu = UIMenu(title: "메뉴 타이틀", identifier: nil, options: .displayInline, children: [favorite])
+        testBtn.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-40)
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.height.equalTo(50)
+        }
         
         setNavi()
         configureView()

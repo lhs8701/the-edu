@@ -15,6 +15,7 @@ struct CourseReviewDataModel: Codable {
     let likes: Int
     let rating: Int
     let writer: writerDataModel
+    let reply: replyDataModel?
 }
 
 struct writerDataModel: Codable {

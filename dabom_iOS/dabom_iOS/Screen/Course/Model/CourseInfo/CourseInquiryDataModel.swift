@@ -14,4 +14,12 @@ struct CourseInquiryDataModel: Codable {
     let content: String
     let likes: Int
     let writer: writerDataModel
+    let reply: replyDataModel?
+}
+
+struct replyDataModel: Codable {
+    let content: String
+    let writer: String
+    let createdTime: String
+    let modifiedTime: String
 }
