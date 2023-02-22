@@ -35,6 +35,7 @@ public class ReplyDto {
     }
     @Getter
     public static class Response{
+        Long id;
         String content;
         String writer;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
@@ -45,6 +46,7 @@ public class ReplyDto {
         LocalDateTime modifiedTime;
 
         public Response(Reply reply){
+            this.id = reply.getId();
             this.content = reply.getContent();
             this.writer = reply.getCreator().getMember().getMemberPrivacy().getName();
             this.createdTime = reply.getCreatedTime();

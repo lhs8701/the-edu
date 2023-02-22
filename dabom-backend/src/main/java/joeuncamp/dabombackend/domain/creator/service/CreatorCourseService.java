@@ -1,6 +1,8 @@
 package joeuncamp.dabombackend.domain.creator.service;
 
+import jakarta.transaction.Transactional;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
+import joeuncamp.dabombackend.domain.course.dto.CreatorStatusDto;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.course.entity.Enroll;
 import joeuncamp.dabombackend.domain.course.repository.CourseJpaRepository;
@@ -114,5 +116,22 @@ public class CreatorCourseService {
         }
         reply.update(requestDto.getContent());
         replyJpaRepository.save(reply);
+    }
+
+
+    /**
+     * 댓글을 삭제합니다.
+     *
+     * @param  memberId 삭제할 댓글
+     * @param replyId 크리에이터
+     */
+    @Transactional
+    public void deleteReply(Long memberId, Long replyId) {
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(CResourceNotFoundException::new);
+        Reply reply = replyJpaRepository.findById(replyId).orElseThrow(CResourceNotFoundException::new);
+        if (!member.isCreator() || !reply.getCreator().equals(member.getCreatorProfile())) {
+            throw new CAccessDeniedException("크리에이터만 이용할 수 있는 기능입니다.");
+        }
+        replyJpaRepository.deleteById(replyId);
     }
 }
