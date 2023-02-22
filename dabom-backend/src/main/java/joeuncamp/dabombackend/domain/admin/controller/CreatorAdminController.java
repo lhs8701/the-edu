@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.admin.dto.CreatorAdminDto;
 import joeuncamp.dabombackend.domain.admin.dto.MemberAdminDto;
+import joeuncamp.dabombackend.domain.admin.dto.StatusAdminDto;
 import joeuncamp.dabombackend.domain.admin.service.CreatorAdminService;
 import joeuncamp.dabombackend.domain.admin.service.MemberAdminService;
+import joeuncamp.dabombackend.domain.admin.service.StatusAdminService;
 import joeuncamp.dabombackend.domain.creator.service.CreatorActivator;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
@@ -28,6 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CreatorAdminController {
     private final CreatorAdminService creatorAdminService;
+    private final StatusAdminService statusAdminService;
 
     @Operation(summary = "크리에이터 활성화", description = "회원의 크리에이터 기능을 활성화합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
@@ -47,7 +50,6 @@ public class CreatorAdminController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-
     @Operation(summary = "전체 크리에이터 목록 조회", description = "전체 크리에이터 목록을 조회합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('ADMIN')")
@@ -63,6 +65,15 @@ public class CreatorAdminController {
     @GetMapping("/courses/units/{unitId}")
     public ResponseEntity<UnitDto.Response> playUnit(@PathVariable Long unitId) {
         UnitDto.Response responseDto = creatorAdminService.playUnit(unitId);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @Operation(summary = "서비스 전체 수익 조회", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/status")
+    public ResponseEntity<StatusAdminDto> getServiceStatus() {
+        StatusAdminDto responseDto = statusAdminService.getServiceStatus();
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

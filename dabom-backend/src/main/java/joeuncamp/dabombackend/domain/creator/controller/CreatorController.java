@@ -5,10 +5,12 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
+import joeuncamp.dabombackend.domain.course.dto.CreatorStatusDto;
 import joeuncamp.dabombackend.domain.course.dto.TicketDto;
 import joeuncamp.dabombackend.domain.course.service.TicketService;
 import joeuncamp.dabombackend.domain.creator.dto.CreatorDto;
 import joeuncamp.dabombackend.domain.creator.service.CreatorCourseService;
+import joeuncamp.dabombackend.domain.creator.service.CreatorStatusService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.creator.service.CreatorActivator;
 import joeuncamp.dabombackend.domain.post.dto.ReplyDto;
@@ -31,6 +33,7 @@ public class CreatorController {
     private final CreatorActivator creatorActivator;
     private final CreatorCourseService creatorCourseService;
     private final TicketService ticketService;
+    private final CreatorStatusService creatorStatusService;
 
     @Operation(summary = "강좌를 개설합니다.", description = "강좌 개설은 크리에이터 프로필을 활성화한 회원만 가능합니다. \n 개설된 강좌의 아이디넘버가 반환됩니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
@@ -92,5 +95,23 @@ public class CreatorController {
         requestDto.setReplyId(replyId);
         creatorCourseService.updateReply(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "수강후기 / 수강전 문의사항 댓글 삭제", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/reply/{replyId}")
+    public ResponseEntity<Void> deleteReply(@PathVariable Long replyId, @AuthenticationPrincipal Member member) {
+        creatorCourseService.deleteReply(member.getId(), replyId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "크리에이터 상태 확인", description = "")
+    @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/creators/status")
+    public ResponseEntity<CreatorStatusDto> getStatus(@AuthenticationPrincipal Member member) {
+        CreatorStatusDto responseDto = creatorStatusService.getCreatorStatus(member);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

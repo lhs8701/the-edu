@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Getter
@@ -18,6 +20,7 @@ public class Reply extends BaseTimeEntity {
     Long id;
     String content;
     @ManyToOne
+    @JoinColumn
     CreatorProfile creator;
     @OneToOne
     Post post;
@@ -26,6 +29,9 @@ public class Reply extends BaseTimeEntity {
     public Reply(String content, CreatorProfile creator, Post post) {
         this.content = content;
         this.creator = creator;
+//        if (post.getReply() != null){
+//            post.reply = null;
+//        }
         this.post = post;
     }
 
