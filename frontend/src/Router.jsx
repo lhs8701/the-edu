@@ -64,6 +64,9 @@ import StopCourses from "./components/admin/course/StopCourses";
 import ReviseStopCourse from "./components/admin/course/ReviseStopCourse";
 import LockUsers from "./components/admin/LockUsers";
 import ManageUnitQuestion from "./components/creator/course/ManageUnitQuestion";
+import HomePageTerm from "./components/HompageTerm";
+import Profit from "./components/admin/Profit";
+import PlayerErrComponent from "./components/Player/PlayerErrComponent";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +81,11 @@ const router = createBrowserRouter([
       {
         path: "/privacyterms",
         element: <PrivacyTerms />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: "/term",
+        element: <HomePageTerm />,
         errorElement: <ErrorComponent />,
       },
       {
@@ -102,7 +110,7 @@ const router = createBrowserRouter([
       {
         path: "my",
         element: <MyPage />,
-        errorElement: <MypageErrComponent />,
+        errorElement: <ErrorComponent />,
         children: [
           {
             path: "",
@@ -147,7 +155,7 @@ const router = createBrowserRouter([
             element: <FailPurchase />,
           },
         ],
-        errorElement: <div>dndn</div>,
+        errorElement: <ErrorComponent />,
       },
 
       {
@@ -197,7 +205,7 @@ const router = createBrowserRouter([
   {
     path: "/player/:courseId/:unitId",
     element: <PlayerRoot />,
-    errorElement: <ErrorComponent />,
+    errorElement: <PlayerErrComponent />,
   },
   {
     path: "/admin",
@@ -213,7 +221,7 @@ const router = createBrowserRouter([
       },
       {
         path: "profit",
-        element: <CourseProfit />,
+        element: <Profit />,
       },
       {
         path: "users",
@@ -296,6 +304,7 @@ const router = createBrowserRouter([
         element: <CouponList />,
       },
     ],
+    errorElement: <ErrorComponent />,
   },
   {
     path: "/creator",
@@ -350,6 +359,7 @@ const router = createBrowserRouter([
         element: <CoursesInquires />,
       },
     ],
+    errorElement: <ErrorComponent />,
   },
 ]);
 

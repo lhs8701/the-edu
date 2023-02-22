@@ -1,5 +1,4 @@
-import { Suspense, useEffect } from "react";
-import { useQueries, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import {
@@ -12,7 +11,6 @@ import {
 import CourseDetail from "../components/course/CourseDetail";
 import CourseIntro from "../components/course/CourseIntro";
 import CoursePayment from "../components/course/CoursePayment";
-import { dummyCourseInfo } from "../dummy";
 
 const DividerBox = styled.div`
   display: flex;
@@ -97,20 +95,18 @@ export default function CoursePage() {
 
   return (
     <div>
-      <Suspense fallback={<div>로딩중</div>}>
-        <CourseIntro courseId={courseId} />
-        <DividerBox>
-          <CourseDetail courseId={courseId} />
-          {paymentInfo?.data?.data && (
-            <CoursePayment
-              ticketInfo={paymentInfo?.data?.data}
-              title={info?.data?.title}
-              teacher={info?.data?.instructor}
-              courseId={courseId}
-            />
-          )}
-        </DividerBox>
-      </Suspense>
+      <CourseIntro courseId={courseId} />
+      <DividerBox>
+        <CourseDetail courseId={courseId} />
+        {paymentInfo?.data?.data && (
+          <CoursePayment
+            ticketInfo={paymentInfo?.data?.data}
+            title={info?.data?.title}
+            teacher={info?.data?.instructor}
+            courseId={courseId}
+          />
+        )}
+      </DividerBox>
     </div>
   );
 }

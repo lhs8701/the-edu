@@ -1,8 +1,7 @@
 import { useInView } from "framer-motion";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useInfiniteQuery } from "react-query";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ClassCard from "../components/ClassCard";
 import {
@@ -32,41 +31,6 @@ const CourseListBox = styled.div`
   align-items: center;
   justify-items: center;
   margin-bottom: 150px;
-`;
-
-const SideBarBox = styled.nav`
-  width: 17%;
-  height: 100%;
-  border-radius: 10px;
-  background: var(--color-sidebar);
-  box-shadow: 0 0px 10px rgb(0 0 0 / 16%), 0 0px 0px rgb(0 0 0 / 16%);
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  padding: 15px 0;
-  box-sizing: border-box;
-  margin-top: 80px;
-`;
-
-const AllLink = styled(Link)`
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  font-weight: var(--weight-middle);
-  display: flex;
-  align-items: center;
-  font-size: 19px;
-  color: ${(props) =>
-    props.ison ? "var(--color-primary)" : "var(--color-text)"};
-  &:hover {
-    color: var(--color-primary);
-  }
-  padding: 0 20px;
-  box-sizing: border-box;
-  padding-bottom: 7px;
-  margin-top: 5px;
-  text-decoration: none;
 `;
 
 const BottomDiv = styled.div`

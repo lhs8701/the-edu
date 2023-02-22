@@ -14,6 +14,15 @@ const STANBY_URL = "/standby";
 const ACTIVE_URL = "/activate/members";
 const REPLY_URL = `${API_URL}/reply/posts`;
 const PATCH_REPLY_URL = `${API_URL}/reply`;
+const GET_CREATOR_STATUS_URL = `${API_URL}/creators/status`;
+
+export async function getCreatorStatusApi(accessToken) {
+  return await axios.get(GET_CREATOR_STATUS_URL, {
+    headers: {
+      ACCESS: accessToken,
+    },
+  });
+}
 
 export async function replyInquireApi(accessToken, postId, content) {
   return await axios.post(

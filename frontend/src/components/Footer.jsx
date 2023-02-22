@@ -30,7 +30,6 @@ const InfoFooterBox = styled.div`
   font-size: 1rem;
   font-weight: var(--weight-middle);
   width: 50%;
-
   flex: 1;
 `;
 
@@ -46,9 +45,8 @@ export default function Footer() {
   return (
     <DaboomFooter>
       <InfoFooterBox>
-        <InfoLink>공지사항</InfoLink>
-        <InfoLink to={PROCESS_MAIN_URL.PRIVACY}>이용 약관</InfoLink>
-        <InfoLink>개인정보 처리 방침</InfoLink>
+        <InfoLink to={PROCESS_MAIN_URL.TERM}>이용 약관</InfoLink>
+        <InfoLink to={PROCESS_MAIN_URL.PRIVACY}>개인정보 처리 방침</InfoLink>
       </InfoFooterBox>
       <br />
       <FooterBox>

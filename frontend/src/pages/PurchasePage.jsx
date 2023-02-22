@@ -24,7 +24,6 @@ import { TabTitle } from "../style/CommonCss";
 import {
   DiscountTab,
   ONOFFTab,
-  OwnPriceTab,
   PriceBox,
   PriceUnderBar,
   PrimaryCostTab,
@@ -447,7 +446,6 @@ export default function PurchasePage() {
         </InfoSection>
         <br />
         <br />
-
         {isPurchaseDone ? <Outlet /> : <PurchaseForm />}
       </DividerBox>
     </MyPageWrapper>

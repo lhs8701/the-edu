@@ -1,18 +1,16 @@
 import { useInView } from "framer-motion";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useInfiniteQuery } from "react-query";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Arcodian from "../components/Arcodian";
 import ClassCard from "../components/ClassCard";
-import { CATE_VALUE, PROCESS_MAIN_URL } from "../static";
+import { CATE_VALUE } from "../static";
 import {
   MyPageBox,
   MyPageContentBox,
   MyPageTitle,
 } from "../style/MypageComponentsCss";
-import { NavBox } from "../style/SideBarCss";
+
 import { getCategoryListApi } from "../api/courseApi";
 import { SideBar } from "./AllCoursesPage";
 

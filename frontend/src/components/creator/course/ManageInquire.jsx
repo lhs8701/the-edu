@@ -57,9 +57,9 @@ export default function ManageInquire({ courseId }) {
           });
       }
     };
-    const reviseInquire = () => {
+    const reviseInquire = (replyId) => {
       if (window.confirm("답글을 수정하시겠습니까?")) {
-        reviseInquireApi(accessToken, inquire.inquiryId, reply)
+        reviseInquireApi(accessToken, replyId, reply)
           .then(() => {})
           .catch((err) => {
             alert(err);
@@ -107,7 +107,12 @@ export default function ManageInquire({ courseId }) {
               답글 등록
             </Button>
           ) : (
-            <Button onClick={reviseInquire} variant="contained">
+            <Button
+              onClick={() => {
+                reviseInquire(inquire.reply.id);
+              }}
+              variant="contained"
+            >
               답글 수정
             </Button>
           )}

@@ -51,6 +51,7 @@ export const PROCESS_MAIN_URL = {
   EVENT: "/event",
   SEARCH: "/search",
   PLAYER: "/player",
+  TERM: "/term",
   PRIVACY: "/privacyterms",
 };
 

@@ -22,6 +22,7 @@ import { Outlet, useNavigate } from "react-router";
 import CreatorListItems from "./CreatorListItems";
 
 import { STATIC_URL } from "../../static";
+import { Grid, Paper } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -176,21 +177,7 @@ function DashboardContent({ isCreator }) {
             maxWidth="lg"
             sx={{ mt: 4, mb: 4, height: "70vh", width: "100%" }}
           >
-            {/* <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-
-              <Grid item xs={12} md={4} lg={3}>
+            {/* <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,
@@ -201,14 +188,14 @@ function DashboardContent({ isCreator }) {
                 >
                   <Deposits />
                 </Paper>
-              </Grid>
+              </Grid> */}
 
-              <Grid item xs={12}>
+            {/* <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
                   <Orders />
                 </Paper>
-              </Grid>
-            </Grid> */}
+              </Grid> */}
+
             <Outlet />
 
             <Copyright sx={{ mt: 7, pt: 4 }} />

@@ -1,10 +1,13 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getCurriculumStatusApi } from "../api/courseApi";
+import {
+  getCurriculumStatusApi,
+  getUserEnrollStatusApi,
+} from "../api/courseApi";
 import {
   getLatestRecordApi,
   postMyRecordApi,
@@ -231,6 +234,24 @@ export default function PlayerRoot() {
       postWatchAllApi(accessToken, unitId);
     }
   }, [videoVal.played]);
+
+  const checkUserEnroll = () => {
+    if (loginState) {
+      getUserEnrollStatusApi(accessToken, courseId)
+        .then(({ data }) => {
+          if (!data) {
+            alert("확인되지 않은 접근입니다.");
+            window.close();
+          }
+        })
+        .catch((err) => {
+          alert("확인되지 않은 접근입니다.");
+          window.close();
+        });
+    }
+  };
+
+  useEffect(checkUserEnroll, []);
 
   return (
     <Hm>

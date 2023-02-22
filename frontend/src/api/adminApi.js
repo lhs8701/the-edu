@@ -12,6 +12,16 @@ const COUPON_LIST_URL = `${ADMIN_URL}/coupons`;
 const GET_STOP_COURSES_URL = `${ADMIN_URL}/courses/locked`;
 const GET_LOCKED_MEMBER_URL = `${GET_USERS_URL}/locked`;
 const GET_UNIT_INFO_URL = `${ADMIN_URL}/courses/units`;
+const GET_ALL_PROFIT_URL = `${ADMIN_URL}/status`;
+
+export async function getAllProfitApi(accessToken) {
+  return await axios.get(GET_ALL_PROFIT_URL, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
+    },
+  });
+}
 
 export async function getAdminVideoInfoApi(accessToken, unitId) {
   return await axios.get(

@@ -177,9 +177,8 @@ export default function LobbyPage() {
         }
       })
       .catch((err) => {
-        console.log(err);
-        // alert("Error");
-        // navigate("/");
+        alert("Error");
+        navigate("/");
       });
   };
 

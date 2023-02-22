@@ -1,33 +1,33 @@
 import { Grid, Paper } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { getCreatorStatusApi } from "../../api/creatorApi";
-import { getAccessTokenSelector } from "../../atom";
-import { CREATOR_BAR_LIST } from "../../static";
+import { getAllProfitApi } from "../../api/adminApi";
+import { getAdminAccessTokenSelector } from "../../atom";
+import { ADMIN_BAR_LIST } from "../../static";
 import Chart from "../dashboard/Chart";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import Deposits from "../dashboard/Deposits";
 
-export default function CreatorInfo() {
-  const accessToken = useRecoilValue(getAccessTokenSelector);
+export default function Profit() {
+  const accessToken = useRecoilValue(getAdminAccessTokenSelector);
   const [status, setStatus] = useState();
 
-  const getCreatorStatus = () => {
-    getCreatorStatusApi(accessToken)
+  const getSiteStatus = () => {
+    getAllProfitApi(accessToken)
       .then(({ data }) => {
-        console.log(data);
         setStatus(data);
       })
       .catch((err) => {
         alert(err);
       });
   };
+  console.log(status);
 
-  useEffect(getCreatorStatus, []);
+  useEffect(getSiteStatus, []);
   return (
     <Grid container xs={12}>
       <Grid item xs={12}>
-        <DashboardTitleTab title={CREATOR_BAR_LIST.list[0].creator[0].name} />
+        <DashboardTitleTab title={ADMIN_BAR_LIST.list[3].list[2].name} />
       </Grid>
       <Grid item xs={3} mb={3}>
         <Paper
