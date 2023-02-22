@@ -8,12 +8,13 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Getter
 public class CreatorStatusDto {
     List<CourseStatus> courseStatus;
-    long totalProfit;
+    Long totalProfit;
 
     @Getter
     @AllArgsConstructor
@@ -22,19 +23,19 @@ public class CreatorStatusDto {
         String title;
         CategoryType category;
         ImageInfo thumbnailImage;
-        Long profit;
+        Map<Integer, List<Long>> monthlyProfit;
         Long cancelCount;
         Long studentCount;
         Long numOfCompleted;
         Double averageScore;
 
         @Builder
-        public CourseStatus(Course course, Long profit, Long cancelCount, Long studentCount, Long numOfCompleted, Double averageScore) {
+        public CourseStatus(Course course, Map<Integer, List<Long>> monthlyProfit, Long cancelCount, Long studentCount, Long numOfCompleted, Double averageScore) {
             this.courseId = course.getId();
             this.title = course.getTitle();
             this.category = course.getCategory();
             this.thumbnailImage = course.getThumbnailImage();
-            this.profit = profit;
+            this.monthlyProfit = monthlyProfit;
             this.cancelCount = cancelCount;
             this.studentCount = studentCount;
             this.numOfCompleted = numOfCompleted;

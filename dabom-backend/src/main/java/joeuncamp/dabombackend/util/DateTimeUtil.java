@@ -1,5 +1,6 @@
 package joeuncamp.dabombackend.util;
 
+import joeuncamp.dabombackend.domain.course.entity.Course;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.core.Local;
 
@@ -14,11 +15,10 @@ import java.util.Map;
 @Slf4j
 public class DateTimeUtil {
 
-    public void temp() {
-        LocalDateTime createdTime = LocalDateTime.of(2020, 10, 9, 12, 12, 20);
-        LocalDate memberJoinedDate = createdTime.toLocalDate();
-        LocalDate startDate = YearMonth.from(memberJoinedDate).atDay(1);
-        LocalDate endDate = YearMonth.from(memberJoinedDate).atEndOfMonth();
+    public void temp(Course course) {
+        LocalDate openedDate = course.getCreatedTime().toLocalDate();
+        LocalDate startDate = YearMonth.from(openedDate).atDay(1);
+        LocalDate endDate = YearMonth.from(openedDate).atEndOfMonth();
         Map<Integer, List<LocalDate>> map = new HashMap<>();
         while (startDate.isBefore(LocalDate.now())) {
             if (!map.containsKey(startDate.getYear())){

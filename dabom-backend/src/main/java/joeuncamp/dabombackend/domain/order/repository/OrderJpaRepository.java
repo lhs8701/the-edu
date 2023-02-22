@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderJpaRepository extends JpaRepository<Order, String> {
@@ -15,6 +16,9 @@ public interface OrderJpaRepository extends JpaRepository<Order, String> {
 
     @Query(" select sum(o.amount) from Order o inner join Item i on o.item = i where treat(i as Ticket).course = :course and o.orderStatus = 'DONE'")
     Long findProfitByCourse(@Param("course") Course course);
+
+    @Query(" select sum(o.amount) from Order o inner join Item i on o.item = i where treat(i as Ticket).course = :course and o.orderStatus = 'DONE' and o.createdTime between :startDate and :endDate ")
+    Long findProfitByCourseInDuration(@Param("course") Course course, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     @Query(" select count(o.id) from Order o inner join Item i on o.item = i where treat(i as Ticket).course = :course and o.orderStatus = 'CANCELED' ")
     Long countByCourseAndCanceled(Course course);
