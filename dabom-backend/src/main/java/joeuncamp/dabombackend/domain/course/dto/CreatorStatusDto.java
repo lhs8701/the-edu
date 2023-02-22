@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.course.dto;
 
 import joeuncamp.dabombackend.domain.course.entity.Course;
+import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.global.constant.CategoryType;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,8 @@ import java.util.Map;
 @AllArgsConstructor
 @Getter
 public class CreatorStatusDto {
+    Long creatorId;
+    String creatorName;
     List<CourseStatus> courseStatus;
     Long totalProfit;
 

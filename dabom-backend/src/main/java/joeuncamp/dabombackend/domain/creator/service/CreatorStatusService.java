@@ -74,7 +74,7 @@ public class CreatorStatusService {
                     .build());
         }
         Long totalProfit = orderJpaRepository.findProfitByCreator(creator);
-        return new CreatorStatusDto(courseStatusList, totalProfit);
+        return new CreatorStatusDto(creator.getId(), creator.getMember().getMemberPrivacy().getName(), courseStatusList, totalProfit);
     }
 
     private Map<Integer, List<Long>> getMonthlyProfit(Course course) {
