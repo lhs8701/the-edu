@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,7 +84,7 @@ public class CreatorStatusService {
             if (!map.containsKey(startDate.getYear())) {
                 map.put(startDate.getYear(), new ArrayList<>());
             }
-            Long monthProfit = orderJpaRepository.findProfitByCourseInDuration(course, startDate, endDate);
+            Long monthProfit = orderJpaRepository.findProfitByCourseInDuration(course, startDate.atStartOfDay(), endDate.atTime(LocalTime.MAX));
             map.get(startDate.getYear()).add(monthProfit);
             startDate = startDate.plusMonths(1);
             endDate = YearMonth.from(startDate).atEndOfMonth();
