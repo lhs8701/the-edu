@@ -70,6 +70,7 @@ export default function CourseDetailSetUp() {
 
   useEffect(() => {
     if (!policy) {
+      // 정책 변경마다 따라오는 상태도 변경
       setPrice(0);
       setPeriod(0);
       setDiscountPrice(0);

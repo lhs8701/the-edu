@@ -67,9 +67,9 @@ export default function AccountRoot() {
               navigate("/");
             }}
           >
-            <Title>다 </Title>
-            <PointTitle>봄</PointTitle>
-            <SubTitle>&nbsp; - The Edu</SubTitle>
+            <Title>The</Title>
+            <PointTitle>Edu</PointTitle>
+            {/* <SubTitle>&nbsp; - The Edu</SubTitle> */}
           </TitleBox>
           <br />
           <br />

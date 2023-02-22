@@ -88,7 +88,7 @@ export default function CourseInquire({ courseId }) {
         <Box>
           <ChatUserInfo writer={userInfo?.writer} rate={""} />
           <ChatContextArea content={userInfo?.content} />
-          <ChatBottom />
+          {userInfo?.reply && <ChatBottom reply={userInfo?.reply} />}
         </Box>
         <UnderBar />
       </>

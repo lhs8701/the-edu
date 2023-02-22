@@ -12,6 +12,36 @@ const CURRICULUM_URL = "/curriculum";
 const FILE_URL = API_URL + FILE_PATH;
 const STANBY_URL = "/standby";
 const ACTIVE_URL = "/activate/members";
+const REPLY_URL = `${API_URL}/reply/posts`;
+const PATCH_REPLY_URL = `${API_URL}/reply`;
+
+export async function replyInquireApi(accessToken, postId, content) {
+  return await axios.post(
+    `${REPLY_URL}/${postId}`,
+    {
+      content: content,
+    },
+    {
+      headers: {
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
+export async function reviseInquireApi(accessToken, postId, content) {
+  return await axios.patch(
+    `${PATCH_REPLY_URL}/${postId}`,
+    {
+      content: content,
+    },
+    {
+      headers: {
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
 
 export async function setUpTicketApi(accessToken, courseId, data) {
   return await axios.post(

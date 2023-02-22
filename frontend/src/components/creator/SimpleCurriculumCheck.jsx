@@ -26,7 +26,9 @@ export default function SimpleCurriculumCheck({ curriculumList }) {
     return (
       <ChapterBox key={chapter.title}>
         <div>
-          {idx + 1}. {chapter?.title}
+          <b>
+            {idx + 1}. {chapter?.title}
+          </b>
         </div>
         <br />
         {chapter?.units?.map((unit, idx) => {
