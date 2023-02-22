@@ -23,7 +23,7 @@ public class StatusAdminService {
      * @return 수익 상태
      */
     public StatusAdminDto getServiceStatus() {
-        long totalProfit = orderJpaRepository.findProfitInTicket();
+        Long totalProfit = orderJpaRepository.findProfitInTicket();
         List<CreatorStatusDto> creatorStatusList = creatorProfileJpaRepository.findAll()
                 .stream()
                 .map(creatorStatusService::getResponse)
