@@ -11,7 +11,7 @@ import { uploadImageApi } from "../../api/creatorApi";
 import { changePwdApi, myInfoApi, revisemyInfoApi } from "../../api/myPageApi";
 import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import { useScript } from "../../hook";
-import { STATIC_URL } from "../../static";
+import { PWD_VALID_REG, STATIC_URL } from "../../static";
 import {
   AccountBtn,
   AccountForm,
@@ -90,11 +90,8 @@ export default function Revise() {
       enabled: !!memberId,
       onSuccess: ({ email, nickname, profileImage }) => {
         setIsName(nickname);
-
         setIsId(email);
-
         setIsProfileImg(profileImage?.originalFilePath);
-
         setValue("name", nickname);
         setValue("email", email);
       },
@@ -137,24 +134,26 @@ export default function Revise() {
   });
 
   const submit = () => {
-    const info = {
-      nickname: isName,
-      email: isId,
-      profileImage: isProfileImg,
-    };
-    revisemyInfoApi(accessToken, info)
-      .then(() => {
-        alert("내 정보가 변경이 되었습니다.");
-        queryClient.refetchQueries({ queryKey: ["myInfo", memberId] });
-      })
-      .catch((err) => {
-        alert(err);
-        console.log(err);
-        console.log(err.response.status);
-        if (err.response.status === 401) {
-        } else {
-        }
-      });
+    if (window.confirm(`해당 정보로 변경하시겠습니까?`)) {
+      const info = {
+        nickname: isName,
+        email: isId,
+        profileImage: isProfileImg,
+      };
+      revisemyInfoApi(accessToken, info)
+        .then(() => {
+          alert("내 정보가 변경이 되었습니다.");
+          queryClient.refetchQueries({ queryKey: ["myInfo", memberId] });
+        })
+        .catch((err) => {
+          alert(err);
+          console.log(err);
+          console.log(err.response.status);
+          if (err.response.status === 401) {
+          } else {
+          }
+        });
+    }
   };
   const uploadImg = (e) => {
     uploadImageApi(e.target.files[0], accessToken)
@@ -167,15 +166,17 @@ export default function Revise() {
   };
 
   const changePwd = () => {
-    changePwdApi(accessToken, isCurrentPwd, isNewPwd)
-      .then(() => alert("비밀번호가 변경되었습니다."))
-      .catch((err) => {
-        if (err.response.data.code === -6009) {
-          alert("비밀번호 형식이 옳지 않습니다.");
-        }
-      });
+    if (window.confirm(`비밀번호를 변경하시겠습니까?`)) {
+      changePwdApi(accessToken, isCurrentPwd, isNewPwd)
+        .then(() => alert("비밀번호가 변경되었습니다."))
+        .catch((err) => {
+          if (err.response.data.code === -6009) {
+            alert("비밀번호 형식이 옳지 않습니다.");
+          }
+        });
+    }
   };
-  console.log(infos?.data?.certified);
+
   function AuthButton() {
     const [loading, error] = useScript("https://cdn.toss.im/cert/v1");
 
@@ -268,11 +269,6 @@ export default function Revise() {
               {...register("name", {
                 name: "name",
                 required: "성명을 입력하세요!",
-                // 유효성 검사 파트
-                // pattern: {
-                //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                //   message: "wrong input",
-                // },
                 onChange: (e) => {
                   setIsName(e.target.value);
                 },
@@ -294,17 +290,18 @@ export default function Revise() {
               {...register("email", {
                 name: "email",
                 required: "이메일을 입력하세요!",
-                // 유효성 검사 파트
-                // pattern: {
-                //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                //   message: "wrong input",
-                // },
+                pattern: {
+                  value:
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: "잘못된 이메일 형식입니다.",
+                },
                 onChange: (e) => {
                   setIsId(e.target.value);
                 },
               })}
               type="text"
             />
+            <ErrorMessage>{errors?.email?.message}</ErrorMessage>
           </InputBox>
 
           <AccountBtn
@@ -325,30 +322,24 @@ export default function Revise() {
               <InputLabel>현재 비밀번호</InputLabel>
               <AccountInput
                 type="password"
-                {...register2("currendPwd", {
-                  name: "currentPwd",
-                  // 유효성 검사 파트
-                  // pattern: {
-                  //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                  //   message: "wrong input",
-                  // },
+                {...register2("pwd", {
+                  name: "pwd",
+                  required: "이전 비밀번호를 입력해주세요.",
+
+                  pattern: {
+                    value:
+                      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/,
+                    message:
+                      "비밀번호는 8글자 이상, 숫자, 영문, 특수문자를 포함해 8글자 이상 16글자이하입니다.",
+                  },
 
                   onChange: (e) => {
                     setIsCurrentPwd(e.target.value);
                   },
-
-                  minLength: {
-                    value: MIN_PWD_LENGTH,
-                    message: "8글자 이상 입력해주세요.",
-                  },
-                  maxLength: {
-                    value: MAX_PWD_LENGTH,
-                    message: "16글자 이하로 입력해주세요.",
-                  },
                 })}
                 placeholder="현재 비밀번호를 입력해주세요."
               />
-              <ErrorMessage>{errors2?.currentPwd?.message}</ErrorMessage>
+              <ErrorMessage>{errors2?.pwd?.message}</ErrorMessage>
             </InputBox>
             <InputBox>
               <InputLabel>새 비밀번호</InputLabel>
@@ -357,23 +348,16 @@ export default function Revise() {
                 {...register2("newPwd", {
                   name: "newPwd",
                   required: "새 비밀번호를 입력하세요",
-                  // 유효성 검사 파트
-                  // pattern: {
-                  //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                  //   message: "wrong input",
-                  // },
+                  pattern: {
+                    value:
+                      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/,
+                    message:
+                      "비밀번호는 8글자 이상, 숫자, 영문, 특수문자를 포함해 8글자 이상 16글자이하입니다.",
+                  },
                   validate: (val) => {
-                    if (watch("currentPwd") === val) {
-                      return "이전 비밀번호와 같은 비밀번호입니다!";
+                    if (watch("pwd") === val) {
+                      return "이전 비밀번호와 같은 비밀번호입니다! 다른 비밀번호를 입력해주세요.";
                     }
-                  },
-                  minLength: {
-                    value: MIN_PWD_LENGTH,
-                    message: "8글자 이상 입력해주세요.",
-                  },
-                  maxLength: {
-                    value: MAX_PWD_LENGTH,
-                    message: "16글자 이하로 입력해주세요.",
                   },
                   onChange: (e) => {
                     setIsNewPwd(e.target.value);
@@ -390,23 +374,10 @@ export default function Revise() {
                 {...register2("pwdConfirm", {
                   name: "pwdConfirm",
                   required: "새 비밀번호를 한번 더 입력해주세요!",
-                  // 유효성 검사 파트
-                  // pattern: {
-                  //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                  //   message: "wrong input",
-                  // },
                   validate: (val) => {
                     if (watch("newPwd") !== val) {
                       return "비밀번호가 서로 다릅니다!";
                     }
-                  },
-                  minLength: {
-                    value: 8,
-                    message: "8글자 이상 입력해주세요.",
-                  },
-                  maxLength: {
-                    value: 16,
-                    message: "16글자 이하로 입력해주세요.",
                   },
                 })}
                 placeholder="새 비밀번호를 입력해주세요."

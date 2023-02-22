@@ -51,7 +51,7 @@ export default function UnitVideo() {
   }, []);
 
   return (
-    <div style={{ height: "500px" }}>
+    <div style={{ height: "500px", marginBottom: "200px" }}>
       <MoveBtn
         style={{ height: "30px", width: "100px" }}
         onClick={() => {

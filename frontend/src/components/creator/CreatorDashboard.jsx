@@ -11,8 +11,6 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -22,7 +20,7 @@ import Chart from "../dashboard/Chart";
 import Deposits from "../dashboard/Deposits";
 import { Outlet, useNavigate } from "react-router";
 import CreatorListItems from "./CreatorListItems";
-import { Button } from "@mui/material";
+
 import { STATIC_URL } from "../../static";
 
 function Copyright(props) {
@@ -90,7 +88,7 @@ const mdTheme = createTheme();
 
 function DashboardContent({ isCreator }) {
   const [open, setOpen] = React.useState(true);
-  const navigate = useNavigate();
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -222,6 +220,5 @@ function DashboardContent({ isCreator }) {
 }
 
 export default function CreatorDashboard({ isCreator }) {
-  const navigate = useNavigate();
   return <DashboardContent isCreator={isCreator} />;
 }

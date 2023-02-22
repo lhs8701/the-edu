@@ -75,15 +75,6 @@ const Reply = styled.button`
   background-color: transparent;
 `;
 
-const HeartTab = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const HearTCnt = styled.p`
-  font-weight: var(--weight-thin);
-`;
-
 export const UnderBar = styled.div`
   width: 100%;
   height: 1.4px;
@@ -98,7 +89,7 @@ export const ChatUserInfo = ({ writer, rate }) => {
           <UserImg src={STATIC_URL + writer?.profileImage?.smallFilePath} />
         </ImgBox>
         <UserName>{writer?.nickname}</UserName>
-        <UserRateTab>
+        {/* <UserRateTab>
           {rate === "" ? (
             <Rate>&nbsp;</Rate>
           ) : (
@@ -106,7 +97,7 @@ export const ChatUserInfo = ({ writer, rate }) => {
               &nbsp; 별 <Rate>&nbsp;5.0</Rate>
             </>
           )}
-        </UserRateTab>
+        </UserRateTab> */}
       </InfoTab>
       <Date>2023.02.03</Date>
     </UserInfoBox>

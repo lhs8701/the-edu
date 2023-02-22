@@ -54,13 +54,15 @@ export default function CreatorRequest() {
   };
 
   const activeCreator = (creatorId) => {
-    activateCreator(accessToken, creatorId)
-      .then(() => {
-        alert("승인 완료");
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    if (window.confirm(`해당 유저를 크리에이터로 승인하시겠습니까?`)) {
+      activateCreator(accessToken, creatorId)
+        .then(() => {
+          alert("승인 완료");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
   };
 
   useEffect(makeStanbyList, [data?.data]);

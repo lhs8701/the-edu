@@ -1,6 +1,4 @@
 import ReactPlayer from "react-player";
-import FilePlayer from "react-player/file";
-import YouTubePlayer from "react-player/youtube";
 import styled from "styled-components";
 import { queryClient } from "../../index";
 import { STATIC_URL } from "../../static";
@@ -65,7 +63,7 @@ export default function CourseIntro({ courseId }) {
       <MoreInfoBox>
         <IntroPlayerTab>
           {courseInfo && (
-            <FilePlayer
+            <ReactPlayer
               width="100%"
               height="100%"
               url={STATIC_URL + courseInfo?.sample?.videoInfo?.filePath}

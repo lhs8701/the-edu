@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { postCourseReivewApi } from "../../api/courseApi";
-import { postItemPurchaseApi } from "../../api/orderApi";
 import { getAccessTokenSelector } from "../../atom";
 import { AccountSmallBtn } from "../../style/AccountComponentCss";
 import { TabTitle, Wrapper } from "../../style/CommonCss";

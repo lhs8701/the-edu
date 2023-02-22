@@ -1,15 +1,8 @@
-import {
-  Button,
-  CircularProgress,
-  Fab,
-  Grid,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { Button, CircularProgress, Grid, MenuItem } from "@mui/material";
 import { useState } from "react";
 import { CATE_VALUE } from "../../../static";
 import { CssTextField } from "./Outline";
-import AddIcon from "@mui/icons-material/Add";
+
 import { useEffect } from "react";
 import styled from "styled-components";
 import { uploadImageApi } from "../../../api/creatorApi";
@@ -29,7 +22,6 @@ export const ProgressBarDiv = styled.div`
   justify-content: center;
 `;
 export default function CourseInfoUpload({ setCourseValue }) {
-  const MIN_PRICE = 10000;
   const [isUpload, setIsUpload] = useState(false);
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const [dummyImgUrlUpdate, setDummyImgUrlUpdate] = useState(false);
@@ -262,9 +254,6 @@ export default function CourseInfoUpload({ setCourseValue }) {
           {" "}
           추가하기
         </Button>
-        {/* <Fab aria-label="add" size="small">
-          <AddIcon  />
-        </Fab> */}
       </Grid>
       {introImgList.map((intro) => {
         return (

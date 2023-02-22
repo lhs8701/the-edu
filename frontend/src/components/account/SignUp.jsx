@@ -15,16 +15,15 @@ import {
 import { PrivacyTerm, Term } from "./Term";
 import { useForm } from "react-hook-form";
 import { postTossTxId, signUp, successTossCert } from "../../api/authApi";
-import { useScript } from "../../hook";
+
 import Helmet from "react-helmet";
 import { CenterDiv } from "../../style/CommonCss";
-
-const MIN_PWD_LENGTH = 8;
-const MAX_NAME_LENGTH = 16;
-const MIN_NAME_LENGTH = 2;
-const MAX_PWD_LENGTH = 16;
-const MIN_TELE_LENGTH = 10;
-const MAX_TELE_LENGTH = 11;
+import {
+  MAX_NAME_LENGTH,
+  MAX_PWD_LENGTH,
+  MIN_NAME_LENGTH,
+  MIN_PWD_LENGTH,
+} from "../../static";
 
 const TermBox = styled.div`
   margin-top: 20px;
@@ -152,11 +151,6 @@ export default function SignUp() {
               {...register("name", {
                 name: "name",
                 required: "성명을 입력하세요!",
-                // 유효성 검사 파트
-                // pattern: {
-                //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                //   message: "wrong input",
-                // },
                 onChange: (e) => {
                   setIsName(e.target.value);
                 },
@@ -180,11 +174,11 @@ export default function SignUp() {
               {...register("email", {
                 name: "email",
                 required: "이메일을 입력하세요!",
-                // 유효성 검사 파트
-                // pattern: {
-                //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                //   message: "wrong input",
-                // },
+                pattern: {
+                  value:
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: "잘못된 이메일 형식입니다.",
+                },
                 onChange: (e) => {
                   setIsId(e.target.value);
                 },
@@ -200,11 +194,12 @@ export default function SignUp() {
               {...register("pwd", {
                 name: "pwd",
                 required: "비밀번호를 입력하세요!",
-                // 유효성 검사 파트
-                // pattern: {
-                //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                //   message: "wrong input",
-                // },
+                pattern: {
+                  value:
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/,
+                  message:
+                    "비밀번호는 8글자 이상, 숫자, 영문, 특수문자를 포함해 8글자 이상 16글자이하입니다.",
+                },
                 minLength: {
                   value: MIN_PWD_LENGTH,
                   message: "8글자 이상 입력해주세요.",
@@ -228,26 +223,10 @@ export default function SignUp() {
               {...register("pwdConfirm", {
                 name: "pwdConfirm",
                 required: "비밀번호를 한번 더 입력해주세요!",
-                // 유효성 검사 파트
-                // pattern: {
-                //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-                //   message: "wrong input",
-                // },
                 validate: (val) => {
                   if (watch("pwd") !== val) {
                     return "비밀번호가 서로 다릅니다!";
                   }
-                },
-                minLength: {
-                  value: 8,
-                  message: "8글자 이상 입력해주세요.",
-                },
-                maxLength: {
-                  value: 16,
-                  message: "16글자 이하로 입력해주세요.",
-                },
-                onChange: (e) => {
-                  // setIsPwdConfirm(e.target.value);
                 },
               })}
               type="password"

@@ -67,13 +67,15 @@ export default function Courses() {
   ];
 
   const stopCourse = (courseId) => {
-    lockCoursesApi(accessToken, courseId)
-      .then(() => {
-        alert("강의를 정지하였습니다.");
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    if (window.confirm(`${courseId}번 강좌를 정지하시겠습니까?`)) {
+      lockCoursesApi(accessToken, courseId)
+        .then(() => {
+          alert("강의를 정지하였습니다.");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
   };
 
   useEffect(() => {

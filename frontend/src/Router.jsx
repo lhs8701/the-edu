@@ -33,7 +33,7 @@ import CreatorRequest from "./components/admin/CreatorRequest";
 import Comment from "./components/mypage/Comment";
 import CreatorInfo from "./components/creator/CreatorInfo";
 import CreatorProfit from "./components/creator/CreatorProfit";
-import CoursesComment from "./components/creator/CoursesComment";
+import CoursesComment from "./components/creator/course/CoursesComment";
 import Outline from "./components/creator/uploadCourse/Outline";
 import CreatorsCourses from "./components/creator/CreatorsCourses";
 import CreatorsRegisted from "./components/creator/CreatorsRegisted";
@@ -43,7 +43,7 @@ import Users from "./components/admin/Users";
 import Creators from "./components/admin/Creators";
 import Courses from "./components/admin/course/Courses";
 
-import CoursesInquires from "./components/creator/CoursesInquires";
+import CoursesInquires from "./components/creator/course/CoursesInquires";
 import EventList from "./components/admin/event/EventList";
 import DetailEvent from "./components/admin/event/DetailEvent";
 import SuccessPurchase from "./components/purchase/SuccessPurchase";
@@ -54,7 +54,7 @@ import CouponList from "./components/admin/coupon/CouponList";
 import DetailCoupon from "./components/admin/coupon/DetailCoupon";
 import DetailCourseInfo from "./components/admin/course/DetailCourseInfo";
 import UnitVideo from "./components/admin/course/UnitVideo";
-import CourseDetailSetUp from "./components/creator/CourseDetailSetUp";
+import CourseDetailSetUp from "./components/creator/course/CourseDetailSetUp";
 import FailPurchase from "./components/purchase/FailPurchase";
 import EmailCert from "./components/account/EmailCert";
 import { AllCoursesPage } from "./pages/AllCoursesPage";
@@ -63,7 +63,7 @@ import ReviseActivateCourse from "./components/admin/course/ReviseActivateCourse
 import StopCourses from "./components/admin/course/StopCourses";
 import ReviseStopCourse from "./components/admin/course/ReviseStopCourse";
 import LockUsers from "./components/admin/LockUsers";
-import ManageUnitQuestion from "./components/creator/ManageUnitQuestion";
+import ManageUnitQuestion from "./components/creator/course/ManageUnitQuestion";
 
 const router = createBrowserRouter([
   {

@@ -6,14 +6,16 @@ import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
+  deleteUnitQuestionReplyApi,
   getDetailQuestionApi,
   getQuestionAnswerApi,
   getQuestionListApi,
+  patchUnitQuestionReplyApi,
   postUnitQuestionReplyApi,
-} from "../../api/questionApi";
-import { getAccessTokenSelector } from "../../atom";
-import { MoveBtn } from "../../style/CommonCss";
-import { CssTextField } from "./uploadCourse/Outline";
+} from "../../../api/questionApi";
+import { getAccessTokenSelector } from "../../../atom";
+import { MoveBtn } from "../../../style/CommonCss";
+import { CssTextField } from "../uploadCourse/Outline";
 
 const QuestionBox = styled.div`
   background-color: #dddddd;
@@ -25,12 +27,28 @@ const MoveBtnSmall = styled(MoveBtn)`
   margin-bottom: 20px;
 `;
 
+const AnswerTab = styled.div`
+  width: 100%;
+  margin: 10px 0px;
+  border: 1px solid var(--color-box-gray);
+  padding: 5px 10px;
+  box-sizing: border-box;
+`;
+
+const AnswerContent = styled.div`
+  width: 99%;
+  text-align: start;
+  overflow: auto;
+  margin-bottom: 10px;
+`;
+
 export default function ManageUnitQuestion() {
   const { unitId } = useParams();
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const bottomRef = useRef(null);
   const isInView = useInView(bottomRef);
   const navigate = useNavigate();
+
   const questionList = useInfiniteQuery(
     ["questionList", unitId],
     ({ pageParam = 0 }) => {
@@ -75,14 +93,39 @@ export default function ManageUnitQuestion() {
     const [content, setContent] = useState();
     const [alreadyReply, setAlreadyReply] = useState();
 
+    const deleteReply = (answerId) => {
+      if (window.confirm("해당 답변을 삭제하시겠습니까?")) {
+        deleteUnitQuestionReplyApi(accessToken, answerId)
+          .then(() => {
+            alert("답변 삭제");
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      }
+    };
+    const reviseReply = () => {
+      if (window.confirm("해당 답변을 수정하시겠습니까?")) {
+        patchUnitQuestionReplyApi(accessToken, reply, questionId)
+          .then(() => {
+            alert("답변 수정");
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      }
+    };
+
     const replyQuestion = () => {
-      postUnitQuestionReplyApi(accessToken, reply, questionId)
-        .then(() => {
-          alert("답변 등록");
-        })
-        .catch((err) => {
-          alert(err);
-        });
+      if (window.confirm("해당 답변을 등록하시겠습니까?")) {
+        postUnitQuestionReplyApi(accessToken, reply, questionId)
+          .then(() => {
+            alert("답변 등록");
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      }
     };
 
     useEffect(() => {
@@ -137,13 +180,22 @@ export default function ManageUnitQuestion() {
           </Button>
         </div>
         <div>답변</div>
+
         {alreadyReply?.map((already) => {
-          console.log(already);
           return (
-            <div key={already.answerId}>
-              <span>- {already.content}</span>
-              <span>&nbsp;by {already.writer.nickname}</span>
-            </div>
+            <AnswerTab key={already.answerId}>
+              <AnswerContent>{already.content}</AnswerContent>
+              <div style={{ fontSize: "0.9rem" }}>
+                {already.createdTime}에 작성됨.&nbsp;
+                <Button
+                  onClick={() => {
+                    deleteReply(already.answerId);
+                  }}
+                >
+                  삭제
+                </Button>
+              </div>
+            </AnswerTab>
           );
         })}
         <br />

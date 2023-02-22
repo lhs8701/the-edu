@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Wrapper } from "../../style/CommonCss";
+import { AlertP, CenterDiv, Wrapper } from "../../style/CommonCss";
 import { SideTitle, TitleBox } from "../../style/PlayerSideBarCss";
 
 const PrepareBox = styled.div`
@@ -41,7 +41,7 @@ const PrepareTab = styled.li`
 export default function CourseInfo() {
   return (
     <Wrapper>
-      <TitleBox>
+      {/* <TitleBox>
         <SideTitle>unitInfo.title</SideTitle>
       </TitleBox>
       <DetailBox>
@@ -63,7 +63,10 @@ export default function CourseInfo() {
           무엇이 필요할까요?
         </DetailTab>
         <Detail>Test....</Detail>
-      </PrepareBox>
+      </PrepareBox> */}
+      <CenterDiv>
+        <AlertP>준비 중입니다..</AlertP>
+      </CenterDiv>
     </Wrapper>
   );
 }

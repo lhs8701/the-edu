@@ -57,7 +57,7 @@ export default function AccountRoot() {
   } else if (loginState) {
     navigate(-1);
   }
-  console.log(state?.state === "certification");
+
   return (
     <>
       <Wrapper>

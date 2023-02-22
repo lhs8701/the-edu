@@ -3,11 +3,11 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getcourseInquiriessApi } from "../../api/courseApi";
-import { getAccessTokenSelector } from "../../atom";
-import { CardTitle } from "../../style/MypageComponentsCss";
-import Title from "../dashboard/Title";
-import { CssTextField } from "./uploadCourse/Outline";
+import { getcourseInquiriessApi } from "../../../api/courseApi";
+import { getAccessTokenSelector } from "../../../atom";
+import { CardTitle } from "../../../style/MypageComponentsCss";
+import Title from "../../dashboard/Title";
+import { CssTextField } from "../uploadCourse/Outline";
 
 const InquireBox = styled.div`
   background-color: #dddddd;

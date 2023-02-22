@@ -40,20 +40,21 @@ export default function UploadEvent({}) {
   };
 
   const uploadEvent = () => {
-    createEventApi(accessToken, {
-      title: title,
-      content: content,
-      startDate: startDate,
-      endDate: endDate,
-      bannerImage: img.url,
-    })
-      .then(() => {
-        alert("완료");
-        navigate(-1);
+    if (window.confirm(`${title} 이벤트를 업로드하시겠습니까?`)) {
+      createEventApi(accessToken, {
+        title: title,
+        content: content,
+        startDate: startDate,
+        endDate: endDate,
+        bannerImage: img.url,
       })
-      .catch((err) => {
-        alert(err);
-      });
+        .then(() => {
+          navigate(-1);
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
   };
 
   return (

@@ -120,11 +120,12 @@ export default function SignIn() {
             {...register("email", {
               name: "email",
               required: "아이디를 입력하세요!",
-              // pattern: {
-              //   value:
-              //     /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$/,
-              //   message: "올바른 아이디 형식을 입력해주세요.",
-              // },
+              pattern: {
+                value:
+                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message:
+                  "잘못된 아이디형식입니다. 이메일 형식으로 입력해주세요.",
+              },
               onChange: (e) => {
                 setIsId(e.target.value);
               },
@@ -141,18 +142,11 @@ export default function SignIn() {
             {...register("pwd", {
               name: "pwd",
               required: "비밀번호를 입력해주세요!",
-              // pattern: {
-              //   value:
-              //     /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$/,
-              //   message: "올바른 비밀번호 형식을 입력해주세요.",
-              // },
-              minLength: {
-                value: 8,
-                message: "8글자 이상 입력해주세요.",
-              },
-              maxLength: {
-                value: 16,
-                message: "16글자 이하로 입력해주세요.",
+              pattern: {
+                value:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/,
+                message:
+                  "비밀번호는 8글자 이상, 숫자, 영문, 특수문자를 포함해 8글자 이상 16글자이하입니다.",
               },
               onChange: (e) => {
                 setPassword(e.target.value);

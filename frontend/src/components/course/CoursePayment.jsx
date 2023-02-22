@@ -145,9 +145,8 @@ export default function CoursePayment({
           navigate(PROCESS_MAIN_URL.LOBBY.slice(1));
         })
         .catch((err) => {
-          console.log(err);
           if (err.response.status === 400) {
-            alert("사용 불가한 쿠폰입니다.");
+            alert("이용 불가입니다.");
           } else {
             alert("결제에 오류가 있습니다.");
           }
@@ -160,7 +159,7 @@ export default function CoursePayment({
       },
     });
   };
-  console.log(ticketInfo);
+
   const checkUserEnroll = () => {
     if (loginState) {
       getUserEnrollStatusApi(accessToken, courseId)

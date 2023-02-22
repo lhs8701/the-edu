@@ -70,11 +70,13 @@ export default function PurchaseCard({ purchase }) {
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
   const refund = () => {
-    refundApi(purchase.orderId, accessToken)
-      .then(() => {
-        alert("환불이 완료되었습니다.");
-      })
-      .catch((err) => {});
+    if (window.confirm(`${purchase.orderName}을 환불하시겠습니까?`)) {
+      refundApi(purchase.orderId, accessToken)
+        .then(() => {
+          alert("환불이 완료되었습니다.");
+        })
+        .catch((err) => {});
+    }
   };
 
   return (

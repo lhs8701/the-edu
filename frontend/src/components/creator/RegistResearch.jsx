@@ -20,23 +20,27 @@ export default function ResearchBox() {
 
   const requestCreator = (e) => {
     e.preventDefault();
-    requestCreatorApi(accessToken, subject, career)
-      .then(() => {
-        alert("크리에이터 신청이 되었습니다.");
-      })
-      .catch((err) => {
-        if (err.response.data.code === -1002) {
-          alert("이미 신청을 했습니다.");
-        }
-        if (err.response.data.code === -6010) {
-          alert("본인인증이 필요합니다.");
-          navigate(
-            "/" +
-              PROCESS_MAIN_URL.MYPAGE.DEFAULT +
-              PROCESS_MAIN_URL.MYPAGE.REVISE
+    if (window.confirm(`크리에이터 신청을 하시겠습니까?`)) {
+      requestCreatorApi(accessToken, subject, career)
+        .then(() => {
+          alert(
+            "크리에이터 신청이 되었습니다. 추후 이메일로 결과에 대해 통지해드리겠습니다."
           );
-        }
-      });
+        })
+        .catch((err) => {
+          if (err.response.data.code === -1002) {
+            alert("이미 신청을 했습니다.");
+          }
+          if (err.response.data.code === -6010) {
+            alert("본인인증이 필요합니다.");
+            navigate(
+              "/" +
+                PROCESS_MAIN_URL.MYPAGE.DEFAULT +
+                PROCESS_MAIN_URL.MYPAGE.REVISE
+            );
+          }
+        });
+    }
   };
 
   useEffect(() => {

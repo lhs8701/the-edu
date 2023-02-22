@@ -1,11 +1,9 @@
-import { motion } from "framer-motion";
 import styled from "styled-components";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import { Icon } from "@mui/material";
 import { SideTitle, Wrapper } from "../../style/PlayerSideBarCss";
 import { useRecoilValue } from "recoil";
@@ -17,17 +15,10 @@ const SideTitleAlignCenter = styled(SideTitle)`
   margin-top: 40%;
 `;
 
-const ReviewWrapper = styled(Wrapper)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export default function UnitReview({ unitId }) {
-  const [comment, setComment] = useState("");
   const [thumbsUp, setThumbsUp] = useState(false);
   const [thumbsDown, setThumbsDown] = useState(false);
-  const [clicked, setClicked] = useState(false);
+
   const accessToken = useRecoilValue(getAccessTokenSelector);
 
   const getFeedback = () => {

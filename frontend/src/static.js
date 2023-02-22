@@ -213,3 +213,8 @@ export const API_URL = BASE_URL + "/api";
 export const PLAYER_URL = "http://localhost:3000/player";
 // export const TOSS_PURCHASE_URL = STATIC_URL + "/purchase";
 export const TOSS_PURCHASE_URL = "http://localhost:3000/purchase";
+
+export const MIN_PWD_LENGTH = 8;
+export const MAX_NAME_LENGTH = 16;
+export const MIN_NAME_LENGTH = 2;
+export const MAX_PWD_LENGTH = 16;

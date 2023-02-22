@@ -60,13 +60,15 @@ export default function Users() {
   };
 
   const lockMember = (memberId) => {
-    lockedMembersApi(accessToken, memberId)
-      .then(() => {
-        alert("해당 유저를 정지하였습니다.");
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    if (window.confirm(`${memberId}를 정지하시겠습니까?`)) {
+      lockedMembersApi(accessToken, memberId)
+        .then(() => {
+          alert("해당 유저를 정지하였습니다.");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
   };
 
   useEffect(makeUserList, [data?.data]);

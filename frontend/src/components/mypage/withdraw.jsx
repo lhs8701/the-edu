@@ -43,34 +43,36 @@ export default function Withdraw() {
   const navigate = useNavigate();
 
   const withdraw = () => {
-    if (isKakaoState) {
-      kakaoWithdraw(accessToken, refreshToken, socialToken)
-        .then(() => {
-          alert("탈퇴가 완료되었습니다.");
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    } else {
-      basicWithdraw(accessToken, refreshToken)
-        .then(() => {
-          alert("탈퇴가 완료되었습니다.");
-        })
-        .catch((err) => {
-          alert(err);
-        });
+    if (window.confirm(`The-Edu에서 탈퇴하시겠습니까?`)) {
+      if (isKakaoState) {
+        kakaoWithdraw(accessToken, refreshToken, socialToken)
+          .then(() => {
+            alert("탈퇴가 완료되었습니다.");
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      } else {
+        basicWithdraw(accessToken, refreshToken)
+          .then(() => {
+            alert("탈퇴가 완료되었습니다.");
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      }
+      setIsLoggedIn({
+        state: false,
+        isKakao: false,
+        isBasic: false,
+        memberId: -1,
+        accessToken: "",
+        refreshToken: "",
+        creatorId: -1,
+      });
+      queryClient.clear();
+      navigate("/");
     }
-    setIsLoggedIn({
-      state: false,
-      isKakao: false,
-      isBasic: false,
-      memberId: -1,
-      accessToken: "",
-      refreshToken: "",
-      creatorId: -1,
-    });
-    queryClient.clear();
-    navigate("/");
   };
 
   return (

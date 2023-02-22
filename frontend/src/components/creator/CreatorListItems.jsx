@@ -24,7 +24,7 @@ export default function CreatorListItems({ isCreator }) {
         }}
       >
         <ListItemIcon>
-          <LayersIcon />
+          <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary={list.name} />
       </ListItemButton>
@@ -53,7 +53,7 @@ export default function CreatorListItems({ isCreator }) {
           }}
         >
           <AccordionSummary
-            expandIcon={<AssignmentIcon />}
+            expandIcon={<LayersIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
             sx={{

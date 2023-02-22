@@ -2,14 +2,14 @@ import { Button, Grid, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
-import { getCourseTicketsApi, getCurriculumApi } from "../../api/courseApi";
-import { setUpTicketApi } from "../../api/creatorApi";
-import { getAccessTokenSelector, getCreatorIdSelector } from "../../atom";
-import { CREATOR_BAR_LIST } from "../../static";
-import { UnderBar } from "../course/ChatComponents";
-import DashboardTitleTab from "../dashboard/DashboardTitleTab";
-import SimpleCurriculumCheck from "./SimpleCurriculumCheck";
-import { CssTextField } from "./uploadCourse/Outline";
+import { getCourseTicketsApi, getCurriculumApi } from "../../../api/courseApi";
+import { setUpTicketApi } from "../../../api/creatorApi";
+import { getAccessTokenSelector, getCreatorIdSelector } from "../../../atom";
+import { CREATOR_BAR_LIST } from "../../../static";
+import { UnderBar } from "../../course/ChatComponents";
+import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
+import SimpleCurriculumCheck from "../SimpleCurriculumCheck";
+import { CssTextField } from "../uploadCourse/Outline";
 
 export default function CourseDetailSetUp() {
   const accessToken = useRecoilValue(getAccessTokenSelector);
@@ -23,28 +23,35 @@ export default function CourseDetailSetUp() {
   const navigate = useNavigate();
 
   const setUpTicket = () => {
-    const data = {
-      costPrice: Number(price),
-      discountedPrice: Number(discountPrice),
-      coursePeriod: Number(period),
-    };
-    setUpTicketApi(accessToken, courseId, data)
-      .then(() => {
-        alert("설정이 되었습니다.");
-      })
-      .catch(() => {
-        alert("err");
-      });
+    if (
+      window.confirm(
+        `가격:${price}원 할인가:${discountPrice}원 수강기한: ${period}개월로 설정하시겠습니까?`
+      )
+    ) {
+      const data = {
+        costPrice: Number(price),
+        discountedPrice: Number(discountPrice),
+        coursePeriod: Number(period),
+      };
+      setUpTicketApi(accessToken, courseId, data)
+        .then(() => {
+          alert("설정이 되었습니다.");
+        })
+        .catch(() => {
+          alert("err");
+        });
+    }
   };
 
   useEffect(() => {
     if (isCreator < 0) {
+      // 크리에이터인지확인
       navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
     }
-    getCourseTicketsApi(courseId)
+    getCourseTicketsApi(courseId) // 현재 설정된 티켓 정보 확인
       .then(({ data }) => {
-        console.log(data);
         if (data.costPrice === 0) {
+          // 무료 티켓 설정
           setPolicy(false);
         }
         setPrice(data.costPrice);
@@ -54,7 +61,7 @@ export default function CourseDetailSetUp() {
       .catch((err) => {
         alert(err);
       });
-    getCurriculumApi(courseId)
+    getCurriculumApi(courseId) // 커리큘럼 불러오기
       .then(({ data }) => setCurriculumList(data.chapters))
       .catch((err) => {
         alert(err);

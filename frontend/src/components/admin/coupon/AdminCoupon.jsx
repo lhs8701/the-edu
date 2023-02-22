@@ -43,20 +43,39 @@ export default function AdminCoupon() {
     }
   );
 
+  const initiateState = () => {
+    setName();
+    setMinimumAmount();
+    setPolicy();
+    setDiscount(new Date());
+    setDate();
+  };
   const uploadGenerate = () => {
-    generateCouponApi(accessToken, {
-      name: name,
-      amount: minumumAmount,
-      policy: policy,
-      discount: discount,
-      endDate: date,
-    })
-      .then(() => {
-        alert("쿠폰이 발급되었습니다.");
+    if (
+      (name === undefined) &
+      (minumumAmount === undefined) &
+      (policy === undefined) &
+      (discount === undefined) &
+      date
+    ) {
+      alert("정보를 입력하신 후 발급을 요청해주세요.");
+      return;
+    }
+    if (window.confirm(`${name}쿠폰을 발급하시겠습니까?`)) {
+      generateCouponApi(accessToken, {
+        name: name,
+        amount: minumumAmount,
+        policy: policy,
+        discount: discount,
+        endDate: date,
       })
-      .catch((err) => {
-        alert(err);
-      });
+        .then(() => {
+          initiateState();
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
   };
 
   return (

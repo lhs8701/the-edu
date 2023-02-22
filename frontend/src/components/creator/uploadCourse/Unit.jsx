@@ -18,7 +18,6 @@ export default function Unit({
   const [unitTitle, setUnitTitle] = useState(unit.title);
   const [unitDescription, setUnitDescription] = useState(unit.description);
   const accessToken = useRecoilValue(getAccessTokenSelector);
-  const [infoClicked, setInfoClicked] = useState(false);
   const [videoClicked, setVideoClicked] = useState(false);
   const [fileUrl, setFileUrl] = useState(unit.url);
   const [unitId, setUnitId] = useState(unit.unitId);
@@ -114,31 +113,6 @@ export default function Unit({
       });
   };
 
-  const InfoReviseBtn = ({ infoClicked }) => {
-    return infoClicked ? (
-      <Button
-        variant="outlined"
-        sx={{ color: "black" }}
-        onClick={() => {
-          setInfoClicked(false);
-          reviseUnit();
-        }}
-      >
-        제목 업로드
-      </Button>
-    ) : (
-      <Button
-        variant="outlined"
-        sx={{ color: "black" }}
-        onClick={() => {
-          setInfoClicked(true);
-        }}
-      >
-        강의 제목 수정
-      </Button>
-    );
-  };
-  console.log(isUpload);
   return (
     <>
       <ListItem
@@ -182,7 +156,6 @@ export default function Unit({
         )}
 
         <div>
-          {/* <InfoReviseBtn infoClicked={infoClicked} /> */}
           &nbsp; &nbsp;
           {videoClicked ? (
             isUpload & (fileUrl !== "") ? (

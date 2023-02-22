@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
-import { getCurriculumApi } from "../../api/courseApi";
-import { getCreatorIdSelector } from "../../atom";
-import { CREATOR_BAR_LIST } from "../../static";
-import DashboardTitleTab from "../dashboard/DashboardTitleTab";
+import { getCurriculumApi } from "../../../api/courseApi";
+import { getCreatorIdSelector } from "../../../atom";
+import { CREATOR_BAR_LIST } from "../../../static";
+import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
 import ManageInquire from "./ManageInquire";
-import SimpleCurriculumCheck from "./SimpleCurriculumCheck";
+import SimpleCurriculumCheck from "../SimpleCurriculumCheck";
 
 export default function CoursesComment() {
   const navigate = useNavigate();

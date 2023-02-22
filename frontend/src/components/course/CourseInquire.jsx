@@ -55,7 +55,7 @@ export default function CourseInquire({ courseId }) {
 
   async function enrollInquire() {
     if (textValue === "") {
-      alert("문의를 적어주세요!");
+      alert("문의를 남겨주세요!");
     } else {
       try {
         const { data } = await postcourseInquiriessApi(
