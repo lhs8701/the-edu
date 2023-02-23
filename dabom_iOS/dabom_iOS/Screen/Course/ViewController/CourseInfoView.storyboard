@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Course Info View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="CourseInfoViewController" id="Y6W-OH-hqX" customClass="CourseInfoViewController" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Nng-7R-zzz">
+                                <rect key="frame" x="0.0" y="91" width="375" height="638"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oam-t6-VTF">
+                                <rect key="frame" x="0.0" y="491" width="375" height="50"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="vOc-ds-9Sd">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
+                                        <segments>
+                                            <segment title="클래스 소개"/>
+                                            <segment title="커리큘럼"/>
+                                            <segment title="수강 후기"/>
+                                            <segment title="문의사항"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="vOc-ds-9Sd" firstAttribute="leading" secondItem="oam-t6-VTF" secondAttribute="leading" id="626-0r-sjh"/>
+                                    <constraint firstAttribute="trailing" secondItem="vOc-ds-9Sd" secondAttribute="trailing" id="9Zh-lS-bUY"/>
+                                    <constraint firstAttribute="height" constant="50" id="RYE-uI-DhU"/>
+                                    <constraint firstAttribute="bottom" secondItem="vOc-ds-9Sd" secondAttribute="bottom" id="gPW-UG-FBv"/>
+                                    <constraint firstItem="vOc-ds-9Sd" firstAttribute="top" secondItem="oam-t6-VTF" secondAttribute="top" id="sS8-7V-0RG"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="oam-t6-VTF" secondAttribute="trailing" id="B8I-L7-1Ii"/>
+                            <constraint firstItem="Nng-7R-zzz" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="HmN-zD-sa7"/>
+                            <constraint firstItem="Nng-7R-zzz" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="K2O-4u-kd6"/>
+                            <constraint firstItem="Nng-7R-zzz" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="Kbz-8X-du4"/>
+                            <constraint firstItem="oam-t6-VTF" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="400" id="dkW-Z6-FrA"/>
+                            <constraint firstItem="oam-t6-VTF" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="mhX-gI-PIR"/>
+                            <constraint firstItem="Nng-7R-zzz" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="sHc-WW-jOp"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="HTK-db-Iiw">
+                        <barButtonItem key="backBarButtonItem" title=" " id="icx-jQ-lH6"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="mainTV" destination="Nng-7R-zzz" id="pDK-ws-6Nl"/>
+                        <outlet property="segmentCtrl" destination="vOc-ds-9Sd" id="MYp-XT-Dh5"/>
+                        <outlet property="stickyView" destination="oam-t6-VTF" id="EFw-Dm-D7Q"/>
+                        <outlet property="upperConstraint" destination="dkW-Z6-FrA" id="fjY-r8-Ufx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="130.40000000000001" y="-28.817733990147783"/>
+        </scene>
+        <!--On Off DescriptionVC-->
+        <scene sceneID="WB1-yX-bK7">
+            <objects>
+                <viewController storyboardIdentifier="OnOffDescriptionVC" id="XKl-Gq-tyb" customClass="OnOffDescriptionVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nRx-bD-3xA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="RrS-vO-Eio"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vr6-bp-ymf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1238" y="-715"/>
+        </scene>
+        <!--Course Curriculum AllVC-->
+        <scene sceneID="f1h-cM-djh">
+            <objects>
+                <viewController storyboardIdentifier="CourseCurriculumAllVC" id="I5Y-gP-W1X" customClass="CourseCurriculumAllVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3hT-ci-de4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zHn-F7-8JG">
+                                <rect key="frame" x="0.0" y="87" width="375" height="691"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ceW-QX-1R7">
+                                <rect key="frame" x="0.0" y="47" width="375" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="커리큘럼" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSG-ub-RaF">
+                                        <rect key="frame" x="15" y="6.3333333333333375" width="83.333333333333329" height="27.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="RSG-ub-RaF" firstAttribute="centerY" secondItem="ceW-QX-1R7" secondAttribute="centerY" id="iaQ-wH-TaD"/>
+                                    <constraint firstAttribute="height" constant="40" id="mQ8-g3-eTj"/>
+                                    <constraint firstItem="RSG-ub-RaF" firstAttribute="leading" secondItem="ceW-QX-1R7" secondAttribute="leading" constant="15" id="nfW-CZ-V5G"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="owb-dI-bOA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zHn-F7-8JG" firstAttribute="top" secondItem="ceW-QX-1R7" secondAttribute="bottom" id="2Ad-nv-u98"/>
+                            <constraint firstItem="ceW-QX-1R7" firstAttribute="leading" secondItem="owb-dI-bOA" secondAttribute="leading" id="6j5-kn-ofp"/>
+                            <constraint firstItem="zHn-F7-8JG" firstAttribute="leading" secondItem="owb-dI-bOA" secondAttribute="leading" id="8lz-Wg-PQz"/>
+                            <constraint firstItem="owb-dI-bOA" firstAttribute="bottom" secondItem="zHn-F7-8JG" secondAttribute="bottom" id="Aoy-1R-aTF"/>
+                            <constraint firstItem="owb-dI-bOA" firstAttribute="trailing" secondItem="zHn-F7-8JG" secondAttribute="trailing" id="IlO-4d-5nA"/>
+                            <constraint firstItem="ceW-QX-1R7" firstAttribute="top" secondItem="owb-dI-bOA" secondAttribute="top" id="Lls-rj-JRt"/>
+                            <constraint firstItem="owb-dI-bOA" firstAttribute="trailing" secondItem="ceW-QX-1R7" secondAttribute="trailing" id="fNI-C8-sgv"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="curriculumTV" destination="zHn-F7-8JG" id="fBX-O4-6ES"/>
+                        <outlet property="curriculumTitle" destination="RSG-ub-RaF" id="PBx-6Z-sPp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ti4-c1-AWN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="128.80000000000001" y="674.6305418719212"/>
+        </scene>
+        <!--Course Inquiry AllVC-->
+        <scene sceneID="B4V-rN-lYW">
+            <objects>
+                <viewController storyboardIdentifier="CourseInquiryAllVC" id="cCf-sh-zYq" customClass="CourseInquiryAllVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hZf-EP-nbP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="In9-3g-XYJ">
+                                <rect key="frame" x="0.0" y="47" width="375" height="731"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CrU-8G-IjO"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="In9-3g-XYJ" firstAttribute="leading" secondItem="CrU-8G-IjO" secondAttribute="leading" id="I0H-Bc-CVo"/>
+                            <constraint firstItem="CrU-8G-IjO" firstAttribute="trailing" secondItem="In9-3g-XYJ" secondAttribute="trailing" id="Tka-NT-2Sp"/>
+                            <constraint firstItem="CrU-8G-IjO" firstAttribute="bottom" secondItem="In9-3g-XYJ" secondAttribute="bottom" id="Zec-fl-1Io"/>
+                            <constraint firstItem="In9-3g-XYJ" firstAttribute="top" secondItem="CrU-8G-IjO" secondAttribute="top" id="pah-hY-yvn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="inquiryTV" destination="In9-3g-XYJ" id="g4A-N2-WSw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WTa-br-d2u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1237.5999999999999" y="674.6305418719212"/>
+        </scene>
+        <!--Course Review AllVC-->
+        <scene sceneID="eqS-ty-YNr">
+            <objects>
+                <viewController storyboardIdentifier="CourseReviewAllVC" id="7IN-NP-iG6" customClass="CourseReviewAllVC" customModule="dabom_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Htf-I6-2Rh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5La-ya-4aQ">
+                                <rect key="frame" x="0.0" y="47" width="375" height="731"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="YoI-fQ-J7z"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YoI-fQ-J7z" firstAttribute="trailing" secondItem="5La-ya-4aQ" secondAttribute="trailing" id="2N6-iN-TOL"/>
+                            <constraint firstItem="5La-ya-4aQ" firstAttribute="leading" secondItem="YoI-fQ-J7z" secondAttribute="leading" id="GHZ-0l-Vcy"/>
+                            <constraint firstItem="5La-ya-4aQ" firstAttribute="top" secondItem="YoI-fQ-J7z" secondAttribute="top" id="rtJ-Sw-Mly"/>
+                            <constraint firstItem="YoI-fQ-J7z" firstAttribute="bottom" secondItem="5La-ya-4aQ" secondAttribute="bottom" id="xY0-WV-EZg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="reviewTV" destination="5La-ya-4aQ" id="UJR-i1-cvw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hDm-ka-oLZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2182" y="675"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

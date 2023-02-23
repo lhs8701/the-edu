@@ -1,0 +1,29 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '14.0'
+
+target 'dabom_iOS' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for dabom_iOS
+
+#  pod 'SideMenu'
+  
+  pod 'Tabman', '~> 2.9'
+  pod 'KakaoSDKCommon'
+  pod 'KakaoSDKAuth'
+  pod 'KakaoSDKUser'
+  pod 'Alamofire'
+  pod 'Kingfisher'
+  pod 'SnapKit'
+
+  target 'dabom_iOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'dabom_iOSUITests' do
+    # Pods for testing
+  end
+
+end

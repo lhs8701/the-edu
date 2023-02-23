@@ -1,1 +1,21 @@
 
+spring:
+  profiles:
+    active: local
+    include: private
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher #swagger 3.0 오류 해결
+
+api:
+  kakao:
+    profile: https://kapi.kakao.com/v2/user/me
+    logout: https://kapi.kakao.com/v1/user/logout
+    unlink: https://kapi.kakao.com/v1/user/unlink
+  toss:
+    confirm: https://api.tosspayments.com/v1/payments/confirm
+    token: https://oauth2.cert.toss.im/token
+    txid: https://cert.toss.im/api/v2/sign/user/auth/request
+    auth-result: https://cert.toss.im/api/v2/sign/user/auth/result
+    cancel: https://api.tosspayments.com/v1/payments

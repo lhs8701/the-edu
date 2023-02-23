@@ -1,0 +1,52 @@
+PODS:
+  - Alamofire (5.6.4)
+  - KakaoSDKAuth (2.13.1):
+    - KakaoSDKCommon (= 2.13.1)
+  - KakaoSDKCommon (2.13.1):
+    - KakaoSDKCommon/Common (= 2.13.1)
+    - KakaoSDKCommon/Network (= 2.13.1)
+  - KakaoSDKCommon/Common (2.13.1)
+  - KakaoSDKCommon/Network (2.13.1):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.13.1)
+  - KakaoSDKUser (2.13.1):
+    - KakaoSDKAuth (= 2.13.1)
+  - Kingfisher (7.5.0)
+  - Pageboy (3.7.0)
+  - SnapKit (5.6.0)
+  - Tabman (2.13.0):
+    - Pageboy (~> 3.7.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - KakaoSDKAuth
+  - KakaoSDKCommon
+  - KakaoSDKUser
+  - Kingfisher
+  - SnapKit
+  - Tabman (~> 2.9)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKUser
+    - Kingfisher
+    - Pageboy
+    - SnapKit
+    - Tabman
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  KakaoSDKAuth: d9de0cb0c723441ced3616d481952bde34438dcb
+  KakaoSDKCommon: a16807e19984a0a208c3117c7ef117f101a9a128
+  KakaoSDKUser: 92d34cf6af7b123c22a7ee44424332123e356901
+  Kingfisher: b9c2a4a4af2990a768445c277359b27bde287d71
+  Pageboy: fe646118f7168960058bea7a96038386aa7c0da8
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  Tabman: 66ea44c44488327ec20f3c8dc5554a5d22f5908c
+
+PODFILE CHECKSUM: 1d1d18b580f9d408783dd94ea09301eade99aeb6
+
+COCOAPODS: 1.11.3
