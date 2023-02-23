@@ -17,12 +17,6 @@ export default function CoursesComment() {
   const { courseId } = useParams();
   const { state } = useLocation();
 
-  useEffect(() => {
-    if (isCreator < 0) {
-      navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
-    }
-  }, []);
-
   const curriculum = useQuery(
     ["courseCurriculum", courseId],
     () => {

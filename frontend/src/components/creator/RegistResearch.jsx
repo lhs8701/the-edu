@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
@@ -44,8 +44,8 @@ export default function ResearchBox() {
   };
 
   useEffect(() => {
+    // 크리에이터라면 내 정보로 이동
     if (creatorId > 0) {
-      alert("크리에이터 권환이 없습니다.");
       navigate(CREATOR_BAR_LIST.list[0].creator[0].url);
     }
   }, []);
