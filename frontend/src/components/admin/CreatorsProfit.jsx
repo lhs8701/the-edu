@@ -6,9 +6,7 @@ import styled from "styled-components";
 import { getAllProfitApi } from "../../api/adminApi";
 import { getAdminAccessTokenSelector } from "../../atom";
 import { ADMIN_BAR_LIST } from "../../static";
-import Chart from "../dashboard/Chart";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
-import Deposits from "../dashboard/Deposits";
 
 const CreatorBox = styled.div`
   border: 1px solid var(--color-box-gray);

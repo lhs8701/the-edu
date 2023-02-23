@@ -142,7 +142,7 @@ export default function AdminCoupon() {
             value={discount}
             inputProps={{ min: 4, max: 10 }}
             onChange={(e) => {
-              if (e.target.value >= 90) {
+              if (e.target.value > 90) {
                 alert("90퍼 이상 쿠폰 발급이 허용되지 않습니다.");
                 return;
               }

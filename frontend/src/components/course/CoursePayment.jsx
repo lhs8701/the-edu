@@ -222,7 +222,9 @@ export default function CoursePayment({
         </Tab>
       </PriceBox>
 
-      <PurchaseBtn onClick={goPurchase}>결제</PurchaseBtn>
+      <PurchaseBtn onClick={goPurchase}>
+        {ticketInfo?.costPrice === 0 ? "무료로 강좌 등록하기" : "강좌 결제하기"}
+      </PurchaseBtn>
     </PaymentBox>
   );
 }

@@ -25,7 +25,6 @@ const DiscountRate = styled(DiscountP)`
 `;
 
 export default function CouponCard({ coupon }) {
-  console.log(coupon);
   return (
     <Card whileHover={{ y: "-5px" }} whileTap={{ y: "0px" }}>
       <CardInfoBox>

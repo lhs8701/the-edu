@@ -7,7 +7,7 @@ export default function EmailCert() {
   return (
     <div>
       <CenterDiv>
-        <AlertP>이메일 인증이 성공했어요. 🤣</AlertP>
+        <AlertP>이메일 인증이 성공했어요. 😄</AlertP>
       </CenterDiv>
       <br />
       <br />

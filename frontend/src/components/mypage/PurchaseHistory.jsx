@@ -42,7 +42,6 @@ export default function PurchaseHistory() {
     }
   );
 
-  console.log(data?.data);
   return (
     <MyPageBox>
       <MyPageTitle>나의 구매 내역</MyPageTitle>

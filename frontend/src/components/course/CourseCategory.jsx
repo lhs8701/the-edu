@@ -63,7 +63,6 @@ export default function CourseCategory({ courseIdx, courseId }) {
   };
 
   const Categories = ({ courseCurriculum }) => {
-    console.log(courseCurriculum);
     return courseCurriculum?.map((curri, idx) => {
       return <Category key={idx} curri={curri} chapterIdx={idx + 1} />;
     });

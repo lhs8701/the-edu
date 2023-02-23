@@ -166,7 +166,6 @@ export function MyUploadCoursesTable({ rows, cells, deleteFun, navigate }) {
   );
 }
 export function CouponTable({ rows, cells, navigate }) {
-  console.log(rows);
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">
@@ -307,7 +306,6 @@ export function AdminCreatorStanbyTable({ rows, cells, activeFun }) {
 }
 
 export function AdminCreatorsTable({ rows, cells, activeFun }) {
-  console.log(rows);
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">

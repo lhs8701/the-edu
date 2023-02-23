@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PROCESS_ACCOUNT_URL } from "../../static";
 import {
-  AccountBtn,
   AccountForm,
   AccountInput,
   AccountSmallBtn,
@@ -66,6 +65,8 @@ export default function SignIn() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
   const [isID, setIsId] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const loginState = useRecoilValue(getLoginState);
 
   const {
     register,
@@ -105,7 +106,7 @@ export default function SignIn() {
       } else if (err.response.data.code === -6001) {
         alert(err.response.data.message);
       } else if (err.response.data.code === -6010) {
-        alert("이메일 인증한 후 로그인이 가능합니다.");
+        alert("이메일 인증 이후 로그인이 가능합니다.");
       }
     }
   }
@@ -158,7 +159,7 @@ export default function SignIn() {
           <ErrorMessage>{errors?.pwd?.message}</ErrorMessage>
         </InputBox>
         <LoginLinkBox>
-          <AnyLink to={"/" + PROCESS_ACCOUNT_URL.FINDID}>아이디찾기</AnyLink>
+          {/* <AnyLink to={"/" + PROCESS_ACCOUNT_URL.FINDID}>아이디찾기</AnyLink> */}
           <AnyLink to={"/" + PROCESS_ACCOUNT_URL.FINDPWD}>비밀번호찾기</AnyLink>
         </LoginLinkBox>
         <BtnSignUpBox>

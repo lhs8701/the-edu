@@ -325,7 +325,6 @@ export default function Header() {
 
           <NavTab>
             <NavLink
-              isValid={[0, 1]}
               to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}
               preventScrollReset={true}
             >

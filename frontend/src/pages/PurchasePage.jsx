@@ -125,7 +125,7 @@ export default function PurchasePage() {
   const ZERO = 0;
   const { courseId, itemId } = useParams();
   const { state } = useLocation();
-  const [purchaseMethod, setPurchaseMethod] = useState();
+
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const loginState = useRecoilValue(getLoginState);
   const currentPath = useLocation().pathname;
@@ -154,33 +154,6 @@ export default function PurchasePage() {
         }
       });
   }, []);
-
-  const PurchaseThing = () => {
-    return (
-      <>
-        <CourseInfoBox>
-          <Img src={STATIC_URL + itemInfo?.productImage?.smallFilePath} />
-          <InfoBox>
-            <InfoTab
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                navigate(PROCESS_MAIN_URL.COURSES + "/" + courseId);
-              }}
-            >
-              <p>{itemInfo?.productName}</p>
-              {isPurchaseDone ? <p></p> : <p>{state?.price}원</p>}
-            </InfoTab>
-            <br />
-            <br />
-            <InfoTab>
-              <ONOFFTab>오프/온</ONOFFTab>
-            </InfoTab>
-          </InfoBox>
-        </CourseInfoBox>
-        <UnderBar />
-      </>
-    );
-  };
 
   useLayoutEffect(() => {
     if (!loginState) {
@@ -234,7 +207,7 @@ export default function PurchasePage() {
 
   const PurchaseForm = () => {
     const [usePoint, setUsePoint] = useState(0);
-
+    const [purchaseMethod, setPurchaseMethod] = useState();
     const purchaseCourse = () => {
       let cost = 0;
       if (Number(useCoupon.value) === -1) {
@@ -246,7 +219,6 @@ export default function PurchasePage() {
           Number(((useCoupon.value * state?.price) / 100).toFixed()) -
           Number(usePoint);
       }
-      console.log(cost);
       if (Number(cost) < 100) {
         alert("할인 에러입니다. 다시 할인 혜택을 적용하세요.");
         return;
@@ -299,7 +271,6 @@ export default function PurchasePage() {
             포인트 할인
             <PointP>(현재 나의 포인트: {itemInfo?.point})</PointP>
           </SmallTitle>
-
           <PointInput
             type="text"
             value={usePoint}
@@ -365,7 +336,7 @@ export default function PurchasePage() {
           <FlexDiv>
             <DiscountTab>총 할인 가격</DiscountTab>
             <DiscountTab>
-              ({(state?.price * 9) / 10}원 이상의 할인은 적용되지 않습니다.)
+              ({(state?.price * 9) / 10}원 보다 높은 할인은 적용되지 않습니다.)
             </DiscountTab>
             <DiscountTab>
               {Number(useCoupon.value) === -1 //no coupon
@@ -377,7 +348,6 @@ export default function PurchasePage() {
           </FlexDiv>
           <br />
           <br />
-
           <FlexDiv>
             <SmallTitle>최종 결제 가격</SmallTitle>
             <TotalPriceP>
@@ -442,7 +412,26 @@ export default function PurchasePage() {
       <TabTitle>결제</TabTitle>
       <DividerBox>
         <InfoSection>
-          <PurchaseThing />
+          <CourseInfoBox>
+            <Img src={STATIC_URL + itemInfo?.productImage?.smallFilePath} />
+            <InfoBox>
+              <InfoTab
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  navigate(PROCESS_MAIN_URL.COURSES + "/" + courseId);
+                }}
+              >
+                <p>{itemInfo?.productName}</p>
+                {isPurchaseDone ? <p></p> : <p>{state?.price}원</p>}
+              </InfoTab>
+              <br />
+              <br />
+              <InfoTab>
+                <ONOFFTab>오프/온</ONOFFTab>
+              </InfoTab>
+            </InfoBox>
+          </CourseInfoBox>
+          <UnderBar />
         </InfoSection>
         <br />
         <br />

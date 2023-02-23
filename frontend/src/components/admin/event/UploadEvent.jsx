@@ -28,7 +28,7 @@ export default function UploadEvent({}) {
   const [content, setContent] = useState();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-  const navigate = useNavigate();
+
   const upload = (e) => {
     uploadImageApi(e.target.files[0], accessToken)
       .then(({ data }) => {
@@ -49,7 +49,7 @@ export default function UploadEvent({}) {
         bannerImage: img.url,
       })
         .then(() => {
-          navigate(-1);
+          alert("등록");
         })
         .catch((err) => {
           alert(err);
@@ -91,6 +91,8 @@ export default function UploadEvent({}) {
             }}
           />
         </Grid>
+        <br />
+        이밴트 유효 기간
         <Grid item xs={4}>
           <CssTextField
             fullWidth
@@ -104,7 +106,6 @@ export default function UploadEvent({}) {
             }}
           />
         </Grid>
-
         <Grid item xs={4}>
           <CssTextField
             fullWidth
@@ -166,7 +167,9 @@ export default function UploadEvent({}) {
           </>
         )}
       </UploadTab>
-      <Button onClick={uploadEvent}>업로드</Button>
+      <Button variant="contained" onClick={uploadEvent}>
+        업로드
+      </Button>
     </div>
   );
 }

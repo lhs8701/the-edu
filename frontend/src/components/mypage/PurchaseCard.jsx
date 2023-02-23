@@ -75,7 +75,9 @@ export default function PurchaseCard({ purchase }) {
         .then(() => {
           alert("환불이 완료되었습니다.");
         })
-        .catch((err) => {});
+        .catch((err) => {
+          alert("환불이 불가합니다.");
+        });
     }
   };
 
@@ -87,7 +89,9 @@ export default function PurchaseCard({ purchase }) {
           <CourseInfo>
             <CardTitle>{purchase.orderName}</CardTitle>
             {purchase.orderStatus === "DONE" ? (
-              <CancelBtn onClick={refund}>주문 취소</CancelBtn>
+              Number(purchase.amount) === 0 ? null : (
+                <CancelBtn onClick={refund}>주문 취소</CancelBtn>
+              )
             ) : null}
           </CourseInfo>
         </CourseInfoTab>

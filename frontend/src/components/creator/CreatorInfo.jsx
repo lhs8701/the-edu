@@ -1,16 +1,19 @@
 import { Grid, Paper } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import { getCreatorStatusApi } from "../../api/creatorApi";
-import { getAccessTokenSelector } from "../../atom";
+import { getAccessTokenSelector, getCreatorIdSelector } from "../../atom";
 import { CREATOR_BAR_LIST } from "../../static";
 import Chart from "../dashboard/Chart";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import Deposits from "../dashboard/Deposits";
-import Title from "../dashboard/Title";
 
 export default function CreatorInfo() {
   const accessToken = useRecoilValue(getAccessTokenSelector);
+  const isCreator = useRecoilValue(getCreatorIdSelector);
+  const navigate = useNavigate();
+
   const [status, setStatus] = useState();
 
   const getCreatorStatus = () => {
@@ -24,6 +27,12 @@ export default function CreatorInfo() {
   };
 
   useEffect(getCreatorStatus, []);
+  useLayoutEffect(() => {
+    if (isCreator < 0) {
+      alert("크리에이터 권환이 없습니다.");
+      navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
+    }
+  }, []);
 
   return (
     <Grid container xs={12}>

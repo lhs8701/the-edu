@@ -25,7 +25,6 @@ export default function DetailCourseInfo() {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log(state);
 
   const info = useQuery(
     ["courseDetailInfo", courseId],

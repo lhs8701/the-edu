@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
@@ -118,6 +118,7 @@ export default function PlayerRoot() {
   const loginState = useRecoilValue(getLoginState);
   const accessToken = useRecoilValue(getAccessTokenSelector);
   const wrapperRef = useRef(null);
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [unitInfo, setUnitInfo] = useState();
   const [videoVal, setVideoVal] = useState({
@@ -135,7 +136,7 @@ export default function PlayerRoot() {
     playedSec: 0, //전체 시간 초
     done: false,
   });
-
+  console.log(accessToken);
   useQuery(
     ["userCurriStatus", courseId],
     () => {
@@ -196,7 +197,7 @@ export default function PlayerRoot() {
         setUnitInfo(data);
       })
       .catch((err) => {
-        alert(err);
+        alert("정보를 불러올 수 없습니다.");
       });
   };
 
@@ -218,12 +219,15 @@ export default function PlayerRoot() {
         setLoading(true);
       })
       .catch((err) => {
-        console.log("새 강의");
         setLoading(true);
       });
   };
 
   useEffect(() => {
+    if (!loginState) {
+      alert("확인되지 않은 접근입니다.");
+      navigate("/");
+    }
     getUnitInfo();
     getLatestRecord();
   }, []);

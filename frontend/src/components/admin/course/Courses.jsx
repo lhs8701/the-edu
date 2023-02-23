@@ -73,7 +73,11 @@ export default function Courses() {
           alert("강의를 정지하였습니다.");
         })
         .catch((err) => {
-          alert(err);
+          if (err.response.status === 400) {
+            alert("이미 정지한 강좌입니다.");
+          } else {
+            alert(err);
+          }
         });
     }
   };

@@ -14,8 +14,7 @@ import {
 } from "../../style/AccountComponentCss";
 import { PrivacyTerm, Term } from "./Term";
 import { useForm } from "react-hook-form";
-import { postTossTxId, signUp, successTossCert } from "../../api/authApi";
-
+import { signUp } from "../../api/authApi";
 import Helmet from "react-helmet";
 import { CenterDiv } from "../../style/CommonCss";
 import {
@@ -24,6 +23,8 @@ import {
   MIN_NAME_LENGTH,
   MIN_PWD_LENGTH,
 } from "../../static";
+import { getLoginState } from "../../atom";
+import { useRecoilValue } from "recoil";
 
 const TermBox = styled.div`
   margin-top: 20px;
@@ -77,15 +78,8 @@ const TermErrMessage = styled(ErrorMessage)`
   margin-top: 0;
 `;
 
-const TeleInputBox = styled(InputBox)`
-  display: flex;
-  justify-content: space-between;
-
-  align-items: baseline;
-  height: auto;
-`;
-
 export default function SignUp() {
+  const loginState = useRecoilValue(getLoginState);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isId, setIsId] = useState("");
   const [isPwd, setIsPwd] = useState("");
@@ -104,7 +98,6 @@ export default function SignUp() {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
     watch,
   } = useForm({
     mode: "onBlur",

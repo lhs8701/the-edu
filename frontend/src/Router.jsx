@@ -326,7 +326,7 @@ const router = createBrowserRouter([
       },
       {
         path: "profit",
-        element: <CreatorProfit />,
+        element: <CreatorInfo />,
       },
       {
         path: "comment",

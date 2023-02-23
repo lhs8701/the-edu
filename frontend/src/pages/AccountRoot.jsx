@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -50,13 +51,17 @@ const SubTitle = styled(Title)`
 export default function AccountRoot() {
   const loginState = useRecoilValue(getLoginState);
   const navigate = useNavigate();
-  const { state } = useLocation();
 
-  if (loginState & (state?.state === "certification")) {
+  if (loginState) {
     navigate("/");
-  } else if (loginState) {
-    navigate(-1);
   }
+
+  useEffect(() => {
+    if (loginState) {
+      alert("현재 계정에서 로그아웃 이후 진행해주세요.");
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

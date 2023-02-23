@@ -78,7 +78,6 @@ export default function MyClass() {
   };
 
   const MyClassList = ({ courses }) => {
-    console.log(courses);
     return courses?.map((course) => {
       return <Course key={course?.courseId} courseInfo={course} />;
     });

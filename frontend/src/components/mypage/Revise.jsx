@@ -200,7 +200,7 @@ export default function Revise() {
                     .catch((err) => {
                       alert(err);
                     });
-                  alert("성공");
+                  alert("본인인증이 완료되었습니다.");
                 },
                 onFail: function (error) {
                   alert("에러가 발생했습니다", error); // 인증 실패시 행동을 정의해주세요.
@@ -285,7 +285,9 @@ export default function Revise() {
             />
           </NameInputBox>
           <InputBox>
-            <InputLabel>이메일 주소</InputLabel>
+            <InputLabel>
+              이메일 주소 (로그인에 사용되는 이메일과 무관합니다.)
+            </InputLabel>
             <AccountInput
               {...register("email", {
                 name: "email",

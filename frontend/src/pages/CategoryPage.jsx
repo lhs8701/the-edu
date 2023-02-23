@@ -84,7 +84,6 @@ export default function CategoryPage() {
   }, [isInView, courseList.data]);
 
   const Classes = () => {
-    console.log(CATE_VALUE[categoryId - 1].smallList[smallCategoryId - 1]);
     return (
       <MyPageBox>
         <MyPageTitle>

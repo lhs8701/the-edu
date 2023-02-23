@@ -83,7 +83,6 @@ export default function EventPage() {
   };
 
   const EventList = ({ eventList }) => {
-    console.log(eventList);
     return eventList.map((event) => {
       return <EventComponent eventInfo={event} key={event.id} />;
     });

@@ -9,20 +9,15 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import Orders from "../dashboard/Orders";
-import Chart from "../dashboard/Chart";
-import Deposits from "../dashboard/Deposits";
-import { Outlet, useNavigate } from "react-router";
+
+import { Outlet } from "react-router";
 import CreatorListItems from "./CreatorListItems";
 
 import { STATIC_URL } from "../../static";
-import { Grid, Paper } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -135,11 +130,6 @@ function DashboardContent({ isCreator }) {
             >
               The-Edu 크리에이터 페이지
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
 
@@ -177,27 +167,7 @@ function DashboardContent({ isCreator }) {
             maxWidth="lg"
             sx={{ mt: 4, mb: 4, height: "70vh", width: "100%" }}
           >
-            {/* <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid> */}
-
-            {/* <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders />
-                </Paper>
-              </Grid> */}
-
             <Outlet />
-
             <Copyright sx={{ mt: 7, pt: 4 }} />
           </Container>
         </Box>

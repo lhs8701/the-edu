@@ -266,8 +266,8 @@ export default function LobbyPage() {
   };
 
   if (!loginState) {
-    alert("로그인 하세요.");
-    window.location.replace(PROCESS_ACCOUNT_URL.LOGIN);
+    alert("확인되지 않은 접근입니다.");
+    window.location.replace("/" + PROCESS_ACCOUNT_URL.LOGIN);
   }
 
   return (

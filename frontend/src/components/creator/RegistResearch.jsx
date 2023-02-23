@@ -45,6 +45,7 @@ export default function ResearchBox() {
 
   useEffect(() => {
     if (creatorId > 0) {
+      alert("크리에이터 권환이 없습니다.");
       navigate(CREATOR_BAR_LIST.list[0].creator[0].url);
     }
   }, []);

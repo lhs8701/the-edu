@@ -1,11 +1,6 @@
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
-import {
-  getAllUsersApi,
-  getLockedMembersApi,
-  lockedMembersApi,
-  unLockedMembersApi,
-} from "../../api/adminApi";
+import { getLockedMembersApi, unLockedMembersApi } from "../../api/adminApi";
 import { ADMIN_BAR_LIST } from "../../static";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import { getAdminAccessTokenSelector } from "../../atom";

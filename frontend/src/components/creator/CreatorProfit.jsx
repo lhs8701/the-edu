@@ -10,6 +10,7 @@ export default function CreatorProfit() {
   const navigate = useNavigate();
   useEffect(() => {
     if (isCreator < 0) {
+      alert("크리에이터 권환이 없습니다.");
       navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
     }
   }, []);
