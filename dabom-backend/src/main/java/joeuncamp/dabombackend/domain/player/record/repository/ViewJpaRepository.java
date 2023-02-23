@@ -15,7 +15,7 @@ public interface ViewJpaRepository extends JpaRepository<View, Long> {
     Optional<View> findByMemberAndUnit(Member member, Unit unit);
     Optional<View> findByUnit(Unit unit);
 
-    @Query(" delete from View v where v.member = :member and v.unit.course = :course ")
-    void deleteByMemberAndCourse(@Param("member")Member member, @Param("course")Course course);
+    @Query(" select v from View v where v.member = :member and v.unit.course = :course ")
+    List<View> findByMemberAndCourse(Member member, Course course);
 
 }

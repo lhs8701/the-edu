@@ -10,6 +10,7 @@ import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import joeuncamp.dabombackend.domain.player.record.entity.Record;
+import joeuncamp.dabombackend.domain.player.record.entity.View;
 import joeuncamp.dabombackend.domain.player.record.repository.RecordRedisRepository;
 import joeuncamp.dabombackend.domain.player.record.repository.ViewJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAlreadyEnrolledCourse;
@@ -62,7 +63,8 @@ public class EnrollService {
         enrollJpaRepository.delete(enroll);
         List<Record> recordList = recordRedisRepository.findByMemberIdAndCourseId(member.getId(), course.getId());
         recordRedisRepository.deleteAll(recordList);
-        viewJpaRepository.deleteByMemberAndCourse(member, course);
+        List<View> viewList = viewJpaRepository.findByMemberAndCourse(member, course);
+        viewJpaRepository.deleteAll(viewList);
     }
 
     /**
