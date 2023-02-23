@@ -21,10 +21,8 @@ public class FeedbackDto {
         Long memberId;
         @Schema(hidden = true)
         Long unitId;
-        @NotNull
         @Schema(description = "좋아요", example = "false")
         Boolean thumbsUp;
-        @NotNull
         @Schema(description = "싫어요", example = "false")
         Boolean thumbsDown;
     }

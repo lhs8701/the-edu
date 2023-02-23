@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.post.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
@@ -24,7 +25,7 @@ public class InquiryDto {
         @Schema(description = "강좌 아이디넘버", example = "1")
         Long courseId;
 
-        @NotNull
+        @NotBlank
         @Schema(description = "내용", example = ExampleValue.Post.CONTENT)
         String content;
 
@@ -75,7 +76,7 @@ public class InquiryDto {
         Long memberId;
         @Schema(hidden = true, description = "문의 아이디넘버")
         Long inquiryId;
-        @NotNull
+        @NotBlank
         @Schema(description = "내용", example = ExampleValue.Post.CONTENT)
         String content;
     }

@@ -14,4 +14,8 @@ import java.util.Optional;
 public interface ViewJpaRepository extends JpaRepository<View, Long> {
     Optional<View> findByMemberAndUnit(Member member, Unit unit);
     Optional<View> findByUnit(Unit unit);
+
+    @Query(" select v from View v where v.member = :member and v.unit.course = :course ")
+    List<View> findByMemberAndCourse(Member member, Course course);
+
 }

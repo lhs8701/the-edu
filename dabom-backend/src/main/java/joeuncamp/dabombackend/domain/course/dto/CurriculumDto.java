@@ -1,6 +1,8 @@
 package joeuncamp.dabombackend.domain.course.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,12 +41,14 @@ public class CurriculumDto {
     @Getter
     public static class ChapterRequest {
         @Schema(description = "챕터명", example = ExampleValue.Unit.CHAPTER)
+        @NotEmpty
         String title;
         List<UnitRequest> units;
     }
 
     @Getter
     public static class UnitRequest {
+        @NotNull
         Long unitId;
     }
 

@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.unit.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.file.FileUtil;
 import joeuncamp.dabombackend.domain.file.video.entity.VideoInfo;
@@ -19,10 +20,13 @@ public class UnitDto {
         @Schema(hidden = true)
         Long courseId;
         @Schema(description = "강의 제목", example = ExampleValue.Unit.TITLE)
+        @NotBlank
         String title;
         @Schema(description = "강의 설명", example = ExampleValue.Unit.DESCRIPTION)
+        @NotBlank
         String description;
         @Schema(description = "비디오 경로", example = ExampleValue.Video.URL)
+        @NotBlank
         String videoUrl;
 
         public Unit toEntity(Course course) {

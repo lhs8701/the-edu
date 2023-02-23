@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.course.dto.*;
 import joeuncamp.dabombackend.domain.course.service.CourseService;
 import joeuncamp.dabombackend.domain.course.service.CurriculumService;
@@ -40,7 +41,7 @@ public class CourseController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/curriculum")
-    public ResponseEntity<Void> makeCurriculum(@PathVariable Long courseId, @RequestBody CurriculumDto.CreateRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> makeCurriculum(@PathVariable Long courseId, @RequestBody @Valid CurriculumDto.CreateRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setCourseId(courseId);
         requestDto.setMemberId(member.getId());
         curriculumService.makeCurriculum(requestDto);

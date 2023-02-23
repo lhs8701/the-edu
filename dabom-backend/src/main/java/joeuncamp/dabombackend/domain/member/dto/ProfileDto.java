@@ -1,15 +1,19 @@
 package joeuncamp.dabombackend.domain.member.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
 import joeuncamp.dabombackend.global.constant.LoginType;
+import joeuncamp.dabombackend.global.constant.ValidationMessage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 public class ProfileDto {
 
@@ -21,10 +25,13 @@ public class ProfileDto {
         @Schema(hidden = true)
         Long memberId;
         @Schema(description="별명", example = ExampleValue.Member.NICKNAME)
+        @Length(min = 2, max = 16, message = ValidationMessage.NOT_VALID_NICKNAME)
         String nickname;
+        @Email
         @Schema(description = "이메일", example = ExampleValue.Member.EMAIL)
         String email;
         @Schema(description = "프로필 이미지 경로", example = ExampleValue.Image.PROFILE_IMAGE)
+        @NotBlank
         String profileImage;
     }
     @Getter

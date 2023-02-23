@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.player.question.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -25,10 +26,10 @@ public class QuestionDto {
         @Schema(hidden = true)
         Long unitId;
         @Schema(description = "질문 제목", example = ExampleValue.Question.TITLE)
-        @NotEmpty
+        @NotBlank
         private String title;
         @Schema(description = "질문 내용", example = ExampleValue.Question.DESCRIPTION)
-        @NotEmpty
+        @NotBlank
         private String content;
 
         public Question toEntity(Member member, Unit unit) {
@@ -68,8 +69,10 @@ public class QuestionDto {
         @Schema(hidden = true)
         Long questionId;
         @Schema(description = "수정한 제목", example = ExampleValue.Question.TITLE)
+        @NotBlank
         String title;
         @Schema(description = "수정한 내용", example = ExampleValue.Question.DESCRIPTION)
+        @NotBlank
         String content;
     }
 

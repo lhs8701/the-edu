@@ -32,7 +32,6 @@ public class ExceptionAdvice {
     }
 
     // Custom Exception
-
     @ExceptionHandler(CNotCreatorException.class)
     protected ResponseEntity<ErrorResponseDto> handle(CNotCreatorException e){
         ErrorCode errorCode = e.getErrorCode();

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.auth.dto.AppleAuthDto;
 import joeuncamp.dabombackend.domain.auth.service.AppleAuthService;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -26,7 +27,7 @@ public class AppleAuthController {
     @Operation(summary = "애플로 가입합니다.", description = "")
     @PreAuthorize("permitAll()")
     @PostMapping("/auth/apple/signup")
-    public ResponseEntity<Void> signup(@RequestBody AppleAuthDto.SignupRequest requestDto) {
+    public ResponseEntity<Void> signup(@RequestBody @Valid AppleAuthDto.SignupRequest requestDto) {
         appleAuthService.signup(requestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -34,7 +35,7 @@ public class AppleAuthController {
     @Operation(summary = "애플로 로그인합니다.", description = "")
     @PreAuthorize("permitAll()")
     @PostMapping("/auth/apple/login")
-    public ResponseEntity<AppleAuthDto.LoginResponse> login(@RequestBody AppleAuthDto.LoginRequest requestDto) {
+    public ResponseEntity<AppleAuthDto.LoginResponse> login(@RequestBody @Valid AppleAuthDto.LoginRequest requestDto) {
         AppleAuthDto.LoginResponse responseDto = appleAuthService.login(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

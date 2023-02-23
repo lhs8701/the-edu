@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.UUID;
 
@@ -27,9 +29,11 @@ public class Order extends BaseTimeEntity {
     @Enumerated(value = EnumType.STRING)
     PayType payType;
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     Item item;
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
     Member member;
 

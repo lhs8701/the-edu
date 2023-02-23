@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import joeuncamp.dabombackend.domain.order.entity.Coupon;
 import joeuncamp.dabombackend.domain.order.entity.DiscountPolicy;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -18,12 +19,16 @@ public class CouponDto {
     @NoArgsConstructor
     public static class GenerateRequest {
         @Schema(description = "쿠폰 이름", example = ExampleValue.Coupon.NAME)
+        @NotEmpty
         String name;
         @Schema(description = "최소 사용 금액")
+        @Min(0)
         long minimumAmount;
         @Schema(description = "할인액")
+        @Min(0) @Max(100)
         long discount;
         @Schema(description = "유효기간")
+        @Future
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate endDate;
 
@@ -43,6 +48,7 @@ public class CouponDto {
     @NoArgsConstructor
     public static class IssueRequest {
         @Schema(description = "회원 아이디넘버")
+        @NotNull
         Long memberId;
         @Schema(hidden = true, description = "발급할 쿠폰")
         Long couponId;
@@ -55,6 +61,7 @@ public class CouponDto {
         @Schema(hidden = true)
         Long memberId;
         @Schema(description = "등록할 쿠폰 코드")
+        @NotEmpty
         String couponCode;
     }
 

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.answer.dto.AnswerDto;
 import joeuncamp.dabombackend.domain.player.answer.service.AnswerService;
@@ -30,7 +31,7 @@ public class AnswerController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/questions/{questionId}/answers")
-    public ResponseEntity<Long> createAnswer(@PathVariable Long questionId, @RequestBody AnswerDto.CreationRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Long> createAnswer(@PathVariable Long questionId, @RequestBody @Valid AnswerDto.CreationRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setQuestionId(questionId);
         requestDto.setMemberId(member.getId());
         Long response = answerService.createAnswer(requestDto);
@@ -51,7 +52,7 @@ public class AnswerController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/answers/{answerId}")
-    public ResponseEntity<Void> updateAnswer(@PathVariable Long answerId, @RequestBody AnswerDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> updateAnswer(@PathVariable Long answerId, @RequestBody @Valid AnswerDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setAnswerId(answerId);
         answerService.updateAnswer(requestDto);

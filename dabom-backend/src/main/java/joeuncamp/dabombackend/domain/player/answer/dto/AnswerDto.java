@@ -54,6 +54,7 @@ public class AnswerDto {
         Long memberId;
         @Schema(hidden = true)
         Long answerId;
+        @NotEmpty
         @Schema(description = "수정한 내용", example = ExampleValue.Answer.DESCRIPTION)
         String content;
     }

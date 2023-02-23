@@ -23,15 +23,13 @@ public class Reply extends BaseTimeEntity {
     @JoinColumn
     CreatorProfile creator;
     @OneToOne
+    @JoinColumn
     Post post;
 
     @Builder
     public Reply(String content, CreatorProfile creator, Post post) {
         this.content = content;
         this.creator = creator;
-//        if (post.getReply() != null){
-//            post.reply = null;
-//        }
         this.post = post;
     }
 

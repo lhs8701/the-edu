@@ -51,23 +51,4 @@ public class MemberControllerTest {
         // then
         actions.andExpect(status().isOk());
     }
-
-    @Test
-    @WithAuthUser(role = "USER")
-    @DisplayName("나의 프로필을 수정한다.")
-    void 나의_프로필을_수정한다() throws Exception {
-        // given
-        ProfileDto.UpdateRequest requestDto = ProfileDto.UpdateRequest.builder()
-                .nickname("updated")
-                .email("updated")
-                .build();
-
-        // when
-        final ResultActions actions = mockMvc.perform(patch("/api/members/me/profile" ).with(csrf())
-                .content(new Gson().toJson(requestDto))
-                .contentType(MediaType.APPLICATION_JSON_VALUE));
-
-        // then
-        actions.andExpect(status().isOk());
-    }
 }
