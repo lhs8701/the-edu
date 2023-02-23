@@ -263,6 +263,7 @@ export function AdminUserTable({ rows, cells, fun, isLockPage }) {
 }
 
 export function AdminCreatorStanbyTable({ rows, cells, activeFun }) {
+  console.log(rows);
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">
@@ -283,9 +284,9 @@ export function AdminCreatorStanbyTable({ rows, cells, activeFun }) {
               <TableCell align="center">
                 {row.activated ? "승인" : "미승인"}
               </TableCell>
-              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">{row.nickname}</TableCell>
               <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.mobile}</TableCell>
+              <TableCell align="center">{row.memberPrivacy.mobile}</TableCell>
               <TableCell align="center">{row.subject}</TableCell>
               <TableCell align="center">{row.career}</TableCell>
               <TableCell align="center">

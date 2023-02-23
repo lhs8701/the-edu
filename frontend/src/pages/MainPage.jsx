@@ -123,7 +123,7 @@ export default function MainPage() {
   };
 
   const MyClassList = ({ recentList }) => {
-    return recentList.map((course) => {
+    return recentList?.map((course) => {
       const progressRatio = Math.round(
         (course?.completedUnits / course?.entireUnits) * 100
       );
