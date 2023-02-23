@@ -24,7 +24,7 @@ import FindAccount from "./components/account/FindAccount";
 import FindPassword from "./components/account/FindPassword";
 import KaKaoAuth from "./components/account/KakaoAuth";
 import PlayerRoot from "./pages/PlayerRoot";
-import MypageErrComponent from "./components/mypage/MypageErrComponent";
+
 import AdminRoot from "./pages/admin/AdminRoot";
 import EventDetailPage from "./pages/event/EventDetailPage";
 import CreatorRoot from "./pages/creator/CreatorRoot";
@@ -32,12 +32,12 @@ import ResearchBox from "./components/creator/RegistResearch";
 import CreatorRequest from "./components/admin/CreatorRequest";
 import Comment from "./components/mypage/Comment";
 import CreatorInfo from "./components/creator/CreatorInfo";
-import CreatorProfit from "./components/creator/CreatorProfit";
+
 import CoursesComment from "./components/creator/course/CoursesComment";
 import Outline from "./components/creator/uploadCourse/Outline";
 import CreatorsCourses from "./components/creator/CreatorsCourses";
 import CreatorsRegisted from "./components/creator/CreatorsRegisted";
-import CourseProfit from "./components/admin/CourseProfit";
+
 import CategoryProfit from "./components/admin/CategoryProfit";
 import Users from "./components/admin/Users";
 import Creators from "./components/admin/Creators";
