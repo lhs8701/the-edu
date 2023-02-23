@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.course.dto.TicketDto;
 import joeuncamp.dabombackend.domain.course.service.TicketService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -58,7 +59,7 @@ public class OrderController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/purchase/items/{itemId}")
-    public ResponseEntity<Void> completeOrder(@PathVariable Long itemId, @RequestBody OrderDto.Request requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> completeOrder(@PathVariable Long itemId, @RequestBody @Valid OrderDto.Request requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setItemId(itemId);
         orderSystem.makeOrder(requestDto);

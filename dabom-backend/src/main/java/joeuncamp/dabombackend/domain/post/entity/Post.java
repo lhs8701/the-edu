@@ -32,7 +32,7 @@ public abstract class Post extends BaseTimeEntity{
     @JoinColumn
     Course course;
 
-    @OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     Reply reply;
 
     void setMember(Member member){

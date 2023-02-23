@@ -4,6 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import joeuncamp.dabombackend.domain.admin.dto.CouponAdminDto;
 import joeuncamp.dabombackend.domain.admin.service.CouponAdminService;
 import joeuncamp.dabombackend.domain.order.dto.CouponDto;
@@ -26,12 +29,11 @@ public class CouponAdminController {
 
     private final CouponGenerator couponGenerator;
     private final CouponAdminService couponAdminService;
-
     @Operation(summary = "쿠폰 생성", description = "쿠폰을 생성합니다.")
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/coupons/generate")
-    public ResponseEntity<Void> generate(@RequestBody CouponDto.GenerateRequest requestDto) {
+    public ResponseEntity<Void> generate(@RequestBody @Valid CouponDto.GenerateRequest requestDto) {
         couponGenerator.generate(requestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -40,7 +42,7 @@ public class CouponAdminController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/coupons/{couponId}/issue")
-    public ResponseEntity<Void> issue(@PathVariable Long couponId, @RequestBody CouponDto.IssueRequest requestDto) {
+    public ResponseEntity<Void> issue(@PathVariable Long couponId, @RequestBody @Valid CouponDto.IssueRequest requestDto) {
         requestDto.setCouponId(couponId);
         couponGenerator.issue(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -50,7 +52,7 @@ public class CouponAdminController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/coupons/{couponId}/code")
-    public ResponseEntity<Void> generateCouponCode(@PathVariable Long couponId, int count) {
+    public ResponseEntity<Void> generateCouponCode(@PathVariable Long couponId, @Min(0) @Max(10000)int count) {
         couponGenerator.generateCouponCode(couponId, count);
         return new ResponseEntity<>(HttpStatus.OK);
     }

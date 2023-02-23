@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.unit.dto.MyUnitDto;
 import joeuncamp.dabombackend.domain.unit.dto.UnitDto;
@@ -33,7 +34,7 @@ public class UnitController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/units")
-    public ResponseEntity<Long> uploadUnit(@PathVariable Long courseId, @RequestBody UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Long> uploadUnit(@PathVariable Long courseId, @RequestBody @Valid UnitDto.UploadRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setCourseId(courseId);
         Long response = unitService.uploadUnit(requestDto);

@@ -2,7 +2,10 @@ package joeuncamp.dabombackend.domain.event.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import joeuncamp.dabombackend.domain.event.entity.Event;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -25,8 +28,10 @@ public class EventDto {
         @Schema(hidden = true)
         Long memberId;
         @Schema(description = "제목", example = ExampleValue.Event.TITLE)
+        @NotBlank
         String title;
         @Schema(description = "내용", example = ExampleValue.Event.CONTENT)
+        @NotBlank
         String content;
         @Schema(description = "배너 이미지", example = ExampleValue.Image.THUMBNAIL)
         String bannerImage;
@@ -34,6 +39,7 @@ public class EventDto {
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate startDate;
         @Schema(description = "종료 일자")
+        @Future
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate endDate;
 
@@ -116,8 +122,10 @@ public class EventDto {
         @Schema(hidden = true)
         Long eventId;
         @Schema(description = "제목", example = ExampleValue.Event.TITLE)
+        @NotBlank
         String title;
         @Schema(description = "내용", example = ExampleValue.Event.CONTENT)
+        @NotBlank
         String content;
         @Schema(description = "배너 이미지", example = ExampleValue.Image.THUMBNAIL)
         String bannerImage;
@@ -125,6 +133,7 @@ public class EventDto {
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate startDate;
         @Schema(description = "종료 일자")
+        @Future
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         LocalDate endDate;
     }

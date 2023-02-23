@@ -21,12 +21,14 @@ import joeuncamp.dabombackend.global.error.exception.CAccessDeniedException;
 import joeuncamp.dabombackend.global.error.exception.CNotCreatorException;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class CreatorCourseService {
     private final MemberJpaRepository memberJpaRepository;
@@ -99,6 +101,9 @@ public class CreatorCourseService {
         if (!member.isCreator() || !post.getCourse().getCreatorProfile().equals(member.getCreatorProfile())) {
             throw new CAccessDeniedException("크리에이터만 이용할 수 있는 기능입니다.");
         }
+        if (post.getReply() != null){
+            replyJpaRepository.delete(post.getReply());
+        }
         Reply reply = requestDto.toEntity(member.getCreatorProfile(), post);
         return replyJpaRepository.save(reply).getId();
     }
@@ -132,6 +137,7 @@ public class CreatorCourseService {
         if (!member.isCreator() || !reply.getCreator().equals(member.getCreatorProfile())) {
             throw new CAccessDeniedException("크리에이터만 이용할 수 있는 기능입니다.");
         }
+        log.info("-------------------");
         replyJpaRepository.deleteById(replyId);
     }
 }

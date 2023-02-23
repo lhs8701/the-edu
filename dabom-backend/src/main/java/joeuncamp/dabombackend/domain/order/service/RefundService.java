@@ -22,11 +22,22 @@ public class RefundService {
     private final OrderJpaRepository orderJpaRepository;
     @Autowired
     List<RefundPolicy> refundPolicies;
+    @Autowired
+    List<PostRefundManager> postRefundManagers;
 
     private RefundPolicy getRefundPolicy(Order order){
         for (RefundPolicy refundPolicy : refundPolicies) {
             if (refundPolicy.supports(order)){
                 return refundPolicy;
+            }
+        }
+        throw new CInternalServerException();
+    }
+
+    private PostRefundManager getPostRefundManager(Order order){
+        for (PostRefundManager postRefundManager : postRefundManagers) {
+            if (postRefundManager.supports(order)){
+                return postRefundManager;
             }
         }
         throw new CInternalServerException();
@@ -52,5 +63,7 @@ public class RefundService {
         tossService.cancel(order.getPaymentKey());
         order.setOrderStatus(OrderStatus.CANCELED);
         orderJpaRepository.save(order);
+        PostRefundManager postRefundManager = getPostRefundManager(order);
+        postRefundManager.doAfterAction(order);
     }
 }

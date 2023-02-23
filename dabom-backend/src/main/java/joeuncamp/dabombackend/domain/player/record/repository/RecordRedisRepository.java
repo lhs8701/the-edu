@@ -15,4 +15,6 @@ public interface RecordRedisRepository extends CrudRepository<Record, Long> {
     Optional<Record> findByMemberIdAndUnitId(Long memberId, Long unitId);
     List<Record> findByMemberIdOrderByRecentTimeDesc(Long memberId);
     Optional<Record> findByMemberIdAndCourseIdOrderByRecentTimeDesc(Long memberId, Long courseId);
+
+    void deleteByMemberIdAndCourseId(Long memberId, Long courseId);
 }

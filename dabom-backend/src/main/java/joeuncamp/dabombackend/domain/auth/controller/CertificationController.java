@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.auth.dto.CertRequestDto;
 import joeuncamp.dabombackend.domain.auth.service.CertificationService;
 import joeuncamp.dabombackend.domain.auth.service.EmailCertificationService;
@@ -31,8 +32,6 @@ import java.net.URI;
 public class CertificationController {
     private final CertificationService certificationService;
     private final EmailCertificationService emailCertificationService;
-
-
 
     @Operation(summary = "이메일 인증", description = "이메일 인증을 시도합니다. 성공한 경우, 홈페이지로 리다이렉트됩니다.")
     @PreAuthorize("permitAll()")
@@ -62,7 +61,7 @@ public class CertificationController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/cert/result")
-    public ResponseEntity<Void> certify(@RequestBody CertRequestDto requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> certify(@RequestBody @Valid CertRequestDto requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         certificationService.certify(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);

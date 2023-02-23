@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.player.question.dto.QuestionDto;
 import joeuncamp.dabombackend.domain.player.question.service.QuestionService;
@@ -30,7 +32,7 @@ public class QuestionController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/units/{unitId}/questions")
-    public ResponseEntity<Long> createQuestion(@PathVariable Long unitId, @RequestBody QuestionDto.CreationRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Long> createQuestion(@PathVariable Long unitId, @RequestBody @Valid QuestionDto.CreationRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setUnitId(unitId);
         Long response = questionService.createQuestion(requestDto);
@@ -73,7 +75,7 @@ public class QuestionController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/units/questions/{questionId}")
-    public ResponseEntity<Void> updateQuestion(@PathVariable Long questionId, @RequestBody QuestionDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> updateQuestion(@PathVariable Long questionId, @RequestBody @NotBlank QuestionDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setQuestionId(questionId);
         questionService.updateQuestion(requestDto);

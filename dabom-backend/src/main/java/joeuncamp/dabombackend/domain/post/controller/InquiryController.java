@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.post.dto.InquiryDto;
 import joeuncamp.dabombackend.domain.post.service.InquiryService;
@@ -31,7 +32,7 @@ public class InquiryController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/inquiries")
-    public ResponseEntity<IdResponseDto> writeInquiry(@RequestBody InquiryDto.Request requestDto) {
+    public ResponseEntity<IdResponseDto> writeInquiry(@RequestBody @Valid InquiryDto.Request requestDto) {
         IdResponseDto responseDto = inquiryService.writeInquiry(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
@@ -48,7 +49,7 @@ public class InquiryController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/inquiries/{inquiryId}")
-    public ResponseEntity<Long> updateReview(@PathVariable Long inquiryId, @RequestBody InquiryDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Long> updateReview(@PathVariable Long inquiryId, @RequestBody @Valid InquiryDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setInquiryId(inquiryId);
         Long response = inquiryService.updateInquiry(requestDto);

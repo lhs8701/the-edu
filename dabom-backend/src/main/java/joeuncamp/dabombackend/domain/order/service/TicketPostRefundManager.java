@@ -3,33 +3,35 @@ package joeuncamp.dabombackend.domain.order.service;
 import joeuncamp.dabombackend.domain.course.repository.TicketJpaRepository;
 import joeuncamp.dabombackend.domain.course.service.EnrollService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
-import joeuncamp.dabombackend.domain.order.entity.*;
+import joeuncamp.dabombackend.domain.order.entity.Item;
+import joeuncamp.dabombackend.domain.order.entity.ItemType;
+import joeuncamp.dabombackend.domain.order.entity.Order;
+import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class TicketManager implements PostOrderManager {
+public class TicketPostRefundManager implements PostRefundManager {
 
     private final EnrollService enrollService;
     private final TicketJpaRepository ticketJpaRepository;
 
     @Override
-    public boolean supports(Item item) {
-        return item.getItemType().equals(ItemType.TICKET);
+    public boolean supports(Order order) {
+        return order.getItem().getItemType().equals(ItemType.TICKET);
     }
 
     /**
-     * 구매 후속조치로 강좌에 등록정보를 생성합니다.
+     * 환불 후속조치로 강좌 등록 정보 및 시청 기록을 삭제합니다.
      *
      * @param order 주문 내역
      */
     @Override
     public void doAfterAction(Order order) {
         Member member = order.getMember();
-        Item item = order.getItem();
-        Ticket ticket = ticketJpaRepository.findById(item.getId()).orElseThrow(CResourceNotFoundException::new);
-        enrollService.enroll(member, ticket);
+        Ticket ticket = ticketJpaRepository.findById(order.getItem().getId()).orElseThrow(CResourceNotFoundException::new);
+        enrollService.dropOutCourse(member, ticket);
     }
 }

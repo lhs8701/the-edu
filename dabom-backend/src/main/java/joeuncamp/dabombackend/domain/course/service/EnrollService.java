@@ -9,6 +9,8 @@ import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.order.entity.Ticket;
+import joeuncamp.dabombackend.domain.player.record.repository.RecordRedisRepository;
+import joeuncamp.dabombackend.domain.player.record.repository.ViewJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAlreadyEnrolledCourse;
 import joeuncamp.dabombackend.global.error.exception.CResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ public class EnrollService {
     private final MemberJpaRepository memberJpaRepository;
     private final EnrollJpaRepository enrollJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
+    private final RecordRedisRepository recordRedisRepository;
+    private final ViewJpaRepository viewJpaRepository;
 
     /**
      * 수강 정보를 갱신합니다.
@@ -42,6 +46,20 @@ public class EnrollService {
                 .build());
         enroll.setEndDate(LocalDateTime.now().plus(ticket.getDuration()));
         enrollJpaRepository.save(enroll);
+    }
+
+    /**
+     * 등록 정보를 제거합니다.
+     *
+     * @param member 회원
+     * @param ticket 티켓
+     */
+    public void dropOutCourse(Member member, Ticket ticket) {
+        Course course = ticket.getCourse();
+        Enroll enroll = enrollJpaRepository.findByMemberAndCourse(member, course).orElseThrow();
+        enrollJpaRepository.delete(enroll);
+        recordRedisRepository.deleteByMemberIdAndCourseId(member.getId(), course.getId());
+        viewJpaRepository.deleteByMemberAndCourse(member, course);
     }
 
     /**

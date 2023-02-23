@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.event.dto.EventDto;
 import joeuncamp.dabombackend.domain.event.service.EventService;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -29,7 +30,7 @@ public class EventController {
     @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/events")
-    public ResponseEntity<Long> createEvent(@RequestBody EventDto.CreateRequest requestDto, @AuthenticationPrincipal Member member){
+    public ResponseEntity<Long> createEvent(@RequestBody @Valid EventDto.CreateRequest requestDto, @AuthenticationPrincipal Member member){
         requestDto.setMemberId(member.getId());
         Long response = eventService.createEvent(requestDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);

@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.order.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.order.entity.*;
@@ -23,6 +24,7 @@ public class OrderDto {
         @Schema(description = "사용한 쿠폰 아이디넘버")
         Long couponId;
         @Schema(description = "사용한 포인트 금액")
+        @Min(0)
         long point;
         TossPayDto tossPayDto;
 

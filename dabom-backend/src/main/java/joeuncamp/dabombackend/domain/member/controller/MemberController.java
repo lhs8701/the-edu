@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.member.dto.PasswordDto;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -40,7 +41,7 @@ public class MemberController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/members/me/profile")
-    public ResponseEntity<Void> updateMyProfile(@RequestBody ProfileDto.UpdateRequest updateParam, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> updateMyProfile(@RequestBody @Valid ProfileDto.UpdateRequest updateParam, @AuthenticationPrincipal Member member) {
         updateParam.setMemberId(member.getId());
         memberService.updateMyProfile(updateParam);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -49,7 +50,7 @@ public class MemberController {
     @Operation(summary = "임시 비밀번호 발급", description = "회원의 이메일로 임시 비밀번호를 전송합니다.")
     @PreAuthorize("permitAll()")
     @PostMapping("/members/me/password/reset")
-    public ResponseEntity<PasswordDto.Response> resetPassword(@RequestBody PasswordDto.ResetRequest requestDto) {
+    public ResponseEntity<PasswordDto.Response> resetPassword(@RequestBody @Valid PasswordDto.ResetRequest requestDto) {
         PasswordDto.Response response = accountManager.resetPassword(requestDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -58,7 +59,7 @@ public class MemberController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/members/me/password/change")
-    public ResponseEntity<Void> changePassword(@RequestBody PasswordDto.ChangeRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> changePassword(@RequestBody @Valid PasswordDto.ChangeRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         accountManager.changePassword(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);

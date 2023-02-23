@@ -3,6 +3,7 @@ package joeuncamp.dabombackend.domain.post.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.GeneratedValue;
+import jakarta.validation.constraints.NotBlank;
 import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.post.entity.Post;
 import joeuncamp.dabombackend.domain.post.entity.Reply;
@@ -24,6 +25,7 @@ public class ReplyDto {
         Long memberId;
         @Schema(hidden = true)
         Long postId;
+        @NotBlank
         String content;
         public Reply toEntity(CreatorProfile creator, Post post){
             return Reply.builder()
@@ -61,6 +63,7 @@ public class ReplyDto {
         Long memberId;
         @Schema(hidden = true)
         Long replyId;
+        @NotBlank
         String content;
     }
 }

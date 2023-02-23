@@ -1,8 +1,7 @@
 package joeuncamp.dabombackend.domain.post.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import joeuncamp.dabombackend.domain.course.entity.Course;
 import joeuncamp.dabombackend.domain.member.dto.ProfileDto;
 import joeuncamp.dabombackend.domain.member.entity.Member;
@@ -21,11 +20,11 @@ public class ReviewDto {
         Long memberId;
         @Schema(hidden = true, description = "강좌 아이디넘버", example = "1")
         Long courseId;
-        @NotNull
+        @NotBlank
         @Schema(description = "내용", example = ExampleValue.Post.CONTENT)
         String content;
-        @NotNull
         @Schema(description = "평점")
+        @Min(0) @Max(5)
         int score;
 
         public Review toEntity(Member member, Course course) {
@@ -47,10 +46,10 @@ public class ReviewDto {
         Long memberId;
         @Schema(hidden = true, description = "후기 아이디넘버")
         Long reviewId;
-        @NotNull
+        @NotBlank
         @Schema(description = "내용", example = ExampleValue.Post.CONTENT)
         String content;
-        @NotNull
+        @Min(0) @Max(5)
         @Schema(description = "평점")
         int score;
     }

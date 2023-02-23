@@ -1,6 +1,8 @@
 package joeuncamp.dabombackend.domain.creator.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import joeuncamp.dabombackend.domain.creator.entity.CreatorProfile;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
@@ -25,8 +27,10 @@ public class CreatorDto {
         @Schema(hidden = true)
         Long memberId;
         @Schema(description = "강좌 주제")
+        @NotBlank
         String subject;
         @Schema(description = "경력")
+        @NotBlank
         String career;
 
         public CreatorProfile toEntity(Member member) {

@@ -3,6 +3,8 @@ package joeuncamp.dabombackend.domain.course.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import joeuncamp.dabombackend.domain.order.entity.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,8 +20,10 @@ public class TicketDto {
         @Schema(hidden = true)
         Long memberId;
         @Schema(description = "변경할 원가")
+        @Min(0) @Max(5000000)
         Long costPrice;
         @Schema(description = "변경할 할인가")
+        @Min(0) @Max(5000000)
         Long discountedPrice;
         @Schema(description = "수강 기간")
         Integer coursePeriod;

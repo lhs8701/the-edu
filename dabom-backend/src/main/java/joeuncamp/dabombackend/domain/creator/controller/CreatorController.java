@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.course.dto.CourseDto;
 import joeuncamp.dabombackend.domain.course.dto.CreatorStatusDto;
 import joeuncamp.dabombackend.domain.course.dto.TicketDto;
@@ -39,7 +40,7 @@ public class CreatorController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "AccessToken", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses")
-    public ResponseEntity<Long> openCourse(@AuthenticationPrincipal Member member, @RequestBody CourseDto.CreationRequest requestDto) {
+    public ResponseEntity<Long> openCourse(@AuthenticationPrincipal Member member, @RequestBody @Valid CourseDto.CreationRequest requestDto) {
         requestDto.setMemberId(member.getId());
         Long response = creatorCourseService.openCourse(requestDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -58,7 +59,7 @@ public class CreatorController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/creators/me/standby")
-    public ResponseEntity<Void> standByCreator(@RequestBody CreatorDto.StandByRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> standByCreator(@RequestBody @Valid CreatorDto.StandByRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         creatorActivator.registerCreator(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -68,7 +69,7 @@ public class CreatorController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/courses/{courseId}/tickets")
-    public ResponseEntity<Void> setTicket(@PathVariable Long courseId, @RequestBody TicketDto.Request requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> setTicket(@PathVariable Long courseId, @RequestBody @Valid TicketDto.Request requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setCourseId(courseId);
         ticketService.updateTicket(requestDto);
@@ -79,7 +80,7 @@ public class CreatorController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/reply/posts/{postId}")
-    public ResponseEntity<Long> writeReply(@PathVariable Long postId, @RequestBody ReplyDto.WriteRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Long> writeReply(@PathVariable Long postId, @RequestBody @Valid ReplyDto.WriteRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setPostId(postId);
         Long response = creatorCourseService.writeReply(requestDto);
@@ -90,7 +91,7 @@ public class CreatorController {
     @Parameter(name = Header.ACCESS_TOKEN, description = "어세스토큰", required = true, in = ParameterIn.HEADER, example = ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/reply/{replyId}")
-    public ResponseEntity<Void> updateReply(@PathVariable Long replyId, @RequestBody ReplyDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity<Void> updateReply(@PathVariable Long replyId, @RequestBody @Valid ReplyDto.UpdateRequest requestDto, @AuthenticationPrincipal Member member) {
         requestDto.setMemberId(member.getId());
         requestDto.setReplyId(replyId);
         creatorCourseService.updateReply(requestDto);

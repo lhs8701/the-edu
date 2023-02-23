@@ -1,6 +1,7 @@
 package joeuncamp.dabombackend.domain.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.security.jwt.TokenForm;
 import lombok.Getter;
@@ -14,7 +15,8 @@ public class KakaoAuthDto {
     @Getter
     @NoArgsConstructor
     public static class LoginRequest{
-        @Schema(description = "각 소셜 사이트에서 발급받은 토큰", example = "sdkjfxkjlsdjfkekjfls")
+        @Schema(description = "각 소셜 사이트에서 발급받은 토큰")
+        @NotBlank
         String socialToken;
     }
 
@@ -35,7 +37,8 @@ public class KakaoAuthDto {
     @Getter
     @Setter
     public static class UnlinkRequest {
-        @Schema(description = "각 소셜 사이트에서 발급받은 토큰", example = "sdkjfxkjlsdjfkekjfls")
+        @Schema(description = "각 소셜 사이트에서 발급받은 토큰")
+        @NotBlank
         String socialToken;
         @Schema(hidden = true, description = "어세스토큰")
         String accessToken;

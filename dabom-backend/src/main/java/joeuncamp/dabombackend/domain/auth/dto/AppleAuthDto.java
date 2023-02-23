@@ -2,6 +2,7 @@ package joeuncamp.dabombackend.domain.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import joeuncamp.dabombackend.domain.file.image.entity.ImageInfo;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.global.constant.ExampleValue;
@@ -23,6 +24,7 @@ public class AppleAuthDto {
     @Getter
     public static class LoginRequest{
         @Schema(description = "각 소셜 사이트에서 발급받은 토큰")
+        @NotEmpty
         String socialToken;
     }
 

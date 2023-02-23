@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.order.dto.CouponDto;
 import joeuncamp.dabombackend.domain.order.service.CouponService;
@@ -31,7 +32,7 @@ public class CouponController {
     @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/coupons/register")
-    public ResponseEntity<Void> registerCoupon(@RequestBody CouponDto.RegisterRequest requestDto, @AuthenticationPrincipal Member member){
+    public ResponseEntity<Void> registerCoupon(@RequestBody @Valid CouponDto.RegisterRequest requestDto, @AuthenticationPrincipal Member member){
         requestDto.setMemberId(member.getId());
         couponService.registerCoupon(requestDto);
         return new ResponseEntity<>(HttpStatus.OK);
