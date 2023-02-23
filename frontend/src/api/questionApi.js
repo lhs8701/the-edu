@@ -6,6 +6,54 @@ const QUESTION_TAIL_URL = "/questions";
 const ANSWER_URL = `${API_URL}/questions`;
 const ANSWER_TAIL_URL = "/answers";
 const MINE_URL = "/mine";
+
+export async function deleteUnitQuestionReplyApi(accessToken, answerId) {
+  return await axios.delete(`${API_URL}${ANSWER_TAIL_URL}/${answerId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ACCESS: accessToken,
+    },
+  });
+}
+
+export async function patchUnitQuestionReplyApi(
+  accessToken,
+  content,
+  questionId
+) {
+  return await axios.patch(
+    `${API_URL}${ANSWER_TAIL_URL}/${questionId}`,
+    {
+      content: content,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
+export async function postUnitQuestionReplyApi(
+  accessToken,
+  content,
+  questionId
+) {
+  return await axios.post(
+    `${ANSWER_URL}/${questionId}${ANSWER_TAIL_URL}`,
+    {
+      content: content,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+      },
+    }
+  );
+}
+
 export async function getQuestionListApi(pageParam, unitId, accessToken) {
   const params = {
     page: pageParam,

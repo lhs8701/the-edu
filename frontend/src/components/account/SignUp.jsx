@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Modal from "react-modal";
@@ -6,29 +6,25 @@ import {
   AccountBtn,
   AccountForm,
   AccountInput,
-  AccountSmallBtn,
   AccountTitle,
   AccountWrapper,
   ErrorMessage,
   InputBox,
   InputLabel,
 } from "../../style/AccountComponentCss";
-import Term from "./Term";
+import { PrivacyTerm, Term } from "./Term";
 import { useForm } from "react-hook-form";
 import { signUp } from "../../api/authApi";
-
-const MIN_PWD_LENGTH = 8;
-const MAX_NAME_LENGTH = 16;
-const MIN_NAME_LENGTH = 2;
-const MAX_PWD_LENGTH = 16;
-const MIN_TELE_LENGTH = 10;
-const MAX_TELE_LENGTH = 11;
-
-const TeleInput = styled(AccountInput)`
-  width: 83%;
-`;
-
-const AuthBtn = styled(AccountSmallBtn)``;
+import Helmet from "react-helmet";
+import { CenterDiv } from "../../style/CommonCss";
+import {
+  MAX_NAME_LENGTH,
+  MAX_PWD_LENGTH,
+  MIN_NAME_LENGTH,
+  MIN_PWD_LENGTH,
+} from "../../static";
+import { getLoginState } from "../../atom";
+import { useRecoilValue } from "recoil";
 
 const TermBox = styled.div`
   margin-top: 20px;
@@ -83,19 +79,25 @@ const TermErrMessage = styled(ErrorMessage)`
 `;
 
 export default function SignUp() {
+  const loginState = useRecoilValue(getLoginState);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isId, setIsId] = useState("");
   const [isPwd, setIsPwd] = useState("");
   const [isName, setIsName] = useState("");
-  const [isTele, setIsTele] = useState("");
-  const [isBirth, setIsBirth] = useState("");
-  const [isCheck, setIsCheck] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isCheck2, setIsCheck2] = useState({
+    inputCheck: false,
+    lookCheck: false,
+  });
+  const [isCheck, setIsCheck] = useState({
+    inputCheck: false,
+    lookCheck: false,
+  });
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
     watch,
   } = useForm({
     mode: "onBlur",
@@ -106,269 +108,236 @@ export default function SignUp() {
   });
 
   const submit = () => {
+    setIsLoading(true);
     signUp({
       account: isId,
       password: isPwd,
-      name: isName,
       nickname: isName,
-      mobile: "010-1234-5578",
-      birthDate:
-        isBirth.substr(0, 4) +
-        "." +
-        isBirth.substr(5, 2) +
-        "." +
-        isBirth.substr(8, 2),
     })
       .then(() => {
-        alert("회원 가입이 되셨습니다.");
+        alert("이메일 인증 후 로그인을 할 수 있어요.");
         navigate("/account/login");
       })
       .catch((err) => {
-        console.log(err.response.status);
-        if (err.response.status == 401) {
+        setIsLoading(false);
+
+        if (err.response.data.code === -6002) {
           alert("이미 가입된 정보입니다.");
           navigate("/account/login");
-        } else {
-          alert("잘못된 정보입니다. 정확한 정보를 입력해주세요.");
+        } else if (err.response.status === 500) {
+          alert("서버 오류입니다.");
         }
       });
   };
+
   return (
-    <AccountWrapper>
-      <AccountTitle>회원가입</AccountTitle>
-      <AccountForm onSubmit={handleSubmit(submit)}>
-        <InputBox>
-          <InputLabel htmlFor="name">성명</InputLabel>
-          <AccountInput
-            {...register("name", {
-              name: "name",
-              required: "성명을 입력하세요!",
-              // 유효성 검사 파트
-              // pattern: {
-              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-              //   message: "wrong input",
-              // },
-              onChange: (e) => {
-                setIsName(e.target.value);
-              },
-              minLength: {
-                value: MIN_NAME_LENGTH,
-                message: "2글자 이상 입력해주세요.",
-              },
-              maxLength: {
-                value: MAX_NAME_LENGTH,
-                message: "16글자 이하로 입력해주세요.",
-              },
-            })}
-            type="text"
-            placeholder="성명을 입력해주세요."
-          />
-          <ErrorMessage>{errors?.name?.message}</ErrorMessage>
-        </InputBox>
-        <InputBox>
-          <InputLabel>이메일 주소</InputLabel>
-          <AccountInput
-            {...register("email", {
-              name: "email",
-              required: "이메일을 입력하세요!",
-              // 유효성 검사 파트
-              // pattern: {
-              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-              //   message: "wrong input",
-              // },
-              onChange: (e) => {
-                setIsId(e.target.value);
-              },
-            })}
-            type="text"
-            placeholder="이메일 주소를 입력해주세요."
-          />
-          <ErrorMessage>{errors?.email?.message}</ErrorMessage>
-        </InputBox>
-        <InputBox>
-          <InputLabel>비밀번호</InputLabel>
-          <AccountInput
-            {...register("pwd", {
-              name: "pwd",
-              required: "비밀번호를 입력하세요!",
-              // 유효성 검사 파트
-              // pattern: {
-              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-              //   message: "wrong input",
-              // },
-              minLength: {
-                value: MIN_PWD_LENGTH,
-                message: "8글자 이상 입력해주세요.",
-              },
-              maxLength: {
-                value: MAX_PWD_LENGTH,
-                message: "16글자 이하로 입력해주세요.",
-              },
-              onChange: (e) => {
-                setIsPwd(e.target.value);
-              },
-            })}
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-          />
-          <ErrorMessage>{errors?.pwd?.message}</ErrorMessage>
-        </InputBox>
-        <InputBox>
-          <InputLabel>비밀번호 확인</InputLabel>
-          <AccountInput
-            {...register("pwdConfirm", {
-              name: "pwdConfirm",
-              required: "비밀번호를 한번 더 입력해주세요!",
-              // 유효성 검사 파트
-              // pattern: {
-              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-              //   message: "wrong input",
-              // },
-              validate: (val) => {
-                if (watch("pwd") !== val) {
-                  return "비밀번호가 서로 다릅니다!";
-                }
-              },
-              minLength: {
-                value: 8,
-                message: "8글자 이상 입력해주세요.",
-              },
-              maxLength: {
-                value: 16,
-                message: "16글자 이하로 입력해주세요.",
-              },
-              onChange: (e) => {
-                // setIsPwdConfirm(e.target.value);
-              },
-            })}
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-          />
-          <ErrorMessage>{errors?.pwdConfirm?.message}</ErrorMessage>
-        </InputBox>
-        <InputBox>
-          <InputLabel>생년월일</InputLabel>
-          <AccountInput
-            {...register("birth", {
-              name: "birth",
-              required: "생년월일을 입력해주세요!",
-              onChange: (e) => {
-                setIsBirth(e.target.value);
-              },
-            })}
-            type="date"
-          />
-          <ErrorMessage>{errors?.birth?.message}</ErrorMessage>
-        </InputBox>
-        <InputBox>
-          <InputLabel>휴대전화 번호</InputLabel>
-          <br />
-          <TeleInput
-            {...register("tele", {
-              name: "tele",
-              required: "휴대전화번호를 입력해주세요!",
-              // 유효성 검사 파트
-              // pattern: {
-              //   value: /^[A-Za-z0-9._%+-]+@knu\.ac.kr$/,
-              //   message: "wrong input",
-              // },
-              minLength: {
-                value: MIN_TELE_LENGTH,
-                message: "10글자 이상 입력해주세요.",
-              },
-              maxLength: {
-                value: MAX_TELE_LENGTH,
-                message: "11글자 이하로 입력해주세요.",
-              },
-              onChange: (e) => {
-                setIsTele(e.target.value);
-              },
-            })}
-            type="tel"
-            placeholder="휴대전화 번호를 입력해주세요."
-          />
-
-          <AuthBtn
-            onClick={() => {
-              console.log("s");
-            }}
-            disabled={true}
-          >
-            인증
-          </AuthBtn>
-          <ErrorMessage>{errors?.tele?.message}</ErrorMessage>
-        </InputBox>
-
-        <TermBox>
-          <TermLabel checked={isCheck}>
-            <TermCheck
-              {...register("service", {
-                name: "service",
-                required: "약관에 동의해주세요!",
+    <>
+      <Helmet>
+        <script src="https://cdn.toss.im/cert/v1"></script>
+      </Helmet>
+      <AccountWrapper>
+        <AccountTitle>회원가입</AccountTitle>
+        <AccountForm onSubmit={handleSubmit(submit)}>
+          <InputBox>
+            <InputLabel htmlFor="name">성명</InputLabel>
+            <AccountInput
+              {...register("name", {
+                name: "name",
+                required: "성명을 입력하세요!",
                 onChange: (e) => {
-                  setIsCheck((prev) => !prev);
+                  setIsName(e.target.value);
+                },
+                minLength: {
+                  value: MIN_NAME_LENGTH,
+                  message: "2글자 이상 입력해주세요.",
+                },
+                maxLength: {
+                  value: MAX_NAME_LENGTH,
+                  message: "16글자 이하로 입력해주세요.",
                 },
               })}
-              type="checkbox"
+              type="text"
+              placeholder="성명을 입력해주세요."
             />
-            [필수] 서비스 이용약관 동의
-          </TermLabel>
-          <TermErrMessage>{errors?.service?.message}</TermErrMessage>
-          <TermBtn
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
+            <ErrorMessage>{errors?.name?.message}</ErrorMessage>
+          </InputBox>
+          <InputBox>
+            <InputLabel>이메일 주소</InputLabel>
+            <AccountInput
+              {...register("email", {
+                name: "email",
+                required: "이메일을 입력하세요!",
+                pattern: {
+                  value:
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: "잘못된 이메일 형식입니다.",
+                },
+                onChange: (e) => {
+                  setIsId(e.target.value);
+                },
+              })}
+              type="text"
+              placeholder="이메일 주소를 입력해주세요."
+            />
+            <ErrorMessage>{errors?.email?.message}</ErrorMessage>
+          </InputBox>
+          <InputBox>
+            <InputLabel>비밀번호</InputLabel>
+            <AccountInput
+              {...register("pwd", {
+                name: "pwd",
+                required: "비밀번호를 입력하세요!",
+                pattern: {
+                  value:
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/,
+                  message:
+                    "비밀번호는 8글자 이상, 숫자, 영문, 특수문자를 포함해 8글자 이상 16글자이하입니다.",
+                },
+                minLength: {
+                  value: MIN_PWD_LENGTH,
+                  message: "8글자 이상 입력해주세요.",
+                },
+                maxLength: {
+                  value: MAX_PWD_LENGTH,
+                  message: "16글자 이하로 입력해주세요.",
+                },
+                onChange: (e) => {
+                  setIsPwd(e.target.value);
+                },
+              })}
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+            />
+            <ErrorMessage>{errors?.pwd?.message}</ErrorMessage>
+          </InputBox>
+          <InputBox>
+            <InputLabel>비밀번호 확인</InputLabel>
+            <AccountInput
+              {...register("pwdConfirm", {
+                name: "pwdConfirm",
+                required: "비밀번호를 한번 더 입력해주세요!",
+                validate: (val) => {
+                  if (watch("pwd") !== val) {
+                    return "비밀번호가 서로 다릅니다!";
+                  }
+                },
+              })}
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+            />
+            <ErrorMessage>{errors?.pwdConfirm?.message}</ErrorMessage>
+          </InputBox>
+
+          <TermBox>
+            <TermLabel checked={isCheck.inputCheck}>
+              <TermCheck
+                {...register("service", {
+                  name: "service",
+                  required: "이용약관에 동의해주세요!",
+                  onChange: (e) => {
+                    setIsCheck((prev) => ({
+                      ...prev,
+                      inputCheck: !prev.inputCheck,
+                    }));
+                  },
+                })}
+                type="checkbox"
+              />
+              [필수] 서비스 이용약관 동의
+            </TermLabel>
+            <TermErrMessage>{errors?.service?.message}</TermErrMessage>
+            <TermBtn
+              onClick={() => {
+                setIsCheck((current) => ({
+                  ...current,
+                  lookCheck: true,
+                }));
+                setIsCheck2((current) => ({
+                  ...current,
+                  lookCheck: false,
+                }));
+
+                setModalOpen(true);
+              }}
             >
-          </TermBtn>
-        </TermBox>
-        <TermBox>
-          <TermLabel>
-            <TermCheck type="checkbox" />
-            [필수] 개인정보 수집 및 이용에 대한 동의
-          </TermLabel>
-          <ErrorMessage></ErrorMessage>
-          <TermBtn
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
+              >
+            </TermBtn>
+          </TermBox>
+          <TermBox>
+            <TermLabel checked={isCheck2.inputCheck}>
+              <TermCheck
+                {...register("service2", {
+                  name: "service2",
+                  required: "개인정보 약관에 동의해주세요!",
+                  onChange: (e) => {
+                    setIsCheck2((prev) => ({
+                      ...prev,
+                      inputCheck: !prev.inputCheck,
+                    }));
+                  },
+                })}
+                type="checkbox"
+              />
+              [필수] 개인정보 수집 및 이용에 대한 동의
+            </TermLabel>
+            <TermErrMessage>{errors?.service2?.message}</TermErrMessage>
+            <TermBtn
+              onClick={() => {
+                setIsCheck((current) => ({
+                  ...current,
+                  lookCheck: false,
+                }));
+                setIsCheck2((current) => ({
+                  ...current,
+                  lookCheck: true,
+                }));
+                setModalOpen(true);
+              }}
             >
-          </TermBtn>
-        </TermBox>
-        <br />
-        <AccountBtn
-          texthovercolor={"--color-background"}
-          bgcolor={"--color-primary"}
-          textcolor={"--color-text"}
+              >
+            </TermBtn>
+          </TermBox>
+          <br />
+          {isLoading ? (
+            <CenterDiv>진행 중...</CenterDiv>
+          ) : (
+            <AccountBtn
+              texthovercolor={"--color-background"}
+              bgcolor={"--color-primary"}
+              textcolor={"--color-text"}
+            >
+              회원가입
+            </AccountBtn>
+          )}
+        </AccountForm>
+        <Modal
+          isOpen={isModalOpen}
+          ariaHideApp={false}
+          onRequestClose={() => setModalOpen(false)}
+          style={{
+            overlay: {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              width: "100%",
+              height: "100%",
+            },
+            content: {
+              overflow: "hidden",
+              width: "35%",
+              height: "75%",
+              top: "10%",
+              left: "30.5%",
+            },
+          }}
         >
-          회원가입
-        </AccountBtn>
-      </AccountForm>
-      <Modal
-        isOpen={isModalOpen}
-        ariaHideApp={false}
-        onRequestClose={() => setModalOpen(false)}
-        style={{
-          overlay: {
-            position: "fixed",
-            top: 0,
-            left: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.2)",
-            width: "100%",
-            height: "100%",
-          },
-          content: {
-            overflow: "hidden",
-            width: "25%",
-            height: "75%",
-            top: "10%",
-            left: "37.5%",
-          },
-        }}
-      >
-        {<Term setModalOpen={setModalOpen} />}
-      </Modal>
-    </AccountWrapper>
+          {isCheck.lookCheck ? <Term setModalOpen={setModalOpen} /> : null}
+          {isCheck2.lookCheck ? (
+            <PrivacyTerm setModalOpen={setModalOpen} />
+          ) : null}
+        </Modal>
+      </AccountWrapper>
+    </>
   );
 }

@@ -1,4 +1,3 @@
-import { useInView } from "framer-motion";
 import styled from "styled-components";
 import {
   StatusDisplayUnderBar,
@@ -42,11 +41,9 @@ export default function CourseNavBar({ refArr, isTabStatus, setIsTabStatus }) {
     refArr[index]?.current.scrollIntoView({
       behavior: "smooth",
       block: "start",
-      // inline: "start",
     });
   };
 
-  //
   return (
     <CourseStatusNavBar>
       <CourseStatusNavBox>

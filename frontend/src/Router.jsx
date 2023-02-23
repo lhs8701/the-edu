@@ -33,22 +33,42 @@ import CreatorRequest from "./components/admin/CreatorRequest";
 import Comment from "./components/mypage/Comment";
 import CreatorInfo from "./components/creator/CreatorInfo";
 import CreatorProfit from "./components/creator/CreatorProfit";
-import CoursesComment from "./components/creator/CoursesComment";
-import Outline from "./components/creator/Outline";
+import CoursesComment from "./components/creator/course/CoursesComment";
+import Outline from "./components/creator/uploadCourse/Outline";
 import CreatorsCourses from "./components/creator/CreatorsCourses";
 import CreatorsRegisted from "./components/creator/CreatorsRegisted";
 import CourseProfit from "./components/admin/CourseProfit";
 import CategoryProfit from "./components/admin/CategoryProfit";
 import Users from "./components/admin/Users";
 import Creators from "./components/admin/Creators";
-import Courses from "./components/admin/Courses";
-import Revisecourses from "./components/admin/Revisecourses";
-import CoursesInquires from "./components/creator/CoursesInquires";
+import Courses from "./components/admin/course/Courses";
+
+import CoursesInquires from "./components/creator/course/CoursesInquires";
 import EventList from "./components/admin/event/EventList";
 import DetailEvent from "./components/admin/event/DetailEvent";
 import SuccessPurchase from "./components/purchase/SuccessPurchase";
 import UploadEvent from "./components/admin/event/UploadEvent";
-import AdminCoupon from "./components/admin/AdminCoupon";
+import AdminCoupon from "./components/admin/coupon/AdminCoupon";
+import PrivacyTerms from "./components/PrivacyTemrs";
+import CouponList from "./components/admin/coupon/CouponList";
+import DetailCoupon from "./components/admin/coupon/DetailCoupon";
+import DetailCourseInfo from "./components/admin/course/DetailCourseInfo";
+import UnitVideo from "./components/admin/course/UnitVideo";
+import CourseDetailSetUp from "./components/creator/course/CourseDetailSetUp";
+import FailPurchase from "./components/purchase/FailPurchase";
+import EmailCert from "./components/account/EmailCert";
+import { AllCoursesPage } from "./pages/AllCoursesPage";
+import EnrollCourses from "./components/admin/course/EnrollCourses";
+import ReviseActivateCourse from "./components/admin/course/ReviseActivateCourse";
+import StopCourses from "./components/admin/course/StopCourses";
+import ReviseStopCourse from "./components/admin/course/ReviseStopCourse";
+import LockUsers from "./components/admin/LockUsers";
+import ManageUnitQuestion from "./components/creator/course/ManageUnitQuestion";
+import HomePageTerm from "./components/HompageTerm";
+import Profit from "./components/admin/Profit";
+import PlayerErrComponent from "./components/Player/PlayerErrComponent";
+import CreatorsProfit from "./components/admin/CreatorsProfit";
+import CreatorsProfitDetail from "./components/admin/CreatorsProfitsDetail";
 
 const router = createBrowserRouter([
   {
@@ -61,8 +81,23 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
+        path: "/privacyterms",
+        element: <PrivacyTerms />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: "/term",
+        element: <HomePageTerm />,
+        errorElement: <ErrorComponent />,
+      },
+      {
         path: "category/:categoryId/:smallCategoryId",
         element: <CategoryPage />,
+        errorElement: <ErrorComponent />,
+      },
+      {
+        path: "category",
+        element: <AllCoursesPage />,
         errorElement: <ErrorComponent />,
       },
       {
@@ -77,7 +112,7 @@ const router = createBrowserRouter([
       {
         path: "my",
         element: <MyPage />,
-        errorElement: <MypageErrComponent />,
+        errorElement: <ErrorComponent />,
         children: [
           {
             path: "",
@@ -119,10 +154,10 @@ const router = createBrowserRouter([
           },
           {
             path: ":point/:couponId/fail",
-            element: <PurchasePage />,
+            element: <FailPurchase />,
           },
         ],
-        errorElement: <div>dndn</div>,
+        errorElement: <ErrorComponent />,
       },
 
       {
@@ -165,13 +200,14 @@ const router = createBrowserRouter([
         element: <FindPassword />,
       },
       { path: "kauth", element: <KaKaoAuth /> },
+      { path: "certification", element: <EmailCert /> },
     ],
     errorElement: <ErrorComponent />,
   },
   {
     path: "/player/:courseId/:unitId",
     element: <PlayerRoot />,
-    errorElement: <ErrorComponent />,
+    errorElement: <PlayerErrComponent />,
   },
   {
     path: "/admin",
@@ -182,12 +218,16 @@ const router = createBrowserRouter([
         element: <CategoryProfit />,
       },
       {
-        path: "coursesprofit",
-        element: <CourseProfit />,
+        path: "creatorsprofit",
+        element: <CreatorsProfit />,
+      },
+      {
+        path: "creatorsprofit/:creatorId",
+        element: <CreatorsProfitDetail />,
       },
       {
         path: "profit",
-        element: <CourseProfit />,
+        element: <Profit />,
       },
       {
         path: "users",
@@ -195,7 +235,7 @@ const router = createBrowserRouter([
       },
       {
         path: "leaveusers",
-        element: <Users />,
+        element: <LockUsers />,
       },
       {
         path: "creatorsrequest",
@@ -206,12 +246,40 @@ const router = createBrowserRouter([
         element: <Creators />,
       },
       {
-        path: "revisecourses",
-        element: <Revisecourses />,
+        path: "enrollcourses",
+        element: <EnrollCourses />,
+      },
+      {
+        path: "enrollcourses/:courseId",
+        element: <DetailCourseInfo />,
+      },
+      {
+        path: "enrollcourses/:courseId/:unitId",
+        element: <UnitVideo />,
+      },
+      {
+        path: "revisecourses/:courseId",
+        element: <DetailCourseInfo />,
+      },
+      {
+        path: "revisecourses/:courseId/:unitId",
+        element: <UnitVideo />,
       },
       {
         path: "courses",
         element: <Courses />,
+      },
+      {
+        path: "courses/:courseId",
+        element: <ReviseActivateCourse />,
+      },
+      {
+        path: "stopcourses",
+        element: <StopCourses />,
+      },
+      {
+        path: "stopcourses/:courseId",
+        element: <ReviseStopCourse />,
       },
       {
         path: "eventnotice",
@@ -233,7 +301,16 @@ const router = createBrowserRouter([
         path: "coupon",
         element: <AdminCoupon />,
       },
+      {
+        path: "coupon/:couponId",
+        element: <DetailCoupon />,
+      },
+      {
+        path: "couponlist",
+        element: <CouponList />,
+      },
     ],
+    errorElement: <ErrorComponent />,
   },
   {
     path: "/creator",
@@ -243,14 +320,13 @@ const router = createBrowserRouter([
         path: "register",
         element: <ResearchBox />,
       },
-
       {
         path: "info",
         element: <CreatorInfo />,
       },
       {
         path: "profit",
-        element: <CreatorProfit />,
+        element: <CreatorInfo />,
       },
       {
         path: "comment",
@@ -259,6 +335,22 @@ const router = createBrowserRouter([
       {
         path: "mycourses",
         element: <CreatorsCourses />,
+      },
+      {
+        path: "mycourses/:courseId",
+        element: <CourseDetailSetUp />,
+      },
+      {
+        path: "mycourses/comment/:courseId",
+        element: <CoursesComment />,
+      },
+      {
+        path: "mycourses/comment/:courseId/:unitId",
+        element: <ManageUnitQuestion />,
+      },
+      {
+        path: "mycourses/:courseId/:unitId",
+        element: <UnitVideo />,
       },
       {
         path: "registcourses",
@@ -273,6 +365,7 @@ const router = createBrowserRouter([
         element: <CoursesInquires />,
       },
     ],
+    errorElement: <ErrorComponent />,
   },
 ]);
 

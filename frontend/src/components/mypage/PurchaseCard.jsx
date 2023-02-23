@@ -1,5 +1,23 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { refundApi } from "../../api/orderApi";
+import { getAccessTokenSelector } from "../../atom";
+import { STATIC_URL } from "../../static";
 import { Card, CardTitle, CardInfoBox } from "../../style/MypageComponentsCss";
+
+const HistoryCard = styled(Card)`
+  height: 180px;
+  padding-left: 0;
+  cursor: auto;
+`;
+
+const HistoryInfoBox = styled(CardInfoBox)`
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 85%;
+  margin-left: 20px;
+`;
 
 const CourseInfoTab = styled.div`
   display: flex;
@@ -13,16 +31,13 @@ const CourseTeacher = styled.p`
 `;
 
 const CourseInfo = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 270px;
 `;
 
-const PurchaseId = styled(CourseTeacher)`
-  width: 200px;
-  text-align: end;
-`;
+const PurchaseId = styled(CourseTeacher)``;
 
 const Date = styled(PurchaseId)`
   text-align: start;
@@ -34,29 +49,67 @@ const Money = styled(PurchaseId)`
 `;
 
 const Img = styled.img`
-  width: 150px;
+  width: 220px;
   height: 100%;
 `;
 
+const CancelBtn = styled.button`
+  background-color: var(--color-primary);
+  border: none;
+  padding: 5px 10px;
+  border-radius: var(--size-border-radius);
+  font-size: 0.9rem;
+  transition: 0.1s;
+  &:hover {
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
+  }
+`;
+
 export default function PurchaseCard({ purchase }) {
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+
+  const refund = () => {
+    if (window.confirm(`${purchase.orderName}을 환불하시겠습니까?`)) {
+      refundApi(purchase.orderId, accessToken)
+        .then(() => {
+          alert("환불이 완료되었습니다.");
+        })
+        .catch((err) => {
+          alert("환불이 불가합니다.");
+        });
+    }
+  };
+
   return (
-    <Card>
-      <Img src="https://influencer-phinf.pstatic.net/MjAyMTAzMDhfMTcg/MDAxNjE1MTc5Mzc1MDIw.pX2vbhOo0R7oMThLzoyfasywzZCH8tLiOt_0xZ81rAAg.ZCGj0dvLR-Td_tkuRdWCf4mVQLTWe9p98DiXboFjM_0g.JPEG/%EC%9D%B8%ED%94%84%EB%9F%B0_%ED%95%9C%EA%B8%80_%EB%A1%9C%EA%B3%A0.jpg" />
-      <CardInfoBox>
+    <HistoryCard>
+      <Img src={STATIC_URL + purchase.image.mediumFilePath} />
+      <HistoryInfoBox>
         <CourseInfoTab>
           <CourseInfo>
-            <CardTitle>{purchase.title}</CardTitle>
-            <CourseTeacher>{purchase.teacher}</CourseTeacher>
+            <CardTitle>{purchase.orderName}</CardTitle>
+            {purchase.orderStatus === "DONE" ? (
+              Number(purchase.amount) === 0 ? null : (
+                <CancelBtn onClick={refund}>주문 취소</CancelBtn>
+              )
+            ) : null}
           </CourseInfo>
-          <PurchaseId>주문 번호 {purchase.purchaseId}</PurchaseId>
         </CourseInfoTab>
+        <PurchaseId>주문 번호 : {purchase.orderId}</PurchaseId>
+        <PurchaseId>
+          결제 방식 : {purchase.payType === "CARD" && "카드 결제"}
+          {purchase.payType === "MOBILE" && "휴대전화"}
+          {purchase.payType === "EMPTY" && "결제 없음"}
+        </PurchaseId>
+        <PurchaseId>
+          주문 상태 :{" "}
+          {purchase.orderStatus === "DONE" ? "결제완료" : "환불 완료"}
+        </PurchaseId>
         <CourseInfoTab>
-          <Date>
-            {purchase.purchaseDate} ~ {purchase.expiredDate}
-          </Date>
-          <Money>{purchase.purchaseValue}원</Money>
+          <Date>{purchase.orderTime.slice(0, 10)} 일에 주문</Date>
+          <Money>{purchase.amount}원</Money>
         </CourseInfoTab>
-      </CardInfoBox>
-    </Card>
+      </HistoryInfoBox>
+    </HistoryCard>
   );
 }

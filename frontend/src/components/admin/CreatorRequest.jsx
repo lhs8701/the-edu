@@ -1,13 +1,4 @@
-import { Typography } from "@mui/material";
-import { useEffect, useLayoutEffect, useState } from "react";
-import styled from "styled-components";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import { useEffect, useState } from "react";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import { ADMIN_BAR_LIST } from "../../static";
 import { useRecoilValue } from "recoil";
@@ -54,11 +45,21 @@ export default function CreatorRequest() {
   };
 
   const activeCreator = (creatorId) => {
-    activateCreator(accessToken, creatorId);
+    if (
+      window.confirm(`${creatorId}번 유저를 크리에이터로 승인하시겠습니까?`)
+    ) {
+      activateCreator(accessToken, creatorId)
+        .then(() => {
+          alert("승인 완료");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
   };
 
   useEffect(makeStanbyList, [data?.data]);
-  console.log(stanbyList);
+
   return (
     <div>
       <DashboardTitleTab title={ADMIN_BAR_LIST.list[1].list[1].name} />

@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
-import { getAllUsersApi } from "../../api/adminApi";
+import { getAllUsersApi, lockedMembersApi } from "../../api/adminApi";
 import { ADMIN_BAR_LIST } from "../../static";
 import DashboardTitleTab from "../dashboard/DashboardTitleTab";
 import { getAdminAccessTokenSelector } from "../../atom";
@@ -18,6 +18,7 @@ export default function Users() {
     { name: "로그인 타입", id: 4 },
     { name: "크리에이터", id: 5 },
     { name: "가입 날짜", id: 6 },
+    { name: "회원 정지", id: 7 },
   ];
   const { data, isSuccess } = useQuery(
     ["admin-allUsers"],
@@ -58,12 +59,29 @@ export default function Users() {
     }
   };
 
+  const lockMember = (memberId) => {
+    if (window.confirm(`${memberId}를 정지하시겠습니까?`)) {
+      lockedMembersApi(accessToken, memberId)
+        .then(() => {
+          alert("해당 유저를 정지하였습니다.");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
+  };
+
   useEffect(makeUserList, [data?.data]);
   return (
     <div>
       <DashboardTitleTab title={ADMIN_BAR_LIST.list[0].list[0].name} />
       {userList && (
-        <AdminUserTable cells={userListTableCells} rows={userList} />
+        <AdminUserTable
+          cells={userListTableCells}
+          rows={userList}
+          fun={lockMember}
+          isLockPage={false}
+        />
       )}
     </div>
   );

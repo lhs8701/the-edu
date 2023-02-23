@@ -1,4 +1,5 @@
-import { Outlet, useNavigate } from "react-router";
+import { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -52,8 +53,15 @@ export default function AccountRoot() {
   const navigate = useNavigate();
 
   if (loginState) {
-    navigate(-1);
+    navigate("/");
   }
+
+  useEffect(() => {
+    if (loginState) {
+      alert("현재 계정에서 로그아웃 이후 진행해주세요.");
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
@@ -64,9 +72,9 @@ export default function AccountRoot() {
               navigate("/");
             }}
           >
-            <Title>다 </Title>
-            <PointTitle>봄</PointTitle>
-            <SubTitle>&nbsp; - The Edu</SubTitle>
+            <Title>The</Title>
+            <PointTitle>Edu</PointTitle>
+            {/* <SubTitle>&nbsp; - The Edu</SubTitle> */}
           </TitleBox>
           <br />
           <br />

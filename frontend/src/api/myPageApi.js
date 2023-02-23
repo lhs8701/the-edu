@@ -9,6 +9,7 @@ const PROFILE_URL = "/profile";
 const ME_URL = "/me";
 const FIND_PWD_URL = "/password/reset";
 const CHANGE_PWD_URL = "/password/change";
+const POINT_URL = "/point";
 
 export async function changePwdApi(accessToken, currentPassword, newPassword) {
   return await axios.post(
@@ -70,6 +71,15 @@ export async function myInfoApi(memberId, accessToken) {
       "Content-Type": "application/json",
       "Access-Control-Allow-Credentials": true,
       "Access-Control-Allow-Origin": "*",
+      ACCESS: accessToken,
+    },
+  });
+  return data.data;
+}
+export async function getMyPointApi(accessToken) {
+  const data = await axios.get(`${MEMBER_URL}${ME_URL}${POINT_URL}`, {
+    headers: {
+      "Content-Type": "application/json",
       ACCESS: accessToken,
     },
   });

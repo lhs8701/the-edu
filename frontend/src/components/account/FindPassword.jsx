@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { resetPwdApi } from "../../api/myPageApi";
 import { CircularProgress } from "@mui/material";
+import { CenterDiv } from "../../style/CommonCss";
 
 const LoginLinkBox = styled.div`
   width: 100%;
@@ -64,10 +65,23 @@ export default function FindPassword() {
 
   const submit = () => {
     setIsSubmit(true);
-    resetPwdApi(isID).then(({ data }) => {
-      alert(data.email + "로 임시 비밀번호를 보냈어요");
-      navigate(-1);
-    });
+    resetPwdApi(isID)
+      .then(({ data }) => {
+        alert(
+          data.email +
+            "로 임시 비밀번호를 보냈어요. 로그인 후, 비밀번호를 변경해주세요."
+        );
+        navigate(-1);
+      })
+      .catch((err) => {
+        if (err.response.data.code === -6008) {
+          alert(err.response.data.message);
+        } else {
+          alert(err);
+        }
+
+        setIsSubmit(false);
+      });
   };
 
   return (
@@ -120,11 +134,13 @@ export default function FindPassword() {
           </LoginLinkBox>
         </AccountForm>
       ) : (
-        <CircularProgress
-          sx={{
-            color: "var(--color-primary)",
-          }}
-        />
+        <CenterDiv>
+          <CircularProgress
+            sx={{
+              color: "var(--color-primary)",
+            }}
+          />
+        </CenterDiv>
       )}
 
       <br />

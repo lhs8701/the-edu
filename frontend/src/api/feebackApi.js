@@ -13,10 +13,15 @@ export async function getFeedbackApi(accessToken, unitId) {
   });
 }
 
-export async function postFeedbackApi(accessToken, unitId, thumb, comment) {
+export async function postFeedbackApi(
+  accessToken,
+  unitId,
+  thumbsUp,
+  thumbsDown
+) {
   return await axios.post(
     `${RECORD_URL}${UNIT_URL}/${unitId}`,
-    { comment: comment, thumbsUp: thumb },
+    { thumbsDown: thumbsDown, thumbsUp: thumbsUp },
     {
       headers: {
         "Content-Type": "application/json",

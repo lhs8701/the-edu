@@ -9,13 +9,23 @@ const ENROLL_URL = "/enroll";
 const SEARCH_URL = "/keyword";
 const CURRICULUM_URL = "/curriculum";
 const STATUS_URL = "/status";
-const CHECK_URL = "/check";
-const WISHCHECK_URL = WISH_URL + CHECK_URL;
 const ONGOING_URL = "/ongoing";
 const COMPELETE_URL = "/completed";
 const RANK_URL = "/ranking";
 const RECENT_URL = "/recent";
 const TICKET_URL = "/tickets";
+
+export async function getAllCoursesApi(pageParam, size) {
+  const params = {
+    page: pageParam,
+    size: size,
+    sort: "ASC",
+  };
+  const data = await axios.get(COURSE_URL, {
+    params,
+  });
+  return data.data;
+}
 
 export async function getCourseTicketsApi(courseId) {
   return await axios.get(`${COURSE_URL}/${courseId}${TICKET_URL}`);

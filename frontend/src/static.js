@@ -28,6 +28,7 @@ export const PROCESS_ACCOUNT_URL = {
   SIGNUP: "account/signup",
   FINDID: "account/id",
   FINDPWD: "account/password",
+  EMAIL_CERTIFICATION: "account/certification",
 };
 
 export const PROCESS_MAIN_URL = {
@@ -36,6 +37,7 @@ export const PROCESS_MAIN_URL = {
     DEFAULT: "my",
     WISH: "/wish",
     COUPON: "/coupon",
+    REVISE: "/revise",
     DEAL: "/deal",
     WITHDRAW: "/withdraw",
   },
@@ -49,6 +51,8 @@ export const PROCESS_MAIN_URL = {
   EVENT: "/event",
   SEARCH: "/search",
   PLAYER: "/player",
+  TERM: "/term",
+  PRIVACY: "/privacyterms",
 };
 
 export const BAR_LIST = {
@@ -61,10 +65,7 @@ export const BAR_LIST = {
       name: "찜한 클래스",
       url: "wish",
     },
-    {
-      name: "나의 댓글",
-      url: "comment",
-    },
+
     {
       name: "개인정보 수정",
       url: "revise",
@@ -93,7 +94,7 @@ export const ADMIN_BAR_LIST = {
           url: "/admin/users",
         },
         {
-          name: "탈퇴 관리",
+          name: "제제 목록 관리",
           url: "/admin/leaveusers",
         },
       ],
@@ -115,12 +116,16 @@ export const ADMIN_BAR_LIST = {
       name: "강좌 관리",
       list: [
         {
-          name: "신규 조회 및 관리",
-          url: "/admin/revisecourses",
+          name: "대기 신청 강좌 관리",
+          url: "/admin/enrollcourses",
         },
         {
-          name: "전체 조회 및 관리",
+          name: "전체 강좌 관리",
           url: "/admin/courses",
+        },
+        {
+          name: "정지된 강좌 관리",
+          url: "/admin/stopcourses",
         },
       ],
     },
@@ -133,8 +138,8 @@ export const ADMIN_BAR_LIST = {
           url: "/admin/categoryprofit",
         },
         {
-          name: "강좌별 수익",
-          url: "/admin/coursesprofit",
+          name: "크리에이터별 수익",
+          url: "/admin/creatorsprofit",
         },
         {
           name: "전체 수익",
@@ -151,12 +156,8 @@ export const ADMIN_BAR_LIST = {
         },
 
         {
-          name: "이벤트 업로드",
+          name: "업로드",
           url: "/admin/uploadevent",
-        },
-        {
-          name: "공지사항 업로드",
-          url: "/admin/uploadnotice",
         },
       ],
     },
@@ -196,30 +197,25 @@ export const CREATOR_BAR_LIST = {
           url: "/creator/mycourses",
         },
         {
-          name: "등록 신청한 강좌",
-          url: "/creator/registcourses",
-        },
-        {
           name: "강좌 등록 신청",
           url: "/creator/inputcourses",
-        },
-        {
-          name: "강좌 댓글 관리",
-          url: "/creator/comment",
-        },
-        {
-          name: "강좌 문의 관리",
-          url: "/creator/inquirecourses",
         },
       ],
     },
   ],
 };
 
-export const PURCHASE_METHOD = ["카드", "가상계좌", "계좌이체", "휴대폰"];
+export const PURCHASE_METHOD = ["카드", "계좌이체", "휴대폰"];
 
 export const BASE_URL = "http://218.38.127.26:8080";
 export const STATIC_URL = "http://the-edu.co.kr";
 export const API_URL = BASE_URL + "/api";
-// export const PLAYER_URL = STATIC_URL + "/player";
-export const PLAYER_URL = "http://localhost:3000/player";
+export const PLAYER_URL = STATIC_URL + "/player";
+// export const PLAYER_URL = "http://localhost:3000/player";
+export const TOSS_PURCHASE_URL = STATIC_URL + "/purchase";
+// export const TOSS_PURCHASE_URL = "http://localhost:3000/purchase";
+
+export const MIN_PWD_LENGTH = 8;
+export const MAX_NAME_LENGTH = 16;
+export const MIN_NAME_LENGTH = 2;
+export const MAX_PWD_LENGTH = 16;

@@ -70,7 +70,9 @@ export default function EventPage() {
           }}
           whileTap={{ y: 0, transition: { duration: 0.01 } }}
         >
-          <EventCard src={STATIC_URL + eventInfo.bannerImage.mediumFilePath} />
+          <EventCard
+            src={STATIC_URL + eventInfo.bannerImage.originalFilePath}
+          />
         </EventCardBox>
         <div>
           <EventPeriod>D - {eventInfo.dday}</EventPeriod>
@@ -81,7 +83,6 @@ export default function EventPage() {
   };
 
   const EventList = ({ eventList }) => {
-    console.log(eventList);
     return eventList.map((event) => {
       return <EventComponent eventInfo={event} key={event.id} />;
     });
@@ -89,7 +90,7 @@ export default function EventPage() {
 
   return (
     <Wrapper>
-      <TabTitle>진행 중인 이벤트</TabTitle>
+      <TabTitle>이벤트 및 공지사항</TabTitle>
       <EventBox>{data && <EventList eventList={data?.data} />}</EventBox>
     </Wrapper>
   );

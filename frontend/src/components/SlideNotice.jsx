@@ -3,6 +3,9 @@ import { motion, AnimatePresence, wrap } from "framer-motion";
 import styled from "styled-components";
 import { PROCESS_MAIN_URL, STATIC_URL } from "../static";
 import { useNavigate } from "react-router";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { Icon } from "@mui/material";
 
 const NoticeWrapper = styled(motion.div)`
   width: 100%;
@@ -89,7 +92,7 @@ export const SlideNotice = ({ eventList }) => {
       <AnimatePresence initial={false} custom={direction}>
         <Ad
           onClick={() => {
-            navigate(`${PROCESS_MAIN_URL.EVENT}/${eventList[imageIndex].id}`);
+            navigate(`${PROCESS_MAIN_URL.EVENT}/${eventList[imageIndex]?.id}`);
           }}
           onMouseEnter={() => {
             setisUserHover(true);
@@ -98,7 +101,9 @@ export const SlideNotice = ({ eventList }) => {
             setisUserHover(false);
           }}
           key={page}
-          src={STATIC_URL + eventList[imageIndex].bannerImage.originalFilePath}
+          src={
+            STATIC_URL + eventList[imageIndex]?.bannerImage?.originalFilePath
+          }
           custom={direction}
           variants={variants}
           initial="enter"
@@ -122,10 +127,16 @@ export const SlideNotice = ({ eventList }) => {
         />
       </AnimatePresence>
       <LeftPagnigation onClick={() => paginate(-1)} whileTap={{ scale: 0.9 }}>
-        좌
+        <Icon
+          sx={{ width: "30px", height: "30px" }}
+          component={ArrowBackIosNewIcon}
+        />
       </LeftPagnigation>
       <RightPagnigation onClick={() => paginate(1)} whileTap={{ scale: 0.9 }}>
-        우
+        <Icon
+          sx={{ width: "30px", height: "30px" }}
+          component={ArrowForwardIosIcon}
+        />
       </RightPagnigation>
     </NoticeWrapper>
   );

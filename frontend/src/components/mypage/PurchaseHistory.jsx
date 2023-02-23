@@ -1,5 +1,10 @@
+import { useQuery } from "react-query";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { getOrdersApi, refundApi } from "../../api/orderApi";
+import { getAccessTokenSelector, getMemberIdSelector } from "../../atom";
 import { dummyPurchaseList } from "../../dummy";
+import { AlertP, CenterDiv } from "../../style/CommonCss";
 import {
   MyPageBox,
   MyPageContentBox,
@@ -20,20 +25,42 @@ const CouponListBox = styled.div`
 `;
 
 export default function PurchaseHistory() {
+  const memberId = useRecoilValue(getMemberIdSelector);
+  const accessToken = useRecoilValue(getAccessTokenSelector);
+
+  const { data, isSuccess } = useQuery(
+    ["myPurchaseInfo", memberId],
+    () => {
+      return getOrdersApi(accessToken);
+    },
+    {
+      enabled: !!memberId,
+      onSuccess: ({ email, nickname, profileImage }) => {},
+      onError: () => {
+        console.error("에러 발생했지롱");
+      },
+    }
+  );
+
   return (
     <MyPageBox>
       <MyPageTitle>나의 구매 내역</MyPageTitle>
-      <MyPageContentBox>
-        <PurchaseWrapper>
-          <CouponListBox>
-            {dummyPurchaseList.map((purchase) => {
-              return (
-                <PurchaseCard key={purchase?.purchaseId} purchase={purchase} />
-              );
-            })}
-          </CouponListBox>
-        </PurchaseWrapper>
-      </MyPageContentBox>
+      {isSuccess && (
+        <MyPageContentBox>
+          <PurchaseWrapper>
+            <CouponListBox>
+              {data?.data?.map((order, idx) => {
+                return <PurchaseCard key={order.orderId} purchase={order} />;
+              })}
+            </CouponListBox>
+          </PurchaseWrapper>
+        </MyPageContentBox>
+      )}
+      {data?.data?.length === 0 && (
+        <CenterDiv>
+          <AlertP>구매가 없어요.</AlertP>
+        </CenterDiv>
+      )}
     </MyPageBox>
   );
 }

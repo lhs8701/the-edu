@@ -57,6 +57,10 @@ const BackLink = styled(Link)`
   background-color: transparent;
   padding: 7px;
   border: 1px solid var(--color-box-gray);
+  transition: 0.2s;
+  &:hover {
+    background-color: var(--color-primary);
+  }
 `;
 const EventDescription = styled.div`
   margin-top: 30px;
@@ -88,7 +92,12 @@ export default function EventDetailPage() {
       <>
         <EventInfoTab>
           <ContentTab>
-            <div />
+            <BackLink
+              style={{ visibility: "hidden" }}
+              to={PROCESS_MAIN_URL.EVENT}
+            >
+              목록으로
+            </BackLink>
             <EventTitle>{eventInfo.title}</EventTitle>
             <BackLink to={PROCESS_MAIN_URL.EVENT}>목록으로</BackLink>
           </ContentTab>

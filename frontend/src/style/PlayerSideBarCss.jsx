@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 `;
 
 export const SideTitle = styled.div`
-  font-weight: var(--weight-middle);
+  font-weight: var(--weight-point);
   display: flex;
   align-items: flex-start;
 `;

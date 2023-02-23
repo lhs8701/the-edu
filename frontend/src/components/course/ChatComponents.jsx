@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { STATIC_URL } from "../../static";
+import ChatIcon from "@mui/icons-material/Chat";
 
 const UserImg = styled.img`
   width: 100%;
@@ -37,11 +38,18 @@ const UserRateTab = styled.div`
   display: flex;
 `;
 
-const Rate = styled.p`
+const Rate = styled.div`
   color: var(--color-gray);
   font-weight: var(--weight-thin);
 `;
 
+const Reply = styled(Rate)`
+  margin-left: 15px;
+  white-space: normal; /* 넘치면 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어를 분리해서 줄바꿈해라 */
+  width: 90%;
+  height: 100%;
+`;
 const Date = styled.p`
   font-weight: var(--weight-thin);
   color: var(--color-gray);
@@ -67,25 +75,15 @@ const ContextTab = styled.div`
 
 const BottomBox = styled.div`
   margin: 0 auto;
-  width: 95%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-top: 15px;
 `;
 
-const Reply = styled.button`
+const ReplyTab = styled.div`
   border: none;
   background-color: transparent;
-`;
-
-const HeartTab = styled.div`
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-`;
-
-const HearTCnt = styled.p`
-  font-weight: var(--weight-thin);
 `;
 
 export const UnderBar = styled.div`
@@ -102,7 +100,7 @@ export const ChatUserInfo = ({ writer, rate }) => {
           <UserImg src={STATIC_URL + writer?.profileImage?.smallFilePath} />
         </ImgBox>
         <UserName>{writer?.nickname}</UserName>
-        <UserRateTab>
+        {/* <UserRateTab>
           {rate === "" ? (
             <Rate>&nbsp;</Rate>
           ) : (
@@ -110,7 +108,7 @@ export const ChatUserInfo = ({ writer, rate }) => {
               &nbsp; 별 <Rate>&nbsp;5.0</Rate>
             </>
           )}
-        </UserRateTab>
+        </UserRateTab> */}
       </InfoTab>
       <Date>2023.02.03</Date>
     </UserInfoBox>
@@ -125,13 +123,20 @@ export const ChatContextArea = ({ content }) => {
   );
 };
 
-export const ChatBottom = () => {
+export const ChatBottom = ({ reply }) => {
+  console.log(reply);
   return (
     <BottomBox>
-      <Reply>답글달기</Reply>
-      <HeartTab>
-        하트&nbsp;<HearTCnt>3</HearTCnt>
-      </HeartTab>
+      <ReplyTab>
+        <ChatIcon sx={{ color: "var(--color-box-gray)" }} />
+        <Reply>{reply?.content}</Reply>
+      </ReplyTab>
+      <br />
+      <ReplyTab style={{ justifyContent: "flex-end" }}>
+        <Rate style={{ fontSize: "0.9rem" }}>
+          by {reply?.writer} {reply.modifiedTime.slice(0, 10)}
+        </Rate>
+      </ReplyTab>
     </BottomBox>
   );
 };

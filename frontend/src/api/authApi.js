@@ -10,6 +10,64 @@ const REISSUE_PATH = "/reissue";
 const BASIC_LOGOUT_PATH = "/basic/logout";
 const KAKAO_SIGNIN_PATH = "/kakao/login";
 const KAKAO_LOGOUT_PATH = "/kakao/logout";
+const KAKAO_WITHDRAW_PATH = "/kakao/withdraw";
+const BASIC_WITHDRAW_PATH = "/basic/withdraw";
+const CERT_PATH = "/cert/txid";
+const AFTER_CERT_PATH = "/cert/result";
+
+export async function postTossTxId(accessToken) {
+  return await axios.post(
+    API_URL + CERT_PATH,
+    {},
+    {
+      headers: {
+        ACCESS: accessToken,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+
+export async function successTossCert(txid, accessToken) {
+  return await axios.post(
+    API_URL + AFTER_CERT_PATH,
+    { txid: txid },
+    {
+      headers: {
+        ACCESS: accessToken,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+}
+
+export async function kakaoWithdraw(accessToken, refreshToken, socialToken) {
+  return await axios.post(
+    AUTH_URL + KAKAO_WITHDRAW_PATH,
+    { socialToken: socialToken },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+        REFRESH: refreshToken,
+      },
+    }
+  );
+}
+
+export async function basicWithdraw(accessToken, refreshToken) {
+  return await axios.post(
+    AUTH_URL + BASIC_WITHDRAW_PATH,
+    {},
+    {
+      headers: {
+        "Content-Type": "application/json",
+        ACCESS: accessToken,
+        REFRESH: refreshToken,
+      },
+    }
+  );
+}
 
 export async function signUp(userData) {
   return await axios.post(
@@ -17,10 +75,7 @@ export async function signUp(userData) {
     {
       account: userData.account,
       password: userData.password,
-      name: userData.name,
       nickname: userData.nickname,
-      mobile: userData.mobile,
-      birthDate: userData.birthDate,
     },
     {
       headers: {

@@ -78,6 +78,7 @@ export default function ClassCard({ course }) {
     >
       <ClassImgBox>
         <ClassImg
+          loading="lazy"
           src={STATIC_URL + course?.thumbnailImage?.mediumFilePath}
           animate={{
             scale: isCardOn ? 1.2 : 1,
@@ -105,13 +106,6 @@ export default function ClassCard({ course }) {
         <ClassInfoTeacherP>
           &nbsp;&nbsp;&nbsp;&nbsp;{course?.instructor}
         </ClassInfoTeacherP>
-        <ClassInfoP
-          animate={{
-            color: isCardOn ? "var(--color-primary)" : "var(--color-text)",
-          }}
-        >
-          별{course?.courseStarRate}&nbsp;&nbsp;&nbsp;
-        </ClassInfoP>
       </ClassInfoBox>
     </ClassTab>
   );

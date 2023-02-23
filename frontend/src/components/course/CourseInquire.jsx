@@ -8,6 +8,7 @@ import { AccountSmallBtn } from "../../style/AccountComponentCss";
 import { Title } from "../../style/CourseCss";
 import {
   Box,
+  ChatBottom,
   ChatContextArea,
   ChatUserInfo,
   InputTextArea,
@@ -54,7 +55,7 @@ export default function CourseInquire({ courseId }) {
 
   async function enrollInquire() {
     if (textValue === "") {
-      alert("문의를 적어주세요!");
+      alert("문의를 남겨주세요!");
     } else {
       try {
         const { data } = await postcourseInquiriessApi(
@@ -64,7 +65,9 @@ export default function CourseInquire({ courseId }) {
           memberId
         );
 
-        if (data) {
+        if (data.code === -7001) {
+          alert("로그인 후 서비스를 이용할 수 있습니다.");
+        } else if (data.id) {
           window.location.reload();
         }
       } catch (err) {
@@ -85,6 +88,7 @@ export default function CourseInquire({ courseId }) {
         <Box>
           <ChatUserInfo writer={userInfo?.writer} rate={""} />
           <ChatContextArea content={userInfo?.content} />
+          {userInfo?.reply && <ChatBottom reply={userInfo?.reply} />}
         </Box>
         <UnderBar />
       </>

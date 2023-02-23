@@ -91,4 +91,5 @@ export const AccountSmallBtn = styled.button`
 export const InputBox = styled.div`
   width: 100%;
   height: 145px;
+  position: relative;
 `;

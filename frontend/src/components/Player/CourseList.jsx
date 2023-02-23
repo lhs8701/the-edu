@@ -8,19 +8,22 @@ import { Wrapper } from "../../style/CommonCss";
 import { SideTitle, TitleBox } from "../../style/PlayerSideBarCss";
 
 const Catalog = styled(motion.li)`
+  font-weight: var(--weight-thin);
   cursor: pointer;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  color: ${(props) =>
+  background-color: ${(props) =>
     props.men === props.now
-      ? "var(--color-text)"
-      : "var(--color-box-gray)"}; //props 활용
+      ? "var(--color-box-gray)"
+      : "var(--color-background)"}; //props 활용
   padding-left: 8px;
   padding-top: 8px;
   padding-bottom: 8px;
-  background: ${(props) =>
-    props.complete ? "#000000" : "var(--color-background)"}; //props 활용
+  color: ${(props) =>
+    props.complete
+      ? "var(--color-box-gray)"
+      : "var(--color-text)"}; //props 활용
 `;
 
 const ListBox = styled.ul`

@@ -13,7 +13,6 @@ import {
 import { useForm } from "react-hook-form";
 import { login } from "../../api/authApi";
 import { useNavigate } from "react-router";
-import { PROCESS_ADMIN_URL } from "../../static";
 import { useRecoilState } from "recoil";
 import { AdminLoginState } from "../../atom";
 

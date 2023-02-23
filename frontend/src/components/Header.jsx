@@ -229,9 +229,10 @@ export default function Header() {
       state: false,
       isKakao: false,
       isBasic: false,
-      memberId: 0,
+      memberId: -1,
       accessToken: "",
       refreshToken: "",
+      creatorId: -1,
     });
     queryClient.clear();
     navigate("/");
@@ -298,7 +299,7 @@ export default function Header() {
                 >
                   <CateLink
                     iscategoryon={isCategoryOn}
-                    to={PROCESS_MAIN_URL.CATEGORIES + "/" + 0 + "/" + 0}
+                    to={PROCESS_MAIN_URL.CATEGORIES}
                   >
                     전체 보기
                   </CateLink>
@@ -324,7 +325,6 @@ export default function Header() {
 
           <NavTab>
             <NavLink
-              isValid={[0, 1]}
               to={PROCESS_MAIN_URL.MYPAGE.DEFAULT}
               preventScrollReset={true}
             >

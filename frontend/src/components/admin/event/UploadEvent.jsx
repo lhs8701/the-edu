@@ -1,12 +1,13 @@
 import { Box, Button, Grid } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { uploadImageApi } from "../../../api/creatorApi";
 import { createEventApi } from "../../../api/eventApi";
 import { getAdminAccessTokenSelector } from "../../../atom";
 import { ADMIN_BAR_LIST } from "../../../static";
-import { CssTextField } from "../../creator/Outline";
+import { CssTextField } from "../../creator/uploadCourse/Outline";
 import DashboardTitleTab from "../../dashboard/DashboardTitleTab";
 
 const UploadTab = styled(Box)`
@@ -39,13 +40,21 @@ export default function UploadEvent({}) {
   };
 
   const uploadEvent = () => {
-    createEventApi(accessToken, {
-      title: title,
-      content: content,
-      startDate: startDate,
-      endDate: endDate,
-      bannerImage: img.url,
-    });
+    if (window.confirm(`${title} 이벤트를 업로드하시겠습니까?`)) {
+      createEventApi(accessToken, {
+        title: title,
+        content: content,
+        startDate: startDate,
+        endDate: endDate,
+        bannerImage: img.url,
+      })
+        .then(() => {
+          alert("등록");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
   };
 
   return (
@@ -82,6 +91,8 @@ export default function UploadEvent({}) {
             }}
           />
         </Grid>
+        <br />
+        이밴트 유효 기간
         <Grid item xs={4}>
           <CssTextField
             fullWidth
@@ -95,7 +106,6 @@ export default function UploadEvent({}) {
             }}
           />
         </Grid>
-
         <Grid item xs={4}>
           <CssTextField
             fullWidth
@@ -157,7 +167,9 @@ export default function UploadEvent({}) {
           </>
         )}
       </UploadTab>
-      <Button onClick={uploadEvent}>이벤트 업로드</Button>
+      <Button variant="contained" onClick={uploadEvent}>
+        업로드
+      </Button>
     </div>
   );
 }

@@ -9,19 +9,15 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import Orders from "../dashboard/Orders";
-import Chart from "../dashboard/Chart";
-import Deposits from "../dashboard/Deposits";
-import { Outlet, useNavigate } from "react-router";
+
+import { Outlet } from "react-router";
 import CreatorListItems from "./CreatorListItems";
+
+import { STATIC_URL } from "../../static";
 
 function Copyright(props) {
   return (
@@ -31,12 +27,9 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
+      <Link color="inherit" href={STATIC_URL}>
+        The-Edu 바로가기
+      </Link>
     </Typography>
   );
 }
@@ -91,7 +84,7 @@ const mdTheme = createTheme();
 
 function DashboardContent({ isCreator }) {
   const [open, setOpen] = React.useState(true);
-  const navigate = useNavigate();
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -105,7 +98,7 @@ function DashboardContent({ isCreator }) {
         <AppBar
           position="absolute"
           open={open}
-          sx={{ backgroundColor: "var(--color-primary)", boxShadow: "none" }}
+          sx={{ backgroundColor: "var(--color-primary)" }}
         >
           <Toolbar
             sx={{
@@ -126,21 +119,17 @@ function DashboardContent({ isCreator }) {
             </IconButton>
             <Typography
               component="h1"
-              variant="h6"
+              variant="h5"
               color="inherit"
               noWrap
               sx={{
                 flexGrow: 1,
-                fontWeight: "var(--size-middle)",
+                fontWeight: "var(--size-point)",
+                color: "var(--color-text)",
               }}
             >
               The-Edu 크리에이터 페이지
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
 
@@ -153,20 +142,13 @@ function DashboardContent({ isCreator }) {
               px: [1],
             }}
           >
-            <button
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              The-Edu
-            </button>
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
           <Divider />
           <List component="nav">
-            <CreatorListItems isCreator={false} />
+            <CreatorListItems isCreator={isCreator} />
             {/* <Divider sx={{ my: 1 }} /> */}
             {/* {secondaryListItems} */}
           </List>
@@ -185,41 +167,8 @@ function DashboardContent({ isCreator }) {
             maxWidth="lg"
             sx={{ mt: 4, mb: 4, height: "70vh", width: "100%" }}
           >
-            {/* <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders />
-                </Paper>
-              </Grid>
-            </Grid> */}
             <Outlet />
-            <Copyright sx={{ pt: 4 }} />
+            <Copyright sx={{ mt: 7, pt: 4 }} />
           </Container>
         </Box>
       </Box>
@@ -228,6 +177,5 @@ function DashboardContent({ isCreator }) {
 }
 
 export default function CreatorDashboard({ isCreator }) {
-  const navigate = useNavigate();
   return <DashboardContent isCreator={isCreator} />;
 }

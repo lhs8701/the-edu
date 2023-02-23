@@ -12,7 +12,6 @@ export const Select = styled.select`
 `;
 export const PriceBox = styled.div`
   width: 100%;
-  height: 150px;
 `;
 export const ONOFFTab = styled.div`
   width: 65px;
@@ -55,7 +54,7 @@ export const PurchaseBtn = styled.button`
   margin: 0 auto;
   text-align: center;
   background-color: var(--color-primary);
-  font-weight: var(--weight-point);
+  font-weight: var(--weight-middle);
   font-size: 18px;
   &:hover {
     color: var(--color-background);
@@ -64,12 +63,15 @@ export const PurchaseBtn = styled.button`
 
 export const PaymentBox = styled.div`
   width: 28%;
+
+  box-sizing: border-box;
   height: 400px;
   background-color: var(--color-background);
   border-radius: var(--size-border-radius);
   border: 2px solid #d0cfcf;
   box-sizing: border-box;
   padding: 10px;
+
   position: sticky;
   top: 200px;
   display: flex;

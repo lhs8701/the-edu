@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { postCourseReivewApi } from "../../api/courseApi";
-import { postItemPurchaseApi } from "../../api/orderApi";
 import { getAccessTokenSelector } from "../../atom";
 import { AccountSmallBtn } from "../../style/AccountComponentCss";
 import { TabTitle, Wrapper } from "../../style/CommonCss";
@@ -13,7 +12,7 @@ const Title = styled(TabTitle)`
 `;
 
 const Input = styled(InputTextArea)`
-  height: 75%;
+  height: 80%;
   width: 100%;
 `;
 
@@ -28,13 +27,23 @@ export default function CourseReviewForm({ courseId, setIsModalOpen }) {
   const [content, setContent] = useState("");
 
   const uploadReview = () => {
-    postCourseReivewApi(courseId, accessToken, content, 10)
-      .then(() => {
-        setIsModalOpen(false);
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    if (content === "") {
+      alert("리뷰를 작성해주세요.");
+      return;
+    }
+    if (window.confirm("해당 강좌에 대한 리뷰를 작성하시겠습니까?")) {
+      postCourseReivewApi(courseId, accessToken, content, 10)
+        .then(() => {
+          setIsModalOpen(false);
+        })
+        .catch((err) => {
+          if (err.response.status === 403) {
+            alert("이미 후기를 작성하셨습니다.");
+          } else {
+            alert(err);
+          }
+        });
+    }
   };
 
   return (
@@ -45,7 +54,6 @@ export default function CourseReviewForm({ courseId, setIsModalOpen }) {
         <AccountSmallBtn onClick={uploadReview}>등록</AccountSmallBtn>
       </Div>
 
-      <br />
       <br />
       <Input value={content} onChange={(e) => setContent(e.target.value)} />
     </Wrapper>

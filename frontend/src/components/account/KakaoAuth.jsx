@@ -1,9 +1,9 @@
 import { getKakaoAuthToken, kakaoLogin } from "../../api/authApi";
-import { useMutation } from "react-query";
 import { Suspense, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { KakaoAuthTokenAtom, LoginState } from "../../atom";
 import { useNavigate } from "react-router";
+import { AlertP, CenterDiv } from "../../style/CommonCss";
 
 export default function KaKaoAuth() {
   const code = new URL(window.location.href).searchParams.get("code");
@@ -46,7 +46,7 @@ export default function KaKaoAuth() {
           .catch((err) => {
             console.log(err.response.status);
             alert("이미 가입된 정보입니다.");
-            navigate(-1);
+            navigate("/");
           });
       })
       .catch((err) => {
@@ -62,7 +62,9 @@ export default function KaKaoAuth() {
 
   return (
     <Suspense fallback={<div>loading</div>}>
-      <div>login..</div>
+      <CenterDiv>
+        <AlertP>카카오 로그인 중...</AlertP>
+      </CenterDiv>
     </Suspense>
   );
 }

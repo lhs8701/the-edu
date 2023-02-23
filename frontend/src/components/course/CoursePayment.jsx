@@ -16,7 +16,11 @@ import {
   Select,
 } from "../../style/CourseCss";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { courseWishApi, courseWishCheckApi } from "../../api/courseApi";
+import {
+  courseWishApi,
+  courseWishCheckApi,
+  getUserEnrollStatusApi,
+} from "../../api/courseApi";
 import {
   getAccessTokenSelector,
   getLoginState,
@@ -24,6 +28,7 @@ import {
 } from "../../atom";
 import { useRecoilValue } from "recoil";
 import { queryClient } from "../..";
+import { postItemPurchaseApi } from "../../api/orderApi";
 
 const IconBox = styled.div`
   width: 100%;
@@ -63,7 +68,6 @@ export default function CoursePayment({
   teacher,
   purchaseOption,
   courseId,
-
   ticketInfo,
 }) {
   const navigate = useNavigate();
@@ -71,11 +75,9 @@ export default function CoursePayment({
   const memberId = useRecoilValue(getMemberIdSelector);
   const loginState = useRecoilValue(getLoginState);
   const [isWishState, setIsWishState] = useState(false);
+  const [isAlreadyIn, setIsAlereadyIn] = useState(false);
   const [isWishPushState, setIsWishPushState] = useState();
-  const [selectTicket, setSelectTicket] = useState({
-    id: ticketInfo[0]?.id,
-    idx: 0,
-  });
+  const [selectTicket, setSelectTicket] = useState(ticketInfo?.id);
 
   useLayoutEffect(() => {
     if (loginState) {
@@ -119,10 +121,65 @@ export default function CoursePayment({
     }
   };
 
+  const goPurchase = () => {
+    if (!loginState) {
+      alert("로그인이 필요해요!");
+      navigate("/account/login");
+      return;
+    }
+    if (isAlreadyIn) {
+      alert("이미 구입한 강좌입니다.");
+      navigate(PROCESS_MAIN_URL.LOBBY.slice(1));
+      return;
+    }
+    if (ticketInfo?.costPrice === 0) {
+      postItemPurchaseApi(ticketInfo.id, accessToken, {
+        couponId: null,
+        point: null,
+        key: null,
+        tossId: null,
+        amount: null,
+      })
+        .then(() => {
+          alert("등록이 완료되었습니다.");
+          navigate(PROCESS_MAIN_URL.LOBBY.slice(1));
+        })
+        .catch((err) => {
+          if (err.response.status === 400) {
+            alert("이용 불가입니다.");
+          } else {
+            alert("결제에 오류가 있습니다.");
+          }
+        });
+      return;
+    }
+    navigate(`${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket}`, {
+      state: {
+        price: ticketInfo.discountedPrice,
+      },
+    });
+  };
+
+  const checkUserEnroll = () => {
+    if (loginState) {
+      getUserEnrollStatusApi(accessToken, courseId)
+        .then(({ data }) => {
+          if (data) {
+            setIsAlereadyIn(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  useEffect(checkUserEnroll, []);
+
   return (
     <PaymentBox>
       <IconBox>
-        <ONOFFTab>온/오프</ONOFFTab>
+        <ONOFFTab>온라인</ONOFFTab>
         {isWishPushState ? (
           <Icon onClick={pushWish} icon={alreadyHeart} />
         ) : (
@@ -134,57 +191,39 @@ export default function CoursePayment({
       <Select
         value={selectTicket.id}
         onChange={(e) => {
-          setSelectTicket({
-            id: e.target.value,
-            idx: e.nativeEvent.target.options.selectedIndex,
-          });
+          setSelectTicket(e.target.value);
         }}
         name="purchaseOption"
       >
-        {ticketInfo?.map((option) => (
-          <option key={option.id} value={option.id}>
-            {option?.coursePeriod?.description}
-          </option>
-        ))}
+        <option key={ticketInfo.id} value={ticketInfo.id}>
+          {ticketInfo?.costPrice === 0
+            ? "무료 강좌"
+            : ticketInfo?.coursePeriod === null
+            ? "영구 수강권"
+            : ticketInfo?.coursePeriod + "개월 수강권"}
+        </option>
       </Select>
       <br />
       <PriceBox>
         <Tab>
           <PrimaryCostTab>원 가격</PrimaryCostTab>
-          <PrimaryCostTab>
-            {ticketInfo[selectTicket.idx].costPrice}
-          </PrimaryCostTab>
+          <PrimaryCostTab>{ticketInfo?.costPrice}</PrimaryCostTab>
         </Tab>
         <Tab>
           <DiscountTab>할인 가격</DiscountTab>
           <PrimaryCostTab>
-            -{" "}
-            {ticketInfo[selectTicket.idx].costPrice -
-              ticketInfo[selectTicket.idx].discountedPrice}
+            - {ticketInfo?.costPrice - ticketInfo?.discountedPrice}
           </PrimaryCostTab>
         </Tab>
         <PriceUnderBar />
         <Tab>
           <OwnPriceTab>실 결제 가격</OwnPriceTab>
-          <PrimaryCostTab>
-            {ticketInfo[selectTicket.idx].discountedPrice}
-          </PrimaryCostTab>
+          <PrimaryCostTab>{ticketInfo?.discountedPrice}</PrimaryCostTab>
         </Tab>
       </PriceBox>
 
-      <PurchaseBtn
-        onClick={() => {
-          navigate(
-            `${PROCESS_MAIN_URL.PURCHASE}/${courseId}/${selectTicket.id}`,
-            {
-              state: {
-                price: ticketInfo[selectTicket.idx].discountedPrice,
-              },
-            }
-          );
-        }}
-      >
-        결제
+      <PurchaseBtn onClick={goPurchase}>
+        {ticketInfo?.costPrice === 0 ? "무료로 강좌 등록하기" : "강좌 결제하기"}
       </PurchaseBtn>
     </PaymentBox>
   );
