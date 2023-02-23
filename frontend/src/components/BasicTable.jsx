@@ -39,7 +39,7 @@ export function CouponUserTable({ rows, cells, importCouponFun }) {
               <TableCell align="center">{row.id}</TableCell>
               <TableCell align="center">{row.account}</TableCell>
               <TableCell align="center">{row.nickname}</TableCell>
-              <TableCell align="center">{row.mobile}</TableCell>
+              <TableCell align="center">{row?.memberPrivacy?.mobile}</TableCell>
               <TableCell align="center">{row.loginType}</TableCell>
               <TableCell align="center">
                 {row.creator ? "맞음" : "아님"}
@@ -211,6 +211,7 @@ export function CouponTable({ rows, cells, navigate }) {
 }
 
 export function AdminUserTable({ rows, cells, fun, isLockPage }) {
+  console.log(rows);
   return (
     <TableContainer component={Paper}>
       <Table sx={{}} aria-label="simple table">
@@ -231,7 +232,7 @@ export function AdminUserTable({ rows, cells, fun, isLockPage }) {
               <TableCell align="center">{row.id}</TableCell>
               <TableCell align="center">{row.account}</TableCell>
               <TableCell align="center">{row.nickname}</TableCell>
-              <TableCell align="center">{row.mobile}</TableCell>
+              <TableCell align="center">{row?.memberPrivacy?.mobile}</TableCell>
               <TableCell align="center">{row.loginType}</TableCell>
 
               <TableCell align="center">
@@ -283,9 +284,9 @@ export function AdminCreatorStanbyTable({ rows, cells, activeFun }) {
               <TableCell align="center">
                 {row.activated ? "승인" : "미승인"}
               </TableCell>
-              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">{row.nickname}</TableCell>
               <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.mobile}</TableCell>
+              <TableCell align="center">{row.memberPrivacy.mobile}</TableCell>
               <TableCell align="center">{row.subject}</TableCell>
               <TableCell align="center">{row.career}</TableCell>
               <TableCell align="center">
@@ -326,7 +327,7 @@ export function AdminCreatorsTable({ rows, cells, activeFun }) {
               <TableCell align="center">{row.creatorId}</TableCell>
               <TableCell align="center">{row.nickname}</TableCell>
               <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.mobile}</TableCell>
+              <TableCell align="center">{row?.memberPrivacy?.mobile}</TableCell>
             </TableRow>
           ))}
         </TableBody>
