@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/theedu_prod?validationQuery="select 1"&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: dabom
+    username: theedu
     password: Camp!@&webmaster!
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -48,7 +48,7 @@ logging:
     file: "%d{yy-MM-dd HH:mm:ss} %-5level [%thread] %logger[%method:%line] - %msg%n"
   logback:
     rollingpolicy:
-      file-name-pattern: "C:/Dabom/logs/dev/%d{yy-MM-dd}/log_%i.zip"
+      file-name-pattern: "C:/Dabom/logs/prod/%d{yy-MM-dd}/log_%i.zip"
       max-history: 30
       max-file-size: 20KB
       total-size-cap: 100MB
@@ -59,7 +59,7 @@ logging:
       SQL: info
       type: trace
   file:
-    name: "C:/Dabom/logs/dev/current.log"
+    name: "C:/Dabom/logs/prod/current.log"
 
 springdoc:
   use-fqn: true # 정규화된 스키마명 사용 설정
