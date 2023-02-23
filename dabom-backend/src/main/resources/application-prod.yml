@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/theedu_prod?validationQuery="select 1"&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: theedu
+    username: dabom
     password: Camp!@&webmaster!
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -59,7 +59,7 @@ logging:
       SQL: info
       type: trace
   file:
-    name: "C:/Dabom/logs/prod/current.log"
+    name: "C:/Dabom/logs/dev/current.log"
 
 springdoc:
   use-fqn: true # 정규화된 스키마명 사용 설정
