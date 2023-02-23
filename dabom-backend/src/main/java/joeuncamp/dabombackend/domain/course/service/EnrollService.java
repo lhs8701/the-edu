@@ -60,7 +60,6 @@ public class EnrollService {
         Course course = ticket.getCourse();
         Enroll enroll = enrollJpaRepository.findByMemberAndCourse(member, course).orElseThrow();
         enrollJpaRepository.delete(enroll);
-        recordRedisRepository.deleteByMemberIdAndCourseId(member.getId(), course.getId());
         List<Record> recordList = recordRedisRepository.findByMemberIdAndCourseId(member.getId(), course.getId());
         recordRedisRepository.deleteAll(recordList);
         viewJpaRepository.deleteByMemberAndCourse(member, course);
