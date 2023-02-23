@@ -224,13 +224,6 @@ export default function Outline() {
     };
   }, []);
 
-  const isCreator = useRecoilValue(getCreatorIdSelector);
-  useEffect(() => {
-    if (isCreator < 0) {
-      navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
-    }
-  }, []);
-
   return (
     <>
       <DashboardTitleTab title={CREATOR_BAR_LIST.list[2].list[1].name} />

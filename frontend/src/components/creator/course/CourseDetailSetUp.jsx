@@ -44,10 +44,6 @@ export default function CourseDetailSetUp() {
   };
 
   useEffect(() => {
-    if (isCreator < 0) {
-      // 크리에이터인지확인
-      navigate(CREATOR_BAR_LIST.list[0].creator[1].url);
-    }
     getCourseTicketsApi(courseId) // 현재 설정된 티켓 정보 확인
       .then(({ data }) => {
         if (data.costPrice === 0) {
