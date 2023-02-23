@@ -28,7 +28,7 @@ public class EventController {
 
     @Operation(summary="이벤트를 생성합니다.", description="")
     @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/events")
     public ResponseEntity<Long> createEvent(@RequestBody @Valid EventDto.CreateRequest requestDto, @AuthenticationPrincipal Member member){
         requestDto.setMemberId(member.getId());
@@ -62,7 +62,7 @@ public class EventController {
 
     @Operation(summary="이벤트를 수정합니다.", description="")
     @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/events/{eventId}")
     public ResponseEntity<Void> updateEvent(@PathVariable Long eventId, EventDto.UpdateRequest requestDto){
         requestDto.setEventId(eventId);
@@ -72,7 +72,7 @@ public class EventController {
 
     @Operation(summary="이벤트를 삭제합니다.", description="")
     @Parameter(name = Header.ACCESS_TOKEN, description="어세스토큰", required=true, in= ParameterIn.HEADER, example= ExampleValue.JWT.ACCESS)
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/events/{eventId}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long eventId){
         eventService.deleteEvent(eventId);
