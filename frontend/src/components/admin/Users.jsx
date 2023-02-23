@@ -42,7 +42,7 @@ export default function Users() {
         id: user.id,
         loginType: user.loginType,
         nickname: user.nickname,
-        mobile: user.mobile,
+        mobile: user.meberPrivacy?.mobile,
         joinedDate: user.joinedDate,
       };
     });
