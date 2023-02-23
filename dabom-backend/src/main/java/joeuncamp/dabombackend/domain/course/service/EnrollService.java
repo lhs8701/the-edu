@@ -9,6 +9,7 @@ import joeuncamp.dabombackend.domain.course.repository.EnrollJpaRepository;
 import joeuncamp.dabombackend.domain.member.entity.Member;
 import joeuncamp.dabombackend.domain.member.repository.MemberJpaRepository;
 import joeuncamp.dabombackend.domain.order.entity.Ticket;
+import joeuncamp.dabombackend.domain.player.record.entity.Record;
 import joeuncamp.dabombackend.domain.player.record.repository.RecordRedisRepository;
 import joeuncamp.dabombackend.domain.player.record.repository.ViewJpaRepository;
 import joeuncamp.dabombackend.global.error.exception.CAlreadyEnrolledCourse;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,6 +61,8 @@ public class EnrollService {
         Enroll enroll = enrollJpaRepository.findByMemberAndCourse(member, course).orElseThrow();
         enrollJpaRepository.delete(enroll);
         recordRedisRepository.deleteByMemberIdAndCourseId(member.getId(), course.getId());
+        List<Record> recordList = recordRedisRepository.findByMemberIdAndCourseId(member.getId(), course.getId());
+        recordRedisRepository.deleteAll(recordList);
         viewJpaRepository.deleteByMemberAndCourse(member, course);
     }
 
