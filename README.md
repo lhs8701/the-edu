@@ -5,8 +5,8 @@
 ![그림1](https://user-images.githubusercontent.com/45627010/225495576-70037e17-381b-4d4f-887c-49a7c07c2af1.png)
 ![](readme/그림3.png)
 
-[Web Page 바로가기](http://the-edu.co.kr/)   
-[App Store 바로가기](https://apps.apple.com/kr/app/the-edu/id1671467942)
+[[Web Page]](http://the-edu.co.kr/)   
+[[App Store]](https://apps.apple.com/kr/app/the-edu/id1671467942)
 ## 🌎 프로젝트 배경
 
 22년도 겨울학기 현장실습 프로젝트로 진행하였습니다. 
