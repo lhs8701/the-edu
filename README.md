@@ -1,5 +1,7 @@
 
-# 온라인 강의 플랫폼, The Edu (다봄) 
+## <img align="left" src="https://user-images.githubusercontent.com/45627010/234844271-b735b37b-a847-4fba-8f87-83b9a915fbf7.png" width="80px" /> 온라인 강의 플랫폼, The Edu (다봄) 
+> 배우면서 성장하고 싶은 사람들을 위한 지식 제공 플랫폼
+
 ![그림1](https://user-images.githubusercontent.com/45627010/225495576-70037e17-381b-4d4f-887c-49a7c07c2af1.png)
 ![](readme/그림3.png)
 
