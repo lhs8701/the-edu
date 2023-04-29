@@ -1,15 +1,19 @@
 
+
+
 ## <img align="left" src="https://user-images.githubusercontent.com/45627010/234844271-b735b37b-a847-4fba-8f87-83b9a915fbf7.png" width="80px" /> 온라인 강의 플랫폼, The Edu (다봄) 
 > 배우면서 성장하고 싶은 사람들을 위한 지식 제공 플랫폼
 
 ![그림1](https://user-images.githubusercontent.com/45627010/225495576-70037e17-381b-4d4f-887c-49a7c07c2af1.png)
-![](readme/그림3.png)
 
-[[Web Page]](http://the-edu.co.kr/)   
-[[App Store]](https://apps.apple.com/kr/app/the-edu/id1671467942)
+<p>
+<a href="http://the-edu.co.kr/"><img src="https://user-images.githubusercontent.com/45627010/235289486-758eb5a3-3aa4-456a-9b29-a3cedee3bc03.png"></a> &nbsp; 
+<a href="https://apps.apple.com/kr/app/the-edu/id1671467942"><img src="https://user-images.githubusercontent.com/45627010/235289564-6f514b84-7269-4121-9efa-1d835caf2cbc.png"></a>
+</p>
+
 ## 🌎 프로젝트 배경
 
-22년도 겨울학기 현장실습 프로젝트로 진행하였습니다. 
+- 22년도 겨울학기 현장실습 프로젝트로 진행하였습니다. 
 
 
 ## 🌳 프로젝트 개요
@@ -34,43 +38,84 @@
 
 ## ⚡ 주요 기능
 
-### ✅ 인증/인가
-#### - 회원가입/로그인
-<img width="250" alt="image" src="https://user-images.githubusercontent.com/45627010/225492742-67ba6292-738e-4152-b6d4-89a3049b6689.png">
-<img width="361" alt="image" src="https://user-images.githubusercontent.com/45627010/225492595-c864d25d-e951-4bad-8df6-07ebc3c25c8a.png">
+### ✅ 회원가입/로그인
+<img width="250" alt="image" src="https://user-images.githubusercontent.com/45627010/225492742-67ba6292-738e-4152-b6d4-89a3049b6689.png"> | <img width="361" alt="image" src="https://user-images.githubusercontent.com/45627010/225492595-c864d25d-e951-4bad-8df6-07ebc3c25c8a.png">
+---|---|
+- 다봄에 회원가입 및 로그인할 수 있습니다. 
+- WEB의 경우 카카오 로그인과 이메일 로그인을 지원하며, IOS의 경우 애플 로그인도 지원합니다.
+- '비밀번호 찾기'를 누르면 이메일로 임시 비밀번호가 발급됩니다.
 
-#### - 본인인증
-<img width="380" alt="Untitled (10)" src="https://user-images.githubusercontent.com/45627010/225491280-e86dbfd6-26e0-4b76-9878-583746563148.png">
-<img width="225" alt="Untitled (11)" src="https://user-images.githubusercontent.com/45627010/225491293-92f2637a-50c4-4e2b-ad78-f32b5890a761.png">
+### ✅ 개인정보 수정 및 본인인증
+<img width="380" alt="Untitled (10)" src="https://user-images.githubusercontent.com/45627010/225491280-e86dbfd6-26e0-4b76-9878-583746563148.png"> | <img width="225" alt="Untitled (11)" src="https://user-images.githubusercontent.com/45627010/225491293-92f2637a-50c4-4e2b-ad78-f32b5890a761.png">
+---|---|
+- 회원의 개인정보를 수정할 수 있습니다.
+- '마이페이지 - 개인정보 수정' 탭에서 본인인증을 할 수 있습니다. 
+- 토스 본인인증을 사용하였습니다.
 
-### ✅ 수강
-<img width="426" alt="image" src="https://user-images.githubusercontent.com/45627010/225493091-4e9f22af-5e40-4ef2-98a7-0ce8901b0a3d.png">
-<img width="631" alt="Untitled (16)" src="https://user-images.githubusercontent.com/45627010/225491940-a79261d4-373e-44d2-b3cd-9a7d8e0b7ac9.png">
+### ✅ 강좌 소개
+<img width="390" alt="image" src="https://user-images.githubusercontent.com/45627010/235288182-493d05d8-8eb4-4290-88a0-8a928bb56890.png"> | <img width="377" alt="image" src="https://user-images.githubusercontent.com/45627010/235288242-dc8c4e5f-c9a4-44d5-b130-39b916837653.png">
+---|---|
+
+- 샘플 강의를 시청할 수 있습니다. 
+- 강좌 소개 이미지와 커리큘럼을 확인할 수 있습니다. 
+- 수강후기 및 문의사항을 확인할 수 있습니다. 
+
+### ✅ 강의실
 <img width="641" alt="Untitled (22)" src="https://user-images.githubusercontent.com/45627010/225491699-ce534272-6ad7-4e85-a6c9-897e233afb48.png">
-<img width="611" alt="Untitled (17)" src="https://user-images.githubusercontent.com/45627010/225491741-3c786f96-479c-4e39-a6cc-f995038cc718.png">
-<img width="859" alt="Untitled (18)" src="https://user-images.githubusercontent.com/45627010/225491723-3e97e264-a128-4ffa-a21e-2277537ded34.png">
 
-### ✅ 결제
-<img width="614" alt="Untitled (12)" src="https://user-images.githubusercontent.com/45627010/225491496-2d23c454-0582-449a-a542-d2f1c328834f.png">
+- 강의 후기를 남길 수 있습니다. 
+- 강의를 선택하여 시청할 수 있습니다.
+
+### ✅ 강의 시청
+<img width="955" alt="image" src="https://user-images.githubusercontent.com/45627010/235287514-fa2f4b4a-d49d-4690-8f64-27b3214260be.png">
+
+- 강의를 시청합니다. 
+- 우측 탭에서 강의 목록을 확인할 수 있습니다. 
+- 우측 탭에서 수업 자료를 확인할 수 있습니다. 
+- 우측 탭에서 강의에 대한 질문을 남길 수 있습니다. 
+- 우측 탭에서 강의 평가를 남길 수 있습니다.
+
+### ✅ 강좌 구매
 <img width="605" alt="Untitled (13)" src="https://user-images.githubusercontent.com/45627010/225491500-0c963197-5904-4941-93a4-408a5e790bc7.png">
-<img width="436" alt="Untitled (23)" src="https://user-images.githubusercontent.com/45627010/225492180-117b85fb-94ed-4c8a-ab1f-274f6ee8e4b5.png">
+
+- 강좌를 구매할 수 있습니다. 
+- 사용할 수 있는 쿠폰과 포인트 금액을 볼 수 있습니다. 
+- 토스 페이먼츠의 결제 API를 연동하였습니다. 
+
+### ✅ 쿠폰 관리
 <img width="446" alt="Untitled (25)" src="https://user-images.githubusercontent.com/45627010/225492190-bdc0465f-1c8e-4084-8259-73ef8900d5d1.png">
 
+- 보유한 적립금을 확인할 수 있습니다.
+- 쿠폰 번호를 입력해 쿠폰을 등록할 수 있습니다.
+- 사용하지 않은 쿠폰과 사용한 쿠폰 목록을 볼 수 있습니다. 
 
-### ✅ 관리자
-#### - 회원 관리
+
+### ✅ 관리자 페이지 - 회원 관리
 <img width="772" alt="Untitled (2)" src="https://user-images.githubusercontent.com/45627010/225489805-c5c07a3c-e211-49d9-a503-325dfc460d39.png">
-<img width="839" alt="Untitled (3)" src="https://user-images.githubusercontent.com/45627010/225490111-ffe192a8-e580-4d5f-9940-b5ee1524aa20.png">
-<img width="839" alt="Untitled (4)" src="https://user-images.githubusercontent.com/45627010/225490187-be11c6d3-fdf5-42a4-a24d-8eac92c8f8f0.png">
 
-#### - 이벤트 관리
+- 전체 회원을 조회합니다. 
+- 회원을 정지할 수 있습니다.
+### ✅ 관리자 페이지 - 이벤트 관리
 <img width="838" alt="Untitled (5)" src="https://user-images.githubusercontent.com/45627010/225490268-41f2e4a9-53c1-4067-b551-8f24614f740f.png">
 
+- 이벤트를 생성/수정/삭제할 수 있습니다. 
+### ✅ 관리자 페이지 - 쿠폰 관리
 <img width="842" alt="Untitled (6)" src="https://user-images.githubusercontent.com/45627010/225490274-ce70ec8e-e5dd-4c42-816c-fac921fe97a8.png">
 
-### ✅ 크리에이터
+- 쿠폰을 생성/수정/삭제할 수 있습니다.
+- 쿠폰 번호를 발급할 수 있습니다.
+### ✅ 크리에이터 페이지 - 크리에이터 신청 
 <img width="835" alt="Untitled (7)" src="https://user-images.githubusercontent.com/45627010/225490542-0a45d8e7-d82f-4694-b8eb-42ae509d6823.png">
 
+- 크리에이터 신청을 할 수 있습니다. 
+- 관리자에게 승인 받은 후, 크리에이터 활동을 할 수 있습니다. 
+- 승인이 완료되면, 이메일 주소로 알림 메일이 발송됩니다. 
+
+### ✅ 크리에이터 페이지 - 수익 관리 
+<img width="379" alt="image" src="https://user-images.githubusercontent.com/45627010/235287956-6649ca40-7a6b-4b54-b3fb-6146c9e107d7.png">
+
+- 크리에이터가 얻은 총 수익을 조회할 수 있습니다. 
+- 연도별 수익 증가량과 월 별 수익을 조회할 수 있습니다. 
 
 ## 🐵 데모 영상
 ![새-비디오-만들기 (2)](https://user-images.githubusercontent.com/45627010/225495014-722c7721-f76a-41af-8edf-e9410e4fef1c.gif)
